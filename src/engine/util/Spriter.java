@@ -1,4 +1,4 @@
-package util;
+package engine.util;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Spriter {
+    private static Spriter instance;
+
     HashMap<String, BufferedImage> cache;
 
     Spriter() {
@@ -54,5 +56,12 @@ public class Spriter {
         }
 
         return cache.get(path);
+    }
+
+    public static Spriter getInstance() {
+        if (instance == null)
+            instance = new Spriter();
+
+        return instance;
     }
 }
