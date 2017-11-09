@@ -7,7 +7,7 @@ import java.util.Observer;
  * @author lasia
  *
  */
-public interface IAttribute extends Observer {
+public abstract class AttributeScript extends Script {
 	
 
 

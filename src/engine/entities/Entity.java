@@ -68,7 +68,7 @@ public class Entity {
     /**
      * @return  list of entity's scripts
      */
-    public List<Script> getScript(){
+    public List<Script> getScripts(){
     	return myScripts;
     }
     
