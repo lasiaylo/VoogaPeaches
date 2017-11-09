@@ -4,6 +4,6 @@ package engine.scripts;
  * 
  *
  */
-public class Input {
+public class Input extends IControl {
 
 }

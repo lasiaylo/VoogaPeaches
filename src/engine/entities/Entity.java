@@ -64,12 +64,12 @@ public class Entity {
 
         return scriptDisplays;
     }
-
+    
     /**
-     * add a new script to the Entity
-     * @param s script to be added
+     * @return  list of entity's scripts
      */
-    public void add(Script s) {
-        myScripts.add(s);
+    public List<Script> getScript(){
+    	return myScripts;
     }
+    
 }
