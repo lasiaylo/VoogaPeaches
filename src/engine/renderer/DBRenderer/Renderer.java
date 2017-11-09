@@ -29,7 +29,7 @@ public class Renderer implements IRenderer {
     }
 
     @Override
-    public Image render(int x, int y, int level) {
+    public Image render(int x, int y, double level) {
         return null;
     }
 }

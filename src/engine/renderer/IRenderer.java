@@ -28,8 +28,8 @@ public interface IRenderer {
      *
      * @param x: x coordinate of frame center
      * @param y: y coordinate of frame center
-     * @param level: zoom level
+     * @param level: distance from surface
      * @return new tiles
      */
-    public Image render(int x, int y, int level);
+    public Image render(int x, int y, double level);
 }
