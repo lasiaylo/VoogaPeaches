@@ -3,20 +3,23 @@ package engine.scripts;
 import engine.entities.Entity;
 import javafx.scene.input.KeyCode;
 
-/**
+/**Modifies qualities of Entity through Groovy
  *
  * @author Albert
  */
-public abstract class Script implements IScript {
-    private Entity myEntity;
-
-    public Script(Entity entity) {
-        myEntity = entity;
+public abstract class Script implements IScript{
+	private IScript myScript;
+    public Script() {
+    	GroovyClassLoader gcl = new GroovyClassLoader();
+		Class<?> clazz = gcl.parseClass("SomeName.groovy");
+		Object groovyScript = clazz.newInstance();
+		myScript = (IScript) groovyScript;
+		
+    }
+    
+    @Override
+    public void execute(Entity entity) {
+    	myScript.execute(entity);
     }
 
-    protected Entity getEntity() {
-        return myEntity;
-    }
-
-    public abstract void keyInput(KeyCode code);
 }
