@@ -4,6 +4,7 @@ import engine.Engine;
 import engine.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class CollisionManager {
 
     /**
      * Creates a new CollisionManager
-     * @param engine    Engine holding everything together
+     * @param engine    Engine holding everything together (needed for object list)
      */
     public CollisionManager(Engine engine) {
         myEngine = engine;
@@ -27,7 +28,7 @@ public class CollisionManager {
      */
     public List<Entity> getCollided(Entity checkEntity) {
         List<Entity> sector = myEngine.getSector(checkEntity);
-        List<Entity> collidedEntities = new ArrayList<>();
+        List<Entity> collidedEntities = new LinkedList<>();
 
         if(!checkEntity.isMoving()) {
             return collidedEntities;
