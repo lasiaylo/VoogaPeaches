@@ -11,12 +11,13 @@ import java.util.List;
 /**
  * A class that tells Entities what other Entities they have collided with
  * @author Albert
+ * @authoer lasia
  */
 public class CollisionManager {
     private Engine myEngine;
     // Singleton??
     private static CollisionManager instance;
-    private  List<HitBox> myHitBoxes;
+    private List<HitBox> myHitBoxes;
     
     /**
      * Creates a new CollisionManager
@@ -25,22 +26,23 @@ public class CollisionManager {
     public CollisionManager() {
     }
 
-    public static void checkCollision(HitBox hitbox) {
-    	for (HitBox hitBox : myHitBoxes) {
-    		
+    /**Checks whether this Hitbox is colliding with other Hitboxes
+     * @param Hitbox
+     */
+    public void checkCollisions(HitBox hitBox) {
+    	for (HitBox otherHitBox: myHitBoxes) {
+    		if (!otherHitBox.equals(hitBox)) 
+    			hitBox.checkIntersect(otherHitBox);
     	}
     }
-
-    
-    
     
     /**
      * @param engine	Engine to be passed in
      * @return			Singleton instance of CollisionManager
      */
-    public static CollisionManager getInstance(Engine engine) {
+    public static CollisionManager getInstance() {
     	if (instance == null) {
-    		instance = new CollisionManager(engine);
+    		instance = new CollisionManager();
     	}
     	
     	return instance;

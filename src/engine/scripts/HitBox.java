@@ -38,9 +38,9 @@ public class HitBox {
 	
 	/**
 	 * @param HitBox
-	 * @return 
+	 * @return Boolean on whether it intersects
 	 */
-	public boolean intersects(HitBox other) {
+	public boolean checkIntersect(HitBox other) {
 		List<Shape> otherBox = other.getShapes();
 		
 		for(Shape myShape : myShapes ) {
@@ -54,9 +54,14 @@ public class HitBox {
 		return false;
 	}
 	
-	public void setVisitor() {
-		
+	public void setVisitor(String otherTag) {
+		visitorTag = otherTag;
 	}
+	
+	public String getVisitor() {
+		return visitorTag;
+	}
+	
 	public List<Shape> getShapes() {
 		return myShapes;
 	}

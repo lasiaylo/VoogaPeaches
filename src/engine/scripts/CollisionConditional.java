@@ -12,9 +12,11 @@ import javafx.scene.Node;
 public class CollisionConditional extends Conditional {
 	private HitBox myHitBox;
 	private String conditionTag;
+	private CollisionManager myCollisionManager;
 	
 	public CollisionConditional(HitBox hitbox) {
 		myHitBox = hitbox;
+		myCollisionManager = CollisionManager.getInstance();
 	}
 	
 	public void setTag(String newTag) {
@@ -22,10 +24,10 @@ public class CollisionConditional extends Conditional {
 	}
 	@Override
 	public void execute(Entity entity) {
-		CollisionManager cManager = CollisionManager.getInstance();
-		CollisionManager.checkCollisions(myHitBox);
-		CollisionManager.getVistorTag == conditionTag
-				run all the scripts
+		myCollisionManager.checkCollisions(myHitBox);
+		String visitorTag = myHitBox.getVisitor();
+		if (visitorTag.equals(conditionTag)) {
+//				run all the scripts
 				
 		myHitBox.setPosition(Entity.pos);
 	}
