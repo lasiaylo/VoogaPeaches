@@ -95,3 +95,27 @@ Uses Cases
 31. Accessing different predefined behaviors for different games will come from the database
     - Primary Actor: DatabaseConnector, Properties panel
     - When accessing the preset tiles or scripts in the properties panel, the information is then acquired using methods from the Dat
+33.
+    - Primary Actor: 
+    -
+34.
+    - Primary Actor: 
+    - 
+35.
+    - Primary Actor: 
+    -
+36.
+    - Primary Actor: 
+    -
+37. 
+    - Primary Actor: 
+    -
+38. 
+    - Primary Actor: 
+    -
+39.
+    - Primary Actor: 
+    -
+40.
+    - Primary Actor: 
+    -
