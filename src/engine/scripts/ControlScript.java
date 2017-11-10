@@ -5,27 +5,21 @@ import engine.entities.Entity;
 
 import java.util.List;
 
-/**Scripts that directly affect attributes of an entity
+/**Scripts contained by this class will be executed if conditions are met
  * 
  * @author lasia
  *
  */
-public abstract class ControlScript extends Script{
-	private List<AttributeScript> myAttributes;
+public abstract class ControlScript implements IScript{
+	private List<IScript> myScripts;
 	
 	/**
-	 * @param entity
+	 * @return List of attributes that are controlled by this script
 	 */
-	public ControlScript(Entity entity) {
-		super(entity);
+	public List<IScript> getAttributes() {
+		return myScripts;
 	}
 	
-	/**
-	 * @return list of attributes that are controlled by this script
-	 */
-	public List<AttributeScript> getAttributes() {
-//		Should List be of Scripts or AttributeScripts?
-		return myAttributes;
-	}
+	
 
 }

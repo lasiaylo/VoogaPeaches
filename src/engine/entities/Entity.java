@@ -1,6 +1,6 @@
 package engine.entities;
 
-import engine.scripts.Script;
+import engine.scripts.IScript;
 import javafx.scene.Node;
 import util.math.num.Vector;
 
@@ -15,14 +15,16 @@ import java.util.List;
  */
 public class Entity {
     private Vector myPosition;
-    private List<Script> myScripts;
+    private Node mySprite;
+    private boolean isStatic;
+    private List<IScript> myScripts;
 
     /**
      *  Create a new Entity
      * @param pos       Vector position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Vector pos, List<Script> scripts) {
+    public Entity(Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
     }
@@ -33,43 +35,45 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<Script> scripts) {
+    public Entity(double x, double y, List<Iscript> scripts) {
         this(new Vector(x, y), scripts);
     }
 
     /**
-     * @return  the vector position of this entity
+     * @return  Vector position of this entity
      */
     public Vector getPosition() {
         return myPosition;
     }
+    
+    /**
+     * @param New position for this entity
+     */
+    public void setPosition(Vector newPos) {
+    	myPosition = newPos;
+    }
 
     /**
-     * run all scripts attached to the Entity
+     * Run all scripts attached to the Entity
      */
-    public void run() {
-        for(Script s : myScripts) {
+    public void update() {
+        for(IScript s : myScripts) {
             s.execute(this);
         }
     }
 
     /**
-     * @return  list of javafx nodes corresponding to this entity's scripts
+     * @return  List of entity's scripts
      */
-    public List<Node> getScriptDisplays() {
-        List<Node> scriptDisplays = new ArrayList<>();
-        for(Script s : myScripts) {
-            scriptDisplays.add(s.getNode());
-        }
-
-        return scriptDisplays;
+    public List<IScript> getScripts(){
+    	return myScripts;
     }
     
     /**
-     * @return  list of entity's scripts
+     * @return Whether the entity is static or not. If an entity is static, it just needs to be updated once.
      */
-    public List<Script> getScripts(){
-    	return myScripts;
+    public boolean isStatic() {
+    	return isStatic;
     }
     
 }
