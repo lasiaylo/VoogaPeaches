@@ -1,6 +1,7 @@
 package engine.scripts;
 
 import engine.entities.Entity;
+import javafx.scene.input.KeyCode;
 
 /**
  *
@@ -16,4 +17,6 @@ public abstract class Script implements IScript {
     protected Entity getEntity() {
         return myEntity;
     }
+
+    public abstract void keyInput(KeyCode code);
 }
