@@ -24,6 +24,7 @@ public class Entity {
     private Vector myAcceleration;
     private Circle myHitBox;
     private ImageView myImageView;
+    private boolean isStatic;
     private List<Script> myScripts;
 
     /**

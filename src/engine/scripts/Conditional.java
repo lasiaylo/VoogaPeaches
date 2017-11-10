@@ -11,7 +11,7 @@ public abstract class Conditional implements IScript{
 	private List<IScript> myScripts;
 	
 	/**
-	 * @return List of attributes that are controlled by this script
+	 * @return List of attributes that are controlled by this Conditional
 	 */
 	public List<IScript> getScripts() {
 		return myScripts;
