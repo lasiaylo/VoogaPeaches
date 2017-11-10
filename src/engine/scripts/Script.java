@@ -5,6 +5,7 @@ import javafx.scene.input.KeyCode;
 
 /**Modifies qualities of Entity through Groovy
  *
+ * @author lasia
  * @author Albert
  */
 public abstract class Script implements IScript{
