@@ -78,6 +78,4 @@ public abstract class Conditional implements IScript{
 			script.execute(entity);
 		}
 	}
-	
-
 }
