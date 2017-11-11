@@ -16,6 +16,7 @@ import java.util.List;
  * Base engine class that is used as a template for all objects in game.
  *
  * @author Albert
+ * @author lasia
  *
  */
 public class Entity {

@@ -1,5 +1,7 @@
 package engine.scripts;
 
+import java.util.List;
+
 import engine.entities.Entity;
 import engine.util.CollisionManager;
 import javafx.scene.Node;
@@ -13,10 +15,12 @@ public class CollisionConditional extends Conditional {
 	private HitBox myHitBox;
 	private String conditionTag;
 	private CollisionManager myCollisionManager;
+	private Entity myEntity;
 	
-	public CollisionConditional(HitBox hitbox) {
+	public CollisionConditional(Entity entity, HitBox hitbox) {
 		myHitBox = hitbox;
 		myCollisionManager = CollisionManager.getInstance();
+		myEntity = entity;
 	}
 	
 	public void setTag(String newTag) {
@@ -25,11 +29,12 @@ public class CollisionConditional extends Conditional {
 	@Override
 	public void execute(Entity entity) {
 		myCollisionManager.checkCollisions(myHitBox);
-		String visitorTag = myHitBox.getVisitor();
-		if (visitorTag.equals(conditionTag)) {
-			for(IScript script : myScripts)
-				
-		myHitBox.setPosition(Entity.pos);
-	}
-
+		List<String> visitorTag = myHitBox.getVisitor();
+		
+		if (visitorTag.contains(conditionTag)) {
+			for(IScript script : getScripts()) {
+				myHitBox.setPosition(myEntity.getPosition());
+			}
+		}
+	}	
 }
