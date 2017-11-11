@@ -32,7 +32,7 @@ public class Entity {
      * @param pos       Vector position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Vector pos, List<IScript> scripts, Image image) {
+    public Entity(Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
 
