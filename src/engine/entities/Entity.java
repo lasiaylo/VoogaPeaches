@@ -32,10 +32,10 @@ public class Entity {
      * @param pos       Vector position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Image image, Vector pos, List<IScript> scripts) {
+    public Entity(Number id,Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
-        myID = id;
+        myID = (int) id;
 
         myImageView = new ImageView(image);
         myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
@@ -48,8 +48,8 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<IScript> scripts, Image image,int id) {
-        this(new Vector(x, y), scripts, image, id);
+    public Entity(Number id, Image image, List<IScript> scripts, double x, double y) {
+        this(id,image, new Vector(x, y), scripts);
     }
 
     /**
