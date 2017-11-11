@@ -70,27 +70,50 @@ public class Entity {
     	myPosition = newPos;
     }
 
-    /**
-     * run all scripts attached to the Entity
-     */
-    public void update() {
-        for(IScript s : myScripts) {
-            s.execute(this);
-        }
-    }
+	/**
+	 * @param New position for this entity
+	 */
+	public void setPosition(Vector newPos) {
+		myPosition = newPos;
+	}
 
-    /**
-     * @return  List of entity's scripts
-     */
-    public List<IScript> getScripts(){
-    	return myScripts;
-    }
-    
-    /**
-     * @return Whether the entity is static or not. If an entity is static, it just needs to be updated once.
-     */
-    public boolean isStatic() {
-    	return isStatic;
-    }
-    
+	/**
+	 * run all scripts attached to the Entity
+	 */
+	public void update() {
+		for (IScript s : myScripts) {
+			s.execute(this);
+		}
+	}
+
+	/**
+	 * @return List of entity's scripts
+	 */
+	public List<IScript> getScripts() {
+		return myScripts;
+	}
+
+	/**
+	 * @return Whether the entity is static or not. If an entity is static, it just
+	 *         needs to be updated once.
+	 */
+	public boolean isStatic() {
+		return isStatic;
+	}
+	
+	/**
+	 * change size of the imageview
+	 */
+	public void resize(int width, int height) {
+		myImageView.setFitWidth(width);
+		myImageView.setFitHeight(height);
+	}
+	
+	/**
+	 * set entity movable
+	 */
+	public void setMovable() {
+		isStatic = false;
+	}
+
 }
