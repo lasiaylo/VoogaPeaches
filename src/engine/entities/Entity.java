@@ -58,7 +58,7 @@ public class Entity {
     public Vector getPosition() {
         return myPosition;
     }
-    
+
     /**
      * @param New position for this entity
      */
