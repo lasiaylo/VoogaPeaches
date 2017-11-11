@@ -22,5 +22,5 @@ public abstract class Script implements IScript{
     public void execute(Entity entity) {
     	myScript.execute(entity);
     }
-
+    
 }

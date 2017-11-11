@@ -22,7 +22,7 @@ import java.util.List;
 public class Entity {
     private Vector myPosition;
     private Vector myVelocity;
-    private Vector myAcceleration;
+    private int myID;
     private ImageView myImageView;
     private boolean isStatic;
     private List<IScript> myScripts;
@@ -35,6 +35,7 @@ public class Entity {
     public Entity(Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
+        myID = id;
 
         myImageView = new ImageView(image);
         myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
@@ -47,8 +48,8 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<IScript> scripts, Image image) {
-        this(new Vector(x, y), scripts, image);
+    public Entity(double x, double y, List<IScript> scripts, Image image,int id) {
+        this(new Vector(x, y), scripts, image, id);
     }
 
     /**
