@@ -3,15 +3,16 @@ package engine.scripts;
 import engine.entities.Entity;
 import javafx.scene.Node;
 
+import java.util.List;
+
 /**Allows entities to take in an input
  * 
  *
  */
-public class Input extends ControlScript {
+public class InputConditional extends Conditional {
 
-	public Input(Entity entity) {
-		super(entity);
-		// TODO Auto-generated constructor stub
+	public InputConditional(List<IScript> scripts) {
+		super(scripts);
 	}
 
 	@Override
@@ -19,11 +20,4 @@ public class Input extends ControlScript {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public Node getNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

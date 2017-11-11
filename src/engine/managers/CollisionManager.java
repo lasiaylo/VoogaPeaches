@@ -1,11 +1,8 @@
-package engine.util;
+package engine.managers;
 
 import engine.Engine;
-import engine.entities.Entity;
 import engine.scripts.HitBox;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,14 +11,12 @@ import java.util.List;
  * @authoer lasia
  */
 public class CollisionManager {
-    private Engine myEngine;
     // Singleton??
     private static CollisionManager instance;
     private List<HitBox> myHitBoxes;
     
     /**
      * Creates a new CollisionManager
-     * @param engine    Engine holding everything together (needed for object list)
      */
     public CollisionManager() {
     }
@@ -37,7 +32,6 @@ public class CollisionManager {
     }
     
     /**
-     * @param engine	Engine to be passed in
      * @return			Singleton instance of CollisionManager
      */
     public static CollisionManager getInstance() {

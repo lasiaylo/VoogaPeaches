@@ -23,7 +23,6 @@ public class Entity {
     private Vector myPosition;
     private Vector myVelocity;
     private Vector myAcceleration;
-    private Circle myHitBox;
     private ImageView myImageView;
     private boolean isStatic;
     private List<IScript> myScripts;
@@ -40,9 +39,6 @@ public class Entity {
         myImageView = new ImageView(image);
         myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
         myImageView.setY(FXProcessing.getYImageCoord(pos.at(1), myImageView));
-        double hitRadius = (myImageView.getBoundsInLocal().getWidth() > myImageView.getBoundsInLocal().getHeight())
-                ? myImageView.getBoundsInLocal().getWidth() / 2 : myImageView.getBoundsInLocal().getHeight() / 2;
-        myHitBox = new Circle(pos.at(0), pos.at(1), hitRadius);
     }
 
     /**
@@ -61,7 +57,7 @@ public class Entity {
     public Vector getPosition() {
         return myPosition;
     }
-    
+
     /**
      * @param New position for this entity
      */
