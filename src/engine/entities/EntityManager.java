@@ -10,7 +10,7 @@ import util.math.num.Vector;
 
 public class EntityManager {
 	private static final String DBNAME = "Some database name idk";
-	private static final List<IScript> BGSCRIPTL = new ArrayList<IScript>();
+	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
 	
 	private int myGridSize;
 	private Layer myBGLayer;
@@ -19,6 +19,9 @@ public class EntityManager {
 	
 	/**
 	 * manage all entities and layers
+	 * 
+	 * middleman between authoring and backend control of entities
+	 * 
 	 * @param gridSize
 	 */
 	public EntityManager(int gridSize) {
@@ -26,12 +29,11 @@ public class EntityManager {
 		myBGLayer = new Layer();
 		myRenderer = new Renderer(DBNAME); //probably not the right way to render, have to figure out later
 		myLayerList = new ArrayList<Layer>();
-		myLayerList.add(myBGLayer);
 	}
 	
 	private Entity add(String name, Vector pos) {
 		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
-		Entity myEnt = new Entity(pos, BGSCRIPTL, someimage);
+		Entity myEnt = new Entity(pos, SCRIPTL, someimage);
 		return myEnt;
 	}
 	
@@ -84,6 +86,29 @@ public class EntityManager {
 		Ent.setMovable();
 	}
 	
+	/**
+	 * get all the nonBG entities
+	 * @return non-background entities
+	 */
+	public List<Entity> getNonBGEntity() {
+		if (myLayerList != null) {
+			List<Entity> allEnt = new ArrayList<Entity>();
+			for (Layer each: myLayerList) {
+				allEnt.addAll(each.getEntiy());
+			}
+			return allEnt;
+		}
+		else {
+			return null;
+		}
+	}
 	
+	/**
+	 * get all the BG entities
+	 * @return background entities
+	 */
+	public List<Entity> getBGEntity() {
+		return myBGLayer.getEntiy();
+	}
 
 }
