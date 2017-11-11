@@ -11,10 +11,10 @@ import javafx.scene.input.KeyCode;
 public abstract class Script implements IScript{
 	private IScript myScript;
     public Script() {
-    	GroovyClassLoader gcl = new GroovyClassLoader();
-		Class<?> clazz = gcl.parseClass("SomeName.groovy");
-		Object groovyScript = clazz.newInstance();
-		myScript = (IScript) groovyScript;
+    	//GroovyClassLoader gcl = new GroovyClassLoader();
+		//Class<?> clazz = gcl.parseClass("SomeName.groovy");
+		//Object groovyScript = clazz.newInstance();
+		//myScript = (IScript) groovyScript;
 		
     }
     

@@ -63,15 +63,8 @@ public class Entity {
         return myPosition;
     }
 
-    /**
-     * @param New position for this entity
-     */
-    public void setPosition(Vector newPos) {
-    	myPosition = newPos;
-    }
-
 	/**
-	 * @param New position for this entity
+	 * @param newPos position for this entity
 	 */
 	public void setPosition(Vector newPos) {
 		myPosition = newPos;

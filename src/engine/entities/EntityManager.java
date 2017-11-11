@@ -33,8 +33,9 @@ public class EntityManager {
 	
 	private Entity add(String name, Vector pos) {
 		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
-		Entity myEnt = new Entity(pos, SCRIPTL, someimage);
-		return myEnt;
+		//Entity myEnt = new Entity(pos, SCRIPTL, someimage);
+		//return myEnt;
+		return null;
 	}
 	
 	/**
