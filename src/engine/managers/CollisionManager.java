@@ -19,6 +19,7 @@ public class CollisionManager {
      * Creates a new CollisionManager
      */
     public CollisionManager() {
+
     }
 
     /**Checks whether this Hitbox is colliding with other Hitboxes

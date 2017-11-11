@@ -1,10 +1,7 @@
 package engine.managers;
 
-import engine.Engine;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.util.HashMap;
 import java.util.Map;
