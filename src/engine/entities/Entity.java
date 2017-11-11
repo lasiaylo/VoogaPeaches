@@ -25,14 +25,14 @@ public class Entity {
     private Circle myHitBox;
     private ImageView myImageView;
     private boolean isStatic;
-    private List<Script> myScripts;
+    private List<IScript> myScripts;
 
     /**
      *  Creates a new Entity
      * @param pos       Vector position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Vector pos, List<Script> scripts, Image image) {
+    public Entity(Vector pos, List<IScript> scripts, Image image) {
         myPosition = pos;
         myScripts = scripts;
 
@@ -50,19 +50,12 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<Script> scripts, Image image) {
+    public Entity(double x, double y, List<IScript> scripts, Image image) {
         this(new Vector(x, y), scripts, image);
     }
 
     /**
-     * @return  this entity's hitbox
-     */
-    public Circle getMyHitBox() {
-        return myHitBox;
-    }
-
-    /**
-     * @return  the vector position of this entity
+     * @return  Vector position of this entity
      */
     public Vector getPosition() {
         return myPosition;
@@ -73,13 +66,6 @@ public class Entity {
      */
     public void setPosition(Vector newPos) {
     	myPosition = newPos;
-    }
-
-    /**
-     * @return whether or not the norm of the velocity is zero
-     */
-    public boolean isMoving() {
-        return !(myVelocity.norm() == 0);
     }
 
     /**
