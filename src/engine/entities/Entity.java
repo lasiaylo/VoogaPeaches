@@ -29,10 +29,12 @@ public class Entity {
 
     /**
      *  Creates a new Entity
-     * @param pos       Vector position of new Entity
-     * @param scripts   Scripts attached to new Entity
+     *  @param id        database id of entity
+     *  @param image     Image attached to Entity
+     *  @param pos       Vector position of new Entity
+     *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id,Image image, Vector pos, List<IScript> scripts) {
+    public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
         myID = (int) id;
@@ -44,6 +46,8 @@ public class Entity {
 
     /**
      * Create a new Entity
+     * @param id        database id of entity
+     * @param image     Image attached to Entity
      * @param x         X position of new Entity
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity

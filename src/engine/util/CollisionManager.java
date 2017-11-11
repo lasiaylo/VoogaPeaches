@@ -21,7 +21,7 @@ public class CollisionManager implements IManager{
      * Creates a new CollisionManager
      * @param engine    Engine holding everything together (needed for object list)
      */
-    public CollisionManager() {
+    private CollisionManager() {
     }
 
     /**Checks whether this Hitbox is colliding with other Hitboxes
