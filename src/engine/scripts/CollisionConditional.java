@@ -14,8 +14,6 @@ import javafx.scene.Node;
  *@author Albert
  */
 public class CollisionConditional extends Conditional {
-	private HitBox myHitBox;
-	private CollisionManager myCollisionManager;
 	
 	/**Creates a new CollisionConditional
 	 * 
@@ -23,20 +21,11 @@ public class CollisionConditional extends Conditional {
 	 * @param Scripts list of scripts to run when colliding with a particular tag
 	 */
 	public CollisionConditional(HitBox hitbox,List<IScript> scripts) {
-		super(scripts);
-		myHitBox = hitbox;
-		myCollisionManager = CollisionManager.getInstance();
+		super(CollisionManager.getInstance(),hitbox,scripts);
 	}
 	
 	public CollisionConditional(HitBox hitbox) {
 		this(hitbox,new ArrayList<IScript>());
 	}
 	
-	@Override
-	protected boolean conditionMet() {
-		myCollisionManager.checkCollisions(myHitBox);
-		List<String> visitorTag = myHitBox.getVisitor();
-
-		return visitorTag.contains(getTag());
-	}	
 }

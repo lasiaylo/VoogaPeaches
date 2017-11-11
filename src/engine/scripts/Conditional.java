@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.entities.Entity;
+import engine.util.IManager;
 
 /**Scripts contained by this class will be executed if conditions are met
  * 
@@ -12,20 +13,24 @@ import engine.entities.Entity;
  */
 public abstract class Conditional implements IScript{
 	private List<IScript> myScripts;
-	private String conditionTag;
+	private Object myConditionObject;
+	private String myConditionTag;
+	private IManager myManager;
 	
 	/** Creates a new Conditional
 	 * @param List of Scripts to run when conditions are met
 	 */
-	public Conditional(List<IScript> scripts) {
+	public Conditional(IManager manager,Object object,List<IScript> scripts) {
+		myManager = manager;
+		myConditionObject = object;
 		myScripts = scripts;
 	}
 	
 	/** Creates a new Conditional
 	 * 
 	 */
-	public Conditional() {
-		this(new ArrayList<IScript>());
+	public Conditional(IManager manager, Object object) {
+		this(manager,object,new ArrayList<IScript>());
 	}
 	
 	/**
@@ -48,17 +53,22 @@ public abstract class Conditional implements IScript{
 	 * @param newTag
 	 */
 	public void setTag(String newTag) {
-		conditionTag = newTag;
+		myConditionTag = newTag;
 	}
 	
+	/**
+	 * @return Condition Tag
+	 */
 	public String getTag() {
-		return conditionTag;
+		return myConditionTag;
 	}
 	
 	/** Checks whether the condition is met
 	 * @return Boolean on whether condition was met
 	 */
-	protected abstract boolean conditionMet();
+	private boolean conditionMet() {
+		return myManager.check(myConditionObject,myConditionTag);
+	}
 
 	/**Runs through the list of children scripts and execute each
 	 * @param entity
