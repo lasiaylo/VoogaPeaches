@@ -10,8 +10,12 @@ public class TestEngine implements DataReactor<Post> {
         TestEngine e = new TestEngine();
         DatabaseConnector db = new DatabaseConnector<Post>(Post.class);
         db.listenToChanges(e);
+        Post testPost = new Post("test","asdfadfasdfasfd",1);
+        db.addToDatabase(1, testPost);
+        Post tp = new Post("asdfasdfadfasdfasdf", "new",3);
+        db.addToDatabase(3, tp);
         try {
-            Thread.sleep(4000);
+            Thread.sleep(3000);
         } catch (Exception l) {
 
         }

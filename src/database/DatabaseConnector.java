@@ -4,12 +4,15 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.io.FileInputStream;
 
 /**
  * The DatabaseConnector class offers an API for connecting to the online
- * database for retrieval of information
+ * database for retrieval and storage of objects
  */
 public class DatabaseConnector<T> {
 
@@ -123,5 +126,21 @@ public class DatabaseConnector<T> {
     public void removeListener() {
         dbRef.removeEventListener(currentListener);
         currentListener = null;
+    }
+
+    /**
+     * Adds an object of type T into the database. Note: If the object
+     * is already contained within the database, then it will be overwritten
+     * @param id is a {@code int} representing the id of the object being saved in the database
+     * @param objectToAdd is the object you want to add to the Database
+     */
+    public void addToDatabase(int id, T objectToAdd) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.excludeFieldsWithoutExposeAnnotation();
+        Gson JSONCreator = builder.create();
+        JSONObject tempJSONObj = new JSONObject(JSONCreator.toJson(objectToAdd));
+        for(String key : tempJSONObj.keySet()) {
+            dbRef.child("" + id).child(key).setValueAsync(tempJSONObj.get(key));
+        }
     }
 }
