@@ -16,7 +16,7 @@ import java.util.List;
  * The DatabaseConnector class offers an API for connecting to the online
  * database for retrieval, storage, manipulation, and removal of objects
  */
-public class DatabaseConnector<T> extends FirebaseCommunicator {
+public class DatabaseConnector<T> extends FirebaseConnector {
 
     /* Instance Variables */
     private DatabaseReference dbRef;
@@ -187,7 +187,7 @@ public class DatabaseConnector<T> extends FirebaseCommunicator {
      * @param objectToRemove
      * @throws ObjectIdNotFoundException
      */
-    public void removeFromDatabse(T objectToRemove) throws ObjectIdNotFoundException {
+    public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
         JSONObject tempJSONObj = new JSONObject(JSONCreator.toJson(objectToRemove));
         try {
             String id = tempJSONObj.get("id").toString();
