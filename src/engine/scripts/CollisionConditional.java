@@ -3,8 +3,7 @@ package engine.scripts;
 import java.util.List;
 
 import engine.entities.Entity;
-import engine.util.CollisionManager;
-import javafx.scene.Node;
+import engine.managers.CollisionManager;
 
 /**Represents what an entity does upon collision
  * 
@@ -26,6 +25,7 @@ public class CollisionConditional extends Conditional {
 	public void setTag(String newTag) {
 		conditionTag = newTag;
 	}
+
 	@Override
 	public void execute(Entity entity) {
 		myCollisionManager.checkCollisions(myHitBox);
