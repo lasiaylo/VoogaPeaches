@@ -1,5 +1,6 @@
 package engine.scripts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import engine.entities.Entity;
@@ -14,25 +15,28 @@ import javafx.scene.Node;
  */
 public class CollisionConditional extends Conditional {
 	private HitBox myHitBox;
-	private String conditionTag;
 	private CollisionManager myCollisionManager;
-	private Entity myEntity;
 	
-	public CollisionConditional(Entity entity, HitBox hitbox) {
+	/**Creates a new CollisionConditional
+	 * 
+	 * @param HitBox reference to a hitbox that is made within CollisionManager
+	 * @param Scripts list of scripts to run when colliding with a particular tag
+	 */
+	public CollisionConditional(HitBox hitbox,List<IScript> scripts) {
+		super(scripts);
 		myHitBox = hitbox;
 		myCollisionManager = CollisionManager.getInstance();
-		myEntity = entity;
 	}
 	
-	public void setTag(String newTag) {
-		conditionTag = newTag;
+	public CollisionConditional(HitBox hitbox) {
+		this(hitbox,new ArrayList<IScript>());
 	}
-
+	
 	@Override
 	protected boolean conditionMet() {
 		myCollisionManager.checkCollisions(myHitBox);
 		List<String> visitorTag = myHitBox.getVisitor();
 
-		return visitorTag.contains(conditionTag);
+		return visitorTag.contains(getTag());
 	}	
 }

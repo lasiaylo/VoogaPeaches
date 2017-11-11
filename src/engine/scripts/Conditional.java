@@ -12,9 +12,10 @@ import engine.entities.Entity;
  */
 public abstract class Conditional implements IScript{
 	private List<IScript> myScripts;
+	private String conditionTag;
 	
 	/** Creates a new Conditional
-	 * @param scripts
+	 * @param List of Scripts to run when conditions are met
 	 */
 	public Conditional(List<IScript> scripts) {
 		myScripts = scripts;
@@ -34,13 +35,24 @@ public abstract class Conditional implements IScript{
 		return myScripts;
 	}
 	
-	/* (non-Javadoc)
+	/** 
 	 * @see engine.scripts.IScript#execute(engine.entities.Entity)
 	 */
 	public void execute(Entity entity) {
 		if (conditionMet()) {
 			executeScripts(entity);
 		}
+	}
+	
+	/** Sets the Tag that is used for the condition. 
+	 * @param newTag
+	 */
+	public void setTag(String newTag) {
+		conditionTag = newTag;
+	}
+	
+	public String getTag() {
+		return conditionTag;
 	}
 	
 	/** Checks whether the condition is met
