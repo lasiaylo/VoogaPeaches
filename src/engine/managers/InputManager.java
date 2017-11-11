@@ -18,12 +18,21 @@ public class InputManager {
     private Map<String, Boolean> commandExecuteMap;
 
     /**
-     * Creates a new InputManager
+     * Creates a new InputManager from the database
      */
-    public InputManager() {
-        // TO DO read commands from database
+    private InputManager(Map<String, String> commands) {
         keyCommandMap = new HashMap<>();
+        for(String s : commands.keySet()) {
+            keyCommandMap.put(KeyCode.getKeyCode(s), commands.get(s));
+        }
         commandExecuteMap = new HashMap<>();
+    }
+
+    /**
+     *  Creates a new InputManager
+     */
+    private InputManager() {
+        this(new HashMap<>());
     }
 
     /**

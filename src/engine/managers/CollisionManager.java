@@ -1,7 +1,7 @@
 package engine.managers;
 
 import engine.Engine;
-import engine.scripts.HitBox;
+import engine.util.HitBox;
 
 import java.util.List;
 
