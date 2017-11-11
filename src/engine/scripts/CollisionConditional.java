@@ -24,6 +24,10 @@ public class CollisionConditional extends Conditional {
 		super(CollisionManager.getInstance(),hitbox,scripts);
 	}
 	
+	/**Creates a new CollisionConditional
+	 * 
+	 * @param HitBox reference to a hitbox that is made within CollisionManager
+	 */
 	public CollisionConditional(HitBox hitbox) {
 		this(hitbox,new ArrayList<IScript>());
 	}

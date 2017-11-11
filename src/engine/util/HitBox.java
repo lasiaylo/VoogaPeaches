@@ -21,8 +21,8 @@ public class HitBox {
 	/**
 	 * Creates a new Hitbox
 	 * 
-	 * @param List
-	 *            of JavaFX Shapes
+	 * @param shapes
+	 *            list of JavaFX Shapes to be added to hitbox
 	 */
 	public HitBox(List<Shape> shapes, Vector pos) {
 		myShapes = shapes;
@@ -32,8 +32,8 @@ public class HitBox {
 	/**
 	 * Creates a new HitBox
 	 * 
-	 * @param JavaFX
-	 *            Shape
+	 * @param shape
+	 *             javafx shape to be hitbox
 	 */
 	public HitBox(Shape shape, Vector pos) {
 		this(new ArrayList<Shape>() {
@@ -44,7 +44,7 @@ public class HitBox {
 	}
 
 	/**
-	 * @param HitBox
+	 * @param other
 	 * @return Boolean on whether it intersects
 	 */
 	public boolean checkIntersect(HitBox other) {
@@ -74,7 +74,12 @@ public class HitBox {
 	}
 	
 	public void setPosition(Vector pos) {
+		Vector translation = pos.subtract(myPosition);
 		myPosition = pos;
+		for(Shape s : myShapes) {
+			s.setLayoutX(s.getLayoutX() + translation.at(0));
+			s.setLayoutY(s.getLayoutY() + translation.at(1));
+		}
 	}
 	
 	public Vector getPosition() {

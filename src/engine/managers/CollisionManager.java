@@ -1,7 +1,7 @@
 package engine.managers;
 
 import engine.Engine;
-import engine.scripts.HitBox;
+import engine.util.HitBox;
 
 import java.util.List;
 
@@ -19,6 +19,7 @@ public class CollisionManager {
      * Creates a new CollisionManager
      */
     public CollisionManager() {
+
     }
 
     /**Checks whether this Hitbox is colliding with other Hitboxes
