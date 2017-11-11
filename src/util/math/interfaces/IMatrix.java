@@ -28,7 +28,7 @@ public interface IMatrix<Self, Primary> {
     /**
      * Negate a matrix
      *
-     * @return new matrix (-this)
+     * @return new matrix (this)
      */
     Self negate();
 
