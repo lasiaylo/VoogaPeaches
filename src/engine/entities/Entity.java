@@ -2,6 +2,7 @@ package engine.entities;
 
 import engine.scripts.Script;
 import engine.util.FXProcessing;
+import engine.scripts.IScript;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,14 +24,15 @@ public class Entity {
     private Vector myAcceleration;
     private Circle myHitBox;
     private ImageView myImageView;
-    private List<Script> myScripts;
+    private boolean isStatic;
+    private List<IScript> myScripts;
 
     /**
      *  Creates a new Entity
      * @param pos       Vector position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Vector pos, List<Script> scripts, Image image) {
+    public Entity(Vector pos, List<IScript> scripts, Image image) {
         myPosition = pos;
         myScripts = scripts;
 
@@ -48,57 +50,45 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<Script> scripts, Image image) {
+    public Entity(double x, double y, List<IScript> scripts, Image image) {
         this(new Vector(x, y), scripts, image);
     }
 
     /**
-     * @return  this entity's hitbox
-     */
-    public Circle getMyHitBox() {
-        return myHitBox;
-    }
-
-    /**
-     * @return  the vector position of this entity
+     * @return  Vector position of this entity
      */
     public Vector getPosition() {
         return myPosition;
     }
-
+    
     /**
-     * @return whether or not the norm of the velocity is zero
+     * @param New position for this entity
      */
-    public boolean isMoving() {
-        return !(myVelocity.norm() == 0);
+    public void setPosition(Vector newPos) {
+    	myPosition = newPos;
     }
 
     /**
      * run all scripts attached to the Entity
      */
-    public void run() {
-        for(Script s : myScripts) {
+    public void update() {
+        for(IScript s : myScripts) {
             s.execute(this);
         }
     }
 
     /**
-     * @return  list of javafx nodes corresponding to this entity's scripts
+     * @return  List of entity's scripts
      */
-    public List<Node> getScriptDisplays() {
-        List<Node> scriptDisplays = new ArrayList<>();
-        for(Script s : myScripts) {
-            scriptDisplays.add(s.getNode());
-        }
-
-        return scriptDisplays;
+    public List<IScript> getScripts(){
+    	return myScripts;
     }
-
+    
     /**
-     * add a new script to the Entity
-     * @param s script to be added
+     * @return Whether the entity is static or not. If an entity is static, it just needs to be updated once.
      */
-    public void add(Script s) {
-        myScripts.add(s);
+    public boolean isStatic() {
+    	return isStatic;
     }
+    
 }
