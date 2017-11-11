@@ -27,7 +27,7 @@ public class CollisionConditional extends Conditional {
 		myCollisionManager.checkCollisions(myHitBox);
 		String visitorTag = myHitBox.getVisitor();
 		if (visitorTag.equals(conditionTag)) {
-//				run all the scripts
+			for(IScript script : myScripts)
 				
 		myHitBox.setPosition(Entity.pos);
 	}
