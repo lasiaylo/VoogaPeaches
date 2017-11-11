@@ -24,7 +24,7 @@ public class Entity {
 	private Vector myAcceleration;
 	private Circle myHitBox;
 	private ImageView myImageView;
-	private boolean isStatic;
+	private boolean isStatic = true;
 	private List<IScript> myScripts;
 
 	/**
@@ -70,8 +70,7 @@ public class Entity {
 	}
 
 	/**
-	 * @param New
-	 *            position for this entity
+	 * @param New position for this entity
 	 */
 	public void setPosition(Vector newPos) {
 		myPosition = newPos;
@@ -99,6 +98,21 @@ public class Entity {
 	 */
 	public boolean isStatic() {
 		return isStatic;
+	}
+	
+	/**
+	 * change size of the imageview
+	 */
+	public void resize(int width, int height) {
+		myImageView.setFitWidth(width);
+		myImageView.setFitHeight(height);
+	}
+	
+	/**
+	 * set entity movable
+	 */
+	public void setMovable() {
+		isStatic = false;
 	}
 
 }
