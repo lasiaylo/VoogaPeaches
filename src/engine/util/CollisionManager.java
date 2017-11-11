@@ -2,7 +2,6 @@ package engine.util;
 
 import engine.Engine;
 import engine.entities.Entity;
-import engine.scripts.HitBox;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

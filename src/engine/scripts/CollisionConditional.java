@@ -4,6 +4,7 @@ import java.util.List;
 
 import engine.entities.Entity;
 import engine.util.CollisionManager;
+import engine.util.HitBox;
 import javafx.scene.Node;
 
 /**Represents what an entity does upon collision
@@ -26,15 +27,12 @@ public class CollisionConditional extends Conditional {
 	public void setTag(String newTag) {
 		conditionTag = newTag;
 	}
+
 	@Override
-	public void execute(Entity entity) {
+	protected boolean conditionMet() {
 		myCollisionManager.checkCollisions(myHitBox);
 		List<String> visitorTag = myHitBox.getVisitor();
-		
-		if (visitorTag.contains(conditionTag)) {
-			for(IScript script : getScripts()) {
-				myHitBox.setPosition(myEntity.getPosition());
-			}
-		}
+
+		return visitorTag.contains(conditionTag);
 	}	
 }

@@ -1,5 +1,7 @@
 package engine.scripts;
 
+import java.util.List;
+
 import engine.entities.Entity;
 import javafx.scene.Node;
 
@@ -7,23 +9,19 @@ import javafx.scene.Node;
  * 
  *
  */
-public class Input extends ControlScript {
+public class InputCondition extends Conditional {
 
-	public Input(Entity entity) {
-		super(entity);
-		// TODO Auto-generated constructor stub
+	public InputCondition(List<IScript> scripts) {
+		super(scripts);
 	}
-
+	
+	public InputCondition() {
+		super();
+	}
+	
 	@Override
 	public void execute(Entity entity) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public Node getNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

@@ -22,8 +22,7 @@ import java.util.List;
 public class Entity {
     private Vector myPosition;
     private Vector myVelocity;
-    private Vector myAcceleration;
-    private Circle myHitBox;
+    private int myID;
     private ImageView myImageView;
     private boolean isStatic;
     private List<IScript> myScripts;
@@ -33,16 +32,14 @@ public class Entity {
      * @param pos       Vector position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Vector pos, List<IScript> scripts, Image image) {
+    public Entity(Vector pos, List<IScript> scripts, Image image,int id) {
         myPosition = pos;
         myScripts = scripts;
+        myID = id;
 
         myImageView = new ImageView(image);
         myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
         myImageView.setY(FXProcessing.getYImageCoord(pos.at(1), myImageView));
-        double hitRadius = (myImageView.getBoundsInLocal().getWidth() > myImageView.getBoundsInLocal().getHeight())
-                ? myImageView.getBoundsInLocal().getWidth() / 2 : myImageView.getBoundsInLocal().getHeight() / 2;
-        myHitBox = new Circle(pos.at(0), pos.at(1), hitRadius);
     }
 
     /**
@@ -51,8 +48,8 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<IScript> scripts, Image image) {
-        this(new Vector(x, y), scripts, image);
+    public Entity(double x, double y, List<IScript> scripts, Image image,int id) {
+        this(new Vector(x, y), scripts, image, id);
     }
 
     /**
