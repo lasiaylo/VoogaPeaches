@@ -1,10 +1,8 @@
-package engine.util;
+package engine.managers;
 
 import engine.Engine;
-import engine.entities.Entity;
+import engine.scripts.HitBox;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,16 +10,16 @@ import java.util.List;
  * @author Albert
  * @authoer lasia
  */
-public class CollisionManager implements IManager{
-    private Engine myEngine;
+public class CollisionManager {
+    // Singleton??
     private static CollisionManager instance;
     private List<HitBox> myHitBoxes;
     
     /**
      * Creates a new CollisionManager
-     * @param engine    Engine holding everything together (needed for object list)
      */
     public CollisionManager() {
+
     }
 
     /**Checks whether this Hitbox is colliding with other Hitboxes
@@ -35,7 +33,6 @@ public class CollisionManager implements IManager{
     }
     
     /**
-     * @param engine	Engine to be passed in
      * @return			Singleton instance of CollisionManager
      */
     public static CollisionManager getInstance() {
@@ -45,12 +42,4 @@ public class CollisionManager implements IManager{
     	
     	return instance;
     }
-
-	@Override
-	public boolean check(Object arg1, String tag) {
-		HitBox hitbox = (HitBox) arg1;
-		checkCollisions(hitbox);
-		List<String> visitorTag = hitbox.getVisitor();
-		return visitorTag.contains(tag);
-	}
 }
