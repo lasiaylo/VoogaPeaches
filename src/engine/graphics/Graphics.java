@@ -4,7 +4,10 @@ import javafx.scene.image.Image;
 
 import java.util.HashMap;
 
+import engine.util.Spriter;
+
 public class Graphics {
+	
     private HashMap<String, Image> cache;
 
     public Image getImage(String name) {
