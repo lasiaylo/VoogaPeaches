@@ -3,15 +3,17 @@ import java.util.*;
 import java.io.File;
 import java.io.IOException;
 import org.codehaus.groovy.control.CompilationFailedException;
-import backend.util.Primitive;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import engine.entities.Entity;
+import engine.util.Primitive;
 import groovy.lang.GroovyClassLoader;
 
 /**
  * Modifies qualities of Entity through Groovy
- *
+ * Acts as a wrapper class for GroovyScript
+ * 
  * @author lasia
  * @author Albert
  */
