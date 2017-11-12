@@ -3,6 +3,8 @@ package authoring.panels;
 import authoring.Panel;
 import authoring.PanelController;
 import authoring.Screen;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -10,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import util.MenuReader;
 
 import java.util.ResourceBundle;
 
@@ -19,8 +22,12 @@ import java.util.ResourceBundle;
  */
 public class MenuBarPanel implements Panel {
 
-    private HBox bar;
+    private HBox hbar;
+    private MenuBar bar;
+    private PanelController controller;
+
     private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
+    private String path = properties.getString("menubarpath");
     private double height = Double.parseDouble(properties.getString("menubarheight"));
     private String style = properties.getString("menubarstyle");
     private Color textColor = Color.web(properties.getString("menubartextcolor"));
@@ -30,14 +37,19 @@ public class MenuBarPanel implements Panel {
 
     @Override
     public Region getRegion(){
-        bar = new HBox();
-        bar.setPrefHeight(height);
-        bar.setStyle(style);
+        hbar = new HBox();
+        bar = new MenuBar();
 
-        Pane file = getOption("File"); //TODO: Set up a data file for these, set up action listeners to albert's menu
+        MenuReader reader = new MenuReader(path, this);
+        bar.getMenus().addAll(reader.getMenus());
+
+        hbar.setPrefHeight(height);
+        hbar.setStyle(style);
+
+        Pane file = getOption("File"); //TODO: Style the menu bar and remove hbar
         Pane view = getOption("View");
 
-        bar.getChildren().addAll(file, view);
+        hbar.getChildren().addAll(file, view);
         return bar;
     }
 
@@ -71,11 +83,17 @@ public class MenuBarPanel implements Panel {
 
     @Override
     public void setController(PanelController controller) {
-        //TODO: Create controller
+        this.controller = controller;
     }
 
     @Override
     public String title(){
         return "Menu";
     }
+
+    public void setupItem(MenuItem newItem, String strategy) {
+        //TODO: Attach onAction to controller actions, style stuff
+    }
+
+
 }
