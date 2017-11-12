@@ -12,5 +12,9 @@ import javafx.scene.Node;
  * @author Albert
  */
 public interface IScript {
+	
+    /**Runs the Script
+     * @param entity
+     */
     void execute(Entity entity);
 }

@@ -57,7 +57,7 @@ public class Entity {
     }
 
     /**
-     * @return  Vector position of this entity
+     * @return Vector position of this entity
      */
     public Vector getPosition() {
         return myPosition;

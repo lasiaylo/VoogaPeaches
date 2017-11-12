@@ -11,6 +11,11 @@ import engine.entities.Entity;
 import engine.scripts.IScript;
 import engine.scripts.Script;
 
+/**Tests Entities
+ * 
+ * @author lasia
+ *
+ */
 public class EntityTest {
 	private static final Number id = 5;
 	private static final double POS = 5;
@@ -20,11 +25,8 @@ public class EntityTest {
 		List<IScript> myScripts = new ArrayList<IScript>();
 
 		Entity test = new Entity(id,null,myScripts,POS,POS);
-		Script testScript = new Script("GroovyScript.groovy");
+		Script testScript = new Script("SpriteScript.groovy");
 		test.getScripts().add(testScript);
-		
-		test.update();
-		
 		
 	}
 }
