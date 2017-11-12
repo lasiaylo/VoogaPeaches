@@ -1,6 +1,7 @@
 package authoring.panels;
 
 import authoring.Panel;
+import authoring.PanelController;
 import authoring.Screen;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
