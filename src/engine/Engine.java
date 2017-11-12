@@ -1,6 +1,9 @@
 package engine;
 
+import engine.entities.EngineLoop;
 import engine.entities.Entity;
+import engine.entities.EntityManager;
+import javafx.animation.Timeline;
 
 import java.util.List;
 
@@ -11,8 +14,14 @@ import java.util.List;
  */
 public class Engine {
     private List<Entity> myEntities;
-    public Engine() {
-
+    private EntityManager myManager;
+    private EngineLoop myGameLoop;
+    private Timeline myTimeline;
+    
+    public Engine(Number gridSize) {
+    		myManager = new EntityManager(gridSize);
+    		myGameLoop = new EngineLoop(myManager);
+    		myTimeline = myGameLoop.getTimeline();
     }
 
     /**
@@ -23,5 +32,27 @@ public class Engine {
     public List<Entity> getSector(Entity entity) {
         // TO DO
         return null;
+    }
+    
+    /**
+     * start or resume the game loop
+     */
+    public void play() {
+    		myTimeline.play();
+    }
+    
+    /**
+     * pause the game loop
+     */
+    public void pause() {
+    		myTimeline.pause();
+    }
+    
+    /**
+     * get entity manager
+     * @return EntityManager
+     */
+    public EntityManager getEntityManager() {
+    		return myManager;
     }
 }
