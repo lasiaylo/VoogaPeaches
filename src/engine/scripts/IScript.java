@@ -1,5 +1,8 @@
 package engine.scripts;
 
+import java.util.Map;
+import java.util.Set;
+
 import engine.entities.Entity;
 import javafx.scene.Node;
 
@@ -10,4 +13,5 @@ import javafx.scene.Node;
  */
 public interface IScript {
     void execute(Entity entity);
+    Set getFields();
 }
