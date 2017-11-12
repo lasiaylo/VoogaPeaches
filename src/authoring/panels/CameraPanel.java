@@ -102,7 +102,7 @@ public class CameraPanel implements Panel{
 		}
 		double colN = cameraWidth/side;
 		for (int n = 0; n < colN; n++) {
-			background.getColumnConstraints().add(new ColumnConstraints(side));
+			myGridPane.getColumnConstraints().add(new ColumnConstraints(side));
 		}
 		myGridPane.setGridLinesVisible(true);
 	}
@@ -173,5 +173,4 @@ public class CameraPanel implements Panel{
 		return myLocal;
 	}
 
-    }
 }
