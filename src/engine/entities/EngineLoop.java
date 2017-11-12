@@ -43,14 +43,8 @@ public class EngineLoop {
 	/**
 	 * pause the game loop
 	 */
-	public void pause() {
-		myTimeline.pause();
+	public Timeline getTimeline() {
+		return myTimeline;
 	}
-	
-	/**
-	 * play or resume the game loop
-	 */
-	public void play() {
-		myTimeline.play();
-	}
+
 }
