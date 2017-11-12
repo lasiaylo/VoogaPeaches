@@ -51,11 +51,13 @@ public class EntityManager {
 	 * add background block
 	 * @param name
 	 * @param pos
+	 * @return BGblock
 	 */
-	public void addBG(String name, Vector pos) {
+	public Entity addBG(String name, Vector pos) {
 		Entity BGblock = createEnt(name, pos);
 		BGblock.resize(new Vector(myGridSize, myGridSize));
 		myBGLayer.addEntity(BGblock);
+		return BGblock;
 	}
 	
 	/**
@@ -88,10 +90,12 @@ public class EntityManager {
 	 * @param pos
 	 * @param level
 	 * @param size
+	 * @return Entity
 	 */
-	public void addNonStatic(String name, Vector pos, int level, Vector size) {
+	public Entity addNonStatic(String name, Vector pos, int level, Vector size) {
 		Entity Ent = addNonBG(name, pos, level, size);
 		Ent.setMovable();
+		return Ent;
 	}
 	
 	/**
@@ -120,12 +124,36 @@ public class EntityManager {
 	}
 	
 	/**
-	 * get any layer above BG layer
+	 * select any single layer, background layer is view only
 	 * @param level
-	 * @return layer
 	 */
-	public Layer getLayer(int level) {
-		return myLayerList.get(level);
+	public void selectLayer(int level) {
+		myBGLayer.onlyView();
+		for (Layer each: myLayerList) {
+			each.deselect();
+		}
+		myLayerList.get(level).select();
 	}
+	
+	/**
+	 * select background layer for viewing and editing
+	 */
+	public void selectBGLayer() {
+		myBGLayer.select();
+		for (Layer each: myLayerList) {
+			each.deselect();
+		}
+	}
+	
+	/**
+	 * show all layer in view only mode
+	 */
+	public void allLayer() {
+		myBGLayer.onlyView();
+		for (Layer each: myLayerList) {
+			each.onlyView();
+		}
+	}
+	
 
 }
