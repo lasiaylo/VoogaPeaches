@@ -72,4 +72,9 @@ public class MenuBarPanel implements Panel {
     public void setController() {
         //TODO: Create controller
     }
+
+    @Override
+    public String title(){
+        return "Menu";
+    }
 }

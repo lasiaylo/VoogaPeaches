@@ -53,4 +53,9 @@ public class CameraPanel implements Panel{
     public void setController() {
 
     }
+
+    @Override
+    public String title(){
+	    return "Game Camera";
+	}
 }
