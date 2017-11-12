@@ -37,7 +37,7 @@ public class Entity {
     public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
-        myID = (int) id;
+        myID = id.intValue();
 
         myImageView = new ImageView(image);
         displayUpdate();
@@ -62,6 +62,13 @@ public class Entity {
         return myPosition;
     }
 
+	/**
+	 * @return  Vector velocity of this entity
+	 */
+	public Vector getVelocity() {
+		return myVelocity;
+	}
+
     /**
      * @param newPos position for this entity
      */
@@ -70,7 +77,7 @@ public class Entity {
     }
 
 	/**
-	 * run all scripts attached to the Entity
+	 * run all default attached to the Entity
 	 */
 	public void update() {
 		for (IScript s : myScripts) {
@@ -79,7 +86,7 @@ public class Entity {
 	}
 
 	/**
-	 * @return List of entity's scripts
+	 * @return List of entity's default
 	 */
 	public List<IScript> getScripts() {
 		return myScripts;
