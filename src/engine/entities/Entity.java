@@ -16,42 +16,43 @@ import java.util.List;
  * Base engine class that is used as a template for all objects in game.
  *
  * @author Albert
+ * @author lasia
  *
  */
 public class Entity {
     private Vector myPosition;
     private Vector myVelocity;
-    private Vector myAcceleration;
-    private Circle myHitBox;
+    private int myID;
     private ImageView myImageView;
     private boolean isStatic;
     private List<IScript> myScripts;
 
     /**
      *  Creates a new Entity
-     * @param pos       Vector position of new Entity
-     * @param scripts   Scripts attached to new Entity
+     *  @param id        database id of entity
+     *  @param image     Image attached to Entity
+     *  @param pos       Vector position of new Entity
+     *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Vector pos, List<IScript> scripts, Image image) {
+    public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
+        myID = (int) id;
 
         myImageView = new ImageView(image);
-        myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
-        myImageView.setY(FXProcessing.getYImageCoord(pos.at(1), myImageView));
-        double hitRadius = (myImageView.getBoundsInLocal().getWidth() > myImageView.getBoundsInLocal().getHeight())
-                ? myImageView.getBoundsInLocal().getWidth() / 2 : myImageView.getBoundsInLocal().getHeight() / 2;
-        myHitBox = new Circle(pos.at(0), pos.at(1), hitRadius);
+        displayUpdate();
     }
 
     /**
      * Create a new Entity
+     * @param id        database id of entity
+     * @param image     Image attached to Entity
      * @param x         X position of new Entity
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(double x, double y, List<IScript> scripts, Image image) {
-        this(new Vector(x, y), scripts, image);
+    public Entity(Number id, Image image, List<IScript> scripts, double x, double y) {
+        this(id,image, new Vector(x, y), scripts);
     }
 
     /**
@@ -60,35 +61,61 @@ public class Entity {
     public Vector getPosition() {
         return myPosition;
     }
-    
-    /**
-     * @param New position for this entity
-     */
-    public void setPosition(Vector newPos) {
-    	myPosition = newPos;
-    }
 
-    /**
-     * run all scripts attached to the Entity
-     */
-    public void update() {
-        for(IScript s : myScripts) {
-            s.execute(this);
-        }
-    }
 
-    /**
-     * @return  List of entity's scripts
-     */
-    public List<IScript> getScripts(){
-    	return myScripts;
-    }
-    
-    /**
-     * @return Whether the entity is static or not. If an entity is static, it just needs to be updated once.
-     */
-    public boolean isStatic() {
-    	return isStatic;
-    }
-    
+	/**
+	 * @param newPos position for this entity
+	 */
+	public void setPosition(Vector newPos) {
+		myPosition = newPos;
+	}
+
+	/**
+	 * run all scripts attached to the Entity
+	 */
+	public void update() {
+		for (IScript s : myScripts) {
+			s.execute(this);
+		}
+	}
+
+	/**
+	 * @return List of entity's scripts
+	 */
+	public List<IScript> getScripts() {
+		return myScripts;
+	}
+	
+	/**
+	 * apply the position of entity to its imageview
+	 */
+	public void displayUpdate() {
+		myImageView.setX(FXProcessing.getXImageCoord(myPosition.at(0), myImageView));
+        myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
+	}
+
+	/**
+	 * @return Whether the entity is static or not. If an entity is static, it just
+	 *         needs to be updated once.
+	 */
+	public boolean isStatic() {
+		return isStatic;
+	}
+	
+	/**
+	 * change the size (width, height) of the imageview
+	 * @param size
+	 */
+	public void resize(Vector size) {
+		myImageView.setFitWidth(size.at(0));
+		myImageView.setFitHeight(size.at(1));
+	}
+	
+	/**
+	 * set entity movable
+	 */
+	public void setMovable() {
+		isStatic = false;
+	}
+
 }
