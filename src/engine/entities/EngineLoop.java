@@ -36,7 +36,6 @@ public class EngineLoop {
 			each.update();
 			// condition should be set here to displayupdate only for those entities that are in the range of camera
 			// like based on how far away from player since player is always centered
-			getTransform();
 			each.getRender()
 				.displayUpdate(each.getTransform());
 		}

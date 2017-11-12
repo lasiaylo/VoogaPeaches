@@ -33,19 +33,18 @@ public class Render {
 	}
 	
 	/**
-	 * change the size (width, height) of the imageview
-	 * @param size
+	 * Sets the scale (width, height) of the imageview
+	 * @param scale		Scale of the imageview.(1,1) is standard scale
 	 */
-	public void setScale(Vector size) {
-		myImageView.setFitWidth(size.at(0));
-		myImageView.setFitHeight(size.at(1));
+	public void setScale(Vector scale) {
+		myImageView.setFitWidth(scale.at(0));
+		myImageView.setFitHeight(scale.at(1));
 	}
-	
 	
 	
 	/**
 	 * set imageview visibility
-	 * @param vis
+	 * @param vis	
 	 */
 	public void setVisible(boolean vis) {
 		myImageView.setVisible(vis);
