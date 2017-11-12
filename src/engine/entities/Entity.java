@@ -40,8 +40,7 @@ public class Entity {
         myID = (int) id;
 
         myImageView = new ImageView(image);
-        myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
-        myImageView.setY(FXProcessing.getYImageCoord(pos.at(1), myImageView));
+        displayUpdate();
     }
 
     /**
@@ -85,6 +84,14 @@ public class Entity {
 	public List<IScript> getScripts() {
 		return myScripts;
 	}
+	
+	/**
+	 * apply the position of entity to its imageview
+	 */
+	public void displayUpdate() {
+		myImageView.setX(FXProcessing.getXImageCoord(myPosition.at(0), myImageView));
+        myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
+	}
 
 	/**
 	 * @return Whether the entity is static or not. If an entity is static, it just
@@ -95,11 +102,12 @@ public class Entity {
 	}
 	
 	/**
-	 * change size of the imageview
+	 * change the size (width, height) of the imageview
+	 * @param size
 	 */
-	public void resize(int width, int height) {
-		myImageView.setFitWidth(width);
-		myImageView.setFitHeight(height);
+	public void resize(Vector size) {
+		myImageView.setFitWidth(size.at(0));
+		myImageView.setFitHeight(size.at(1));
 	}
 	
 	/**

@@ -1,7 +1,8 @@
 package engine.scripts;
 
 import engine.entities.Entity;
-import javafx.scene.input.KeyCode;
+import groovy.lang.GroovyClassLoader;
+import groovy.util.Eval;
 
 /**Modifies qualities of Entity through Groovy
  *
@@ -10,7 +11,7 @@ import javafx.scene.input.KeyCode;
  */
 public abstract class Script implements IScript{
 	private IScript myScript;
-    public Script() {
+    public Script() throws InstantiationException, IllegalAccessException {
     	GroovyClassLoader gcl = new GroovyClassLoader();
 		Class<?> clazz = gcl.parseClass("SomeName.groovy");
 		Object groovyScript = clazz.newInstance();

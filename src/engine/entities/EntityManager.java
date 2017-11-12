@@ -8,6 +8,14 @@ import engine.scripts.IScript;
 import javafx.scene.image.Image;
 import util.math.num.Vector;
 
+/**
+ * create and hold all entities displayed
+ * 
+ * should be accessible to authoring for adding entities
+ * 
+ * @author estellehe
+ *
+ */
 public class EntityManager {
 	private static final String DBNAME = "Some database name idk";
 	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
@@ -16,6 +24,7 @@ public class EntityManager {
 	private Layer myBGLayer;
 	private Renderer myRenderer;
 	private List<Layer> myLayerList;
+	private int myID = 0;
 	
 	/**
 	 * manage all entities and layers
@@ -24,16 +33,17 @@ public class EntityManager {
 	 * 
 	 * @param gridSize
 	 */
-	public EntityManager(int gridSize) {
-		myGridSize = gridSize;
+	public EntityManager(Number gridSize) {
+		myGridSize = gridSize.intValue();
 		myBGLayer = new Layer();
 		myRenderer = new Renderer(DBNAME); //probably not the right way to render, have to figure out later
 		myLayerList = new ArrayList<Layer>();
 	}
 	
-	private Entity add(String name, Vector pos) {
+	private Entity createEnt(String name, Vector pos) {
 		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
-		Entity myEnt = new Entity(pos, SCRIPTL, someimage);
+		Entity myEnt = new Entity(myID, someimage, pos, SCRIPTL);
+		myID++;
 		return myEnt;
 	}
 	
@@ -43,8 +53,8 @@ public class EntityManager {
 	 * @param pos
 	 */
 	public void addBG(String name, Vector pos) {
-		Entity BGblock = add(name, pos);
-		BGblock.resize(myGridSize, myGridSize);
+		Entity BGblock = createEnt(name, pos);
+		BGblock.resize(new Vector(myGridSize, myGridSize));
 		myBGLayer.addEntity(BGblock);
 	}
 	
@@ -53,13 +63,12 @@ public class EntityManager {
 	 * @param name
 	 * @param pos
 	 * @param level
-	 * @param width
-	 * @param height
+	 * @param size
 	 * @return created entity
 	 */
-	public Entity addNonBG(String name, Vector pos, int level, int width, int height) {
-		Entity staEnt = add(name, pos);
-		staEnt.resize(width, height);
+	public Entity addNonBG(String name, Vector pos, int level, Vector size) {
+		Entity staEnt = createEnt(name, pos);
+		staEnt.resize(size);
 		
 		if (level > myLayerList.size()-1) {
 			Layer myLayer = new Layer();
@@ -78,11 +87,10 @@ public class EntityManager {
 	 * @param name
 	 * @param pos
 	 * @param level
-	 * @param width
-	 * @param height
+	 * @param size
 	 */
-	public void addNonStatic(String name, Vector pos, int level, int width, int height) {
-		Entity Ent = addNonBG(name, pos, level, width, height);
+	public void addNonStatic(String name, Vector pos, int level, Vector size) {
+		Entity Ent = addNonBG(name, pos, level, size);
 		Ent.setMovable();
 	}
 	
@@ -91,7 +99,7 @@ public class EntityManager {
 	 * @return non-background entities
 	 */
 	public List<Entity> getNonBGEntity() {
-		if (myLayerList != null) {
+		if (! myLayerList.isEmpty()) {
 			List<Entity> allEnt = new ArrayList<Entity>();
 			for (Layer each: myLayerList) {
 				allEnt.addAll(each.getEntiy());
@@ -109,6 +117,15 @@ public class EntityManager {
 	 */
 	public List<Entity> getBGEntity() {
 		return myBGLayer.getEntiy();
+	}
+	
+	/**
+	 * get any layer above BG layer
+	 * @param level
+	 * @return layer
+	 */
+	public Layer getLayer(int level) {
+		return myLayerList.get(level);
 	}
 
 }
