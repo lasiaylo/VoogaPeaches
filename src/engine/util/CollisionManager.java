@@ -50,7 +50,7 @@ public class CollisionManager implements IManager{
 	public boolean check(Object arg1, String tag) {
 		HitBox hitbox = (HitBox) arg1;
 		checkCollisions(hitbox);
-		List<String> visitorTag = hitbox.getVisitor();
+		List<String> visitorTag = hitbox.getVisitors();
 		return visitorTag.contains(tag);
 	}
 }
