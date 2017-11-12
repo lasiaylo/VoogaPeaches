@@ -17,6 +17,7 @@ import java.util.List;
  *
  * @author Albert
  * @author lasia
+ * @author estellehe
  *
  */
 public class Entity {
@@ -56,7 +57,7 @@ public class Entity {
     }
 
     /**
-     * @return  Vector position of this entity
+     * @return Vector position of this entity
      */
     public Vector getPosition() {
         return myPosition;
@@ -122,6 +123,30 @@ public class Entity {
 	 */
 	public void setMovable() {
 		isStatic = false;
+	}
+	
+	/**
+	 * set imageview visibility
+	 * @param vis
+	 */
+	public void setVisible(boolean vis) {
+		myImageView.setVisible(vis);
+	}
+	
+	/**
+	 * set imageview transparency to mouse click
+	 * @param trans
+	 */
+	public void setMouseTrans(boolean trans) {
+		myImageView.setMouseTransparent(trans);
+	}
+	
+	/**
+	 * get imageview 
+	 * @return imageview
+	 */
+	public ImageView getImage() {
+		return myImageView;
 	}
 
 }
