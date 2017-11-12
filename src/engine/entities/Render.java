@@ -11,22 +11,36 @@ import util.math.num.Vector;
 public class Render {
 	 private ImageView myImageView;
 	 
+	public void displayUpdate(Transform transform) {
+		setPosition(transform.getPosition());
+		setRotate(transform.getRotation());
+		setScale(transform.getScale());
+	}
+	
 	/**
-	 * apply the position of entity to its imageview
+	 * @param position	new position of the Imageview
 	 */
-	public void displayUpdate(Vector position) {
+	public void setPosition(Vector position) {
 		myImageView.setX(FXProcessing.getXImageCoord(position.at(0), myImageView));
 	    myImageView.setY(FXProcessing.getYImageCoord(position.at(1), myImageView));
+	}
+	
+	/**Sets the value of the imageview
+	 * @param rotation	Rotation in degrees
+	 */
+	public void setRotate(double rotation) {
+		myImageView.setRotate(rotation);
 	}
 	
 	/**
 	 * change the size (width, height) of the imageview
 	 * @param size
 	 */
-	public void resize(Vector size) {
+	public void setScale(Vector size) {
 		myImageView.setFitWidth(size.at(0));
 		myImageView.setFitHeight(size.at(1));
 	}
+	
 	
 	
 	/**

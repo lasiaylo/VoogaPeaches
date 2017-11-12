@@ -60,7 +60,7 @@ public class Script implements IScript{
     	return method.invoke(myObject);
     }
 
-	/**Capitalizes the first letter of a String
+	/**Capitalizes the first letter of a String - Should probably move to a different class
 	 * 
 	 * @param field		String to capitalize
 	 * @return String	capitalized string
