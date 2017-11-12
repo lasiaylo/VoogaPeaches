@@ -8,6 +8,14 @@ import engine.scripts.IScript;
 import javafx.scene.image.Image;
 import util.math.num.Vector;
 
+/**
+ * create and hold all entities displayed
+ * 
+ * should be accessible to authoring for adding entities
+ * 
+ * @author estellehe
+ *
+ */
 public class EntityManager {
 	private static final String DBNAME = "Some database name idk";
 	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
@@ -46,7 +54,7 @@ public class EntityManager {
 	 */
 	public void addBG(String name, Vector pos) {
 		Entity BGblock = createEnt(name, pos);
-		BGblock.resize(myGridSize, myGridSize);
+		BGblock.resize(new Vector(myGridSize, myGridSize));
 		myBGLayer.addEntity(BGblock);
 	}
 	
@@ -55,13 +63,12 @@ public class EntityManager {
 	 * @param name
 	 * @param pos
 	 * @param level
-	 * @param width
-	 * @param height
+	 * @param size
 	 * @return created entity
 	 */
-	public Entity addNonBG(String name, Vector pos, int level, int width, int height) {
+	public Entity addNonBG(String name, Vector pos, int level, Vector size) {
 		Entity staEnt = createEnt(name, pos);
-		staEnt.resize(width, height);
+		staEnt.resize(size);
 		
 		if (level > myLayerList.size()-1) {
 			Layer myLayer = new Layer();
@@ -80,11 +87,10 @@ public class EntityManager {
 	 * @param name
 	 * @param pos
 	 * @param level
-	 * @param width
-	 * @param height
+	 * @param size
 	 */
-	public void addNonStatic(String name, Vector pos, int level, int width, int height) {
-		Entity Ent = addNonBG(name, pos, level, width, height);
+	public void addNonStatic(String name, Vector pos, int level, Vector size) {
+		Entity Ent = addNonBG(name, pos, level, size);
 		Ent.setMovable();
 	}
 	
