@@ -70,7 +70,7 @@ public class MenuBarPanel implements Panel {
     }
 
     @Override
-    public void setController() {
+    public void setController(PanelController controller) {
         //TODO: Create controller
     }
 

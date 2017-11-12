@@ -46,8 +46,9 @@ public class CameraPanel implements Panel{
 	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-	
-	public CameraPanel() {
+    private PanelController controller;
+
+    public CameraPanel() {
 		myGridPane = new GridPane();
 		myGridPane.setPrefWidth(cameraWidth);
 		myGridPane.setPrefHeight(cameraHeight);
@@ -119,9 +120,9 @@ public class CameraPanel implements Panel{
 	}
 
 	@Override
-	public void setController() {
-		// TODO Auto-generated method stub
-		
+	public void setController(PanelController controller) {
+		this.controller = controller;
+		controller.addCamera(this);
 	}
 
     @Override

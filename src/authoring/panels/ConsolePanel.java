@@ -1,6 +1,7 @@
 package authoring.panels;
 
 import authoring.Panel;
+import authoring.PanelController;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -26,8 +27,8 @@ public class ConsolePanel implements Panel{
     }
 
     @Override
-    public void setController() {
-
+    public void setController(PanelController controller) {
+        //TODO: Create controller
     }
 
     @Override
