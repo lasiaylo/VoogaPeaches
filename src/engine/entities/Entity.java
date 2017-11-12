@@ -17,6 +17,7 @@ import java.util.List;
  *
  * @author Albert
  * @author lasia
+ * @author estellehe
  *
  */
 public class Entity {
@@ -37,11 +38,10 @@ public class Entity {
     public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
         myPosition = pos;
         myScripts = scripts;
-        myID = (int) id;
+        myID = id.intValue();
 
         myImageView = new ImageView(image);
-        myImageView.setX(FXProcessing.getXImageCoord(pos.at(0), myImageView));
-        myImageView.setY(FXProcessing.getYImageCoord(pos.at(1), myImageView));
+        displayUpdate();
     }
 
     /**
@@ -64,14 +64,21 @@ public class Entity {
     }
 
 	/**
-	 * @param newPos position for this entity
+	 * @return  Vector velocity of this entity
 	 */
-	public void setPosition(Vector newPos) {
-		myPosition = newPos;
+	public Vector getVelocity() {
+		return myVelocity;
 	}
 
+    /**
+     * @param newPos position for this entity
+     */
+    public void setPosition(Vector newPos) {
+    	myPosition = newPos;
+    }
+
 	/**
-	 * run all scripts attached to the Entity
+	 * run all default attached to the Entity
 	 */
 	public void update() {
 		for (IScript s : myScripts) {
@@ -80,10 +87,18 @@ public class Entity {
 	}
 
 	/**
-	 * @return List of entity's scripts
+	 * @return List of entity's default
 	 */
 	public List<IScript> getScripts() {
 		return myScripts;
+	}
+	
+	/**
+	 * apply the position of entity to its imageview
+	 */
+	public void displayUpdate() {
+		myImageView.setX(FXProcessing.getXImageCoord(myPosition.at(0), myImageView));
+        myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
 	}
 
 	/**
@@ -95,11 +110,12 @@ public class Entity {
 	}
 	
 	/**
-	 * change size of the imageview
+	 * change the size (width, height) of the imageview
+	 * @param size
 	 */
-	public void resize(int width, int height) {
-		myImageView.setFitWidth(width);
-		myImageView.setFitHeight(height);
+	public void resize(Vector size) {
+		myImageView.setFitWidth(size.at(0));
+		myImageView.setFitHeight(size.at(1));
 	}
 	
 	/**
@@ -107,6 +123,30 @@ public class Entity {
 	 */
 	public void setMovable() {
 		isStatic = false;
+	}
+	
+	/**
+	 * set imageview visibility
+	 * @param vis
+	 */
+	public void setVisible(boolean vis) {
+		myImageView.setVisible(vis);
+	}
+	
+	/**
+	 * set imageview transparency to mouse click
+	 * @param trans
+	 */
+	public void setMouseTrans(boolean trans) {
+		myImageView.setMouseTransparent(trans);
+	}
+	
+	/**
+	 * get imageview 
+	 * @return imageview
+	 */
+	public ImageView getImage() {
+		return myImageView;
 	}
 
 }

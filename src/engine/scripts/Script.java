@@ -9,7 +9,8 @@ import java.lang.reflect.Method;
 import engine.entities.Entity;
 import groovy.lang.GroovyClassLoader;
 
-/**Modifies qualities of Entity through Groovy
+/**
+ * Modifies qualities of Entity through Groovy
  *
  * @author lasia
  * @author Albert
