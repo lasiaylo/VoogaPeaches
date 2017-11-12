@@ -1,6 +1,9 @@
 package authoring.panels;
 
+import java.util.ResourceBundle;
+
 import authoring.Panel;
+import authoring.Screen;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -12,20 +15,23 @@ import javafx.scene.layout.RowConstraints;
  *
  */
 public class CameraPanel implements Panel{
-	private static final int CAMERAAREA = 4;
 	
 	private GridPane myGridPane;
+	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
+	private double cameraWidth = Double.parseDouble(properties.getString("camerawidth"));
+	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
+	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	
-	public CameraPanel(int rowN, int width, int height) {
+	public CameraPanel() {
 		myGridPane = new GridPane();
-		myGridPane.setPrefWidth(width);
-		myGridPane.setPrefHeight(height);
+		myGridPane.setPrefWidth(cameraWidth);
+		myGridPane.setPrefHeight(cameraHeight);
 		
-		int side = height/rowN;
-		for (int n = 0; n < rowN; n++) {
+		double side = cameraHeight/camerarowN;
+		for (int n = 0; n < camerarowN; n++) {
 			myGridPane.getRowConstraints().add(new RowConstraints(side));
 		}
-		int colN = width/side;
+		double colN = cameraWidth/side;
 		for (int n = 0; n < colN; n++) {
 			myGridPane.getColumnConstraints().add(new ColumnConstraints(side));
 		}
@@ -41,7 +47,7 @@ public class CameraPanel implements Panel{
 
 	@Override
 	public int getArea() {
-		return CAMERAAREA;
+		return Screen.CAMERA;
 	}
 
 	@Override
