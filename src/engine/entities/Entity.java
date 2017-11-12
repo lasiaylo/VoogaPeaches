@@ -142,3 +142,4 @@ public class Entity {
 	public ImageView getImage() {
 		return myImageView;
 	}
+}
