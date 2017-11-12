@@ -29,5 +29,4 @@ abstract class GroovyScript implements IScript {
 		fields.remove("fields")
 		return fields
 	}
-	
 }
