@@ -63,6 +63,7 @@ public class Entity {
         return myPosition;
     }
 
+
 	/**
 	 * @param newPos position for this entity
 	 */
