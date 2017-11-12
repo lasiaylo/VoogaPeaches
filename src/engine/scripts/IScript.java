@@ -13,5 +13,4 @@ import javafx.scene.Node;
  */
 public interface IScript {
     void execute(Entity entity);
-    Set getFields();
 }

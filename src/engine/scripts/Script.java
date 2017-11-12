@@ -23,17 +23,16 @@ public class Script implements IScript{
 	private static final String GET = "get";
 	private Class<IScript> myClazz;
 	private Object myObject;
-	private IScript myScript;
+	private GroovyScript myScript;
 	
+    /**
+     * @param filename
+     */
     public Script(String filename) throws InstantiationException, IllegalAccessException, CompilationFailedException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
     	GroovyClassLoader gcl = new GroovyClassLoader();
 		myClazz = gcl.parseClass(new File (FILEPATH + filename));
 		myObject = myClazz.newInstance();
-		myScript = (IScript) myObject;
-		printMethods(myClazz);
-		set("dude",23);
-		System.out.println(get("dude"));
-		System.out.println(getFields());
+		myScript = (GroovyScript) myObject;
     }
     
     public void set(String field, Object input) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
@@ -54,31 +53,12 @@ public class Script implements IScript{
 		field = field.substring(0, 1).toUpperCase() + field.substring(1);
 		return field;
 	}
-	private void printMethods(Class<?> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException, NoSuchMethodException, SecurityException {
-		Method[] methods = myClazz.getDeclaredMethods();
-		Object groovyScript = myClazz.newInstance();
-		
-		Method method = myClazz.getDeclaredMethod("getDude",null);
-		System.out.println(method.invoke(myObject, null));
-		for (int i = 0; i < methods.length; i++) {
-			String a = methods[i].toString();
-			if (a.contains("setDude")) {
-				System.out.println(a);
-//				methods[i].invoke(myObject,2);
-			}
-//			if (a.contains("getDude")) {
-//				System.out.println(a);
-//				System.out.println(methods[i].invoke(groovyScript,null));
-//			}
-		}
-	}
 	
     @Override
     public void execute(Entity entity) {
     	myScript.execute(entity);
     }
 
-	@Override
 	public Set<?> getFields() {
 		return myScript.getFields();
 	}

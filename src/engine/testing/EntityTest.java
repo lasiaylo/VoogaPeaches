@@ -20,7 +20,7 @@ public class EntityTest {
 		List<IScript> myScripts = new ArrayList<IScript>();
 
 		Entity test = new Entity(id,null,myScripts,POS,POS);
-		Script testScript = new Script("TestGroovy.groovy");
+		Script testScript = new Script("GroovyScript.groovy");
 		test.getScripts().add(testScript);
 		
 		test.update();
