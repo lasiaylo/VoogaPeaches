@@ -6,8 +6,8 @@ import engine.entities.Entity
 import groovy.transform.Field
 
 class TestGroovy implements IScript {
-	int dude =3
-	int ight = 23
+	int dude = 3;
+	private int ight = 23
 	@Override
 	public void execute(Entity entity) {
 		println "Ayo, everything works!"

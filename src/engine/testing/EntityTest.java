@@ -16,7 +16,7 @@ public class EntityTest {
 	private static final double POS = 5;
 	
 	
-	public static void main(String[] args) throws CompilationFailedException, InstantiationException, IllegalAccessException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public static void main(String[] args) throws CompilationFailedException, InstantiationException, IllegalAccessException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		List<IScript> myScripts = new ArrayList<IScript>();
 
 		Entity test = new Entity(id,null,myScripts,POS,POS);

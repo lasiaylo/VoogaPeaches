@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import org.codehaus.groovy.control.CompilationFailedException;
 
+import backend.util.Primitive;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -24,27 +25,29 @@ public class Script implements IScript{
 	private Object myObject;
 	private IScript myScript;
 	
-    public Script(String filename) throws InstantiationException, IllegalAccessException, CompilationFailedException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public Script(String filename) throws InstantiationException, IllegalAccessException, CompilationFailedException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
     	GroovyClassLoader gcl = new GroovyClassLoader();
 		myClazz = gcl.parseClass(new File (FILEPATH + filename));
 		myObject = myClazz.newInstance();
 		myScript = (IScript) myObject;
-//		printMethods(myClazz);
-		Object[] input = new Integer[] {2};
-		set("dude",input);
-		get("dude");
+		printMethods(myClazz);
+		set("dude",23);
+		System.out.println(get("dude"));
 		System.out.println(getFields());
     }
     
-    public void set(String field, Object[] input) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-    	Method method = myClazz.getDeclaredMethod(SET + capitalize(field));
-    	System.out.println(method.invoke(myObject));
+    public void set(String field, Object input) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
+    	Class<?> inputClass = input.getClass();
+    	if(Primitive.isWrapper(inputClass)) {
+    		inputClass = Primitive.getPrimitive(inputClass);
+    	}
+    	Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
+    	method.invoke(myObject,input);
     }
     
-    public void get(String field) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public Object get(String field) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
     	Method method = myClazz.getDeclaredMethod(GET + capitalize(field));
-    	System.out.println(method.invoke(myObject));
-    	
+    	return method.invoke(myObject);
     }
 
 	private String capitalize(String field) {
@@ -57,17 +60,17 @@ public class Script implements IScript{
 		
 		Method method = myClazz.getDeclaredMethod("getDude",null);
 		System.out.println(method.invoke(myObject, null));
-//		for (int i = 0; i < methods.length; i++) {
-//			String a = methods[i].toString();
-//			if (a.contains("setDude")) {
-//				System.out.println(a);
-//				methods[i].invoke(groovyScript, 5);
-//			}
+		for (int i = 0; i < methods.length; i++) {
+			String a = methods[i].toString();
+			if (a.contains("setDude")) {
+				System.out.println(a);
+//				methods[i].invoke(myObject,2);
+			}
 //			if (a.contains("getDude")) {
 //				System.out.println(a);
 //				System.out.println(methods[i].invoke(groovyScript,null));
 //			}
-//		}
+		}
 	}
 	
     @Override
