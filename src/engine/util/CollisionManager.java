@@ -10,47 +10,47 @@ import java.util.List;
 /**
  * A class that tells Entities what other Entities they have collided with
  * @author Albert
+ * @authoer lasia
  */
-public class CollisionManager {
+public class CollisionManager implements IManager{
     private Engine myEngine;
-
+    private static CollisionManager instance;
+    private List<HitBox> myHitBoxes;
+    
     /**
      * Creates a new CollisionManager
      * @param engine    Engine holding everything together (needed for object list)
      */
-    public CollisionManager(Engine engine) {
-        myEngine = engine;
+    private CollisionManager() {
     }
 
-    /**
-     * @param checkEntity   Entity to search for collisions over
-     * @return              a List of Entities who have collided with checkEntity
+    /**Checks whether this Hitbox is colliding with other Hitboxes
+     * @param Hitbox
      */
-    public List<Entity> getCollided(Entity checkEntity) {
-        List<Entity> sector = myEngine.getSector(checkEntity);
-        List<Entity> collidedEntities = new LinkedList<>();
-
-        if(!checkEntity.isMoving()) {
-            return collidedEntities;
-        }
-
-        for(Entity e : sector) {
-            if(intersects(checkEntity, e)) {
-                collidedEntities.add(e);
-            }
-        }
-
-        return collidedEntities;
+    public void checkCollisions(HitBox hitBox) {
+    	for (HitBox otherHitBox: myHitBoxes) {
+    		if (!otherHitBox.equals(hitBox)) 
+    			hitBox.checkIntersect(otherHitBox);
+    	}
     }
-
+    
     /**
-     * @param check Entity being looped over
-     * @param other Other entity that checks collision
-     * @return      whether or not the Entities have collided
+     * @param engine	Engine to be passed in
+     * @return			Singleton instance of CollisionManager
      */
-    private boolean intersects(Entity check, Entity other) {
-        double centerDistance = check.getPosition().subtract(other.getPosition()).norm();
-        double radDistance = check.getMyHitBox().getRadius() + other.getMyHitBox().getRadius();
-        return centerDistance < radDistance;
+    public static CollisionManager getInstance() {
+    	if (instance == null) {
+    		instance = new CollisionManager();
+    	}
+    	
+    	return instance;
     }
+
+	@Override
+	public boolean check(Object arg1, String tag) {
+		HitBox hitbox = (HitBox) arg1;
+		checkCollisions(hitbox);
+		List<String> visitorTag = hitbox.getVisitor();
+		return visitorTag.contains(tag);
+	}
 }

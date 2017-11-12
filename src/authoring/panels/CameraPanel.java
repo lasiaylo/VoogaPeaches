@@ -1,8 +1,13 @@
 package authoring.panels;
 
-import authoring.Panel;
 import authoring.Screen;
-import javafx.scene.layout.*;
+import authoring.Panel;
+
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 
 /**
  * camera panel inside authoring environment that displays the game

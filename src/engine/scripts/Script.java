@@ -1,22 +1,27 @@
 package engine.scripts;
 
 import engine.entities.Entity;
-import javafx.scene.input.KeyCode;
+import groovy.lang.GroovyClassLoader;
+import groovy.util.Eval;
 
-/**
+/**Modifies qualities of Entity through Groovy
  *
+ * @author lasia
  * @author Albert
  */
-public abstract class Script implements IScript {
-    private Entity myEntity;
-
-    public Script(Entity entity) {
-        myEntity = entity;
+public abstract class Script implements IScript{
+	private IScript myScript;
+    public Script() throws InstantiationException, IllegalAccessException {
+    	GroovyClassLoader gcl = new GroovyClassLoader();
+		Class<?> clazz = gcl.parseClass("SomeName.groovy");
+		Object groovyScript = clazz.newInstance();
+		myScript = (IScript) groovyScript;
+		
     }
-
-    protected Entity getEntity() {
-        return myEntity;
+    
+    @Override
+    public void execute(Entity entity) {
+    	myScript.execute(entity);
     }
-
-    public abstract void keyInput(KeyCode code);
+    
 }
