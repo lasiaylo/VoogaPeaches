@@ -178,8 +178,4 @@ public class CameraPanel implements Panel{
 	public RadioButton getLocal() {
 		return myLocal;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 203091d9b1ad2f0e3d16d0c0e85539c36c08adcc
 }
