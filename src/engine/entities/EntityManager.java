@@ -42,7 +42,7 @@ public class EntityManager {
 	
 	private Entity createEnt(String name, Vector pos) {
 //		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
-		Entity myEnt = new Entity(myID,pos, SCRIPTL);
+		Entity myEnt = new Entity(myID, name, pos, SCRIPTL);
 		myID++;
 		return myEnt;
 	}
