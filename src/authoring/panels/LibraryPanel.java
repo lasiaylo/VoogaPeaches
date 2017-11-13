@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import authoring.Panel;
+import authoring.PanelController;
 import authoring.Screen;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -24,6 +25,7 @@ public class LibraryPanel implements Panel{
 	
 	private TilePane myTilePane;
 	private ChoiceBox<String> myEntType;
+	private PanelController controller;
 	
 	public LibraryPanel() {
 		myTilePane = new TilePane();
@@ -57,7 +59,6 @@ public class LibraryPanel implements Panel{
 		}
 		myTilePane.getChildren().clear();
 		myTilePane.getChildren().addAll(imageList);
-		System.out.println(imageList.size());
 	}
 
 	@Override
@@ -68,13 +69,35 @@ public class LibraryPanel implements Panel{
 	}
 
 	@Override
+	public void setController(PanelController controller) {
+		this.controller = controller;
+		controller.addLibrary(this);
+	}
+	
+	@Override
 	public int getArea() {
-		return Screen.TOP_RIGHT;
+		return Screen.CAMERA;
 	}
 
 	@Override
 	public String title() {
 		return "Library";
+	}
+	
+	/**
+	 * get tile pane for pics
+	 * @return tile pane
+	 */
+	public TilePane getTile() {
+		return myTilePane;
+	}
+	
+	/**
+	 * get dropdown menu
+	 * @return EntType drop down menu
+	 */
+	public ChoiceBox<String> getEntType() {
+		return myEntType;
 	}
 
 }
