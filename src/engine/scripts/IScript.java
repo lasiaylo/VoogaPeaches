@@ -1,5 +1,8 @@
 package engine.scripts;
 
+import java.util.Map;
+import java.util.Set;
+
 import engine.entities.Entity;
 import javafx.scene.Node;
 
@@ -9,5 +12,9 @@ import javafx.scene.Node;
  * @author Albert
  */
 public interface IScript {
+	
+    /**Runs the Script
+     * @param entity
+     */
     void execute(Entity entity);
 }

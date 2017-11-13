@@ -12,6 +12,7 @@ import javafx.scene.Node;
  */
 public class InputConditional extends Conditional {
 	
+//	TODO: Give InputConditional a InputManager
 	/** Creates a new InputConditional
 	 * @param List of Scripts to run when user inputs a particular command
 	 */

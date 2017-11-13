@@ -21,10 +21,9 @@ import java.util.List;
  *
  */
 public class Entity {
-    private Vector myPosition;
-    private Vector myVelocity;
+	private Transform myTransform;
+	private Render myRender;
     private int myID;
-    private ImageView myImageView;
     private boolean isStatic;
     private List<IScript> myScripts;
 
@@ -35,13 +34,10 @@ public class Entity {
      *  @param pos       Vector position of new Entity
      *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
-        myPosition = pos;
+    public Entity(Number id,Vector pos, List<IScript> scripts) {
+    	myTransform = new Transform(pos);
         myScripts = scripts;
-        myID = (int) id;
-
-        myImageView = new ImageView(image);
-        displayUpdate();
+        myID = id.intValue();
     }
 
     /**
@@ -52,27 +48,12 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id, Image image, List<IScript> scripts, double x, double y) {
-        this(id,image, new Vector(x, y), scripts);
+    public Entity(Number id,List<IScript> scripts, double x, double y) {
+        this(id,new Vector(x, y), scripts);
     }
 
-    /**
-     * @return  Vector position of this entity
-     */
-    public Vector getPosition() {
-        return myPosition;
-    }
-
-
 	/**
-	 * @param newPos position for this entity
-	 */
-	public void setPosition(Vector newPos) {
-		myPosition = newPos;
-	}
-
-	/**
-	 * run all scripts attached to the Entity
+	 * run all default attached to the Entity
 	 */
 	public void update() {
 		for (IScript s : myScripts) {
@@ -80,19 +61,22 @@ public class Entity {
 		}
 	}
 
-	/**
-	 * @return List of entity's scripts
-	 */
-	public List<IScript> getScripts() {
-		return myScripts;
+	public Transform getTransform() {
+		return myTransform;
 	}
 	
 	/**
-	 * apply the position of entity to its imageview
+	 * @return Render wrapper class that contains ImageView
 	 */
-	public void displayUpdate() {
-		myImageView.setX(FXProcessing.getXImageCoord(myPosition.at(0), myImageView));
-        myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
+	public Render getRender() {
+		return myRender;
+	}
+	
+	/**
+	 * @return List of entity's default
+	 */
+	public List<IScript> getScripts() {
+		return myScripts;
 	}
 
 	/**
@@ -103,45 +87,13 @@ public class Entity {
 		return isStatic;
 	}
 	
-	/**
-	 * change the size (width, height) of the imageview
-	 * @param size
+	/**	Sets whether an entity is static or not. If an entity is static, it just needs
+	 * 	to be updated once.
+	 * 
 	 */
-	public void resize(Vector size) {
-		myImageView.setFitWidth(size.at(0));
-		myImageView.setFitHeight(size.at(1));
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
 	}
 	
-	/**
-	 * set entity movable
-	 */
-	public void setMovable() {
-		isStatic = false;
-	}
-	
-	/**
-	 * set imageview visibility
-	 * @param vis
-	 */
-	public void setVisible(boolean vis) {
-		myImageView.setVisible(vis);
-	}
-	
-	/**
-	 * set imageview transparency to mouse click
-	 * @param trans
-	 */
-	public void setMouseTrans(boolean trans) {
-		myImageView.setMouseTransparent(trans);
-	}
-	
-	/**
-	 * get imageview 
-	 * @return imageview
-	 */
-	public ImageView getImage() {
-		return myImageView;
-	}
-
 }
 
