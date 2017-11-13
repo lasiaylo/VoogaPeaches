@@ -70,7 +70,7 @@ public abstract class Conditional implements IScript{
 		return myManager.check(myConditionObject,myConditionTag);
 	}
 
-	/**Runs through the list of children default and execute each
+	/**Runs through the list of children defaults and execute each
 	 * @param entity
 	 */
 	private void executeScripts(Entity entity) {
