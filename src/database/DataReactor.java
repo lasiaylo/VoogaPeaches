@@ -7,7 +7,7 @@ package database;
  *
  * @author Walker Willetts
  */
-public interface DataReactor<T> {
+public interface DataReactor<T extends TrackableObject> {
     /**
      * Specifies how to handle a new piece of data when it
      * comes in from the database. NOTE: The object passed
