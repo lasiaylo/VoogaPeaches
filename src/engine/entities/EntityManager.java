@@ -41,8 +41,8 @@ public class EntityManager {
 	}
 	
 	private Entity createEnt(String name, Vector pos) {
-		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
-		Entity myEnt = new Entity(myID, someimage, pos, SCRIPTL);
+//		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
+		Entity myEnt = new Entity(myID,pos, SCRIPTL);
 		myID++;
 		return myEnt;
 	}
@@ -55,7 +55,7 @@ public class EntityManager {
 	 */
 	public Entity addBG(String name, Vector pos) {
 		Entity BGblock = createEnt(name, pos);
-		BGblock.resize(new Vector(myGridSize, myGridSize));
+		BGblock.getRender().setScale(new Vector(myGridSize, myGridSize));
 		myBGLayer.addEntity(BGblock);
 		return BGblock;
 	}
@@ -70,7 +70,7 @@ public class EntityManager {
 	 */
 	public Entity addNonBG(String name, Vector pos, int level, Vector size) {
 		Entity staEnt = createEnt(name, pos);
-		staEnt.resize(size);
+		staEnt.getRender().setScale(size);
 		
 		if (level > myLayerList.size()-1) {
 			Layer myLayer = new Layer();
@@ -94,7 +94,7 @@ public class EntityManager {
 	 */
 	public Entity addNonStatic(String name, Vector pos, int level, Vector size) {
 		Entity Ent = addNonBG(name, pos, level, size);
-		Ent.setMovable();
+		Ent.setStatic(false);
 		return Ent;
 	}
 	

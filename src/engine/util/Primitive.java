@@ -1,4 +1,4 @@
-package backend.util;
+package engine.util;
 import java.util.*;
 
 //Source: https://stackoverflow.com/questions/709961/determining-if-an-object-is-of-primitive-type
