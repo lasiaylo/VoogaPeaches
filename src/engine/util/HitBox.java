@@ -61,18 +61,32 @@ public class HitBox {
 		return false;
 	}
 
+	/**
+	 * Add a visitor's tag to the list of tags
+	 * @param otherTag
+	 */
 	public void addVisitor(String otherTag) {
 		visitorTags.add(otherTag);
 	}
 
-	public List<String> getVisitor() {
+	/**
+	 * @return	a list of the tags of entities that have collided with this hitbox
+	 */
+	public List<String> getVisitors() {
 		return visitorTags;
 	}
 
+	/**
+	 * @return	a list of shapes that make up this hitbox
+	 */
 	public List<Shape> getShapes() {
 		return myShapes;
 	}
-	
+
+	/**
+	 * Set the position of this hitbox
+	 * @param pos	new position of hitbox
+	 */
 	public void setPosition(Vector pos) {
 		Vector translation = pos.subtract(myPosition);
 		myPosition = pos;
@@ -81,7 +95,10 @@ public class HitBox {
 			s.setLayoutY(s.getLayoutY() + translation.at(1));
 		}
 	}
-	
+
+	/**
+	 * @return	the current position of this vector
+	 */
 	public Vector getPosition() {
 		return myPosition;
 	}

@@ -1,13 +1,32 @@
 package engine.testing;
 
-import engine.entities.Entity;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.codehaus.groovy.control.CompilationFailedException;
+
+import engine.entities.Entity;
+import engine.scripts.IScript;
+import engine.scripts.Script;
+
+/**Tests Entities
+ * 
+ * @author lasia
+ *
+ */
 public class EntityTest {
+	private static final Number id = 5;
 	private static final double POS = 5;
 	
-	public static void main(String[] args) {
-		//Entity test = new Entity(POS,POS,null);
-		
+	
+	public static void main(String[] args) throws CompilationFailedException, InstantiationException, IllegalAccessException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		List<IScript> myScripts = new ArrayList<IScript>();
+
+		Entity test = new Entity(id,myScripts,POS,POS);
+		Script testScript = new Script("SpriteScript.groovy");
+		test.getScripts().add(testScript);
 		
 	}
 }
