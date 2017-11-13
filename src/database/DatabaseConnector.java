@@ -14,7 +14,11 @@ import java.util.List;
 
 /**
  * The DatabaseConnector class offers an API for connecting to the online
- * database for retrieval, storage, manipulation, and removal of objects
+ * realtime database for retrieval, storage, manipulation, and removal of objects
+ * within the database.
+ *
+ * @author Walker Willetts
+ *
  */
 public class DatabaseConnector<T> extends FirebaseConnector {
 
@@ -26,7 +30,8 @@ public class DatabaseConnector<T> extends FirebaseConnector {
 
     /**
      * Creates a new DatabaseConnector that is connected to the specified sector
-     * of the Database online
+     * of the Database online. The sector of the database corresponds to the class
+     * name passed in to the constructor
      * @param className is a {@code Class<T>} that represents the class defined for
      *                  the database
      */
@@ -76,8 +81,10 @@ public class DatabaseConnector<T> extends FirebaseConnector {
             Collections.rotate(currTypesRotation, 1);
             Collections.rotate(currParamsRotation, 1);
             try {
+                // Try to get the constructor for the given param ordering
                 Constructor<T> correctConstructor = myClass.getDeclaredConstructor(paramTypes);
                 params = currParamsRotation.toArray();
+                // If the constructor is retrieved then return it
                 return correctConstructor;
             } catch(Exception e) {
                 // Do nothing if a constructor doesn't exist for the parameter type
@@ -99,16 +106,18 @@ public class DatabaseConnector<T> extends FirebaseConnector {
      */
     private T newObjectFromParams(Constructor<T> constructor, Object[] params) {
         try {
-            if(constructor.isAccessible()) {
-                T newObject = constructor.newInstance(params);
-                return newObject;
-            } else {
+            // Handle the case when the constructor is private
+            if(!constructor.isAccessible()) {
                 constructor.setAccessible(true);
                 T newObject = constructor.newInstance(params);
                 constructor.setAccessible(false);
                 return newObject;
             }
+            // The case when the constructor is not private
+            T newObject = constructor.newInstance(params);
+            return newObject;
         } catch (Exception e) {
+            // Return null if the construction fails for the object
             return null;
         }
     }
@@ -127,25 +136,21 @@ public class DatabaseConnector<T> extends FirebaseConnector {
                 T newObject = createObjectFromData(dataSnapshot);
                 reactor.reactToNewData(newObject);
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 T changedObject = createObjectFromData(dataSnapshot);
                 reactor.reactToDataChanged(changedObject);
             }
-
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 T removedObject = createObjectFromData(dataSnapshot);
                 reactor.reactToDataRemoved(removedObject);
             }
-
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 T movedObject = createObjectFromData(dataSnapshot);
                 reactor.reactToDataMoved(movedObject);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.getMessage());
@@ -155,7 +160,7 @@ public class DatabaseConnector<T> extends FirebaseConnector {
 
     /**
      * Removes event listeners from the data so that changes are no longer
-     * registered with the DataReactor<T>
+     * registered with the {@code DataReactor<T>} that was passed into listenToChanges()
      */
     public void removeListener() {
         dbRef.removeEventListener(currentListener);
@@ -164,7 +169,7 @@ public class DatabaseConnector<T> extends FirebaseConnector {
 
     /**
      * Adds an object of type T into the database. Note: If the object
-     * is already contained within the database, then it will be overwritten
+     * is already contained within the database, then it will be overwritten.
      * @param objectToAdd is the object you want to add to the Database
      * @throws ObjectIdNotFoundException if the T object passed to the method
      * does not contain an id variable marked with the @Expose annotation
@@ -173,32 +178,30 @@ public class DatabaseConnector<T> extends FirebaseConnector {
         JSONObject tempJSONObj = new JSONObject(JSONCreator.toJson(objectToAdd));
         try {
             String id = tempJSONObj.get("id").toString();
-            for(String key : tempJSONObj.keySet()) {
+            for(String key : tempJSONObj.keySet())
                 dbRef.child(id).child(key).setValueAsync(tempJSONObj.get(key));
-            }
-        } catch (JSONException e) {
-            throw new ObjectIdNotFoundException();
-        }
+        } catch (JSONException e) { throw new ObjectIdNotFoundException(); }
     }
 
     /**
-     * Removes the passed in object from the database. Note: If the object
-     * is not within the database, then
-     * @param objectToRemove
-     * @throws ObjectIdNotFoundException
+     * Removes the passed in object from the database.
+     * @param objectToRemove is the object you want to remove from the database
+     * @throws ObjectIdNotFoundException if the T object passed to the method
+     * does not contain an id variable marked with the @Expose annotation
      */
     public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
         JSONObject tempJSONObj = new JSONObject(JSONCreator.toJson(objectToRemove));
         try {
             String id = tempJSONObj.get("id").toString();
             dbRef.child(id).removeValueAsync();
-        } catch (JSONException e) {
-            throw new ObjectIdNotFoundException();
-        }
+        } catch (JSONException e) { throw new ObjectIdNotFoundException(); }
     }
 
     /**
-     * Removes the passed in the object with the passed in id from the
+     * Removes the passed in the object with the passed in id from the datatbase.
+     * Note: If you pass in an Id of an object that doesn't exist in the database, then
+     * the method will successfully execute, despite not finding an object with the
+     * given id.
      * @param id is an {@code int} representing the id of the object to be removed
      */
     public void removeFromDatabase(int id) {

@@ -4,6 +4,8 @@ package database;
  * The interface used to specify a class that is
  * capable of handling database events that will
  * return a new object of type T
+ *
+ * @author Walker Willetts
  */
 public interface DataReactor<T> {
     /**
@@ -14,7 +16,7 @@ public interface DataReactor<T> {
      * @param newObject is an object of type T returned from
      *                the database that is to be handled
      */
-    public void reactToNewData(T newObject);
+     void reactToNewData(T newObject);
 
     /**
      * Specifies how to handle when a piece of data moves
@@ -24,17 +26,17 @@ public interface DataReactor<T> {
      * @param movedObject is an object of type T returned from
      *                the database
      */
-    public void reactToDataMoved(T movedObject);
+    void reactToDataMoved(T movedObject);
 
     /**
-     * Specifies how to handle within a piece of data is
+     * Specifies how to handle when a piece of data is
      * changed within the database. NOTE: The object passed
      * to the method CAN BE NULL; it is up to the DataReactor
      * to handle this!
      * @param changedObject is an object of type T returned from
      *                the database
      */
-    public void reactToDataChanged(T changedObject);
+     void reactToDataChanged(T changedObject);
 
     /**
      * Specifies how to handle when a piece of data is
@@ -44,5 +46,5 @@ public interface DataReactor<T> {
      * @param removedObject is an object of type T returned from
      *                the database
      */
-    public void reactToDataRemoved(T removedObject);
+     void reactToDataRemoved(T removedObject);
 }
