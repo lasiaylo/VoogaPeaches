@@ -46,8 +46,9 @@ public class CameraPanel implements Panel{
 	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-	
-	public CameraPanel() {
+    private PanelController controller;
+
+    public CameraPanel() {
 		myGridPane = new GridPane();
 		myGridPane.setPrefWidth(cameraWidth);
 		myGridPane.setPrefHeight(cameraHeight);
@@ -102,7 +103,7 @@ public class CameraPanel implements Panel{
 		}
 		double colN = cameraWidth/side;
 		for (int n = 0; n < colN; n++) {
-			background.getColumnConstraints().add(new ColumnConstraints(side));
+			myGridPane.getColumnConstraints().add(new ColumnConstraints(side));
 		}
 		myGridPane.setGridLinesVisible(true);
 	}
@@ -119,10 +120,15 @@ public class CameraPanel implements Panel{
 	}
 
 	@Override
-	public void setController() {
-		// TODO Auto-generated method stub
-		
+	public void setController(PanelController controller) {
+		this.controller = controller;
+		controller.addCamera(this);
 	}
+
+    @Override
+    public String title(){
+        return "Game Camera";
+    }
 	
 	/**
 	 * get play button
@@ -172,6 +178,4 @@ public class CameraPanel implements Panel{
 	public RadioButton getLocal() {
 		return myLocal;
 	}
-
-    }
 }
