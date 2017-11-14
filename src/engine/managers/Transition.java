@@ -1,16 +1,28 @@
 package engine.managers;
 
+import java.util.Map;
+
 public class Transition {
 	private State myDestinationState;
-	private Logic condition;
+	private Logic condition; 
+	// figure out how to allow users to create their own logic out
+	// of their own specified parameters
 	
 	public Transition(State state) {
 		myDestinationState = state;
 	}
 	
-	public boolean 
+	/**Takes in a set of parameters and determines whether it meets the conditions specified
+	 * by the user
+	 * 
+	 * @param Map of conditions
+	 * @return boolean
+	 */
+	public boolean conditionsMeet(Map<String,Object> parameters) {
+		
+	}
 	
-	public State getMyDestinationState() {
+	public State getDestinationState() {
 		return myDestinationState;
 	}
 }
