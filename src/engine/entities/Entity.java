@@ -34,7 +34,7 @@ public class Entity {
      *  @param pos       Vector position of new Entity
      *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id,Vector pos, List<IScript> scripts) {
+    public Entity(Number id, Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
         myID = id.intValue();
