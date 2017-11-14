@@ -12,4 +12,28 @@ public class StateManager {
 	public void update() {
 		currentState.update();
 	}
+	
+	public void reset() {
+		currentState = defaultState;
+	}
+	
+	public State getDefaultState() {
+		return defaultState;
+	}
+
+	public void setDefaultState(State newState) {
+		defaultState = newState;
+	}
+
+	public State getHeadState() {
+		return headState;
+	}
+
+	public State getCurrentState() {
+		return currentState;
+	}
+	
+	public void setCurrentState(State newState) {
+		currentState = newState;
+	}
 }
