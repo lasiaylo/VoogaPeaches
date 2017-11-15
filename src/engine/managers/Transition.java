@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Transition {
 	private State myDestinationState;
-	private Logic condition; 
+	private Logic condition;
 	// figure out how to allow users to create their own logic out
 	// of their own specified parameters
 	
