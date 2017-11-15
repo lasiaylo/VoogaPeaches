@@ -10,7 +10,7 @@ public class State {
 	 * @param label
 	 */
 	public State(String label) {
-		myLabel = label;
+		setLabel(label);
 	}
 	
 	/**Creates a new State with no label
@@ -37,6 +37,24 @@ public class State {
 	 */
 	public List<Transition> getTransitions(){
 		return myTransitions;
+	}
+
+	
+	/**
+	 * @return label for this state
+	 */
+	public String getLabel() {
+		return myLabel;
+	}
+	
+
+	/**Sets the label for this state. 
+	 * Labels have no affect on the workings of the state,
+	 * it is purely for users to organize with
+	 * @param label
+	 */
+	public void setLabel(String myLabel) {
+		this.myLabel = myLabel;
 	}
 
 }
