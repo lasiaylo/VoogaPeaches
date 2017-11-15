@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<menu>
+		<name>File</name>
+		<item>
+			<name>New...</name>
+			<type>menu</type>
+			<item>
+				<name>Turtle</name>
+				<type>button</type>
+				<strategy>NewTurtle</strategy>
+			</item>
+			<item>
+				<name>Window</name>
+				<type>button</type>
+				<strategy>NewWindow</strategy>
+			</item>
+		</item>
+
+		<item>
+			<name>Export Preferences</name>
+			<type>button</type>
+			<strategy>Export</strategy>
+		</item>
+
+		<item>
+			<name>Change Language</name>
+			<type>button</type>
+			<strategy>ChangeLanguage</strategy>
+		</item>
+	</menu>
+
+	<menu>
+		<name>View</name>
+		<item>
+			<name>Change Background Color</name>
+			<type>button</type>
+			<strategy>ColorChange</strategy>
+		</item>
+
+
+		<item>
+			<name>Set Image</name>
+			<type>button</type>
+			<strategy>ImageChange</strategy>
+		</item>
+	</menu>
+
+	<menu>
+		<name>Help Me!</name>
+		<item>
+			<name>Bobby D's Help Page</name>
+			<type>button</type>
+			<strategy>Help</strategy>
+		</item>
+	</menu>
+
+	<menu>
+		<name>Debug</name>
+		<item>
+			<name>Step Through Debugger</name>
+			<type>menu</type>
+			<item>
+				<name>Undo</name>
+				<type>button</type>
+				<strategy>StepThroughUndo</strategy>
+			</item>
+			<item>
+				<name>Redo</name>
+				<type>button</type>
+				<strategy>StepThroughRedo</strategy>
+			</item>
+		</item>
+	</menu>
+
+	
+</resources>

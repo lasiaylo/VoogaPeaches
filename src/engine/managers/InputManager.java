@@ -11,7 +11,7 @@ import java.util.Map;
  * Class that manages and reads user key inputs
  * @author Albert
  */
-public class InputManager {
+public class InputManager implements IManager{
     private static InputManager instance;
 
     private Map<KeyCode, String> keyCommandMap;
