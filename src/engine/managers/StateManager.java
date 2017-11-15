@@ -62,9 +62,7 @@ public class StateManager implements IManager{
 	}
 
 	@Override
-	
-	public boolean check(Object arg1, String tag) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean check(Object state) {
+		return currentState == (State) state;
 	}
 }

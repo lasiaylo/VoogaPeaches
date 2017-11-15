@@ -1,7 +1,5 @@
 package engine.managers;
 
-import engine.Engine;
-import engine.util.HitBox;
 
 import java.util.List;
 
@@ -35,18 +33,20 @@ public class CollisionManager implements IManager {
      * @return			Singleton instance of CollisionManager
      */
     public static CollisionManager getInstance() {
-    	if (instance == null) {
+    	if (instance == null)
     		instance = new CollisionManager();
-    	}
     	
     	return instance;
     }
 
 	@Override
-	public boolean check(Object arg1, String tag) {
-		HitBox hitbox = (HitBox) arg1;
-		checkCollisions(hitbox);
-		List<String> visitorTag = hitbox.getVisitors();
+	public boolean check(Object object) {
+		HitBoxCheck checker = (HitBoxCheck) object;
+		HitBox hitBox = checker.getHitBox();
+		String tag = checker.getTag();
+		
+		checkCollisions(hitBox);
+		List<String> visitorTag = hitBox.getVisitors();
 		return visitorTag.contains(tag);
 	}
 }

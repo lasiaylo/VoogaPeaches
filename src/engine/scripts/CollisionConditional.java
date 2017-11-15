@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.entities.Entity;
-import engine.util.CollisionManager;
-import engine.util.HitBox;
+import engine.managers.CollisionManager;
+import engine.managers.HitBoxCheck;
 import javafx.scene.Node;
 
 /**Represents what an entity does upon collision
@@ -20,7 +20,7 @@ public class CollisionConditional extends Conditional {
 	 * @param HitBox reference to a hitbox that is made within CollisionManager
 	 * @param Scripts list of default to run when colliding with a particular tag
 	 */
-	public CollisionConditional(HitBox hitbox,List<IScript> scripts) {
+	public CollisionConditional(HitBoxCheck hitbox,List<IScript> scripts) {
 		super(CollisionManager.getInstance(),hitbox,scripts);
 	}
 	
@@ -28,7 +28,7 @@ public class CollisionConditional extends Conditional {
 	 * 
 	 * @param HitBox reference to a hitbox that is made within CollisionManager
 	 */
-	public CollisionConditional(HitBox hitbox) {
+	public CollisionConditional(HitBoxCheck hitbox) {
 		this(hitbox,new ArrayList<IScript>());
 	}
 	
