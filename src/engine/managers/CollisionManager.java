@@ -10,7 +10,7 @@ import java.util.List;
  * @author Albert
  * @authoer lasia
  */
-public class CollisionManager {
+public class CollisionManager implements IManager {
     // Singleton??
     private static CollisionManager instance;
     private List<HitBox> myHitBoxes;
@@ -19,7 +19,6 @@ public class CollisionManager {
      * Creates a new CollisionManager
      */
     public CollisionManager() {
-
     }
 
     /**Checks whether this Hitbox is colliding with other Hitboxes
@@ -42,4 +41,12 @@ public class CollisionManager {
     	
     	return instance;
     }
+
+	@Override
+	public boolean check(Object arg1, String tag) {
+		HitBox hitbox = (HitBox) arg1;
+		checkCollisions(hitbox);
+		List<String> visitorTag = hitbox.getVisitors();
+		return visitorTag.contains(tag);
+	}
 }

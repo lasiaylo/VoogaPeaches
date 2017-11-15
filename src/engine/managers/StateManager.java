@@ -3,8 +3,6 @@ package engine.managers;
 import java.util.List;
 import java.util.Map;
 
-import engine.util.IManager;
-
 /**Keeps track of the state of User-created finite state machine
  * State is maintained throughout the frame
  * 

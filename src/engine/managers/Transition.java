@@ -8,6 +8,9 @@ public class Transition {
 	// figure out how to allow users to create their own logic out
 	// of their own specified parameters
 	
+	/**Creates a new transition that points to a destination state
+	 * @param state
+	 */
 	public Transition(State state) {
 		myDestinationState = state;
 	}
@@ -22,6 +25,9 @@ public class Transition {
 		
 	}
 	
+	/**
+	 * @return destination state
+	 */
 	public State getDestinationState() {
 		return myDestinationState;
 	}

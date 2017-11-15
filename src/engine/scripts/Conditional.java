@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.entities.Entity;
-import engine.util.IManager;
+import engine.managers.IManager;
 
 /**Scripts contained by this class will be executed if conditions are met
  * 
@@ -14,7 +14,6 @@ import engine.util.IManager;
 public abstract class Conditional implements IScript{
 	private List<IScript> myScripts;
 	private Object myConditionObject;
-	private String myConditionTag;
 	private IManager myManager;
 	
 	/** Creates a new Conditional
@@ -49,25 +48,11 @@ public abstract class Conditional implements IScript{
 		}
 	}
 	
-	/** Sets the Tag that is used for the condition. 
-	 * @param newTag
-	 */
-	public void setTag(String newTag) {
-		myConditionTag = newTag;
-	}
-	
-	/**
-	 * @return Condition Tag
-	 */
-	public String getTag() {
-		return myConditionTag;
-	}
-	
 	/** Checks whether the condition is met
 	 * @return Boolean on whether condition was met
 	 */
 	private boolean conditionMet() {
-		return myManager.check(myConditionObject,myConditionTag);
+		return myManager.check(myConditionObject);
 	}
 
 	/**Runs through the list of children default and execute each
