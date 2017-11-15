@@ -18,7 +18,7 @@ public class CollisionConditional extends Conditional {
 	/**Creates a new CollisionConditional
 	 * 
 	 * @param HitBox reference to a hitbox that is made within CollisionManager
-	 * @param Scripts list of default to run when colliding with a particular tag
+	 * @param Scripts list of defaults to run when colliding with a particular tag
 	 */
 	public CollisionConditional(HitBoxCheck hitbox,List<IScript> scripts) {
 		super(CollisionManager.getInstance(),hitbox,scripts);

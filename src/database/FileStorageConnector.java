@@ -11,18 +11,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
- * The class handles communication with the storage bucket on
- * Firebase. The bucket online is responsible for holding user
- * input images and files
+ * This class offers an API for handling communication with
+ * the storage bucket on Firebase. The online bucket communicated
+ * with is responsible for holding user input images and files.
+ *
+ * @author Walker Willetts
  */
 public class FileStorageConnector extends FirebaseConnector {
 
     /* Instance Variables */
     private Bucket storageBucket;
     private DatabaseReference storageDBRef;
-    private HashMap<String, String> filemap;
+    private Map<String, String> fileMap;
 
     /**
      * Creates a FileStorageConnector that can be used to
@@ -31,7 +34,7 @@ public class FileStorageConnector extends FirebaseConnector {
     public FileStorageConnector() {
         storageBucket = StorageClient.getInstance().bucket();
         storageDBRef = FirebaseDatabase.getInstance().getReference("storage");
-        filemap = new HashMap<>();
+        fileMap = new HashMap<>();
         setupListening();
     }
 
@@ -44,19 +47,19 @@ public class FileStorageConnector extends FirebaseConnector {
         storageDBRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                filemap.put(dataSnapshot.getKey(), (String) dataSnapshot.getValue());
+                fileMap.put(dataSnapshot.getKey(), (String) dataSnapshot.getValue());
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                filemap.put(dataSnapshot.getKey(), (String) dataSnapshot.getValue());
+                fileMap.put(dataSnapshot.getKey(), (String) dataSnapshot.getValue());
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                filemap.remove(dataSnapshot.getKey());
+                fileMap.remove(dataSnapshot.getKey());
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                filemap.put(dataSnapshot.getKey(), (String) dataSnapshot.getValue());
+                fileMap.put(dataSnapshot.getKey(), (String) dataSnapshot.getValue());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -66,20 +69,24 @@ public class FileStorageConnector extends FirebaseConnector {
     }
 
     /**
-     * Saves the passed in File online to the Firebase file storage
+     * Saves the passed in File online to the Firebase file storage bucket.
      * @param file is a {@code File} representing the file to be saved online
      * @throws IOException when the File cannot be read
      */
     public void saveFile(File file) throws IOException {
-        try {
-            String fileName = file.getName().split("\\.")[0];
-            byte[] fileBytes = Files.readAllBytes(file.toPath());
-            storageBucket.create(file.getName(), fileBytes);
-            storageDBRef.child(fileName).setValueAsync(file.getName());
-            filemap.put(fileName, file.getName());
-        } catch (IOException e) {
-            throw e;
-        }
+        // Creates a formatted file name that hides the extension
+        String fileName = file.getName().split("\\.")[0];
+
+        // Try reading in the raw bytes of the file, and
+        // throw an exception if the I/O fails
+        byte[] fileBytes;
+        try { fileBytes = Files.readAllBytes(file.toPath());
+        } catch (IOException e) { throw e; }
+
+        // Store the file in the storage bucket, and update db mapping
+        storageBucket.create(file.getName(), fileBytes);
+        storageDBRef.child(fileName).setValueAsync(file.getName());
+        fileMap.put(fileName, file.getName());
     }
 
     /**
@@ -88,16 +95,16 @@ public class FileStorageConnector extends FirebaseConnector {
      * @return An {@code Image} object that is the image saved online
      */
     public Image retrieveImage(String image) {
-        Blob imageBlob = storageBucket.get(filemap.get(image));
-        byte[] imageBytes = imageBlob.getContent();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
-        return new Image(inputStream);
+        // Get the raw bytes corresponding to the image from the storage bucket
+        byte[] imageBytes = storageBucket.get(fileMap.get(image)).getContent();
+        // Create a new image from the bytes and return it
+        return new Image(new ByteArrayInputStream(imageBytes));
     }
 
     /**
      * @return A {@code String[]} that contains all of the names of files stored online
      */
     public String[] fileNames() {
-        return filemap.keySet().toArray(new String[0]);
+        return fileMap.keySet().toArray(new String[0]);
     }
 }
