@@ -5,6 +5,8 @@ import util.math.num.Vector;
 
 import java.util.List;
 
+import engine.managers.HitBox;
+
 /**
  * Creates HitBoxes and gives it to the Manager and a Script
  * @author lasia
