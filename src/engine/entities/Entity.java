@@ -21,58 +21,33 @@ import java.util.List;
  *
  */
 public class Entity {
-    private Vector myPosition;
-    private Vector myVelocity;
-    private int myID;
-    private ImageView myImageView;
+	private Transform myTransform;
+	private Render myRender;
     private boolean isStatic;
     private List<IScript> myScripts;
 
     /**
      *  Creates a new Entity
-     *  @param id        database id of entity
-     *  @param image     Image attached to Entity
      *  @param pos       Vector position of new Entity
      *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
-        myPosition = pos;
+    public Entity(Vector pos, List<IScript> scripts) {
+    	myTransform = new Transform(pos);
         myScripts = scripts;
-        myID = (int) id;
-
-        myImageView = new ImageView(image);
-        displayUpdate();
     }
 
     /**
      * Create a new Entity
-     * @param id        database id of entity
-     * @param image     Image attached to Entity
      * @param x         X position of new Entity
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id, Image image, List<IScript> scripts, double x, double y) {
-        this(id,image, new Vector(x, y), scripts);
+    public Entity(List<IScript> scripts, double x, double y) {
+        this(new Vector(x, y), scripts);
     }
 
-    /**
-     * @return  Vector position of this entity
-     */
-    public Vector getPosition() {
-        return myPosition;
-    }
-
-
 	/**
-	 * @param newPos position for this entity
-	 */
-	public void setPosition(Vector newPos) {
-		myPosition = newPos;
-	}
-
-	/**
-	 * run all scripts attached to the Entity
+	 * run all defaults attached to the Entity
 	 */
 	public void update() {
 		for (IScript s : myScripts) {
@@ -80,19 +55,22 @@ public class Entity {
 		}
 	}
 
+	public Transform getTransform() {
+		return myTransform;
+	}
+
 	/**
-	 * @return List of entity's scripts
+	 * @return Render wrapper class that contains ImageView
+	 */
+	public Render getRender() {
+		return myRender;
+	}
+
+	/**
+	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
 		return myScripts;
-	}
-	
-	/**
-	 * apply the position of entity to its imageview
-	 */
-	public void displayUpdate() {
-		myImageView.setX(FXProcessing.getXImageCoord(myPosition.at(0), myImageView));
-        myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
 	}
 
 	/**
@@ -102,45 +80,13 @@ public class Entity {
 	public boolean isStatic() {
 		return isStatic;
 	}
-	
-	/**
-	 * change the size (width, height) of the imageview
-	 * @param size
+
+	/**	Sets whether an entity is static or not. If an entity is static, it just needs
+	 * 	to be updated once.
+	 *
 	 */
-	public void resize(Vector size) {
-		myImageView.setFitWidth(size.at(0));
-		myImageView.setFitHeight(size.at(1));
-	}
-	
-	/**
-	 * set entity movable
-	 */
-	public void setMovable() {
-		isStatic = false;
-	}
-	
-	/**
-	 * set imageview visibility
-	 * @param vis
-	 */
-	public void setVisible(boolean vis) {
-		myImageView.setVisible(vis);
-	}
-	
-	/**
-	 * set imageview transparency to mouse click
-	 * @param trans
-	 */
-	public void setMouseTrans(boolean trans) {
-		myImageView.setMouseTransparent(trans);
-	}
-	
-	/**
-	 * get imageview 
-	 * @return imageview
-	 */
-	public ImageView getImage() {
-		return myImageView;
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
 	}
 
 }
