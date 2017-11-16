@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class TwitterApp extends Application {
+public class SocialMediaApp extends Application {
 
     private static final double SCREEN_SIZE = 600;
 
