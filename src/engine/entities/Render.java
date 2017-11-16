@@ -66,4 +66,10 @@ public class Render {
 		return myImageView;
 	}
 	
+	/**
+	 * set imageview
+	 */
+	public void setImage(ImageView newImage) {
+		myImageView = newImage;
+	}
 }
