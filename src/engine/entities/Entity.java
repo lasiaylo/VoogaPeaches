@@ -23,7 +23,6 @@ import java.util.List;
 public class Entity {
 	private Transform myTransform;
 	private Render myRender;
-    private int myID;
     private boolean isStatic;
     private List<IScript> myScripts;
 
@@ -34,10 +33,9 @@ public class Entity {
      *  @param pos       Vector position of new Entity
      *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id,Vector pos, List<IScript> scripts) {
+    public Entity(Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
-        myID = id.intValue();
     }
 
     /**
@@ -48,8 +46,8 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id,List<IScript> scripts, double x, double y) {
-        this(id,new Vector(x, y), scripts);
+    public Entity(List<IScript> scripts, double x, double y) {
+        this(new Vector(x, y), scripts);
     }
 
 	/**

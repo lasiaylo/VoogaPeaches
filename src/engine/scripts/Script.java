@@ -7,6 +7,7 @@ import org.codehaus.groovy.control.CompilationFailedException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import engine.entities.Entity;
+import engine.scripts.defaults.GroovyScript;
 import engine.util.Primitive;
 import groovy.lang.GroovyClassLoader;
 

@@ -2,8 +2,8 @@ package engine.util;
 import java.util.*;
 
 //Source: https://stackoverflow.com/questions/709961/determining-if-an-object-is-of-primitive-type
-/**Converts Wrapper Class into its respective Primitive
- * Java's wrapper classes apparently don't implement an wrapper interface
+/**Converts Wrapper Class into its respective Primitive Class. 
+ * Java's primitive wrapper classes apparently don't implement an wrapper interface
  * @author lasia
  *
  */
