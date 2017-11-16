@@ -78,7 +78,7 @@ public class MenuBarPanel implements Panel {
 
     @Override
     public int getArea(){
-        return Screen.TOP;
+        return Screen.MENU;
     }
 
     @Override
