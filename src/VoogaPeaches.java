@@ -12,6 +12,8 @@ public class VoogaPeaches extends Application {
 
     public void start(Stage stage) {
         stage.setTitle(TITLE);
+        stage.setMaximized(true);
+        stage.setResizable(false);
         Screen kitty = new Screen(stage);
     }
 
