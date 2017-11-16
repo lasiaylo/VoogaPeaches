@@ -28,8 +28,6 @@ public class Entity {
 
     /**
      *  Creates a new Entity
-     *  @param id        database id of entity
-     *  @param image     Image attached to Entity
      *  @param pos       Vector position of new Entity
      *  @param scripts   Scripts attached to new Entity
      */
@@ -40,8 +38,6 @@ public class Entity {
 
     /**
      * Create a new Entity
-     * @param id        database id of entity
-     * @param image     Image attached to Entity
      * @param x         X position of new Entity
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
@@ -62,14 +58,14 @@ public class Entity {
 	public Transform getTransform() {
 		return myTransform;
 	}
-	
+
 	/**
 	 * @return Render wrapper class that contains ImageView
 	 */
 	public Render getRender() {
 		return myRender;
 	}
-	
+
 	/**
 	 * @return List of entity's defaults
 	 */
@@ -84,13 +80,13 @@ public class Entity {
 	public boolean isStatic() {
 		return isStatic;
 	}
-	
+
 	/**	Sets whether an entity is static or not. If an entity is static, it just needs
 	 * 	to be updated once.
-	 * 
+	 *
 	 */
 	public void setStatic(boolean isStatic) {
 		this.isStatic = isStatic;
 	}
-	
+
 }
