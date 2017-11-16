@@ -24,7 +24,6 @@ public class EntityManager {
 	private Layer myBGLayer;
 	private Renderer myRenderer;
 	private List<Layer> myLayerList;
-	private int myID = 0;
 	
 	/**
 	 * manage all entities and layers
@@ -42,8 +41,7 @@ public class EntityManager {
 	
 	private Entity createEnt(String name, Vector pos) {
 //		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
-		Entity myEnt = new Entity(myID,pos, SCRIPTL);
-		myID++;
+		Entity myEnt = new Entity(pos, SCRIPTL);
 		return myEnt;
 	}
 	
