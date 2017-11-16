@@ -1,6 +1,7 @@
 package engine.renderer.DBRenderer;
 
 import engine.renderer.IRenderer;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
 public class Renderer implements IRenderer {
