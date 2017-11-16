@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 
 /**
  * The abstract class for any classes that wish to communicate with a Firebase service.
- * Ensures that only one FirebaseApp is created for an instance of the application
+ * Ensures that only one FirebaseApp is created for an instance of the application.
  */
 public abstract class FirebaseConnector {
 
@@ -21,7 +21,7 @@ public abstract class FirebaseConnector {
     private static boolean appInitialized = false;
 
     /**
-     * Initializes the FirbaseApp if it hasn't been already. Should only
+     * Initializes the FirebaseApp if it hasn't been already. Should only
      * ever be called by subclasses within the database package.
      */
     protected FirebaseConnector() {
@@ -35,7 +35,7 @@ public abstract class FirebaseConnector {
         try {
             // Retrieve API key information for firebase
             FileInputStream apiStream = new FileInputStream(API_CREDENTIAL_DIR);
-            // Define options for the database, and initialize firebase application
+            // Define options for the database, and initialize FirebaseApp
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(apiStream))
                     .setDatabaseUrl(DATABASE_URL)
