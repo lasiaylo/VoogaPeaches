@@ -2,12 +2,6 @@ package database.examples.realtime;
 
 import database.DataReactor;
 import database.DatabaseConnector;
-import database.FileStorageConnector;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import util.exceptions.ObjectIdNotFoundException;
 
 public class TestEngine implements DataReactor<Post> {
@@ -17,6 +11,7 @@ public class TestEngine implements DataReactor<Post> {
      */
 
     public static void main(String[] args) {
+
         TestEngine engine = new TestEngine();
         DatabaseConnector<Post> db = new DatabaseConnector<>(Post.class);
 
@@ -25,9 +20,11 @@ public class TestEngine implements DataReactor<Post> {
         db.listenToChanges(engine);
 
         // Adds and removes a new post to the database
-        Post newPost = new Post("New Post","Walker");
+        Post newPost = new Post("New Post","Walker", 5);
+        Post secondPost = new Post("second post", "cox", 102);
         try {
             db.addToDatabase(newPost);
+            db.addToDatabase(secondPost);
             //db.removeFromDatabase(newPost);
             // Note: db.removeFromDatabase(id: 0); will also work.
 
@@ -43,23 +40,23 @@ public class TestEngine implements DataReactor<Post> {
     /* Methods required by the DataReactor Interface */
     @Override
     public void reactToNewData(Post newObject) {
-        System.out.println("New Post:\n" + newObject.toString());
+        if(newObject != null) System.out.println("New Post:\n" + newObject.toString());
     }
 
     @Override
     public void reactToDataMoved(Post movedObject) {
-        System.out.println("Moved Post:\n" + movedObject.toString());
+        if(movedObject != null) System.out.println("Moved Post:\n" + movedObject.toString());
 
     }
 
     @Override
     public void reactToDataChanged(Post changedObject) {
-        System.out.println("Changed Post:\n" + changedObject.toString());
+        if(changedObject != null) System.out.println("Changed Post:\n" + changedObject.toString());
     }
 
     @Override
     public void reactToDataRemoved(Post removedObject) {
-        System.out.println("Removed Post:\n" + removedObject.toString());
+        if(removedObject != null) System.out.println("Removed Post:\n" + removedObject.toString());
     }
 
 }

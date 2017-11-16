@@ -1,7 +1,5 @@
 package engine.managers;
 
-import engine.Engine;
-import engine.util.HitBox;
 
 import java.util.List;
 
@@ -10,7 +8,7 @@ import java.util.List;
  * @author Albert
  * @authoer lasia
  */
-public class CollisionManager {
+public class CollisionManager implements IManager {
     // Singleton??
     private static CollisionManager instance;
     private List<HitBox> myHitBoxes;
@@ -19,7 +17,6 @@ public class CollisionManager {
      * Creates a new CollisionManager
      */
     public CollisionManager() {
-
     }
 
     /**Checks whether this Hitbox is colliding with other Hitboxes
@@ -36,10 +33,20 @@ public class CollisionManager {
      * @return			Singleton instance of CollisionManager
      */
     public static CollisionManager getInstance() {
-    	if (instance == null) {
+    	if (instance == null)
     		instance = new CollisionManager();
-    	}
     	
     	return instance;
     }
+
+	@Override
+	public boolean check(Object object) {
+		HitBoxCheck checker = (HitBoxCheck) object;
+		HitBox hitBox = checker.getHitBox();
+		String tag = checker.getTag();
+		
+		checkCollisions(hitBox);
+		List<String> visitorTag = hitBox.getVisitors();
+		return visitorTag.contains(tag);
+	}
 }

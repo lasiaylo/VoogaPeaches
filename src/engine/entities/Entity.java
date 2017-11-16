@@ -21,47 +21,47 @@ import java.util.List;
  *
  */
 public class Entity {
-    private Vector myPosition;
-    private Vector myVelocity;
-    private int myID;
-    private ImageView myImageView;
-    private boolean isStatic;
-    private List<IScript> myScripts;
+	private Vector myPosition;
+	private Vector myVelocity;
+	private int myID;
+	private ImageView myImageView;
+	private boolean isStatic;
+	private List<IScript> myScripts;
 
-    /**
-     *  Creates a new Entity
-     *  @param id        database id of entity
-     *  @param image     Image attached to Entity
-     *  @param pos       Vector position of new Entity
-     *  @param scripts   Scripts attached to new Entity
-     */
-    public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
-        myPosition = pos;
-        myScripts = scripts;
-        myID = (int) id;
+	/**
+	 *  Creates a new Entity
+	 *  @param id        database id of entity
+	 *  @param image     Image attached to Entity
+	 *  @param pos       Vector position of new Entity
+	 *  @param scripts   Scripts attached to new Entity
+	 */
+	public Entity(Number id, Image image, Vector pos, List<IScript> scripts) {
+		myPosition = pos;
+		myScripts = scripts;
+		myID = (int) id;
 
-        myImageView = new ImageView(image);
-        displayUpdate();
-    }
+		myImageView = new ImageView(image);
+		displayUpdate();
+	}
 
-    /**
-     * Create a new Entity
-     * @param id        database id of entity
-     * @param image     Image attached to Entity
-     * @param x         X position of new Entity
-     * @param y         Y position of new Entity
-     * @param scripts   Scripts attached to new Entity
-     */
-    public Entity(Number id, Image image, List<IScript> scripts, double x, double y) {
-        this(id,image, new Vector(x, y), scripts);
-    }
+	/**
+	 * Create a new Entity
+	 * @param id        database id of entity
+	 * @param image     Image attached to Entity
+	 * @param x         X position of new Entity
+	 * @param y         Y position of new Entity
+	 * @param scripts   Scripts attached to new Entity
+	 */
+	public Entity(Number id, Image image, List<IScript> scripts, double x, double y) {
+		this(id,image, new Vector(x, y), scripts);
+	}
 
-    /**
-     * @return  Vector position of this entity
-     */
-    public Vector getPosition() {
-        return myPosition;
-    }
+	/**
+	 * @return  Vector position of this entity
+	 */
+	public Vector getPosition() {
+		return myPosition;
+	}
 
 
 	/**
@@ -86,13 +86,13 @@ public class Entity {
 	public List<IScript> getScripts() {
 		return myScripts;
 	}
-	
+
 	/**
 	 * apply the position of entity to its imageview
 	 */
 	public void displayUpdate() {
 		myImageView.setX(FXProcessing.getXImageCoord(myPosition.at(0), myImageView));
-        myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
+		myImageView.setY(FXProcessing.getYImageCoord(myPosition.at(1), myImageView));
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class Entity {
 	public boolean isStatic() {
 		return isStatic;
 	}
-	
+
 	/**
 	 * change the size (width, height) of the imageview
 	 * @param size
@@ -111,14 +111,14 @@ public class Entity {
 		myImageView.setFitWidth(size.at(0));
 		myImageView.setFitHeight(size.at(1));
 	}
-	
+
 	/**
 	 * set entity movable
 	 */
 	public void setMovable() {
 		isStatic = false;
 	}
-	
+
 	/**
 	 * set imageview visibility
 	 * @param vis
@@ -126,7 +126,7 @@ public class Entity {
 	public void setVisible(boolean vis) {
 		myImageView.setVisible(vis);
 	}
-	
+
 	/**
 	 * set imageview transparency to mouse click
 	 * @param trans
@@ -134,7 +134,7 @@ public class Entity {
 	public void setMouseTrans(boolean trans) {
 		myImageView.setMouseTransparent(trans);
 	}
-	
+
 	/**
 	 * get imageview 
 	 * @return imageview
