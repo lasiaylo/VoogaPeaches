@@ -53,7 +53,7 @@ public class Entity {
     }
 
 	/**
-	 * run all default attached to the Entity
+	 * run all defaults attached to the Entity
 	 */
 	public void update() {
 		for (IScript s : myScripts) {
@@ -73,7 +73,7 @@ public class Entity {
 	}
 	
 	/**
-	 * @return List of entity's default
+	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
 		return myScripts;
