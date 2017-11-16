@@ -23,7 +23,6 @@ import java.util.List;
 public class Entity {
 	private Transform myTransform;
 	private Render myRender;
-    private int myID;
     private boolean isStatic;
     private List<IScript> myScripts;
 
@@ -34,11 +33,9 @@ public class Entity {
      *  @param pos       Vector position of new Entity
      *  @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id, String name, Vector pos, List<IScript> scripts) {
+    public Entity(Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
-        myID = id.intValue();
-        myRender = new Render(name);
     }
 
     /**
@@ -49,12 +46,12 @@ public class Entity {
      * @param y         Y position of new Entity
      * @param scripts   Scripts attached to new Entity
      */
-    public Entity(Number id, String name, List<IScript> scripts, double x, double y) {
-        this(id, name, new Vector(x, y), scripts);
+    public Entity(List<IScript> scripts, double x, double y) {
+        this(new Vector(x, y), scripts);
     }
 
 	/**
-	 * run all default attached to the Entity
+	 * run all defaults attached to the Entity
 	 */
 	public void update() {
 		for (IScript s : myScripts) {
@@ -74,7 +71,7 @@ public class Entity {
 	}
 	
 	/**
-	 * @return List of entity's default
+	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
 		return myScripts;
