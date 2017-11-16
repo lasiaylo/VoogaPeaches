@@ -8,15 +8,18 @@ import org.json.JSONObject;
 import util.exceptions.ObjectIdNotFoundException;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * The DatabaseConnector class offers an API for connecting to the online
- * database for retrieval, storage, manipulation, and removal of objects
+ * realtime database for retrieval, storage, manipulation, and removal of
+ * objects within the database.
+ *
+ * @author Walker Willetts
+ *
  */
-public class DatabaseConnector<T> extends FirebaseConnector {
+public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnector {
 
     /* Instance Variables */
     private DatabaseReference dbRef;
@@ -26,7 +29,8 @@ public class DatabaseConnector<T> extends FirebaseConnector {
 
     /**
      * Creates a new DatabaseConnector that is connected to the specified sector
-     * of the Database online
+     * of the Database online. The sector of the database corresponds to the class
+     * name passed in to the constructor
      * @param className is a {@code Class<T>} that represents the class defined for
      *                  the database
      */
@@ -39,76 +43,89 @@ public class DatabaseConnector<T> extends FirebaseConnector {
     }
 
     /**
-     * Creates the object T for the given database connector from JSON stored
-     * in the database
-     * @param snap is a {@code DataSnapshot} representing the object to create
-     * @return An object of type T that was initialized from the database, or
-     * null if the object could not be created
+     * Converts the {@code DataSnapshot} into its respective parameter
+     * key -> value pairs
+     * @param snap is a {@code DataSnapshot} representing the map of data
+     *             returned from Firebase's realtime database
+     * @return A {@code Map<String, Object>} that contains all the parsed
+     * instanceVariable ->  value pairs from the snapshot
      */
-    private T createObjectFromData(DataSnapshot snap) {
-        Class<?>[] paramTypes = new Class[(int) snap.getChildrenCount()];
-        Object[] params = new Object[(int) snap.getChildrenCount()];
-        int i = 0;
+    private Map<String, Object> parseParameters(DataSnapshot snap) {
+        Map<String, Object> params = new HashMap<>();
         for(DataSnapshot child : snap.getChildren()) {
-            paramTypes[i] = child.getValue() instanceof Long ? Number.class : child.getValue().getClass();
-            params[i] = child.getValue();
-            i++;
+            params.put(child.getKey(), child.getValue());
+            if(child.getValue() instanceof Long) {
+                Number convertedVal = convertValue(child.getKey(), (Long) child.getValue());
+                params.put(child.getKey(), convertedVal);
+            }
         }
-        Constructor<T> constructor = orderParamsProperly(paramTypes, params);
-        return newObjectFromParams(constructor, params);
+        return params;
     }
 
     /**
-     *  Orders the parameter objects so that they are in proper order for the first
-     *  constructor of T that is found which can use the parameters
-     * @param paramTypes is a {@code Class<?>[]} representing the parameter types
-     *                   corresponding to the parameters read in by the database
-     * @param params is a {@code Object[]} that contains the objects corresponding
-     *               to the actual parameter values read in by the database
-     * @return A {@code Constructor<T>} that represents the constructor to be used
-     * for the properly ordered params
+     * Converts the passed in value into the proper type for the
+     * field type of the param
+     * @param param is a {@code String} that is the string name of
+     *              the field whose type you want
+     * @param value is a {@code Long} that is the value you need to
+     *              convert
+     * @return A {@code Number} that contains the proper type for
+     * the instance variable field
      */
-    private Constructor<T> orderParamsProperly(Class<?>[] paramTypes, Object[] params) {
-        List<Class<?>> currTypesRotation = Arrays.asList(paramTypes);
-        List<Object> currParamsRotation = Arrays.asList(params);
-        int rotationCount = 0;
-        while(rotationCount < paramTypes.length) {
-            Collections.rotate(currTypesRotation, 1);
-            Collections.rotate(currParamsRotation, 1);
-            try {
-                Constructor<T> correctConstructor = myClass.getDeclaredConstructor(paramTypes);
-                params = currParamsRotation.toArray();
-                return correctConstructor;
-            } catch(Exception e) {
-                // Do nothing if a constructor doesn't exist for the parameter type
-            }
-            rotationCount++;
+    private Number convertValue(String param, Long value) {
+        try {
+            Class<?> fieldType = myClass.getDeclaredField(param).getType();
+            if(fieldType == int.class) return new Integer(value.intValue());
+            if(fieldType == double.class) return new Double(value.doubleValue());
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
     /**
-     * Creates a new T object from the given constructor and the given parameters
-     * @param constructor is a {@code Constructor<T>} that is the constructor to
-     *                    use for creating the new object via reflection
-     * @param params is a {@code Object[]} that contains all the parameter objects
-     *               to use with the given constructor
-     * @return Either a new {@code T} object that was instantiated using the provided
-     * params, or null, indicating that the object was unable to be created via data
-     * from the database
+     *  Creates a new object of type T using the parameters stored
+     *  inside of the provided Map
+     * @param params is a {@code Map<String, Object>} that contains
+     *               instanceVariable names as keys and their Object
+     *               as values
+     * @return A {@code T} object built from the given parameters
      */
-    private T newObjectFromParams(Constructor<T> constructor, Object[] params) {
+    private T createObject(Map<String, Object> params) {
         try {
-            if(constructor.isAccessible()) {
-                T newObject = constructor.newInstance(params);
-                return newObject;
-            } else {
+            // Get constructor and create new instance of object
+            Constructor<T> constructor = myClass.getDeclaredConstructor();
+            T newObject;
+            if(!constructor.isAccessible()) {
                 constructor.setAccessible(true);
-                T newObject = constructor.newInstance(params);
+                newObject = constructor.newInstance();
                 constructor.setAccessible(false);
-                return newObject;
+            } else {
+                newObject = constructor.newInstance();
             }
-        } catch (Exception e) {
+
+            // Set UID field of TrackableObject
+            Field UIDField = newObject.getClass().getSuperclass().getDeclaredField("UID");
+            UIDField.setAccessible(true);
+            UIDField.set(newObject, params.get("UID"));
+            UIDField.setAccessible(false);
+            params.remove("UID");
+
+            // Set subclass instance variables
+            for(String param : params.keySet()) {
+                Field instanceVar = newObject.getClass().getDeclaredField(param);
+                if(!instanceVar.isAccessible()) {
+                    instanceVar.setAccessible(true);
+                    instanceVar.set(newObject, params.get(param));
+                    instanceVar.setAccessible(false);
+                    continue;
+                }
+                instanceVar.set(newObject, params.get(param));
+            }
+            return newObject;
+        } catch (Exception e){
+            e.printStackTrace();
             return null;
         }
     }
@@ -124,28 +141,28 @@ public class DatabaseConnector<T> extends FirebaseConnector {
         currentListener = dbRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                T newObject = createObjectFromData(dataSnapshot);
+                Map<String, Object> params = parseParameters(dataSnapshot);
+                T newObject = createObject(params);
                 reactor.reactToNewData(newObject);
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                T changedObject = createObjectFromData(dataSnapshot);
+                Map<String, Object> params = parseParameters(dataSnapshot);
+                T changedObject = createObject(params);
                 reactor.reactToDataChanged(changedObject);
             }
-
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                T removedObject = createObjectFromData(dataSnapshot);
+                Map<String, Object> params = parseParameters(dataSnapshot);
+                T removedObject = createObject(params);
                 reactor.reactToDataRemoved(removedObject);
             }
-
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                T movedObject = createObjectFromData(dataSnapshot);
+                Map<String, Object> params = parseParameters(dataSnapshot);
+                T movedObject = createObject(params);
                 reactor.reactToDataMoved(movedObject);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println(databaseError.getMessage());
@@ -155,7 +172,7 @@ public class DatabaseConnector<T> extends FirebaseConnector {
 
     /**
      * Removes event listeners from the data so that changes are no longer
-     * registered with the DataReactor<T>
+     * registered with the {@code DataReactor<T>} that was passed into listenToChanges()
      */
     public void removeListener() {
         dbRef.removeEventListener(currentListener);
@@ -164,7 +181,7 @@ public class DatabaseConnector<T> extends FirebaseConnector {
 
     /**
      * Adds an object of type T into the database. Note: If the object
-     * is already contained within the database, then it will be overwritten
+     * is already contained within the database, then it will be overwritten.
      * @param objectToAdd is the object you want to add to the Database
      * @throws ObjectIdNotFoundException if the T object passed to the method
      * does not contain an id variable marked with the @Expose annotation
@@ -172,36 +189,23 @@ public class DatabaseConnector<T> extends FirebaseConnector {
     public void addToDatabase(T objectToAdd) throws ObjectIdNotFoundException {
         JSONObject tempJSONObj = new JSONObject(JSONCreator.toJson(objectToAdd));
         try {
-            String id = tempJSONObj.get("id").toString();
-            for(String key : tempJSONObj.keySet()) {
-                dbRef.child(id).child(key).setValueAsync(tempJSONObj.get(key));
-            }
-        } catch (JSONException e) {
-            throw new ObjectIdNotFoundException();
-        }
+            String uid = tempJSONObj.get("UID").toString();
+            for(String key : tempJSONObj.keySet())
+                dbRef.child(uid).child(key).setValueAsync(tempJSONObj.get(key));
+        } catch (JSONException e) { throw new ObjectIdNotFoundException(); }
     }
 
     /**
-     * Removes the passed in object from the database. Note: If the object
-     * is not within the database, then
-     * @param objectToRemove
-     * @throws ObjectIdNotFoundException
+     * Removes the passed in object from the database.
+     * @param objectToRemove is the object you want to remove from the database
+     * @throws ObjectIdNotFoundException if the T object passed to the method
+     * does not contain an id variable marked with the @Expose annotation
      */
     public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
         JSONObject tempJSONObj = new JSONObject(JSONCreator.toJson(objectToRemove));
         try {
-            String id = tempJSONObj.get("id").toString();
-            dbRef.child(id).removeValueAsync();
-        } catch (JSONException e) {
-            throw new ObjectIdNotFoundException();
-        }
-    }
-
-    /**
-     * Removes the passed in the object with the passed in id from the
-     * @param id is an {@code int} representing the id of the object to be removed
-     */
-    public void removeFromDatabase(int id) {
-        dbRef.child("" + id).removeValueAsync();
+            String uid = tempJSONObj.get("UID").toString();
+            dbRef.child(uid).removeValueAsync();
+        } catch (JSONException e) { throw new ObjectIdNotFoundException(); }
     }
 }
