@@ -1,6 +1,7 @@
 package engine.entities;
 
 import engine.util.FXProcessing;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 
@@ -9,7 +10,18 @@ import util.math.num.Vector;
  *
  */
 public class Render {
-	 private ImageView myImageView;
+	private ImageView myImageView;
+	 
+	public Render(String name) {
+		//simple implementation for rendering, need the true renderer to render instead of name search
+		try {
+			myImageView = new ImageView(new Image(name));
+		}
+		// this is not permanent implementation, so simply print out the error
+		catch(NullPointerException e) {
+			System.out.println(e);
+		}
+	}
 	 
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
