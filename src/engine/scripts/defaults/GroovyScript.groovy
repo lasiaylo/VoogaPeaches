@@ -1,8 +1,9 @@
-package engine.scripts
+package engine.scripts.defaults
 
 import java.util.Set
 
 import engine.entities.Entity
+import engine.scripts.IScript
 import groovy.transform.Field
 
 /**Provides interface for scripts
@@ -23,6 +24,9 @@ abstract class GroovyScript implements IScript {
 	 */
 	public abstract void start();
 	
+	/**Allows front end to retrieve all the unmodified specified fields
+	 * @return fields defined within this script
+	 */
 	public Set getFields() {
 		Set fields = this.getProperties().keySet()
 		fields.remove("class")

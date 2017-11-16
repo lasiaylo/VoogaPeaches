@@ -49,7 +49,7 @@ public class StateManager implements IManager{
 		return myDefaultState;
 	}
 
-	/**Sets a new default state that the machine will always start on
+	/**Sets a new default state that the machine will start on
 	 * @param newState
 	 */
 	public void setDefaultState(State newState) {
