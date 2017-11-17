@@ -1,4 +1,4 @@
-package engine.hitbox;
+package engine.managers;
 import java.util.ArrayList;
 import java.util.List;
 

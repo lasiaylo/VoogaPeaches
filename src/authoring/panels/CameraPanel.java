@@ -46,15 +46,9 @@ public class CameraPanel implements Panel{
 	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-<<<<<<< HEAD
-	private PanelController controller;
-
-	public CameraPanel() {
-=======
     private PanelController controller;
 
     public CameraPanel() {
->>>>>>> 98627e938089da10cbd978a16cccf0589ca307c2
 		myGridPane = new GridPane();
 		myGridPane.setPrefWidth(cameraWidth);
 		myGridPane.setPrefHeight(cameraHeight);
@@ -99,11 +93,8 @@ public class CameraPanel implements Panel{
 		myWhole.setStyle(nodeStyle);
 		myLocal.setStyle(nodeStyle);
 
-<<<<<<< HEAD
 	}
 
-=======
->>>>>>> 98627e938089da10cbd978a16cccf0589ca307c2
 	private void setGrid() {
 		double side = cameraHeight/camerarowN;
 		for (int n = 0; n < camerarowN; n++) {
@@ -131,23 +122,13 @@ public class CameraPanel implements Panel{
 	public void setController(PanelController controller) {
 		this.controller = controller;
 		controller.addCamera(this);
-<<<<<<< HEAD
-	}
-
-	@Override
-	public String title(){
-		return "Game Camera";
-	}
-
-=======
 	}
 
     @Override
     public String title(){
         return "Game Camera";
     }
-	
->>>>>>> 98627e938089da10cbd978a16cccf0589ca307c2
+
 	/**
 	 * get play button
 	 * @return play button
