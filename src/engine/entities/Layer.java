@@ -36,8 +36,8 @@ public class Layer {
 	 */
 	public void select() {
 		for (Entity each: myEntityList) {
-			each.setMouseTrans(false);
-			each.setVisible(true);
+			each.getRender().setMouseTrans(false);
+			each.getRender().setVisible(true);
 		}
 	}
 	
@@ -46,8 +46,8 @@ public class Layer {
 	 */
 	public void deselect() {
 		for (Entity each: myEntityList) {
-			each.setMouseTrans(true);
-			each.setVisible(false);
+			each.getRender().setMouseTrans(true);
+			each.getRender().setVisible(false);
 		}
 	}
 	
@@ -56,8 +56,8 @@ public class Layer {
 	 */
 	public void onlyView() {
 		for (Entity each: myEntityList) {
-			each.setMouseTrans(true);
-			each.setVisible(true);
+			each.getRender().setMouseTrans(true);
+			each.getRender().setVisible(true);
 		}
 	}
 
