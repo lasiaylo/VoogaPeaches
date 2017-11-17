@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
  * @author estellehe
  *
  */
-public class CameraPanel implements Panel{
+public class CameraPanel implements Panel {
 	private static final String PLAY = "Play";
 	private static final String PAUSE = "Pause";
 	private static final String ALLL = "All Layers";
@@ -41,13 +41,16 @@ public class CameraPanel implements Panel{
 	private ToggleGroup myGroup;
 	
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
-	private double cameraWidth = Double.parseDouble(properties.getString("camerawidth"));
-	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
+	private double cameraWidth;
+	private double cameraHeight;
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
     private IPanelDelegate controller;
 
-    public CameraPanel() {
+    public CameraPanel(double width, double height) {
+    	cameraWidth = width;
+    	cameraHeight = height;
+
 		myGridPane = new GridPane();
 		myGridPane.setPrefWidth(cameraWidth);
 		myGridPane.setPrefHeight(cameraHeight);
@@ -125,9 +128,9 @@ public class CameraPanel implements Panel{
 	}
 
     @Override
-    public String title(){
-        return "Game Camera";
-    }
+    public String title() {
+		return "Game Camera";
+	}
 	
 	/**
 	 * get play button
