@@ -26,6 +26,7 @@ public class Script implements IScript{
 	private Object myObject;
 	private GroovyScript myScript;
 	
+//	TODO:Do something about all of those throws
     /**Creates a new Script from a GroovyClass
      * 
      * @param filename	name of GroovyClass file
@@ -43,10 +44,7 @@ public class Script implements IScript{
      * @param input		input to be set to
      */
     public void set(String field, Object input) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
-    	Class<?> inputClass = input.getClass();
-    	if(Primitive.isWrapper(inputClass)) {
-    		inputClass = Primitive.getPrimitive(inputClass);
-    	}
+    	Class<?> inputClass = Primitive.getClass(input);
     	Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
     	method.invoke(myObject,input);
     }
@@ -76,11 +74,13 @@ public class Script implements IScript{
     	myScript.execute(entity);
     }
     
-	/**Gets the public fields from the script
+	/**Gets the public fields from the script. 
+	 * Keys are the names of the fields in the form of a string. 
+	 * Values are the class types associated with that particular field.
 	 * 
 	 * @return Set of public fields. Fields returned can be used with get/set.
 	 */
-	public Set<?> getFields() {
+	public Set getFields() {
 		return myScript.getFields();
 	}
     
