@@ -34,28 +34,32 @@ public class Transform {
      * @return Vector position of this entity
      */
 	public Vector getPosition() {
-		return myPosition;
+
+	    return myPosition;
 	}
 	
     /**
      * @param newPos position for this entity
      */
 	public void setPosition(Vector newPos) {
-		this.myPosition = newPos;
+
+	    this.myPosition = newPos;
 	}
 	
 	/**
 	 * @return Rotation of this entity in degrees
 	 */
 	public double getRotation() {
-		return myRotation;
+
+	    return myRotation;
 	}
 	
 	/**
 	 * @param rotation of this entity in degrees
 	 */
 	public void setRotation(double rotation) {
-		this.myRotation = rotation;
+
+		this.myRotation = this.myRotation + rotation;
 	}
 	
 	public Vector getScale() {
@@ -63,6 +67,7 @@ public class Transform {
 	}
 
 	public void setScale(Vector scale) {
-		this.myScale = scale;
+
+	    this.myScale = this.myScale.add(scale);
 	}
 }
