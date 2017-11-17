@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
-public class ObjectLibraryPanel implements Panel{
+public class LibraryPanel implements Panel{
 
     @Override
     public Region getRegion() {
