@@ -1,6 +1,4 @@
-package engine.hitbox;
-
-import engine.hitbox.HitBox;
+package engine.managers;
 
 /**Wrapper class for hitbox and a tag
  * To be passed into CollisionManager's check
