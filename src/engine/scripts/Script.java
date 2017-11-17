@@ -80,7 +80,7 @@ public class Script implements IScript{
 	 * 
 	 * @return Set of public fields. Fields returned can be used with get/set.
 	 */
-	public Map<String,Class<?>> getFields() {
+	public Set getFields() {
 		return myScript.getFields();
 	}
     

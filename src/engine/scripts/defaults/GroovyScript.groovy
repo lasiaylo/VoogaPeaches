@@ -30,16 +30,11 @@ abstract class GroovyScript implements IScript {
 	 * 
 	 * @return fields defined within this script
 	 */
-	public Map getFields() {
+	public Set getFields() {
 		Set fields = getProperties().keySet()
 		fields.remove("class")
 		fields.remove("fields")
 		
-		Map mappings = new HashMap();
-		for (String f : fields) {
-			Class clazz = Primitive.getClass(this.getProperty(f))
-			mappings.put(f, clazz)
-		}
-		return mappings;
+		return fields;
 	}
 }
