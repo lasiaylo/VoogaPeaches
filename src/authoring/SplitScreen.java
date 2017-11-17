@@ -62,13 +62,16 @@ public class SplitScreen {
         TabPane bottom = new TabPane();
         TabPane side = new TabPane();
 
+
+
         CameraPanel camera = new CameraPanel(cameraWidth, cameraHeight);
-        camera.getRegion().setMinWidth(0);
-        camera.getRegion().setMinHeight(0);
 
         middle.getItems().addAll(camera.getRegion(), side);
+        side.setMinWidth(400);//TODO: match this with something meaningful
+        middle.setDividerPosition(0, 1);
 
         body.getItems().addAll(middle, bottom);
+        body.setDividerPosition(0, 1);
 
         MenuBarPanel bar = new MenuBarPanel();
         bar.setController(controller);
@@ -77,6 +80,10 @@ public class SplitScreen {
         Scene scene = new Scene(root, width, height);
         stage.setScene(scene);
         stage.show();
+        camera.getRegion().setMinHeight(0);
+        camera.getRegion().setMinWidth(0);
+        side.setMinWidth(0);
+
     }
 
     private void setupStage(Stage stage, Rectangle2D primaryScreenBounds) {

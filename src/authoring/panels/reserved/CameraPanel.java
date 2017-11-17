@@ -31,6 +31,8 @@ public class CameraPanel implements Panel {
 	private static final String NEWL = "Add New Layer";
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
+
+	private static final double SPACING = 10;
 	
 	private GridPane myGridPane;
 	private Button myPlay;
@@ -58,7 +60,7 @@ public class CameraPanel implements Panel {
 		
 		myArea = new VBox(myGridPane, buttonRow());
 		myArea.setSpacing(5);
-		myArea.setPrefWidth(cameraWidth);
+		myArea.setMinWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 		
 		setGrid();
