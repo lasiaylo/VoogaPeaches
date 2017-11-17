@@ -1,4 +1,6 @@
-package engine.managers;
+package engine.hitbox;
+
+import engine.hitbox.HitBox;
 
 /**Wrapper class for hitbox and a tag
  * To be passed into CollisionManager's check
@@ -30,6 +32,4 @@ public class HitBoxCheck {
 	public void setTag(String myTag) {
 		this.myTag = myTag;
 	}
-	
-
 }
