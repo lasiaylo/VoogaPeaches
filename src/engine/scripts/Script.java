@@ -44,10 +44,7 @@ public class Script implements IScript{
      * @param input		input to be set to
      */
     public void set(String field, Object input) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
-    	Class<?> inputClass = input.getClass();
-    	if(Primitive.isWrapper(inputClass)) {
-    		inputClass = Primitive.getPrimitive(inputClass);
-    	}
+    	Class<?> inputClass = Primitive.getClass(input);
     	Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
     	method.invoke(myObject,input);
     }

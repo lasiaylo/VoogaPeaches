@@ -32,9 +32,8 @@ public class Primitive{
     
     public static Class<?> getClass(Object object){
     	Class<?> clazz = object.getClass();
-    	if(Primitive.isWrapper(clazz)) {
+    	if(Primitive.isWrapper(clazz))
     		clazz = Primitive.getPrimitive(clazz);
-    	}
     	return clazz;
     }
     
