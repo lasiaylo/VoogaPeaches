@@ -46,7 +46,6 @@ public class PropertiesPanel implements Panel {
 	 */
 	private void addTransformProperty() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	/**Displays the Render properties of an entity
@@ -69,7 +68,6 @@ public class PropertiesPanel implements Panel {
 	 */
 	private void addButton() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
