@@ -2,6 +2,7 @@ package authoring.panels;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
+import authoring.Screen;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
