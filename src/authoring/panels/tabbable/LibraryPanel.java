@@ -1,8 +1,6 @@
-package authoring.panels;
+package authoring.panels.tabbable;
 
-import authoring.Panel;
-import authoring.PanelController;
-import authoring.Screen;
+import authoring.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -10,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
-public class ObjectLibraryPanel implements Panel{
+public class LibraryPanel implements Panel{
 
     @Override
     public Region getRegion() {
@@ -18,12 +16,12 @@ public class ObjectLibraryPanel implements Panel{
     }
 
     @Override
-    public int getArea(){
-        return Screen.TOP_LEFT;
+    public ScreenPosition getPosition(){
+        return ScreenPosition.TOP_LEFT;
     }
 
     @Override
-    public void setController(PanelController controller) {
+    public void setController(IPanelDelegate controller) {
         //TODO: Create controller
     }
 

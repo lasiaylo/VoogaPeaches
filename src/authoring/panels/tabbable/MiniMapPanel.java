@@ -1,8 +1,6 @@
-package authoring.panels;
+package authoring.panels.tabbable;
 
-import authoring.Panel;
-import authoring.PanelController;
-import authoring.Screen;
+import authoring.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
@@ -14,12 +12,12 @@ public class MiniMapPanel implements Panel{
     }
 
     @Override
-    public int getArea(){
-        return Screen.BOTTOM_RIGHT;
+    public ScreenPosition getPosition(){
+        return ScreenPosition.BOTTOM_RIGHT;
     }
 
     @Override
-    public void setController(PanelController controller) {
+    public void setController(IPanelDelegate controller) {
         //TODO: Create controller
     }
 

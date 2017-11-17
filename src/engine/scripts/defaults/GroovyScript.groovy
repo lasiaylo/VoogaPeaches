@@ -25,8 +25,6 @@ abstract class GroovyScript implements IScript {
 	public abstract void start();
 	
 	/**Allows front end to retrieve all the unmodified specified fields. 
-	 * Keys are the names of the fields in the form of a string. 
-	 * Values are the class types associated with that particular field.
 	 * 
 	 * @return fields defined within this script
 	 */
