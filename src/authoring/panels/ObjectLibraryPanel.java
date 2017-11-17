@@ -1,5 +1,6 @@
 package authoring.panels;
 
+import authoring.IPanelDelegate;
 import authoring.Panel;
 import authoring.PanelController;
 import authoring.Screen;
@@ -23,7 +24,7 @@ public class ObjectLibraryPanel implements Panel{
     }
 
     @Override
-    public void setController(PanelController controller) {
+    public void setController(IPanelDelegate controller) {
         //TODO: Create controller
     }
 

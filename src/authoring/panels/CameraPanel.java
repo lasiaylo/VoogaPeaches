@@ -2,11 +2,10 @@ package authoring.panels;
 
 import java.util.ResourceBundle;
 
+import authoring.IPanelDelegate;
 import authoring.Panel;
-import authoring.PanelController;
 import authoring.Screen;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
@@ -46,7 +45,7 @@ public class CameraPanel implements Panel{
 	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-    private PanelController controller;
+    private IPanelDelegate controller;
 
     public CameraPanel() {
 		myGridPane = new GridPane();
@@ -120,7 +119,7 @@ public class CameraPanel implements Panel{
 	}
 
 	@Override
-	public void setController(PanelController controller) {
+	public void setController(IPanelDelegate controller) {
 		this.controller = controller;
 		controller.addCamera(this);
 	}
