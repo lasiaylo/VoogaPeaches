@@ -25,7 +25,7 @@ import javafx.stage.WindowEvent;
  * A draggable tab that can optionally be detached from its tab pane and shown
  * in a separate window. This can be added to any normal TabPane, however a
  * TabPane with draggable tabs must *only* have DraggableTabs, normal tabs and
- * DrragableTabs mixed will cause issues!
+ * DraggableTabs mixed will cause issues!
  * <p>
  * @author Michael Berry
  * @see <a href = "http://berry120.blogspot.co.uk/2014/01/draggable-and-detachable-tabs-in-javafx.html">Draggable and detachable tabs in JavaFX 2</a>
