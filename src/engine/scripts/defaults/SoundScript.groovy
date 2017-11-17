@@ -1,4 +1,4 @@
-package engine.scripts
+package engine.scripts.defaults
 
 import engine.entities.Entity
 
@@ -6,7 +6,7 @@ import engine.entities.Entity
  * @author Richard Tseng
  *
  */
-class AnimationScript extends GroovyScript{
+class SoundScript extends GroovyScript{
 
 	@Override
 	public void execute(Entity entity) {
