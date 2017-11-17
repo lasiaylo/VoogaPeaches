@@ -31,15 +31,15 @@ abstract class GroovyScript implements IScript {
 	 * @return fields defined within this script
 	 */
 	public Map getFields() {
-		Set fields = this.getProperties().keySet()
+		Set fields = getProperties().keySet()
 		fields.remove("class")
 		fields.remove("fields")
 		
 		Map mappings = new HashMap();
-		for (String field : fields) {
-			Class clazz = this.getProperty(field).getClass()
-			mappings.compute(field, clazz)
+		for (String f : fields) {
+			Class clazz = Primitive.getClass(this.getProperty(f))
+			mappings.put(f, clazz)
 		}
-		return fields
+		return mappings;
 	}
 }
