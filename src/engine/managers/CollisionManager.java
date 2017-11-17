@@ -1,6 +1,9 @@
 package engine.managers;
 
 
+import engine.hitbox.HitBox;
+import engine.hitbox.HitBoxCheck;
+
 import java.util.List;
 
 /**
@@ -9,8 +12,6 @@ import java.util.List;
  * @authoer lasia
  */
 public class CollisionManager implements IManager {
-    // Singleton??
-    private static CollisionManager instance;
     private List<HitBox> myHitBoxes;
     
     /**
@@ -19,24 +20,15 @@ public class CollisionManager implements IManager {
     public CollisionManager() {
     }
 
-    /**Checks whether this Hitbox is colliding with other Hitboxes
-     * @param Hitbox
+    /**
+	 * Checks whether this Hitbox is colliding with other Hitboxes
+     * @param hitBox
      */
     public void checkCollisions(HitBox hitBox) {
     	for (HitBox otherHitBox: myHitBoxes) {
     		if (!otherHitBox.equals(hitBox)) 
     			hitBox.checkIntersect(otherHitBox);
     	}
-    }
-    
-    /**
-     * @return			Singleton instance of CollisionManager
-     */
-    public static CollisionManager getInstance() {
-    	if (instance == null)
-    		instance = new CollisionManager();
-    	
-    	return instance;
     }
 
 	@Override
