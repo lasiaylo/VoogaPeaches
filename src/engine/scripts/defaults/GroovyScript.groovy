@@ -24,13 +24,22 @@ abstract class GroovyScript implements IScript {
 	 */
 	public abstract void start();
 	
-	/**Allows front end to retrieve all the unmodified specified fields
+	/**Allows front end to retrieve all the unmodified specified fields. 
+	 * Keys are the names of the fields in the form of a string. 
+	 * Values are the class types associated with that particular field.
+	 * 
 	 * @return fields defined within this script
 	 */
-	public Set getFields() {
+	public Map getFields() {
 		Set fields = this.getProperties().keySet()
 		fields.remove("class")
 		fields.remove("fields")
+		
+		Map mappings = new HashMap();
+		for (String field : fields) {
+			Class clazz = this.getProperty(field).getClass()
+			mappings.compute(field, clazz)
+		}
 		return fields
 	}
 }
