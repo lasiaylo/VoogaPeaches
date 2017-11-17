@@ -1,6 +1,7 @@
-package authoring.panels;
+package authoring.panels.tabbable;
 
 import authoring.Panel;
+import authoring.ScreenPosition;
 import javafx.scene.layout.Region;
 
 public class PropertiesPanel implements Panel {
@@ -12,15 +13,13 @@ public class PropertiesPanel implements Panel {
 	}
 
 	@Override
-	public int getArea() {
-		// TODO Auto-generated method stub
-		return 0;
+	public ScreenPosition getPosition() {
+		return ScreenPosition.TOP_RIGHT;
 	}
 
 	@Override
 	public String title() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Properties";
 	}
 
 }

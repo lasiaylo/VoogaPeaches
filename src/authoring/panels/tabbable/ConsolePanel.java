@@ -1,8 +1,9 @@
-package authoring.panels;
+package authoring.panels.tabbable;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
 import authoring.Screen;
+import authoring.ScreenPosition;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -23,8 +24,8 @@ public class ConsolePanel implements Panel{
     }
 
     @Override
-    public int getArea(){
-        return Screen.BOTTOM;
+    public ScreenPosition getPosition(){
+        return ScreenPosition.BOTTOM;
     }
 
     @Override

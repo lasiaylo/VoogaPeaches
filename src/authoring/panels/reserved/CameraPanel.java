@@ -1,10 +1,11 @@
-package authoring.panels;
+package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
 import authoring.Screen;
+import authoring.ScreenPosition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -117,8 +118,8 @@ public class CameraPanel implements Panel {
 	}
 
 	@Override
-	public int getArea() {
-		return Screen.CAMERA;
+	public ScreenPosition getPosition() {
+		return ScreenPosition.CAMERA;
 	}
 
 	@Override

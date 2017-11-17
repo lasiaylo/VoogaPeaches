@@ -1,13 +1,10 @@
-package authoring.panels;
+package authoring.panels.tabbable;
 
-import authoring.IPanelDelegate;
-import authoring.Panel;
-import authoring.PanelController;
-import authoring.Screen;
+import authoring.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
-public class TwitterPanel implements Panel{
+public class MiniMapPanel implements Panel{
 
     @Override
     public Region getRegion() {
@@ -15,8 +12,8 @@ public class TwitterPanel implements Panel{
     }
 
     @Override
-    public int getArea(){
-        return Screen.BOTTOM_LEFT;
+    public ScreenPosition getPosition(){
+        return ScreenPosition.BOTTOM_RIGHT;
     }
 
     @Override
@@ -26,7 +23,7 @@ public class TwitterPanel implements Panel{
 
     @Override
     public String title(){
-        return "Twitter";
+        return "Mini Map";
     }
 
 }

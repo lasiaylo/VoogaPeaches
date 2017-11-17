@@ -1,9 +1,6 @@
-package authoring.panels;
+package authoring.panels.tabbable;
 
-import authoring.IPanelDelegate;
-import authoring.Panel;
-import authoring.PanelController;
-import authoring.Screen;
+import authoring.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -19,8 +16,8 @@ public class ObjectLibraryPanel implements Panel{
     }
 
     @Override
-    public int getArea(){
-        return Screen.TOP_LEFT;
+    public ScreenPosition getPosition(){
+        return ScreenPosition.TOP_LEFT;
     }
 
     @Override
