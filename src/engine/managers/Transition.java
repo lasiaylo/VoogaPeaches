@@ -16,7 +16,7 @@ public class Transition {
 	/**Takes in a set of parameters and determines whether it meets the conditions specified
 	 * by the user
 	 * 
-	 * @param Map of conditions
+	 * @param parameters 	Map of conditions
 	 * @return boolean
 	 */
 	public boolean conditionsMeet(Map<String,Object> parameters) {
@@ -28,6 +28,14 @@ public class Transition {
 	 */
 	public State getDestinationState() {
 		return myDestinationState;
+	}
+
+	/**
+	 * Sets the destination state of the transition to param
+	 * @param state	new state to set destination state to
+	 */
+	public void setDestinationState(State state) {
+		myDestinationState = state;
 	}
 	
 	/**Sets a new condition needed for this transition to move to the next state

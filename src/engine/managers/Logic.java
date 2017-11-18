@@ -56,4 +56,11 @@ public class Logic {
     public void setLogic(String newLogic) {
         myLogic = newLogic;
     }
+
+    /**
+     * @return  the string for which the groovy script would evaluate
+     */
+    public String getLogic() {
+        return myLogic;
+    }
 }
