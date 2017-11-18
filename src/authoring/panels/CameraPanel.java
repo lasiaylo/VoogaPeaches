@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import authoring.IPanelDelegate;
 import authoring.Panel;
 import authoring.Screen;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -16,6 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import util.ErrorPopup;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -63,6 +68,15 @@ public class CameraPanel implements Panel{
 	
 	private HBox buttonRow() {
 		myPlay = new Button(PLAY);
+
+		myPlay.setOnAction(
+				new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						ErrorPopup popup = new ErrorPopup();
+					}
+				});
+
 		myPause = new Button(PAUSE);
 		myLayer = new ChoiceBox<String>();
 		myGroup = new ToggleGroup();
