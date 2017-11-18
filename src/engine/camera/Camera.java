@@ -15,6 +15,8 @@ public class Camera {
     private ScrollPane myView;
     private Map myMap;
     private SubScene myMini;
+    private Vector myCenter;
+    private Vector mySize;
 
     public Camera(Map map) {
         myMap = map;
@@ -30,6 +32,10 @@ public class Camera {
         myView.setPrefHeight(size.at(1));
         myView.setHvalue(center.at(0) - size.at(0)/2);
         myView.setVvalue(center.at(1) - size.at(1)/2);
+
+        myCenter = center;
+        mySize = size;
+
         return myView;
     }
 
@@ -37,6 +43,13 @@ public class Camera {
         //need to check, just blind coding
         myMini = new SubScene(myMap, size.at(0), size.at(1));
         return myMini;
+    }
+
+    /**
+     * update imageview inside the viewport
+     */
+    public void update() {
+        myMap.localUpdate(myCenter, mySize);
     }
 
 }

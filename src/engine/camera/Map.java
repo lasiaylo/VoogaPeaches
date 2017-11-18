@@ -16,6 +16,7 @@ public class Map extends StackPane{
     private EntityManager myManager;
 
     public Map(EntityManager manager) {
+
         myManager = manager;
     }
 
@@ -37,10 +38,10 @@ public class Map extends StackPane{
 
     /**
      * this update is specific for Camera class so that the map update the image for every entity inside viewport
+     * @param center
      * @param size
-     * @param pos
      */
-    public void update(Vector size, Vector pos) {
+    public void localUpdate(Vector center, Vector size) {
         // todo: add helper function for determining whether an entity is inside the box
     }
 }

@@ -12,6 +12,7 @@ import engine.scripts.IScript;
 import engine.scripts.Script;
 import javafx.scene.image.Image;
 import org.codehaus.groovy.control.CompilationFailedException;
+import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
 
 /**
@@ -60,8 +61,8 @@ public class EntityManager {
             BGblock.addSript(new Script(IMGSPT));
             //todo: add gridsize to image script
         }
-        catch (InstantiationException|IllegalAccessException|CompilationFailedException|IOException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException|ClassNotFoundException e) {
-            //need to throw groovyinstantiationexception, pull first
+        catch (GroovyInstantiationException e) {
+            //todo: error msg
         }
         myBGLayer.addEntity(BGblock);
         return BGblock;
@@ -79,8 +80,8 @@ public class EntityManager {
         try {
             staEnt.addSript(new Script(IMGSPT));
         }
-        catch (InstantiationException|IllegalAccessException|CompilationFailedException|IOException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException|ClassNotFoundException e) {
-            //need to throw groovyinstantiationexception, pull first
+        catch (GroovyInstantiationException e) {
+            //todo: error msg here
         }
 		
 		if (level > myLayerList.size()-1) {
