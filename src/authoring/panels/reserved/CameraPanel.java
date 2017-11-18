@@ -100,7 +100,6 @@ public class CameraPanel implements Panel {
 		
 	}
 
-
 	private void setGrid() {
 		double side = cameraHeight/camerarowN;
 		for (int n = 0; n < camerarowN; n++) {
