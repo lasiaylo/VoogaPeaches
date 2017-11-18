@@ -60,7 +60,7 @@ public class CameraPanel implements Panel {
 		
 		myArea = new VBox(myGridPane, buttonRow());
 		myArea.setSpacing(5);
-		myArea.setMinWidth(cameraWidth + SPACING);
+		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 		
 		setGrid();
