@@ -7,10 +7,9 @@ import util.math.num.Vector;
  *
  */
 public class Transform {
-	private Vector myPosition;
-	private double myRotation;
-	private Vector myScale;
-	private Vector mySize; //need to implement this for map to determine whether inside viewport
+	private Vector myPosition = new Vector(0, 0);
+	private double myRotation = 0;
+	private Vector mySize = new Vector(1, 1);
 	
 
 
@@ -19,7 +18,6 @@ public class Transform {
 	 */
 	public Transform(Vector position) {
 		myPosition = position;
-		myScale = new Vector(1,1);
 	}
 	
 	/**Creates a new Tranform
@@ -54,21 +52,25 @@ public class Transform {
 
 	    return myRotation;
 	}
-	
-	/**
-	 * @param rotation of this entity in degrees
-	 */
-	public void setRotation(double rotation) {
 
-		this.myRotation = this.myRotation + rotation;
-	}
-	
-	public Vector getScale() {
-		return myScale;
-	}
 
+
+    /**
+     * set scale factor
+     * @param scale
+     */
 	public void setScale(Vector scale) {
 
-	    this.myScale = this.myScale.add(scale);
+	    this.mySize = new Vector(mySize.at(0)*scale.at(0), mySize.at(1)*scale.at(1));
+
 	}
+
+
+    /**
+     * get current size
+     * @return
+     */
+    public Vector getSize() {
+        return mySize;
+    }
 }

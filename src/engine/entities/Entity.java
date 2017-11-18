@@ -34,6 +34,7 @@ public class Entity {
     public Entity(Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
+        myRender = new Render();
     }
 
     /**
@@ -43,7 +44,8 @@ public class Entity {
      * @param scripts   Scripts attached to new Entity
      */
     public Entity(List<IScript> scripts, double x, double y) {
-        this(new Vector(x, y), scripts);
+
+    	this(new Vector(x, y), scripts);
     }
 
 	/**
@@ -55,22 +57,37 @@ public class Entity {
 		}
 	}
 
+    /**
+     * transform class that contains transform recorded for this entity
+     * @return transform
+     */
 	public Transform getTransform() {
-		return myTransform;
+
+	    return myTransform;
 	}
 
 	/**
 	 * @return Render wrapper class that contains ImageView
 	 */
 	public Render getRender() {
-		return myRender;
+
+	    return myRender;
 	}
+
+    /**
+     * add script to entity
+     * @param script
+     */
+	public void addSript(IScript script) {
+	    myScripts.add(script);
+    }
 
 	/**
 	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
-		return myScripts;
+
+	    return myScripts;
 	}
 
 	/**
@@ -78,7 +95,8 @@ public class Entity {
 	 *         needs to be updated once.
 	 */
 	public boolean isStatic() {
-		return isStatic;
+
+	    return isStatic;
 	}
 
 	/**	Sets whether an entity is static or not. If an entity is static, it just needs
@@ -86,7 +104,8 @@ public class Entity {
 	 *
 	 */
 	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
+
+	    this.isStatic = isStatic;
 	}
 
 }
