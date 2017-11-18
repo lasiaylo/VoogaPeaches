@@ -1,6 +1,8 @@
 package engine.scripts
 
 import engine.entities.Entity
+import engine.scripts.defaults.GroovyScript
+
 
 /**
  * @author Richard Tseng
