@@ -17,7 +17,7 @@ public class ErrorPopup {
 
     final int Width = 400;
     final int Height = 350;
-    final String Audio = "";
+    final String Audio = "resources/cox/audio";
     final String Text = "You've been coxblocked!";
     String myImage = "resources/cox/cox";
     StackPane pane;
@@ -27,14 +27,14 @@ public class ErrorPopup {
         pane.setPrefSize(Width,Height);
         setText();
         setCoxImage();
-        MediaPlayer audioPlayer = getMediaPlayer();
+//        MediaPlayer audioPlayer = getMediaPlayer();
         Scene scene = new Scene(pane);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setOnCloseRequest(
                 e -> {
                     e.consume();
-                    audioPlayer.stop();
+//                    audioPlayer.stop();
                     stage.close();
                 }
         );
