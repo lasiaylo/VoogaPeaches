@@ -10,31 +10,33 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import javax.sound.sampled.AudioInputStream;
 import java.util.Random;
 import java.io.File;
 
 public class ErrorPopup {
 
-    final int Width = 400;
-    final int Height = 350;
-    final String Audio = "resources/cox/audio";
-    final String Text = "You've been coxblocked!";
-    String myImage = "resources/cox/cox";
-    StackPane pane;
+    private final int Width = 400;
+    private final int Height = 350;
+    private final String Audio = "resources/cox/error.mp3";
+    private final String Text = "You've been coxblocked!";
+    private String myImage = "resources/cox/cox";
+    private StackPane pane;
 
     public ErrorPopup() {
         pane = new StackPane();
         pane.setPrefSize(Width,Height);
         setText();
         setCoxImage();
-//        MediaPlayer audioPlayer = getMediaPlayer();
+        MediaPlayer audioPlayer = getMediaPlayer();
         Scene scene = new Scene(pane);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setOnCloseRequest(
                 e -> {
                     e.consume();
-//                    audioPlayer.stop();
+                    audioPlayer.stop();
                     stage.close();
                 }
         );
@@ -42,9 +44,14 @@ public class ErrorPopup {
     }
 
     private MediaPlayer getMediaPlayer() {
+
         File audioFile = new File(Audio);
         Media audio = new Media(audioFile.toURI().toString());
         MediaPlayer audioPlayer = new MediaPlayer(audio);
+        System.out.println(audio.toString());
+        System.out.println(audioPlayer.toString());
+        System.out.println(audioPlayer.getTotalDuration().toHours());
+        audioPlayer.play();
         audioPlayer.setAutoPlay(true);
         return audioPlayer;
     }
