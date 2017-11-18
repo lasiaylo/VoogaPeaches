@@ -17,7 +17,6 @@ public class Map extends StackPane{
 
     public Map(EntityManager manager) {
         myManager = manager;
-        update();
     }
 
     /**
