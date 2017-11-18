@@ -8,10 +8,10 @@ public class AttributesTester extends Application {
         stage.setTitle(TITLE);
         stage.setMaximized(true);
         stage.setResizable(false);
-        SplitScreen kitty = new SplitScreen(stage);
+        Scene scene = new Scene();
+        stage.setScene(scene);
+        stage.show();
+        
     }
 
-    public static void main(String[] args){
-        launch();
-    }
 }

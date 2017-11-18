@@ -49,7 +49,8 @@ public class AttributesPanel implements Panel {
 	 * 
 	 */
 	private void addTransformProperty() {
-		
+		TransformAttribute transform = new TransformAttribute(myEntity);
+		myChildren.add(transform.getNode());
 	}
 	
 	/**Displays the Render properties of an entity
