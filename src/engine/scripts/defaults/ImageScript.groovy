@@ -2,6 +2,8 @@ package engine.scripts.defaults
 
 import engine.entities.Entity
 import javafx.scene.image.Image
+import engine.scripts.defaults.GroovyScript
+
 
 /**
  * @author Richard Tseng
