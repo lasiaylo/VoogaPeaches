@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
+import authoring.PanelController;
 import authoring.Screen;
 import authoring.ScreenPosition;
 import javafx.geometry.Insets;
@@ -46,7 +47,7 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelDelegate controller;
+    private PanelController controller;
 
     public CameraPanel(double width, double height) {
     	cameraWidth = width;
