@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
-import authoring.ScreenPosition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -115,11 +114,6 @@ public class CameraPanel implements Panel {
 	public Region getRegion() {
 		// TODO Auto-generated method stub
 		return myArea;
-	}
-
-	@Override
-	public ScreenPosition getPosition() {
-		return ScreenPosition.CAMERA;
 	}
 
 	@Override

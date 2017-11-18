@@ -16,11 +16,6 @@ public class LibraryPanel implements Panel{
     }
 
     @Override
-    public ScreenPosition getPosition(){
-        return ScreenPosition.TOP_LEFT;
-    }
-
-    @Override
     public void setController(IPanelDelegate controller) {
         //TODO: Create controller
     }
