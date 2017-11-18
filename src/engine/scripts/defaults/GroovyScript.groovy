@@ -28,7 +28,7 @@ abstract class GroovyScript implements IScript {
 	 * 
 	 * @return fields defined within this script
 	 */
-	public Set getFields() {
+	public Set<String> getFields() {
 		Set fields = getProperties().keySet()
 		fields.remove("class")
 		fields.remove("fields")

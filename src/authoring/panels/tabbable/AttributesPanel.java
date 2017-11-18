@@ -1,17 +1,21 @@
 package authoring.panels.tabbable;
 
+import java.util.List;
+
 import authoring.Panel;
 import authoring.ScreenPosition;
 import engine.entities.Entity;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
-/**Displays the properties associated with a particular Entity
+/**Displays the attributes associated with a particular Entity
  * @author lasia
  *
  */
-public class PropertiesPanel implements Panel {
-	private HBox myHBox;
+public class AttributesPanel implements Panel {
+	private HBox myHBox = new HBox();
+	private List<Node> myChildren = myHBox.getChildren();
 	private Entity myEntity;
 
 	@Override
@@ -45,7 +49,7 @@ public class PropertiesPanel implements Panel {
 	 * 
 	 */
 	private void addTransformProperty() {
-		// TODO Auto-generated method stub
+		
 	}
 	
 	/**Displays the Render properties of an entity
