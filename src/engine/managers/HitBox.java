@@ -1,6 +1,5 @@
 package engine.managers;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.shape.Shape;

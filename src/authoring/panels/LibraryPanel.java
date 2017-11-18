@@ -22,15 +22,15 @@ public class LibraryPanel implements Panel{
 	private static final String BG = "Background";
 	private static final String PLAYER = "Player";
 	private static final String PATH = "resources/graphics/";
-	
+
 	private TilePane myTilePane;
 	private ChoiceBox<String> myEntType;
 	private PanelController controller;
-	
+
 	public LibraryPanel() {
 		myTilePane = new TilePane();
 		myEntType = new ChoiceBox<String>();
-		
+
 		myEntType.getItems().addAll(BG, PLAYER);
 		myEntType.setOnAction(e -> changeType());
 		myTilePane.setPrefColumns(2);
@@ -73,7 +73,7 @@ public class LibraryPanel implements Panel{
 		this.controller = controller;
 		controller.addLibrary(this);
 	}
-	
+
 	@Override
 	public int getArea() {
 		return Screen.CAMERA;
@@ -83,7 +83,7 @@ public class LibraryPanel implements Panel{
 	public String title() {
 		return "Library";
 	}
-	
+
 	/**
 	 * get tile pane for pics
 	 * @return tile pane
@@ -91,7 +91,7 @@ public class LibraryPanel implements Panel{
 	public TilePane getTile() {
 		return myTilePane;
 	}
-	
+
 	/**
 	 * get dropdown menu
 	 * @return EntType drop down menu
