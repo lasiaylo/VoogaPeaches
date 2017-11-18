@@ -1,9 +1,13 @@
 package engine.entities;
 
 import javafx.scene.Group;
+import util.math.num.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.abs;
+
 
 /**
  * Store entities in each layer of the gaming world
@@ -87,6 +91,23 @@ public class Layer {
     public void updateAll() {
 	    for (Entity each: myEntityList) {
 	        each.update();
+        }
+    }
+
+    /**
+     * update imageview of entities inside box
+     * @param center
+     * @param size
+     */
+    public void displayUpdate(Vector center, Vector size) {
+        for (Entity each: myEntityList) {
+            Vector ePos = each.getTransform().getPosition();
+            Vector eSize = each.getTransform().getSize();
+            double xDis = abs(ePos.at(0) - center.at(0));
+            double yDis = abs(ePos.at(1) - center.at(1));
+            if (xDis <= (eSize.at(0) + size.at(0))/2 && yDis <= (eSize.at(1) + size.at(1))/2) {
+                each.getRender().displayUpdate(each.getTransform());
+            }
         }
     }
 

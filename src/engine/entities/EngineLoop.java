@@ -1,5 +1,6 @@
 package engine.entities;
 
+import engine.camera.Camera;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -18,13 +19,15 @@ public class EngineLoop {
 	
 	private EntityManager myManager;
 	private Timeline myTimeline;
+	private Camera myCamera;
 	
 	/**
 	 * constructor for game loop
 	 * @param manager
 	 */
-	public EngineLoop(EntityManager manager) {
+	public EngineLoop(EntityManager manager, Camera camera) {
 		myManager = manager;
+		myCamera = camera;
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / MAX_FRAMES_PER_SECOND), e -> step());
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -32,7 +35,10 @@ public class EngineLoop {
 	}
 	
 	private void step() {
-		myManager.updateAll();
+
+	    myManager.updateAll();
+
+	    myCamera.update();
 	}
 	
 	/**

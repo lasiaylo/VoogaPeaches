@@ -1,6 +1,5 @@
 package engine.camera;
 
-import engine.entities.Entity;
 import engine.entities.Layer;
 import engine.managers.EntityManager;
 import javafx.collections.ListChangeListener;
@@ -35,7 +34,7 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
      * @param size
      */
     public void localUpdate(Vector center, Vector size) {
-        // todo: add helper function for determining whether an entity is inside the box
+        myManager.displayUpdate(center, size);
     }
 
     /**

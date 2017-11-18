@@ -15,8 +15,9 @@ public class Camera {
     private ScrollPane myView;
     private Map myMap;
     private SubScene myMini;
-    private Vector myCenter;
-    private Vector mySize;
+    private Vector myCenter = new Vector(0, 0);
+    // todo: set initial value in constructor
+    private Vector mySize = new Vector(10, 10);
 
     public Camera(Map map) {
         myMap = map;
@@ -27,6 +28,12 @@ public class Camera {
         myView.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
+    /**
+     * set viewport to certain box and return scrollpane
+     * @param center
+     * @param size
+     * @return myView
+     */
     public ScrollPane getView(Vector center, Vector size) {
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));

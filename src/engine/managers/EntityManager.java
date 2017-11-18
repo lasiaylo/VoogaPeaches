@@ -170,8 +170,16 @@ public class EntityManager {
         }
     }
 
+    /**
+     * update imageview of entities inside box
+     * @param center
+     * @param size
+     */
     public void displayUpdate(Vector center, Vector size) {
-
+        myBGLayer.displayUpdate(center, size);
+        for (Layer each: myLayerList) {
+            each.displayUpdate(center, size);
+        }
     }
 
 }
