@@ -1,6 +1,7 @@
-package engine.scripts
+package engine.scripts.defaults
 
 import engine.entities.Entity
+import engine.scripts.defaults.GroovyScript
 
 class SpriteScript extends GroovyScript {
 

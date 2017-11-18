@@ -1,12 +1,12 @@
-package authoring.panels;
+package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
 
+import authoring.IPanelDelegate;
 import authoring.Panel;
-import authoring.PanelController;
 import authoring.Screen;
+import authoring.ScreenPosition;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
@@ -23,7 +23,7 @@ import javafx.scene.layout.VBox;
  * @author estellehe
  *
  */
-public class CameraPanel implements Panel{
+public class CameraPanel implements Panel {
 	private static final String PLAY = "Play";
 	private static final String PAUSE = "Pause";
 	private static final String ALLL = "All Layers";
@@ -31,7 +31,7 @@ public class CameraPanel implements Panel{
 	private static final String NEWL = "Add New Layer";
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
-	
+
 	private GridPane myGridPane;
 	private Button myPlay;
 	private Button myPause;
@@ -40,29 +40,31 @@ public class CameraPanel implements Panel{
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
-	
+
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
-	private double cameraWidth = Double.parseDouble(properties.getString("camerawidth"));
-	private double cameraHeight = Double.parseDouble(properties.getString("cameraheight"));
+	private double cameraWidth;
+	private double cameraHeight;
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
+	private IPanelDelegate controller;
 
-    private PanelController controller;
+	public CameraPanel(double width, double height) {
+		cameraWidth = width;
+		cameraHeight = height;
 
-    public CameraPanel() {
 		myGridPane = new GridPane();
 		myGridPane.setPrefWidth(cameraWidth);
 		myGridPane.setPrefHeight(cameraHeight);
-		
+
 		myArea = new VBox(myGridPane, buttonRow());
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth);
 		myArea.setPadding(new Insets(5));
-		
+
 		setGrid();
-		
+
 	}
-	
+
 	private HBox buttonRow() {
 		myPlay = new Button(PLAY);
 		myPause = new Button(PAUSE);
@@ -70,13 +72,13 @@ public class CameraPanel implements Panel{
 		myGroup = new ToggleGroup();
 		myWhole = new RadioButton(WHOLEB);
 		myLocal = new RadioButton(LOCALB);
-		
+
 		setupButton();
-		
+
 		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myWhole, myLocal);
 		buttonRow.setPrefWidth(cameraWidth);
 		buttonRow.setSpacing(cameraWidth/15);
-		
+
 		return buttonRow;
 	}
 
@@ -84,18 +86,17 @@ public class CameraPanel implements Panel{
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setStyle(nodeStyle);
-		
+
 		myPlay.setStyle(nodeStyle);
 		myPause.setStyle(nodeStyle);
-		
+
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
 		myWhole.setSelected(true);
 		myWhole.setStyle(nodeStyle);
 		myLocal.setStyle(nodeStyle);
-		
-	}
 
+	}
 
 	private void setGrid() {
 		double side = cameraHeight/camerarowN;
@@ -116,19 +117,19 @@ public class CameraPanel implements Panel{
 	}
 
 	@Override
-	public int getArea() {
-		return Screen.CAMERA;
+	public ScreenPosition getPosition() {
+		return ScreenPosition.CAMERA;
 	}
 
-
-    @Override
-    public String title(){
-        return "Game Camera";
-    }
-
-	public void setController(PanelController controller) {
+	@Override
+	public void setController(IPanelDelegate controller) {
 		this.controller = controller;
 		controller.addCamera(this);
+	}
+
+	@Override
+	public String title(){
+		return "Game Camera";
 	}
 
 	/**
@@ -138,16 +139,16 @@ public class CameraPanel implements Panel{
 	public Button getPlay() {
 		return myPlay;
 	}
-	
+
 	/**
 	 * get pause button
-	 * 
+	 *
 	 * @return pause button
 	 */
 	public Button getPause() {
 		return myPause;
 	}
-	
+
 	/**
 	 * get gridpane
 	 * @return gridpane
@@ -155,7 +156,7 @@ public class CameraPanel implements Panel{
 	public GridPane getGridPane() {
 		return myGridPane;
 	}
-	
+
 	/**
 	 * get layer choicebox
 	 * @return choicebox
@@ -163,7 +164,7 @@ public class CameraPanel implements Panel{
 	public ChoiceBox<String> getLayer() {
 		return myLayer;
 	}
-	
+
 	/**
 	 * get whole button
 	 * @return myWhole
@@ -171,7 +172,7 @@ public class CameraPanel implements Panel{
 	public RadioButton getWhole() {
 		return myWhole;
 	}
-	
+
 	/**
 	 * get local button
 	 * @return myLocal
@@ -179,5 +180,4 @@ public class CameraPanel implements Panel{
 	public RadioButton getLocal() {
 		return myLocal;
 	}
-
 }

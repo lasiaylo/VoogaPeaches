@@ -1,24 +1,16 @@
-package engine.managers;
+package engine.fsm;
+
+import engine.managers.StateManager;
 
 import java.util.List;
 
+/**Represents a state within a Finite State Machine
+ * 
+ * @author lasia
+ *
+ */
 public class State {
-	private String myLabel;
 	private List<Transition> myTransitions;
-	
-	/**Creates a new State with a label
-	 * @param label
-	 */
-	public State(String label) {
-		setLabel(label);
-	}
-	
-	/**Creates a new State with no label
-	 * 
-	 */
-	public State() {
-		this("");
-	}
 	
 	/**Checks the transitions of this state to see if the conditions are met
 	 * If they are, the manager's current state will be changed to the transition's destination
@@ -37,24 +29,6 @@ public class State {
 	 */
 	public List<Transition> getTransitions(){
 		return myTransitions;
-	}
-
-	
-	/**
-	 * @return label for this state
-	 */
-	public String getLabel() {
-		return myLabel;
-	}
-	
-
-	/**Sets the label for this state. 
-	 * Labels have no affect on the workings of the state,
-	 * it is purely for users to organize with
-	 * @param label
-	 */
-	public void setLabel(String myLabel) {
-		this.myLabel = myLabel;
 	}
 
 }

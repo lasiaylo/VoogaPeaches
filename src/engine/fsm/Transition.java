@@ -1,12 +1,13 @@
-package engine.managers;
+package engine.fsm;
+
+import engine.fsm.Logic;
+import engine.fsm.State;
 
 import java.util.Map;
 
 public class Transition {
 	private State myDestinationState;
 	private Logic condition;
-	// figure out how to allow users to create their own logic out
-	// of their own specified parameters
 	
 	/**Creates a new transition that points to a destination state
 	 * @param state
@@ -22,7 +23,7 @@ public class Transition {
 	 * @return boolean
 	 */
 	public boolean conditionsMeet(Map<String,Object> parameters) {
-		
+		return condition.evaluate();
 	}
 	
 	/**
@@ -30,5 +31,13 @@ public class Transition {
 	 */
 	public State getDestinationState() {
 		return myDestinationState;
+	}
+	
+	/**Sets a new condition needed for this transition to move to the next state
+	 * @param logicStatement
+	 * @param parameter
+	 */
+	public void setCondition(String logicStatement, Map<String,Object> parameter) {
+		condition = new Logic(logicStatement,parameter);
 	}
 }
