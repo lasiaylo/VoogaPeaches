@@ -34,6 +34,7 @@ public class Entity {
     public Entity(Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
+        myRender = new Render();
     }
 
     /**

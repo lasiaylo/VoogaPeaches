@@ -1,17 +1,17 @@
 package engine.managers;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import engine.entities.Entity;
 import engine.entities.Layer;
-import engine.renderer.DBRenderer.Renderer;
 import engine.scripts.IScript;
 import engine.scripts.Script;
-import javafx.scene.image.Image;
-import org.codehaus.groovy.control.CompilationFailedException;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
 
@@ -29,7 +29,7 @@ public class EntityManager {
 	
 	private int myGridSize;
 	private Layer myBGLayer;
-	private List<Layer> myLayerList;
+	private ObservableList<Layer> myLayerList;
 	
 	/**
 	 * manage all entities and layers
@@ -41,7 +41,7 @@ public class EntityManager {
 	public EntityManager(Number gridSize) {
 		myGridSize = gridSize.intValue();
 		myBGLayer = new Layer();
-		myLayerList = new ArrayList<Layer>();
+		myLayerList = FXCollections.observableList(new ArrayList<Layer>());
 	}
 	
 	private Entity createEnt(Vector pos) {
@@ -60,6 +60,7 @@ public class EntityManager {
         try {
             BGblock.addSript(new Script(IMGSPT));
             //todo: add gridsize to image script
+            BGblock.update();
         }
         catch (GroovyInstantiationException e) {
             //todo: error msg
@@ -79,6 +80,7 @@ public class EntityManager {
 		Entity staEnt = createEnt(pos);
         try {
             staEnt.addSript(new Script(IMGSPT));
+            staEnt.update();
         }
         catch (GroovyInstantiationException e) {
             //todo: error msg here
@@ -108,34 +110,26 @@ public class EntityManager {
 		Ent.setStatic(false);
 		return Ent;
 	}
-	
+
+    /**
+     * get group of background imageview
+     * @return BG imageview group
+     */
+	public Group getBGImageList() {
+	    return myBGLayer.getImageList();
+    }
+
+
+    /**
+     * add listener for layerlist
+     * @param listener
+     */
+    public void addLayerListener(ListChangeListener listener) {
+        myLayerList.addListener(listener);
+    }
+
 	/**
-	 * get all the nonBG entities
-	 * @return non-background entities
-	 */
-	public List<Entity> getNonBGEntity() {
-		if (! myLayerList.isEmpty()) {
-			List<Entity> allEnt = new ArrayList<Entity>();
-			for (Layer each: myLayerList) {
-				allEnt.addAll(each.getEntiy());
-			}
-			return allEnt;
-		}
-		else {
-			return null;
-		}
-	}
-	
-	/**
-	 * get all the BG entities
-	 * @return background entities
-	 */
-	public List<Entity> getBGEntity() {
-		return myBGLayer.getEntiy();
-	}
-	
-	/**
-	 * select any single layer, background layer is view only
+	 * select any single layer, background layer is view only, for authoring mode
 	 * @param level
 	 */
 	public void selectLayer(int level) {
@@ -147,7 +141,7 @@ public class EntityManager {
 	}
 	
 	/**
-	 * select background layer for viewing and editing
+	 * select background layer for viewing and editing, for authoring mode
 	 */
 	public void selectBGLayer() {
 		myBGLayer.select();
@@ -157,7 +151,7 @@ public class EntityManager {
 	}
 	
 	/**
-	 * show all layer in view only mode
+	 * show all layer in view only mode, so basically player mode
 	 */
 	public void allLayer() {
 		myBGLayer.onlyView();
@@ -165,6 +159,15 @@ public class EntityManager {
 			each.onlyView();
 		}
 	}
-	
+
+    /**
+     * update all entities in every layer
+     */
+	public void updateAll() {
+	    myBGLayer.updateAll();
+	    for (Layer each: myLayerList) {
+	        each.updateAll();
+        }
+    }
 
 }

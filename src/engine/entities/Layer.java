@@ -1,5 +1,7 @@
 package engine.entities;
 
+import javafx.scene.Group;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,25 +12,35 @@ import java.util.List;
  */
 public class Layer {
 	private List<Entity> myEntityList;
+	private Group myImageList;
 	
 	public Layer() {
-		myEntityList = new ArrayList<Entity>();
+
+	    myEntityList = new ArrayList<Entity>();
+	    myImageList = new Group();
 	}
 	
 	/**
 	 * add entity to layer
+     *
+     * this entity should already has an imageview inside its render
+     *
+     * which means adding imagescript and updating entity
 	 * @param each
 	 */
 	public void addEntity(Entity each) {
-		myEntityList.add(each);
+
+	    myEntityList.add(each);
+	    myImageList.getChildren().add(each.getRender().getImage());
 	}
 	
 	/**
 	 * get entity list from the layer
 	 * @return
 	 */
-	public List<Entity> getEntiy() {
-		return myEntityList;
+	public List<Entity> getEntityList() {
+
+	    return myEntityList;
 	}
 	
 	/**
@@ -60,5 +72,22 @@ public class Layer {
 			each.getRender().setVisible(true);
 		}
 	}
+
+    /**
+     * get group of imageview representation of entities
+     * @return myimagelist
+     */
+	public Group getImageList() {
+	    return myImageList;
+    }
+
+    /**
+     * update all entities in the layer
+     */
+    public void updateAll() {
+	    for (Entity each: myEntityList) {
+	        each.update();
+        }
+    }
 
 }

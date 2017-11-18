@@ -32,23 +32,15 @@ public class EngineLoop {
 	}
 	
 	private void step() {
-		//assume we do not make any changes to the background block entity from engine
-		for (Entity each: myManager.getBGEntity()) {
-			each.update();
-			// condition should be set here to displayupdate only for those entities that are in the range of camera
-			// like based on how far away from player since player is always centered
-			// okay seems like this is going to be in the camera
-//			each.getRender()
-//				.displayUpdate(
-//				each.getTransform());
-		}
+		myManager.updateAll();
 	}
 	
 	/**
-	 * pause the game loop
+	 * get the timeline
 	 */
 	public Timeline getTimeline() {
-		return myTimeline;
+
+	    return myTimeline;
 	}
 
 }

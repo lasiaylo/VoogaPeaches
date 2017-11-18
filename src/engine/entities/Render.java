@@ -12,15 +12,7 @@ import util.math.num.Vector;
 public class Render {
 	private ImageView myImageView;
 	 
-	public Render(String name) {
-		//simple implementation for rendering, need the true renderer to render instead of name search
-		try {
-			myImageView = new ImageView(new Image(name));
-		}
-		// this is not permanent implementation, so simply print out the error
-		catch(NullPointerException e) {
-			System.out.println(e);
-		}
+	public Render() {
 	}
 	 
 	public void displayUpdate(Transform transform) {
