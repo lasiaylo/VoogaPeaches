@@ -1,7 +1,7 @@
 package engine.camera;
 
 import engine.entities.Entity;
-import engine.entities.EntityManager;
+import engine.managers.EntityManager;
 import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 

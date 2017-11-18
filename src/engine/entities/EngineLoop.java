@@ -3,6 +3,7 @@ package engine.entities;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import engine.managers.EntityManager;
 
 /**
  * control the game loop of engine, start or stop the game

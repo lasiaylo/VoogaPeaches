@@ -1,11 +1,17 @@
-package engine.entities;
+package engine.managers;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.entities.Entity;
+import engine.entities.Layer;
 import engine.renderer.DBRenderer.Renderer;
 import engine.scripts.IScript;
+import engine.scripts.Script;
 import javafx.scene.image.Image;
+import org.codehaus.groovy.control.CompilationFailedException;
 import util.math.num.Vector;
 
 /**
@@ -18,6 +24,7 @@ import util.math.num.Vector;
  */
 public class EntityManager {
 	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
+	private static final String IMGSPT = "ImageScript";
 	
 	private int myGridSize;
 	private Layer myBGLayer;
@@ -41,18 +48,24 @@ public class EntityManager {
 		return myEnt;
 	}
 	
-//	/**  This should be reimplement later when the image script can set initial value so that the imagescript could be
-//	 * appended when the entity was created and set to a certain size
-//	 * add background block
-//	 * @param name
-//	 * @param pos
-//	 * @return BGblock
-//	 */
-//	public Entity addBG(Vector pos) {
-//		Entity BGblock = createEnt(pos);
-//		BGblock.getRender().setScale(new Vector(myGridSize, myGridSize));
-//		myBGLayer.addEntity(BGblock);
-//		return BGblock;
+	/**  This should be reimplement later when the image script can set initial value so that the imagescript could be
+	 * appended when the entity was created and set to a certain size
+	 * add background block
+	 * @param pos
+	 * @return BGblock
+	 */
+	public Entity addBG(Vector pos) {
+        Entity BGblock = createEnt(pos);
+        try {
+            BGblock.addSript(new Script(IMGSPT));
+            //todo: add gridsize to image script
+        }
+        catch (InstantiationException|IllegalAccessException|CompilationFailedException|IOException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException|ClassNotFoundException e) {
+            //need to throw groovyinstantiationexception, pull first
+        }
+        myBGLayer.addEntity(BGblock);
+        return BGblock;
+    }
 	
 	/**
 	 * add static entities that are not background
@@ -63,8 +76,12 @@ public class EntityManager {
 	 */
 	public Entity addNonBG(Vector pos, int level, Vector size) {
 		Entity staEnt = createEnt(pos);
-		//replace this with imagescript
-//		staEnt.getRender().setScale(size);
+        try {
+            staEnt.addSript(new Script(IMGSPT));
+        }
+        catch (InstantiationException|IllegalAccessException|CompilationFailedException|IOException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException|ClassNotFoundException e) {
+            //need to throw groovyinstantiationexception, pull first
+        }
 		
 		if (level > myLayerList.size()-1) {
 			Layer myLayer = new Layer();

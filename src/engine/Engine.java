@@ -4,7 +4,7 @@ import engine.camera.Camera;
 import engine.camera.Map;
 import engine.entities.EngineLoop;
 import engine.entities.Entity;
-import engine.entities.EntityManager;
+import engine.managers.EntityManager;
 import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
 import util.math.num.Vector;
