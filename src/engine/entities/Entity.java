@@ -95,4 +95,37 @@ public class Entity {
 		this.isStatic = isStatic;
 	}
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * set entity movable
+	 */
+	public void setMovable() {
+		isStatic = false;
+	}
+	
+	/**
+	 * set imageview visibility
+	 * @param vis
+	 */
+	public void setVisible(boolean vis) {
+		myImageView.setVisible(vis);
+	}
+	
+	/**
+	 * set imageview transparency to mouse click
+	 * @param trans
+	 */
+	public void setMouseTrans(boolean trans) {
+		myImageView.setMouseTransparent(trans);
+	}
+	
+	/**
+	 * get imageview 
+	 * @return imageview
+	 */
+	public ImageView getImage() {
+		return myImageView;
+	}
+>>>>>>> 71ef66c10704151a919448f1c4c5bf5f4ceaf9ea
 }

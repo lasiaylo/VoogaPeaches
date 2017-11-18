@@ -28,7 +28,6 @@ public class MenuBarPanel implements Panel {
 
     private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
     private String path = properties.getString("menubarpath");
-
     private double height = Double.parseDouble(properties.getString("menubarheight"));
     private String style = properties.getString("menubarstyle");
     private Color textColor = Color.web(properties.getString("menubartextcolor"));
