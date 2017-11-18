@@ -1,5 +1,6 @@
 package engine.entities;
 
+import database.TrackableObject;
 import engine.scripts.Script;
 import engine.util.FXProcessing;
 import engine.scripts.IScript;
@@ -20,11 +21,14 @@ import java.util.List;
  * @author estellehe
  *
  */
-public class Entity {
+public class Entity extends TrackableObject {
 	private Transform myTransform;
 	private Render myRender;
 	private boolean isStatic;
 	private List<IScript> myScripts;
+
+	// Private Constructor for Database
+	private Entity() {}
 
 	/**
 	 *  Creates a new Entity
