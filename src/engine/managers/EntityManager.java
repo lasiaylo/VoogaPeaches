@@ -17,12 +17,10 @@ import util.math.num.Vector;
  *
  */
 public class EntityManager {
-	private static final String DBNAME = "Some database name idk";
 	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
 	
 	private int myGridSize;
 	private Layer myBGLayer;
-	private Renderer myRenderer;
 	private List<Layer> myLayerList;
 	
 	/**
@@ -35,40 +33,38 @@ public class EntityManager {
 	public EntityManager(Number gridSize) {
 		myGridSize = gridSize.intValue();
 		myBGLayer = new Layer();
-		myRenderer = new Renderer(DBNAME); //probably not the right way to render, have to figure out later
 		myLayerList = new ArrayList<Layer>();
 	}
 	
-	private Entity createEnt(String name, Vector pos) {
-//		Image someimage = new Image("resources/graphics/sprite_test.png");  //need to get from the renderer
+	private Entity createEnt(Vector pos) {
 		Entity myEnt = new Entity(pos, SCRIPTL);
 		return myEnt;
 	}
 	
-	/**
-	 * add background block
-	 * @param name
-	 * @param pos
-	 * @return BGblock
-	 */
-	public Entity addBG(String name, Vector pos) {
-		Entity BGblock = createEnt(name, pos);
-		BGblock.getRender().setScale(new Vector(myGridSize, myGridSize));
-		myBGLayer.addEntity(BGblock);
-		return BGblock;
-	}
+//	/**  This should be reimplement later when the image script can set initial value so that the imagescript could be
+//	 * appended when the entity was created and set to a certain size
+//	 * add background block
+//	 * @param name
+//	 * @param pos
+//	 * @return BGblock
+//	 */
+//	public Entity addBG(Vector pos) {
+//		Entity BGblock = createEnt(pos);
+//		BGblock.getRender().setScale(new Vector(myGridSize, myGridSize));
+//		myBGLayer.addEntity(BGblock);
+//		return BGblock;
 	
 	/**
 	 * add static entities that are not background
-	 * @param name
 	 * @param pos
 	 * @param level
 	 * @param size
 	 * @return created entity
 	 */
-	public Entity addNonBG(String name, Vector pos, int level, Vector size) {
-		Entity staEnt = createEnt(name, pos);
-		staEnt.getRender().setScale(size);
+	public Entity addNonBG(Vector pos, int level, Vector size) {
+		Entity staEnt = createEnt(pos);
+		//replace this with imagescript
+//		staEnt.getRender().setScale(size);
 		
 		if (level > myLayerList.size()-1) {
 			Layer myLayer = new Layer();
@@ -84,14 +80,13 @@ public class EntityManager {
 	
 	/**
 	 * add nonstatic entities
-	 * @param name
 	 * @param pos
 	 * @param level
 	 * @param size
 	 * @return Entity
 	 */
-	public Entity addNonStatic(String name, Vector pos, int level, Vector size) {
-		Entity Ent = addNonBG(name, pos, level, size);
+	public Entity addNonStatic(Vector pos, int level, Vector size) {
+		Entity Ent = addNonBG(pos, level, size);
 		Ent.setStatic(false);
 		return Ent;
 	}
