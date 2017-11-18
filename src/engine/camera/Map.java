@@ -13,6 +13,8 @@ import util.math.num.Vector;
  * current implementation update image for every existing entity, even if it is outside the camera
  *
  * need better implementation that only update relevant entity image
+ *
+ * @author Estelle
  */
 public class Map extends StackPane implements ListChangeListener<Layer>{
     private EntityManager myManager;

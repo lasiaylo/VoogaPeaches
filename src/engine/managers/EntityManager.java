@@ -170,4 +170,8 @@ public class EntityManager {
         }
     }
 
+    public void displayUpdate(Vector center, Vector size) {
+
+    }
+
 }

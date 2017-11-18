@@ -18,7 +18,7 @@ public class Render {
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
 		setRotate(transform.getRotation());
-		setScale(transform.getScale());
+		setSize(transform.getSize());
 	}
 	
 	/**
@@ -37,12 +37,12 @@ public class Render {
 	}
 	
 	/**
-	 * Sets the scale (width, height) of the imageview
-	 * @param scale		Scale of the imageview.(1,1) is standard scale
+	 * Sets the size (width, height) of the imageview
+	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
-	private void setScale(Vector scale) {
-		myImageView.setFitWidth(myImageView.getFitWidth() * scale.at(0));
-		myImageView.setFitHeight(myImageView.getFitHeight() * scale.at(1));
+	private void setSize(Vector size) {
+		myImageView.setFitWidth(size.at(0));
+		myImageView.setFitHeight(size.at(1));
 	}
 	
 	

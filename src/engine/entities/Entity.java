@@ -57,8 +57,13 @@ public class Entity {
 		}
 	}
 
+    /**
+     * transform class that contains transform recorded for this entity
+     * @return transform
+     */
 	public Transform getTransform() {
-		return myTransform;
+
+	    return myTransform;
 	}
 
 	/**
