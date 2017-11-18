@@ -49,8 +49,8 @@ public class Render {
 	 * @param scale		Scale of the imageview.(1,1) is standard scale
 	 */
 	private void setScale(Vector scale) {
-		myImageView.setFitWidth(scale.at(0));
-		myImageView.setFitHeight(scale.at(1));
+		myImageView.setFitWidth(myImageView.getFitWidth() * scale.at(0));
+		myImageView.setFitHeight(myImageView.getFitHeight() * scale.at(1));
 	}
 	
 	

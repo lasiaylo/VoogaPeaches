@@ -10,6 +10,7 @@ public class Transform {
 	private Vector myPosition;
 	private double myRotation;
 	private Vector myScale;
+	private Vector mySize; //need to implement this for map to determine whether inside viewport
 	
 
 

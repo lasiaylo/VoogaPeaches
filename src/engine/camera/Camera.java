@@ -1,20 +1,42 @@
 package engine.camera;
 
-import engine.entities.EntityManager;
-import javafx.scene.layout.StackPane;
+import javafx.scene.SubScene;
+import javafx.scene.control.ScrollPane;
 import util.math.num.Vector;
 
+/**
+ * Camera that will pass a view to the authoring and player for game display
+ *
+ * do not extend scrollpane directly for the flexibility of adding more features like minimap
+ *
+ * @author Estelle He
+ */
 public class Camera {
-    private EntityManager myManager;
-    private StackPane myView;
+    private ScrollPane myView;
+    private Map myMap;
+    private SubScene myMini;
 
-    public Camera(EntityManager manager) {
-        myManager = manager;
-        myView = new StackPane();
+    public Camera(Map map) {
+        myMap = map;
+        myView = new ScrollPane(map);
+        myView.setContent(map);
+        myView.setPannable(false);
+        myView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        myView.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    public StackPane getView() {
+    public ScrollPane getView(Vector center, Vector size) {
+        myView.setPrefWidth(size.at(0));
+        myView.setPrefHeight(size.at(1));
+        myView.setHvalue(center.at(0) - size.at(0)/2);
+        myView.setVvalue(center.at(1) - size.at(1)/2);
         return myView;
     }
-    
+
+    private SubScene getMinimap(Vector size) {
+        //need to check, just blind coding
+        myMini = new SubScene(myMap, size.at(0), size.at(1));
+        return myMini;
+    }
+
 }
