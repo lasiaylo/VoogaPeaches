@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
-import authoring.Screen;
 import authoring.ScreenPosition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
