@@ -1,4 +1,7 @@
-package engine.managers;
+package engine.fsm;
+
+import engine.fsm.Logic;
+import engine.fsm.State;
 
 import java.util.Map;
 
