@@ -4,6 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class Arrow {
     private static final double HEAD_OFFSET = 45;
+    public static final double HEAD_FACTOR = 0.8;
 
     private Group myGroup = new Group();
     private Vector myOrigin;
@@ -33,6 +35,12 @@ public class Arrow {
         setArrow();
 
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
+        myGroup.setOnMouseDragged(e -> handleDrag(e));
+    }
+
+    private void handleDrag(MouseEvent event) {
+         Vector newHead = new Vector(event.getSceneX(), event.getSceneY());
+         this.setHead(newHead);
     }
 
     public Group getGroup() {
@@ -45,8 +53,8 @@ public class Arrow {
         myBody.setEndX(myHead.at(0));
         myBody.setEndY(myHead.at(1));
 
-        setHead(myNegativeHead);
-        setHead(myPositiveHead);
+        setHeadOffsets(myNegativeHead);
+        setHeadOffsets(myPositiveHead);
 
         setHeadAngle(myNegativeHead, -HEAD_OFFSET);
         setHeadAngle(myPositiveHead, HEAD_OFFSET);
@@ -57,8 +65,8 @@ public class Arrow {
         head.getTransforms().add(new Rotate(angle, myHead.at(0), myHead.at(1)));
     }
 
-    private void setHead(Line head) {
-        Vector myHeadStartPoint = myOrigin.add(myLength.multiply(0.8));
+    private void setHeadOffsets(Line head) {
+        Vector myHeadStartPoint = myOrigin.add(myLength.multiply(HEAD_FACTOR));
         head.setStartX(myHeadStartPoint.at(0));
         head.setStartY(myHeadStartPoint.at(1));
         head.setEndX(myHead.at(0));
@@ -66,6 +74,7 @@ public class Arrow {
     }
 
     public void setHead(Vector headPosition) {
+        System.out.println("set head");
         myHead = headPosition;
         myLength = myHead.subtract(myOrigin);
         setArrow();

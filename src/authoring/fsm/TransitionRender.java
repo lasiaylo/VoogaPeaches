@@ -1,20 +1,30 @@
 package authoring.fsm;
 
 import engine.managers.Transition;
+import util.math.num.Vector;
 
 public class TransitionRender {
     private StateRender myOrigin;
     private StateRender myDestination;
     private Transition myTransition;
+    private Arrow myArrow;
 
-    public TransitionRender(StateRender origin, StateRender destination) {
+    public TransitionRender(StateRender origin, Arrow arrow) {
         myOrigin = origin;
-        myDestination = destination;
+        myArrow = arrow;
         // create a new popup to set the transition
     }
 
     public void setTransition(Transition transition) {
         myTransition = transition;
+    }
+
+    public Arrow getRender() {
+        return myArrow;
+    }
+
+    public void setHead(Vector head) {
+        myArrow.setHead(head);
     }
 
     public Transition getTransition() {

@@ -21,7 +21,13 @@ public class StateRender {
 
     public StateRender(double X, double Y, String title) {
 //        myState = state;
-        instRender(X, Y, title);
+        myRender.setLayoutX(X);
+        myRender.setLayoutY(Y);
+        myRender.setFill(Color.DARKSLATEBLUE); // hard coded
+
+        myTitle = new Label(title);
+        myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
+        myRender.widthProperty().bind(myTitle.widthProperty().add(PADDING));
         myPane = new StackPane();
         myPane.getChildren().addAll(myRender, myTitle);
         // color red
@@ -36,12 +42,12 @@ public class StateRender {
     }
 
     protected void addLeavingTransition(TransitionRender tRender) {
-        myState.getTransitions().add(tRender.getTransition());
+//        myState.getTransitions().add(tRender.getTransition());
         myLeavingTransitions.add(tRender);
     }
 
     protected void removeLeavingTransition(TransitionRender tRender) {
-        myState.getTransitions().remove(tRender.getTransition());
+//        myState.getTransitions().remove(tRender.getTransition());
         myLeavingTransitions.remove(tRender);
     }
 
@@ -55,15 +61,5 @@ public class StateRender {
 
     public void removeArrivingTransition(TransitionRender tRender) {
 
-    }
-
-    private void instRender(double X, double Y, String title) {
-        myRender.setLayoutX(X);
-        myRender.setLayoutY(Y);
-        myRender.setFill(Color.DARKSLATEBLUE);
-
-        myTitle = new Label(title);
-        myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
-        myRender.widthProperty().bind(myTitle.widthProperty().add(PADDING));
     }
 }

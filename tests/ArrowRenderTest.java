@@ -8,7 +8,7 @@ public class ArrowRenderTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Vector origin = new Vector(50, 50);
-        Vector destination = new Vector(20, 59);
+        Vector destination = new Vector(50, 50);
         Arrow arrow = new Arrow(origin, destination);
         arrow.setHead(new Vector(450, 127));
         Scene s = new Scene(arrow.getGroup());
