@@ -1,20 +1,10 @@
 package authoring.fsm;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import util.math.num.Vector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Arrow {
     private static final double HEAD_OFFSET = 45;
@@ -74,7 +64,6 @@ public class Arrow {
     }
 
     public void setHead(Vector headPosition) {
-        System.out.println("set head");
         myHead = headPosition;
         myLength = myHead.subtract(myOrigin);
         setArrow();

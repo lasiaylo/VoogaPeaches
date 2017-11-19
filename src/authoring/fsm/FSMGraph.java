@@ -1,13 +1,9 @@
 package authoring.fsm;
 
-import engine.managers.State;
-import engine.managers.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import util.math.num.Vector;
 
 import java.util.ArrayList;
@@ -27,7 +23,7 @@ public class FSMGraph {
         myTransitionRenders = transitionRenders;
         myGroup = new Group();
         myGroup.setOnMouseDragged(e -> dragHandle(e));
-        myGroup.setOnMouseDragOver(e -> dragExit());
+        myGroup.setOnMouseReleased(e -> dragExit(e));
 
     }
 
@@ -45,23 +41,28 @@ public class FSMGraph {
         Vector vectorMousePosition = new Vector(mousePosition.getX(), mousePosition.getY());
         if(currentTRender == null) {
             for(StateRender sRender : myStateRenders) {
-                Pane pane = sRender.getRender();
-                if(pane.contains(mousePosition)) {
+                Node node = sRender.getRender();
+                if(node.contains(mousePosition)) {
                     Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition);
                     currentTRender = new TransitionRender(sRender, newArrow);
                     myTransitionRenders.add(currentTRender);
                     myGroup.getChildren().add(currentTRender.getRender().getGroup());
-                    return;
+                    break;
                 }
             }
         } else {
-//            System.out.println("current not null");
             currentTRender.setHead(vectorMousePosition);
         }
     }
 
-    private void dragExit() {
-        System.out.println("done");
+    private void dragExit(MouseEvent event) {
+        for(StateRender sRender : myStateRenders) {
+            Node node = sRender.getRender();
+            if(node.contains(new Point2D(event.getSceneX(), event.getScreenY()))) {
+                sRender.addArrivingTransition(currentTRender);
+                break;
+            }
+        }
         currentTRender = null;
     }
 }

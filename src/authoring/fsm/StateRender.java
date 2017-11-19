@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,20 +22,18 @@ public class StateRender {
 
     public StateRender(double X, double Y, String title) {
 //        myState = state;
-        myRender.setLayoutX(X);
-        myRender.setLayoutY(Y);
         myRender.setFill(Color.DARKSLATEBLUE); // hard coded
+        myRender.setX(X);
+        myRender.setY(Y);
 
         myTitle = new Label(title);
         myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
         myRender.widthProperty().bind(myTitle.widthProperty().add(PADDING));
-        myPane = new StackPane();
-        myPane.getChildren().addAll(myRender, myTitle);
         // color red
     }
 
-    protected Pane getRender() {
-        return myPane;
+    protected Shape getRender() {
+        return myRender;
     }
 
     protected void setFill(Color color) {
