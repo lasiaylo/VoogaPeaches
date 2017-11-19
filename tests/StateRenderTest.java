@@ -13,9 +13,9 @@ public class StateRenderTest extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         StateRender sRender = new StateRender(2, 2, "hell yeah");
-        Pane pane = sRender.getRender();
-        Scene s = new Scene(pane);
-        primaryStage.setScene(s);
-        primaryStage.show();
+//        Pane pane = sRender.getRender();
+//        Scene s = new Scene(pane);
+//        primaryStage.setScene(s);
+//        primaryStage.show();
     }
 }
