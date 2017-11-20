@@ -1,8 +1,10 @@
 package engine.entities;
 
+import engine.camera.Camera;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import engine.managers.EntityManager;
 
 /**
  * control the game loop of engine, start or stop the game
@@ -17,13 +19,15 @@ public class EngineLoop {
 	
 	private EntityManager myManager;
 	private Timeline myTimeline;
+	private Camera myCamera;
 	
 	/**
 	 * constructor for game loop
 	 * @param manager
 	 */
-	public EngineLoop(EntityManager manager) {
+	public EngineLoop(EntityManager manager, Camera camera) {
 		myManager = manager;
+		myCamera = camera;
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / MAX_FRAMES_PER_SECOND), e -> step());
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -31,23 +35,18 @@ public class EngineLoop {
 	}
 	
 	private void step() {
-		//assume we do not make any changes to the background block entity from engine
-		for (Entity each: myManager.getBGEntity()) {
-			each.update();
-			// condition should be set here to displayupdate only for those entities that are in the range of camera
-			// like based on how far away from player since player is always centered
-			// okay seems like this is going to be in the camera
-//			each.getRender()
-//				.displayUpdate(
-//				each.getTransform());
-		}
+
+	    myManager.updateAll();
+
+	    myCamera.update();
 	}
 	
 	/**
-	 * pause the game loop
+	 * get the timeline
 	 */
 	public Timeline getTimeline() {
-		return myTimeline;
+
+	    return myTimeline;
 	}
 
 }

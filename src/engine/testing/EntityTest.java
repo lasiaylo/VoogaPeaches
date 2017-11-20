@@ -25,8 +25,8 @@ public class EntityTest {
 		List<IScript> myScripts = new ArrayList<IScript>();
 
 		Entity test = new Entity(myScripts,POS,POS);
-		Script testScript = new Script("SpriteScript.groovy");
-		test.getScripts().add(testScript);
+		//Script testScript = new Script("SpriteScript.groovy");
+		//test.getScripts().add(testScript);
 		
 	}
 }
