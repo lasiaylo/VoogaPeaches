@@ -12,11 +12,6 @@ public class MiniMapPanel implements Panel{
     }
 
     @Override
-    public ScreenPosition getPosition(){
-        return ScreenPosition.BOTTOM_RIGHT;
-    }
-
-    @Override
     public void setController(IPanelDelegate controller) {
         //TODO: Create controller
     }
