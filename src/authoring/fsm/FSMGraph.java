@@ -58,11 +58,18 @@ public class FSMGraph {
         currentTRender.setHead(new Vector(event.getSceneX(), event.getSceneY()));
     }
 
+    private void transitionDragExit(MouseEvent event) {
+        currentTRender = null;
+    }
+
     private void createArrow(Vector vectorMousePosition, StateRender sRender) {
         Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition);
-        currentTRender = new TransitionRender(sRender, newArrow);
-        myTransitionRenders.add(currentTRender);
-        myGroup.getChildren().add(currentTRender.getRender().getRender());
+        TransitionRender tRender = new TransitionRender(sRender, newArrow);
+        currentTRender = tRender;
+        myTransitionRenders.add(tRender);
+        myGroup.getChildren().add(tRender.getRender().getRender());
+        tRender.getRender().getRender().setOnMouseDragged((MouseEvent event) -> transitionDragHandle(event, tRender));
+        tRender.getRender().getRender().setOnMouseReleased(e -> transitionDragExit(e));
     }
 
     private void dragExit(MouseEvent event) {
