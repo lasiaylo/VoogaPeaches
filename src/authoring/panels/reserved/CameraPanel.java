@@ -4,9 +4,6 @@ import java.util.ResourceBundle;
 
 import authoring.IPanelDelegate;
 import authoring.Panel;
-import authoring.PanelController;
-import authoring.Screen;
-import authoring.ScreenPosition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -33,6 +30,8 @@ public class CameraPanel implements Panel {
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
 
+	private static final double SPACING = 10;
+	
 	private GridPane myGridPane;
 	private Button myPlay;
 	private Button myPause;
@@ -59,7 +58,7 @@ public class CameraPanel implements Panel {
 
 		myArea = new VBox(myGridPane, buttonRow());
 		myArea.setSpacing(5);
-		myArea.setPrefWidth(cameraWidth);
+		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 
 		setGrid();
@@ -115,11 +114,6 @@ public class CameraPanel implements Panel {
 	public Region getRegion() {
 		// TODO Auto-generated method stub
 		return myArea;
-	}
-
-	@Override
-	public ScreenPosition getPosition() {
-		return ScreenPosition.CAMERA;
 	}
 
 	@Override
