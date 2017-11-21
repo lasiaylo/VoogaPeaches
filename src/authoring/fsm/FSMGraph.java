@@ -1,5 +1,6 @@
 package authoring.fsm;
 
+import engine.fsm.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -43,16 +44,25 @@ public class FSMGraph {
             for(StateRender sRender : myStateRenders) {
                 Node node = sRender.getRender();
                 if(node.contains(mousePosition)) {
-                    Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition);
-                    currentTRender = new TransitionRender(sRender, newArrow);
-                    myTransitionRenders.add(currentTRender);
-                    myGroup.getChildren().add(currentTRender.getRender().getGroup());
+                    createArrow(vectorMousePosition, sRender);
                     break;
                 }
             }
         } else {
             currentTRender.setHead(vectorMousePosition);
         }
+    }
+
+    private void transitionDragHandle(MouseEvent event, TransitionRender transition) {
+        currentTRender = transition;
+        currentTRender.setHead(new Vector(event.getSceneX(), event.getSceneY()));
+    }
+
+    private void createArrow(Vector vectorMousePosition, StateRender sRender) {
+        Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition);
+        currentTRender = new TransitionRender(sRender, newArrow);
+        myTransitionRenders.add(currentTRender);
+        myGroup.getChildren().add(currentTRender.getRender().getRender());
     }
 
     private void dragExit(MouseEvent event) {

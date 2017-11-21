@@ -11,7 +11,7 @@ public class ArrowRenderTest extends Application {
         Vector destination = new Vector(50, 50);
         Arrow arrow = new Arrow(origin, destination);
         arrow.setHead(new Vector(450, 127));
-        Scene s = new Scene(arrow.getGroup());
+        Scene s = new Scene(arrow.getRender());
         primaryStage.setScene(s);
         primaryStage.show();
     }

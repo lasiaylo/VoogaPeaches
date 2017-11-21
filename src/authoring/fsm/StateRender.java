@@ -1,6 +1,6 @@
 package authoring.fsm;
 
-import engine.managers.State;
+import engine.fsm.State;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,6 +13,8 @@ import java.util.List;
 
 public class StateRender {
     private static final double PADDING = 30;
+    private static final Color DEFAULT = Color.DARKSLATEBLUE;
+    private static final Color ERROR = Color.PALEVIOLETRED;
     private Label myTitle;
     private Pane myPane;
     private Rectangle myRender = new Rectangle();
@@ -20,9 +22,9 @@ public class StateRender {
 
     private List<TransitionRender> myLeavingTransitions = new ArrayList<>();
 
-    public StateRender(double X, double Y, String title) {
-//        myState = state;
-        myRender.setFill(Color.DARKSLATEBLUE); // hard coded
+    public StateRender(double X, double Y, String title, State state) {
+        myState = state;
+        myRender.setFill(ERROR); // hard coded
         myRender.setX(X);
         myRender.setY(Y);
 
@@ -41,12 +43,12 @@ public class StateRender {
     }
 
     protected void addLeavingTransition(TransitionRender tRender) {
-//        myState.getTransitions().add(tRender.getTransition());
+        myState.getTransitions().add(tRender.getTransition());
         myLeavingTransitions.add(tRender);
     }
 
     protected void removeLeavingTransition(TransitionRender tRender) {
-//        myState.getTransitions().remove(tRender.getTransition());
+        myState.getTransitions().remove(tRender.getTransition());
         myLeavingTransitions.remove(tRender);
     }
 

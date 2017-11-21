@@ -2,6 +2,7 @@ package engine.fsm;
 
 import engine.managers.StateManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**Represents a state within a Finite State Machine
@@ -11,6 +12,14 @@ import java.util.List;
  */
 public class State {
 	private List<Transition> myTransitions;
+
+	public State() {
+		this(new ArrayList<>());
+	}
+
+	public State(List<Transition> transitions) {
+		myTransitions = transitions;
+	}
 	
 	/**Checks the transitions of this state to see if the conditions are met
 	 * If they are, the manager's current state will be changed to the transition's destination

@@ -1,6 +1,6 @@
 package authoring.fsm;
 
-import engine.managers.Transition;
+import engine.fsm.Transition;
 import util.math.num.Vector;
 
 public class TransitionRender {

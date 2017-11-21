@@ -25,15 +25,9 @@ public class Arrow {
         setArrow();
 
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
-        myGroup.setOnMouseDragged(e -> handleDrag(e));
     }
 
-    private void handleDrag(MouseEvent event) {
-         Vector newHead = new Vector(event.getSceneX(), event.getSceneY());
-         this.setHead(newHead);
-    }
-
-    public Group getGroup() {
+    public Group getRender() {
         return myGroup;
     }
 
