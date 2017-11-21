@@ -2,8 +2,7 @@ package engine.scripts.defaults
 
 import engine.entities.Entity
 import javafx.scene.image.Image
-import engine.scripts.defaults.GroovyScript
-
+import javafx.scene.image.ImageView
 
 /**
  * @author Richard Tseng
@@ -18,7 +17,8 @@ class ImageScript extends GroovyScript{
 		Image myImage = new Image(getClass()
 				.getClassLoader()
 				.getResourceAsStream(filename.getPath()));
-		entity.getRender().setImage(myImage);
+		entity.getRender().setImage(new ImageView(myImage));
+		entity.getRender().displayUpdate(entity.getTransform());
 	}
 
 	@Override

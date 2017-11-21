@@ -9,42 +9,42 @@ import java.util.List;
  * @authoer lasia
  */
 public class CollisionManager implements IManager {
-    // Singleton??
-    private static CollisionManager instance;
-    private List<HitBox> myHitBoxes;
-    
-    /**
-     * Creates a new CollisionManager
-     */
-    public CollisionManager() {
-    }
+	// Singleton??
+	private static CollisionManager instance;
+	private List<HitBox> myHitBoxes;
 
-    /**Checks whether this Hitbox is colliding with other Hitboxes
-     * @param Hitbox
-     */
-    public void checkCollisions(HitBox hitBox) {
-    	for (HitBox otherHitBox: myHitBoxes) {
-    		if (!otherHitBox.equals(hitBox)) 
-    			hitBox.checkIntersect(otherHitBox);
-    	}
-    }
-    
-    /**
-     * @return			Singleton instance of CollisionManager
-     */
-    public static CollisionManager getInstance() {
-    	if (instance == null)
-    		instance = new CollisionManager();
-    	
-    	return instance;
-    }
+	/**
+	 * Creates a new CollisionManager
+	 */
+	public CollisionManager() {
+	}
+
+	/**Checks whether this Hitbox is colliding with other Hitboxes
+	 * @param Hitbox
+	 */
+	public void checkCollisions(HitBox hitBox) {
+		for (HitBox otherHitBox: myHitBoxes) {
+			if (!otherHitBox.equals(hitBox))
+				hitBox.checkIntersect(otherHitBox);
+		}
+	}
+
+	/**
+	 * @return			Singleton instance of CollisionManager
+	 */
+	public static CollisionManager getInstance() {
+		if (instance == null)
+			instance = new CollisionManager();
+
+		return instance;
+	}
 
 	@Override
 	public boolean check(Object object) {
 		HitBoxCheck checker = (HitBoxCheck) object;
 		HitBox hitBox = checker.getHitBox();
 		String tag = checker.getTag();
-		
+
 		checkCollisions(hitBox);
 		List<String> visitorTag = hitBox.getVisitors();
 		return visitorTag.contains(tag);

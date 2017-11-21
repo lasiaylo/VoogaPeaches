@@ -1,4 +1,6 @@
-package engine.managers;
+package engine.fsm;
+
+import engine.managers.StateManager;
 
 import java.util.List;
 

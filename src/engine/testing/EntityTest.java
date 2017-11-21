@@ -24,9 +24,15 @@ public class EntityTest {
 	public static void main(String[] args) throws CompilationFailedException, InstantiationException, IllegalAccessException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		List<IScript> myScripts = new ArrayList<IScript>();
 
+<<<<<<< HEAD
 		Entity test = new Entity(myScripts, POS, POS);
 		Script testScript = new Script("SpriteScript.groovy");
 		test.getScripts().add(testScript);
+=======
+		Entity test = new Entity(myScripts,POS,POS);
+		//Script testScript = new Script("SpriteScript.groovy");
+		//test.getScripts().add(testScript);
+>>>>>>> engine_integration
 		
 	}
 }

@@ -2,7 +2,7 @@ package engine.scripts;
 
 import java.util.ArrayList;
 import java.util.List;
-import engine.managers.State;
+import engine.fsm.State;
 import engine.managers.StateManager;
 
 public class StateConditional extends Conditional{
