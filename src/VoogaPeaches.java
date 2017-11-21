@@ -1,5 +1,4 @@
-//import authoring.Screen;
-import authoring.SplitScreen;
+import authoring.Screen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,11 +10,19 @@ public class VoogaPeaches extends Application {
 
     private static final String TITLE = "VoogaSalad: A Programmers for Peaches Production";
 
+    private Screen kitty;
+
     public void start(Stage stage) {
         stage.setTitle(TITLE);
         stage.setMaximized(true);
         stage.setResizable(false);
-        SplitScreen kitty = new SplitScreen(stage);
+        kitty = new Screen(stage);
+    }
+
+    @Override
+    public void stop() throws Exception{
+        kitty.save();
+        super.stop();
     }
 
     public static void main(String[] args){

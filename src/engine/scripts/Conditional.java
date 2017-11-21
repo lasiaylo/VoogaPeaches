@@ -9,15 +9,15 @@ import engine.managers.IManager;
 /**Scripts contained by this class will be executed if conditions are met
  * 
  * @author lasia
- *
+ * @author Albert
  */
-public abstract class Conditional implements IScript{
+public  class Conditional implements IScript{
 	private List<IScript> myScripts;
 	private Object myConditionObject;
 	private IManager myManager;
 	
 	/** Creates a new Conditional
-	 * @param List of Scripts to run when conditions are met
+	 * @param scripts List of Scripts to run when conditions are met
 	 */
 	public Conditional(IManager manager,Object object,List<IScript> scripts) {
 		myManager = manager;
