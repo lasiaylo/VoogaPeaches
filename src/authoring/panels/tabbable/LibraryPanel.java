@@ -1,8 +1,12 @@
 package authoring.panels.tabbable;
 
 import authoring.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.TilePane;
 
 import java.io.File;
 import java.util.ArrayList;
