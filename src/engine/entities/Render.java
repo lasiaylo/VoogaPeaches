@@ -25,7 +25,7 @@ public class Render {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myImageView.setX(0);
+		myImageView.setX(0);//TODO: Fix this
 	    myImageView.setY(0);
 	}
 	

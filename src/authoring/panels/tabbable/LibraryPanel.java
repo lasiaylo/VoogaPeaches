@@ -1,12 +1,8 @@
 package authoring.panels.tabbable;
 
 import authoring.*;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,7 +58,7 @@ public class LibraryPanel implements Panel{
     }
 
     @Override
-    public void setController(IPanelDelegate controller) {
+    public void setController(IPanelController controller) {
         //TODO: Create controller
     }
 

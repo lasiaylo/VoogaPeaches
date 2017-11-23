@@ -11,7 +11,7 @@ import authoring.panels.reserved.CameraPanel;
  *
  * @author Simran
  */
-public interface IPanelDelegate {
+public interface IPanelController {
 
     /**
      * Used to add camera panel to the screen
@@ -20,4 +20,5 @@ public interface IPanelDelegate {
      */
     void addCamera(CameraPanel cameraPanel);
 
+    void addBGTile();
 }

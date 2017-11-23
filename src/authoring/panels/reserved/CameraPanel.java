@@ -2,16 +2,17 @@ package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
 
-import authoring.IPanelDelegate;
+import authoring.IPanelController;
 import authoring.Panel;
+import engine.Engine;
+import engine.camera.Camera;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.util.Duration;
+import util.math.num.Vector;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -43,7 +44,7 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelDelegate controller;
+    private IPanelController controller;
 
     public CameraPanel(double width, double height) {
     	cameraWidth = width;
@@ -86,6 +87,8 @@ public class CameraPanel implements Panel {
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setStyle(nodeStyle);
 
+
+		myPlay.setOnMouseClicked(e -> controller.addBGTile());
 		myPlay.setStyle(nodeStyle);
 		myPause.setStyle(nodeStyle);
 
@@ -100,12 +103,11 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public Region getRegion() {
-		// TODO Auto-generated method stub
 		return myArea;
 	}
 
 	@Override
-	public void setController(IPanelDelegate controller) {
+	public void setController(IPanelController controller) {
 		this.controller = controller;
 		controller.addCamera(this);
 	}
@@ -113,6 +115,10 @@ public class CameraPanel implements Panel {
     @Override
     public String title(){
         return "Game Camera";
+    }
+
+    public void setCameraView(ScrollPane cameraView){
+        myArea.getChildren().set(0,cameraView);
     }
 
 	/**
@@ -156,4 +162,5 @@ public class CameraPanel implements Panel {
 	public RadioButton getLocal() {
 		return myLocal;
 	}
+
 }
