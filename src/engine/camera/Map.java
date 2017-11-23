@@ -4,6 +4,9 @@ import engine.entities.Layer;
 import engine.managers.EntityManager;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Group;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
@@ -17,13 +20,24 @@ import util.math.num.Vector;
  * @author Estelle
  */
 public class Map extends StackPane implements ListChangeListener<Layer>{
+    private static final int GRIDS = 50;
     private EntityManager myManager;
     private Group myBGList;
+    private GridPane myGrid;
+
     public Map(EntityManager manager) {
 
         myManager = manager;
 
+        myGrid = new GridPane();
+        myGrid.getColumnConstraints().add(new ColumnConstraints(GRIDS));
+        myGrid.getRowConstraints().add(new RowConstraints(GRIDS));
+        myGrid.setGridLinesVisible(true);
+        myGrid.setPrefWidth(1000);
+        myGrid.setPrefHeight(1000);
         myBGList = myManager.getBGImageList();
+
+        this.getChildren().add(myGrid);
         this.getChildren().add(myManager.getBGImageList());
 
         myManager.addLayerListener(this);

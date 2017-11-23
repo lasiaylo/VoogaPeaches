@@ -2,6 +2,7 @@ package engine.camera;
 
 import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
 /**
@@ -34,7 +35,7 @@ public class Camera {
      * @param size
      * @return myView
      */
-    public ScrollPane getView(Vector center, Vector size) {
+    public StackPane getView(Vector center, Vector size) {
         myView.setPrefViewportWidth(size.at(0));
         myView.setPrefViewportHeight(size.at(1));
         myView.setHvalue(0);//TODO fix this
@@ -44,7 +45,7 @@ public class Camera {
         myCenter = center;
         mySize = size;
 
-        return myView;
+        return myMap;
     }
 
     private SubScene getMinimap(Vector size) {

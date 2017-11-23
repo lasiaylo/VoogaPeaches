@@ -7,6 +7,7 @@ import engine.entities.Entity;
 import engine.managers.EntityManager;
 import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
 import java.awt.*;
@@ -69,7 +70,7 @@ public class Engine {
      * @param size
      * @return
      */
-    public ScrollPane getCameraView(Vector center, Vector size) {
+    public StackPane getCameraView(Vector center, Vector size) {
         return myCamera.getView(center, size);
     }
 

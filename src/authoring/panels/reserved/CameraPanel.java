@@ -117,7 +117,7 @@ public class CameraPanel implements Panel {
         return "Game Camera";
     }
 
-    public void setCameraView(ScrollPane cameraView){
+    public void setCameraView(StackPane cameraView){
         myArea.getChildren().set(0,cameraView);
     }
 
