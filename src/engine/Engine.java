@@ -72,4 +72,8 @@ public class Engine {
     public ScrollPane getCameraView(Vector center, Vector size) {
         return myCamera.getView(center, size);
     }
+
+    public void print() {
+        myCamera.print();
+    }
 }

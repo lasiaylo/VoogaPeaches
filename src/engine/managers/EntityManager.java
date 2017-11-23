@@ -64,6 +64,7 @@ public class EntityManager {
         }
         catch (GroovyInstantiationException e) {
             //todo: error msg
+
         }
         myBGLayer.addEntity(BGblock);
         return BGblock;

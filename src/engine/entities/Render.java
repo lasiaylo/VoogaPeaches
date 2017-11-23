@@ -79,6 +79,8 @@ public class Render {
 	public void setImage(ImageView newImage) {
 
 	    myImageView = newImage;
+	    setPosition(new Vector(0, 0));
+	    setSize(new Vector(100, 100));
 	}
 
 }

@@ -3,6 +3,7 @@ package engine.camera;
 import engine.entities.Layer;
 import engine.managers.EntityManager;
 import javafx.collections.ListChangeListener;
+import javafx.scene.Group;
 import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
@@ -17,10 +18,12 @@ import util.math.num.Vector;
  */
 public class Map extends StackPane implements ListChangeListener<Layer>{
     private EntityManager myManager;
+    private Group myBGList;
     public Map(EntityManager manager) {
 
         myManager = manager;
 
+        myBGList = myManager.getBGImageList();
         this.getChildren().add(myManager.getBGImageList());
 
         myManager.addLayerListener(this);
@@ -34,7 +37,9 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
      * @param size
      */
     public void localUpdate(Vector center, Vector size) {
+
         myManager.displayUpdate(center, size);
+
     }
 
     /**
@@ -46,5 +51,9 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         for (Layer each: c.getAddedSubList()) {
             this.getChildren().add(each.getImageList());
         }
+    }
+
+    public void print() {
+        System.out.println(myBGList.getChildren().size());
     }
 }

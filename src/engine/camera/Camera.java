@@ -60,4 +60,8 @@ public class Camera {
         myMap.localUpdate(myCenter, mySize);
     }
 
+    public void print() {
+        myMap.print();
+    }
+
 }
