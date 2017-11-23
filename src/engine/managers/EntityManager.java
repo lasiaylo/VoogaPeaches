@@ -25,7 +25,7 @@ import util.math.num.Vector;
  */
 public class EntityManager {
 	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
-	private static final String IMGSPT = "ImageScript";
+	private static final String IMGSPT = "ImageScript.groovy";
 	
 	private int myGridSize;
 	private Layer myBGLayer;

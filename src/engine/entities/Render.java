@@ -25,8 +25,8 @@ public class Render {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myImageView.setX(FXProcessing.getXImageCoord(position.at(0), myImageView));
-	    myImageView.setY(FXProcessing.getYImageCoord(position.at(1), myImageView));
+		myImageView.setX(0);//TODO: Fix this
+	    myImageView.setY(0);
 	}
 	
 	/**Sets the value of the imageview

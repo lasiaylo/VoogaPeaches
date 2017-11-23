@@ -37,9 +37,10 @@ public class Camera {
     public ScrollPane getView(Vector center, Vector size) {
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
-        myView.setHvalue(center.at(0) - size.at(0)/2);
-        myView.setVvalue(center.at(1) - size.at(1)/2);
+        myView.setHvalue(0);//TODO fix this
+        myView.setVvalue(0);
 
+        myView.layout();
         myCenter = center;
         mySize = size;
 
