@@ -112,7 +112,6 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public Region getRegion() {
-		// TODO Auto-generated method stub
 		return myArea;
 	}
 
