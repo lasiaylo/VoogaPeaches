@@ -5,10 +5,7 @@ import java.util.ResourceBundle;
 import authoring.IPanelDelegate;
 import authoring.Panel;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,7 +29,7 @@ public class CameraPanel implements Panel {
 
 	private static final double SPACING = 10;
 	
-	private GridPane myGridPane;
+	private ScrollPane myView;
 	private Button myPlay;
 	private Button myPause;
 	private VBox myArea;
@@ -52,16 +49,14 @@ public class CameraPanel implements Panel {
     	cameraWidth = width;
     	cameraHeight = height;
 
-		myGridPane = new GridPane();
-		myGridPane.setPrefWidth(cameraWidth);
-		myGridPane.setPrefHeight(cameraHeight);
+    	myView = new ScrollPane();
+    	myView.setPrefWidth(width);
+    	myView.setPrefHeight(height);
 
-		myArea = new VBox(myGridPane, buttonRow());
+		myArea = new VBox(myView, buttonRow());
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
-
-		setGrid();
 
 	}
 
@@ -82,6 +77,10 @@ public class CameraPanel implements Panel {
 		return buttonRow;
 	}
 
+	public void getView(ScrollPane view) {
+        myView = view;
+    }
+
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
@@ -98,17 +97,6 @@ public class CameraPanel implements Panel {
 
 	}
 
-	private void setGrid() {
-		double side = cameraHeight/camerarowN;
-		for (int n = 0; n < camerarowN; n++) {
-			myGridPane.getRowConstraints().add(new RowConstraints(side));
-		}
-		double colN = cameraWidth/side;
-		for (int n = 0; n < colN; n++) {
-			myGridPane.getColumnConstraints().add(new ColumnConstraints(side));
-		}
-		myGridPane.setGridLinesVisible(true);
-	}
 
 	@Override
 	public Region getRegion() {
@@ -144,13 +132,6 @@ public class CameraPanel implements Panel {
 		return myPause;
 	}
 
-	/**
-	 * get gridpane
-	 * @return gridpane
-	 */
-	public GridPane getGridPane() {
-		return myGridPane;
-	}
 
 	/**
 	 * get layer choicebox

@@ -26,9 +26,9 @@ public class Engine {
     
     public Engine(Number gridSize) {
     		myManager = new EntityManager(gridSize);
-    		myTimeline = myGameLoop.getTimeline();
     		myCamera = new Camera(new Map(myManager));
     		myGameLoop = new EngineLoop(myManager, myCamera);
+            myTimeline = myGameLoop.getTimeline();
     }
 
     /**
@@ -71,5 +71,9 @@ public class Engine {
      */
     public ScrollPane getCameraView(Vector center, Vector size) {
         return myCamera.getView(center, size);
+    }
+
+    public void print() {
+        myCamera.print();
     }
 }
