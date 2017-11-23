@@ -119,6 +119,9 @@ public class CameraPanel implements Panel {
 
     public void setCameraView(ScrollPane cameraView){
         myArea.getChildren().set(0,cameraView);
+        myView = cameraView;
+        myView.setPrefWidth(cameraWidth);
+        myView.setPrefHeight(cameraHeight);
     }
 
 	/**

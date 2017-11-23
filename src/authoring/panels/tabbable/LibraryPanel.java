@@ -1,14 +1,18 @@
 package authoring.panels.tabbable;
 
-import authoring.*;
-import javafx.scene.layout.Pane;
+import authoring.IPanelController;
+import authoring.Panel;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.TilePane;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibraryPanel implements Panel{
+public class LibraryPanel implements Panel {
     private static final String BG = "Background";
     private static final String PLAYER = "Player";
     private static final String PATH = "resources/graphics/";
