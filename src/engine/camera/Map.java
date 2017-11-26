@@ -2,13 +2,20 @@ package engine.camera;
 
 import engine.entities.Layer;
 import engine.managers.EntityManager;
+import engine.util.FXProcessing;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.BoundingBox;
 import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import util.math.num.Vector;
+
+import java.awt.*;
 
 /**
  * whole map for the game
@@ -21,27 +28,33 @@ import util.math.num.Vector;
  */
 public class Map extends StackPane implements ListChangeListener<Layer>{
     private static final int GRIDS = 50;
+    private static final int MAXWIDTH = 5000;
     private EntityManager myManager;
     private Group myBGList;
-    private GridPane myGrid;
+    private Canvas myCanvas;
 
     public Map(EntityManager manager) {
 
         myManager = manager;
 
-        myGrid = new GridPane();
-        myGrid.getColumnConstraints().add(new ColumnConstraints(GRIDS));
-        myGrid.getRowConstraints().add(new RowConstraints(GRIDS));
-        myGrid.setGridLinesVisible(true);
-        myGrid.setPrefWidth(1000);
-        myGrid.setPrefHeight(1000);
+        myCanvas = new Canvas(MAXWIDTH, MAXWIDTH);
+        //myCanvas.setMouseTransparent(true);
         myBGList = myManager.getBGImageList();
 
-        this.getChildren().add(myGrid);
-        this.getChildren().add(myManager.getBGImageList());
+        //this.getChildren().add(myCanvas);
+        this.getChildren().add(myBGList);
+        //System.out.println(this.getBoundsInLocal().getWidth());
+
+        //this.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
+
 
         myManager.addLayerListener(this);
 
+    }
+
+    public void addBGblock(Vector pos) {
+        Vector center = FXProcessing.getBGCenter(pos, GRIDS);
+        myManager.addBG(center);
     }
 
 

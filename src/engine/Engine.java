@@ -70,7 +70,7 @@ public class Engine {
      * @param size
      * @return
      */
-    public StackPane getCameraView(Vector center, Vector size) {
+    public ScrollPane getCameraView(Vector center, Vector size) {
         return myCamera.getView(center, size);
     }
 

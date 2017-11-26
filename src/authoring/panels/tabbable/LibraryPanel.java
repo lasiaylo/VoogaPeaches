@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class LibraryPanel implements Panel{
 
     private TilePane myTilePane;
     private ChoiceBox<String> myEntType;
+    private VBox myArea;
 
     public LibraryPanel() {
         myTilePane = new TilePane();
@@ -30,6 +32,8 @@ public class LibraryPanel implements Panel{
         myTilePane.setPrefTileWidth(50);
         myTilePane.setPrefTileHeight(50);
         myTilePane.setHgap(10);
+
+        myArea = new VBox(myEntType, myTilePane);
     }
 
     private void changeType() {
@@ -58,7 +62,8 @@ public class LibraryPanel implements Panel{
 
     @Override
     public Region getRegion() {
-        return myTilePane;
+
+        return myEntType;
     }
 
     @Override

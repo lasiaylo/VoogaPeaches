@@ -80,6 +80,7 @@ public class CameraPanel implements Panel {
 
 	public void getView(ScrollPane view) {
         myView = view;
+        myArea.getChildren().set(0, myView);
     }
 
 	private void setupButton() {
@@ -88,7 +89,7 @@ public class CameraPanel implements Panel {
 		myLayer.setStyle(nodeStyle);
 
 
-		myPlay.setOnMouseClicked(e -> controller.addBGTile());
+		myPlay.setOnMouseClicked(e -> controller.addBGTile(new Vector(0, 0)));
 		myPlay.setStyle(nodeStyle);
 		myPause.setStyle(nodeStyle);
 
@@ -117,9 +118,6 @@ public class CameraPanel implements Panel {
         return "Game Camera";
     }
 
-    public void setCameraView(StackPane cameraView){
-        myArea.getChildren().set(0,cameraView);
-    }
 
 	/**
 	 * get play button

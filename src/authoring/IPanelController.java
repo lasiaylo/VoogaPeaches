@@ -2,6 +2,7 @@ package authoring;
 
 
 import authoring.panels.reserved.CameraPanel;
+import util.math.num.Vector;
 
 /**
  *
@@ -20,5 +21,5 @@ public interface IPanelController {
      */
     void addCamera(CameraPanel cameraPanel);
 
-    void addBGTile();
+    void addBGTile(Vector pos);
 }

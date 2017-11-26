@@ -29,4 +29,12 @@ public class FXProcessing {
     public static double getYImageCoord(double yCenter, ImageView image) {
         return yCenter - image.getBoundsInLocal().getHeight() / 2;
     }
+
+    public static Vector getBGCenter(Vector click, double gridS) {
+        double extraX = click.at(0) % gridS;
+        double xCount = (click.at(0) - extraX) / gridS + 0.5;
+        double extraY = click.at(1) % gridS;
+        double yCount = (click.at(1) - extraY) / gridS + 0.5;
+        return new Vector(xCount * gridS, yCount * gridS);
+    }
 }
