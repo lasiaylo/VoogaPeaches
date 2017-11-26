@@ -2,6 +2,7 @@ package authoring;
 
 
 import authoring.panels.reserved.CameraPanel;
+import engine.managers.EntityManager;
 import javafx.scene.control.ScrollPane;
 import util.math.num.Vector;
 
@@ -19,7 +20,5 @@ public interface IPanelController {
 
     ScrollPane getCamera();
 
-    void addBGTile(Vector pos);
-
-    void selectLayer(int layer);
+    EntityManager getManager();
 }

@@ -6,6 +6,8 @@ import authoring.IPanelController;
 import authoring.Panel;
 import engine.Engine;
 import engine.camera.Camera;
+import engine.managers.EntityManager;
+import engine.util.FXProcessing;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -31,6 +33,7 @@ public class CameraPanel implements Panel {
 	private static final String LOCALB = "Local View";
 	private static final String LAYER = "Layer ";
 
+    private static final double GRIDS = 50;
 	private static final double SPACING = 10;
 	
 	private ScrollPane myView;
@@ -41,6 +44,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
+	private EntityManager myManager;
 
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
@@ -81,16 +85,24 @@ public class CameraPanel implements Panel {
 		return buttonRow;
 	}
 
-	public void getView(ScrollPane view) {
+
+	private void getView(ScrollPane view) {
         myView = view;
         myArea.getChildren().set(0, myView);
+        myView.setMouseTransparent(true);
+        myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+    }
+
+    private void addBlock(Vector pos) {
+        Vector center = FXProcessing.getBGCenter(pos, GRIDS);
+        myManager.addBG(center);
     }
 
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setStyle(nodeStyle);
-		myLayer.setOnMouseClicked(e -> changeLayer());
+		myLayer.setOnAction(e -> changeLayer());
 
 
 		myWhole.setToggleGroup(myGroup);
@@ -105,18 +117,24 @@ public class CameraPanel implements Panel {
         String option = myLayer.getValue();
         switch (option) {
             case NEWL:
+                myManager.addLayer();
                 myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+                myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
                 layerC++;
+                myView.setMouseTransparent(true);
                 break;
             case ALLL:
-                myController.selectLayer(-1);
+                myManager.allLayer();
+                myView.setMouseTransparent(true);
                 break;
             case BGL:
-                myController.selectLayer(0);
+                myManager.selectBGLayer();
+                myView.setMouseTransparent(false);
                 break;
             default:
-                int layer = Character.getNumericValue(option.charAt(option.length()-1));
-                myController.selectLayer(layer);
+                int layer = Character.getNumericValue(option.charAt(option.length()-1)) - 1;
+                myManager.selectLayer(layer);
+                myView.setMouseTransparent(true);
                 break;
         }
 
@@ -132,6 +150,7 @@ public class CameraPanel implements Panel {
 	public void setController(IPanelController controller) {
 		this.myController = controller;
 		this.getView(myController.getCamera());
+		myManager = myController.getManager();
 	}
 
     @Override

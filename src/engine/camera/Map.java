@@ -83,8 +83,10 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
      */
     @Override
     public void onChanged(Change<? extends Layer> c) {
-        for (Layer each: c.getAddedSubList()) {
-            this.getChildren().add(each.getImageList());
+        while (c.next()) {
+            for (Layer each : c.getAddedSubList()) {
+                this.getChildren().add(each.getImageList());
+            }
         }
     }
 

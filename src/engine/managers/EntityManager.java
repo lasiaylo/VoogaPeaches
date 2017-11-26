@@ -76,10 +76,9 @@ public class EntityManager {
 	 * add static entities that are not background
 	 * @param pos
 	 * @param level
-	 * @param size
 	 * @return created entity
 	 */
-	public Entity addNonBG(Vector pos, int level, Vector size) {
+	public Entity addNonBG(Vector pos, int level) {
 		Entity staEnt = createEnt(pos);
         try {
             staEnt.addSript(new Script(IMGSPT));
@@ -94,7 +93,7 @@ public class EntityManager {
 			myLayer.addEntity(staEnt);
 		}
 		else {
-			myLayerList.get(level).addEntity(staEnt);
+			myLayerList.get(level - 1).addEntity(staEnt);
 		}
 		return staEnt;
 		
@@ -114,11 +113,10 @@ public class EntityManager {
 	 * add nonstatic entities
 	 * @param pos
 	 * @param level
-	 * @param size
 	 * @return Entity
 	 */
-	public Entity addNonStatic(Vector pos, int level, Vector size) {
-		Entity Ent = addNonBG(pos, level, size);
+	public Entity addNonStatic(Vector pos, int level) {
+		Entity Ent = addNonBG(pos, level);
 		Ent.setStatic(false);
 		return Ent;
 	}
