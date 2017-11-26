@@ -21,4 +21,8 @@ public interface IPanelController {
     ScrollPane getCamera();
 
     EntityManager getManager();
+
+    void play();
+
+    void pause();
 }

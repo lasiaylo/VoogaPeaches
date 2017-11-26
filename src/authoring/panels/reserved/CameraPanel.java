@@ -104,6 +104,9 @@ public class CameraPanel implements Panel {
 		myLayer.setStyle(nodeStyle);
 		myLayer.setOnAction(e -> changeLayer());
 
+		myPlay.setOnMouseClicked(e -> myController.play());
+		myPause.setOnMouseClicked(e -> myController.pause());
+
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
