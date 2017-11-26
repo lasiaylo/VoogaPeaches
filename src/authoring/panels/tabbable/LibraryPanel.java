@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 
 import authoring.IPanelController;
 import authoring.Panel;
+import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,7 @@ public class LibraryPanel implements Panel {
     private TilePane myTilePane;
     private ChoiceBox<String> myEntType;
     private VBox myArea;
+    private IPanelController myController;
 
     public LibraryPanel() {
         myTilePane = new TilePane();
@@ -37,6 +39,7 @@ public class LibraryPanel implements Panel {
         myTilePane.setHgap(10);
 
         myArea = new VBox(myEntType, myTilePane);
+        myArea.setSpacing(10);
     }
 
     private void changeType() {
@@ -62,18 +65,17 @@ public class LibraryPanel implements Panel {
         }
         myTilePane.getChildren().clear();
         myTilePane.getChildren().addAll(imageList);
-        System.out.println(imageList.size()); //TODO: remember to remove this when done
     }
 
 
     @Override
     public Region getRegion() {
-        return new VBox(myEntType, myTilePane);
+        return myArea;
     }
 
     @Override
     public void setController(IPanelController controller) {
-        //TODO: Create controller
+        myController = controller;
     }
 
     @Override

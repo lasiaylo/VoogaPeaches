@@ -43,8 +43,8 @@ public class Camera {
 //        myView.setVvalue((center.at(1)-0.5* myView.getViewportBounds().getHeight()/(myView.getContent().getLayoutBounds().getHeight()-myView.getViewportBounds().getHeight())));
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
-        hScroll(0);
-        vScroll(0);
+        hScroll((center.at(0) - size.at(0) / 2) / myView.getContent().getLayoutBounds().getWidth() - size.at(0));
+        vScroll((center.at(1) - size.at(1) / 2) / myView.getContent().getLayoutBounds().getHeight() - size.at(1));
 
 
         myView.layout();

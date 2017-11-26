@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
  *
  */
 public class Render {
-    private String holder = "resources/graphics/Background/holder.gif";
+    private String holder = "resources/graphics/holder.gif";
 	private EntityImage myEntityImage;
 	private Entity myEntity;
 	 
@@ -36,10 +36,10 @@ public class Render {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);//TODO: Fix this
+		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
 	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
-	    System.out.println(position.at(0));
-	    System.out.println(myEntityImage.getX());
+//	    System.out.println(position.at(0));
+//	    System.out.println(myEntityImage.getX());
 	}
 	
 	/**Sets the value of the imageview

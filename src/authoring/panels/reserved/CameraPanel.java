@@ -14,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 import util.math.num.Vector;
 
+import static java.lang.Character.getNumericValue;
+
 /**
  * camera panel inside authoring environment that displays the game
  * @author estellehe
@@ -27,6 +29,7 @@ public class CameraPanel implements Panel {
 	private static final String NEWL = "Add New Layer";
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
+	private static final String LAYER = "Layer ";
 
 	private static final double SPACING = 10;
 	
@@ -42,9 +45,9 @@ public class CameraPanel implements Panel {
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
 	private double cameraHeight;
-	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
+	private int layerC = 1;
 	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelController controller;
+    private IPanelController myController;
 
     public CameraPanel(double width, double height) {
     	cameraWidth = width;
@@ -87,11 +90,8 @@ public class CameraPanel implements Panel {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setStyle(nodeStyle);
+		myLayer.setOnMouseClicked(e -> changeLayer());
 
-
-		myPlay.setOnMouseClicked(e -> controller.addBGTile(new Vector(0, 0)));
-		myPlay.setStyle(nodeStyle);
-		myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
@@ -101,6 +101,27 @@ public class CameraPanel implements Panel {
 
 	}
 
+	private void changeLayer() {
+        String option = myLayer.getValue();
+        switch (option) {
+            case NEWL:
+                myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+                layerC++;
+                break;
+            case ALLL:
+                myController.selectLayer(-1);
+                break;
+            case BGL:
+                myController.selectLayer(0);
+                break;
+            default:
+                int layer = Character.getNumericValue(option.charAt(option.length()-1));
+                myController.selectLayer(layer);
+                break;
+        }
+
+    }
+
 
 	@Override
 	public Region getRegion() {
@@ -109,8 +130,8 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public void setController(IPanelController controller) {
-		this.controller = controller;
-		controller.addCamera(this);
+		this.myController = controller;
+		this.getView(myController.getCamera());
 	}
 
     @Override
@@ -125,47 +146,5 @@ public class CameraPanel implements Panel {
         myView.setPrefWidth(cameraWidth);
         myView.setPrefHeight(cameraHeight);
     }
-
-	/**
-	 * get play button
-	 * @return play button
-	 */
-	public Button getPlay() {
-		return myPlay;
-	}
-
-	/**
-	 * get pause button
-	 *
-	 * @return pause button
-	 */
-	public Button getPause() {
-		return myPause;
-	}
-
-
-	/**
-	 * get layer choicebox
-	 * @return choicebox
-	 */
-	public ChoiceBox<String> getLayer() {
-		return myLayer;
-	}
-
-	/**
-	 * get whole button
-	 * @return myWhole
-	 */
-	public RadioButton getWhole() {
-		return myWhole;
-	}
-
-	/**
-	 * get local button
-	 * @return myLocal
-	 */
-	public RadioButton getLocal() {
-		return myLocal;
-	}
 
 }

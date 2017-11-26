@@ -2,7 +2,10 @@ package authoring;
 
 
 import authoring.panels.reserved.CameraPanel;
+import javafx.scene.control.ScrollPane;
 import util.math.num.Vector;
+
+import java.awt.*;
 
 /**
  *
@@ -14,12 +17,9 @@ import util.math.num.Vector;
  */
 public interface IPanelController {
 
-    /**
-     * Used to add camera panel to the screen
-     *
-     * @param cameraPanel
-     */
-    void addCamera(CameraPanel cameraPanel);
+    ScrollPane getCamera();
 
     void addBGTile(Vector pos);
+
+    void selectLayer(int layer);
 }

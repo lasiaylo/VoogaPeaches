@@ -90,9 +90,8 @@ public class EntityManager {
         }
 		
 		if (level > myLayerList.size()-1) {
-			Layer myLayer = new Layer();
+			Layer myLayer = addLayer();
 			myLayer.addEntity(staEnt);
-			myLayerList.add(myLayer);
 		}
 		else {
 			myLayerList.get(level).addEntity(staEnt);
@@ -100,6 +99,16 @@ public class EntityManager {
 		return staEnt;
 		
 	}
+
+    /**
+     * add new layer
+     * @return new layer
+     */
+	public Layer addLayer() {
+	    Layer current = new Layer();
+	    myLayerList.add(current);
+	    return current;
+    }
 	
 	/**
 	 * add nonstatic entities

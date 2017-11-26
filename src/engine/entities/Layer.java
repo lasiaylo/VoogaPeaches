@@ -21,7 +21,7 @@ import static java.lang.Math.abs;
 public class Layer {
 	private List<Entity> myEntityList;
 	private Group myImageList;
-	private String white = "resources/graphics/Background/holder.gif";
+	private String white = "resources/graphics/holder.gif";
 	
 	public Layer() {
 
