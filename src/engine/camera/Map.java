@@ -43,7 +43,6 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
 
         //this.getChildren().add(myCanvas);
         this.getChildren().add(myBGList);
-        this.setAlignment(myBGList, Pos.TOP_LEFT);
         //System.out.println(this.getBoundsInLocal().getWidth());
 
         //this.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));

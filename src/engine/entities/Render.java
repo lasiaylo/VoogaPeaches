@@ -13,14 +13,14 @@ import java.io.FileNotFoundException;
  *
  */
 public class Render {
-    private String grass = "resources/graphics/Background/grass.png";
+    private String holder = "resources/graphics/Background/holder.gif";
 	private EntityImage myEntityImage;
 	private Entity myEntity;
 	 
 	public Render(Entity entity) {
 	    myEntity = entity;
         try {
-            myEntityImage = new EntityImage(myEntity, new Image(new FileInputStream(grass)));//this should be a placeholder
+            myEntityImage = new EntityImage(myEntity, new Image(new FileInputStream(holder)));//this should be a placeholder
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -36,12 +36,10 @@ public class Render {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0));//TODO: Fix this
-	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1));
+		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);//TODO: Fix this
+	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
 	    System.out.println(position.at(0));
 	    System.out.println(myEntityImage.getX());
-	    System.out.println(myEntityImage.getBoundsInLocal().getMinX());
-        System.out.println(myEntityImage.getBoundsInParent().getMinX());
 	}
 	
 	/**Sets the value of the imageview
