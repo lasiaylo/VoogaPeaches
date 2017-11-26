@@ -5,6 +5,7 @@ import engine.managers.EntityManager;
 import engine.util.FXProcessing;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,17 +39,25 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         myManager = manager;
 
         myCanvas = new Canvas(MAXWIDTH, MAXWIDTH);
-        //myCanvas.setMouseTransparent(true);
         myBGList = myManager.getBGImageList();
 
         //this.getChildren().add(myCanvas);
         this.getChildren().add(myBGList);
+        this.setAlignment(myBGList, Pos.TOP_LEFT);
         //System.out.println(this.getBoundsInLocal().getWidth());
 
         //this.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
 
 
         myManager.addLayerListener(this);
+
+    }
+
+    public void print() {
+        System.out.println(myBGList.getChildren().get(0).getBoundsInParent().getMinX());
+        System.out.println(myBGList.getChildren().get(0).getBoundsInParent().getMinY());
+        System.out.println(myBGList.getChildren().get(0).getBoundsInLocal().getMinX());
+        System.out.println(myBGList.getChildren().get(0).getBoundsInLocal().getMinY());
 
     }
 
@@ -80,7 +89,4 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         }
     }
 
-    public void print() {
-        System.out.println(myBGList.getChildren().size());
-    }
 }

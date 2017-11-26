@@ -61,8 +61,8 @@ public class EntityManager {
             BGblock.addSript(new Script(IMGSPT));
             //todo: add gridsize to image script
             BGblock.update();
-            System.out.println(BGblock.getRender().getImage().getX());
-            System.out.println(BGblock.getRender().getImage().getY());
+//            System.out.println(BGblock.getRender().getImage().getX());
+//            System.out.println(BGblock.getRender().getImage().getY());
         }
         catch (GroovyInstantiationException e) {
             //todo: error msg

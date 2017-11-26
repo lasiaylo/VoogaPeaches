@@ -36,8 +36,12 @@ public class Render {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myEntityImage.setX(FXProcessing.getXImageCoord(position.at(0), myEntityImage));//TODO: Fix this
-	    myEntityImage.setY(FXProcessing.getYImageCoord(position.at(1), myEntityImage));
+		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0));//TODO: Fix this
+	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1));
+	    System.out.println(position.at(0));
+	    System.out.println(myEntityImage.getX());
+	    System.out.println(myEntityImage.getBoundsInLocal().getMinX());
+        System.out.println(myEntityImage.getBoundsInParent().getMinX());
 	}
 	
 	/**Sets the value of the imageview

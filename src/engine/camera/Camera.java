@@ -43,8 +43,9 @@ public class Camera {
 //        myView.setVvalue((center.at(1)-0.5* myView.getViewportBounds().getHeight()/(myView.getContent().getLayoutBounds().getHeight()-myView.getViewportBounds().getHeight())));
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
-        myView.setHvalue(0);
-        myView.setVvalue(0);
+        hScroll(0);
+        vScroll(0);
+
 
         myView.layout();
         myCenter = center;
@@ -57,6 +58,7 @@ public class Camera {
 
     private void addBGblock(Vector pos) {
         myMap.addBGblock(pos);
+//        print();
     }
 
     private SubScene getMinimap(Vector size) {
@@ -74,6 +76,18 @@ public class Camera {
 
     public void print() {
         myMap.print();
+    }
+
+    private void vScroll(double num) {
+        myView.setVmin(num);
+        myView.setVmax(num);
+        myView.setVvalue(num);
+    }
+
+    private void hScroll(double num) {
+        myView.setHmax(num);
+        myView.setHmin(num);
+        myView.setHvalue(num);
     }
 
 }
