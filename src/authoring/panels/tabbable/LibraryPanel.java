@@ -1,19 +1,22 @@
 package authoring.panels.tabbable;
 
-import authoring.*;
+
+import authoring.IPanelController;
+import authoring.Panel;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibraryPanel implements Panel{
+public class LibraryPanel implements Panel {
     private static final String BG = "Background";
     private static final String PLAYER = "Player";
     private static final String PATH = "resources/graphics/";
@@ -24,7 +27,7 @@ public class LibraryPanel implements Panel{
 
     public LibraryPanel() {
         myTilePane = new TilePane();
-        myEntType = new ChoiceBox<String>();
+        myEntType = new ChoiceBox<>();
 
         myEntType.getItems().addAll(BG, PLAYER);
         myEntType.setOnAction(e -> changeType());
@@ -44,7 +47,7 @@ public class LibraryPanel implements Panel{
         try {
             File imageFolder = new File(PATH + type);
             for (File each: imageFolder.listFiles()) {
-                ImageView view = new ImageView(new Image(each.getName()));
+                ImageView view = new ImageView(new Image(new FileInputStream(each)));
                 view.setFitWidth(50);
                 view.setFitHeight(50);
                 imageList.add(view);
@@ -54,16 +57,18 @@ public class LibraryPanel implements Panel{
             // again this is not a permanent implementation so simply error print out
             System.out.println(e);
         }
+        catch (FileNotFoundException e){
+            System.out.println("This should never happen but...");
+        }
         myTilePane.getChildren().clear();
         myTilePane.getChildren().addAll(imageList);
-        System.out.println(imageList.size());
+        System.out.println(imageList.size()); //TODO: remember to remove this when done
     }
 
 
     @Override
     public Region getRegion() {
-
-        return myEntType;
+        return new VBox(myEntType, myTilePane);
     }
 
     @Override
