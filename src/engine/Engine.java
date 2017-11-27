@@ -26,9 +26,9 @@ public class Engine {
     
     public Engine(Number gridSize) {
     		myManager = new EntityManager(gridSize);
+    		myGameLoop = new EngineLoop(myManager, myCamera);
     		myTimeline = myGameLoop.getTimeline();
     		myCamera = new Camera(new Map(myManager));
-    		myGameLoop = new EngineLoop(myManager, myCamera);
     }
 
     /**
