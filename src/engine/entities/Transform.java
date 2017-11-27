@@ -1,6 +1,6 @@
 package engine.entities;
 
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import util.math.num.Vector;
 
 /**Wrapper Class for Entity's position/location/scale

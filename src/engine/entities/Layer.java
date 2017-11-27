@@ -1,7 +1,7 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import javafx.scene.Group;
 import util.math.num.Vector;
 

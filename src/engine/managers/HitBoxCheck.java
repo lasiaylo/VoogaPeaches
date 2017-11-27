@@ -1,7 +1,7 @@
 package engine.managers;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 
 /**Wrapper class for hitbox and a tag
  * To be passed into CollisionManager's check

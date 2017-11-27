@@ -4,7 +4,7 @@ package engine.managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
 import engine.scripts.IScript;

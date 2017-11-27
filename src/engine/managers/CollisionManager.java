@@ -2,7 +2,7 @@ package engine.managers;
 
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package engine.fsm;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import engine.fsm.Logic;
 import engine.fsm.State;
 

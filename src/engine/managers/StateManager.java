@@ -1,7 +1,7 @@
 package engine.managers;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import engine.fsm.State;
 
 import javax.sound.midi.Track;

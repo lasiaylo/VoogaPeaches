@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import javafx.scene.shape.Shape;
 import util.math.num.Vector;
 
