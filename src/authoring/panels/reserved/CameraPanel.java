@@ -135,7 +135,7 @@ public class CameraPanel implements Panel {
                 myView.setMouseTransparent(false);
                 break;
             default:
-                int layer = Character.getNumericValue(option.charAt(option.length()-1)) - 1;
+                int layer = Character.getNumericValue(option.charAt(option.length()-1));
                 myManager.selectLayer(layer);
                 myView.setMouseTransparent(true);
                 break;
@@ -161,12 +161,5 @@ public class CameraPanel implements Panel {
         return "Game Camera";
     }
 
-
-    public void setCameraView(ScrollPane cameraView){
-        myArea.getChildren().set(0,cameraView);
-        myView = cameraView;
-        myView.setPrefWidth(cameraWidth);
-        myView.setPrefHeight(cameraHeight);
-    }
 
 }

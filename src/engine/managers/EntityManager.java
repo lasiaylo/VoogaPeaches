@@ -79,10 +79,13 @@ public class EntityManager {
 	 * @return created entity
 	 */
 	public Entity addNonBG(Vector pos, int level) {
+	    level -= 1;
 		Entity staEnt = createEnt(pos);
         try {
             staEnt.addSript(new Script(IMGSPT));
             staEnt.update();
+			System.out.println(staEnt.getRender().getImage().getX());
+			System.out.println(staEnt.getRender().getImage().getY());
         }
         catch (GroovyInstantiationException e) {
             //todo: error msg here
@@ -93,7 +96,7 @@ public class EntityManager {
 			myLayer.addEntity(staEnt);
 		}
 		else {
-			myLayerList.get(level - 1).addEntity(staEnt);
+			myLayerList.get(level).addEntity(staEnt);
 		}
 		return staEnt;
 		
@@ -143,6 +146,7 @@ public class EntityManager {
 	 * @param level
 	 */
 	public void selectLayer(int level) {
+	    level -= 1;
 		myBGLayer.onlyView();
 		for (Layer each: myLayerList) {
 			each.deselect();

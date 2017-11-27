@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 
 import authoring.IPanelController;
 import authoring.Panel;
+import engine.managers.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import util.math.num.Vector;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +28,7 @@ public class LibraryPanel implements Panel {
     private ChoiceBox<String> myEntType;
     private VBox myArea;
     private IPanelController myController;
+    private EntityManager myManager;
 
     public LibraryPanel() {
         myTilePane = new TilePane();
@@ -54,6 +57,7 @@ public class LibraryPanel implements Panel {
                 view.setFitWidth(50);
                 view.setFitHeight(50);
                 imageList.add(view);
+                view.setOnMouseClicked(e -> myManager.addNonStatic(new Vector(25, 25), 1));
             }
         }
         catch (NullPointerException e){
@@ -76,6 +80,7 @@ public class LibraryPanel implements Panel {
     @Override
     public void setController(IPanelController controller) {
         myController = controller;
+        myManager = myController.getManager();
     }
 
     @Override

@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView
  *
  */
 class ImageScript extends GroovyScript{
-	private String grass = "resources/graphics/Player/pikachu.png";
+	private String grass = "resources/graphics/Background/grass.png";
 
 	File filename;
 

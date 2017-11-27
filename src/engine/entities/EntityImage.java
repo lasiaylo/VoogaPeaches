@@ -21,7 +21,14 @@ public class EntityImage extends ImageView{
         myImage = image;
         myEntity = entity;
         this.setImage(myImage);
+        this.setOnMouseClicked(e -> print());
 
+    }
+
+    private void print() {
+        System.out.println(this.getX());
+        System.out.println(this.getBoundsInLocal().getMinX());
+        System.out.println(this.getBoundsInParent().getMinX());
     }
 
     /**
