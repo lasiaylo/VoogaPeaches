@@ -1,5 +1,6 @@
 package engine.entities;
 
+import database.TrackableObject;
 import engine.util.FXProcessing;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +10,7 @@ import util.math.num.Vector;
  * @author lasia
  *
  */
-public class Render {
+public class Render extends TrackableObject {
 	private ImageView myImageView;
 	 
 	public Render() {

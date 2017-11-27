@@ -1,5 +1,7 @@
 package engine.entities;
 
+import com.google.gson.annotations.Expose;
+import database.TrackableObject;
 import engine.scripts.Script;
 import engine.util.FXProcessing;
 import engine.scripts.IScript;
@@ -20,11 +22,18 @@ import java.util.List;
  * @author estellehe
  *
  */
-public class Entity {
-	private Transform myTransform;
-	private Render myRender;
-    private boolean isStatic;
-    private List<IScript> myScripts;
+public class Entity extends TrackableObject {
+	@Expose private Transform myTransform;
+	@Expose private Render myRender;
+    @Expose private boolean isStatic;
+    @Expose private List<IScript> myScripts;
+
+	/**
+	 * privately creates an entity through the database
+	 */
+	private Entity() {
+
+	}
 
     /**
      *  Creates a new Entity
@@ -32,6 +41,7 @@ public class Entity {
      *  @param scripts   Scripts attached to new Entity
      */
     public Entity(Vector pos, List<IScript> scripts) {
+    	super();
     	myTransform = new Transform(pos);
         myScripts = scripts;
         myRender = new Render();
@@ -44,7 +54,6 @@ public class Entity {
      * @param scripts   Scripts attached to new Entity
      */
     public Entity(List<IScript> scripts, double x, double y) {
-
     	this(new Vector(x, y), scripts);
     }
 
@@ -62,7 +71,6 @@ public class Entity {
      * @return transform
      */
 	public Transform getTransform() {
-
 	    return myTransform;
 	}
 
@@ -70,7 +78,6 @@ public class Entity {
 	 * @return Render wrapper class that contains ImageView
 	 */
 	public Render getRender() {
-
 	    return myRender;
 	}
 
@@ -86,7 +93,6 @@ public class Entity {
 	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
-
 	    return myScripts;
 	}
 
@@ -95,7 +101,6 @@ public class Entity {
 	 *         needs to be updated once.
 	 */
 	public boolean isStatic() {
-
 	    return isStatic;
 	}
 
@@ -104,8 +109,6 @@ public class Entity {
 	 *
 	 */
 	public void setStatic(boolean isStatic) {
-
 	    this.isStatic = isStatic;
 	}
-
 }
