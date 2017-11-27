@@ -112,3 +112,4 @@ public class Entity extends TrackableObject {
 	    this.isStatic = isStatic;
 	}
 }
+

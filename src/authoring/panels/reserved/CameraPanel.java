@@ -46,11 +46,11 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelDelegate controller;
+	private IPanelDelegate controller;
 
-    public CameraPanel(double width, double height) {
-    	cameraWidth = width;
-    	cameraHeight = height;
+	public CameraPanel(double width, double height) {
+		cameraWidth = width;
+		cameraHeight = height;
 
 		myGridPane = new GridPane();
 		myGridPane.setPrefWidth(cameraWidth);
@@ -122,10 +122,10 @@ public class CameraPanel implements Panel {
 		controller.addCamera(this);
 	}
 
-    @Override
-    public String title(){
-        return "Game Camera";
-    }
+	@Override
+	public String title(){
+		return "Game Camera";
+	}
 
 	/**
 	 * get play button
