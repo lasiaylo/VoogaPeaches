@@ -2,6 +2,9 @@ package engine.camera;
 
 import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import util.math.num.Vector;
 
 /**
