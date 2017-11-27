@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 /**
  * The abstract class for any classes that wish to communicate with a Firebase service.
  * Ensures that only one FirebaseApp is created for an instance of the application.
+ *
+ * @author Walker Willetts
  */
 public abstract class FirebaseConnector {
 
@@ -19,7 +21,7 @@ public abstract class FirebaseConnector {
 
     /* Static Variables */
     private static boolean appInitialized = false;
-
+    private static FirebaseApp app;
     /**
      * Initializes the FirebaseApp if it hasn't been already. Should only
      * ever be called by subclasses within the database package.
@@ -41,10 +43,18 @@ public abstract class FirebaseConnector {
                     .setDatabaseUrl(DATABASE_URL)
                     .setStorageBucket(STORAGE_URL)
                     .build();
-            FirebaseApp.initializeApp(options);
+            app = FirebaseApp.initializeApp(options);
             appInitialized = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Closes the current FirebaseApp that is running. Note: This should be called
+     * whenever the actual application closes to prevent blocking the java application.
+     */
+    public static void closeFirebaseApp() {
+        if(app != null) app.delete();
     }
 }
