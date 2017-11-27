@@ -1,7 +1,7 @@
 package database.examples.realtime;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 
 public class Post extends TrackableObject {
 

@@ -1,6 +1,6 @@
 package database.examples.filestorage;
 
-import database.FileStorageConnector;
+import database.firebase.FileStorageConnector;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;

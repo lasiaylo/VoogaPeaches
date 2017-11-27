@@ -19,7 +19,6 @@ public class Layer {
 	private Group myImageList;
 	
 	public Layer() {
-
 	    myEntityList = new ArrayList<Entity>();
 	    myImageList = new Group();
 	}

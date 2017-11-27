@@ -1,6 +1,7 @@
-package database;
+package database.firebase;
 
 import com.google.firebase.database.*;
+import database.jsonhelpers.JSONHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import util.exceptions.ObjectIdNotFoundException;
