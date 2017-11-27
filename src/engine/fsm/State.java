@@ -1,16 +1,26 @@
 package engine.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.TrackableObject;
 import engine.managers.StateManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**Represents a state within a Finite State Machine
  * 
  * @author lasia
- *
+ *	@author Albert
  */
-public class State {
-	private List<Transition> myTransitions;
+public class State extends TrackableObject {
+	@Expose private List<Transition> myTransitions;
+
+	/**
+	 * Creates a new State
+	 */
+	public State() {
+		myTransitions = new ArrayList<>();
+	}
 	
 	/**Checks the transitions of this state to see if the conditions are met
 	 * If they are, the manager's current state will be changed to the transition's destination

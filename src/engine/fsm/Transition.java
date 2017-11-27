@@ -1,14 +1,21 @@
 package engine.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.TrackableObject;
 import engine.fsm.Logic;
 import engine.fsm.State;
 
 import java.util.Map;
 
-public class Transition {
-	private State myDestinationState;
-	private Logic condition;
-	
+public class Transition extends TrackableObject {
+	@Expose private State myDestinationState;
+	@Expose private Logic condition;
+
+	/**
+	 * Creates a new Transition from the database
+	 */
+	private Transition() {}
+
 	/**Creates a new transition that points to a destination state
 	 * @param state
 	 */
@@ -19,7 +26,7 @@ public class Transition {
 	/**Takes in a set of parameters and determines whether it meets the conditions specified
 	 * by the user
 	 * 
-	 * @param Map of conditions
+	 * @param parameters Map of conditions
 	 * @return boolean
 	 */
 	public boolean conditionsMeet(Map<String,Object> parameters) {

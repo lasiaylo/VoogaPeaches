@@ -1,5 +1,6 @@
 package engine.entities;
 
+import com.google.gson.annotations.Expose;
 import database.TrackableObject;
 import engine.util.FXProcessing;
 import javafx.scene.image.Image;
@@ -11,8 +12,11 @@ import util.math.num.Vector;
  *
  */
 public class Render extends TrackableObject {
-	private ImageView myImageView;
-	 
+	@Expose private ImageView myImageView;
+
+	/**
+	 * Creates a new Render from database
+	 */
 	public Render() {
 	}
 	 
@@ -52,7 +56,6 @@ public class Render extends TrackableObject {
 	 * @param vis	
 	 */
 	public void setVisible(boolean vis) {
-
 	    myImageView.setVisible(vis);
 	}
 	
@@ -61,7 +64,6 @@ public class Render extends TrackableObject {
 	 * @param trans
 	 */
 	public void setMouseTrans(boolean trans) {
-
 	    myImageView.setMouseTransparent(trans);
 	}
 	
@@ -70,7 +72,6 @@ public class Render extends TrackableObject {
 	 * @return imageview
 	 */
 	public ImageView getImage() {
-
 		return myImageView;
 	}
 	
@@ -78,7 +79,6 @@ public class Render extends TrackableObject {
 	 * set imageview
 	 */
 	public void setImage(ImageView newImage) {
-
 	    myImageView = newImage;
 	}
 

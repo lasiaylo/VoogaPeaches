@@ -2,6 +2,8 @@ package engine.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import database.TrackableObject;
 import javafx.scene.shape.Shape;
 import util.math.num.Vector;
 
@@ -11,11 +13,16 @@ import util.math.num.Vector;
  * @author lasia
  * @author Albert
  */
-public class HitBox {
-	private String tag;
-	private List<String> visitorTags;
-	private List<Shape> myShapes;
-	private Vector myPosition;
+public class HitBox extends TrackableObject{
+	@Expose private String myTag;
+	@Expose private List<String> visitorTags;
+	@Expose private List<Shape> myShapes;
+	@Expose private Vector myPosition;
+
+	/**
+	 * Create a new HitBox from the database
+	 */
+	public HitBox() {}
 
 	/**
 	 * Creates a new Hitbox
@@ -26,6 +33,7 @@ public class HitBox {
 	public HitBox(List<Shape> shapes, Vector pos) {
 		myShapes = shapes;
 		myPosition = pos;
+		visitorTags = new ArrayList<>();
 	}
 
 	/**
