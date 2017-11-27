@@ -9,7 +9,7 @@ import util.math.num.Vector;
 public class Transform {
 	private Vector myPosition = new Vector(0, 0);
 	private double myRotation = 0;
-	private Vector mySize = new Vector(1, 1);
+	private Vector mySize = new Vector(100, 100);
 	
 
 
