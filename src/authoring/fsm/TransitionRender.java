@@ -19,7 +19,7 @@ public class TransitionRender {
         myTransition = transition;
     }
 
-    public Arrow getRender() {
+    public Arrow getArrow() {
         return myArrow;
     }
 
