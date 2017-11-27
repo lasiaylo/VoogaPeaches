@@ -49,7 +49,7 @@ public class JSONDataManager {
     public JSONDataManager(DataFolders folder) {
         baseFolder = folder.path();
     }
-
+    
     /**
      * Writes the specified JSONObject to the file specified. Note: If the
      * file is already present then the data in obj will overwrite the data
