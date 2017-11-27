@@ -1,17 +1,21 @@
 package engine.entities;
 
+import database.firebase.TrackableObject;
 import util.math.num.Vector;
 
 /**Wrapper Class for Entity's position/location/scale
  * @author lasia
  *
  */
-public class Transform {
+public class Transform extends TrackableObject {
 	private Vector myPosition = new Vector(0, 0);
 	private double myRotation = 0;
 	private Vector mySize = new Vector(1, 1);
-	
 
+	/**
+	 * Creates a new Transform object from database
+	 */
+	private Transform() {}
 
 	/**Creates a new Transform
 	 * @param position

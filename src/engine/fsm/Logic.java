@@ -1,5 +1,7 @@
 package engine.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import groovy.util.Eval;
 
 import java.util.Map;
@@ -11,9 +13,14 @@ import java.util.Map;
  * @author Simran
  * @author Walker
  */
-public class Logic {
-    private String myLogic;
-    private Map<String, Object> myParameters;
+public class Logic extends TrackableObject {
+    @Expose private String myLogic;
+    @Expose private Map<String, Object> myParameters;
+
+    /**
+     * Creates a new Logic object from the database
+     */
+    private Logic() {}
 
     /**
      * Creates a new Logic

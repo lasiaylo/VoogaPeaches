@@ -24,9 +24,7 @@ public class Entity extends TrackableObject {
 	/**
 	 * privately creates an entity through the database
 	 */
-	private Entity() {
-
-	}
+	private Entity() {}
 
     /**
      *  Creates a new Entity
@@ -34,11 +32,14 @@ public class Entity extends TrackableObject {
      *  @param scripts   Scripts attached to new Entity
      */
     public Entity(Vector pos, List<IScript> scripts) {
-    	super();
     	myTransform = new Transform(pos);
         myScripts = scripts;
         myRender = new Render();
     }
+
+    public Entity(Vector pos) {
+    	this(pos, new ArrayList<>());
+	}
 
     /**
      * Create a new Entity

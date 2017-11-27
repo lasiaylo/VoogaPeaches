@@ -1,42 +1,35 @@
 package engine.managers;
 
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class that tells Entities what other Entities they have collided with
  * @author Albert
- * @authoer lasia
+ * @author lasia
  */
-public class CollisionManager implements IManager {
-	// Singleton??
-	private static CollisionManager instance;
-	private List<HitBox> myHitBoxes;
+public class CollisionManager extends TrackableObject implements IManager {
+	@Expose private List<HitBox> myHitBoxes;
 
 	/**
 	 * Creates a new CollisionManager
 	 */
 	public CollisionManager() {
+		myHitBoxes = new ArrayList<>();
 	}
 
 	/**Checks whether this Hitbox is colliding with other Hitboxes
-	 * @param Hitbox
+	 * @param hitBox Hitbox
 	 */
 	public void checkCollisions(HitBox hitBox) {
 		for (HitBox otherHitBox: myHitBoxes) {
 			if (!otherHitBox.equals(hitBox))
 				hitBox.checkIntersect(otherHitBox);
 		}
-	}
-
-	/**
-	 * @return			Singleton instance of CollisionManager
-	 */
-	public static CollisionManager getInstance() {
-		if (instance == null)
-			instance = new CollisionManager();
-
-		return instance;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package engine.managers;
 
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;
@@ -12,9 +14,16 @@ import java.util.Map;
  * Class that manages and reads user key inputs
  * @author Albert
  */
-public class InputManager implements IManager{
-    private Map<KeyCode, String> keyCommandMap;
-    private Map<String, Boolean> commandExecuteMap;
+public class InputManager extends TrackableObject implements IManager{
+    @Expose private Map<KeyCode, String> keyCommandMap;
+    @Expose private Map<String, Boolean> commandExecuteMap;
+
+    /**
+     *  Creates a new InputManager
+     */
+    private InputManager() {
+        this(new HashMap<>());
+    }
 
     /**
      * Creates a new InputManager from the database
@@ -25,13 +34,6 @@ public class InputManager implements IManager{
             keyCommandMap.put(KeyCode.getKeyCode(s), commands.get(s));
         }
         commandExecuteMap = new HashMap<>();
-    }
-
-    /**
-     *  Creates a new InputManager
-     */
-    private InputManager() {
-        this(new HashMap<>());
     }
 
     /**

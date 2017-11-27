@@ -4,6 +4,7 @@ package engine.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
 import engine.scripts.IScript;
@@ -15,6 +16,8 @@ import javafx.scene.Group;
 import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
 
+import javax.sound.midi.Track;
+
 /**
  * create and hold all entities displayed
  * 
@@ -23,8 +26,7 @@ import util.math.num.Vector;
  * @author estellehe
  *
  */
-public class EntityManager {
-	private static final List<IScript> SCRIPTL = new ArrayList<IScript>();
+public class EntityManager extends TrackableObject {
 	private static final String IMGSPT = "ImageScript";
 	
 	private int myGridSize;
@@ -45,7 +47,7 @@ public class EntityManager {
 	}
 	
 	private Entity createEnt(Vector pos) {
-		Entity myEnt = new Entity(pos, SCRIPTL);
+		Entity myEnt = new Entity(pos);
 		return myEnt;
 	}
 	
