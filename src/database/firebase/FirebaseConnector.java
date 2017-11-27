@@ -1,4 +1,4 @@
-package database;
+package database.firebase;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 public abstract class FirebaseConnector {
 
     /* Final Variables */
-    private static final String API_CREDENTIAL_DIR = "./data/voogasalad-5152b-firebase-adminsdk-jn865-8e96d753e3.json";
+    private static final String API_CREDENTIAL_DIR = "./data/program_config/database_credentials.json";
     private static final String DATABASE_URL = "https://voogasalad-5152b.firebaseio.com";
     private static final String STORAGE_URL = "voogasalad-5152b.appspot.com";
 

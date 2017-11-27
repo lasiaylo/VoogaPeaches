@@ -1,4 +1,4 @@
-package database;
+package database.jsonhelpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +18,7 @@ public class JSONHelper {
 
     /**
      * Creates a GSON for use with the rest of the class
-     * @return a {@code GSON} object with particular settings
+     * @return a {@code GSON} object with particular user_settings
      */
     private static Gson createGSON() {
         GsonBuilder builder = new GsonBuilder();

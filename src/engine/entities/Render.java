@@ -1,9 +1,8 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import engine.util.FXProcessing;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 

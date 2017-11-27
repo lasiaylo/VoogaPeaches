@@ -1,17 +1,10 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
-import engine.scripts.Script;
-import engine.util.FXProcessing;
+import database.firebase.TrackableObject;
 import engine.scripts.IScript;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import util.math.num.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,0 +1,15 @@
+{
+  "UID": "d04a388d739e4901b147485bf8f48efb",
+  "metadata": {
+    "UID": "2c0f39dc35bf45f2a2368fa367007d65",
+    "creator": "Walker",
+    "timestamp": "1, 11 27, 2017",
+    "stuff": [
+      "test",
+      "test2"
+    ]
+  },
+  "fixed": 10,
+  "myContent": "Stuff I wrote",
+  "myValue": 8
+}

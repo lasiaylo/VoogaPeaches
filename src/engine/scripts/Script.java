@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.google.gson.annotations.Expose;
-import database.TrackableObject;
+import database.firebase.TrackableObject;
 import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.lang.reflect.InvocationTargetException;

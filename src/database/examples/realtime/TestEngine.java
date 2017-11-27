@@ -1,7 +1,7 @@
 package database.examples.realtime;
 
-import database.DataReactor;
-import database.DatabaseConnector;
+import database.firebase.DataReactor;
+import database.firebase.DatabaseConnector;
 import util.exceptions.ObjectIdNotFoundException;
 
 public class TestEngine implements DataReactor<Post> {
