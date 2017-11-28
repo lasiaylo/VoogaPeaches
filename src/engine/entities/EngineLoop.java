@@ -16,7 +16,8 @@ import engine.managers.EntityManager;
  */
 public class EngineLoop {
 	private static final int MAX_FRAMES_PER_SECOND = 60;
-	
+	public static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
+
 	private EntityManager myManager;
 	private Timeline myGamingTimeline;
 	private Timeline myEngineTimeline;
@@ -29,8 +30,8 @@ public class EngineLoop {
 	public EngineLoop(EntityManager manager, Camera camera) {
 		myManager = manager;
 		myCamera = camera;
-		KeyFrame gameFrame = new KeyFrame(Duration.millis(1000 / MAX_FRAMES_PER_SECOND), e -> myManager.updateAll());
-		KeyFrame engineFrame = new KeyFrame(Duration.millis(1000 / MAX_FRAMES_PER_SECOND), e -> myCamera.update());
+		KeyFrame gameFrame = new KeyFrame(Duration.millis(FRAME_PERIOD), e -> myManager.updateAll());
+		KeyFrame engineFrame = new KeyFrame(Duration.millis(FRAME_PERIOD), e -> myCamera.update());
 
 
 		myGamingTimeline = new Timeline();

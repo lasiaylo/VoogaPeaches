@@ -3,6 +3,7 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import engine.scripts.IScript;
+import engine.scripts.defaults.DefaultMovement;
 import util.math.num.Vector;
 
 import java.util.List;
@@ -36,10 +37,20 @@ public class Entity extends TrackableObject {
 		myTransform = new Transform(pos);
 		myScripts = scripts;
 		myRender = new Render(this);
+		myScripts.add(new DefaultMovement());
 	}
 
 	public Entity(Vector pos) {
 		this(pos, new ArrayList<>());
+	}
+
+	public Entity(Vector pos, Vector vel, Vector accel, List<IScript> scripts) {
+		this(pos, scripts);
+		myTransform = new Transform(pos, vel, accel);
+	}
+
+	public Entity(Vector pos, Vector vel, Vector accel) {
+		this(pos, vel, accel, new ArrayList<>());
 	}
 
 	/**
