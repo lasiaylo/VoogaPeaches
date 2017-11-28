@@ -1,7 +1,8 @@
 package engine.entities;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.util.FXProcessing;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 
@@ -12,19 +13,14 @@ import java.io.FileNotFoundException;
  * @author lasia
  *
  */
-public class Render {
-    private String holder = "resources/graphics/holder.gif";
-	private EntityImage myEntityImage;
-	private Entity myEntity;
-	 
-	public Render(Entity entity) {
-	    myEntity = entity;
-        try {
-            myEntityImage = new EntityImage(myEntity, new Image(new FileInputStream(holder)));//this should be a placeholder
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+public class Render extends TrackableObject {
+	@Expose private ImageView myImageView;
+
+	/**
+	 * Creates a new Render from database
+	 */
+	public Render() {
+	}
 	 
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
@@ -62,8 +58,7 @@ public class Render {
 	 * @param vis	
 	 */
 	public void setVisible(boolean vis) {
-
-	    myEntityImage.setVisible(vis);
+	    myImageView.setVisible(vis);
 	}
 	
 	/**
@@ -71,26 +66,22 @@ public class Render {
 	 * @param trans
 	 */
 	public void setMouseTrans(boolean trans) {
-
-	    myEntityImage.setMouseTransparent(trans);
+	    myImageView.setMouseTransparent(trans);
 	}
 	
 	/**
 	 * get imageview 
 	 * @return imageview
 	 */
-	public EntityImage getImage() {
-
-		return myEntityImage;
+	public ImageView getImage() {
+		return myImageView;
 	}
 	
 	/**
 	 * set imageview
 	 */
-	public void setImage(Image newImage) {
-
-	    myEntityImage.setImage(newImage);
-
+	public void setImage(ImageView newImage) {
+	    myImageView = newImage;
 	}
 
 }

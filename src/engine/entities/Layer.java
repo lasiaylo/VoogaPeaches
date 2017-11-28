@@ -1,5 +1,7 @@
 package engine.entities;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,13 +20,11 @@ import static java.lang.Math.abs;
  * @author estellehe
  *
  */
-public class Layer {
-	private List<Entity> myEntityList;
-	private Group myImageList;
-	private String white = "resources/graphics/holder.gif";
+public class Layer extends TrackableObject {
+	@Expose private List<Entity> myEntityList;
+	@Expose private Group myImageList;
 	
 	public Layer() {
-
 	    myEntityList = new ArrayList<Entity>();
 	    myImageList = new Group();
         try {

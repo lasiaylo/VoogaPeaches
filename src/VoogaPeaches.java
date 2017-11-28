@@ -1,4 +1,5 @@
 import authoring.Screen;
+import database.firebase.FirebaseConnector;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -23,6 +24,7 @@ public class VoogaPeaches extends Application {
     public void stop() throws Exception{
         kitty.save();
         super.stop();
+        FirebaseConnector.closeFirebaseApp();
     }
 
     public static void main(String[] args){

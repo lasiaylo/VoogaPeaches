@@ -51,11 +51,11 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelController myController;
+	private IPanelDelegate controller;
 
-    public CameraPanel(double width, double height) {
-    	cameraWidth = width;
-    	cameraHeight = height;
+	public CameraPanel(double width, double height) {
+		cameraWidth = width;
+		cameraHeight = height;
 
     	myView = new ScrollPane();
     	myView.setPrefWidth(width);
@@ -156,10 +156,10 @@ public class CameraPanel implements Panel {
 		myManager = myController.getManager();
 	}
 
-    @Override
-    public String title(){
-        return "Game Camera";
-    }
+	@Override
+	public String title(){
+		return "Game Camera";
+	}
 
 
 }
