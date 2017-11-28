@@ -1,6 +1,7 @@
 package database.jsonhelpers;
 
 import org.json.JSONObject;
+import util.PropertiesReader;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -23,14 +24,14 @@ public class JSONDataManager {
      * project where json files can be read and written from by the
      * JSONDataManager class
      */
-    public enum DataFolders {
+    public enum JSONDataFolders {
         GAMES ("games"),
         IMAGES ("images"),
         SCRIPTS ("scripts"),
         USER_SETTINGS ("user_settings");
 
         private final String filepath;
-        DataFolders(String path) { this.filepath = "./data/jsondata/" + path + "/"; }
+        JSONDataFolders(String path) { this.filepath = PropertiesReader.path("db_json") + path + "/"; }
 
         /**
          * @return A {@code String} representing the path of the folder within the project
@@ -46,7 +47,7 @@ public class JSONDataManager {
      *               specifies which of the subfolders in data
      *               where you want to manipulate JSON files
      */
-    public JSONDataManager(DataFolders folder) {
+    public JSONDataManager(JSONDataFolders folder) {
         baseFolder = folder.path();
     }
     
