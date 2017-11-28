@@ -2,7 +2,8 @@ package util;
 
 import util.pubsub.PubSub;
 import util.pubsub.messages.Message;
-import util.pubsub.messages.TestMessage;
+import util.pubsub.messages.ThemeMessage;
+
 import java.util.function.Consumer;
 
 /**
@@ -19,11 +20,11 @@ public class PubSubTest {
         PubSub pubSub = PubSub.getInstance();
         Consumer<Message> myCallback = (message) ->
         {
-            TestMessage newMessage = (TestMessage) message;
+            ThemeMessage newMessage = (ThemeMessage) message;
             System.out.println(newMessage.readMessage());
         };
-        pubSub.subscribe(PubSub.Channel.TEST_MESSAGE, myCallback);
-        pubSub.publish(PubSub.Channel.TEST_MESSAGE, new TestMessage("this is a test!"));
+        pubSub.subscribe(PubSub.Channel.THEME_MESSAGE, myCallback);
+        pubSub.publish(PubSub.Channel.THEME_MESSAGE, new ThemeMessage("this is a test!"));
     }
 
 }
