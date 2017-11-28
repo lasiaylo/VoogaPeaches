@@ -1,96 +1,89 @@
 package engine.entities;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.util.FXProcessing;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 /**Wrapper Class for Entity's image
  * @author lasia
  *
  */
-public class Render {
-    private String holder = "resources/graphics/holder.gif";
-	private EntityImage myEntityImage;
+public class Render extends TrackableObject {
+	@Expose private ImageView myImageView;
 	private Entity myEntity;
-	 
+
+	/**
+	 * Creates a new Render from database
+	 */
+	private Render() {
+	}
+
 	public Render(Entity entity) {
-	    myEntity = entity;
-        try {
-            myEntityImage = new EntityImage(myEntity, new Image(new FileInputStream(holder)));//this should be a placeholder
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-	 
+		myEntity = entity;
+	}
+
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
 		setRotate(transform.getRotation());
 		setSize(transform.getSize());
 	}
-	
+
 	/**
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
-	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
+		myImageView.setX(FXProcessing.getXImageCoord(position.at(0), myImageView));
+		myImageView.setY(FXProcessing.getYImageCoord(position.at(1), myImageView));
 	}
-	
+
 	/**Sets the value of the imageview
 	 * @param rotation	Rotation in degrees
 	 */
 	private void setRotate(double rotation) {
-		myEntityImage.setRotate(rotation);
+		myImageView.setRotate(rotation);
 	}
-	
+
 	/**
 	 * Sets the size (width, height) of the imageview
 	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
 	private void setSize(Vector size) {
-		myEntityImage.setFitWidth(size.at(0));
-		myEntityImage.setFitHeight(size.at(1));
+		myImageView.setFitWidth(size.at(0));
+		myImageView.setFitHeight(size.at(1));
 	}
-	
-	
+
+
 	/**
 	 * set imageview visibility
-	 * @param vis	
+	 * @param vis
 	 */
 	public void setVisible(boolean vis) {
-
-	    myEntityImage.setVisible(vis);
+		myImageView.setVisible(vis);
 	}
-	
+
 	/**
 	 * set imageview transparency to mouse click
 	 * @param trans
 	 */
 	public void setMouseTrans(boolean trans) {
-
-	    myEntityImage.setMouseTransparent(trans);
+		myImageView.setMouseTransparent(trans);
 	}
-	
+
 	/**
-	 * get imageview 
+	 * get imageview
 	 * @return imageview
 	 */
-	public EntityImage getImage() {
-
-		return myEntityImage;
+	public ImageView getImage() {
+		return myImageView;
 	}
-	
+
 	/**
 	 * set imageview
 	 */
-	public void setImage(Image newImage) {
-
-	    myEntityImage.setImage(newImage);
-
+	public void setImage(ImageView newImage) {
+		myImageView = newImage;
 	}
 
 }

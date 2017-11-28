@@ -5,6 +5,8 @@ package util.exceptions;
  * trying to save an object to the database that does not
  * possess an id instance variable marked with the @Expose
  * annotation
+ *
+ * @author Walker Willetts
  */
 public class ObjectIdNotFoundException extends Exception {
     public String getMessage() {

@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import util.PropertiesReader;
 import util.math.num.Vector;
 
 import static java.lang.Character.getNumericValue;
@@ -33,9 +34,9 @@ public class CameraPanel implements Panel {
 	private static final String LOCALB = "Local View";
 	private static final String LAYER = "Layer ";
 
-    private static final double GRIDS = 50;
+	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
-	
+
 	private ScrollPane myView;
 	private Button myPlay;
 	private Button myPause;
@@ -46,20 +47,19 @@ public class CameraPanel implements Panel {
 	private ToggleGroup myGroup;
 	private EntityManager myManager;
 
-	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
 	private double cameraHeight;
 	private int layerC = 1;
-	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelController myController;
+	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
+	private IPanelController myController;
 
-    public CameraPanel(double width, double height) {
-    	cameraWidth = width;
-    	cameraHeight = height;
+	public CameraPanel(double width, double height) {
+		cameraWidth = width;
+		cameraHeight = height;
 
-    	myView = new ScrollPane();
-    	myView.setPrefWidth(width);
-    	myView.setPrefHeight(height);
+		myView = new ScrollPane();
+		myView.setPrefWidth(width);
+		myView.setPrefHeight(height);
 
 		myArea = new VBox(myView, buttonRow());
 		myArea.setSpacing(5);
@@ -87,16 +87,16 @@ public class CameraPanel implements Panel {
 
 
 	private void getView(ScrollPane view) {
-        myView = view;
-        myArea.getChildren().set(0, myView);
-        myView.setMouseTransparent(true);
-        myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
-    }
+		myView = view;
+		myArea.getChildren().set(0, myView);
+		myView.setMouseTransparent(true);
+		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+	}
 
-    private void addBlock(Vector pos) {
-        Vector center = FXProcessing.getBGCenter(pos, GRIDS);
-        myManager.addBG(center);
-    }
+	private void addBlock(Vector pos) {
+		Vector center = FXProcessing.getBGCenter(pos, GRIDS);
+		myManager.addBG(center);
+	}
 
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
@@ -117,31 +117,31 @@ public class CameraPanel implements Panel {
 	}
 
 	private void changeLayer() {
-        String option = myLayer.getValue();
-        switch (option) {
-            case NEWL:
-                myManager.addLayer();
-                myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
-                myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
-                layerC++;
-                myView.setMouseTransparent(true);
-                break;
-            case ALLL:
-                myManager.allLayer();
-                myView.setMouseTransparent(true);
-                break;
-            case BGL:
-                myManager.selectBGLayer();
-                myView.setMouseTransparent(false);
-                break;
-            default:
-                int layer = Character.getNumericValue(option.charAt(option.length()-1));
-                myManager.selectLayer(layer);
-                myView.setMouseTransparent(true);
-                break;
-        }
+		String option = myLayer.getValue();
+		switch (option) {
+			case NEWL:
+				myManager.addLayer();
+				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+				myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
+				layerC++;
+				myView.setMouseTransparent(true);
+				break;
+			case ALLL:
+				myManager.allLayer();
+				myView.setMouseTransparent(true);
+				break;
+			case BGL:
+				myManager.selectBGLayer();
+				myView.setMouseTransparent(false);
+				break;
+			default:
+				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				myManager.selectLayer(layer);
+				myView.setMouseTransparent(true);
+				break;
+		}
 
-    }
+	}
 
 
 	@Override
@@ -156,10 +156,10 @@ public class CameraPanel implements Panel {
 		myManager = myController.getManager();
 	}
 
-    @Override
-    public String title(){
-        return "Game Camera";
-    }
+	@Override
+	public String title(){
+		return "Game Camera";
+	}
 
 
 }

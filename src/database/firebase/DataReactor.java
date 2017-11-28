@@ -1,4 +1,4 @@
-package database;
+package database.firebase;
 
 /**
  * The interface used to specify a class that is

@@ -13,6 +13,8 @@ class ImageScript extends GroovyScript{
 
 	File filename;
 
+	FileInputStream myInputStream
+
 	@Override
 	public void execute(Entity entity) {
 		Image myImage = new Image(new FileInputStream(grass));
