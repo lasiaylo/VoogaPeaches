@@ -38,7 +38,7 @@ public class Layer extends TrackableObject {
 	public void addEntity(Entity each) {
 
 		myEntityList.add(each);
-		myImageList.getChildren().add(each.getRender().getImage());
+		myImageList.getChildren().add(each.getRender());
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Layer extends TrackableObject {
 	 */
 	public void select() {
 		for (Entity each: myEntityList) {
-			each.getRender().setMouseTrans(false);
+			each.getRender().setMouseTransparent(false);
 			each.getRender().setVisible(true);
 		}
 	}
@@ -65,7 +65,7 @@ public class Layer extends TrackableObject {
 	 */
 	public void deselect() {
 		for (Entity each: myEntityList) {
-			each.getRender().setMouseTrans(true);
+			each.getRender().setMouseTransparent(true);
 			each.getRender().setVisible(false);
 		}
 	}
@@ -75,7 +75,7 @@ public class Layer extends TrackableObject {
 	 */
 	public void onlyView() {
 		for (Entity each: myEntityList) {
-			each.getRender().setMouseTrans(true);
+			each.getRender().setMouseTransparent(true);
 			each.getRender().setVisible(true);
 		}
 	}
