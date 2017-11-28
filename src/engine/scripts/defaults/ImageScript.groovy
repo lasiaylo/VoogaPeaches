@@ -13,7 +13,7 @@ class ImageScript extends GroovyScript{
 
 	File filename;
 
-	FileInputStream myInputStream
+	FileInputStream myInputStream;
 
 	@Override
 	public void execute(Entity entity) {
