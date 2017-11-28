@@ -22,7 +22,7 @@ abstract class GroovyScript implements IScript {
 	/**Initializes state for the script
 	 * 
 	 */
-	public abstract void start();
+	public abstract void start()
 	
 	/**Allows front end to retrieve all the unmodified specified fields
 	 * @return fields defined within this script

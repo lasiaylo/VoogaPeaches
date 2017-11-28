@@ -19,6 +19,8 @@ import static java.lang.Math.abs;
 public class Layer extends TrackableObject {
 	@Expose private List<Entity> myEntityList;
 	@Expose private Group myImageList;
+	private String white = "resources/graphics/holder.gif";
+
 
 	public Layer() {
 		myEntityList = new ArrayList<Entity>();

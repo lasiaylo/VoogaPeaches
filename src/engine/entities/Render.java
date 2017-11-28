@@ -12,11 +12,16 @@ import util.math.num.Vector;
  */
 public class Render extends TrackableObject {
 	@Expose private ImageView myImageView;
+	private Entity myEntity;
 
 	/**
 	 * Creates a new Render from database
 	 */
-	public Render() {
+	private Render() {
+	}
+
+	public Render(Entity entity) {
+		myEntity = entity;
 	}
 
 	public void displayUpdate(Transform transform) {
