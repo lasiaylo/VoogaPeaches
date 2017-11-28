@@ -15,11 +15,16 @@ import java.io.FileNotFoundException;
  */
 public class Render extends TrackableObject {
 	@Expose private ImageView myImageView;
+	private Entity myEntity;
 
 	/**
 	 * Creates a new Render from database
 	 */
-	public Render() {
+	private Render() {
+	}
+
+	public Render(Entity entity) {
+		myEntity = entity;
 	}
 	 
 	public void displayUpdate(Transform transform) {
@@ -32,15 +37,15 @@ public class Render extends TrackableObject {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
-	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
+		myImageView.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
+	    myImageView.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
 	}
 	
 	/**Sets the value of the imageview
 	 * @param rotation	Rotation in degrees
 	 */
 	private void setRotate(double rotation) {
-		myEntityImage.setRotate(rotation);
+		myImageView.setRotate(rotation);
 	}
 	
 	/**
@@ -48,8 +53,8 @@ public class Render extends TrackableObject {
 	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
 	private void setSize(Vector size) {
-		myEntityImage.setFitWidth(size.at(0));
-		myEntityImage.setFitHeight(size.at(1));
+		myImageView.setFitWidth(size.at(0));
+		myImageView.setFitHeight(size.at(1));
 	}
 	
 	

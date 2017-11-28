@@ -32,14 +32,23 @@ public class CollisionManager extends TrackableObject implements IManager {
 		}
 	}
 
+	/**
+	 * Adds a hit box to the collection
+	 * @param hitBox	hitbox to be added
+	 */
+	public void addHitBox(HitBox hitBox) {
+		myHitBoxes.add(hitBox);
+	}
+
 	@Override
 	public boolean check(Object object) {
+		System.out.println("checking");
 		HitBoxCheck checker = (HitBoxCheck) object;
 		HitBox hitBox = checker.getHitBox();
-		String tag = checker.getTag();
-
+		String tagToFind = checker.getTag();
+		System.out.println("tag to find: " + tagToFind);
 		checkCollisions(hitBox);
 		List<String> visitorTag = hitBox.getVisitors();
-		return visitorTag.contains(tag);
+		return visitorTag.contains(tagToFind);
 	}
 }
