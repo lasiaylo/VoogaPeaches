@@ -1,4 +1,4 @@
-package authoring.workspaces;
+package authoring;
 
 import javafx.scene.layout.Region;
 

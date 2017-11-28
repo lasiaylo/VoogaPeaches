@@ -9,20 +9,19 @@ import javafx.scene.image.ImageView
  *
  */
 class ImageScript extends GroovyScript{
+	private String grass = "resources/graphics/Background/grass.png";
 
 	File filename;
 
 	@Override
 	public void execute(Entity entity) {
-		Image myImage = new Image(getClass()
-				.getClassLoader()
-				.getResourceAsStream(filename.getPath()));
-		entity.getRender().setImage(new ImageView(myImage));
+		Image myImage = new Image(new FileInputStream(grass));
+		entity.getRender().setImage(myImage);
 		entity.getRender().displayUpdate(entity.getTransform());
 	}
 
 	@Override
 	public void start() {
-		filename = new File();
+		//filename = new File(grass);
 	}
 }
