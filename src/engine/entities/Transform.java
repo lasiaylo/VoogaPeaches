@@ -23,7 +23,7 @@ public class Transform extends TrackableObject {
 	public Transform(Vector position) {
 		myPosition = position;
 	}
-	
+
 	/**Creates a new Tranform
 	 * @param position
 	 * @param rotation
@@ -32,49 +32,49 @@ public class Transform extends TrackableObject {
 		this(position);
 		myRotation = rotation;
 	}
-	
-    /**
-     * @return Vector position of this entity
-     */
+
+	/**
+	 * @return Vector position of this entity
+	 */
 	public Vector getPosition() {
 
-	    return myPosition;
+		return myPosition;
 	}
-	
-    /**
-     * @param newPos position for this entity
-     */
+
+	/**
+	 * @param newPos position for this entity
+	 */
 	public void setPosition(Vector newPos) {
 
-	    this.myPosition = newPos;
+		this.myPosition = newPos;
 	}
-	
+
 	/**
 	 * @return Rotation of this entity in degrees
 	 */
 	public double getRotation() {
 
-	    return myRotation;
+		return myRotation;
 	}
 
 
 
-    /**
-     * set scale factor
-     * @param scale
-     */
+	/**
+	 * set scale factor
+	 * @param scale
+	 */
 	public void setScale(Vector scale) {
 
-	    this.mySize = new Vector(mySize.at(0)*scale.at(0), mySize.at(1)*scale.at(1));
+		this.mySize = new Vector(mySize.at(0)*scale.at(0), mySize.at(1)*scale.at(1));
 
 	}
 
 
-    /**
-     * get current size
-     * @return
-     */
-    public Vector getSize() {
-        return mySize;
-    }
+	/**
+	 * get current size
+	 * @return
+	 */
+	public Vector getSize() {
+		return mySize;
+	}
 }

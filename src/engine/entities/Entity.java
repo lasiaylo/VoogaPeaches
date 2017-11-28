@@ -19,38 +19,38 @@ import java.util.ArrayList;
 public class Entity extends TrackableObject {
 	@Expose private Transform myTransform;
 	@Expose private Render myRender;
-    @Expose private boolean isStatic;
-    @Expose private List<IScript> myScripts;
+	@Expose private boolean isStatic;
+	@Expose private List<IScript> myScripts;
 
 	/**
 	 * privately creates an entity through the database
 	 */
 	private Entity() {}
 
-    /**
-     *  Creates a new Entity
-     *  @param pos       Vector position of new Entity
-     *  @param scripts   Scripts attached to new Entity
-     */
-    public Entity(Vector pos, List<IScript> scripts) {
-    	myTransform = new Transform(pos);
-        myScripts = scripts;
-        myRender = new Render();
-    }
-
-    public Entity(Vector pos) {
-    	this(pos, new ArrayList<>());
+	/**
+	 *  Creates a new Entity
+	 *  @param pos       Vector position of new Entity
+	 *  @param scripts   Scripts attached to new Entity
+	 */
+	public Entity(Vector pos, List<IScript> scripts) {
+		myTransform = new Transform(pos);
+		myScripts = scripts;
+		myRender = new Render();
 	}
 
-    /**
-     * Create a new Entity
-     * @param x         X position of new Entity
-     * @param y         Y position of new Entity
-     * @param scripts   Scripts attached to new Entity
-     */
-    public Entity(List<IScript> scripts, double x, double y) {
-    	this(new Vector(x, y), scripts);
-    }
+	public Entity(Vector pos) {
+		this(pos, new ArrayList<>());
+	}
+
+	/**
+	 * Create a new Entity
+	 * @param x         X position of new Entity
+	 * @param y         Y position of new Entity
+	 * @param scripts   Scripts attached to new Entity
+	 */
+	public Entity(List<IScript> scripts, double x, double y) {
+		this(new Vector(x, y), scripts);
+	}
 
 	/**
 	 * run all defaults attached to the Entity
@@ -61,34 +61,34 @@ public class Entity extends TrackableObject {
 		}
 	}
 
-    /**
-     * transform class that contains transform recorded for this entity
-     * @return transform
-     */
+	/**
+	 * transform class that contains transform recorded for this entity
+	 * @return transform
+	 */
 	public Transform getTransform() {
-	    return myTransform;
+		return myTransform;
 	}
 
 	/**
 	 * @return Render wrapper class that contains ImageView
 	 */
 	public Render getRender() {
-	    return myRender;
+		return myRender;
 	}
 
-    /**
-     * add script to entity
-     * @param script
-     */
+	/**
+	 * add script to entity
+	 * @param script
+	 */
 	public void addSript(IScript script) {
-	    myScripts.add(script);
-    }
+		myScripts.add(script);
+	}
 
 	/**
 	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
-	    return myScripts;
+		return myScripts;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class Entity extends TrackableObject {
 	 *         needs to be updated once.
 	 */
 	public boolean isStatic() {
-	    return isStatic;
+		return isStatic;
 	}
 
 	/**	Sets whether an entity is static or not. If an entity is static, it just needs
@@ -104,7 +104,7 @@ public class Entity extends TrackableObject {
 	 *
 	 */
 	public void setStatic(boolean isStatic) {
-	    this.isStatic = isStatic;
+		this.isStatic = isStatic;
 	}
 }
 

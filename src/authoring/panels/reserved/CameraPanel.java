@@ -31,7 +31,7 @@ public class CameraPanel implements Panel {
 	private static final String LOCALB = "Local View";
 
 	private static final double SPACING = 10;
-	
+
 	private GridPane myGridPane;
 	private Button myPlay;
 	private Button myPause;
