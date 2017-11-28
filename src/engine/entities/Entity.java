@@ -5,6 +5,7 @@ import database.firebase.TrackableObject;
 import engine.scripts.IScript;
 import util.math.num.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,6 @@ import java.util.List;
  * @author Albert
  * @author lasia
  * @author estellehe
- *
  */
 public class Entity extends TrackableObject {
 	@Expose private Transform myTransform;
