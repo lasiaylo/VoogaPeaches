@@ -20,19 +20,27 @@ public class BooleanField extends InputField{
 		configController();
 	}
 	
-	
-	
 	private void configController() {
 		try {
 			defaultValue = (boolean) getMethod().invoke(getObject());
 			checkbox.setSelected(defaultValue);
+			checkbox.setOnAction(e -> updateField());
+			
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+			e.printStackTrace(); //SOMEBODY HELP ME WITH EXCEPTIONS ;]
 		};
-		
 	}
 
 
+
+	private void updateField() {
+		boolean checked = checkbox.isSelected();
+		try {
+			setMethod().invoke(getObject(), checked);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public Control getControl() {
