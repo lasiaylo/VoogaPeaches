@@ -10,7 +10,7 @@ import javafx.scene.control.Control;
  * @author lasia
  *
  */
-public class BooleanField extends InputField{
+public class BooleanField extends Field{
 	private CheckBox checkbox;
 	private boolean defaultValue;
 	
