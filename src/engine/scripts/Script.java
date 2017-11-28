@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
-import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,7 +22,7 @@ import util.exceptions.GroovyInstantiationException;
  * @author Albert
  */
 public class Script extends TrackableObject implements IScript{
-	private static final String FILEPATH = "src/engine/scripts/";
+	private static final String FILE_PATH = "src/engine/scripts/";
 	private static final String SET = "set";
 	private static final String GET = "get";
 	private Class<IScript> myClazz;
@@ -36,7 +35,7 @@ public class Script extends TrackableObject implements IScript{
     public Script(String filename) throws GroovyInstantiationException {
     	GroovyClassLoader gcl = new GroovyClassLoader();
 		try {
-			myClazz = gcl.parseClass(new File (FILEPATH + filename));
+			myClazz = gcl.parseClass(new File (FILE_PATH + filename));
 			myScript = (GroovyScript) myClazz.newInstance();
 		} catch (IOException | IllegalAccessException | InstantiationException e) {
 			throw new GroovyInstantiationException();

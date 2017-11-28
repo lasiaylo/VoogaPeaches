@@ -22,35 +22,35 @@ public class Render extends TrackableObject {
 	public Render() {
 	}
 	 
-	public void displayUpdate(Transform transform) {
-		setPosition(transform.getPosition());
-		setRotate(transform.getRotation());
-		setSize(transform.getSize());
-	}
+//	public void displayUpdate(Transform transform) {
+//		setPosition(transform.getPosition());
+//		setRotate(transform.getRotation());
+//		setSize(transform.getSize());
+//	}
 	
 	/**
 	 * @param position	new position of the Imageview
 	 */
-	private void setPosition(Vector position) {
-		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
-	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
-	}
+//	private void setPosition(Vector position) {
+//		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
+//	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
+//	}
 	
 	/**Sets the value of the imageview
 	 * @param rotation	Rotation in degrees
 	 */
-	private void setRotate(double rotation) {
-		myEntityImage.setRotate(rotation);
-	}
+//	private void setRotate(double rotation) {
+//		myEntityImage.setRotate(rotation);
+//	}
 	
 	/**
 	 * Sets the size (width, height) of the imageview
 	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
-	private void setSize(Vector size) {
-		myEntityImage.setFitWidth(size.at(0));
-		myEntityImage.setFitHeight(size.at(1));
-	}
+//	private void setSize(Vector size) {
+//		myEntityImage.setFitWidth(size.at(0));
+//		myEntityImage.setFitHeight(size.at(1));
+//	}
 	
 	
 	/**

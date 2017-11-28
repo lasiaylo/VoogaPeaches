@@ -29,7 +29,7 @@ public class ExceptionMessage extends Message {
     public ExceptionMessage(Exception e) {
         Type type = Type.typeOf(e.getClass());
         if (type == null) {
-            PubSub.getInstance().publish(PubSub.Channel.EXCEPTION_MESSAGE,
+            PubSub.getInstance().publish("EXCEPTION_MESSAGE",
                     new ExceptionMessage(new ValueException("Exception type does not exist for class " + e.getClass())));
             return;
         }

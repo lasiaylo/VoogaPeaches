@@ -37,7 +37,7 @@ public class Spriter {
         try {
             return SwingFXUtils.toFXImage(image.getSubimage(x, y, h, w), null);
         } catch (RasterFormatException e) {
-            PubSub.getInstance().publish(PubSub.Channel.EXCEPTION_MESSAGE,
+            PubSub.getInstance().publish("EXCEPTION_MESSAGE",
                     new ExceptionMessage(new ValueException("Invalid sprite coordinates", e)));
         }
 
@@ -51,7 +51,7 @@ public class Spriter {
         try {
             cache.put(path, ImageIO.read(new File(path)));
         } catch (IOException e) {
-            PubSub.getInstance().publish(PubSub.Channel.EXCEPTION_MESSAGE,
+            PubSub.getInstance().publish("EXCEPTION_MESSAGE",
                     new ExceptionMessage(new IOException("Could not load image in " + path, e)));
         }
 

@@ -35,7 +35,7 @@ public class Entity extends TrackableObject {
     public Entity(Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
-        myRender = new Render(this);
+        myRender = new Render();
     }
 
     public Entity(Vector pos) {
@@ -80,7 +80,7 @@ public class Entity extends TrackableObject {
      * add script to entity
      * @param script
      */
-	public void addSript(IScript script) {
+	public void addScript(IScript script) {
 	    myScripts.add(script);
     }
 

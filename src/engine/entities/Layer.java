@@ -28,7 +28,7 @@ public class Layer extends TrackableObject {
 	    myEntityList = new ArrayList<Entity>();
 	    myImageList = new Group();
         try {
-	        ImageView holder = new ImageView(new Image(new FileInputStream(white)));
+	        ImageView holder = new ImageView(new Image(new FileInputStream("")));
 	        holder.setX(0);
 	        holder.setY(0);
 	        holder.setFitWidth(50);
@@ -121,7 +121,7 @@ public class Layer extends TrackableObject {
             double xDis = abs(ePos.at(0) - center.at(0));
             double yDis = abs(ePos.at(1) - center.at(1));
             if (xDis <= (eSize.at(0) + size.at(0))/2 && yDis <= (eSize.at(1) + size.at(1))/2) {
-                each.getRender().displayUpdate(each.getTransform());
+//                each.getRender().displayUpdate(each.getTransform());
             }
         }
     }
