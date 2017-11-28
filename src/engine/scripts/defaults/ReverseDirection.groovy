@@ -18,6 +18,6 @@ class ReverseDirection extends GroovyScript {
     void execute(Entity entity) {
         Transform transform = entity.getTransform()
         transform.setVelocity(transform.getVelocity().negate())
-        transform.setAcceleration(entity.getTransform().getAcceleration().negate())
+        transform.setAcceleration(transform.getAcceleration().negate())
     }
 }
