@@ -16,7 +16,7 @@ class ImageScript extends GroovyScript{
 	@Override
 	public void execute(Entity entity) {
 		Image myImage = new Image(new FileInputStream(grass));
-		entity.getRender().setImage(new ImageView(myImage));
+		entity.getRender().setImage(myImage);
 		entity.getRender().displayUpdate(entity.getTransform());
 	}
 
