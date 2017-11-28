@@ -7,6 +7,7 @@ import engine.entities.Entity;
 import engine.managers.EntityManager;
 import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
 import java.awt.*;
@@ -26,9 +27,9 @@ public class Engine {
     
     public Engine(Number gridSize) {
     		myManager = new EntityManager(gridSize);
+    		myGameLoop = new EngineLoop(myManager, myCamera);
     		myTimeline = myGameLoop.getTimeline();
     		myCamera = new Camera(new Map(myManager));
-    		myGameLoop = new EngineLoop(myManager, myCamera);
     }
 
     /**
@@ -72,4 +73,5 @@ public class Engine {
     public ScrollPane getCameraView(Vector center, Vector size) {
         return myCamera.getView(center, size);
     }
+
 }
