@@ -2,6 +2,8 @@ package authoring;
 
 import authoring.panels.reserved.CameraPanel;
 import authoring.panels.reserved.MenuBarPanel;
+import authoring.panels.tabbable.AttributesPanel;
+import engine.entities.Entity;
 import javafx.application.Platform;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
@@ -61,7 +63,16 @@ public class SplitScreen {
 
         TabPane bottom = new TabPane();
         TabPane side = new TabPane();
-
+        
+        Entity entity = new Entity(null, 12, 1);
+        AttributesPanel attributes = new AttributesPanel();
+        attributes.getRegion().setMinHeight(0);
+        attributes.getRegion().setMinHeight(0);
+        attributes.updateProperties(entity);
+        Tab attributesTab = new Tab();
+        attributesTab.setContent(attributes.getRegion());
+        side.getTabs().add(attributesTab);
+        
         CameraPanel camera = new CameraPanel(cameraWidth, cameraHeight);
         camera.getRegion().setMinWidth(0);
         camera.getRegion().setMinHeight(0);
