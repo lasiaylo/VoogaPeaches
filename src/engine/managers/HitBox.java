@@ -13,7 +13,7 @@ import util.math.num.Vector;
  * @author lasia
  * @author Albert
  */
-public class HitBox extends TrackableObject{
+public class HitBox extends TrackableObject {
 	@Expose private String myTag;
 	@Expose private List<String> visitorTags;
 	@Expose private List<Shape> myShapes;
@@ -30,10 +30,11 @@ public class HitBox extends TrackableObject{
 	 * @param shapes
 	 *            list of JavaFX Shapes to be added to hitbox
 	 */
-	public HitBox(List<Shape> shapes, Vector pos) {
+	public HitBox(List<Shape> shapes, Vector pos, String tag) {
 		myShapes = shapes;
 		myPosition = pos;
 		visitorTags = new ArrayList<>();
+		myTag = tag;
 	}
 
 	/**
@@ -42,12 +43,16 @@ public class HitBox extends TrackableObject{
 	 * @param shape
 	 *             javafx shape to be hitbox
 	 */
-	public HitBox(Shape shape, Vector pos) {
+	public HitBox(Shape shape, Vector pos, String tag) {
 		this(new ArrayList<Shape>() {
 			{
 				add(shape);
 			}
-		}, pos);
+		}, pos, tag);
+	}
+
+	public String getTag() {
+		return myTag;
 	}
 
 	/**
@@ -60,7 +65,7 @@ public class HitBox extends TrackableObject{
 		for (Shape myShape : myShapes) {
 			for (Shape otherShape : otherBox) {
 				if (myShape.getBoundsInParent().intersects(otherShape.getBoundsInParent())) {
-
+					this.addVisitor(other.getTag());
 					return true;
 				}
 			}
