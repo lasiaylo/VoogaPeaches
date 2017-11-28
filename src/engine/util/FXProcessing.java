@@ -10,7 +10,7 @@ import util.math.num.Vector;
  */
 public class FXProcessing {
     public static double getXImageCenter(ImageView image) {
-        return image.getX() + image.getBoundsInLocal().getWidth() / 2;
+        return image.getX() + image.getFitWidth() / 2;
     }
 
     public static Vector getFXCoord(Vector center, double width, double height) {
@@ -19,14 +19,22 @@ public class FXProcessing {
     }
 
     public static double getYImageCenter(ImageView image) {
-        return image.getY() + image.getBoundsInLocal().getHeight() / 2;
+        return image.getY() + image.getFitHeight()/ 2;
     }
 
     public static double getXImageCoord(double xCenter, ImageView image) {
-        return xCenter - image.getBoundsInLocal().getWidth() / 2;
+        return xCenter - image.getFitWidth() / 2;
     }
 
     public static double getYImageCoord(double yCenter, ImageView image) {
-        return yCenter - image.getBoundsInLocal().getHeight() / 2;
+        return yCenter - image.getFitHeight() / 2;
+    }
+
+    public static Vector getBGCenter(Vector click, double gridS) {
+        double extraX = click.at(0) % gridS;
+        double xCount = (click.at(0) - extraX) / gridS + 0.5;
+        double extraY = click.at(1) % gridS;
+        double yCount = (click.at(1) - extraY) / gridS + 0.5;
+        return new Vector(xCount * gridS, yCount * gridS);
     }
 }

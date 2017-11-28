@@ -12,7 +12,7 @@ public class TwitterPanel implements Panel{
     }
 
     @Override
-    public void setController(IPanelDelegate controller) {
+    public void setController(IPanelController controller) {
         //TODO: Create controller
     }
 
