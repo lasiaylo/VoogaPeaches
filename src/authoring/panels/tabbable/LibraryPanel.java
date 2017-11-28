@@ -59,7 +59,6 @@ public class LibraryPanel implements Panel {
         }
     }
 
-
     @Override
     public Region getRegion() {
         return myArea;
