@@ -46,7 +46,7 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
 	private String nodeStyle = properties.getString("nodeStyle");
-	private IPanelDelegate controller;
+	private IPanelController myController;
 
 	public CameraPanel(double width, double height) {
 		cameraWidth = width;
