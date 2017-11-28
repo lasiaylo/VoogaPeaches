@@ -1,110 +1,80 @@
 package engine.entities;
 
-import com.google.gson.annotations.Expose;
-import database.firebase.TrackableObject;
-import engine.scripts.IScript;
-import util.math.num.Vector;
+import engine.events.Evented;
+import javafx.scene.Node;
+import javafx.scene.media.Media;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashSet;
+
 
 /**
- * Base engine class that is used as a template for all objects in game.
- *
- * @author Albert
- * @author lasia
- * @author estellehe
- *
+ * Basic game object
  */
-public class Entity extends TrackableObject {
-	@Expose private Transform myTransform;
-	@Expose private Render myRender;
-    @Expose private boolean isStatic;
-    @Expose private List<IScript> myScripts;
+public class Entity extends Evented {
+    private Entity parent;
+    private HashSet<Entity> children;
 
-	/**
-	 * privately creates an entity through the database
-	 */
-	private Entity() {}
+    private Node node;
+    private Media media;
 
     /**
-     *  Creates a new Entity
-     *  @param pos       Vector position of new Entity
-     *  @param scripts   Scripts attached to new Entity
+     * Create entity as root
      */
-    public Entity(Vector pos, List<IScript> scripts) {
-    	myTransform = new Transform(pos);
-        myScripts = scripts;
-        myRender = new Render();
+    public Entity() {
     }
 
-    public Entity(Vector pos) {
-    	this(pos, new ArrayList<>());
-	}
-
     /**
-     * Create a new Entity
-     * @param x         X position of new Entity
-     * @param y         Y position of new Entity
-     * @param scripts   Scripts attached to new Entity
+     * Create entity as a child
+     *
+     * @param parent: entities parent entity
      */
-    public Entity(List<IScript> scripts, double x, double y) {
-    	this(new Vector(x, y), scripts);
+    public Entity(Entity parent) {
+        this();
+        this.parent = parent;
     }
 
-	/**
-	 * run all defaults attached to the Entity
-	 */
-	public void update() {
-		for (IScript s : myScripts) {
-			s.execute(this);
-		}
-	}
-
     /**
-     * transform class that contains transform recorded for this entity
-     * @return transform
+     * Get entities parent
+     *
+     * @return (Entity.parent) or null, if root
      */
-	public Transform getTransform() {
-	    return myTransform;
-	}
-
-	/**
-	 * @return Render wrapper class that contains ImageView
-	 */
-	public Render getRender() {
-	    return myRender;
-	}
-
-    /**
-     * add script to entity
-     * @param script
-     */
-	public void addScript(IScript script) {
-	    myScripts.add(script);
+    public Entity getParent() {
+        return parent;
     }
 
-	/**
-	 * @return List of entity's defaults
-	 */
-	public List<IScript> getScripts() {
-	    return myScripts;
-	}
+    /**
+     * Create a visual
+     *
+     * @param node: JavaFX Node
+     */
+    public void setNode(Node node) {
+        this.node = node;
+    }
 
-	/**
-	 * @return Whether the entity is static or not. If an entity is static, it just
-	 *         needs to be updated once.
-	 */
-	public boolean isStatic() {
-	    return isStatic;
-	}
+    /**
+     * Get the visual
+     *
+     * @return node
+     */
+    public Node getNode() {
+        return this.node;
+    }
 
-	/**	Sets whether an entity is static or not. If an entity is static, it just needs
-	 * 	to be updated once.
-	 *
-	 */
-	public void setStatic(boolean isStatic) {
-	    this.isStatic = isStatic;
-	}
+    /**
+     * Set audio
+     *
+     * @param media: audio object
+     */
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
+    /**
+     * Get media
+     *
+     * @return media object
+     */
+    public Media getMedia() {
+        return this.media;
+    }
 }
-
