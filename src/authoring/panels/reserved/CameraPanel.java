@@ -2,19 +2,21 @@ package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
 
-import authoring.IPanelDelegate;
+import authoring.IPanelController;
 import authoring.Panel;
+import engine.Engine;
+import engine.camera.Camera;
+import engine.managers.EntityManager;
+import engine.util.FXProcessing;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.util.Duration;
+import util.math.num.Vector;
+
+import static java.lang.Character.getNumericValue;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -29,10 +31,12 @@ public class CameraPanel implements Panel {
 	private static final String NEWL = "Add New Layer";
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
+	private static final String LAYER = "Layer ";
 
+	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
 
-	private GridPane myGridPane;
+	private ScrollPane myView;
 	private Button myPlay;
 	private Button myPause;
 	private VBox myArea;
@@ -40,11 +44,12 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
+	private EntityManager myManager;
 
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
 	private double cameraHeight;
-	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
+	private int layerC = 1;
 	private String nodeStyle = properties.getString("nodeStyle");
 	private IPanelController myController;
 
@@ -52,16 +57,14 @@ public class CameraPanel implements Panel {
 		cameraWidth = width;
 		cameraHeight = height;
 
-		myGridPane = new GridPane();
-		myGridPane.setPrefWidth(cameraWidth);
-		myGridPane.setPrefHeight(cameraHeight);
+		myView = new ScrollPane();
+		myView.setPrefWidth(width);
+		myView.setPrefHeight(height);
 
-		myArea = new VBox(myGridPane, buttonRow());
+		myArea = new VBox(myView, buttonRow());
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
-
-		setGrid();
 
 	}
 
@@ -82,13 +85,28 @@ public class CameraPanel implements Panel {
 		return buttonRow;
 	}
 
+
+	private void getView(ScrollPane view) {
+		myView = view;
+		myArea.getChildren().set(0, myView);
+		myView.setMouseTransparent(true);
+		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+	}
+
+	private void addBlock(Vector pos) {
+		Vector center = FXProcessing.getBGCenter(pos, GRIDS);
+		myManager.addBG(center);
+	}
+
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setStyle(nodeStyle);
+		myLayer.setOnAction(e -> changeLayer());
 
-		myPlay.setStyle(nodeStyle);
-		myPause.setStyle(nodeStyle);
+		myPlay.setOnMouseClicked(e -> myController.play());
+		myPause.setOnMouseClicked(e -> myController.pause());
+
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
@@ -98,28 +116,44 @@ public class CameraPanel implements Panel {
 
 	}
 
-	private void setGrid() {
-		double side = cameraHeight/camerarowN;
-		for (int n = 0; n < camerarowN; n++) {
-			myGridPane.getRowConstraints().add(new RowConstraints(side));
+	private void changeLayer() {
+		String option = myLayer.getValue();
+		switch (option) {
+			case NEWL:
+				myManager.addLayer();
+				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+				myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
+				layerC++;
+				myView.setMouseTransparent(true);
+				break;
+			case ALLL:
+				myManager.allLayer();
+				myView.setMouseTransparent(true);
+				break;
+			case BGL:
+				myManager.selectBGLayer();
+				myView.setMouseTransparent(false);
+				break;
+			default:
+				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				myManager.selectLayer(layer);
+				myView.setMouseTransparent(true);
+				break;
 		}
-		double colN = cameraWidth/side;
-		for (int n = 0; n < colN; n++) {
-			myGridPane.getColumnConstraints().add(new ColumnConstraints(side));
-		}
-		myGridPane.setGridLinesVisible(true);
+
 	}
+
 
 	@Override
 	public Region getRegion() {
-		// TODO Auto-generated method stub
 		return myArea;
 	}
 
 	@Override
-	public void setController(IPanelDelegate controller) {
-		this.controller = controller;
-		controller.addCamera(this);
+	public void setController(IPanelController controller) {
+		this.myController = controller;
+		this.getView(myController.getCamera());
+		myManager = myController.getManager();
 	}
 
 	@Override
@@ -127,52 +161,5 @@ public class CameraPanel implements Panel {
 		return "Game Camera";
 	}
 
-	/**
-	 * get play button
-	 * @return play button
-	 */
-	public Button getPlay() {
-		return myPlay;
-	}
 
-	/**
-	 * get pause button
-	 *
-	 * @return pause button
-	 */
-	public Button getPause() {
-		return myPause;
-	}
-
-	/**
-	 * get gridpane
-	 * @return gridpane
-	 */
-	public GridPane getGridPane() {
-		return myGridPane;
-	}
-
-	/**
-	 * get layer choicebox
-	 * @return choicebox
-	 */
-	public ChoiceBox<String> getLayer() {
-		return myLayer;
-	}
-
-	/**
-	 * get whole button
-	 * @return myWhole
-	 */
-	public RadioButton getWhole() {
-		return myWhole;
-	}
-
-	/**
-	 * get local button
-	 * @return myLocal
-	 */
-	public RadioButton getLocal() {
-		return myLocal;
-	}
 }
