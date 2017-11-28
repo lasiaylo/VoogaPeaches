@@ -67,7 +67,11 @@ public class CameraPanel implements Panel {
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
 				PubSub.Channel.THEME_MESSAGE,
-				(message) -> myPlay.setStyle(((ThemeMessage) message).readMessage()));
+				(message) -> updateStyles(((ThemeMessage) message).readMessage()));
+	}
+
+	private void updateStyles(String newStyle) {
+    	myPlay.setStyle(newStyle);
 	}
 
 	private HBox buttonRow() {
@@ -98,6 +102,7 @@ public class CameraPanel implements Panel {
 
 
 		myPlay.setOnMouseClicked(e -> controller.addBGTile());
+		myPlay.setStyle(nodeStyle);
 		myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
