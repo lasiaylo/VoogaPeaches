@@ -1,14 +1,14 @@
 package util.pubsub.messages;
 
 public class ThemeMessage extends Message {
+    
+    private String myMessage;
 
-    private String message;
-
-    public ThemeMessage(String test) {
-        message = test;
+    public ThemeMessage(String message) {
+        myMessage = message;
     }
 
     public String readMessage() {
-        return message;
+        return myMessage;
     }
 }

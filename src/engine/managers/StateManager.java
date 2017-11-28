@@ -1,7 +1,12 @@
 package engine.managers;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.fsm.State;
 
+import javax.sound.midi.Track;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +14,30 @@ import java.util.Map;
  * State is maintained throughout the frame
  * 
  * @author lasia
- *
+ *	@author Albert
  */
-public class StateManager implements IManager{
-	private State myCurrentState;
-	private State myDefaultState;
-	private List<State> myStates;
-	private Map<String, Object> myConditions;
+public class StateManager extends TrackableObject implements IManager{
+	@Expose private State myCurrentState;
+	@Expose private State myDefaultState;
+	@Expose private List<State> myStates;
+	@Expose private Map<String, Object> myConditions;
+
+	/**
+	 * Creates a new StateManager from the database
+	 */
+	private StateManager() {}
+
+	/**
+	 * Creates a new StateManager
+	 * @param currentState	current State of the state manager
+	 * @param defaultState	default State of the state manager
+	 */
+	public StateManager(State currentState, State defaultState) {
+		myCurrentState = currentState;
+		myDefaultState = defaultState;
+		myStates = new ArrayList<>();
+		myConditions = new HashMap<>();
+	}
 	
 	/** Checks whether the current state can transition to a new state
 	 *  and updates current state accordingly

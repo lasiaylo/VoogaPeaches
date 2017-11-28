@@ -92,7 +92,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.settings/
+.user_settings/
 .loadpath
 
 # Eclipse Core

@@ -1,26 +1,29 @@
 package engine.managers;
 
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class that tells Entities what other Entities they have collided with
  * @author Albert
- * @authoer lasia
+ * @author lasia
  */
-public class CollisionManager implements IManager {
-	// Singleton??
-	private static CollisionManager instance;
-	private List<HitBox> myHitBoxes;
+public class CollisionManager extends TrackableObject implements IManager {
+	@Expose private List<HitBox> myHitBoxes;
 
 	/**
 	 * Creates a new CollisionManager
 	 */
 	public CollisionManager() {
+		myHitBoxes = new ArrayList<>();
 	}
 
 	/**Checks whether this Hitbox is colliding with other Hitboxes
-	 * @param Hitbox
+	 * @param hitBox Hitbox
 	 */
 	public void checkCollisions(HitBox hitBox) {
 		for (HitBox otherHitBox: myHitBoxes) {
@@ -30,23 +33,22 @@ public class CollisionManager implements IManager {
 	}
 
 	/**
-	 * @return			Singleton instance of CollisionManager
+	 * Adds a hit box to the collection
+	 * @param hitBox	hitbox to be added
 	 */
-	public static CollisionManager getInstance() {
-		if (instance == null)
-			instance = new CollisionManager();
-
-		return instance;
+	public void addHitBox(HitBox hitBox) {
+		myHitBoxes.add(hitBox);
 	}
 
 	@Override
 	public boolean check(Object object) {
+		System.out.println("checking");
 		HitBoxCheck checker = (HitBoxCheck) object;
 		HitBox hitBox = checker.getHitBox();
-		String tag = checker.getTag();
-
+		String tagToFind = checker.getTag();
+		System.out.println("tag to find: " + tagToFind);
 		checkCollisions(hitBox);
 		List<String> visitorTag = hitBox.getVisitors();
-		return visitorTag.contains(tag);
+		return visitorTag.contains(tagToFind);
 	}
 }
