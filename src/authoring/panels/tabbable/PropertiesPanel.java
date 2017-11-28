@@ -7,6 +7,7 @@ public class PropertiesPanel implements Panel {
 
 	@Override
 	public Region getRegion() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

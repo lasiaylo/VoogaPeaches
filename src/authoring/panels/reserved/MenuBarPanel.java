@@ -2,7 +2,6 @@ package authoring.panels.reserved;
 
 import authoring.Panel;
 import authoring.IPanelController;
-import authoring.panels.PanelManager;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
@@ -14,8 +13,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import util.MenuReader;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -37,11 +34,12 @@ public class MenuBarPanel implements Panel {
     private Color color = Color.web(properties.getString("menubarcolor"));
     private Color onHoverColor = Color.web(properties.getString("menubaronhovercolor"));
 
-    public MenuBarPanel(PanelManager panelManager){
+    @Override
+    public Region getRegion(){
         hbar = new HBox();
         bar = new MenuBar();
 
-        MenuReader reader = new MenuReader(path, this, getPanelList(panelManager));
+        MenuReader reader = new MenuReader(path, this);
         bar.getMenus().addAll(reader.getMenus());
 
         hbar.setPrefHeight(height);
@@ -51,21 +49,6 @@ public class MenuBarPanel implements Panel {
         Pane view = getOption("View");
 
         hbar.getChildren().addAll(file, view);
-    }
-
-    private Map<String, MenuItem[]> getPanelList(PanelManager panelManager) {
-        String[] panels = panelManager.getPanels();
-        MenuItem[] panelitems = new MenuItem[panels.length];
-        for(int i = 0; i < panels.length; i++){
-            panelitems[i] = new MenuItem(panels[i]);
-        }
-        Map<String, MenuItem[]> panelMap = new HashMap<>();
-        panelMap.put("panels", panelitems);
-        return panelMap;
-    }
-
-    @Override
-    public Region getRegion(){
         return bar;
     }
 

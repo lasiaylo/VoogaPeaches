@@ -11,9 +11,9 @@
     <menu>
         <name>View</name>
         <item>
-            <name>Panel...</name>
-            <type>loaded</type>
-            <strategy>panels</strategy>
+            <name>ConsolePanel</name>
+            <type>button</type>
+            <strategy>toggleConsole</strategy>
         </item>
     </menu>
 </resources>
