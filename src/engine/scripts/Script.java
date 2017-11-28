@@ -2,6 +2,9 @@ package engine.scripts;
 import java.util.*;
 import java.io.File;
 import java.io.IOException;
+
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,13 +22,12 @@ import util.exceptions.GroovyInstantiationException;
  * @author lasia
  * @author Albert
  */
-public class Script implements IScript{
+public class Script extends TrackableObject implements IScript{
 	private static final String FILEPATH = "src/engine/scripts/";
 	private static final String SET = "set";
 	private static final String GET = "get";
 	private Class<IScript> myClazz;
-	private Object myObject;
-	private GroovyScript myScript;
+	@Expose private GroovyScript myScript;
 	
     /**Creates a new Script from a GroovyClass
      * 
@@ -35,8 +37,7 @@ public class Script implements IScript{
     	GroovyClassLoader gcl = new GroovyClassLoader();
 		try {
 			myClazz = gcl.parseClass(new File (FILEPATH + filename));
-			myObject = myClazz.newInstance();
-			myScript = (GroovyScript) myObject;
+			myScript = (GroovyScript) myClazz.newInstance();
 		} catch (IOException | IllegalAccessException | InstantiationException e) {
 			throw new GroovyInstantiationException();
 		}
@@ -54,7 +55,7 @@ public class Script implements IScript{
     	}
 		try {
 			Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
-			method.invoke(myObject,input);
+			method.invoke(myScript, input);
 		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			throw new GroovyInstantiationException();
 		}
@@ -68,7 +69,7 @@ public class Script implements IScript{
     public Object get(String field) throws GroovyInstantiationException {
 		try {
 			Method method = myClazz.getDeclaredMethod(GET + capitalize(field));
-			return method.invoke(myObject);
+			return method.invoke(myScript);
 		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			throw new GroovyInstantiationException();
 		}
@@ -96,5 +97,4 @@ public class Script implements IScript{
 	public Set<?> getFields() {
 		return myScript.getFields();
 	}
-    
 }

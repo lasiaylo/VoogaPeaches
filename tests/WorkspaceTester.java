@@ -1,7 +1,7 @@
 import authoring.PanelController;
 import authoring.panels.PanelManager;
 import authoring.workspaces.LeftCameraWorkspace;
-import authoring.workspaces.Workspace;
+import authoring.Workspace;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import util.ErrorDisplay;

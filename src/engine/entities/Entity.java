@@ -1,16 +1,12 @@
 package engine.entities;
 
-import engine.scripts.Script;
-import engine.util.FXProcessing;
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.scripts.IScript;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import util.math.num.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Base engine class that is used as a template for all objects in game.
@@ -20,11 +16,16 @@ import java.util.List;
  * @author estellehe
  *
  */
-public class Entity {
-	private Transform myTransform;
-	private Render myRender;
-    private boolean isStatic;
-    private List<IScript> myScripts;
+public class Entity extends TrackableObject {
+	@Expose private Transform myTransform;
+	@Expose private Render myRender;
+    @Expose private boolean isStatic;
+    @Expose private List<IScript> myScripts;
+
+	/**
+	 * privately creates an entity through the database
+	 */
+	private Entity() {}
 
     /**
      *  Creates a new Entity
@@ -34,8 +35,12 @@ public class Entity {
     public Entity(Vector pos, List<IScript> scripts) {
     	myTransform = new Transform(pos);
         myScripts = scripts;
-        myRender = new Render();
+        myRender = new Render(this);
     }
+
+    public Entity(Vector pos) {
+    	this(pos, new ArrayList<>());
+	}
 
     /**
      * Create a new Entity
@@ -44,7 +49,6 @@ public class Entity {
      * @param scripts   Scripts attached to new Entity
      */
     public Entity(List<IScript> scripts, double x, double y) {
-
     	this(new Vector(x, y), scripts);
     }
 
@@ -62,7 +66,6 @@ public class Entity {
      * @return transform
      */
 	public Transform getTransform() {
-
 	    return myTransform;
 	}
 
@@ -70,7 +73,6 @@ public class Entity {
 	 * @return Render wrapper class that contains ImageView
 	 */
 	public Render getRender() {
-
 	    return myRender;
 	}
 
@@ -86,7 +88,6 @@ public class Entity {
 	 * @return List of entity's defaults
 	 */
 	public List<IScript> getScripts() {
-
 	    return myScripts;
 	}
 
@@ -95,7 +96,6 @@ public class Entity {
 	 *         needs to be updated once.
 	 */
 	public boolean isStatic() {
-
 	    return isStatic;
 	}
 
@@ -104,8 +104,7 @@ public class Entity {
 	 *
 	 */
 	public void setStatic(boolean isStatic) {
-
 	    this.isStatic = isStatic;
 	}
-
 }
+

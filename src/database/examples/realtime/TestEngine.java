@@ -1,7 +1,7 @@
 package database.examples.realtime;
 
-import database.DataReactor;
-import database.DatabaseConnector;
+import database.firebase.DataReactor;
+import database.firebase.DatabaseConnector;
 import util.exceptions.ObjectIdNotFoundException;
 
 public class TestEngine implements DataReactor<Post> {
@@ -25,13 +25,12 @@ public class TestEngine implements DataReactor<Post> {
         try {
             db.addToDatabase(newPost);
             db.addToDatabase(secondPost);
-            //db.removeFromDatabase(newPost);
-            // Note: db.removeFromDatabase(id: 0); will also work.
+            db.removeFromDatabase(newPost);
 
             // Have to force a sleep to wait for data to finish sending, but
             // with actual project this shouldn't be a problem
             Thread.sleep(1000);
-        } catch (ObjectIdNotFoundException | InterruptedException e ) {
+        } catch (ObjectIdNotFoundException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
 

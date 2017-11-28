@@ -1,6 +1,5 @@
-package database;
+package database.firebase;
 
-import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
 import com.google.firebase.database.*;
