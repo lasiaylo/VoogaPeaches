@@ -1,6 +1,7 @@
 package database.examples.filestorage;
 
-import database.FileStorageConnector;
+import database.firebase.FileStorageConnector;
+import database.firebase.FirebaseConnector;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -127,6 +128,11 @@ public class TestApp extends Application {
         topBar.setPrefWidth(800);
         topBar.setPrefHeight(30);
         myRoot.getChildren().add(topBar);
+    }
+
+    @Override
+    public void stop() {
+        FirebaseConnector.closeFirebaseApp();
     }
 
     public static void main(String[] args) {

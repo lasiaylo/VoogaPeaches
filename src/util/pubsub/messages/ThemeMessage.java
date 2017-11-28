@@ -2,13 +2,13 @@ package util.pubsub.messages;
 
 public class ThemeMessage extends Message {
 
-    private String message;
+    private String myMessage;
 
-    public ThemeMessage(String test) {
-        message = test;
+    public ThemeMessage(String message) {
+        myMessage = message;
     }
 
     public String readMessage() {
-        return message;
+        return myMessage;
     }
 }

@@ -7,16 +7,21 @@ import authoring.IPanelController;
 import authoring.Panel;
 import engine.Engine;
 import engine.camera.Camera;
+import engine.managers.EntityManager;
+import engine.util.FXProcessing;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import util.PropertiesReader;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.Message;
 import util.pubsub.messages.ThemeMessage;
+
+import static java.lang.Character.getNumericValue;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -31,9 +36,11 @@ public class CameraPanel implements Panel {
 	private static final String NEWL = "Add New Layer";
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
+	private static final String LAYER = "Layer ";
 
+	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
-	
+
 	private ScrollPane myView;
 	private Button myPlay;
 	private Button myPause;
@@ -44,20 +51,21 @@ public class CameraPanel implements Panel {
 	private ToggleGroup myGroup;
 	private PubSub pubSub;
 
-	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
+	private EntityManager myManager;
+
 	private double cameraWidth;
 	private double cameraHeight;
-	private int camerarowN = Integer.parseInt(properties.getString("camerarowN"));
-	private String nodeStyle = properties.getString("nodeStyle");
-    private IPanelController controller;
+	private int layerC = 1;
+	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
+	private IPanelController myController;
 
-    public CameraPanel(double width, double height) {
-    	cameraWidth = width;
-    	cameraHeight = height;
+	public CameraPanel(double width, double height) {
+		cameraWidth = width;
+		cameraHeight = height;
 
-    	myView = new ScrollPane();
-    	myView.setPrefWidth(width);
-    	myView.setPrefHeight(height);
+		myView = new ScrollPane();
+		myView.setPrefWidth(width);
+		myView.setPrefHeight(height);
 
 		myArea = new VBox(myView, buttonRow());
 		myArea.setSpacing(5);
@@ -92,25 +100,61 @@ public class CameraPanel implements Panel {
 		return buttonRow;
 	}
 
-	public void getView(ScrollPane view) {
-        myView = view;
-    }
+
+	private void getView(ScrollPane view) {
+		myView = view;
+		myArea.getChildren().set(0, myView);
+		myView.setMouseTransparent(true);
+		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+	}
+
+	private void addBlock(Vector pos) {
+		Vector center = FXProcessing.getBGCenter(pos, GRIDS);
+		myManager.addBG(center);
+	}
 
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setStyle(nodeStyle);
+		myLayer.setOnAction(e -> changeLayer());
 
+		myPlay.setOnMouseClicked(e -> myController.play());
+		myPause.setOnMouseClicked(e -> myController.pause());
 
-		myPlay.setOnMouseClicked(e -> controller.addBGTile());
-		myPlay.setStyle(nodeStyle);
-		myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
 		myWhole.setSelected(true);
 		myWhole.setStyle(nodeStyle);
 		myLocal.setStyle(nodeStyle);
+	}
+
+	private void changeLayer() {
+		String option = myLayer.getValue();
+		switch (option) {
+			case NEWL:
+				myManager.addLayer();
+				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+				myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
+				layerC++;
+				myView.setMouseTransparent(true);
+				break;
+			case ALLL:
+				myManager.allLayer();
+				myView.setMouseTransparent(true);
+				break;
+			case BGL:
+				myManager.selectBGLayer();
+				myView.setMouseTransparent(false);
+				break;
+			default:
+				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				myManager.selectLayer(layer);
+				myView.setMouseTransparent(true);
+				break;
+		}
+
 	}
 
 
@@ -121,62 +165,15 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public void setController(IPanelController controller) {
-		this.controller = controller;
-		controller.addCamera(this);
+		this.myController = controller;
+		this.getView(myController.getCamera());
+		myManager = myController.getManager();
 	}
 
-    @Override
-    public String title(){
-        return "Game Camera";
-    }
-
-    public void setCameraView(ScrollPane cameraView){
-        myArea.getChildren().set(0,cameraView);
-        myView = cameraView;
-        myView.setPrefWidth(cameraWidth);
-        myView.setPrefHeight(cameraHeight);
-    }
-
-	/**
-	 * get play button
-	 * @return play button
-	 */
-	public Button getPlay() {
-		return myPlay;
+	@Override
+	public String title(){
+		return "Game Camera";
 	}
 
-	/**
-	 * get pause button
-	 *
-	 * @return pause button
-	 */
-	public Button getPause() {
-		return myPause;
-	}
-
-
-	/**
-	 * get layer choicebox
-	 * @return choicebox
-	 */
-	public ChoiceBox<String> getLayer() {
-		return myLayer;
-	}
-
-	/**
-	 * get whole button
-	 * @return myWhole
-	 */
-	public RadioButton getWhole() {
-		return myWhole;
-	}
-
-	/**
-	 * get local button
-	 * @return myLocal
-	 */
-	public RadioButton getLocal() {
-		return myLocal;
-	}
 
 }

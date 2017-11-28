@@ -2,6 +2,8 @@ package engine.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import javafx.scene.shape.Shape;
 import util.math.num.Vector;
 
@@ -11,11 +13,16 @@ import util.math.num.Vector;
  * @author lasia
  * @author Albert
  */
-public class HitBox {
-	private String tag;
-	private List<String> visitorTags;
-	private List<Shape> myShapes;
-	private Vector myPosition;
+public class HitBox extends TrackableObject {
+	@Expose private String myTag;
+	@Expose private List<String> visitorTags;
+	@Expose private List<Shape> myShapes;
+	@Expose private Vector myPosition;
+
+	/**
+	 * Create a new HitBox from the database
+	 */
+	public HitBox() {}
 
 	/**
 	 * Creates a new Hitbox
@@ -23,9 +30,11 @@ public class HitBox {
 	 * @param shapes
 	 *            list of JavaFX Shapes to be added to hitbox
 	 */
-	public HitBox(List<Shape> shapes, Vector pos) {
+	public HitBox(List<Shape> shapes, Vector pos, String tag) {
 		myShapes = shapes;
 		myPosition = pos;
+		visitorTags = new ArrayList<>();
+		myTag = tag;
 	}
 
 	/**
@@ -34,12 +43,16 @@ public class HitBox {
 	 * @param shape
 	 *             javafx shape to be hitbox
 	 */
-	public HitBox(Shape shape, Vector pos) {
+	public HitBox(Shape shape, Vector pos, String tag) {
 		this(new ArrayList<Shape>() {
 			{
 				add(shape);
 			}
-		}, pos);
+		}, pos, tag);
+	}
+
+	public String getTag() {
+		return myTag;
 	}
 
 	/**
@@ -52,7 +65,7 @@ public class HitBox {
 		for (Shape myShape : myShapes) {
 			for (Shape otherShape : otherBox) {
 				if (myShape.getBoundsInParent().intersects(otherShape.getBoundsInParent())) {
-
+					this.addVisitor(other.getTag());
 					return true;
 				}
 			}
