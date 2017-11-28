@@ -30,7 +30,7 @@ public class JSONDataManager {
         USER_SETTINGS ("user_settings");
 
         private final String filepath;
-        DataFolders(String path) { this.filepath = "./data/" + path + "/"; }
+        DataFolders(String path) { this.filepath = "./data/jsondata/" + path + "/"; }
 
         /**
          * @return A {@code String} representing the path of the folder within the project

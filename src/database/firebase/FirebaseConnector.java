@@ -3,6 +3,7 @@ package database.firebase;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import util.PropertiesReader;
 
 import java.io.FileInputStream;
 
@@ -15,7 +16,6 @@ import java.io.FileInputStream;
 public abstract class FirebaseConnector {
 
     /* Final Variables */
-    private static final String API_CREDENTIAL_DIR = "./data/program_config/database_credentials.json";
     private static final String DATABASE_URL = "https://voogasalad-5152b.firebaseio.com";
     private static final String STORAGE_URL = "voogasalad-5152b.appspot.com";
 
@@ -36,7 +36,7 @@ public abstract class FirebaseConnector {
     private void initializeFirebaseApp() {
         try {
             // Retrieve API key information for firebase
-            FileInputStream apiStream = new FileInputStream(API_CREDENTIAL_DIR);
+            FileInputStream apiStream = new FileInputStream(PropertiesReader.path("database_credentials"));
             // Define options for the database, and initialize FirebaseApp
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(apiStream))

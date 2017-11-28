@@ -6,6 +6,7 @@ import engine.scripts.IScript;
 import util.math.num.Vector;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Base engine class that is used as a template for all objects in game.
