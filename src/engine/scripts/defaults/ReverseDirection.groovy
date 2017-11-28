@@ -1,6 +1,7 @@
 package engine.scripts.defaults
 
 import engine.entities.Entity
+import engine.entities.Transform
 import util.math.num.Vector;
 
 /**
@@ -15,6 +16,8 @@ class ReverseDirection extends GroovyScript {
 
     @Override
     void execute(Entity entity) {
-        entity.getTransform().setPosition(new Vector(5*Math.random(), 5*Math.random()))
+        Transform transform = entity.getTransform()
+        transform.setVelocity(transform.getVelocity().negate())
+        transform.setAcceleration(entity.getTransform().getAcceleration().negate())
     }
 }

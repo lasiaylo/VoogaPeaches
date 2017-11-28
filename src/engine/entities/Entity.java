@@ -91,7 +91,7 @@ public class Entity extends TrackableObject {
 	 * add script to entity
 	 * @param script
 	 */
-	public void addSript(IScript script) {
+	public void addScript(IScript script) {
 		myScripts.add(script);
 	}
 

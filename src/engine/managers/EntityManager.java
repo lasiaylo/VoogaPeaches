@@ -2,12 +2,10 @@ package engine.managers;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
-import engine.scripts.IScript;
 import engine.scripts.Script;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -15,8 +13,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
-
-import javax.sound.midi.Track;
 
 /**
  * create and hold all entities displayed
@@ -60,7 +56,7 @@ public class EntityManager extends TrackableObject {
 	public Entity addBG(Vector pos) {
 		Entity BGblock = createEnt(pos);
 		try {
-			BGblock.addSript(new Script(IMGSPT));
+			BGblock.addScript(new Script(IMGSPT));
 			//todo: add gridsize to image script
 			BGblock.update();
 		}
@@ -82,7 +78,7 @@ public class EntityManager extends TrackableObject {
 		level -= 1;
 		Entity staEnt = createEnt(pos);
 		try {
-			staEnt.addSript(new Script(IMGSPT));
+			staEnt.addScript(new Script(IMGSPT));
 			staEnt.update();
 		}
 		catch (GroovyInstantiationException e) {
