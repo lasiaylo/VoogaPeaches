@@ -2,6 +2,11 @@ package authoring;
 
 
 import authoring.panels.reserved.CameraPanel;
+import engine.managers.EntityManager;
+import javafx.scene.control.ScrollPane;
+import util.math.num.Vector;
+
+import java.awt.*;
 
 /**
  *
@@ -11,13 +16,13 @@ import authoring.panels.reserved.CameraPanel;
  *
  * @author Simran
  */
-public interface IPanelDelegate {
+public interface IPanelController {
 
-    /**
-     * Used to add camera panel to the screen
-     *
-     * @param cameraPanel
-     */
-    void addCamera(CameraPanel cameraPanel);
+    ScrollPane getCamera();
 
+    EntityManager getManager();
+
+    void play();
+
+    void pause();
 }

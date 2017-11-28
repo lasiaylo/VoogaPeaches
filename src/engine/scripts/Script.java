@@ -20,7 +20,7 @@ import util.exceptions.GroovyInstantiationException;
  * @author Albert
  */
 public class Script implements IScript{
-	private static final String FILEPATH = "src/engine/scripts/";
+	private static final String FILEPATH = "src/engine/scripts/defaults/";
 	private static final String SET = "set";
 	private static final String GET = "get";
 	private Class<IScript> myClazz;

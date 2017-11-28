@@ -5,15 +5,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 /**Wrapper Class for Entity's image
  * @author lasia
  *
  */
 public class Render {
-	private ImageView myImageView;
+    private String holder = "resources/graphics/holder.gif";
+	private EntityImage myEntityImage;
+	private Entity myEntity;
 	 
-	public Render() {
-	}
+	public Render(Entity entity) {
+	    myEntity = entity;
+        try {
+            myEntityImage = new EntityImage(myEntity, new Image(new FileInputStream(holder)));//this should be a placeholder
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 	 
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
@@ -25,15 +36,15 @@ public class Render {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myImageView.setX(FXProcessing.getXImageCoord(position.at(0), myImageView));
-	    myImageView.setY(FXProcessing.getYImageCoord(position.at(1), myImageView));
+		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
+	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
 	}
 	
 	/**Sets the value of the imageview
 	 * @param rotation	Rotation in degrees
 	 */
 	private void setRotate(double rotation) {
-		myImageView.setRotate(rotation);
+		myEntityImage.setRotate(rotation);
 	}
 	
 	/**
@@ -41,8 +52,8 @@ public class Render {
 	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
 	private void setSize(Vector size) {
-		myImageView.setFitWidth(size.at(0));
-		myImageView.setFitHeight(size.at(1));
+		myEntityImage.setFitWidth(size.at(0));
+		myEntityImage.setFitHeight(size.at(1));
 	}
 	
 	
@@ -52,7 +63,7 @@ public class Render {
 	 */
 	public void setVisible(boolean vis) {
 
-	    myImageView.setVisible(vis);
+	    myEntityImage.setVisible(vis);
 	}
 	
 	/**
@@ -61,24 +72,25 @@ public class Render {
 	 */
 	public void setMouseTrans(boolean trans) {
 
-	    myImageView.setMouseTransparent(trans);
+	    myEntityImage.setMouseTransparent(trans);
 	}
 	
 	/**
 	 * get imageview 
 	 * @return imageview
 	 */
-	public ImageView getImage() {
+	public EntityImage getImage() {
 
-		return myImageView;
+		return myEntityImage;
 	}
 	
 	/**
 	 * set imageview
 	 */
-	public void setImage(ImageView newImage) {
+	public void setImage(Image newImage) {
 
-	    myImageView = newImage;
+	    myEntityImage.setImage(newImage);
+
 	}
 
 }
