@@ -71,7 +71,8 @@ public class CameraPanel implements Panel {
 	}
 
 	private void updateStyles(String newStyle) {
-    	myPlay.setStyle(newStyle);
+    	System.out.println(newStyle);
+
 	}
 
 	private HBox buttonRow() {
