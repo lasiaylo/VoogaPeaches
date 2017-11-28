@@ -3,8 +3,12 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +27,16 @@ public class Layer extends TrackableObject {
 	public Layer() {
 	    myEntityList = new ArrayList<Entity>();
 	    myImageList = new Group();
+        try {
+	        ImageView holder = new ImageView(new Image(new FileInputStream(white)));
+	        holder.setX(0);
+	        holder.setY(0);
+	        holder.setFitWidth(50);
+	        holder.setFitHeight(50);
+            myImageList.getChildren().add(holder);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	/**

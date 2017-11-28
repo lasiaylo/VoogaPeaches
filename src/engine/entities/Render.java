@@ -6,6 +6,9 @@ import engine.util.FXProcessing;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 /**Wrapper Class for Entity's image
  * @author lasia
  *
@@ -29,15 +32,15 @@ public class Render extends TrackableObject {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		myImageView.setX(FXProcessing.getXImageCoord(position.at(0), myImageView));
-	    myImageView.setY(FXProcessing.getYImageCoord(position.at(1), myImageView));
+		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
+	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
 	}
 	
 	/**Sets the value of the imageview
 	 * @param rotation	Rotation in degrees
 	 */
 	private void setRotate(double rotation) {
-		myImageView.setRotate(rotation);
+		myEntityImage.setRotate(rotation);
 	}
 	
 	/**
@@ -45,8 +48,8 @@ public class Render extends TrackableObject {
 	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
 	private void setSize(Vector size) {
-		myImageView.setFitWidth(size.at(0));
-		myImageView.setFitHeight(size.at(1));
+		myEntityImage.setFitWidth(size.at(0));
+		myEntityImage.setFitHeight(size.at(1));
 	}
 	
 	

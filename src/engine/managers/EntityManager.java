@@ -66,6 +66,7 @@ public class EntityManager extends TrackableObject {
         }
         catch (GroovyInstantiationException e) {
             //todo: error msg
+
         }
         myBGLayer.addEntity(BGblock);
         return BGblock;
@@ -75,10 +76,10 @@ public class EntityManager extends TrackableObject {
 	 * add static entities that are not background
 	 * @param pos
 	 * @param level
-	 * @param size
 	 * @return created entity
 	 */
-	public Entity addNonBG(Vector pos, int level, Vector size) {
+	public Entity addNonBG(Vector pos, int level) {
+	    level -= 1;
 		Entity staEnt = createEnt(pos);
         try {
             staEnt.addSript(new Script(IMGSPT));
@@ -89,9 +90,8 @@ public class EntityManager extends TrackableObject {
         }
 		
 		if (level > myLayerList.size()-1) {
-			Layer myLayer = new Layer();
+			Layer myLayer = addLayer();
 			myLayer.addEntity(staEnt);
-			myLayerList.add(myLayer);
 		}
 		else {
 			myLayerList.get(level).addEntity(staEnt);
@@ -99,16 +99,25 @@ public class EntityManager extends TrackableObject {
 		return staEnt;
 		
 	}
+
+    /**
+     * add new layer
+     * @return new layer
+     */
+	public Layer addLayer() {
+	    Layer current = new Layer();
+	    myLayerList.add(current);
+	    return current;
+    }
 	
 	/**
 	 * add nonstatic entities
 	 * @param pos
 	 * @param level
-	 * @param size
 	 * @return Entity
 	 */
-	public Entity addNonStatic(Vector pos, int level, Vector size) {
-		Entity Ent = addNonBG(pos, level, size);
+	public Entity addNonStatic(Vector pos, int level) {
+		Entity Ent = addNonBG(pos, level);
 		Ent.setStatic(false);
 		return Ent;
 	}
@@ -135,6 +144,7 @@ public class EntityManager extends TrackableObject {
 	 * @param level
 	 */
 	public void selectLayer(int level) {
+	    level -= 1;
 		myBGLayer.onlyView();
 		for (Layer each: myLayerList) {
 			each.deselect();

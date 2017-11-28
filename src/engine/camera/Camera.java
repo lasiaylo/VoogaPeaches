@@ -1,7 +1,12 @@
 package engine.camera;
 
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import util.math.num.Vector;
 
 /**
@@ -35,15 +40,24 @@ public class Camera {
      * @return myView
      */
     public ScrollPane getView(Vector center, Vector size) {
+        myView.setViewportBounds(new BoundingBox(center.at(0)-size.at(0)/2, center.at(1)-size.at(1)/2, size.at(0), size.at(1)));
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
-        myView.setHvalue(center.at(0) - size.at(0)/2);
-        myView.setVvalue(center.at(1) - size.at(1)/2);
+        hScroll((center.at(0) - size.at(0) / 2) / myView.getContent().getLayoutBounds().getWidth() - size.at(0));
+        vScroll((center.at(1) - size.at(1) / 2) / myView.getContent().getLayoutBounds().getHeight() - size.at(1));
 
+
+        myView.layout();
         myCenter = center;
         mySize = size;
 
+        myView.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
+
         return myView;
+    }
+
+    private void addBGblock(Vector pos) {
+        myMap.addBGblock(pos);
     }
 
     private SubScene getMinimap(Vector size) {
@@ -57,6 +71,19 @@ public class Camera {
      */
     public void update() {
         myMap.localUpdate(myCenter, mySize);
+    }
+
+
+    private void vScroll(double num) {
+        myView.setVmin(num);
+        myView.setVmax(num);
+        myView.setVvalue(num);
+    }
+
+    private void hScroll(double num) {
+        myView.setHmax(num);
+        myView.setHmin(num);
+        myView.setHvalue(num);
     }
 
 }
