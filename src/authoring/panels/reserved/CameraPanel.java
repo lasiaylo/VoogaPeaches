@@ -1,6 +1,7 @@
 package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring.IPanelController;
 import authoring.Panel;
@@ -13,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.Message;
+import util.pubsub.messages.ThemeMessage;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -38,6 +42,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
+	private PubSub pubSub;
 
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
@@ -59,6 +64,10 @@ public class CameraPanel implements Panel {
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 
+		pubSub = PubSub.getInstance();
+		pubSub.subscribe(
+				PubSub.Channel.THEME_MESSAGE,
+				(message) -> myPlay.setStyle(((ThemeMessage) message).readMessage()));
 	}
 
 	private HBox buttonRow() {
@@ -89,7 +98,6 @@ public class CameraPanel implements Panel {
 
 
 		myPlay.setOnMouseClicked(e -> controller.addBGTile());
-		myPlay.setStyle(nodeStyle);
 		myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
@@ -97,7 +105,6 @@ public class CameraPanel implements Panel {
 		myWhole.setSelected(true);
 		myWhole.setStyle(nodeStyle);
 		myLocal.setStyle(nodeStyle);
-
 	}
 
 

@@ -3,7 +3,6 @@ package util;
 import util.pubsub.PubSub;
 import util.pubsub.messages.Message;
 import util.pubsub.messages.ThemeMessage;
-
 import java.util.function.Consumer;
 
 /**
