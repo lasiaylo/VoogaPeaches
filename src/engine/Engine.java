@@ -74,7 +74,4 @@ public class Engine {
         return myCamera.getView(center, size);
     }
 
-    public void print() {
-        myCamera.print();
-    }
 }

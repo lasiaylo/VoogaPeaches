@@ -48,8 +48,7 @@ public class LibraryPanel implements Panel {
     private void changeType() {
         String type = myEntType.getValue();
         List<ImageView> imageList = new ArrayList<ImageView>();
-        //This is just a temporary implementation of library
-        //Library should get image for entity from engine
+
         try {
             File imageFolder = new File(PATH + type);
             for (File each: imageFolder.listFiles()) {
@@ -61,7 +60,6 @@ public class LibraryPanel implements Panel {
             }
         }
         catch (NullPointerException e){
-            // again this is not a permanent implementation so simply error print out
             System.out.println(e);
         }
         catch (FileNotFoundException e){

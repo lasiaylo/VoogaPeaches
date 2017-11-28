@@ -38,8 +38,6 @@ public class Render {
 	private void setPosition(Vector position) {
 		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
 	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
-//	    System.out.println(position.at(0));
-//	    System.out.println(myEntityImage.getX());
 	}
 	
 	/**Sets the value of the imageview

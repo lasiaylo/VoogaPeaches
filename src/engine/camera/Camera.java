@@ -39,8 +39,6 @@ public class Camera {
      */
     public ScrollPane getView(Vector center, Vector size) {
         myView.setViewportBounds(new BoundingBox(center.at(0)-size.at(0)/2, center.at(1)-size.at(1)/2, size.at(0), size.at(1)));
-//        myView.setHvalue((center.at(0)-0.5*myView.getViewportBounds().getWidth()/(myView.getContent().getLayoutBounds().getWidth()- myView.getViewportBounds().getWidth())));//TODO fix this
-//        myView.setVvalue((center.at(1)-0.5* myView.getViewportBounds().getHeight()/(myView.getContent().getLayoutBounds().getHeight()-myView.getViewportBounds().getHeight())));
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
         hScroll((center.at(0) - size.at(0) / 2) / myView.getContent().getLayoutBounds().getWidth() - size.at(0));
@@ -58,7 +56,6 @@ public class Camera {
 
     private void addBGblock(Vector pos) {
         myMap.addBGblock(pos);
-//        print();
     }
 
     private SubScene getMinimap(Vector size) {
@@ -74,9 +71,6 @@ public class Camera {
         myMap.localUpdate(myCenter, mySize);
     }
 
-    public void print() {
-        myMap.print();
-    }
 
     private void vScroll(double num) {
         myView.setVmin(num);

@@ -41,26 +41,14 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         myCanvas = new Canvas(MAXWIDTH, MAXWIDTH);
         myBGList = myManager.getBGImageList();
 
-        //this.getChildren().add(myCanvas);
         this.getChildren().add(myBGList);
         this.setAlignment(myBGList, Pos.TOP_LEFT);
-
-        //System.out.println(this.getBoundsInLocal().getWidth());
-
-        //this.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
 
 
         myManager.addLayerListener(this);
 
     }
 
-    public void print() {
-        System.out.println(myBGList.getChildren().get(0).getBoundsInParent().getMinX());
-        System.out.println(myBGList.getChildren().get(0).getBoundsInParent().getMinY());
-        System.out.println(myBGList.getChildren().get(0).getBoundsInLocal().getMinX());
-        System.out.println(myBGList.getChildren().get(0).getBoundsInLocal().getMinY());
-
-    }
 
     public void addBGblock(Vector pos) {
         Vector center = FXProcessing.getBGCenter(pos, GRIDS);
@@ -89,8 +77,6 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
             for (Layer each : c.getAddedSubList()) {
                 this.getChildren().add(each.getImageList());
                 this.setAlignment(each.getImageList(), Pos.TOP_LEFT);
-                System.out.println(each.getImageList().getChildren().get(0).getBoundsInParent().getMinX());
-                System.out.println(each.getImageList().getChildren().get(0).getBoundsInParent().getMinY());
             }
         }
     }
