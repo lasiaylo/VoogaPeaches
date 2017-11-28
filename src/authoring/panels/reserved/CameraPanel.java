@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import util.PropertiesReader;
 import util.math.num.Vector;
 
 import static java.lang.Character.getNumericValue;
@@ -46,11 +47,10 @@ public class CameraPanel implements Panel {
 	private ToggleGroup myGroup;
 	private EntityManager myManager;
 
-	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
 	private double cameraHeight;
 	private int layerC = 1;
-	private String nodeStyle = properties.getString("nodeStyle");
+	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
 	private IPanelController myController;
 
 	public CameraPanel(double width, double height) {
