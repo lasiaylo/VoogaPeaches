@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 /**
  * A class for managing the storage and retrieval of files
  * located within the subfolders of /data/filedata/
+ *
+ * @author Walker Willetts
  */
 public class FileDataManager {
 
