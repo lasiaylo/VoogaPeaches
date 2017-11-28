@@ -1,5 +1,6 @@
 package database.filehelpers;
 
+import jdk.internal.util.xml.impl.Input;
 import util.PropertiesReader;
 
 import java.io.ByteArrayInputStream;
@@ -10,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for managing the storage and retrieval of files
@@ -68,6 +71,28 @@ public class FileDataManager {
             fileBytes = new byte[0];
         }
         return new ByteArrayInputStream(fileBytes);
+    }
+
+    /**
+     * Retrieves all the files contained below the path specified. Includes files within subfolders
+     * of the specified paths.
+     * @param path is {@code String} specifying the subfolder to retrieve files from
+     * @return A {@code List<InputStream>} that contains the InputStreams of each file in the subfolder
+     */
+    public List<InputStream> retrieveSubfolderFiles(String path) {
+        List<InputStream> fileStreams = new ArrayList<>();
+        File base = new File(baseFolder + path);
+        if(base.exists()) {
+            for(File subfile : base.listFiles()){
+                if(subfile.isDirectory()) {
+                    fileStreams.addAll(retrieveSubfolderFiles(path + "/" + subfile.getName()));
+                } else {
+                    InputStream fileStream = readFileData(path + "/" + subfile.getName());
+                    fileStreams.add(fileStream);
+                }
+            }
+        }
+        return fileStreams;
     }
 
     /**
