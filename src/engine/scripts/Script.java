@@ -10,6 +10,7 @@ import engine.entities.Entity;
 import engine.scripts.defaults.GroovyScript;
 import engine.util.Primitive;
 import groovy.lang.GroovyClassLoader;
+import util.exceptions.GroovyInstantiationException;
 
 /**
  * Modifies qualities of Entity through Groovy
@@ -19,7 +20,7 @@ import groovy.lang.GroovyClassLoader;
  * @author Albert
  */
 public class Script implements IScript{
-	private static final String FILEPATH = "src/engine/scripts/";
+	private static final String FILEPATH = "src/engine/scripts/defaults/";
 	private static final String SET = "set";
 	private static final String GET = "get";
 	private Class<IScript> myClazz;
@@ -31,33 +32,48 @@ public class Script implements IScript{
      * 
      * @param filename	name of GroovyClass file
      */
-    public Script(String filename) throws InstantiationException, IllegalAccessException, CompilationFailedException, IOException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+    public Script(String filename) throws GroovyInstantiationException {
     	GroovyClassLoader gcl = new GroovyClassLoader();
-		myClazz = gcl.parseClass(new File (FILEPATH + filename));
-		myObject = myClazz.newInstance();
-		myScript = (GroovyScript) myObject;
-    }
+		try {
+			myClazz = gcl.parseClass(new File (FILEPATH + filename));
+			myObject = myClazz.newInstance();
+			myScript = (GroovyScript) myObject;
+		} catch (IOException | IllegalAccessException | InstantiationException e) {
+			throw new GroovyInstantiationException();
+		}
+	}
     
     /**Sets a field within the script to the desired input
      * 
      * @param field		field to be set
      * @param input		input to be set to
      */
-    public void set(String field, Object input) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
-    	Class<?> inputClass = Primitive.getClass(input);
-    	Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
-    	method.invoke(myObject,input);
-    }
+    public void set(String field, Object input) throws GroovyInstantiationException {
+    	Class<?> inputClass = input.getClass();
+    	if(Primitive.isWrapper(inputClass)) {
+    		inputClass = Primitive.getPrimitive(inputClass);
+    	}
+		try {
+			Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
+			method.invoke(myObject,input);
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			throw new GroovyInstantiationException();
+		}
+	}
     
     /**Gets a field within the script
      * 
      * @param field		field to get value from
      * @return value	value of field
      */
-    public Object get(String field) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-    	Method method = myClazz.getDeclaredMethod(GET + capitalize(field));
-    	return method.invoke(myObject);
-    }
+    public Object get(String field) throws GroovyInstantiationException {
+		try {
+			Method method = myClazz.getDeclaredMethod(GET + capitalize(field));
+			return method.invoke(myObject);
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			throw new GroovyInstantiationException();
+		}
+	}
 
 	/**Capitalizes the first letter of a String - Should probably move to a different class
 	 * 

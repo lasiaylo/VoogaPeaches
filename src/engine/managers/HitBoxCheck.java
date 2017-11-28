@@ -30,6 +30,4 @@ public class HitBoxCheck {
 	public void setTag(String myTag) {
 		this.myTag = myTag;
 	}
-	
-
 }

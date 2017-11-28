@@ -1,7 +1,17 @@
 package engine.entities;
 
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import util.math.num.Vector;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.abs;
+
 
 /**
  * Store entities in each layer of the gaming world
@@ -10,25 +20,46 @@ import java.util.List;
  */
 public class Layer {
 	private List<Entity> myEntityList;
+	private Group myImageList;
+	private String white = "resources/graphics/holder.gif";
 	
 	public Layer() {
-		myEntityList = new ArrayList<Entity>();
+
+	    myEntityList = new ArrayList<Entity>();
+	    myImageList = new Group();
+        try {
+	        ImageView holder = new ImageView(new Image(new FileInputStream(white)));
+	        holder.setX(0);
+	        holder.setY(0);
+	        holder.setFitWidth(50);
+	        holder.setFitHeight(50);
+            myImageList.getChildren().add(holder);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	/**
 	 * add entity to layer
+     *
+     * this entity should already has an imageview inside its render
+     *
+     * which means adding imagescript and updating entity
 	 * @param each
 	 */
 	public void addEntity(Entity each) {
-		myEntityList.add(each);
+
+	    myEntityList.add(each);
+	    myImageList.getChildren().add(each.getRender().getImage());
 	}
 	
 	/**
 	 * get entity list from the layer
 	 * @return
 	 */
-	public List<Entity> getEntiy() {
-		return myEntityList;
+	public List<Entity> getEntityList() {
+
+	    return myEntityList;
 	}
 	
 	/**
@@ -60,5 +91,39 @@ public class Layer {
 			each.getRender().setVisible(true);
 		}
 	}
+
+    /**
+     * get group of imageview representation of entities
+     * @return myimagelist
+     */
+	public Group getImageList() {
+	    return myImageList;
+    }
+
+    /**
+     * update all entities in the layer
+     */
+    public void updateAll() {
+	    for (Entity each: myEntityList) {
+	        each.update();
+        }
+    }
+
+    /**
+     * update imageview of entities inside box
+     * @param center
+     * @param size
+     */
+    public void displayUpdate(Vector center, Vector size) {
+        for (Entity each: myEntityList) {
+            Vector ePos = each.getTransform().getPosition();
+            Vector eSize = each.getTransform().getSize();
+            double xDis = abs(ePos.at(0) - center.at(0));
+            double yDis = abs(ePos.at(1) - center.at(1));
+            if (xDis <= (eSize.at(0) + size.at(0))/2 && yDis <= (eSize.at(1) + size.at(1))/2) {
+                each.getRender().displayUpdate(each.getTransform());
+            }
+        }
+    }
 
 }

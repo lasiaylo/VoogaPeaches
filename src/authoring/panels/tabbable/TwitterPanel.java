@@ -12,12 +12,7 @@ public class TwitterPanel implements Panel{
     }
 
     @Override
-    public ScreenPosition getPosition(){
-        return ScreenPosition.BOTTOM_LEFT;
-    }
-
-    @Override
-    public void setController(IPanelDelegate controller) {
+    public void setController(IPanelController controller) {
         //TODO: Create controller
     }
 

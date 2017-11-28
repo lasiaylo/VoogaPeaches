@@ -5,52 +5,55 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 /**Wrapper Class for Entity's image
  * @author lasia
  *
  */
 public class Render {
-	private ImageView myImageView;
+    private String holder = "resources/graphics/holder.gif";
+	private EntityImage myEntityImage;
+	private Entity myEntity;
 	 
-	public Render(String name) {
-		//simple implementation for rendering, need the true renderer to render instead of name search
-		try {
-			myImageView = new ImageView(new Image(name));
-		}
-		// this is not permanent implementation, so simply print out the error
-		catch(NullPointerException e) {
-			System.out.println(e);
-		}
-	}
+	public Render(Entity entity) {
+	    myEntity = entity;
+        try {
+            myEntityImage = new EntityImage(myEntity, new Image(new FileInputStream(holder)));//this should be a placeholder
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 	 
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
 		setRotate(transform.getRotation());
-		setScale(transform.getScale());
+		setSize(transform.getSize());
 	}
 	
 	/**
 	 * @param position	new position of the Imageview
 	 */
-	public void setPosition(Vector position) {
-		myImageView.setX(FXProcessing.getXImageCoord(position.at(0), myImageView));
-	    myImageView.setY(FXProcessing.getYImageCoord(position.at(1), myImageView));
+	private void setPosition(Vector position) {
+		myEntityImage.setX(position.at(0) - myEntity.getTransform().getSize().at(0)/2);
+	    myEntityImage.setY(position.at(1) - myEntity.getTransform().getSize().at(1)/2);
 	}
 	
 	/**Sets the value of the imageview
 	 * @param rotation	Rotation in degrees
 	 */
-	public void setRotate(double rotation) {
-		myImageView.setRotate(rotation);
+	private void setRotate(double rotation) {
+		myEntityImage.setRotate(rotation);
 	}
 	
 	/**
-	 * Sets the scale (width, height) of the imageview
-	 * @param scale		Scale of the imageview.(1,1) is standard scale
+	 * Sets the size (width, height) of the imageview
+	 * @param size		Size of the imageview.(1,1) is standard scale
 	 */
-	public void setScale(Vector scale) {
-		myImageView.setFitWidth(scale.at(0));
-		myImageView.setFitHeight(scale.at(1));
+	private void setSize(Vector size) {
+		myEntityImage.setFitWidth(size.at(0));
+		myEntityImage.setFitHeight(size.at(1));
 	}
 	
 	
@@ -59,7 +62,8 @@ public class Render {
 	 * @param vis	
 	 */
 	public void setVisible(boolean vis) {
-		myImageView.setVisible(vis);
+
+	    myEntityImage.setVisible(vis);
 	}
 	
 	/**
@@ -67,21 +71,26 @@ public class Render {
 	 * @param trans
 	 */
 	public void setMouseTrans(boolean trans) {
-		myImageView.setMouseTransparent(trans);
+
+	    myEntityImage.setMouseTransparent(trans);
 	}
 	
 	/**
 	 * get imageview 
 	 * @return imageview
 	 */
-	public ImageView getImage() {
-		return myImageView;
+	public EntityImage getImage() {
+
+		return myEntityImage;
 	}
 	
 	/**
 	 * set imageview
 	 */
-	public void setImage(ImageView newImage) {
-		myImageView = newImage;
+	public void setImage(Image newImage) {
+
+	    myEntityImage.setImage(newImage);
+
 	}
+
 }

@@ -7,9 +7,9 @@ import util.math.num.Vector;
  *
  */
 public class Transform {
-	private Vector myPosition;
-	private double myRotation;
-	private Vector myScale;
+	private Vector myPosition = new Vector(0, 0);
+	private double myRotation = 0;
+	private Vector mySize = new Vector(50, 50);
 	
 
 
@@ -18,7 +18,6 @@ public class Transform {
 	 */
 	public Transform(Vector position) {
 		myPosition = position;
-		myScale = new Vector(1,1);
 	}
 	
 	/**Creates a new Tranform
@@ -34,35 +33,44 @@ public class Transform {
      * @return Vector position of this entity
      */
 	public Vector getPosition() {
-		return myPosition;
+
+	    return myPosition;
 	}
 	
     /**
      * @param newPos position for this entity
      */
 	public void setPosition(Vector newPos) {
-		this.myPosition = newPos;
+
+	    this.myPosition = newPos;
 	}
 	
 	/**
 	 * @return Rotation of this entity in degrees
 	 */
 	public double getRotation() {
-		return myRotation;
-	}
-	
-	/**
-	 * @param rotation of this entity in degrees
-	 */
-	public void setRotation(double rotation) {
-		this.myRotation = rotation;
-	}
-	
-	public Vector getScale() {
-		return myScale;
+
+	    return myRotation;
 	}
 
+
+
+    /**
+     * set scale factor
+     * @param scale
+     */
 	public void setScale(Vector scale) {
-		this.myScale = scale;
+
+	    this.mySize = new Vector(mySize.at(0)*scale.at(0), mySize.at(1)*scale.at(1));
+
 	}
+
+
+    /**
+     * get current size
+     * @return
+     */
+    public Vector getSize() {
+        return mySize;
+    }
 }
