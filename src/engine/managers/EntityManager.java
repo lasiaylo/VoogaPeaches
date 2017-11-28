@@ -28,7 +28,6 @@ import javax.sound.midi.Track;
  */
 public class EntityManager extends TrackableObject {
 	private static final String IMGSPT = "ImageScript";
-
 	private int myGridSize;
 	private Layer myBGLayer;
 	private ObservableList<Layer> myLayerList;
