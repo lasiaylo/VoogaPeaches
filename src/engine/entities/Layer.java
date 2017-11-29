@@ -1,8 +1,13 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import util.math.num.Vector;
 
 import java.util.ArrayList;
@@ -36,7 +41,6 @@ public class Layer extends TrackableObject {
 	 * @param each
 	 */
 	public void addEntity(Entity each) {
-
 		myEntityList.add(each);
 		myImageList.getChildren().add(each.getRender());
 	}

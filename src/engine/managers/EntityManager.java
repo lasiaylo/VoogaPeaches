@@ -133,6 +133,7 @@ public class EntityManager extends TrackableObject {
 	 */
 	public void addLayerListener(ListChangeListener listener) {
 		myLayerList.addListener(listener);
+		// potential issue doesn't add to background?
 	}
 
 	/**

@@ -27,7 +27,7 @@ public class Render extends ImageView {
     public Render(Entity entity) {
         myEntity = entity;
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
-        this.setImage(new Image(manager.readFileData("holder.gif")));
+        this.setImage(new Image(manager.readFileData("Background/grass.png")));
     }
 
 
@@ -45,17 +45,12 @@ public class Render extends ImageView {
 		this.setY(FXProcessing.getYImageCoord(position.at(1), this));
 	}
 
-
 	/**
 	 * Sets the size (width, height) of the imageview
-	 * @param size		Size of the imageview.(1,1) is standard scale
+	 * @param size		Size of the imageview.(50,50) is standard scale
 	 */
 	private void setSize(Vector size) {
 		this.setFitWidth(size.at(0));
 		this.setFitHeight(size.at(1));
 	}
-
-
-
-
 }
