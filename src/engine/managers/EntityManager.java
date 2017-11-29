@@ -23,7 +23,7 @@ import util.math.num.Vector;
  *
  */
 public class EntityManager extends TrackableObject {
-	private static final String IMGSPT = "ImageScript";
+	private static final String IMGSPT = "defaults/ImageScript.groovy";
 
 	private int myGridSize;
 	private Layer myBGLayer;

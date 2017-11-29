@@ -1,5 +1,6 @@
 package engine.scripts.defaults
 
+import database.filehelpers.FileDataManager
 import engine.entities.Entity
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
@@ -17,7 +18,8 @@ class ImageScript extends GroovyScript{
 
 	@Override
 	public void execute(Entity entity) {
-		Image myImage = new Image(new FileInputStream(grass));
+        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+		Image myImage = new Image(manager.readFileData("Background/grass.png"));
 		entity.getRender().setImage(myImage);
 		entity.getRender().displayUpdate(entity.getTransform());
 	}

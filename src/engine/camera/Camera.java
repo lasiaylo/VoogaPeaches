@@ -51,7 +51,7 @@ public class Camera {
         myCenter = center;
         mySize = size;
 
-        myView.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
+        //myView.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
 
         return myView;
     }

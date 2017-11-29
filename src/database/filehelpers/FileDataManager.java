@@ -69,6 +69,7 @@ public class FileDataManager {
             fileBytes = Files.readAllBytes(fileLocation);
         } catch(InvalidPathException | IOException e) {
             fileBytes = new byte[0];
+            System.out.println("herre");
         }
         return new ByteArrayInputStream(fileBytes);
     }
