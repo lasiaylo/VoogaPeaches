@@ -50,7 +50,6 @@ public class CameraPanel implements Panel {
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
 	private PubSub pubSub;
-
 	private EntityManager myManager;
 
 	private double cameraWidth;
