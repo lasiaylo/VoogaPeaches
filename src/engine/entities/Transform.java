@@ -5,12 +5,15 @@ import util.math.num.Vector;
 
 /**Wrapper Class for Entity's position/location/scale
  * @author lasia
+ * @author Albert
  *
  */
 public class Transform extends TrackableObject {
 	private Vector myPosition = new Vector(0, 0);
+	private Vector myVelocity = new Vector(0, 0);
+	private Vector myAcceleration = new Vector(0, 0);
 	private double myRotation = 0;
-	private Vector mySize = new Vector(1, 1);
+	private Vector mySize = new Vector(50, 50);
 
 	/**
 	 * Creates a new Transform object from database
@@ -22,6 +25,12 @@ public class Transform extends TrackableObject {
 	 */
 	public Transform(Vector position) {
 		myPosition = position;
+	}
+
+	public Transform(Vector position, Vector velocity, Vector acceleration) {
+		this(position);
+		myVelocity = velocity;
+		myAcceleration = acceleration;
 	}
 
 	/**Creates a new Tranform
@@ -37,7 +46,6 @@ public class Transform extends TrackableObject {
 	 * @return Vector position of this entity
 	 */
 	public Vector getPosition() {
-
 		return myPosition;
 	}
 
@@ -45,30 +53,53 @@ public class Transform extends TrackableObject {
 	 * @param newPos position for this entity
 	 */
 	public void setPosition(Vector newPos) {
-
 		this.myPosition = newPos;
+	}
+
+	/**
+	 * @return	Vector representing the velocity of the transform
+	 */
+	public Vector getVelocity() {
+		return myVelocity;
+	}
+
+	/**
+	 * Sets the velocity of the transform to param
+	 * @param newVel	Vector representing the new velocity
+	 */
+	public void setVelocity(Vector newVel) {
+		myVelocity = newVel;
+	}
+
+	/**
+	 * @return	Vector representing the acceleration of the transform
+	 */
+	public Vector getAcceleration() {
+		return myAcceleration;
+	}
+
+	/**
+	 * Sets the acceleration of the transform to param
+	 * @param newAccel	set the acceleration to param
+	 */
+	public void setAcceleration(Vector newAccel) {
+		myAcceleration = newAccel;
 	}
 
 	/**
 	 * @return Rotation of this entity in degrees
 	 */
 	public double getRotation() {
-
 		return myRotation;
 	}
-
-
 
 	/**
 	 * set scale factor
 	 * @param scale
 	 */
 	public void setScale(Vector scale) {
-
 		this.mySize = new Vector(mySize.at(0)*scale.at(0), mySize.at(1)*scale.at(1));
-
 	}
-
 
 	/**
 	 * get current size
