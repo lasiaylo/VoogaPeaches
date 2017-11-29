@@ -200,9 +200,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
         try {
             String uid = tempJSON.get("UID").toString();
             dbRef.child(uid).setValueAsync(JSONHelper.jsonMapFromObject(objectToAdd));
-        } catch(JSONException e){
-            throw new ObjectIdNotFoundException();
-        }
+        } catch(JSONException e){ throw new ObjectIdNotFoundException(); }
     }
 
     /**
