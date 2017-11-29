@@ -90,7 +90,7 @@ public class CameraPanel implements Panel {
 		myView = view;
 		myArea.getChildren().set(0, myView);
 		myView.setMouseTransparent(true);
-		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+		//myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
 	}
 
 	private void addBlock(Vector pos) {

@@ -42,8 +42,8 @@ public class Render extends ImageView {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		this.setX(FXProcessing.getXImageCoord(position.at(0), this));
-		this.setY(FXProcessing.getYImageCoord(position.at(1), this));
+		this.setX(FXProcessing.getXImageCoord(position.at(0), myEntity));
+		this.setY(FXProcessing.getYImageCoord(position.at(1), myEntity));
 	}
 
 	/**
@@ -54,17 +54,5 @@ public class Render extends ImageView {
 		this.setFitWidth(size.at(0));
 		this.setFitHeight(size.at(1));
 	}
-<<<<<<< HEAD
 
-
-	/**
-	 * set imageview visibility
-	 * @param vis
-	 */
-	public void setVis(boolean vis) {
-		this.setVisible(vis);
-	}
-
-=======
->>>>>>> eeeed299925dd7d0f1d31f601f62fc327ea0bae5
 }
