@@ -28,7 +28,7 @@ public class Layer extends TrackableObject {
 		myEntityList = new ArrayList<Entity>();
 		myImageList = new Group();
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
-        ImageView holder = new ImageView(new Image(manager.readFileData("holder")));
+        ImageView holder = new ImageView(new Image(manager.readFileData("sprite_test.png")));
         holder.setX(0);
         holder.setY(0);
         holder.setFitWidth(50);
