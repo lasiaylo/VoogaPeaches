@@ -15,11 +15,13 @@ import java.util.ArrayList;
  * @author Albert
  * @author lasia
  * @author estellehe
+ * @author richardtseng
  *
  */
 public class Entity extends TrackableObject {
 	@Expose private Transform myTransform;
 	@Expose private Render myRender;
+	@Expose private Sound mySound;
 	@Expose private boolean isStatic;
 	@Expose private List<IScript> myScripts;
 
@@ -87,6 +89,13 @@ public class Entity extends TrackableObject {
 		return myRender;
 	}
 
+	/**
+	 * @return Media class that contains MediaPlayer map
+	 */
+	public Sound getSound() {
+		return mySound;
+	}
+	
 	/**
 	 * add script to entity
 	 * @param script
