@@ -13,9 +13,7 @@ import javafx.stage.Stage
  *
  */
 class ImageScript extends GroovyScript{
-	private String grass = "resources/graphics/Background/grass.png";
 
-	File filename;
 
 	FileInputStream myInputStream;
 
