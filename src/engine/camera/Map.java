@@ -5,15 +5,14 @@ import engine.managers.EntityManager;
 import engine.util.FXProcessing;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import util.math.num.Vector;
 
 import java.awt.*;
@@ -43,8 +42,6 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
 
         this.getChildren().add(myBGList);
         this.setAlignment(myBGList, Pos.TOP_LEFT);
-
-
         myManager.addLayerListener(this);
 
     }
