@@ -89,14 +89,9 @@ public class CameraPanel implements Panel {
 	private void getView(ScrollPane view) {
 		myView = view;
 		myArea.getChildren().set(0, myView);
-		myView.setMouseTransparent(true);
-		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+		myView.setMouseTransparent(false);
 	}
 
-	private void addBlock(Vector pos) {
-		Vector center = FXProcessing.getBGCenter(pos, GRIDS);
-		myManager.addBG(center);
-	}
 
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
@@ -124,7 +119,6 @@ public class CameraPanel implements Panel {
 				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
 				myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
 				layerC++;
-				myView.setMouseTransparent(true);
 				break;
 			case ALLL:
 				myManager.allLayer();
@@ -137,7 +131,7 @@ public class CameraPanel implements Panel {
 			default:
 				int layer = Character.getNumericValue(option.charAt(option.length()-1));
 				myManager.selectLayer(layer);
-				myView.setMouseTransparent(true);
+				myView.setMouseTransparent(false);
 				break;
 		}
 

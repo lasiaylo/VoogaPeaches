@@ -51,13 +51,7 @@ public class Camera {
         myCenter = center;
         mySize = size;
 
-        myView.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
-
         return myView;
-    }
-
-    private void addBGblock(Vector pos) {
-        myMap.addBGblock(pos);
     }
 
     private SubScene getMinimap(Vector size) {
@@ -85,5 +79,7 @@ public class Camera {
         myView.setHmin(num);
         myView.setHvalue(num);
     }
+
+
 
 }
