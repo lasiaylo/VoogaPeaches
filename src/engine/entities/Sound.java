@@ -1,8 +1,5 @@
 package engine.entities;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -12,18 +9,12 @@ import javafx.scene.media.MediaPlayer;
  */
 public class Sound {
 
-	private Map<String, MediaPlayer> mediaMap;
 	private MediaPlayer myMediaPlayer;
 	
-	public Sound() {
-		mediaMap = new HashMap<>();
-	}
-
 	/**
-	 * @return map of MediaPlayer
+	 * Creates a new Sound object for database
 	 */
-	public Map<String, MediaPlayer> getMediaPlayerMap() {
-		return mediaMap;
+	private Sound() {
 	}
 	
 	/**
