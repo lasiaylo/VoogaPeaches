@@ -13,7 +13,7 @@ public class Transform extends TrackableObject {
 	private Vector myVelocity = new Vector(0, 0);
 	private Vector myAcceleration = new Vector(0, 0);
 	private double myRotation = 0;
-	private Vector mySize = new Vector(1, 1);
+	private Vector mySize = new Vector(50, 50);
 
 	/**
 	 * Creates a new Transform object from database
