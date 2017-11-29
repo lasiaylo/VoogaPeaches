@@ -7,6 +7,7 @@ import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
 import engine.scripts.Script;
+import engine.scripts.defaults.ImageScript;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -23,7 +24,7 @@ import util.math.num.Vector;
  *
  */
 public class EntityManager extends TrackableObject {
-	private static final String IMGSPT = "ImageScript";
+	private static final String IMGSPT = "defaults/ImageScript.groovy";
 
 	private int myGridSize;
 	private Layer myBGLayer;
@@ -55,15 +56,8 @@ public class EntityManager extends TrackableObject {
 	 */
 	public Entity addBG(Vector pos) {
 		Entity BGblock = createEnt(pos);
-		try {
-			BGblock.addScript(new Script(IMGSPT));
-			//todo: add gridsize to image script
-			BGblock.update();
-		}
-		catch (GroovyInstantiationException e) {
-			//todo: error msg
-
-		}
+		BGblock.addScript(new ImageScript());
+		BGblock.update();
 		myBGLayer.addEntity(BGblock);
 		return BGblock;
 	}
@@ -133,6 +127,7 @@ public class EntityManager extends TrackableObject {
 	 */
 	public void addLayerListener(ListChangeListener listener) {
 		myLayerList.addListener(listener);
+		// potential issue doesn't add to background?
 	}
 
 	/**
