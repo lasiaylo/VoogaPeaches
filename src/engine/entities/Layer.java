@@ -1,8 +1,15 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import util.math.num.Vector;
 
 import java.util.ArrayList;
@@ -19,13 +26,19 @@ import static java.lang.Math.abs;
 public class Layer extends TrackableObject {
 	@Expose private List<Entity> myEntityList;
 	@Expose private Group myImageList;
-	private String white = "resources/graphics/holder.gif";
 
 
 	public Layer() {
 		myEntityList = new ArrayList<Entity>();
 		myImageList = new Group();
-	}
+        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        ImageView holder = new ImageView(new Image(manager.readFileData("holder")));
+        holder.setX(0);
+        holder.setY(0);
+        holder.setFitWidth(50);
+        holder.setFitHeight(50);
+        myImageList.getChildren().add(holder);
+    }
 
 	/**
 	 * add entity to layer
@@ -36,9 +49,9 @@ public class Layer extends TrackableObject {
 	 * @param each
 	 */
 	public void addEntity(Entity each) {
-
 		myEntityList.add(each);
-		myImageList.getChildren().add(each.getRender().getImage());
+		myImageList.getChildren().add(each.getRender());
+		System.out.println("add to layer");
 	}
 
 	/**
@@ -55,7 +68,7 @@ public class Layer extends TrackableObject {
 	 */
 	public void select() {
 		for (Entity each: myEntityList) {
-			each.getRender().setMouseTrans(false);
+			each.getRender().setMouseTransparent(false);
 			each.getRender().setVisible(true);
 		}
 	}
@@ -65,7 +78,7 @@ public class Layer extends TrackableObject {
 	 */
 	public void deselect() {
 		for (Entity each: myEntityList) {
-			each.getRender().setMouseTrans(true);
+			each.getRender().setMouseTransparent(true);
 			each.getRender().setVisible(false);
 		}
 	}
@@ -75,7 +88,7 @@ public class Layer extends TrackableObject {
 	 */
 	public void onlyView() {
 		for (Entity each: myEntityList) {
-			each.getRender().setMouseTrans(true);
+			each.getRender().setMouseTransparent(true);
 			each.getRender().setVisible(true);
 		}
 	}

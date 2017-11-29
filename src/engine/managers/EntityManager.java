@@ -2,21 +2,18 @@ package engine.managers;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
-import engine.scripts.IScript;
 import engine.scripts.Script;
+import engine.scripts.defaults.ImageScript;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
-
-import javax.sound.midi.Track;
 
 /**
  * create and hold all entities displayed
@@ -27,7 +24,7 @@ import javax.sound.midi.Track;
  *
  */
 public class EntityManager extends TrackableObject {
-	private static final String IMGSPT = "ImageScript";
+	private static final String IMGSPT = "defaults/ImageScript.groovy";
 
 	private int myGridSize;
 	private Layer myBGLayer;
@@ -59,15 +56,8 @@ public class EntityManager extends TrackableObject {
 	 */
 	public Entity addBG(Vector pos) {
 		Entity BGblock = createEnt(pos);
-		try {
-			BGblock.addSript(new Script(IMGSPT));
-			//todo: add gridsize to image script
-			BGblock.update();
-		}
-		catch (GroovyInstantiationException e) {
-			//todo: error msg
-
-		}
+		BGblock.addScript(new ImageScript());
+		BGblock.update();
 		myBGLayer.addEntity(BGblock);
 		return BGblock;
 	}
@@ -82,7 +72,7 @@ public class EntityManager extends TrackableObject {
 		level -= 1;
 		Entity staEnt = createEnt(pos);
 		try {
-			staEnt.addSript(new Script(IMGSPT));
+			staEnt.addScript(new Script(IMGSPT));
 			staEnt.update();
 		}
 		catch (GroovyInstantiationException e) {
@@ -137,6 +127,7 @@ public class EntityManager extends TrackableObject {
 	 */
 	public void addLayerListener(ListChangeListener listener) {
 		myLayerList.addListener(listener);
+		// potential issue doesn't add to background?
 	}
 
 	/**

@@ -4,7 +4,6 @@ import engine.managers.HitBox;
 import engine.managers.HitBoxCheck;
 import engine.scripts.CollisionConditional;
 import engine.scripts.defaults.PrintCollisionScript;
-import engine.scripts.defaults.ReverseDirection;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,7 +20,7 @@ public class EntityTest extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         Entity e = new Entity(new Vector(0, 0));
-//        e.addSript(new ReverseDirection());
+//        e.addScript(new ReverseDirection());
 //        for(int i = 0; i < 10; i++ ) {
 //            System.out.println(e.getTransform().getPosition().at(1));
 //            e.update();
@@ -55,7 +54,7 @@ public class EntityTest extends Application{
         primaryStage.setScene(s);
         primaryStage.show();
 
-        e.addSript(cConditional);
+        e.addScript(cConditional);
         e.update();
         System.out.println("end");
     }
