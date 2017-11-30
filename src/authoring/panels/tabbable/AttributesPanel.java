@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import authoring.Panel;
+import authoring.panels.attributes.VectorField;
 import engine.entities.Entity;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -47,7 +48,7 @@ public class AttributesPanel implements Panel {
 	}
 
 	private void addTest() throws GroovyInstantiationException {
-		Set<String> methods = new HashSet<>(Arrays.asList("XPosition","YPosition"));
+		Set<String> methods = new HashSet<>(Arrays.asList("Position"));
 		Attribute a = new Attribute(myEntity.getTransform(),"Transform",methods);
 		myHBox.getChildren().add(a.getPane());
 	}

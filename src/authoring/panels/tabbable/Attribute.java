@@ -1,7 +1,6 @@
 package authoring.panels.tabbable;
 
 import java.util.Set;
-
 import authoring.panels.attributes.Field;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

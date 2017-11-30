@@ -2,6 +2,8 @@ package authoring.panels.attributes;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import javafx.scene.Node;
 import javafx.scene.control.Control;
 import util.exceptions.GroovyInstantiationException;
 
@@ -10,7 +12,7 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public abstract class Field {
-	private Control myControl;
+	private Node myControl;
 	private Object myObject;
 	private String myField;
 	private Method getMethod;
@@ -63,14 +65,14 @@ public abstract class Field {
 	/**
 	 * @return Control
 	 */
-	public Control getControl() {
+	public Node getControl() {
 		return myControl;
 	}
 	
 	/**Sets myControl
 	 * @param control
 	 */
-	protected void setControl(Control control) {
+	protected void setControl(Node control) {
 		myControl = control;
 	}
 	

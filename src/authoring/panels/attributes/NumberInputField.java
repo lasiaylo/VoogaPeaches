@@ -26,13 +26,13 @@ public class NumberInputField extends InputField{
 	@Override
 	protected void updateField() throws GroovyInstantiationException {
 		String text = getTextField().getText();
-		if (!text.isEmpty()) {
+//		if (!text.isEmpty()) {
 			try {
 			Number input = Double.parseDouble(text);
 			setValue(input);
 			} catch (NumberFormatException e) {
 //				Don't allow to type letters, figure something out
-			}
+//			}
 		}
 	}
 
