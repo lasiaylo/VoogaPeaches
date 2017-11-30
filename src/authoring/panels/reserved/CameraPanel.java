@@ -1,6 +1,7 @@
 package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring.IPanelController;
 import authoring.Panel;
@@ -16,6 +17,9 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 import util.PropertiesReader;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.Message;
+import util.pubsub.messages.ThemeMessage;
 
 import static java.lang.Character.getNumericValue;
 
@@ -45,6 +49,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
+	private PubSub pubSub;
 	private EntityManager myManager;
 
 	private double cameraWidth;
@@ -65,6 +70,15 @@ public class CameraPanel implements Panel {
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
+
+		pubSub = PubSub.getInstance();
+		pubSub.subscribe(
+				PubSub.Channel.THEME_MESSAGE,
+				(message) -> updateStyles(((ThemeMessage) message).readMessage()));
+	}
+
+	private void updateStyles(String newStyle) {
+    	System.out.println(newStyle);
 
 	}
 
@@ -89,14 +103,9 @@ public class CameraPanel implements Panel {
 	private void getView(ScrollPane view) {
 		myView = view;
 		myArea.getChildren().set(0, myView);
-		myView.setMouseTransparent(true);
-		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+		myView.setMouseTransparent(false);
 	}
 
-	private void addBlock(Vector pos) {
-		Vector center = FXProcessing.getBGCenter(pos, GRIDS);
-		myManager.addBG(center);
-	}
 
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
@@ -113,7 +122,6 @@ public class CameraPanel implements Panel {
 		myWhole.setSelected(true);
 		myWhole.setStyle(nodeStyle);
 		myLocal.setStyle(nodeStyle);
-
 	}
 
 	private void changeLayer() {
@@ -124,7 +132,6 @@ public class CameraPanel implements Panel {
 				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
 				myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
 				layerC++;
-				myView.setMouseTransparent(true);
 				break;
 			case ALLL:
 				myManager.allLayer();
@@ -137,7 +144,8 @@ public class CameraPanel implements Panel {
 			default:
 				int layer = Character.getNumericValue(option.charAt(option.length()-1));
 				myManager.selectLayer(layer);
-				myView.setMouseTransparent(true);
+				myView.setMouseTransparent(false);
+				myManager.setMyLevel(layer);
 				break;
 		}
 
