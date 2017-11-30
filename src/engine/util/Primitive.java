@@ -29,7 +29,14 @@ public class Primitive{
     	
     	return ret;
     }
-
+    
+    public static Class<?> getClass(Object object){
+    	Class<?> clazz = object.getClass();
+    	if(Primitive.isWrapper(clazz))
+    		clazz = Primitive.getPrimitive(clazz);
+    	return clazz;
+    }
+    
     public static boolean isWrapper(Class<?> clazz)
     {
     	return WRAPPER_MAP.containsKey(clazz);
