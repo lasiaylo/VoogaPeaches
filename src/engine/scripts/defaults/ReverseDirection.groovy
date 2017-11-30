@@ -1,6 +1,8 @@
 package engine.scripts.defaults
 
 import engine.entities.Entity
+import engine.entities.Transform
+import util.math.num.Vector;
 
 /**
  * A Groovy Class Script that reverses an entity's direction
@@ -14,6 +16,8 @@ class ReverseDirection extends GroovyScript {
 
     @Override
     void execute(Entity entity) {
-        entity.getVelocity().negate()
+        Transform transform = entity.getTransform()
+        transform.setVelocity(transform.getVelocity().negate())
+        transform.setAcceleration(transform.getAcceleration().negate())
     }
 }
