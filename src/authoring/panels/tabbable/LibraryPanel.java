@@ -34,8 +34,9 @@ public class LibraryPanel implements Panel {
     public LibraryPanel() {
         myTilePane = new TilePane();
         myEntType = new ChoiceBox<>();
+        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
 
-        myEntType.getItems().addAll(BG, PLAYER);
+        myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.setOnAction(e -> changeType());
         myTilePane.setPrefColumns(2);
         myTilePane.setPrefTileWidth(50);
