@@ -50,9 +50,8 @@ public class Script implements IScript{
      */
     public void set(String field, Object input) throws GroovyInstantiationException {
     	Class<?> inputClass = input.getClass();
-    	if(Primitive.isWrapper(inputClass)) {
+    	if(Primitive.isWrapper(inputClass))
     		inputClass = Primitive.getPrimitive(inputClass);
-    	}
 		try {
 			Method method = myClazz.getDeclaredMethod(SET + capitalize(field),inputClass);
 			method.invoke(myObject,input);

@@ -22,7 +22,7 @@ public class BooleanField extends Field{
 	
 	private void configController() {
 		try {
-			defaultValue = (boolean) getMethod().invoke(getObject());
+			defaultValue = (boolean) getValue();
 			checkbox.setSelected(defaultValue);
 			checkbox.setOnAction(e -> updateField());
 			
@@ -30,8 +30,6 @@ public class BooleanField extends Field{
 			e.printStackTrace(); //SOMEBODY HELP ME WITH EXCEPTIONS ;]
 		};
 	}
-
-
 
 	private void updateField() {
 		boolean checked = checkbox.isSelected();

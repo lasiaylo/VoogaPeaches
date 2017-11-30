@@ -16,16 +16,16 @@ public abstract class InputField extends Field{
 	}
 	
 	private void configController() {
-			try {
-				setDefault();
-				textfield.setOnAction(e-> updateField());
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
+		try {
+			getDefault();
+			textfield.setOnAction(e-> updateField());
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void setDefault() throws IllegalAccessException, InvocationTargetException {
-		String defaultText = (String) getMethod().invoke(getObject());
+	private void getDefault() throws IllegalAccessException, InvocationTargetException {
+		String defaultText = (String) getValue().invoke(getObject());
 		textfield.setText(defaultText);
 	}
 	
@@ -33,6 +33,10 @@ public abstract class InputField extends Field{
 
 	@Override
 	public Control getControl() {
+		return textfield;
+	}
+	
+	protected TextField getTextField() {
 		return textfield;
 	}
 	
