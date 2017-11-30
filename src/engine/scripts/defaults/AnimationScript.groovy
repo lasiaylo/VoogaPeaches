@@ -30,7 +30,6 @@ class AnimationScript extends GroovyScript{
 //		}
 		//may need to add timer
 		if(i % DELAY == 0) {
-			System.out.println("hell yeah")
 			int delay = (i / DELAY);
 			entity.getRender().setImage(myAnimation.get(delay % myAnimation.size()));
 			entity.getRender().displayUpdate(entity.getTransform());
