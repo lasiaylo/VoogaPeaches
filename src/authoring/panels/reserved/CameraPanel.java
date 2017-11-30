@@ -103,7 +103,7 @@ public class CameraPanel implements Panel {
 	private void getView(ScrollPane view) {
 		myView = view;
 		myArea.getChildren().set(0, myView);
-		myView.setMouseTransparent(false);
+		myView.setMouseTransparent(true);
 	}
 
 
@@ -144,7 +144,7 @@ public class CameraPanel implements Panel {
 			default:
 				int layer = Character.getNumericValue(option.charAt(option.length()-1));
 				myManager.selectLayer(layer);
-				myView.setMouseTransparent(false);
+				myView.setMouseTransparent(true);
 				myManager.setMyLevel(layer);
 				break;
 		}
