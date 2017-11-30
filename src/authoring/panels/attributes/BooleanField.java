@@ -1,10 +1,7 @@
 package authoring.panels.attributes;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
 import util.exceptions.GroovyInstantiationException;
 
 /**A checkbox that gets/sets an object's field to what is checked

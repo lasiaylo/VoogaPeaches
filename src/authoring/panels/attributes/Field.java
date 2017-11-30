@@ -80,7 +80,7 @@ public abstract class Field {
 	 */
 	protected Object getValue() throws GroovyInstantiationException {
 		try {
-			if (myField.equals(null))
+			if (myField == null)
 				return getMethod.invoke(myObject);
 			return getMethod.invoke(myObject, myField);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -93,9 +93,10 @@ public abstract class Field {
 	 */
 	protected void setValue(Object args) throws GroovyInstantiationException {
 		try {
-			if (myField.equals(null))
+			if (myField == null)
 				setMethod.invoke(myObject, args);
-			setMethod.invoke(myObject, myField, args);
+			else
+				setMethod.invoke(myObject, myField, args);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new GroovyInstantiationException();
 		}

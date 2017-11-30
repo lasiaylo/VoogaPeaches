@@ -1,21 +1,21 @@
 package authoring.panels.tabbable;
 
 import java.util.List;
-
 import authoring.Panel;
-import authoring.ScreenPosition;
 import engine.entities.Entity;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Rectangle;
+import util.exceptions.GroovyInstantiationException;
 
 /**Displays the attributes associated with a particular Entity
  * @author lasia
  *
  */
 public class AttributesPanel implements Panel {
-	private HBox myHBox = new HBox();
-	private List<Node> myChildren = myHBox.getChildren();
+	private HBox myHBox;
 	private Entity myEntity;
 
 	@Override
@@ -24,33 +24,30 @@ public class AttributesPanel implements Panel {
 	}
 	
 	@Override
-	public ScreenPosition getPosition() {
-		return ScreenPosition.TOP_RIGHT;
-	}
-
-	@Override
 	public String title() {
 		return "Properties";
 	}
 	
 	/**Takes in an entity and displays its properties
 	 * @param entity
+	 * @throws GroovyInstantiationException 
 	 */
-	public void updateProperties(Entity entity) {
+	public void updateProperties(Entity entity) throws GroovyInstantiationException {
+		myHBox = new HBox();
 		myEntity = entity;
-		
 		addTransformProperty();
-		addRenderProperty();
-		addScriptProperties();
-		addButton();
+//		addRenderProperty();
+//		addScriptProperties();
+//		addButton();
 	}
 
 	/**Displays the Transform properties of an entity
+	 * @throws GroovyInstantiationException 
 	 * 
 	 */
-	private void addTransformProperty() {
+	private void addTransformProperty() throws GroovyInstantiationException {
 		TransformAttribute transform = new TransformAttribute(myEntity);
-		myChildren.add(transform.getNode());
+		myHBox.getChildren().add(transform.getNode());
 	}
 	
 	/**Displays the Render properties of an entity

@@ -4,6 +4,10 @@ import java.lang.reflect.Method;
 import javafx.scene.control.TextField;
 import util.exceptions.GroovyInstantiationException;
 
+/**A JavaFX TextField that changes an Entities field
+ * @author lasia
+ *
+ */
 public abstract class InputField extends Field{
 	private TextField textfield;
 	
@@ -21,20 +25,20 @@ public abstract class InputField extends Field{
 	}
 	
 	protected void setControlAction() {
-			textfield.setOnAction(e-> updateField());
+		textfield.setOnKeyTyped(e-> {
+			try {
+				updateField();
+			} catch (GroovyInstantiationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 	}
 
-	protected void getDefaultValue() throws GroovyInstantiationException {
-		String defaultText = (String) getValue();
-		textfield.setText(defaultText);
-	}
-	
-	protected abstract void updateField();
+	protected abstract void updateField() throws GroovyInstantiationException;
 
 	protected TextField getTextField() {
 		return textfield;
 	}
-	
-
 
 }
