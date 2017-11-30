@@ -20,7 +20,7 @@ import java.util.List;
 public class AnimationTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Entity e = new Entity(new Vector(300, 300));
+        Entity e = new Entity(new Vector(300, 300), new Vector(10, 10), new Vector(0, 0));
         e.getTransform().setScale(new Vector(3, 3));
         List<Image> imageList = new ArrayList<>();
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
