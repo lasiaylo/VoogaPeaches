@@ -1,29 +1,34 @@
 package engine.scripts.defaults
 
+import database.filehelpers.FileDataManager
 import engine.entities.Entity
+import javafx.scene.Group
+import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.stage.Stage
 
 /**
  * @author Richard Tseng
  *
  */
 class ImageScript extends GroovyScript{
-	private String grass = "resources/graphics/Background/grass.png";
-
-	File filename;
-
-	FileInputStream myInputStream
+		
+	InputStream filename;
+	private InputStream prevFilename;
 
 	@Override
 	public void execute(Entity entity) {
-		Image myImage = new Image(new FileInputStream(grass));
-		entity.getRender().setImage(myImage);
-		entity.getRender().displayUpdate(entity.getTransform());
+        //if (!filename.equals(prevFilename)) {
+			//FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        Image myImage = new Image(filename);
+        entity.getRender().setImage(myImage);
+        entity.getRender().displayUpdate(entity.getTransform());
+        prevFilename = filename;
+		//}
 	}
 
 	@Override
 	public void start() {
-		//filename = new File(grass);
 	}
 }

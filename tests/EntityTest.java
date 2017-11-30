@@ -19,25 +19,22 @@ public class EntityTest extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Entity e = new Entity(new Vector(0, 0));
-//        e.addScript(new ReverseDirection());
-//        for(int i = 0; i < 10; i++ ) {
-//            System.out.println(e.getTransform().getPosition().at(1));
-//            e.update();
-//            System.out.println(e.getTransform().getPosition().at(1));
-//        }
         CollisionManager cManager = new CollisionManager();
+
+
+        Entity rectEntity = new Entity(new Vector(0, 0));
         Rectangle rect = new Rectangle(20, 50);
         rect.setX(100);
         rect.setY(100);
-        HitBox rectHitBox = new HitBox(rect, new Vector(110, 130), "I am a rectangle");
+        HitBox rectHitBox = new HitBox(rect, new Vector(110, 130), "I am a rectangle", rectEntity.getTransform());
         HitBoxCheck hBoxCheck = new HitBoxCheck(rectHitBox, "circle check");
         cManager.addHitBox(rectHitBox);
 
+        Entity circleEntity = new Entity(new Vector(0 ,0));
         Circle circle = new Circle(30);
         circle.setCenterX(100);
         circle.setCenterY(100);
-        HitBox circleHitBox = new HitBox(circle, new Vector(100, 100), "circle check");
+        HitBox circleHitBox = new HitBox(circle, new Vector(100, 100), "circle check", circleEntity.getTransform());
         HitBoxCheck circleBoxCheck = new HitBoxCheck(circleHitBox, "should not be used");
         cManager.addHitBox(circleHitBox);
         PrintCollisionScript printScript = new PrintCollisionScript();
@@ -54,8 +51,8 @@ public class EntityTest extends Application{
         primaryStage.setScene(s);
         primaryStage.show();
 
-        e.addScript(cConditional);
-        e.update();
+        rectEntity.addScript(cConditional);
+        rectEntity.update();
         System.out.println("end");
     }
 }
