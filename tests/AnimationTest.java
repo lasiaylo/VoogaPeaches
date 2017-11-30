@@ -4,20 +4,16 @@ import engine.managers.CollisionManager;
 import engine.managers.HitBox;
 import engine.managers.HitBoxCheck;
 import engine.scripts.CollisionConditional;
-import engine.scripts.defaults.AnimationScript;
-import engine.scripts.defaults.DefaultMovement;
-import engine.scripts.defaults.XReverse;
-import engine.scripts.defaults.YReverse;
+import engine.scripts.defaults.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,7 +25,7 @@ import java.util.List;
 public class AnimationTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Entity duvall = new Entity(new Vector(100, 300), new Vector(30, 0), new Vector(0, 0));
+        Entity duvall = new Entity(new Vector(100, 300), new Vector(30, 30), new Vector(0, 0));
 //        duvall.getTransform().setScale(new Vector(3, 3));
         List<Image> imageList = new ArrayList<>();
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
@@ -50,27 +46,29 @@ public class AnimationTest extends Application {
         Scene s = new Scene(group);
         primaryStage.setScene(s);
         primaryStage.show();
+        primaryStage.setHeight(500);
+        primaryStage.setWidth(500);
 
         CollisionManager cManager = new CollisionManager();
 
-        Entity topYBlock = new Entity(new Vector(250, 0));
+        Entity topYBlock = new Entity(new Vector(0, 0));
         Rectangle topYRect = new Rectangle(500, 1);
-        topYRect.setFill(Color.TRANSPARENT);
+//        topYRect.setFill(Color.TRANSPARENT);
         HitBox topYHitBox = new HitBox(topYRect, topYBlock.getTransform().getPosition(), "top y block", topYBlock.getTransform());
 
-        Entity leftXBlock = new Entity(new Vector(0, 250));
+        Entity leftXBlock = new Entity(new Vector(0, 0));
         Rectangle leftXRect = new Rectangle(1, 500);
-        topYRect.setFill(Color.TRANSPARENT);
+//        topYRect.setFill(Color.TRANSPARENT);
         HitBox leftXHitBox = new HitBox(leftXRect, leftXBlock.getTransform().getPosition(), "left x block", leftXBlock.getTransform());
 
-        Entity botYBlock = new Entity(new Vector(250, 500));
+        Entity botYBlock = new Entity(new Vector(0, 500));
         Rectangle botYRect = new Rectangle(500, 1);
-        topYRect.setFill(Color.TRANSPARENT);
+//        topYRect.setFill(Color.TRANSPARENT);
         HitBox botYHitBox = new HitBox(botYRect, botYBlock.getTransform().getPosition(), "bot y block", botYBlock.getTransform());
 
-        Entity rightXBlock = new Entity(new Vector(500, 250));
+        Entity rightXBlock = new Entity(new Vector(500, 0));
         Rectangle rightXRect = new Rectangle(1, 500);
-        topYRect.setFill(Color.TRANSPARENT);
+//        topYRect.setFill(Color.TRANSPARENT);
         HitBox rightXHitBox = new HitBox(rightXRect, rightXBlock.getTransform().getPosition(), "right x block", rightXBlock.getTransform());
 
         Rectangle DuvallHitBox = new Rectangle(duvall.getTransform().getSize().at(0), duvall.getTransform().getSize().at(1));
@@ -82,19 +80,23 @@ public class AnimationTest extends Application {
         HitBoxCheck checkLeft = new HitBoxCheck(duvallHitBox, "left x block");
 
         CollisionConditional hitTop = new CollisionConditional(cManager, checkTop);
-        hitTop.getScripts().add(new YReverse());
+        hitTop.getScripts().add(new StopMovement());
         hitTop.getScripts().add(new DefaultMovement());
+
         CollisionConditional hitBot = new CollisionConditional(cManager, checkBot);
-        hitBot.getScripts().add(new YReverse());
+        hitBot.getScripts().add(new YUp());
         hitBot.getScripts().add(new DefaultMovement());
 
         CollisionConditional hitLeft = new CollisionConditional(cManager, checkLeft);
-        hitLeft.getScripts().add(new XReverse());
+        hitLeft.getScripts().add(new StopMovement());
         hitLeft.getScripts().add(new DefaultMovement());
 
+
         CollisionConditional hitRight = new CollisionConditional(cManager, checkRight);
-        hitRight.getScripts().add(new XReverse());
+        hitRight.getScripts().add(new Xleft());
         hitRight.getScripts().add(new DefaultMovement());
+
+
 
 
         topYRect.setX(0);
@@ -113,6 +115,12 @@ public class AnimationTest extends Application {
         leftXRect.setX(0);
         leftXRect.setY(0);
 
+        Circle c = new Circle(50);
+        c.setCenterX(500);
+        c.setCenterY(500);
+//        c.setFill(Color.TRANSPARENT);
+//        group.getChildren().add(c);
+
         duvall.addScript(hitTop);
         duvall.addScript(hitBot);
         duvall.addScript(hitLeft);
@@ -124,20 +132,29 @@ public class AnimationTest extends Application {
         cManager.addHitBox(leftXHitBox);
         group.getChildren().addAll(topYRect, leftXRect, botYRect, rightXRect);
 
-
+        duvall.update();
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 60), event -> {
             duvall.update();
+//            System.out.println(DuvallHitBox.intersects(botYRect.getBoundsInLocal()));
             topYBlock.update();
             rightXBlock.update();
             botYBlock.update();
             leftXBlock.update();
-            System.out.println(duvall.getTransform().getVelocity().at(0));
+//            System.out.println(duvall.getTransform().getVelocity().at(0));
+//            System.out.println(duvall.getTransform().getVelocity().at(1));
+//            System.out.println(duvallHitBox.getShapes().get(0));
+//            System.out.println(DuvallHitBox.intersects(botYRect.getBoundsInLocal()));
         }));
 //        System.out.println(topYRect.getX());
 //        System.out.println(botYRect.getY());
 //        System.out.println(DuvallHitBox.getWidth());
+
+        s.setOnKeyPressed(e -> {
+            if(e.getCode().equals(KeyCode.SPACE)) {
+                timeline.play();
+            }
+        });
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
     }
 
 

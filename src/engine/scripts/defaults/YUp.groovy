@@ -3,7 +3,7 @@ package engine.scripts.defaults
 import engine.entities.Entity
 import util.math.num.Vector
 
-class YReverse extends GroovyScript {
+class YUp extends GroovyScript {
     @Override
     void start() {
 
@@ -16,8 +16,8 @@ class YReverse extends GroovyScript {
         Vector currentAccel = entity.getTransform().getAcceleration()
 
 
-        Vector newVel = new Vector(currentVel.at(0), -1 * currentVel.at(1));
-        Vector newAccel = new Vector(currentAccel.at(0), -1 * currentAccel.at(1))
+        Vector newVel = new Vector(currentVel.at(0), -1 * Math.abs(currentVel.at(1)))
+        Vector newAccel = new Vector(currentAccel.at(0), -1 * Math.abs(currentAccel.at(1)))
 
         currentVel = null
         currentAccel = null
