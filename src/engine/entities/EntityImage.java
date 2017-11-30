@@ -1,5 +1,6 @@
 package engine.entities;
 
+import database.filehelpers.FileDataManager;
 import engine.scripts.IScript;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,7 @@ public class EntityImage extends ImageView{
     private Entity myEntity;
 
     public EntityImage(Entity entity, Image image) {
+        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         myImage = image;
         myEntity = entity;
         this.setImage(myImage);

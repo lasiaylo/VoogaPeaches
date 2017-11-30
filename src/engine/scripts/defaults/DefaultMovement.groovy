@@ -27,5 +27,7 @@ class DefaultMovement extends GroovyScript {
 
         transform.setPosition(newPosition)
         transform.setVelocity(newVelocity)
+
+        entity.getRender().displayUpdate(entity.getTransform());
     }
 }
