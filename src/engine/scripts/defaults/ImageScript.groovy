@@ -14,18 +14,18 @@ import javafx.stage.Stage
  */
 class ImageScript extends GroovyScript{
 		
-	String filename;
-	private String prevFilename;
+	InputStream filename;
+	private InputStream prevFilename;
 
 	@Override
 	public void execute(Entity entity) {
-        if (!filename.equals(prevFilename)) {
-			FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
-			Image myImage = new Image(manager.readFileData(filename));
-			entity.getRender().setImage(myImage);
-			entity.getRender().displayUpdate(entity.getTransform());
-			prevFilename = filename;
-		}
+        //if (!filename.equals(prevFilename)) {
+			//FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        Image myImage = new Image(filename);
+        entity.getRender().setImage(myImage);
+        entity.getRender().displayUpdate(entity.getTransform());
+        prevFilename = filename;
+		//}
 	}
 
 	@Override

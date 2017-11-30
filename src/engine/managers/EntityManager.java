@@ -1,8 +1,11 @@
 package engine.managers;
 
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
@@ -29,6 +32,8 @@ public class EntityManager extends TrackableObject {
 	private int myGridSize;
 	private Layer myBGLayer;
 	private ObservableList<Layer> myLayerList;
+	private InputStream myBGType;
+	private int myLevel = 1;
 
 	/**
 	 * manage all entities and layers
@@ -41,6 +46,8 @@ public class EntityManager extends TrackableObject {
 		myGridSize = gridSize.intValue();
 		myBGLayer = new Layer();
 		myLayerList = FXCollections.observableList(new ArrayList<Layer>());
+        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        myBGType = manager.readFileData("Background/grass.png");
 	}
 
 	private Entity createEnt(Vector pos) {
@@ -56,7 +63,14 @@ public class EntityManager extends TrackableObject {
 	 */
 	public Entity addBG(Vector pos) {
 		Entity BGblock = createEnt(pos);
-		BGblock.addScript(new ImageScript());
+		ImageScript script = new ImageScript();
+        try {
+            myBGType.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        script.setFilename(myBGType);
+		BGblock.addScript(script);
 		BGblock.update();
 		myBGLayer.addEntity(BGblock);
 		return BGblock;
@@ -65,26 +79,21 @@ public class EntityManager extends TrackableObject {
 	/**
 	 * add static entities that are not background
 	 * @param pos
-	 * @param level
 	 * @return created entity
 	 */
-	public Entity addNonBG(Vector pos, int level) {
-		level -= 1;
+	public Entity addNonBG(Vector pos, InputStream image) {
 		Entity staEnt = createEnt(pos);
-		try {
-			staEnt.addScript(new Script(IMGSPT));
-			staEnt.update();
-		}
-		catch (GroovyInstantiationException e) {
-			//todo: error msg here
-		}
+		ImageScript script = new ImageScript();
+		script.setFilename(image);
+		staEnt.addScript(script);
+		staEnt.update();
 
-		if (level > myLayerList.size()-1) {
+		if (myLevel > myLayerList.size()-1) {
 			Layer myLayer = addLayer();
 			myLayer.addEntity(staEnt);
 		}
 		else {
-			myLayerList.get(level).addEntity(staEnt);
+			myLayerList.get(myLevel).addEntity(staEnt);
 		}
 		return staEnt;
 
@@ -103,11 +112,10 @@ public class EntityManager extends TrackableObject {
 	/**
 	 * add nonstatic entities
 	 * @param pos
-	 * @param level
 	 * @return Entity
 	 */
-	public Entity addNonStatic(Vector pos, int level) {
-		Entity Ent = addNonBG(pos, level);
+	public Entity addNonStatic(Vector pos, InputStream image) {
+		Entity Ent = addNonBG(pos, image);
 		Ent.setStatic(false);
 		return Ent;
 	}
@@ -184,5 +192,22 @@ public class EntityManager extends TrackableObject {
 			each.displayUpdate(center, size);
 		}
 	}
+
+    /**
+     * change background type for clicking
+     * @param type
+     */
+	public void setMyBGType (InputStream type) {
+	    myBGType = type;
+    }
+
+
+    /**
+     * change current editing layer
+     * @param level
+     */
+    public void setMyLevel (int level) {
+	    myLevel = level - 1;
+    }
 
 }
