@@ -1,6 +1,7 @@
 package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring.IPanelController;
 import authoring.Panel;
@@ -16,6 +17,9 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 import util.PropertiesReader;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.Message;
+import util.pubsub.messages.ThemeMessage;
 
 import static java.lang.Character.getNumericValue;
 
@@ -45,6 +49,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
+	private PubSub pubSub;
 	private EntityManager myManager;
 
 	private double cameraWidth;
@@ -65,6 +70,15 @@ public class CameraPanel implements Panel {
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
+
+		pubSub = PubSub.getInstance();
+		pubSub.subscribe(
+				PubSub.Channel.THEME_MESSAGE,
+				(message) -> updateStyles(((ThemeMessage) message).readMessage()));
+	}
+
+	private void updateStyles(String newStyle) {
+    	System.out.println(newStyle);
 
 	}
 
@@ -108,7 +122,6 @@ public class CameraPanel implements Panel {
 		myWhole.setSelected(true);
 		myWhole.setStyle(nodeStyle);
 		myLocal.setStyle(nodeStyle);
-
 	}
 
 	private void changeLayer() {
