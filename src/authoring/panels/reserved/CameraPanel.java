@@ -12,6 +12,7 @@ import engine.util.FXProcessing;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -63,10 +64,12 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
+		myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
 		myArea = new VBox(myView, buttonRow());
+		myArea.getStyleClass().add("panel");
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
@@ -74,12 +77,14 @@ public class CameraPanel implements Panel {
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
 				PubSub.Channel.THEME_MESSAGE,
-				(message) -> updateStyles(((ThemeMessage) message).readMessage()));
+				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
 	}
 
-	private void updateStyles(String newStyle) {
-    	System.out.println(newStyle);
-
+	private void updateStyles(Region region, String css) {
+		if (region.getStylesheets().size() >= 1) {
+			region.getStylesheets().remove(0);
+		}
+		region.getStylesheets().add(css);
 	}
 
 	private HBox buttonRow() {
@@ -110,18 +115,19 @@ public class CameraPanel implements Panel {
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
-		myLayer.setStyle(nodeStyle);
+	//	myLayer.setStyle(nodeStyle);
 		myLayer.setOnAction(e -> changeLayer());
 
 		myPlay.setOnMouseClicked(e -> myController.play());
+	//	myPlay.setStyle(nodeStyle);
 		myPause.setOnMouseClicked(e -> myController.pause());
-
+	//	myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
 		myWhole.setSelected(true);
-		myWhole.setStyle(nodeStyle);
-		myLocal.setStyle(nodeStyle);
+	//	myWhole.setStyle(nodeStyle);
+	//	myLocal.setStyle(nodeStyle);
 	}
 
 	private void changeLayer() {
