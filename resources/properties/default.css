@@ -10,6 +10,10 @@
     -fx-background-color: green;
 }
 
+.camera {
+    -fx-background: blue;
+}
+
 .menuBar {
     -fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-border-color: dimgray;
     -fx-background-color: silver; -fx-focus-color: #039ED3; -fx-faint-focus-color: #039ED322;

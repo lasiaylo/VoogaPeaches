@@ -78,8 +78,7 @@ public class CameraPanel implements Panel {
 	}
 
 	private void updateStyles(String newStyle) {
-    	System.out.println(newStyle);
-
+		myArea.getStyleClass().add("panel");
 	}
 
 	private HBox buttonRow() {
@@ -105,6 +104,7 @@ public class CameraPanel implements Panel {
 		myArea.getChildren().set(0, myView);
 		myView.setMouseTransparent(true);
 		myView.setOnMouseClicked(e -> addBlock(new Vector(e.getX(), e.getY())));
+		myView.getStyleClass().add("camera");
 	}
 
 	private void addBlock(Vector pos) {
