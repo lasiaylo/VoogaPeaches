@@ -49,7 +49,7 @@ public class Script implements IScript{
      * @param input		input to be set to
      */
     public void set(String field, Object input) throws GroovyInstantiationException {
-    	Class<?> inputClass = input.getClass();
+    	Class<?> inputClass = get(field).getClass();
     	if(Primitive.isWrapper(inputClass))
     		inputClass = Primitive.getPrimitive(inputClass);
 		try {

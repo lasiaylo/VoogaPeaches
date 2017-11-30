@@ -1,6 +1,10 @@
 package authoring.panels.tabbable;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import authoring.Panel;
 import engine.entities.Entity;
 import javafx.scene.Node;
@@ -35,10 +39,17 @@ public class AttributesPanel implements Panel {
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myHBox = new HBox();
 		myEntity = entity;
-		addTransformProperty();
+		addTest();
+//		addTransformProperty();
 //		addRenderProperty();
 //		addScriptProperties();
 //		addButton();
+	}
+
+	private void addTest() throws GroovyInstantiationException {
+		Set<String> methods = new HashSet<>(Arrays.asList("XPosition","YPosition"));
+		Attribute a = new Attribute(myEntity.getTransform(),"Transform",methods);
+		myHBox.getChildren().add(a.getPane());
 	}
 
 	/**Displays the Transform properties of an entity

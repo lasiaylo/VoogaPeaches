@@ -80,10 +80,12 @@ public abstract class Field {
 	 */
 	protected Object getValue() throws GroovyInstantiationException {
 		try {
-			if (myField == null)
+			if (myField == null) {
 				return getMethod.invoke(myObject);
+			}
 			return getMethod.invoke(myObject, myField);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
 			throw new GroovyInstantiationException();
 		}
 	}

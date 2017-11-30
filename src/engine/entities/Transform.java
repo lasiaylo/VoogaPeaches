@@ -37,6 +37,22 @@ public class Transform {
 	    return myPosition;
 	}
 	
+	public double getXPosition() {
+		return myPosition.at(0);
+	}
+	
+	public void setXPosition(double newPos) {
+		myPosition.at(0, newPos);
+	}
+	
+	public double getYPosition() {
+		return myPosition.at(1);
+	}
+	
+	public void setYPosition(double newPos) {
+		myPosition.at(1,newPos);
+	}
+	
     /**
      * @param newPos position for this entity
      */
