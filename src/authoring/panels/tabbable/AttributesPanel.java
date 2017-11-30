@@ -2,17 +2,13 @@ package authoring.panels.tabbable;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import authoring.Panel;
-import authoring.panels.attributes.VectorField;
+import authoring.panels.attributes.Attribute;
 import engine.entities.Entity;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 import util.exceptions.GroovyInstantiationException;
 
 /**Displays the attributes associated with a particular Entity
@@ -57,10 +53,6 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException 
 	 * 
 	 */
-	private void addTransformProperty() throws GroovyInstantiationException {
-		TransformAttribute transform = new TransformAttribute(myEntity);
-		myHBox.getChildren().add(transform.getNode());
-	}
 	
 	/**Displays the Render properties of an entity
 	 * 

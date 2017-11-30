@@ -3,6 +3,7 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import engine.scripts.IScript;
+import engine.scripts.Script;
 import engine.scripts.defaults.DefaultMovement;
 import util.math.num.Vector;
 
@@ -57,9 +58,9 @@ public class Entity extends TrackableObject {
 
 	/**
 	 * Create a new Entity
+	 * @param scripts   Scripts attached to new Entity
 	 * @param x         X position of new Entity
 	 * @param y         Y position of new Entity
-	 * @param scripts   Scripts attached to new Entity
 	 */
 	public Entity(List<IScript> scripts, double x, double y) {
 		this(new Vector(x, y), scripts);
