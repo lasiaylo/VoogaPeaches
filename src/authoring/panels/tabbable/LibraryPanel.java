@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import util.PropertiesReader;
 import util.math.num.Vector;
 
 import java.io.File;
@@ -37,12 +38,14 @@ public class LibraryPanel implements Panel {
 
         myEntType.getItems().addAll(BG, PLAYER);
         myEntType.setOnAction(e -> changeType());
+        myEntType.getStyleClass().add("choice-box");
         myTilePane.setPrefColumns(2);
         myTilePane.setPrefTileWidth(50);
         myTilePane.setPrefTileHeight(50);
         myTilePane.setHgap(10);
 
         myArea = new VBox(myEntType, myTilePane);
+        myArea.getStyleClass().add("panel");
         myArea.setSpacing(10);
     }
 
