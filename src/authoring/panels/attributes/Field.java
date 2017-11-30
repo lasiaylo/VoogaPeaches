@@ -10,6 +10,7 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public abstract class Field {
+	private Control myControl;
 	private Object myObject;
 	private String myField;
 	private Method getMethod;
@@ -20,30 +21,60 @@ public abstract class Field {
 	 * @param object
 	 * @param get
 	 * @param set
+	 * @throws GroovyInstantiationException 
 	 */
-	public Field(Object object,Method get, Method set) {
-		myObject = object;
-		getMethod = get;
-		setMethod = set;
+	public Field(Object object,Method get, Method set) throws GroovyInstantiationException {
+		this(object, null, get, set);
 	}
-	
+
 	/**Creates a Field that corresponds to a dynamic field
 	 * @param object
 	 * @param get
 	 * @param set
 	 * @param field
+	 * @throws GroovyInstantiationException 
 	 */
-	public Field(Object object, Method get, Method set, String field) {
-		this(object, get, set);
+	public Field(Object object, String field, Method get, Method set) throws GroovyInstantiationException {
+		myObject = object;
 		myField = field;
+		getMethod = get;
+		setMethod = set;
+		makeControl();
+		getDefaultValue();
+		setControlAction();
 	}
 	
+	/**Creates the JavaFX Controller
+	 * 
+	 */
+	protected abstract void makeControl();
+	
+	/**Sets the Controller action
+	 * 
+	 */
+	protected abstract void setControlAction();
+
+	/**Gets the value of the field and sets the Controller field to display it.
+	 * @throws GroovyInstantiationException 
+	 * 
+	 */
+	protected abstract void getDefaultValue() throws GroovyInstantiationException;
+
 	/**
 	 * @return Control
 	 */
-	public abstract Control getControl();
+	public Control getControl() {
+		return myControl;
+	}
 	
-	/**
+	/**Sets myControl
+	 * @param control
+	 */
+	protected void setControl(Control control) {
+		myControl = control;
+	}
+	
+	/**Gets the desired field inside the object
 	 * @return getMethod
 	 * @throws GroovyInstantiationException 
 	 */
@@ -57,16 +88,14 @@ public abstract class Field {
 		}
 	}
 	
-	/**
-	 * @return setMethod
+	/**Sets the desired field inside the object
 	 * @throws GroovyInstantiationException 
 	 */
-	protected Object setValue(Object args) throws GroovyInstantiationException {
+	protected void setValue(Object args) throws GroovyInstantiationException {
 		try {
 			if (myField.equals(null))
-				return setMethod.invoke(myObject, args);
-			
-			return setMethod.invoke(myObject, myField, args);
+				setMethod.invoke(myObject, args);
+			setMethod.invoke(myObject, myField, args);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new GroovyInstantiationException();
 		}
