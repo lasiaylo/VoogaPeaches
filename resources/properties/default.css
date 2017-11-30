@@ -2,12 +2,12 @@
     -fx-base: #ABD8ED; -fx-focus-color: #039ED3; -fx-faint-focus-color: #039ED322;
 }
 
-.choice-box > .context-menu {
-    -fx-background-radius: 6, 5, 4;
+.choice-box {
+    -fx-background-color: red;
 }
 
 .panel {
-    -fx-background-color: #F4F4F4;
+    -fx-background-color: green;
 }
 
 .menuBar {
