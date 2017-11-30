@@ -1,4 +1,3 @@
-package util;
 
 import authoring.panels.tabbable.AttributesPanel;
 import engine.entities.Entity;
