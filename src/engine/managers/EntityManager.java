@@ -34,6 +34,7 @@ public class EntityManager extends TrackableObject {
 	private ObservableList<Layer> myLayerList;
 	private InputStream myBGType;
 	private int myLevel = 1;
+	private String myMode = "All";
 
 	/**
 	 * manage all entities and layers
@@ -62,18 +63,21 @@ public class EntityManager extends TrackableObject {
 	 * @return BGblock
 	 */
 	public Entity addBG(Vector pos) {
-		Entity BGblock = createEnt(pos);
-		ImageScript script = new ImageScript();
-        try {
-            myBGType.reset();
-        } catch (IOException e) {
-            e.printStackTrace();
+	    if (myMode.equals("BG")) {
+            Entity BGblock = createEnt(pos);
+            ImageScript script = new ImageScript();
+            try {
+                myBGType.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            script.setFilename(myBGType);
+            BGblock.addScript(script);
+            BGblock.update();
+            myBGLayer.addEntity(BGblock);
+            return BGblock;
         }
-        script.setFilename(myBGType);
-		BGblock.addScript(script);
-		BGblock.update();
-		myBGLayer.addEntity(BGblock);
-		return BGblock;
+        return null;
 	}
 
 	/**
@@ -82,21 +86,28 @@ public class EntityManager extends TrackableObject {
 	 * @return created entity
 	 */
 	public Entity addNonBG(Vector pos, InputStream image) {
-		Entity staEnt = createEnt(pos);
-		ImageScript script = new ImageScript();
-		script.setFilename(image);
-		staEnt.addScript(script);
-		staEnt.update();
+	    if ((!myMode.equals("BG")) && (!myMode.equals("All"))) {
+            Entity staEnt = createEnt(pos);
+            ImageScript script = new ImageScript();
+            try {
+                image.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            script.setFilename(image);
+            staEnt.addScript(script);
+            staEnt.update();
 
-		if (myLevel > myLayerList.size()-1) {
-			Layer myLayer = addLayer();
-			myLayer.addEntity(staEnt);
-		}
-		else {
-			myLayerList.get(myLevel).addEntity(staEnt);
-		}
-		return staEnt;
-
+            if (myLevel > myLayerList.size()-1) {
+                Layer myLayer = addLayer();
+                myLayer.addEntity(staEnt);
+            }
+            else {
+                myLayerList.get(myLevel).addEntity(staEnt);
+            }
+            return staEnt;
+        }
+        return null;
 	}
 
 	/**
@@ -116,7 +127,9 @@ public class EntityManager extends TrackableObject {
 	 */
 	public Entity addNonStatic(Vector pos, InputStream image) {
 		Entity Ent = addNonBG(pos, image);
-		Ent.setStatic(false);
+		if (Ent != null) {
+            Ent.setStatic(false);
+        }
 		return Ent;
 	}
 
@@ -149,6 +162,7 @@ public class EntityManager extends TrackableObject {
 			each.deselect();
 		}
 		myLayerList.get(level).select();
+		myMode = "" + level;
 	}
 
 	/**
@@ -159,6 +173,7 @@ public class EntityManager extends TrackableObject {
 		for (Layer each: myLayerList) {
 			each.deselect();
 		}
+		myMode = "BG";
 	}
 
 	/**
@@ -169,6 +184,7 @@ public class EntityManager extends TrackableObject {
 		for (Layer each: myLayerList) {
 			each.onlyView();
 		}
+		myMode = "All";
 	}
 
 	/**
@@ -208,6 +224,14 @@ public class EntityManager extends TrackableObject {
      */
     public void setMyLevel (int level) {
 	    myLevel = level - 1;
+    }
+
+    /**
+     * get current mode
+     * @return myMode
+     */
+    public String getMyMode() {
+        return myMode;
     }
 
 }

@@ -23,7 +23,16 @@ The game creator will be created in five parts: the authoring environment, playe
 
 
 ## User Interface
-- There will be separate windows for gaming environment and authoring environment: user will create and edit the game in authoring environment while playing the game in gaming environment.
+- The authoring environment consists of two important aspects, panels and camera.
+* The camera is a representation of the game. This aspect is where you would add different types of blocks or add characters into your game and serves as a good baseline for what the actual player will see when they play the game. In fact, when you are playing the game, the camera view is all you will see.
+* The panels make up the rest of the authoring environment. These panels can have many different types like a library panel, properties, social media, etc. These panels provide the resources to create a game for the user. For example, the library panel contains all the possible elements you can add to the camera like water squares, grass, etc. The user clicks the type of block they want to add and clicks the square on the camera where they want that new square to be placed.
+
+User Customizability:
+* Themes: There will be multiple types of themes that allow the user to choose the cool color designs they might want to use.
+* 
+
+
+There will be separate windows for gaming environment and authoring environment: user will create and edit the game in authoring environment while playing the game in gaming environment.
 - Inside the authoring environment, the window would be divided into three(or four) main areas. While the camera panel, where user can see and manipulate game scene and the location of GameObject, would always stay in one area, other two areas are flexible in terms of the panel they host. 
 - Currently, we are planning to provide properties panel, library panel and menu panel. Properties panel would allow user to change the properties of any selected GameObject. Library panel would display default library for GameObject or library loaded by the user to the authoring environment. Visual representation of each GameObject would be shown inside this panel, and an instance of the GameObject would be added to camera panel when user clicks on it. Menu panel would provide user more options to change properties of the game. 
 
