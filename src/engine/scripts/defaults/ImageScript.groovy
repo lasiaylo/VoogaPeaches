@@ -19,13 +19,13 @@ class ImageScript extends GroovyScript{
 
 	@Override
 	public void execute(Entity entity) {
-        //if (!filename.equals(prevFilename)) {
-			//FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        if (!filename.equals(prevFilename)) {
+			FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         Image myImage = new Image(filename);
         entity.getRender().setImage(myImage);
         entity.getRender().displayUpdate(entity.getTransform());
         prevFilename = filename;
-		//}
+		}
 	}
 
 	@Override
