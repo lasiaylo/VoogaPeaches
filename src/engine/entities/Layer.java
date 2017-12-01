@@ -51,7 +51,6 @@ public class Layer extends TrackableObject {
 	public void addEntity(Entity each) {
 		myEntityList.add(each);
 		myImageList.getChildren().add(each.getRender());
-		System.out.println("add to layer");
 	}
 
 	/**

@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import util.PropertiesReader;
 import util.math.num.Vector;
 
 import java.io.File;
@@ -34,15 +35,18 @@ public class LibraryPanel implements Panel {
     public LibraryPanel() {
         myTilePane = new TilePane();
         myEntType = new ChoiceBox<>();
+        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
 
-        myEntType.getItems().addAll(BG, PLAYER);
+        myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.setOnAction(e -> changeType());
+        myEntType.getStyleClass().add("choice-box");
         myTilePane.setPrefColumns(2);
         myTilePane.setPrefTileWidth(50);
         myTilePane.setPrefTileHeight(50);
         myTilePane.setHgap(10);
 
         myArea = new VBox(myEntType, myTilePane);
+        myArea.getStyleClass().add("panel");
         myArea.setSpacing(10);
     }
 
@@ -50,12 +54,17 @@ public class LibraryPanel implements Panel {
         String type = myEntType.getValue();
         myTilePane.getChildren().clear();
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
-        for(InputStream imageStream : manager.retrieveSubfolderFiles(type)){
+        for(InputStream imageStream : manager.retrieveSubfolderFiles(type)) {
             ImageView view = new ImageView(new Image(imageStream));
             view.setFitWidth(50);
             view.setFitHeight(50);
-            view.setOnMouseClicked(e -> myManager.addNonStatic(new Vector(25, 25), 1));
             myTilePane.getChildren().add(view);
+            if (type.equals(BG)) {
+                view.setOnMouseClicked(e -> myManager.setMyBGType(imageStream));
+            }
+            else {
+                view.setOnMouseClicked(e -> myManager.addNonStatic(new Vector(25, 25), imageStream));
+            }
         }
     }
 

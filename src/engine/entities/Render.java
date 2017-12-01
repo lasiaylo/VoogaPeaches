@@ -10,12 +10,16 @@ import util.math.num.Vector;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**Wrapper Class for Entity's image
  * @author lasia
+ * @author richardtseng
  *
  */
 public class Render extends ImageView {
+	
 	private Entity myEntity;
 
 	/**
@@ -28,9 +32,8 @@ public class Render extends ImageView {
         myEntity = entity;
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         this.setImage(new Image(manager.readFileData("holder.gif")));
-
+        setPosition(entity.getTransform().getPosition());
     }
-
 
 	public void displayUpdate(Transform transform) {
 		setPosition(transform.getPosition());
@@ -42,8 +45,8 @@ public class Render extends ImageView {
 	 * @param position	new position of the Imageview
 	 */
 	private void setPosition(Vector position) {
-		this.setX(FXProcessing.getXImageCoord(position.at(0), this));
-		this.setY(FXProcessing.getYImageCoord(position.at(1), this));
+		this.setX(FXProcessing.getXImageCoord(position.at(0), myEntity));
+		this.setY(FXProcessing.getYImageCoord(position.at(1), myEntity));
 	}
 
 	/**
