@@ -54,3 +54,12 @@
 * Ability to print to console on events (for debugging / testing)
     * Primary Actor: ConsolePanel
     * User can attach print scripts to entities or events that print specified variables / text to the console panel while the game is running in the authoring environment.
+* Multiplayer Chat Functionality
+    * Primary Actor: MultiplayerChatPanel, DatabaseConnector
+    * User specifies whether multiplayer chat is enabled, and if so the game will pass messages over the database in real time to be viewed. The panel will allow the user to specify where the chat appears (above an entity, etc).
+* Rename layers
+    * Primary Actor: CameraPanel
+    * User specifies what the name of a given layer should be (as opposed to Layer 12), allowing them to more easily track the contents of a given layer.
+* Save popped out panels to the last part of the workspace they were at.
+    * Primary Actor: TabManager, workspace
+    * When the user closes the environment, the location of popped out panels should be saved as the last place they where when inside the workspace. When they open the environment again, that is where they will see the panel.
