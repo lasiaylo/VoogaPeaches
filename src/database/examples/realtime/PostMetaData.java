@@ -19,12 +19,16 @@ public class PostMetaData extends TrackableObject {
      * Test class for showing off working of realtime database
      */
 
-    PostMetaData(String creator) {
+    public PostMetaData(String creator) {
         timestamp = createFormattedTime();
         this.creator = creator;
         stuff = new ArrayList<>();
         stuff.add("test");
         stuff.add("test2");
+    }
+
+    public void changeCreator(String creator) {
+        this.creator = creator;
     }
 
     private String createFormattedTime() {

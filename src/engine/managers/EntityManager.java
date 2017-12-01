@@ -66,19 +66,24 @@ public class EntityManager extends TrackableObject {
 	    if (myMode.equals("BG")) {
             Entity BGblock = createEnt(pos);
             ImageScript script = new ImageScript();
-            try {
-                myBGType.reset();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            script.setFilename(myBGType);
+            changeScriptBGType(script, BGblock);
             BGblock.addScript(script);
-            BGblock.update();
+            BGblock.getRender().setOnMouseClicked(e -> changeScriptBGType(script, BGblock));
             myBGLayer.addEntity(BGblock);
             return BGblock;
         }
         return null;
 	}
+
+	private void changeScriptBGType(ImageScript script, Entity entity) {
+        try {
+            myBGType.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        script.setFilename(myBGType);
+        script.execute(entity);
+    }
 
 	/**
 	 * add static entities that are not background

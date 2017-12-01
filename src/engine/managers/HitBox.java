@@ -1,11 +1,16 @@
 package engine.managers;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
+import engine.entities.Transform;
 import javafx.scene.shape.Shape;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.Message;
+import util.pubsub.messages.TransformMessage;
 
 /**
  * Represents a collision hitbox
@@ -18,6 +23,8 @@ public class HitBox extends TrackableObject {
 	@Expose private List<String> visitorTags;
 	@Expose private List<Shape> myShapes;
 	@Expose private Vector myPosition;
+	private PubSub myPubSub;
+	private Transform myTransform;
 
 	/**
 	 * Create a new HitBox from the database
@@ -26,15 +33,25 @@ public class HitBox extends TrackableObject {
 
 	/**
 	 * Creates a new Hitbox
-	 * 
+	 *
 	 * @param shapes
 	 *            list of JavaFX Shapes to be added to hitbox
 	 */
-	public HitBox(List<Shape> shapes, Vector pos, String tag) {
+	public HitBox(List<Shape> shapes, Vector pos, String tag, Transform transform) {
 		myShapes = shapes;
 		myPosition = pos;
 		visitorTags = new ArrayList<>();
 		myTag = tag;
+		myPubSub = PubSub.getInstance();
+		myTransform = transform;
+		Consumer<Message> myCallBack = (message) -> {
+			TransformMessage tMessage = (TransformMessage) message;
+			Transform checkTransform = tMessage.readMessage();
+			if(checkTransform == myTransform) {
+				setPosition(myTransform.getPosition());
+			}
+		};
+		myPubSub.subscribe(PubSub.Channel.TRANSFORM_MESSAGE, myCallBack);
 	}
 
 	/**
@@ -43,12 +60,12 @@ public class HitBox extends TrackableObject {
 	 * @param shape
 	 *             javafx shape to be hitbox
 	 */
-	public HitBox(Shape shape, Vector pos, String tag) {
+	public HitBox(Shape shape, Vector pos, String tag, Transform transform) {
 		this(new ArrayList<Shape>() {
 			{
 				add(shape);
 			}
-		}, pos, tag);
+		}, pos, tag, transform);
 	}
 
 	public String getTag() {

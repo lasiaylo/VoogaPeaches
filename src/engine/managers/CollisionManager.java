@@ -42,11 +42,9 @@ public class CollisionManager extends TrackableObject implements IManager {
 
 	@Override
 	public boolean check(Object object) {
-		System.out.println("checking");
 		HitBoxCheck checker = (HitBoxCheck) object;
 		HitBox hitBox = checker.getHitBox();
 		String tagToFind = checker.getTag();
-		System.out.println("tag to find: " + tagToFind);
 		checkCollisions(hitBox);
 		List<String> visitorTag = hitBox.getVisitors();
 		return visitorTag.contains(tagToFind);
