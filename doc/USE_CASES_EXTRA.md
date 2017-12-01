@@ -1,6 +1,6 @@
 * Bouncing collisions
     * Primary Actor: Entity
-    * Allow two entities who collide together to reverse their direction without stalling 
+    * Allow two entities who collide together to reverse their direction without stalling
 * Entity Properties
     * Primary Actor: Entity
     * Allow an entity to hold properties like health, etc.
@@ -40,6 +40,17 @@
     * Allow user to add new folder to library panel and input customized vector images
 * Entity Animated Image
     * Primary Actor: Render, imagescript
-    * Use a series of imagescript set inputstream command to change the render for a animated effect. 
-
-
+    * Use a series of imagescript set inputstream command to change the render for a animated effect.
+* User Accounts for Developers
+    * Primary Actor: AuthoringInitializer
+    * Prompt user for username on program startup, then load their personalized settings from local files, or database
+* Add password protection to user accounts
+    * Primary Actor: AuthoringInitializer
+    * Prompt user  for both username and password
+    * Run SHA256 on password input, test against hash locally/on remote. Add bypass incase any of us forget our passwords...
+* Develop workspace theme inside Authoring
+    * Primary Actor: StyleSettingsPanel
+    * User opens the panel, which loads current style settings and allows user to edit and save changes, after some validation.
+* Ability to print to console on events (for debugging / testing)
+    * Primary Actor: ConsolePanel
+    * User can attach print scripts to entities or events that print specified variables / text to the console panel while the game is running in the authoring environment.
