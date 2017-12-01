@@ -156,4 +156,17 @@ public class FileDataManager {
         if(folderExists(folderName)) return false;
         return (new File(baseFolder + folderName)).mkdir();
     }
+
+    /**
+     * get all subfolder names
+     * @return
+     */
+    public List<String> getSubFolder() {
+        File[] directories = new File(baseFolder).listFiles(File::isDirectory);
+        List<String> subFolder = new ArrayList<>();
+        for (File each: directories) {
+            subFolder.add(each.getName());
+        }
+        return subFolder;
+    }
 }

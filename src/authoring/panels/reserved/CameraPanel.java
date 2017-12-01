@@ -1,6 +1,7 @@
 package authoring.panels.reserved;
 
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring.IPanelController;
 import authoring.Panel;
@@ -11,11 +12,15 @@ import engine.util.FXProcessing;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import util.PropertiesReader;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.Message;
+import util.pubsub.messages.ThemeMessage;
 
 import static java.lang.Character.getNumericValue;
 
@@ -45,6 +50,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
+	private PubSub pubSub;
 	private EntityManager myManager;
 
 	private double cameraWidth;
@@ -58,14 +64,27 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
+		//myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
 		myArea = new VBox(myView, buttonRow());
+		myArea.getStyleClass().add("panel");
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 
+		pubSub = PubSub.getInstance();
+		pubSub.subscribe(
+				PubSub.Channel.THEME_MESSAGE,
+				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
+	}
+
+	private void updateStyles(Region region, String css) {
+		if (region.getStylesheets().size() >= 1) {
+			region.getStylesheets().remove(0);
+		}
+		region.getStylesheets().add(css);
 	}
 
 	private HBox buttonRow() {
@@ -96,19 +115,19 @@ public class CameraPanel implements Panel {
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
-		myLayer.setStyle(nodeStyle);
+	//	myLayer.setStyle(nodeStyle);
 		myLayer.setOnAction(e -> changeLayer());
 
 		myPlay.setOnMouseClicked(e -> myController.play());
+	//	myPlay.setStyle(nodeStyle);
 		myPause.setOnMouseClicked(e -> myController.pause());
-
+	//	myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
 		myWhole.setSelected(true);
-		myWhole.setStyle(nodeStyle);
-		myLocal.setStyle(nodeStyle);
-
+	//	myWhole.setStyle(nodeStyle);
+	//	myLocal.setStyle(nodeStyle);
 	}
 
 	private void changeLayer() {
