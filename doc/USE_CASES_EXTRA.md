@@ -63,3 +63,9 @@
 * Save popped out panels to the last part of the workspace they were at.
     * Primary Actor: TabManager, workspace
     * When the user closes the environment, the location of popped out panels should be saved as the last place they where when inside the workspace. When they open the environment again, that is where they will see the panel.
+* Make Entity deletable from authoring
+    * Primary Actor: EntityManager, Layer
+    * Allow user to delete existing entity
+* Implement flexible grid size(default render size)
+    * Primary Actor: Transform
+    * Propagate the grid size set by user to engine for initial parameter setting. 
