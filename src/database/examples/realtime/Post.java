@@ -12,7 +12,7 @@ public class Post extends TrackableObject {
     @Expose private String myContent;
     @Expose private int myValue;
     @Expose private double fixed;
-    @Expose private PostMetaData metadata;
+    @Expose public PostMetaData metadata;
 
     /**
      * Private empty constructor required so that DatabaseConnector
@@ -26,6 +26,10 @@ public class Post extends TrackableObject {
         myValue = myVal;
         fixed = 10;
         metadata = new PostMetaData(creator);
+    }
+
+    public void setFixed(int val) {
+        fixed = val;
     }
 
     @Override

@@ -6,9 +6,16 @@ import javafx.scene.layout.Region;
 
 public class MiniMapPanel implements Panel{
 
+    private Pane myPane;
+
+    public MiniMapPanel() {
+        myPane = new Pane();
+        myPane.getStyleClass().add("panel");
+    }
+
     @Override
     public Region getRegion() {
-        return new Pane();
+        return myPane;
     }
 
     @Override
