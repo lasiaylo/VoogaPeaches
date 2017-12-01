@@ -1,10 +1,10 @@
 package util.pubsub.messages;
 
-public class ThemeMessage extends Message {
+public class WorkspaceChange extends Message {
 
     private String myMessage;
 
-    public ThemeMessage(String message) {
+    public WorkspaceChange(String message) {
         myMessage = message;
     }
 

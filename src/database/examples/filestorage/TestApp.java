@@ -1,5 +1,7 @@
 package database.examples.filestorage;
 
+import database.filehelpers.FileConverter;
+import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.firebase.FirebaseConnector;
 import javafx.animation.KeyFrame;
@@ -32,6 +34,7 @@ public class TestApp extends Application {
     private ImageView myView;
     private ListView<String> table;
     private FileStorageConnector connector;
+    private FileDataManager manager;
 
     /*
      * Test application that is meant to show off how to load images
@@ -47,6 +50,9 @@ public class TestApp extends Application {
     private void saveImage(File img) {
         try {
             connector.saveFile(img);
+            Image image = new Image(img.toURI().toString());
+            manager.writeFileData(FileConverter.convertImageToByteArray(image), img.getName());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,6 +64,7 @@ public class TestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         connector = new FileStorageConnector();
+        manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
 
         myRoot = new Group();
         Scene myScene = new Scene(myRoot, 800, 800);

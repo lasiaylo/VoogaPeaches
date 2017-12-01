@@ -1,10 +1,10 @@
 package util.pubsub.messages;
 
-public class ThemeMessage extends Message {
+public class PanelToggle extends Message {
 
     private String myMessage;
 
-    public ThemeMessage(String message) {
+    public PanelToggle(String message) {
         myMessage = message;
     }
 
