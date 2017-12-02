@@ -116,6 +116,15 @@ public class Layer extends TrackableObject {
         return newEnt;
     }
 
+    /**
+     * remove entity from the layer
+     * @param ent
+     */
+    public void deleteEntity(Entity ent) {
+	    myEntityList.remove(ent);
+	    myImageList.getChildren().remove(ent.getRender());
+    }
+
 	/**
 	 * update imageview of entities inside box
 	 * @param center

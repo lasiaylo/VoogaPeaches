@@ -14,6 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import util.math.num.Vector;
 
 /**
@@ -61,11 +63,31 @@ public class EntityManager extends TrackableObject {
             ImageScript script = new ImageScript();
             changeScriptBGType(script, BGblock);
             BGblock.addScript(script);
-            BGblock.getRender().setOnMouseClicked(e -> changeScriptBGType(script, BGblock));
+            BGblock.getRender().setOnMouseClicked(e -> changeRender(e.getButton(), script, BGblock));
             return BGblock;
         }
         return null;
 	}
+
+
+
+	private void deleteEntity(Entity ent) {
+        if (myMode == 0) {
+            myBGLayer.deleteEntity(ent);
+        }
+        else if (myMode > 0){
+            myLayerList.get(myMode - 1).deleteEntity(ent);
+        }
+    }
+
+    private void changeRender(MouseButton mouse, ImageScript scripts, Entity entity) {
+	    if (mouse.equals(MouseButton.PRIMARY) && myMode == 0) {
+	        changeScriptBGType(scripts, entity);
+        }
+        else if(mouse.equals(MouseButton.SECONDARY)) {
+	        deleteEntity(entity);
+        }
+    }
 
 	private void changeScriptBGType(ImageScript script, Entity entity) {
         try {
@@ -97,6 +119,7 @@ public class EntityManager extends TrackableObject {
             script.setFilename(image);
             newEnt.addScript(script);
             script.execute(newEnt);
+            newEnt.getRender().setOnMouseClicked(e -> changeRender(e.getButton(), script, newEnt));
 
             return newEnt;
         }
