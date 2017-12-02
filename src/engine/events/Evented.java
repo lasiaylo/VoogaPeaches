@@ -1,10 +1,12 @@
 package engine.events;
 
+import database.firebase.TrackableObject;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.function.Consumer;
 
-public abstract class Evented {
+public abstract class Evented extends TrackableObject {
     private HashMap<String, HashSet<Consumer<Event>>> callbacks;
 
     public void on(String type, Consumer<Event> callback) {

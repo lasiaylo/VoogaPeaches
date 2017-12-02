@@ -1,9 +1,10 @@
 package engine.entities;
 
 import engine.events.Evented;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.media.Media;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 
@@ -12,15 +13,16 @@ import java.util.HashSet;
  */
 public class Entity extends Evented {
     private Entity parent;
-    private HashSet<Entity> children;
 
-    private Node node;
-    private Media media;
+    private Collection<Entity> children;
+    private Group group;
 
     /**
      * Create entity as root
      */
     public Entity() {
+        group = new Group();
+        children = new HashSet<>();
     }
 
     /**
@@ -42,39 +44,16 @@ public class Entity extends Evented {
         return parent;
     }
 
-    /**
-     * Create a visual
-     *
-     * @param node: JavaFX Node
-     */
-    public void setNode(Node node) {
-        this.node = node;
+    public void add(Node node) {
+        group.getChildren().add(node);
     }
 
-    /**
-     * Get the visual
-     *
-     * @return node
-     */
-    public Node getNode() {
-        return this.node;
+    public void add(Entity entity) {
+        children.add(entity);
+        add(entity.getNodes());
     }
 
-    /**
-     * Set audio
-     *
-     * @param media: audio object
-     */
-    public void setMedia(Media media) {
-        this.media = media;
-    }
-
-    /**
-     * Get media
-     *
-     * @return media object
-     */
-    public Media getMedia() {
-        return this.media;
+    public Node getNodes() {
+        return group;
     }
 }
