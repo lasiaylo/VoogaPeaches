@@ -44,7 +44,6 @@ public class Entity extends Evented {
     public Entity(Entity parent) {
         this();
         this.parent = parent;
-        parameterMap = new HashMap<>();
     }
 
     /**
