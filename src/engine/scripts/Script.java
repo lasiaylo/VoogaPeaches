@@ -97,4 +97,11 @@ public class Script extends TrackableObject implements IScript{
 	public Set<String> getFields() {
 		return myScript.getFields();
 	}
+	
+	/**Returns the GroovyScript that is wrapped
+	 * @return myScript
+	 */
+	public GroovyScript getScript() {
+		return myScript;
+	}
 }
