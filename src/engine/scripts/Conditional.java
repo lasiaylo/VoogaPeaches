@@ -44,6 +44,7 @@ public  class Conditional implements IScript{
 	 */
 	public void execute(Entity entity) {
 		if (conditionMet()) {
+			System.out.println("condition met");
 			executeScripts(entity);
 		}
 	}

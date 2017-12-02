@@ -80,21 +80,24 @@ public class AnimationTest extends Application {
         HitBoxCheck checkLeft = new HitBoxCheck(duvallHitBox, "left x block");
 
         CollisionConditional hitTop = new CollisionConditional(cManager, checkTop);
-        hitTop.getScripts().add(new StopMovement());
+        hitTop.getScripts().add(new ReverseDirection());
         hitTop.getScripts().add(new DefaultMovement());
+        hitTop.getScripts().add(new PrintCollisionScript());
 
         CollisionConditional hitBot = new CollisionConditional(cManager, checkBot);
-        hitBot.getScripts().add(new YUp());
+        hitBot.getScripts().add(new ReverseDirection());
         hitBot.getScripts().add(new DefaultMovement());
+        hitBot.getScripts().add(new PrintCollisionScript());
 
         CollisionConditional hitLeft = new CollisionConditional(cManager, checkLeft);
-        hitLeft.getScripts().add(new StopMovement());
+        hitLeft.getScripts().add(new ReverseDirection());
         hitLeft.getScripts().add(new DefaultMovement());
-
+        hitLeft.getScripts().add(new PrintCollisionScript());
 
         CollisionConditional hitRight = new CollisionConditional(cManager, checkRight);
-        hitRight.getScripts().add(new Xleft());
+        hitRight.getScripts().add(new ReverseDirection());
         hitRight.getScripts().add(new DefaultMovement());
+        hitRight.getScripts().add(new PrintCollisionScript());
 
 
 
@@ -134,16 +137,21 @@ public class AnimationTest extends Application {
 
         duvall.update();
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 60), event -> {
+            System.out.println("1 " + duvall.getTransform().getVelocity().at(0));
+            System.out.println("2 " + duvall.getTransform().getVelocity().at(1));
             duvall.update();
+            System.out.println("3 " + duvall.getTransform().getVelocity().at(0));
+            System.out.println("4 " + duvall.getTransform().getVelocity().at(1));
+//            System.out.println(duvallHitBox.getPosition().at(0));
+//            System.out.println(duvallHitBox.getPosition().at(1));
+
 //            System.out.println(DuvallHitBox.intersects(botYRect.getBoundsInLocal()));
             topYBlock.update();
             rightXBlock.update();
             botYBlock.update();
             leftXBlock.update();
-//            System.out.println(duvall.getTransform().getVelocity().at(0));
-//            System.out.println(duvall.getTransform().getVelocity().at(1));
-//            System.out.println(duvallHitBox.getShapes().get(0));
-//            System.out.println(DuvallHitBox.intersects(botYRect.getBoundsInLocal()));
+
+
         }));
 //        System.out.println(topYRect.getX());
 //        System.out.println(botYRect.getY());
