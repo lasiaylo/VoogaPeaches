@@ -44,7 +44,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
-	private EntityManager myManager;
+//	private EntityManager myManager;
 
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
