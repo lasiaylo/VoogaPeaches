@@ -7,6 +7,9 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import util.exceptions.ObjectIdNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestEngine implements DataReactor<Post> {
 
     /**
@@ -26,11 +29,14 @@ public class TestEngine implements DataReactor<Post> {
         // Adds and removes a new post to the database
         Post newPost = new Post("New Post for demo","Walker", 5);
         Post secondPost = new Post("second post", "cox", 102);
+        List<Post> posts = new ArrayList<>();
+        posts.add(newPost);
+        posts.add(secondPost);
         try {
             db.addToDatabase(newPost);
             db.addToDatabase(secondPost);
-            db.removeFromDatabase(newPost);
-            manager.writeJSONFile("postOne", JSONHelper.JSONForObject(newPost));
+
+            manager.writeJSONFile("postOne", JSONHelper.JSONForObject(posts));
 
             // Have to force a sleep to wait for data to finish sending, but
             // with actual project this shouldn't be a problem

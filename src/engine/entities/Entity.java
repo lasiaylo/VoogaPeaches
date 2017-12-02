@@ -1,129 +1,75 @@
 package engine.entities;
 
-import com.google.gson.annotations.Expose;
-import database.firebase.TrackableObject;
-import engine.scripts.IScript;
-import engine.scripts.defaults.DefaultMovement;
-import util.math.num.Vector;
+import engine.collisions.HitBox;
+import engine.events.Event;
+import engine.events.Evented;
+import javafx.scene.Group;
+import javafx.scene.Node;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+
 
 /**
- * Base engine class that is used as a template for all objects in game.
+ * Basic game object
  *
+ * @author ramilmsh
  * @author Albert
- * @author lasia
- * @author estellehe
- * @author richardtseng
- *
  */
-public class Entity extends TrackableObject {
-	@Expose private Transform myTransform;
-	@Expose private Render myRender;
-	@Expose private Sound mySound;
-	@Expose private boolean isStatic;
-	@Expose private List<IScript> myScripts;
+public class Entity extends Evented {
+    private Entity parent;
 
-	/**
-	 * privately creates an entity through the database
-	 */
-	private Entity() {}
+    private Collection<Entity> children;
+    private Collection<HitBox> hitBoxes = new ArrayList<>();
+    private Group group;
 
-	/**
-	 *  Creates a new Entity
-	 *  @param pos       Vector position of new Entity
-	 *  @param scripts   Scripts attached to new Entity
-	 */
-	public Entity(Vector pos, List<IScript> scripts) {
-		myTransform = new Transform(pos);
-		myScripts = scripts;
-		myRender = new Render(this);
-		myScripts.add(new DefaultMovement());
-	}
+    /**
+     * Create entity as root
+     */
+    public Entity() {
+        group = new Group();
+        children = new HashSet<>();
+    }
 
-	public Entity(Vector pos) {
-		this(pos, new ArrayList<>());
-	}
+    /**
+     * Create entity as a child
+     *
+     * @param parent: entities parent entity
+     */
+    public Entity(Entity parent) {
+        this();
+        this.parent = parent;
+    }
 
-	public Entity(Vector pos, Vector vel, Vector accel, List<IScript> scripts) {
-		this(pos, scripts);
-		myTransform = new Transform(pos, vel, accel);
-	}
+    /**
+     * Get entities parent
+     *
+     * @return (Entity.parent) or null, if root
+     */
+    public Entity getParent() {
+        return parent;
+    }
 
-	public Entity(Vector pos, Vector vel, Vector accel) {
-		this(pos, vel, accel, new ArrayList<>());
-	}
+    public void add(Node node) {
+        group.getChildren().add(node);
+    }
 
-	/**
-	 * Create a new Entity
-	 * @param x         X position of new Entity
-	 * @param y         Y position of new Entity
-	 * @param scripts   Scripts attached to new Entity
-	 */
-	public Entity(List<IScript> scripts, double x, double y) {
-		this(new Vector(x, y), scripts);
-	}
+    public void add(Entity entity) {
+        children.add(entity);
+        add(entity.getNodes());
+    }
 
-	/**
-	 * run all defaults attached to the Entity
-	 */
-	public void update() {
-		for (IScript s : myScripts) {
-			s.execute(this);
-		}
-	}
+    public Node getNodes() {
+        return group;
+    }
 
-	/**
-	 * transform class that contains transform recorded for this entity
-	 * @return transform
-	 */
-	public Transform getTransform() {
-		return myTransform;
-	}
+    public Collection<Entity> getChildren() {
+        return children;
+    }
 
-	/**
-	 * @return Render wrapper class that contains ImageView
-	 */
-	public Render getRender() {
-		return myRender;
-	}
-
-	/**
-	 * @return Media class that contains MediaPlayer map
-	 */
-	public Sound getSound() {
-		return mySound;
-	}
-	
-	/**
-	 * add script to entity
-	 * @param script
-	 */
-	public void addScript(IScript script) {
-		myScripts.add(script);
-	}
-
-	/**
-	 * @return List of entity's defaults
-	 */
-	public List<IScript> getScripts() {
-		return myScripts;
-	}
-
-	/**
-	 * @return Whether the entity is static or not. If an entity is static, it just
-	 *         needs to be updated once.
-	 */
-	public boolean isStatic() {
-		return isStatic;
-	}
-
-	/**	Sets whether an entity is static or not. If an entity is static, it just needs
-	 * 	to be updated once.
-	 *
-	 */
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
-	}
+    public void addHitBox(HitBox hitBox) {
+        hitBoxes.add(hitBox);
+        group.getChildren().addAll(hitBox.getShapes());
+    }
 }
