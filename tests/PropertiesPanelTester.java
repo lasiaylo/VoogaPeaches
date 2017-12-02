@@ -1,10 +1,14 @@
 
 import authoring.panels.tabbable.AttributesPanel;
 import engine.entities.Entity;
+import engine.scripts.IScript;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PropertiesPanelTester extends Application {
 
@@ -21,7 +25,8 @@ public class PropertiesPanelTester extends Application {
 	}
 	
 	private Entity createEntity() {
-		Entity entity = new Entity(null, 10,10);
+		List<IScript> bruh = new ArrayList<IScript>();
+		Entity entity = new Entity(bruh, 145.0,10.0);
 		return entity;
 	}
 

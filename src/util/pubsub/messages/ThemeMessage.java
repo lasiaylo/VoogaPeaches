@@ -1,7 +1,7 @@
 package util.pubsub.messages;
 
 public class ThemeMessage extends Message {
-    
+
     private String myMessage;
 
     public ThemeMessage(String message) {

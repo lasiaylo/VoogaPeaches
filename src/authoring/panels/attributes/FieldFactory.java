@@ -1,4 +1,4 @@
-package authoring.panels.tabbable;
+package authoring.panels.attributes;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
