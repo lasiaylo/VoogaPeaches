@@ -34,13 +34,18 @@ public class Attribute {
 	}
 	
 	private void addRow(String fieldName, int row) throws GroovyInstantiationException {
-		myGrid.add(makeLabel(fieldName), 0, row);
-		Field field = FieldFactory.makeField(myAttribute, fieldName);
-		myGrid.add(field.getControl(), 1, row);
+		addLabel(fieldName, row);
+		addField(fieldName, row);
 	}
 	
-	private Label makeLabel(String labelName) {
-		return new Label(labelName);
+	private void addLabel(String labelName, int row) {
+		Label label = new Label(labelName);
+		myGrid.add(label, 0, row);
+	}
+	
+	private void addField(String fieldName, int row) throws GroovyInstantiationException {
+		Field field = FieldFactory.makeField(myAttribute, fieldName);
+		myGrid.add(field.getControl(), 1, row);
 	}
 	
 	public Node getPane() {
