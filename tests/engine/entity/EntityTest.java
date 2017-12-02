@@ -1,16 +1,13 @@
-package engine.entities;
+package engine.entity;
 
+import engine.Entity;
 import engine.events.ClickEvent;
-import engine.events.Event;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class EntityTest {
     @Test
     void getParent() {
         Entity entity = new Entity();
-        assertNotEquals(entity, null);
         entity.on("click", System.out::println);
         new ClickEvent().fire(entity);
     }

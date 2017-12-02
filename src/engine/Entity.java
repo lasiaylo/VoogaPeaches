@@ -1,4 +1,4 @@
-package engine.entities;
+package engine;
 
 import engine.events.Evented;
 import javafx.scene.Group;
