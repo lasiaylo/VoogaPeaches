@@ -2,7 +2,13 @@ package database.examples.realtime;
 
 import database.firebase.DataReactor;
 import database.firebase.DatabaseConnector;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
 import util.exceptions.ObjectIdNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestEngine implements DataReactor<Post> {
 
@@ -14,18 +20,23 @@ public class TestEngine implements DataReactor<Post> {
 
         TestEngine engine = new TestEngine();
         DatabaseConnector<Post> db = new DatabaseConnector<>(Post.class);
+        JSONDataManager manager = new JSONDataManager(JSONDataFolders.IMAGES);
 
         // Setups the methods defined for the DataReactor to be
         // called on data events
         db.listenToChanges(engine);
 
         // Adds and removes a new post to the database
-        Post newPost = new Post("New Post","Walker", 5);
+        Post newPost = new Post("New Post for demo","Walker", 5);
         Post secondPost = new Post("second post", "cox", 102);
+        List<Post> posts = new ArrayList<>();
+        posts.add(newPost);
+        posts.add(secondPost);
         try {
             db.addToDatabase(newPost);
             db.addToDatabase(secondPost);
-            db.removeFromDatabase(newPost);
+
+            manager.writeJSONFile("postOne", JSONHelper.JSONForObject(posts));
 
             // Have to force a sleep to wait for data to finish sending, but
             // with actual project this shouldn't be a problem

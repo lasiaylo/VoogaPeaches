@@ -6,6 +6,7 @@ import util.PropertiesReader;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
@@ -18,27 +19,6 @@ public class JSONDataManager {
 
     /* Instance Variables */
     private String baseFolder;
-
-    /**
-     * Enum defining the different folders in the data folder of the
-     * project where json files can be read and written from by the
-     * JSONDataManager class
-     */
-    public enum JSONDataFolders {
-        GAMES ("games"),
-        IMAGES ("images"),
-        SCRIPTS ("scripts"),
-        USER_SETTINGS ("user_settings");
-
-        private final String filepath;
-        JSONDataFolders(String path) { this.filepath = PropertiesReader.path("db_json") + path + "/"; }
-
-        /**
-         * @return A {@code String} representing the path of the folder within the project
-         */
-        String path() { return filepath; }
-    }
-
 
     /**
      * Creates a new JSONDataManager that is able to manipulate
@@ -117,4 +97,29 @@ public class JSONDataManager {
         }
         return new JSONObject(json);
     }
+
+    /**
+     * Returns whether or not the folder exists within the base folder's
+     * directory
+     * @param folderName is a {@code String} representing the name of the folder
+     *                   to search for
+     * @return {@code true} if the folder does exist, and {@code false} otherwise
+     */
+    public boolean folderExists(String folderName) {
+        Path folderPath = Paths.get(baseFolder + folderName);
+        return folderPath.toFile().exists();
+    }
+
+    /**
+     * Creates a new folder within the base folder of the manager. If
+     * the folder exists already, then a new folder will NOT be created.
+     * @param folderName is a {@code String} representing the name
+     *                   of the folder to create
+     * @return {@code true} if the folder was created, and false otherwise
+     */
+    public boolean createFolder(String folderName){
+        if(folderExists(folderName)) return false;
+        return (new File(baseFolder + folderName)).mkdir();
+    }
 }
+
