@@ -6,18 +6,20 @@ import javafx.scene.layout.Region;
 
 public class MiniMapPanel implements Panel{
 
+    private Pane myPane;
+
+    public MiniMapPanel() {
+        myPane = new Pane();
+        myPane.getStyleClass().add("panel");
+    }
+
     @Override
     public Region getRegion() {
-        return new Pane();
+        return myPane;
     }
 
     @Override
-    public ScreenPosition getPosition(){
-        return ScreenPosition.BOTTOM_RIGHT;
-    }
-
-    @Override
-    public void setController(IPanelDelegate controller) {
+    public void setController(IPanelController controller) {
         //TODO: Create controller
     }
 

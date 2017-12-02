@@ -1,8 +1,10 @@
 package engine.entities;
 
+import engine.camera.Camera;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import engine.managers.EntityManager;
 
 /**
  * control the game loop of engine, start or stop the game
@@ -14,39 +16,40 @@ import javafx.util.Duration;
  */
 public class EngineLoop {
 	private static final int MAX_FRAMES_PER_SECOND = 60;
-	
+	public static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
+
 	private EntityManager myManager;
-	private Timeline myTimeline;
+	private Timeline myGamingTimeline;
+	private Timeline myEngineTimeline;
+	private Camera myCamera;
 	
 	/**
 	 * constructor for game loop
 	 * @param manager
 	 */
-	public EngineLoop(EntityManager manager) {
+	public EngineLoop(EntityManager manager, Camera camera) {
 		myManager = manager;
-		KeyFrame frame = new KeyFrame(Duration.millis(1000 / MAX_FRAMES_PER_SECOND), e -> step());
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Timeline.INDEFINITE);
-		myTimeline.getKeyFrames().add(frame);
+		myCamera = camera;
+		KeyFrame gameFrame = new KeyFrame(Duration.millis(FRAME_PERIOD), e -> myManager.updateAll());
+		KeyFrame engineFrame = new KeyFrame(Duration.millis(FRAME_PERIOD), e -> myCamera.update());
+
+
+		myGamingTimeline = new Timeline();
+		myGamingTimeline.setCycleCount(Timeline.INDEFINITE);
+		myGamingTimeline.getKeyFrames().add(gameFrame);
+
+		myEngineTimeline = new Timeline();
+		myEngineTimeline.setCycleCount(Timeline.INDEFINITE);
+		myEngineTimeline.getKeyFrames().add(engineFrame);
 	}
-	
-	private void step() {
-		//assume we do not make any changes to the background block entity from engine
-		for (Entity each: myManager.getBGEntity()) {
-			each.update();
-			// condition should be set here to displayupdate only for those entities that are in the range of camera
-			// like based on how far away from player since player is always centered
-			each.getRender()
-				.displayUpdate(
-				each.getTransform());
-		}
-	}
+
 	
 	/**
-	 * pause the game loop
+	 * get the timeline
 	 */
 	public Timeline getTimeline() {
-		return myTimeline;
+
+	    return myGamingTimeline;
 	}
 
 }

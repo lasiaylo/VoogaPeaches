@@ -1,10 +1,16 @@
 package engine;
 
+import engine.camera.Camera;
+import engine.camera.Map;
 import engine.entities.EngineLoop;
 import engine.entities.Entity;
-import engine.entities.EntityManager;
+import engine.managers.EntityManager;
 import javafx.animation.Timeline;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
+import util.math.num.Vector;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -17,11 +23,13 @@ public class Engine {
     private EntityManager myManager;
     private EngineLoop myGameLoop;
     private Timeline myTimeline;
+    private Camera myCamera;
     
     public Engine(Number gridSize) {
     		myManager = new EntityManager(gridSize);
-    		myGameLoop = new EngineLoop(myManager);
+    		myGameLoop = new EngineLoop(myManager, myCamera);
     		myTimeline = myGameLoop.getTimeline();
+    		myCamera = new Camera(new Map(myManager));
     }
 
     /**
@@ -55,4 +63,15 @@ public class Engine {
     public EntityManager getEntityManager() {
     		return myManager;
     }
+
+    /**
+     * get camera view for camerapane
+     * @param center
+     * @param size
+     * @return
+     */
+    public ScrollPane getCameraView(Vector center, Vector size) {
+        return myCamera.getView(center, size);
+    }
+
 }

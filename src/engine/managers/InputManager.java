@@ -1,9 +1,12 @@
 package engine.managers;
 
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -11,11 +14,16 @@ import java.util.Map;
  * Class that manages and reads user key inputs
  * @author Albert
  */
-public class InputManager implements IManager{
-    private static InputManager instance;
+public class InputManager extends TrackableObject implements IManager{
+    @Expose private Map<KeyCode, String> keyCommandMap;
+    @Expose private Map<String, Boolean> commandExecuteMap;
 
-    private Map<KeyCode, String> keyCommandMap;
-    private Map<String, Boolean> commandExecuteMap;
+    /**
+     *  Creates a new InputManager
+     */
+    private InputManager() {
+        this(new HashMap<>());
+    }
 
     /**
      * Creates a new InputManager from the database
@@ -26,13 +34,6 @@ public class InputManager implements IManager{
             keyCommandMap.put(KeyCode.getKeyCode(s), commands.get(s));
         }
         commandExecuteMap = new HashMap<>();
-    }
-
-    /**
-     *  Creates a new InputManager
-     */
-    private InputManager() {
-        this(new HashMap<>());
     }
 
     /**
@@ -47,6 +48,7 @@ public class InputManager implements IManager{
             return;
         }
 
+        // automatically removes
         commandExecuteMap.put(command, new Boolean(keyPressed));
     }
 
@@ -56,34 +58,38 @@ public class InputManager implements IManager{
 
     /**
      * Sets a user defined key press value to a user defined string command. Overrides previously mapped commands and
-     * adds to properties file
+     * adds to properties file; adds new command if not available
      * @param code      KeyCode to be mapped
      * @param command   String command
      */
     public void setCommand(KeyCode code, String command) {
         keyCommandMap.put(code, command);
-        // TO DO Write to properties file
+        if(!commandExecuteMap.containsKey(command)) {
+            commandExecuteMap.put(command, new Boolean(false));
+        }
     }
 
     /**
-     * Removes a previously defined command mapped to passed in keycode. Removes from properties file
+     * Removes a keycode mapped to a command.
      * @param code  keycode mapped to command to be removed
      */
-    public void removeCommand(KeyCode code) {
+    public void removeKeyMapping(KeyCode code) {
         String command = keyCommandMap.remove(code);
-        commandExecuteMap.remove(command);
-        // TO DO remove from properties file
     }
 
     /**
-     * Implements the Singleton design pattern
-     * @return  a single instance of InputManager
+     * Removes a command and all its associated keybindings
+     * @param command   command to be removed
      */
-    public static InputManager getInstance() {
-        if(instance == null) {
-            instance = new InputManager();
+    public void removeCommand(String command) {
+        Iterator keyIter = keyCommandMap.keySet().iterator();
+        while(keyIter.hasNext()) {
+            KeyCode code = (KeyCode) keyIter.next();
+            if(keyCommandMap.get(code).equals(command)) {
+                keyIter.remove();
+            }
         }
 
-        return instance;
+        commandExecuteMap.remove(command);
     }
 }

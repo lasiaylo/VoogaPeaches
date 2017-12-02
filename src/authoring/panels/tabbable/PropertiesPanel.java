@@ -1,9 +1,7 @@
 package authoring.panels.tabbable;
 
 import authoring.Panel;
-import authoring.ScreenPosition;
-import engine.entities.Entity;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 /**Displays the properties associated with a particular Entity
@@ -14,14 +12,16 @@ public class PropertiesPanel implements Panel {
 	private HBox myHBox;
 	private Entity myEntity;
 
-	@Override
-	public Region getRegion() {
-		return myHBox;
+	private Pane myPane;
+
+	public PropertiesPanel() {
+		myPane = new Pane();
+		myPane.getStyleClass().add("panel");
 	}
 	
 	@Override
-	public ScreenPosition getPosition() {
-		return ScreenPosition.TOP_RIGHT;
+	public Region getRegion() {
+		return myPane;
 	}
 
 	@Override

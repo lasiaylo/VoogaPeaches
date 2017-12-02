@@ -1,35 +1,36 @@
 package authoring.panels.tabbable;
 
-import authoring.IPanelDelegate;
+import authoring.IPanelController;
 import authoring.Panel;
-import authoring.Screen;
-import authoring.ScreenPosition;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
+import util.Console;
 
+/**
+ *
+ */
 public class ConsolePanel implements Panel{
+
+    private Pane myPane;
+
+    public ConsolePanel() {
+        myPane = new Pane();
+        myPane.getStyleClass().add("panel");
+    }
 
     private TextArea consoleField = new TextArea();
     {
         consoleField.setEditable(false);
-        consoleField.setBackground(new Background(new BackgroundFill(Color.LAVENDER, null, null)));
     }
 
     @Override
     public Region getRegion() {
-        return consoleField;
+        return myPane;
     }
 
     @Override
-    public ScreenPosition getPosition(){
-        return ScreenPosition.BOTTOM;
-    }
-
-    @Override
-    public void setController(IPanelDelegate controller) {
+    public void setController(IPanelController controller) {
         //TODO: Create controller
     }
 
