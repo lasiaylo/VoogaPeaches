@@ -8,7 +8,9 @@ import javafx.scene.Node;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 
 /**
@@ -23,6 +25,8 @@ public class Entity extends Evented {
     private Collection<Entity> children;
     private Collection<HitBox> hitBoxes = new ArrayList<>();
     private Group group;
+    
+    private Map<String, Object> parameterMap;
 
     /**
      * Create entity as root
@@ -40,6 +44,7 @@ public class Entity extends Evented {
     public Entity(Entity parent) {
         this();
         this.parent = parent;
+        parameterMap = new HashMap<>();
     }
 
     /**
@@ -50,6 +55,17 @@ public class Entity extends Evented {
     public Entity getParent() {
         return parent;
     }
+    
+    /**
+     * Get map containing all of the entity's parameters
+     *
+     * @return parameter map
+     */
+    public Map<String, Object> getParameterMap() {
+        return this.parameterMap;
+    }
+    
+    
 
     public void add(Node node) {
         group.getChildren().add(node);
