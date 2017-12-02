@@ -30,8 +30,8 @@ public class Render extends ImageView {
 
     public Render(Entity entity) {
         myEntity = entity;
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
-        this.setImage(new Image(manager.readFileData("holder.gif")));
+//        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+//        this.setImage(new Image(manager.readFileData("holder.gif")));
         setPosition(entity.getTransform().getPosition());
     }
 

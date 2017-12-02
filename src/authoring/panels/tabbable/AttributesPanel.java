@@ -2,6 +2,7 @@ package authoring.panels.tabbable;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import authoring.Panel;
@@ -36,38 +37,23 @@ public class AttributesPanel implements Panel {
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myHBox = new HBox();
 		myEntity = entity;
-		addTest();
-//		addTransformProperty();
-//		addRenderProperty();
-//		addScriptProperties();
+		Set<String> methods = new HashSet<>(Arrays.asList("Position","Velocity","Acceleration"));
+		addAttribute(myEntity.getTransform(),"Transform", methods);
 //		addButton();
 	}
 
-	private void addTest() throws GroovyInstantiationException {
-		Set<String> methods = new HashSet<>(Arrays.asList("Position"));
-		Attribute a = new Attribute(myEntity.getTransform(),"Transform",methods);
-		myHBox.getChildren().add(a.getPane());
-	}
 
-	/**Displays the Transform properties of an entity
-	 * @throws GroovyInstantiationException 
-	 * 
+	/**Adds and displays the attribute of an entity
+	 * @param object
+	 * @param title
+	 * @param methods
+	 * @throws GroovyInstantiationException
 	 */
-	
-	/**Displays the Render properties of an entity
-	 * 
-	 */
-	private void addRenderProperty() {
-		// TODO Auto-generated method stub
-		
+	private void addAttribute(Object object, String title, Set<String> methods) throws GroovyInstantiationException {
+		Attribute at = new Attribute(object, title, methods);
+		myHBox.getChildren().add(at.getPane());
 	}
 	
-	/**Displays the individual scripts of an entity
-	 * 
-	 */
-	private void addScriptProperties() {
-		// TODO Auto-generated method stub
-	}
 	
 	/**Displays a button that allows users to add more scripts to an entity
 	 * 
