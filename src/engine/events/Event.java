@@ -14,7 +14,8 @@ public abstract class Event {
         return type;
     }
 
-    public void fire(Entity target) {
+    public Event fire(Entity target) {
         target.dispatchEvent(this);
+        return this;
     }
 }
