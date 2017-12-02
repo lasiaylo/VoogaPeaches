@@ -3,7 +3,7 @@ package authoring.panels.tabbable;
 
 import authoring.IPanelController;
 import authoring.Panel;
-import engine.managers.EntityManager;
+//import engine.managers.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -28,7 +28,7 @@ public class LibraryPanel implements Panel {
     private ChoiceBox<String> myEntType;
     private VBox myArea;
     private IPanelController myController;
-    private EntityManager myManager;
+//    private EntityManager myManager;
 
     public LibraryPanel() {
         myTilePane = new TilePane();
