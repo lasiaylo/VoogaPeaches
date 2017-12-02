@@ -1,6 +1,7 @@
 package database;
 
 import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ public class GameSaver {
      */
     public GameSaver(String gameName) {
         this.gameName = gameName;
-        manager = new JSONDataManager(JSONDataManager.JSONDataFolders.GAMES);
+        manager = new JSONDataManager(JSONDataFolders.GAMES);
         gameFolder = getGameFolder(gameName);
     }
 

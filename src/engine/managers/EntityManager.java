@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
@@ -47,7 +48,7 @@ public class EntityManager extends TrackableObject {
 		myGridSize = gridSize.intValue();
 		myBGLayer = new Layer();
 		myLayerList = FXCollections.observableList(new ArrayList<Layer>());
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
         myBGType = manager.readFileData("Background/grass.png");
 	}
 

@@ -2,6 +2,7 @@ package database.examples.realtime;
 
 import database.firebase.DataReactor;
 import database.firebase.DatabaseConnector;
+import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import util.exceptions.ObjectIdNotFoundException;
@@ -16,7 +17,7 @@ public class TestEngine implements DataReactor<Post> {
 
         TestEngine engine = new TestEngine();
         DatabaseConnector<Post> db = new DatabaseConnector<>(Post.class);
-        JSONDataManager manager = new JSONDataManager(JSONDataManager.JSONDataFolders.IMAGES);
+        JSONDataManager manager = new JSONDataManager(JSONDataFolders.IMAGES);
 
         // Setups the methods defined for the DataReactor to be
         // called on data events
