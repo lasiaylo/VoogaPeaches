@@ -151,7 +151,6 @@ public class CameraPanel implements Panel {
 				int layer = Character.getNumericValue(option.charAt(option.length()-1));
 				myManager.selectLayer(layer);
 				myView.setMouseTransparent(true);
-				myManager.setMyLevel(layer);
 				break;
 		}
 

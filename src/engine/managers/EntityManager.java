@@ -9,13 +9,11 @@ import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
-import engine.scripts.Script;
 import engine.scripts.defaults.ImageScript;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
 
 /**
@@ -33,8 +31,7 @@ public class EntityManager extends TrackableObject {
 	private Layer myBGLayer;
 	private ObservableList<Layer> myLayerList;
 	private InputStream myBGType;
-	private int myLevel = 1;
-	private String myMode = "All";
+	private int myMode = -1;
 
 	/**
 	 * manage all entities and layers
@@ -45,16 +42,12 @@ public class EntityManager extends TrackableObject {
 	 */
 	public EntityManager(Number gridSize) {
 		myGridSize = gridSize.intValue();
-		myBGLayer = new Layer();
+		myBGLayer = new Layer(0);
 		myLayerList = FXCollections.observableList(new ArrayList<Layer>());
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         myBGType = manager.readFileData("Background/grass.png");
 	}
 
-	private Entity createEnt(Vector pos) {
-		Entity myEnt = new Entity(pos);
-		return myEnt;
-	}
 
 	/**  This should be reimplement later when the image script can set initial value so that the imagescript could be
 	 * appended when the entity was created and set to a certain size
@@ -63,13 +56,12 @@ public class EntityManager extends TrackableObject {
 	 * @return BGblock
 	 */
 	public Entity addBG(Vector pos) {
-	    if (myMode.equals("BG")) {
-            Entity BGblock = createEnt(pos);
+	    if (myMode == 0) {
+            Entity BGblock = myBGLayer.addEntity(pos);
             ImageScript script = new ImageScript();
             changeScriptBGType(script, BGblock);
             BGblock.addScript(script);
             BGblock.getRender().setOnMouseClicked(e -> changeScriptBGType(script, BGblock));
-            myBGLayer.addEntity(BGblock);
             return BGblock;
         }
         return null;
@@ -91,8 +83,11 @@ public class EntityManager extends TrackableObject {
 	 * @return created entity
 	 */
 	public Entity addNonBG(Vector pos, InputStream image) {
-	    if ((!myMode.equals("BG")) && (!myMode.equals("All"))) {
-            Entity staEnt = createEnt(pos);
+	    if (myMode > 0) {
+	        if (myMode > myLayerList.size()) {
+	            addLayer();
+            }
+            Entity newEnt = myLayerList.get(myMode - 1).addEntity(pos);
             ImageScript script = new ImageScript();
             try {
                 image.reset();
@@ -100,17 +95,10 @@ public class EntityManager extends TrackableObject {
                 e.printStackTrace();
             }
             script.setFilename(image);
-            staEnt.addScript(script);
-            staEnt.update();
+            newEnt.addScript(script);
+            script.execute(newEnt);
 
-            if (myLevel > myLayerList.size()-1) {
-                Layer myLayer = addLayer();
-                myLayer.addEntity(staEnt);
-            }
-            else {
-                myLayerList.get(myLevel).addEntity(staEnt);
-            }
-            return staEnt;
+            return newEnt;
         }
         return null;
 	}
@@ -120,23 +108,11 @@ public class EntityManager extends TrackableObject {
 	 * @return new layer
 	 */
 	public Layer addLayer() {
-		Layer current = new Layer();
+		Layer current = new Layer(myLayerList.size() + 1);
 		myLayerList.add(current);
 		return current;
 	}
 
-	/**
-	 * add nonstatic entities
-	 * @param pos
-	 * @return Entity
-	 */
-	public Entity addNonStatic(Vector pos, InputStream image) {
-		Entity Ent = addNonBG(pos, image);
-		if (Ent != null) {
-            Ent.setStatic(false);
-        }
-		return Ent;
-	}
 
 	/**
 	 * get group of background imageview
@@ -161,13 +137,13 @@ public class EntityManager extends TrackableObject {
 	 * @param level
 	 */
 	public void selectLayer(int level) {
+		myMode = level;
 		level -= 1;
 		myBGLayer.onlyView();
 		for (Layer each: myLayerList) {
 			each.deselect();
 		}
 		myLayerList.get(level).select();
-		myMode = "" + level;
 	}
 
 	/**
@@ -178,7 +154,7 @@ public class EntityManager extends TrackableObject {
 		for (Layer each: myLayerList) {
 			each.deselect();
 		}
-		myMode = "BG";
+		myMode = 0;
 	}
 
 	/**
@@ -189,7 +165,7 @@ public class EntityManager extends TrackableObject {
 		for (Layer each: myLayerList) {
 			each.onlyView();
 		}
-		myMode = "All";
+		myMode = -1;
 	}
 
 	/**
@@ -223,20 +199,6 @@ public class EntityManager extends TrackableObject {
     }
 
 
-    /**
-     * change current editing layer
-     * @param level
-     */
-    public void setMyLevel (int level) {
-	    myLevel = level - 1;
-    }
 
-    /**
-     * get current mode
-     * @return myMode
-     */
-    public String getMyMode() {
-        return myMode;
-    }
 
 }

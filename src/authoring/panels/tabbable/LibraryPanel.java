@@ -63,7 +63,7 @@ public class LibraryPanel implements Panel {
                 view.setOnMouseClicked(e -> myManager.setMyBGType(imageStream));
             }
             else {
-                view.setOnMouseClicked(e -> myManager.addNonStatic(new Vector(25, 25), imageStream));
+                view.setOnMouseClicked(e -> myManager.addNonBG(new Vector(25, 25), imageStream));
             }
         }
     }

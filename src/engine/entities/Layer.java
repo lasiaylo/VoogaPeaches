@@ -3,6 +3,7 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
+import engine.scripts.defaults.ImageScript;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import util.math.num.Vector;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,43 +29,33 @@ import static java.lang.Math.abs;
 public class Layer extends TrackableObject {
 	@Expose private List<Entity> myEntityList;
 	@Expose private Group myImageList;
+    @Expose private int myID;
 
 
-	public Layer() {
+    /**
+     * create layer, 0 is BG layer, others are different layers
+     * @param ID
+     */
+	public Layer(int ID) {
 		myEntityList = new ArrayList<Entity>();
 		myImageList = new Group();
+		myID = ID;
+        ImageView holder = setPlaceHolder();
+        myImageList.getChildren().add(holder);
+    }
+
+    private ImageView setPlaceHolder() {
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
         holder.setX(0);
         holder.setY(0);
         holder.setFitWidth(50);
         holder.setFitHeight(50);
-        myImageList.getChildren().add(holder);
+        return holder;
     }
 
-	/**
-	 * add entity to layer
-	 *
-	 * this entity should already has an imageview inside its render
-	 *
-	 * which means adding imagescript and updating entity
-	 * @param each
-	 */
-	public void addEntity(Entity each) {
-		myEntityList.add(each);
-		myImageList.getChildren().add(each.getRender());
-	}
 
-	/**
-	 * get entity list from the layer
-	 * @return
-	 */
-	public List<Entity> getEntityList() {
-
-		return myEntityList;
-	}
-
-	/**
+    /**
 	 * select this layer: make all entity on this layer visible and mouse-clickable
 	 */
 	public void select() {
@@ -108,6 +101,20 @@ public class Layer extends TrackableObject {
 			each.update();
 		}
 	}
+
+    /**
+     * add entity to a layer
+     * @param pos
+     * @return
+     */
+	public Entity addEntity(Vector pos) {
+        Entity newEnt = new Entity(pos);
+
+        myEntityList.add(newEnt);
+        myImageList.getChildren().add(newEnt.getRender());
+
+        return newEnt;
+    }
 
 	/**
 	 * update imageview of entities inside box

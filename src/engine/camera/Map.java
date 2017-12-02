@@ -4,18 +4,11 @@ import engine.entities.Layer;
 import engine.managers.EntityManager;
 import engine.util.FXProcessing;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import util.math.num.Vector;
-
-import java.awt.*;
 
 /**
  * whole map for the game
