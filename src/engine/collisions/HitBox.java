@@ -75,8 +75,10 @@ public class HitBox extends TrackableObject {
         }
     }
 
-
-
-
-
+    /**
+     * @return {@code Polygon} corresponding to the HitBox
+     */
+    public Polygon getHitbox() {
+        return hitboxShape;
+    }
 }
