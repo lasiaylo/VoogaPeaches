@@ -3,7 +3,7 @@ package engine.scripts.defaults
 import engine.entities.Entity
 import util.math.num.Vector
 
-class Xleft extends GroovyScript{
+class XLeft extends GroovyScript {
     @Override
     void start() {
 
