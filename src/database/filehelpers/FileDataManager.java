@@ -1,5 +1,6 @@
 package database.filehelpers;
 
+import jdk.internal.util.xml.impl.Input;
 import util.PropertiesReader;
 
 import java.io.ByteArrayInputStream;
@@ -10,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for managing the storage and retrieval of files
@@ -21,24 +24,6 @@ public class FileDataManager {
 
     /* Instance Variables */
     private String baseFolder;
-
-    /**
-     * Enum defining the different folders in the data folder of the
-     * project where user saved files can be read and written from by the
-     * FileDataManager class
-     */
-    public enum FileDataFolders {
-        IMAGES ("images"),
-        SOUNDS ("sounds");
-
-        private final String filepath;
-        FileDataFolders(String path) { this.filepath = PropertiesReader.path("db_files") + path + "/"; }
-
-        /**
-         * @return A {@code String} representing the path of the folder within the project
-         */
-        String path() { return filepath; }
-    }
 
     /**
      * Creates a new FileDataManager that is able to manipulate
@@ -63,11 +48,37 @@ public class FileDataManager {
         byte[] fileBytes;
         try {
             Path fileLocation = Paths.get(baseFolder + filename);
-            fileBytes = Files.readAllBytes(fileLocation);
+            if(fileLocation.toFile().isFile()) {
+                fileBytes = Files.readAllBytes(fileLocation);
+            } else {
+                fileBytes = new byte[0];
+            }
         } catch(InvalidPathException | IOException e) {
             fileBytes = new byte[0];
         }
         return new ByteArrayInputStream(fileBytes);
+    }
+
+    /**
+     * Retrieves all the files contained below the path specified. Includes files within subfolders
+     * of the specified paths.
+     * @param path is {@code String} specifying the subfolder to retrieve files from
+     * @return A {@code List<InputStream>} that contains the InputStreams of each file in the subfolder
+     */
+    public List<InputStream> retrieveSubfolderFiles(String path) {
+        List<InputStream> fileStreams = new ArrayList<>();
+        File base = new File(baseFolder + path);
+        if(base.exists()) {
+            for(File subfile : base.listFiles()){
+                if(subfile.isDirectory()) {
+                    fileStreams.addAll(retrieveSubfolderFiles(path + "/" + subfile.getName()));
+                } else {
+                    InputStream fileStream = readFileData(path + "/" + subfile.getName());
+                    fileStreams.add(fileStream);
+                }
+            }
+        }
+        return fileStreams;
     }
 
     /**
@@ -102,5 +113,42 @@ public class FileDataManager {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    /**
+     * Returns whether or not the folder exists within the base folder's
+     * directory
+     * @param folderName is a {@code String} representing the name of the folder
+     *                   to search for
+     * @return {@code true} if the folder does exist, and {@code false} otherwise
+     */
+    public boolean folderExists(String folderName) {
+        Path folderPath = Paths.get(baseFolder + folderName);
+        return folderPath.toFile().exists();
+    }
+
+    /**
+     * Creates a new folder within the base folder of the manager. If
+     * the folder exists already, then a new folder will NOT be created.
+     * @param folderName is a {@code String} representing the name
+     *                   of the folder to create
+     * @return {@code true} if the folder was created, and false otherwise
+     */
+    public boolean createFolder(String folderName){
+        if(folderExists(folderName)) return false;
+        return (new File(baseFolder + folderName)).mkdir();
+    }
+
+    /**
+     * get all subfolder names
+     * @return
+     */
+    public List<String> getSubFolder() {
+        File[] directories = new File(baseFolder).listFiles(File::isDirectory);
+        List<String> subFolder = new ArrayList<>();
+        for (File each: directories) {
+            subFolder.add(each.getName());
+        }
+        return subFolder;
     }
 }
