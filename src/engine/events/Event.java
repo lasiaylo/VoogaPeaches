@@ -1,6 +1,6 @@
 package engine.events;
 
-import engine.Entity;
+import engine.entities.Entity;
 
 public abstract class Event {
     private String type;

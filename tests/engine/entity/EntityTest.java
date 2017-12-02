@@ -1,6 +1,6 @@
 package engine.entity;
 
-import engine.Entity;
+import engine.entities.Entity;
 import engine.events.ClickEvent;
 import org.junit.jupiter.api.Test;
 
