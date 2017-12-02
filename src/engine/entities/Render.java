@@ -1,6 +1,7 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.util.FXProcessing;
@@ -30,7 +31,7 @@ public class Render extends ImageView {
 
     public Render(Entity entity) {
         myEntity = entity;
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
         this.setImage(new Image(manager.readFileData("holder.gif")));
         setPosition(entity.getTransform().getPosition());
     }

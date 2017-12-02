@@ -1,6 +1,7 @@
 package database.examples.filestorage;
 
 import database.filehelpers.FileConverter;
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.firebase.FirebaseConnector;
@@ -64,7 +65,7 @@ public class TestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         connector = new FileStorageConnector();
-        manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        manager = new FileDataManager(FileDataFolders.IMAGES);
 
         myRoot = new Group();
         Scene myScene = new Scene(myRoot, 800, 800);

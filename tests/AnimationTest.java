@@ -1,3 +1,4 @@
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.entities.Entity;
 import engine.managers.CollisionManager;
@@ -28,7 +29,7 @@ public class AnimationTest extends Application {
         Entity duvall = new Entity(new Vector(100, 300), new Vector(30, 30), new Vector(0, 0));
 //        duvall.getTransform().setScale(new Vector(3, 3));
         List<Image> imageList = new ArrayList<>();
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
 
         imageList.add(new Image(manager.readFileData("Duvall/duvall1.jpg")));
         imageList.add(new Image(manager.readFileData("Duvall/duvall2.jpg")));

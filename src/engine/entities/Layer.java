@@ -1,6 +1,7 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import javafx.scene.Group;
@@ -31,7 +32,7 @@ public class Layer extends TrackableObject {
 	public Layer() {
 		myEntityList = new ArrayList<Entity>();
 		myImageList = new Group();
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
         ImageView holder = new ImageView(new Image(manager.readFileData("holder")));
         holder.setX(0);
         holder.setY(0);
