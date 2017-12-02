@@ -19,7 +19,7 @@ public class NumberInputField extends InputField{
 	}
 	
 	protected void getDefaultValue() throws GroovyInstantiationException {
-		String defaultText = Double.toString((Double) getValue());
+		String defaultText = String.valueOf(getValue());
 		getTextField().setText(defaultText);
 	}
 

@@ -48,7 +48,7 @@ public class Attribute {
 		myGrid.add(field.getControl(), 1, row);
 	}
 	
-	public Node getPane() {
+	public Node getNode() {
 		return myPane;
 	}
 }
