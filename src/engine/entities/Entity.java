@@ -2,6 +2,8 @@ package engine.entities;
 
 import com.google.gson.annotations.Expose;
 import engine.events.Evented;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import java.util.Collection;
@@ -58,8 +60,6 @@ public class Entity extends Evented {
     public Map<String, Object> getProperties() {
         return this.properties;
     }
-    
-    
 
     public void add(Node node) {
         group.getChildren().add(node);
@@ -83,6 +83,5 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        
     }
 }
