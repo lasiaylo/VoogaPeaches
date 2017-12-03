@@ -1,15 +1,23 @@
 package engine.camera;
 
+import javafx.beans.binding.NumberBinding;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.SubScene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import util.math.num.Vector;
+
 
 /**
  * Camera that will pass a view to the authoring and player for game display
@@ -22,8 +30,9 @@ public class Camera {
     private ScrollPane myView;
     private Map myMap;
     private Vector myCenter = new Vector(0, 0);
-    // todo: set initial value in constructor
     private Vector mySize = new Vector(10, 10);
+    private Canvas myMiniMap;
+    private Circle myPoint;
 
     public Camera(Map map) {
         myMap = map;
@@ -31,6 +40,8 @@ public class Camera {
         myView.setPannable(false);
         myView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         myView.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+
 
     }
 
@@ -89,6 +100,49 @@ public class Camera {
         myView.setHmin(0);
         myView.setHvalue(0);
     }
+
+    /**
+     * get minimap
+     * @param size
+     * @return
+     */
+    public Pane getMiniMap(Vector size) {
+        myMiniMap = new Canvas(size.at(0), size.at(1));
+        myMiniMap.setStyle("-fx-border-color: black");
+        myPoint = new Circle(myView.getHvalue(), myView.getVvalue(), 5, Color.RED);
+
+        NumberBinding xPoint = myView.hvalueProperty().multiply(size.at(0));
+        NumberBinding yPoint = myView.vvalueProperty().multiply(size.at(1));
+        myPoint.centerXProperty().bind(xPoint);
+        myPoint.centerYProperty().bind(yPoint);
+
+        Pane miniPane = new Pane();
+        miniPane.getChildren().add(myMiniMap);
+        miniPane.getChildren().add(myPoint);
+
+        myMiniMap.setOnMouseClicked(e -> moveCamera(e));
+
+        return miniPane;
+
+    }
+
+    private void moveCamera(MouseEvent event) {
+        myPoint.centerXProperty().unbind();
+        myPoint.centerYProperty().unbind();
+
+        myPoint.setCenterX(event.getX());
+        myPoint.setCenterY(event.getY());
+        myView.setHvalue(event.getX()/myMiniMap.getWidth());
+        myView.setVvalue(event.getY()/myMiniMap.getHeight());
+
+        NumberBinding xPoint = myView.hvalueProperty().multiply(myMiniMap.getWidth());
+        NumberBinding yPoint = myView.vvalueProperty().multiply(myMiniMap.getHeight());
+        myPoint.centerXProperty().bind(xPoint);
+        myPoint.centerYProperty().bind(yPoint);
+
+        event.consume();
+    }
+
 
 
 

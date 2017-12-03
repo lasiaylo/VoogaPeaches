@@ -8,6 +8,7 @@ import engine.managers.EntityManager;
 import javafx.animation.Timeline;
 import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
@@ -76,5 +77,13 @@ public class Engine {
     }
 
 
+    /**
+     * get minimap
+     * @param size
+     * @return minimap
+     */
+    public Pane getMiniMap(Vector size) {
+        return myCamera.getMiniMap(size);
+    }
 
 }
