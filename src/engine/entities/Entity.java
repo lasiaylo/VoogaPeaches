@@ -5,7 +5,6 @@ import engine.events.Evented;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -21,8 +20,6 @@ public class Entity extends Evented {
     @Expose private Collection<Entity> children;
     @Expose private Map<String, Object> properties;
     private Group group;
-    
-    private Map<String, Object> parameterMap;
 
     /**
      * Create entity as root
@@ -30,6 +27,8 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
+
+        executeScripts();
     }
 
     /**
@@ -56,8 +55,8 @@ public class Entity extends Evented {
      *
      * @return parameter map
      */
-    public Map<String, Object> getParameterMap() {
-        return this.parameterMap;
+    public Map<String, Object> getProperties() {
+        return this.properties;
     }
     
     
@@ -81,5 +80,9 @@ public class Entity extends Evented {
 
     public Object getProperty(String name) {
         return properties.get(name);
+    }
+
+    private void executeScripts() {
+        
     }
 }
