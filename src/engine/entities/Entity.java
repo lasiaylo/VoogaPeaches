@@ -20,11 +20,11 @@ import java.util.*;
  * @author Albert
  */
 public class Entity extends Evented {
-    @Expose
-    private Collection<Entity> children;
 
     private Entity parent;
-    private Map<String, Object> properties;
+    @Expose private Collection<Entity> children;
+    @Expose private Map<String, Object> properties;
+
     private Group group;
 
     /**
@@ -88,8 +88,13 @@ public class Entity extends Evented {
             new GroovyShell(binding).evaluate(code);
         }
     }
-
+    
     private void setEventListeners() {
         group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }
