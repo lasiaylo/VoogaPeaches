@@ -86,5 +86,6 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
+        
     }
 }
