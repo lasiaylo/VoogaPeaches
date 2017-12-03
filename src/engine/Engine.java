@@ -2,6 +2,7 @@ package engine;
 
 import engine.camera.Camera;
 import engine.entities.Entity;
+import engine.events.KeyPressEvent;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,7 +22,7 @@ public class Engine {
     public static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
     private Entity root;
-    private Map<String, Entity> levelMap;
+    private Map<String, Entity> myLevelMap;
     private Entity currentLevel;
     private TickEvent tick = new TickEvent();
     private Timeline myGamingTimeline;
@@ -36,14 +37,14 @@ public class Engine {
     public Engine(Entity root, String level, Camera camera) {
         this.root = root;
         this.myCamera = camera;
-        levelMap = new HashMap<>();
+        myLevelMap = new HashMap<>();
         try {
-            root.getChildren().forEach(e -> levelMap.put((String) e.getProperty("name"), e));
+            root.getChildren().forEach(e -> myLevelMap.put((String) e.getParameterMap().get("name"), e));
         } catch (ClassCastException e) {
             ErrorDisplay castError = new ErrorDisplay("Level Name Property Does Not Exist");
             castError.displayError();
         }
-        currentLevel = levelMap.get(level);
+        currentLevel = myLevelMap.get(level);
 
         myGamingTimeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         myGamingTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -54,5 +55,14 @@ public class Engine {
 
     private void loop() {
         tick.recursiveFire(currentLevel);
+    }
+
+    public Timeline getGamingLoop() {
+        return myGamingTimeline;
+    }
+
+    private void initiateLevel(Entity level) {
+        myLevelMap.put((String) level.getParameterMap().get("name"), level);
+        level.getNodes().setOnKeyTyped(e -> new KeyPressEvent(e.getCode()));
     }
 }
