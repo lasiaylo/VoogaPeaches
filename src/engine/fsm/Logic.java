@@ -62,4 +62,9 @@ public class Logic extends TrackableObject {
     public void setLogic(String newLogic) {
         myLogic = newLogic;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

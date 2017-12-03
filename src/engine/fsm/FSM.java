@@ -98,4 +98,9 @@ public class FSM extends TrackableObject{
 	public boolean check(Object state) {
 		return myCurrentState == (State) state;
 	}
+
+	@Override
+	public void initialize() {
+
+	}
 }

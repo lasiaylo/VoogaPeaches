@@ -54,4 +54,9 @@ public class State extends TrackableObject {
 	public String getStateName() {
 		return stateName;
 	}
+
+	@Override
+	public void initialize() {
+
+	}
 }

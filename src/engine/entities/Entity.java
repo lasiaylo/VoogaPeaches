@@ -22,10 +22,13 @@ public class Entity extends Evented {
 
     @Expose private Collection<Entity> children;
     @Expose private Map<String, Object> properties;
+    private Entity() {}
+
 
     private Group group;
     private Entity parent;
     private Entity root;
+
 
     /**
      * Create entity as root
