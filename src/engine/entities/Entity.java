@@ -8,6 +8,7 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 
 import java.util.*;
 
@@ -33,7 +34,8 @@ public class Entity extends Evented {
         group = new Group();
         children = new HashSet<>();
         properties = new HashMap<>();
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+
+        setEventListeners();
         executeScripts();
     }
 
@@ -85,6 +87,10 @@ public class Entity extends Evented {
             binding.setVariable("game", null);
             new GroovyShell(binding).evaluate(code);
         }
+    }
+    
+    private void setEventListeners() {
+        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
     }
 
     @Override
