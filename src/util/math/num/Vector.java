@@ -9,11 +9,16 @@ public class Vector implements IVector<Vector, Double> {
 
     private double[] arr;
 
+    public double x;
+    public double y;
+
     public Vector(double... a) {
         if (a.length < 2)
             throw new IllegalArgumentException();
         arr = a;
         d = a.length;
+        x = a[0];
+        y = a[0];
     }
 
     public Vector(Vector p) {

@@ -3,7 +3,9 @@ package engine.camera;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.shape.Circle;
@@ -17,15 +19,14 @@ public class CameraInvestigation extends Application {
         circle.setCenterX(30);
         circle.setCenterY(30);
         Group group = new Group();
-        Canvas canvas = new Canvas();
         group.getChildren().add(circle);
-        group.getChildren().add(canvas);
         Scene scene = new Scene(group);
         primaryStage.setScene(scene);
         primaryStage.show();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100000), e -> {
-
+            circle.setCenterX(circle.getCenterX() + 1);
+            circle.setCenterY(circle.getCenterY() + 1);
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();

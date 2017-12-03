@@ -1,12 +1,9 @@
 package engine.entities;
 
-import engine.collisions.HitBox;
-import engine.events.Event;
+import com.google.gson.annotations.Expose;
 import engine.events.Evented;
 import javafx.scene.Group;
 import javafx.scene.Node;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,10 +17,9 @@ import java.util.Map;
  * @author Albert
  */
 public class Entity extends Evented {
-    private Entity parent;
-
-    private Collection<Entity> children;
-    private Collection<HitBox> hitBoxes = new ArrayList<>();
+    @Expose private Entity parent;
+    @Expose private Collection<Entity> children;
+    @Expose private Map<String, Object> properties;
     private Group group;
     
     private Map<String, Object> parameterMap;
@@ -44,7 +40,6 @@ public class Entity extends Evented {
     public Entity(Entity parent) {
         this();
         this.parent = parent;
-        parameterMap = new HashMap<>();
     }
 
     /**
@@ -84,8 +79,7 @@ public class Entity extends Evented {
         return children;
     }
 
-    public void addHitBox(HitBox hitBox) {
-        hitBoxes.add(hitBox);
-        group.getChildren().addAll(hitBox.getShapes());
+    public Object getProperty(String name) {
+        return properties.get(name);
     }
 }
