@@ -5,6 +5,7 @@ import database.scripthelpers.ScriptLoader;
 import engine.events.ClickEvent;
 import engine.events.Evented;
 import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -55,15 +56,6 @@ public class Entity extends Evented {
         return parent;
     }
 
-    /**
-     * Get map containing all of the entity's parameters
-     *
-     * @return parameter map
-     */
-    public Map<String, Object> getProperties() {
-        return this.properties;
-    }
-
     public void add(Node node) {
         group.getChildren().add(node);
     }
@@ -91,6 +83,8 @@ public class Entity extends Evented {
             Binding binding = new Binding();
             binding.setVariable("entity", this);
             binding.setVariable("game", null);
+            GroovyShell shell = new GroovyShell(binding);
+            shell.evaluate(code);
         }
     }
 }
