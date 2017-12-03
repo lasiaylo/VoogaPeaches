@@ -21,11 +21,12 @@ import java.util.*;
  */
 public class Entity extends Evented {
 
-    private Entity parent;
     @Expose private Collection<Entity> children;
     @Expose private Map<String, Object> properties;
 
     private Group group;
+    private Entity parent;
+    private Entity root;
 
     /**
      * Create entity as root
@@ -65,6 +66,12 @@ public class Entity extends Evented {
     public void add(Entity entity) {
         children.add(entity);
         add(entity.getNodes());
+        entity.addTo(entity);
+    }
+
+    public Entity addTo(Entity parent) {
+        this.parent = parent;
+        return this;
     }
 
     public Group getNodes() {
@@ -88,13 +95,13 @@ public class Entity extends Evented {
             new GroovyShell(binding).evaluate(code);
         }
     }
-    
+
     private void setEventListeners() {
         group.setOnMouseClicked(e -> new ClickEvent().fire(this));
     }
 
     @Override
     public void initialize() {
-
+        
     }
 }
