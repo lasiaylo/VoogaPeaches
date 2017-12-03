@@ -2,13 +2,12 @@ package database.jsonhelpers;
 
 import database.examples.realtime.Post;
 import database.firebase.TrackableObject;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class JSONToObjectConverter<T extends TrackableObject> {
@@ -27,7 +26,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             params.put(key, json.get(key));
             if(json.get(key) instanceof Number) {
                 // Convert Number object to appropriate type for object T
-                Number convertedVal = convertValue(key, (Long) json.get(key));
+                Number convertedVal = convertValue(key,  (Number) json.get(key));
                 params.put(key, convertedVal);
             } else if(json.get(key).getClass() == JSONObject.class) {
                 // Create map for params of object that is being held by the overall object
@@ -49,8 +48,8 @@ public class JSONToObjectConverter<T extends TrackableObject> {
         return null;
     }
 
-
-    private <G> G createObject(Class<G> myClass, Map<String, Object> params) {
+    public <G> G createObjectFromJSON(Class<G> myClass, JSONObject json) {
+        Map<String, Object> params = parseParameters(json);
         try {
             // Get constructor and create new instance of object
             Constructor<G> constructor = myClass.getDeclaredConstructor();
@@ -76,10 +75,13 @@ public class JSONToObjectConverter<T extends TrackableObject> {
 
                 // Recursively create objects that are being held by the original object
                 if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
-                    Object heldObject = (Object) createObject(instanceVar.getType(), (Map<String,Object>) params.get(param));
+                    JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
+                    Object heldObject = (Object) createObjectFromJSON(instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
+                } else if(params.get(param).getClass() == JSONArray.class) {
+                    JSONArray arr = (JSONArray) params.get(param);
+                    params.put(param, arr.toList());
                 }
-
                 if(!instanceVar.isAccessible()) {
                     instanceVar.setAccessible(true);
                     instanceVar.set(newObject, params.get(param));
@@ -96,15 +98,12 @@ public class JSONToObjectConverter<T extends TrackableObject> {
     }
 
 
-    public List<T> readInObjects(String filename) {
-        List<T> objects = new ArrayList<T>();
-        manager.readJSONFile(filename);
-
-        return null;
-    }
-
     public static void main(String[] args){
-        JSONToObjectConverter<Post> n = new JSONToObjectConverter<Post>(Post.class);
+        Post p = new Post("test","shoot",5);
+        JSONObject obj = JSONHelper.JSONForObject(p);
+        JSONToObjectConverter<Post> convert = new JSONToObjectConverter<>(Post.class);
+        Post recreated  = convert.createObjectFromJSON(Post.class, obj);
+        System.out.println(recreated.toString());
 
     }
 
