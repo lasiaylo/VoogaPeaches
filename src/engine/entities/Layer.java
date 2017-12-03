@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import util.math.num.Vector;
 
@@ -53,6 +55,7 @@ public class Layer extends TrackableObject {
         holder.setFitHeight(50);
         return holder;
     }
+
 
 
     /**

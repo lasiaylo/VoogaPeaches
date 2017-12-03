@@ -9,14 +9,17 @@ import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.entities.Layer;
+import engine.entities.Render;
 import engine.scripts.defaults.ImageScript;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
+import javafx.scene.input.*;
 import util.math.num.Vector;
+
 
 /**
  * create and hold all entities displayed
@@ -80,6 +83,7 @@ public class EntityManager extends TrackableObject {
         }
     }
 
+
     private void changeRender(MouseButton mouse, ImageScript scripts, Entity entity) {
 	    if (mouse.equals(MouseButton.PRIMARY) && myMode == 0) {
 	        changeScriptBGType(scripts, entity);
@@ -119,12 +123,28 @@ public class EntityManager extends TrackableObject {
             script.setFilename(image);
             newEnt.addScript(script);
             script.execute(newEnt);
-            newEnt.getRender().setOnMouseClicked(e -> changeRender(e.getButton(), script, newEnt));
 
+            Vector startPos = new Vector(0, 0);
+            newEnt.getRender().setOnMouseClicked(e -> changeRender(e.getButton(), script, newEnt));
+            newEnt.getRender().setOnMousePressed(e -> startDrag(newEnt, startPos));
+            newEnt.getRender().setOnMouseDragged(e -> drag(e, newEnt, startPos));
             return newEnt;
         }
         return null;
 	}
+
+	private void startDrag(Entity entity, Vector startPos) {
+	    startPos = entity.getTransform().getPosition();
+    }
+
+	private void drag(MouseEvent event, Entity entity, Vector startPos) {
+
+	    Vector pos = startPos.add(new Vector(event.getX(), event.getY()));
+
+        entity.getTransform().setPosition(pos);
+        entity.getRender().displayUpdate(entity.getTransform());
+        event.consume();
+    }
 
 	/**
 	 * add new layer
@@ -154,6 +174,8 @@ public class EntityManager extends TrackableObject {
 		myLayerList.addListener(listener);
 		// potential issue doesn't add to background?
 	}
+
+
 
 	/**
 	 * select any single layer, background layer is view only, for authoring mode
@@ -221,6 +243,16 @@ public class EntityManager extends TrackableObject {
 	    myBGType = type;
     }
 
+    /**
+     * getter for current nonBG layer imagelist
+     * @return imagelist
+     */
+    public Group getImageList(){
+	    if (myMode > 0) {
+	        return myLayerList.get(myMode - 1).getImageList();
+        }
+        return null;
+    }
 
 
 

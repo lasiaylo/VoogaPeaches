@@ -1,12 +1,20 @@
 package engine.camera;
 
+import engine.entities.Entity;
 import engine.entities.Layer;
+import engine.entities.Render;
 import engine.managers.EntityManager;
 import engine.util.FXProcessing;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import util.math.num.Vector;
 
@@ -25,6 +33,7 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
     private EntityManager myManager;
     private Group myBGList;
     private Canvas myCanvas;
+    private int myMode = 0;
 
     public Map(EntityManager manager) {
 
@@ -39,6 +48,7 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         myManager.addLayerListener(this);
         myCanvas.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
 
+
     }
 
 
@@ -46,6 +56,8 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         Vector center = FXProcessing.getBGCenter(pos, GRIDS);
         myManager.addBG(center);
     }
+
+
 
 
     /**
@@ -70,7 +82,9 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
                 this.getChildren().add(each.getImageList());
                 this.setAlignment(each.getImageList(), Pos.TOP_LEFT);
             }
+            this.getChildren().get(0).setOnDragDropped(e -> System.out.println("layer"));
         }
     }
+
 
 }
