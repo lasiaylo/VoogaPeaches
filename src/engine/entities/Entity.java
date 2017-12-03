@@ -35,7 +35,6 @@ public class Entity extends Evented {
         group = new Group();
         children = new HashSet<>();
         properties = new HashMap<>();
-
         setEventListeners();
         executeScripts();
     }
