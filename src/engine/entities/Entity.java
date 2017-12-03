@@ -8,7 +8,6 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 
 import java.util.*;
 
@@ -21,11 +20,12 @@ import java.util.*;
  */
 public class Entity extends Evented {
 
-    private Entity parent;
     @Expose private Collection<Entity> children;
     @Expose private Map<String, Object> properties;
 
     private Group group;
+    private Entity parent;
+    private Entity root;
 
     /**
      * Create entity as root
@@ -64,6 +64,12 @@ public class Entity extends Evented {
     public void add(Entity entity) {
         children.add(entity);
         add(entity.getNodes());
+        entity.addTo(entity);
+    }
+
+    public Entity addTo(Entity parent) {
+        this.parent = parent;
+        return this;
     }
 
     public Group getNodes() {
@@ -87,13 +93,23 @@ public class Entity extends Evented {
             new GroovyShell(binding).evaluate(code);
         }
     }
-    
+
     private void setEventListeners() {
         group.setOnMouseClicked(e -> new ClickEvent().fire(this));
     }
 
     @Override
     public void initialize() {
+        if (root == null)
+            if (parent != null)
+                for (Entity entity : children)
+                    entity.root = this;
+            else
+                for (Entity entity : children)
+                    entity.root = root;
+
+        for (Entity entity : children)
+            entity.parent = this;
 
     }
 }
