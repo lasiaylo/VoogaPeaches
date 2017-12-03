@@ -49,15 +49,11 @@ public class GameSaver {
      *               Trackable objects that you want to store
      * @param <T> is the class of the TrackableObject being stored
      */
-    public <T extends TrackableObject> void saveTrackableObjects(List<T> toSave) {
-        if (toSave.size() != 0) {
-            String classFolder = gameName + "/" + toSave.get(0).getClass().getSimpleName();
-            if(!manager.folderExists(classFolder)) manager.createFolder(classFolder);
-            for (T object : toSave) {
-                JSONObject jsonForm = JSONHelper.JSONForObject(object);
-                String filepath = classFolder + "/" + jsonForm.get("UID");
-                manager.writeJSONFile(filepath,jsonForm);
-            }
-        }
+    public <T extends TrackableObject> void saveTrackableObjects(T toSave) {
+        String classFolder = gameName + "/" + toSave.getClass().getSimpleName();
+        if(!manager.folderExists(classFolder)) manager.createFolder(classFolder);
+        JSONObject jsonForm = JSONHelper.JSONForObject(toSave);
+        String filepath = classFolder + "/" + jsonForm.get("UID");
+        manager.writeJSONFile(filepath,jsonForm);
     }
 }
