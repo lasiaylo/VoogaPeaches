@@ -1,12 +1,10 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import engine.events.ClickEvent;
 import engine.events.Evented;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -20,9 +18,8 @@ import java.util.Map;
 public class Entity extends Evented {
     @Expose private Entity parent;
     @Expose private Collection<Entity> children;
+    @Expose private Map<String, Object> properties;
     private Group group;
-    
-    private Map<String, Object> propertiesMap;
 
     /**
      * Create entity as root
@@ -30,8 +27,8 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
-        propertiesMap = new HashMap<>();
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+
+        executeScripts();
     }
 
     /**
@@ -58,9 +55,11 @@ public class Entity extends Evented {
      *
      * @return parameter map
      */
-    public Map<String, Object> getParameterMap() {
-        return this.propertiesMap;
+    public Map<String, Object> getProperties() {
+        return this.properties;
     }
+    
+    
 
     public void add(Node node) {
         group.getChildren().add(node);
@@ -77,5 +76,13 @@ public class Entity extends Evented {
 
     public Collection<Entity> getChildren() {
         return children;
+    }
+
+    public Object getProperty(String name) {
+        return properties.get(name);
+    }
+
+    private void executeScripts() {
+        
     }
 }
