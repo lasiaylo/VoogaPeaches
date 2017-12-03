@@ -5,6 +5,7 @@ import database.scripthelpers.ScriptLoader;
 import engine.events.ClickEvent;
 import engine.events.Evented;
 import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -18,12 +19,11 @@ import java.util.*;
  * @author Albert
  */
 public class Entity extends Evented {
-    @Expose
+
     private Entity parent;
-    @Expose
-    private Collection<Entity> children;
-    @Expose
-    private Map<String, Object> properties;
+    @Expose private Collection<Entity> children;
+    @Expose private Map<String, Object> properties;
+
     private Group group;
 
     /**
@@ -32,6 +32,7 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
+        properties = new HashMap<>();
         executeScripts();
     }
 
@@ -52,15 +53,6 @@ public class Entity extends Evented {
      */
     public Entity getParent() {
         return parent;
-    }
-
-    /**
-     * Get map containing all of the entity's parameters
-     *
-     * @return parameter map
-     */
-    public Map<String, Object> getProperties() {
-        return this.properties;
     }
 
     public void add(Node node) {
@@ -90,6 +82,12 @@ public class Entity extends Evented {
             Binding binding = new Binding();
             binding.setVariable("entity", this);
             binding.setVariable("game", null);
+            new GroovyShell(binding).evaluate(code);
         }
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

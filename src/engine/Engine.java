@@ -65,7 +65,7 @@ public class Engine {
     }
 
     private void initiateLevel(Entity level) {
-        levels.put((String) level.getProperties().get("name"), level);
+        levels.put((String) level.getProperty("name"), level);
         level.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()));
     }
 
