@@ -5,6 +5,8 @@ import database.firebase.TrackableObject;
 import engine.events.Event;
 import engine.events.StateEvent;
 import engine.fsm.State;
+import javafx.collections.MapChangeListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +23,7 @@ public class FSM extends TrackableObject{
 	@Expose private State myCurrentState;
 	@Expose private State myDefaultState;
 	@Expose private List<State> myStates;
-	@Expose private Map<String, Object> myConditions;
+	@Expose private Map<String, Object> myParameters;
 
 	/**
 	 * Creates a new StateManager from the database
@@ -37,7 +39,8 @@ public class FSM extends TrackableObject{
 		myCurrentState = currentState;
 		myDefaultState = defaultState;
 		myStates = new ArrayList<>();
-		myConditions = new HashMap<>();
+		myParameters = new HashMap<>();
+
 	}
 	
 	/** Checks whether the current state can transition to a new state
@@ -64,7 +67,7 @@ public class FSM extends TrackableObject{
 	 * @return Map of user defined conditions
 	 */
 	public Map<String, Object> getConditions(){
-		return myConditions;
+		return myParameters;
 	}
 	
 	/**
