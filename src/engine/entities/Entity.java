@@ -36,24 +36,24 @@ public class Entity extends TrackableObject {
 	 *  @param pos       Vector position of new Entity
 	 *  @param scripts   Scripts attached to new Entity
 	 */
-	public Entity(Vector pos, List<IScript> scripts) {
-		myTransform = new Transform(pos);
+	public Entity(Number gridSize, Vector pos, List<IScript> scripts) {
+		myTransform = new Transform(gridSize, pos);
 		myScripts = scripts;
 		myRender = new Render(this);
 		myScripts.add(new DefaultMovement());
 	}
 
-	public Entity(Vector pos) {
-		this(pos, new ArrayList<>());
+	public Entity(Number gridSize, Vector pos) {
+		this(gridSize, pos, new ArrayList<>());
 	}
 
-	public Entity(Vector pos, Vector vel, Vector accel, List<IScript> scripts) {
-		this(pos, scripts);
-		myTransform = new Transform(pos, vel, accel);
+	public Entity(Number gridSize, Vector pos, Vector vel, Vector accel, List<IScript> scripts) {
+		this(gridSize, pos, scripts);
+		myTransform = new Transform(gridSize, pos, vel, accel);
 	}
 
-	public Entity(Vector pos, Vector vel, Vector accel) {
-		this(pos, vel, accel, new ArrayList<>());
+	public Entity(Number gridSize, Vector pos, Vector vel, Vector accel) {
+		this(gridSize, pos, vel, accel, new ArrayList<>());
 	}
 
 	/**
@@ -62,8 +62,8 @@ public class Entity extends TrackableObject {
 	 * @param x         X position of new Entity
 	 * @param y         Y position of new Entity
 	 */
-	public Entity(List<IScript> scripts, double x, double y) {
-		this(new Vector(x, y), scripts);
+	public Entity(Number gridSize, List<IScript> scripts, double x, double y) {
+		this(gridSize, new Vector(x, y), scripts);
 	}
 
 	/**
