@@ -277,5 +277,24 @@ public class EntityManager extends TrackableObject {
     }
 
 
+    /**
+     * clear current mode layer
+     */
+    public void clearOnLayer() {
+        if (myMode == 0) {
+            myBGLayer.clear();
+        }
+        else if (myMode == -1) {
+            myBGLayer.clear();
+            for (Layer each: myLayerList) {
+                each.clear();
+            }
+        }
+        else {
+            myLayerList.get(myMode - 1).clear();
+        }
+    }
+
+
 
 }

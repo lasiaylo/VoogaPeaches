@@ -1,30 +1,15 @@
 package authoring.panels.reserved;
 
-import java.util.ResourceBundle;
-import java.util.function.Consumer;
-
 import authoring.IPanelController;
 import authoring.Panel;
-import engine.Engine;
-import engine.camera.Camera;
 import engine.managers.EntityManager;
-import engine.util.FXProcessing;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.util.Duration;
 import util.PropertiesReader;
-import util.math.num.Vector;
 import util.pubsub.PubSub;
-import util.pubsub.messages.Message;
 import util.pubsub.messages.ThemeMessage;
-
-import static java.lang.Character.getNumericValue;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -37,10 +22,9 @@ public class CameraPanel implements Panel {
 	private static final String ALLL = "All Layers";
 	private static final String BGL = "Background Layer";
 	private static final String NEWL = "Add New Layer";
-	private static final String WHOLEB = "Whole Map View";
-	private static final String LOCALB = "Local View";
 	private static final String LAYER = "Layer ";
 	private static final String TEXT = "Layer Name";
+	private static final String CLEAR = "Clear";
 
 	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
@@ -48,11 +32,9 @@ public class CameraPanel implements Panel {
 	private ScrollPane myView;
 	private Button myPlay;
 	private Button myPause;
+	private Button myClear;
 	private VBox myArea;
 	private ComboBox<String> myLayer;
-	private RadioButton myWhole;
-	private RadioButton myLocal;
-	private ToggleGroup myGroup;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
@@ -97,16 +79,14 @@ public class CameraPanel implements Panel {
 		myPlay = new Button(PLAY);
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
-		myGroup = new ToggleGroup();
-		myWhole = new RadioButton(WHOLEB);
-		myLocal = new RadioButton(LOCALB);
 		myText = new TextField(TEXT);
+		myClear = new Button(CLEAR);
 
 		setupButton();
 
-		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myWhole, myLocal);
+		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/30);
+		buttonRow.setSpacing(cameraWidth/15);
 
 		return buttonRow;
 	}
@@ -128,9 +108,8 @@ public class CameraPanel implements Panel {
 		myPlay.setOnMouseClicked(e -> myController.play());
 		myPause.setOnMouseClicked(e -> myController.pause());
 
-		myWhole.setToggleGroup(myGroup);
-		myLocal.setToggleGroup(myGroup);
-		myWhole.setSelected(true);
+		myClear.setOnMouseClicked(e -> myManager.clearOnLayer());
+
 	}
 
 	private void changeName(KeyCode code) {

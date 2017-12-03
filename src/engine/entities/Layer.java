@@ -53,6 +53,7 @@ public class Layer extends TrackableObject {
         holder.setY(0);
         holder.setFitWidth(50);
         holder.setFitHeight(50);
+        holder.setMouseTransparent(true);
         return holder;
     }
 
@@ -144,5 +145,16 @@ public class Layer extends TrackableObject {
 			}
 		}
 	}
+
+
+    /**
+     * clear every entity in this layer
+     */
+	public void clear() {
+	    if (myImageList.getChildren().size() > 1) {
+            myEntityList.clear();
+            myImageList.getChildren().subList(1, myImageList.getChildren().size()).clear();
+        }
+    }
 
 }
