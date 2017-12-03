@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 public class MiniMapPanel implements Panel{
 
     private Pane myPane;
+    private IPanelController myController;
 
     public MiniMapPanel() {
         myPane = new Pane();
@@ -20,7 +21,10 @@ public class MiniMapPanel implements Panel{
 
     @Override
     public void setController(IPanelController controller) {
-        //TODO: Create controller
+//        System.out.println("add");
+//        myController = controller;
+//        myPane.getChildren().add(myController.getMiniMap());
+
     }
 
     @Override

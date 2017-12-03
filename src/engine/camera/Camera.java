@@ -21,7 +21,6 @@ import util.math.num.Vector;
 public class Camera {
     private ScrollPane myView;
     private Map myMap;
-    private SubScene myMini;
     private Vector myCenter = new Vector(0, 0);
     // todo: set initial value in constructor
     private Vector mySize = new Vector(10, 10);
@@ -42,7 +41,7 @@ public class Camera {
      * @return myView
      */
     public ScrollPane getView(Vector center, Vector size) {
-        myView.setViewportBounds(new BoundingBox(center.at(0)-size.at(0)/2, center.at(1)-size.at(1)/2, size.at(0), size.at(1)));
+        //myView.setViewportBounds(new BoundingBox(center.at(0)-size.at(0)/2, center.at(1)-size.at(1)/2, size.at(0), size.at(1)));
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
         hScroll((center.at(0) - size.at(0) / 2) / myView.getContent().getLayoutBounds().getWidth() - size.at(0));
@@ -58,11 +57,6 @@ public class Camera {
     }
 
 
-    private SubScene getMinimap(Vector size) {
-        //need to check, just blind coding
-        myMini = new SubScene(myMap, size.at(0), size.at(1));
-        return myMini;
-    }
 
     /**
      * update imageview inside the viewport
@@ -72,16 +66,28 @@ public class Camera {
     }
 
 
+    /**
+     * this method currently is doing nothing
+     *
+     * later can be used to adjust the inital position of the viewport
+     * @param num
+     */
     private void vScroll(double num) {
-        myView.setVmin(num);
-        myView.setVmax(num);
-        myView.setVvalue(num);
+        myView.setVmin(0);
+        myView.setVmax(1);
+        myView.setVvalue(0);
     }
 
+    /**
+     * this method currently is doing nothing
+     *
+     * later can be used to adjust the inital position of the viewport
+     * @param num
+     */
     private void hScroll(double num) {
-        myView.setHmax(num);
-        myView.setHmin(num);
-        myView.setHvalue(num);
+        myView.setHmax(1);
+        myView.setHmin(0);
+        myView.setHvalue(0);
     }
 
 

@@ -32,16 +32,18 @@ public class Layer extends TrackableObject {
 	@Expose private List<Entity> myEntityList;
 	@Expose private Group myImageList;
     @Expose private int myID;
+    private int myGridSize;
 
 
     /**
      * create layer, 0 is BG layer, others are different layers
      * @param ID
      */
-	public Layer(int ID) {
+	public Layer(Number gridSize, Number ID) {
 		myEntityList = new ArrayList<Entity>();
 		myImageList = new Group();
-		myID = ID;
+		myID = ID.intValue();
+		myGridSize = gridSize.intValue();
         ImageView holder = setPlaceHolder();
         myImageList.getChildren().add(holder);
     }
@@ -51,8 +53,8 @@ public class Layer extends TrackableObject {
         ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
         holder.setX(0);
         holder.setY(0);
-        holder.setFitWidth(50);
-        holder.setFitHeight(50);
+        holder.setFitWidth(myGridSize);
+        holder.setFitHeight(myGridSize);
         holder.setMouseTransparent(true);
         return holder;
     }
@@ -112,7 +114,7 @@ public class Layer extends TrackableObject {
      * @return
      */
 	public Entity addEntity(Vector pos) {
-        Entity newEnt = new Entity(pos);
+        Entity newEnt = new Entity(myGridSize, pos);
 
         myEntityList.add(newEnt);
         myImageList.getChildren().add(newEnt.getRender());

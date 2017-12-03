@@ -2,6 +2,7 @@ package authoring.panels.reserved;
 
 import authoring.IPanelController;
 import authoring.Panel;
+import authoring.PanelController;
 import engine.managers.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;

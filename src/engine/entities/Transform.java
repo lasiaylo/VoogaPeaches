@@ -31,17 +31,18 @@ public class Transform extends TrackableObject {
 	/**Creates a new Transform
 	 * @param position
 	 */
-	public Transform(Vector position) {
+	public Transform(Number gridSize, Vector position) {
 		myPubSub = PubSub.getInstance(); // refactor?
 		Consumer<Message> myCallBack = (message) -> {
 			TransformMessage tMessage = (TransformMessage) message;
 		};
 		myPubSub.subscribe(PubSub.Channel.TRANSFORM_MESSAGE, myCallBack);
 		myPosition = position;
+		mySize = new Vector(gridSize.intValue(), gridSize.intValue());
 	}
 
-	public Transform(Vector position, Vector velocity, Vector acceleration) {
-		this(position);
+	public Transform(Number gridSize, Vector position, Vector velocity, Vector acceleration) {
+		this(gridSize, position);
 		myVelocity = velocity;
 		myAcceleration = acceleration;
 	}
@@ -50,8 +51,8 @@ public class Transform extends TrackableObject {
 	 * @param position
 	 * @param rotation
 	 */
-	public Transform(Vector position, double rotation) {
-		this(position);
+	public Transform(Number gridSize, Vector position, double rotation) {
+		this(gridSize, position);
 		myRotation = rotation;
 	}
 

@@ -32,7 +32,7 @@ import util.math.num.Vector;
 public class EntityManager extends TrackableObject {
 	private static final String IMGSPT = "defaults/ImageScript.groovy";
 
-	private int myGridSize;
+	private Number myGridSize;
 	private Layer myBGLayer;
 	private ObservableList<Layer> myLayerList;
 	private InputStream myBGType;
@@ -49,8 +49,8 @@ public class EntityManager extends TrackableObject {
 	 * @param gridSize
 	 */
 	public EntityManager(Number gridSize) {
-		myGridSize = gridSize.intValue();
-		myBGLayer = new Layer(0);
+		myGridSize = gridSize;
+		myBGLayer = new Layer(myGridSize, 0);
 		myLayerList = FXCollections.observableList(new ArrayList<Layer>());
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         myBGType = manager.readFileData("Background/grass.png");
@@ -173,7 +173,7 @@ public class EntityManager extends TrackableObject {
 	 * @return new layer
 	 */
 	public Layer addLayer() {
-		Layer current = new Layer(myLayerList.size() + 1);
+		Layer current = new Layer(myGridSize, myLayerList.size() + 1);
 		myLayerList.add(current);
 		return current;
 	}

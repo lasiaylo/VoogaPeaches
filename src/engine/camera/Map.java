@@ -29,19 +29,18 @@ import util.math.num.Vector;
  * @author Estelle
  */
 public class Map extends StackPane implements ListChangeListener<Layer>{
-    private static final int GRIDS = 50;
-    private static final int MAXWIDTH = 5000;
+    private int myGridSize;
     private EntityManager myManager;
     private Group myBGList;
     private Canvas myCanvas;
-    private int myMode = 0;
     private Vector startPos = new Vector(0, 0);
 
-    public Map(EntityManager manager) {
+    public Map(EntityManager manager, int gridSize, int mapWidth, int mapHeight) {
 
         myManager = manager;
+        myGridSize = gridSize;
 
-        myCanvas = new Canvas(MAXWIDTH, MAXWIDTH);
+        myCanvas = new Canvas(mapWidth, mapHeight);
         myBGList = myManager.getBGImageList();
 
         this.getChildren().add(myCanvas);
@@ -60,19 +59,18 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
 
 
     private void addBGblock(Vector pos, MouseEvent event) {
-        Vector center = FXProcessing.getBGCenter(pos, GRIDS);
+        Vector center = FXProcessing.getBGCenter(pos, myGridSize);
         myManager.addBG(center);
         event.consume();
     }
 
     private void addBatch(MouseEvent event, Vector start) {
         Vector end = new Vector(event.getX(), event.getY());
-        Vector startC = FXProcessing.getBGCenter(start, GRIDS);
-        Vector endC = FXProcessing.getBGCenter(end, GRIDS);
-        for (double i = startC.at(0); i <= endC.at(0); i += GRIDS) {
-            for (double j = startC.at(1); j <= endC.at(1); j += GRIDS) {
-                System.out.println(new Vector(i, j));
-                Vector center = FXProcessing.getBGCenter(new Vector(i, j), GRIDS);
+        Vector startC = FXProcessing.getBGCenter(start, myGridSize);
+        Vector endC = FXProcessing.getBGCenter(end, myGridSize);
+        for (double i = startC.at(0); i <= endC.at(0); i += myGridSize) {
+            for (double j = startC.at(1); j <= endC.at(1); j += myGridSize) {
+                Vector center = FXProcessing.getBGCenter(new Vector(i, j), myGridSize);
                 myManager.addBG(center);
             }
         }
@@ -104,7 +102,6 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
                 this.getChildren().add(each.getImageList());
                 this.setAlignment(each.getImageList(), Pos.TOP_LEFT);
             }
-            this.getChildren().get(0).setOnDragDropped(e -> System.out.println("layer"));
         }
     }
 
