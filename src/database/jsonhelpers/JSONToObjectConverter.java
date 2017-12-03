@@ -2,6 +2,7 @@ package database.jsonhelpers;
 
 import database.examples.realtime.Post;
 import database.firebase.TrackableObject;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
@@ -25,7 +26,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             params.put(key, json.get(key));
             if(json.get(key) instanceof Number) {
                 // Convert Number object to appropriate type for object T
-                Number convertedVal = convertValue(key, (Long) json.get(key));
+                Number convertedVal = convertValue(key,  (Number) json.get(key));
                 params.put(key, convertedVal);
             } else if(json.get(key).getClass() == JSONObject.class) {
                 // Create map for params of object that is being held by the overall object
@@ -74,10 +75,13 @@ public class JSONToObjectConverter<T extends TrackableObject> {
 
                 // Recursively create objects that are being held by the original object
                 if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
-                    Object heldObject = (Object) createObjectFromJSON(instanceVar.getType(), (JSONObject) params.get(param));
+                    JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
+                    Object heldObject = (Object) createObjectFromJSON(instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
+                } else if(params.get(param).getClass() == JSONArray.class) {
+                    JSONArray arr = (JSONArray) params.get(param);
+                    params.put(param, arr.toList());
                 }
-
                 if(!instanceVar.isAccessible()) {
                     instanceVar.setAccessible(true);
                     instanceVar.set(newObject, params.get(param));

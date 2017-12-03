@@ -8,34 +8,36 @@ import engine.entities.Entity;
 import org.json.JSONObject;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
+import javax.sound.midi.Track;
 import java.util.Map;
 
-public class ObjectFactory {
+public class ObjectFactory<T extends TrackableObject> {
 
     private JSONObject blueprintJSON;
-    private JSONToObjectConverter<Entity> converter;
+    private Class<T> objectType;
+    private JSONToObjectConverter<T> converter;
 
-    public ObjectFactory(String objectName) throws ObjectBlueprintNotFoundException {
+    public ObjectFactory(String objectName, Class<T> objectType) throws ObjectBlueprintNotFoundException {
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         blueprintJSON = manager.readJSONFile(objectName);
         if(blueprintJSON == null) throw new ObjectBlueprintNotFoundException();
-        converter = new JSONToObjectConverter<>(Entity.class);
+        this.objectType = objectType;
+        converter = new JSONToObjectConverter<>(objectType);
     }
 
-    public Entity newObject() {
-        return converter.createObjectFromJSON(Entity.class,blueprintJSON);
+    public T newObject() {
+        return converter.createObjectFromJSON(objectType,blueprintJSON);
     }
 
-    public Entity newObject(Map<String, Object> overriden) {
+    public T newObject(Map<String, Object> overriddenParams) {
         JSONObject modifiedBlueprint = new JSONObject();
         for(String key : blueprintJSON.keySet()) {
-            if(overriden.containsKey(key)){
-                modifiedBlueprint.put(key, overriden.get(key));
+            if(overriddenParams.containsKey(key)){
+                modifiedBlueprint.put(key, overriddenParams.get(key));
             } else {
                 modifiedBlueprint.put(key, blueprintJSON.get(key));
             }
         }
-        return converter.createObjectFromJSON(Entity.class, modifiedBlueprint);
-
+        return converter.createObjectFromJSON(objectType, modifiedBlueprint);
     }
 }

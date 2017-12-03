@@ -39,7 +39,7 @@ public class Engine {
         this.myCamera = camera;
         myLevelMap = new HashMap<>();
         try {
-            root.getChildren().forEach(e -> myLevelMap.put((String) e.getParameterMap().get("name"), e));
+            root.getChildren().forEach(e -> myLevelMap.put((String) e.getProperties().get("name"), e));
         } catch (ClassCastException e) {
             ErrorDisplay castError = new ErrorDisplay("Level Name Property Does Not Exist");
             castError.displayError();
@@ -62,7 +62,7 @@ public class Engine {
     }
 
     private void initiateLevel(Entity level) {
-        myLevelMap.put((String) level.getParameterMap().get("name"), level);
+        myLevelMap.put((String) level.getProperties().get("name"), level);
         level.getNodes().setOnKeyTyped(e -> new KeyPressEvent(e.getCode()));
     }
 }
