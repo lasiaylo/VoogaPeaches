@@ -107,4 +107,9 @@ public class FSM extends TrackableObject{
 	public void pairParameters(Map<String, Object> properties) {
 		myParameters = properties;
 	}
+	
+	@Override
+	public void initialize() {
+
+	}
 }

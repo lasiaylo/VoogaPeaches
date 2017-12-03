@@ -1,17 +1,15 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.scripthelpers.ScriptLoader;
 import engine.events.ClickEvent;
 import engine.events.Evented;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import util.ErrorDisplay;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -21,10 +19,16 @@ import java.util.Map;
  * @author Albert
  */
 public class Entity extends Evented {
-    @Expose private Entity parent;
+
     @Expose private Collection<Entity> children;
     @Expose private Map<String, Object> properties;
+//    private Entity() {}
+
+
     private Group group;
+    private Entity parent;
+    private Entity root;
+
 
     /**
      * Create entity as root
@@ -32,7 +36,8 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+        properties = new HashMap<>();
+        setEventListeners();
         executeScripts();
     }
 
@@ -54,15 +59,6 @@ public class Entity extends Evented {
     public Entity getParent() {
         return parent;
     }
-    
-    /**
-     * Get map containing all of the entity's parameters
-     *
-     * @return parameter map
-     */
-    public Map<String, Object> getProperties() {
-        return this.properties;
-    }
 
     public void add(Node node) {
         group.getChildren().add(node);
@@ -71,14 +67,20 @@ public class Entity extends Evented {
     public void add(Entity entity) {
         children.add(entity);
         add(entity.getNodes());
+        entity.addTo(entity);
+    }
+
+    public Entity addTo(Entity parent) {
+        this.parent = parent;
+        return this;
     }
 
     public Group getNodes() {
         return group;
     }
 
-    public Collection<Entity> getChildren() {
-        return children;
+    public Iterator<Entity> getChildren() {
+        return children.iterator();
     }
 
     public Object getProperty(String name) {
@@ -86,5 +88,31 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
+        for (Object script : (List) properties.get("scripts")) {
+            String code = ScriptLoader.stringForFile((String) script);
+            Binding binding = new Binding();
+            binding.setVariable("entity", this);
+            binding.setVariable("game", null);
+            new GroovyShell(binding).evaluate(code);
+        }
+    }
+
+    private void setEventListeners() {
+        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+    }
+
+    @Override
+    public void initialize() {
+        if (root == null)
+            if (parent != null)
+                for (Entity entity : children)
+                    entity.root = this;
+            else
+                for (Entity entity : children)
+                    entity.root = root;
+
+        for (Entity entity : children)
+            entity.parent = this;
+
     }
 }

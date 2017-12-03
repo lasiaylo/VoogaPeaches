@@ -1,5 +1,6 @@
 package engine;
 
+import database.GameSaver;
 import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
@@ -9,6 +10,9 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import util.ErrorDisplay;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,8 +23,9 @@ import java.util.Map;
  */
 public class Engine {
     private static final int MAX_FRAMES_PER_SECOND = 60;
-    public static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
+    private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
+    private Entity root;
     private Map<String, Entity> levels;
     private Entity currentLevel;
     private TickEvent tick = new TickEvent();
@@ -30,16 +35,36 @@ public class Engine {
     /**
      * Creates a new Engine
      *
-     * @param levels map of levels
-     * @param level  name of the first level
+     * @param root      root game entity
+     * @param level     name of the first level
      */
-    public Engine(Map<String, Entity> levels, String level, Camera camera) {
+    public Engine(Entity root, String level, Camera camera) {
+        this.root = root;
         this.camera = camera;
-        this.levels = levels;
+        this.levels = new HashMap<>();
+        initializeLevelMap();
         changeLevel(level);
+
+        for(String key : levels.keySet()) {
+            Entity entity = levels.get(key);
+            entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
+        }
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
+    }
+
+    private void initializeLevelMap() {
+        try {
+            Iterator<Entity> children = root.getChildren();
+            while(children.hasNext()) {
+                Entity child = children.next();
+                levels.put((String) child.getProperty("name"), child);
+            }
+        } catch(ClassCastException e) {
+            ErrorDisplay eDisplay = new ErrorDisplay("Fuck you", "Name was not string");
+            eDisplay.displayError();
+        }
     }
 
     /**
@@ -59,8 +84,7 @@ public class Engine {
         tick.recursiveFire(currentLevel);
     }
 
-    private void initiateLevel(Entity level) {
-        levels.put((String) level.getProperties().get("name"), level);
-        level.getNodes().setOnKeyTyped(e -> new KeyPressEvent(e.getCode()));
+    public void save(String name) {
+        new GameSaver(name).saveTrackableObjects(root);
     }
 }

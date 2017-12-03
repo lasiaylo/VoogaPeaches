@@ -81,4 +81,9 @@ public class HitBox extends TrackableObject {
     public Polygon getHitbox() {
         return hitboxShape;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

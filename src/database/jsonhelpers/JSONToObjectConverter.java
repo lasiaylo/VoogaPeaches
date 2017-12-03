@@ -48,7 +48,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
         return null;
     }
 
-    public <G> G createObjectFromJSON(Class<G> myClass, JSONObject json) {
+    public <G extends TrackableObject> G createObjectFromJSON(Class<G> myClass, JSONObject json) {
         Map<String, Object> params = parseParameters(json);
         try {
             // Get constructor and create new instance of object
@@ -76,7 +76,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 // Recursively create objects that are being held by the original object
                 if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
-                    Object heldObject = (Object) createObjectFromJSON(instanceVar.getType(), heldObjectJSON);
+                    Object heldObject = (Object) createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
                 } else if(params.get(param).getClass() == JSONArray.class) {
                     JSONArray arr = (JSONArray) params.get(param);
@@ -90,22 +90,12 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 }
                 instanceVar.set(newObject, params.get(param));
             }
+            newObject.initialize();
             return newObject;
         } catch (Exception e){
             e.printStackTrace();
             return null;
         }
     }
-
-
-    public static void main(String[] args){
-        Post p = new Post("test","shoot",5);
-        JSONObject obj = JSONHelper.JSONForObject(p);
-        JSONToObjectConverter<Post> convert = new JSONToObjectConverter<>(Post.class);
-        Post recreated  = convert.createObjectFromJSON(Post.class, obj);
-        System.out.println(recreated.toString());
-
-    }
-
 
 }

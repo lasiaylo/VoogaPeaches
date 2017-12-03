@@ -40,4 +40,9 @@ public class PostMetaData extends TrackableObject {
     public String toString() {
         return " - " + creator + " on " + timestamp;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }
