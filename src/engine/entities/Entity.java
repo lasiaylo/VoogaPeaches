@@ -32,7 +32,6 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
         executeScripts();
     }
 

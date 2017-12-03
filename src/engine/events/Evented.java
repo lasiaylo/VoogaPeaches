@@ -4,10 +4,11 @@ import database.firebase.TrackableObject;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public abstract class Evented extends TrackableObject {
-    private HashMap<String, HashSet<Consumer<Event>>> callbacks;
+    private Map<String, HashSet<Consumer<Event>>> callbacks;
 
     public void on(String type, Consumer<Event> callback) {
         if (callbacks == null)
