@@ -38,6 +38,9 @@ public class EntityManager extends TrackableObject {
 	private InputStream myBGType;
 	private int myMode = -1;
 
+    private Vector startPos = new Vector(0, 0);
+    private Vector startSize = new Vector(0, 0);
+
 	/**
 	 * manage all entities and layers
 	 *
@@ -66,7 +69,8 @@ public class EntityManager extends TrackableObject {
             ImageScript script = new ImageScript();
             changeScriptBGType(script, BGblock);
             BGblock.addScript(script);
-            BGblock.getRender().setOnMouseClicked(e -> changeRender(e.getButton(), script, BGblock));
+            BGblock.getRender().setOnMouseClicked(e -> changeRender(e, script, BGblock));
+            BGblock.getRender().setOnKeyPressed(e -> deleteEntity(BGblock, e));
             return BGblock;
         }
         return null;
@@ -74,23 +78,25 @@ public class EntityManager extends TrackableObject {
 
 
 
-	private void deleteEntity(Entity ent) {
-        if (myMode == 0) {
-            myBGLayer.deleteEntity(ent);
+	private void deleteEntity(Entity ent, KeyEvent event) {
+	    if (event.getCode().equals(KeyCode.BACK_SPACE)) {
+            if (myMode == 0) {
+                myBGLayer.deleteEntity(ent);
+            }
+            else if (myMode > 0){
+                myLayerList.get(myMode - 1).deleteEntity(ent);
+            }
         }
-        else if (myMode > 0){
-            myLayerList.get(myMode - 1).deleteEntity(ent);
-        }
+        event.consume();
     }
 
 
-    private void changeRender(MouseButton mouse, ImageScript scripts, Entity entity) {
-	    if (mouse.equals(MouseButton.PRIMARY) && myMode == 0) {
+    private void changeRender(MouseEvent event, ImageScript scripts, Entity entity) {
+	    entity.getRender().requestFocus();
+	    if (event.getButton().equals(MouseButton.PRIMARY) && myMode == 0) {
 	        changeScriptBGType(scripts, entity);
         }
-        else if(mouse.equals(MouseButton.SECONDARY)) {
-	        deleteEntity(entity);
-        }
+        event.consume();
     }
 
 	private void changeScriptBGType(ImageScript script, Entity entity) {
@@ -124,24 +130,40 @@ public class EntityManager extends TrackableObject {
             newEnt.addScript(script);
             script.execute(newEnt);
 
-            Vector startPos = new Vector(0, 0);
-            newEnt.getRender().setOnMouseClicked(e -> changeRender(e.getButton(), script, newEnt));
-            newEnt.getRender().setOnMousePressed(e -> startDrag(newEnt, startPos));
-            newEnt.getRender().setOnMouseDragged(e -> drag(e, newEnt, startPos));
+            newEnt.getRender().setOnMouseClicked(e -> changeRender(e, script, newEnt));
+            newEnt.getRender().setOnKeyPressed(e -> deleteEntity(newEnt, e));
+            newEnt.getRender().setOnMousePressed(e -> startDrag(e, newEnt));
+            newEnt.getRender().setOnMouseDragged(e -> drag(e, newEnt, startPos, startSize));
             return newEnt;
         }
         return null;
 	}
 
-	private void startDrag(Entity entity, Vector startPos) {
-	    startPos = entity.getTransform().getPosition();
+	private void startDrag(MouseEvent event, Entity entity) {
+        startPos = new Vector(event.getX(), event.getY());
+        startSize = entity.getTransform().getSize();
+        event.consume();
     }
 
-	private void drag(MouseEvent event, Entity entity, Vector startPos) {
+    private void drag(MouseEvent event, Entity entity, Vector startPos, Vector startSize) {
+	    if (event.getButton().equals(MouseButton.PRIMARY)) {
+	        move(event, entity);
+        }
+        else if (event.getButton().equals(MouseButton.SECONDARY)) {
+	        zoom(event, entity, startPos, startSize);
+        }
+    }
 
-	    Vector pos = startPos.add(new Vector(event.getX(), event.getY()));
+    private void zoom(MouseEvent event, Entity entity, Vector startPos, Vector startSize) {
+	    Vector change = (new Vector(event.getX(), event.getY())).subtract(startPos);
+	    entity.getTransform().setScale(startSize.add(change));
+	    entity.getRender().displayUpdate(entity.getTransform());
+	    event.consume();
+    }
 
-        entity.getTransform().setPosition(pos);
+	private void move(MouseEvent event, Entity entity) {
+
+        entity.getTransform().setPosition(new Vector(event.getX(), event.getY()));
         entity.getRender().displayUpdate(entity.getTransform());
         event.consume();
     }

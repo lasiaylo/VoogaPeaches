@@ -110,11 +110,11 @@ public class Transform extends TrackableObject {
 	}
 
 	/**
-	 * set scale factor
+	 * set new size
 	 * @param scale
 	 */
 	public void setScale(Vector scale) {
-		this.mySize = new Vector(mySize.at(0)*scale.at(0), mySize.at(1)*scale.at(1));
+		this.mySize = scale;
 		myPubSub.publish(PubSub.Channel.TRANSFORM_MESSAGE, new TransformMessage(this));
 	}
 
