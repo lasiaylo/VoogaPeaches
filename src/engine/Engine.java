@@ -43,6 +43,11 @@ public class Engine {
         this.camera = camera;
         changeLevel(level);
 
+        for(String key : levels.keySet()) {
+            Entity entity = levels.get(key);
+            entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
+        }
+
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
@@ -64,13 +69,7 @@ public class Engine {
         tick.recursiveFire(currentLevel);
     }
 
-    private void initiateLevel(Entity level) {
-        levels.put((String) level.getProperty("name"), level);
-        level.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()));
-    }
-
     public void save(String name) {
-        GameSaver gameSaver = new GameSaver(name);
-        gameSaver.saveTrackableObjects(root);
+        new GameSaver(name).saveTrackableObjects(root);
     }
 }
