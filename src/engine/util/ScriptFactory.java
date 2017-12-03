@@ -1,20 +1,33 @@
 package engine.util;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class ScriptFactory {
-    private String path;
+    private Collection<String> paths;
 
-    public ScriptFactory(Collection<String> path) {
-        this.path = path;
-
+    private ScriptFactory() {
+        paths = new HashSet<>();
         readDirectory();
     }
 
-    public ScriptFactory(Collection<String> path) {
-        this.path = path;
+    public ScriptFactory(String[] paths) {
+        this();
+        add(paths);
+    }
 
-        readDirectory();
+    public ScriptFactory(String path) {
+        this();
+        add(path);
+    }
+
+    public void add(String[] paths) {
+        this.paths.addAll(Arrays.asList(paths));
+    }
+
+    public void add(String path) {
+        paths.add(path);
     }
 
     private void readDirectory() {

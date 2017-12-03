@@ -2,6 +2,7 @@ package engine;
 
 import engine.camera.Camera;
 import engine.entities.Entity;
+import engine.events.KeyPressEvent;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -51,9 +52,15 @@ public class Engine {
             new ErrorDisplay("Fuck you!", "Level " + level + " does not exist");
         else
             camera = new Camera((currentLevel = this.levels.get(level)).getNodes());
+
     }
 
     private void loop() {
         tick.recursiveFire(currentLevel);
+    }
+
+    private void initiateLevel(Entity level) {
+        levels.put((String) level.getProperties().get("name"), level);
+        level.getNodes().setOnKeyTyped(e -> new KeyPressEvent(e.getCode()));
     }
 }
