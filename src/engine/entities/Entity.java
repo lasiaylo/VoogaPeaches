@@ -21,7 +21,7 @@ import java.util.*;
 public class Entity extends Evented {
     @Expose
     private Collection<Entity> children;
-    
+
     private Entity parent;
     private Map<String, Object> properties;
     private Group group;
@@ -32,6 +32,7 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
+        properties = new HashMap<>();
         group.setOnMouseClicked(e -> new ClickEvent().fire(this));
         executeScripts();
     }
