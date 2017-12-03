@@ -10,6 +10,8 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import util.ErrorDisplay;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ import java.util.Map;
  */
 public class Engine {
     private static final int MAX_FRAMES_PER_SECOND = 60;
-    public static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
+    private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
     private Entity root;
     private Map<String, Entity> levels;
@@ -33,14 +35,14 @@ public class Engine {
     /**
      * Creates a new Engine
      *
-     * @param levels map of levels
-     * @param level  name of the first level
+     * @param root      root game entity
+     * @param level     name of the first level
      */
-    public Engine(Entity root, Map<String, Entity> levels, String level, Camera camera) {
+    public Engine(Entity root, String level, Camera camera) {
         this.root = root;
         this.camera = camera;
-        this.levels = levels;
-        this.camera = camera;
+        this.levels = new HashMap<>();
+        initializeLevelMap();
         changeLevel(level);
 
         for(String key : levels.keySet()) {
@@ -50,6 +52,19 @@ public class Engine {
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
+    }
+
+    private void initializeLevelMap() {
+        try {
+            Iterator<Entity> children = root.getChildren();
+            while(children.hasNext()) {
+                Entity child = children.next();
+                levels.put((String) child.getProperty("name"), child);
+            }
+        } catch(ClassCastException e) {
+            ErrorDisplay eDisplay = new ErrorDisplay("Fuck you", "Name was not string");
+            eDisplay.displayError();
+        }
     }
 
     /**
