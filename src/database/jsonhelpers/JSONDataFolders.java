@@ -12,7 +12,8 @@ public enum JSONDataFolders {
     GAMES("games"),
     IMAGES("images"),
     SCRIPTS("scripts"),
-    USER_SETTINGS("user_settings");
+    USER_SETTINGS("user_settings"),
+    ENTITY_BLUEPRINT("entity_blueprints");
 
     private final String filepath;
 

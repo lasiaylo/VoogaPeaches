@@ -4,6 +4,7 @@ import database.examples.realtime.Post;
 import database.firebase.TrackableObject;
 import org.json.JSONObject;
 
+import javax.sound.midi.Track;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -49,8 +50,8 @@ public class JSONToObjectConverter<T extends TrackableObject> {
         return null;
     }
 
-
-    private <G> G createObject(Class<G> myClass, Map<String, Object> params) {
+    public <G> G createObjectFromJSON(Class<G> myClass, JSONObject json) {
+        Map<String, Object> params = parseParameters(json);
         try {
             // Get constructor and create new instance of object
             Constructor<G> constructor = myClass.getDeclaredConstructor();
@@ -76,7 +77,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
 
                 // Recursively create objects that are being held by the original object
                 if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
-                    Object heldObject = (Object) createObject(instanceVar.getType(), (Map<String,Object>) params.get(param));
+                    Object heldObject = (Object) createObjectFromJSON(instanceVar.getType(), (JSONObject) params.get(param));
                     params.put(param, heldObject);
                 }
 
@@ -96,15 +97,12 @@ public class JSONToObjectConverter<T extends TrackableObject> {
     }
 
 
-    public List<T> readInObjects(String filename) {
-        List<T> objects = new ArrayList<T>();
-        manager.readJSONFile(filename);
-
-        return null;
-    }
-
     public static void main(String[] args){
-        JSONToObjectConverter<Post> n = new JSONToObjectConverter<Post>(Post.class);
+        Post p = new Post("test","shoot",5);
+        JSONObject obj = JSONHelper.JSONForObject(p);
+        JSONToObjectConverter<Post> convert = new JSONToObjectConverter<>(Post.class);
+        Post recreated  = convert.createObjectFromJSON(Post.class, obj);
+        System.out.println(recreated.toString());
 
     }
 
