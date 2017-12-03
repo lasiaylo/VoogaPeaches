@@ -40,6 +40,7 @@ public class CameraPanel implements Panel {
 	private static final String WHOLEB = "Whole Map View";
 	private static final String LOCALB = "Local View";
 	private static final String LAYER = "Layer ";
+	private static final String TEXT = "Layer Name";
 
 	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
@@ -48,16 +49,18 @@ public class CameraPanel implements Panel {
 	private Button myPlay;
 	private Button myPause;
 	private VBox myArea;
-	private ChoiceBox<String> myLayer;
+	private ComboBox<String> myLayer;
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
 	private PubSub pubSub;
 	private EntityManager myManager;
+	private TextField myText;
 
 	private double cameraWidth;
 	private double cameraHeight;
 	private int layerC = 1;
+	private String myOption;
 	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
 	private IPanelController myController;
 
@@ -93,16 +96,17 @@ public class CameraPanel implements Panel {
 	private HBox buttonRow() {
 		myPlay = new Button(PLAY);
 		myPause = new Button(PAUSE);
-		myLayer = new ChoiceBox<String>();
+		myLayer = new ComboBox<>();
 		myGroup = new ToggleGroup();
 		myWhole = new RadioButton(WHOLEB);
 		myLocal = new RadioButton(LOCALB);
+		myText = new TextField(TEXT);
 
 		setupButton();
 
-		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myWhole, myLocal);
+		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myWhole, myLocal);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/15);
+		buttonRow.setSpacing(cameraWidth/30);
 
 		return buttonRow;
 	}
@@ -118,20 +122,23 @@ public class CameraPanel implements Panel {
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
-	//	myLayer.setStyle(nodeStyle);
 		myLayer.setOnAction(e -> changeLayer());
+		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
-	//	myPlay.setStyle(nodeStyle);
 		myPause.setOnMouseClicked(e -> myController.pause());
-	//	myPause.setStyle(nodeStyle);
 
 		myWhole.setToggleGroup(myGroup);
 		myLocal.setToggleGroup(myGroup);
 		myWhole.setSelected(true);
-	//	myWhole.setStyle(nodeStyle);
-	//	myLocal.setStyle(nodeStyle);
 	}
+
+	private void changeName(KeyCode code) {
+	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL))) {
+	        myText.commitValue();
+	        myLayer.getItems().set(myLayer.getItems().indexOf(myLayer.getValue()), myText.getText());
+        }
+    }
 
 	private void changeLayer() {
 		String option = myLayer.getValue();
