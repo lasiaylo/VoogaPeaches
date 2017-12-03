@@ -14,7 +14,8 @@ import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import util.PropertiesReader;
@@ -84,6 +85,7 @@ public class CameraPanel implements Panel {
 				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
 	}
 
+
 	private void updateStyles(Region region, String css) {
 		if (region.getStylesheets().size() >= 1) {
 			region.getStylesheets().remove(0);
@@ -113,7 +115,7 @@ public class CameraPanel implements Panel {
 	private void getView(ScrollPane view) {
 		myView = view;
 		myArea.getChildren().set(0, myView);
-		myView.setMouseTransparent(true);
+		myView.setMouseTransparent(false);
 	}
 
 
@@ -139,28 +141,24 @@ public class CameraPanel implements Panel {
     }
 
 	private void changeLayer() {
-		myOption = myLayer.getValue();
-		switch (myOption) {
-            case NEWL:
-                myManager.addLayer();
-                myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
-                myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
-                layerC++;
-                break;
-            case ALLL:
-                myManager.allLayer();
-                myView.setMouseTransparent(true);
-                break;
-            case BGL:
-                myManager.selectBGLayer();
-                myView.setMouseTransparent(false);
-                break;
-            default:
-                int layer = myLayer.getItems().indexOf(myOption) - 1;
-                myManager.selectLayer(layer);
-                myView.setMouseTransparent(true);
-                myManager.setMyLevel(layer);
-                break;
+		String option = myLayer.getValue();
+		switch (option) {
+			case NEWL:
+				myManager.addLayer();
+				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+				myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
+				layerC++;
+				break;
+			case ALLL:
+				myManager.allLayer();
+				break;
+			case BGL:
+				myManager.selectBGLayer();
+				break;
+			default:
+				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				myManager.selectLayer(layer);
+				break;
 		}
 
 	}

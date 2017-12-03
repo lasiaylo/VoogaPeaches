@@ -4,6 +4,8 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -27,10 +29,10 @@ public class Camera {
     public Camera(Map map) {
         myMap = map;
         myView = new ScrollPane(map);
-        myView.setContent(map);
         myView.setPannable(false);
         myView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         myView.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
     }
 
     /**
@@ -51,8 +53,10 @@ public class Camera {
         myCenter = center;
         mySize = size;
 
+
         return myView;
     }
+
 
     private SubScene getMinimap(Vector size) {
         //need to check, just blind coding

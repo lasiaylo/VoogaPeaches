@@ -1,21 +1,23 @@
 package engine.camera;
 
+import engine.entities.Entity;
 import engine.entities.Layer;
+import engine.entities.Render;
 import engine.managers.EntityManager;
 import engine.util.FXProcessing;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import util.math.num.Vector;
-
-import java.awt.*;
 
 /**
  * whole map for the game
@@ -32,6 +34,8 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
     private EntityManager myManager;
     private Group myBGList;
     private Canvas myCanvas;
+    private int myMode = 0;
+    private Vector startPos = new Vector(0, 0);
 
     public Map(EntityManager manager) {
 
@@ -44,15 +48,38 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         this.getChildren().add(myBGList);
         this.setAlignment(myBGList, Pos.TOP_LEFT);
         myManager.addLayerListener(this);
-        myCanvas.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY())));
+        myCanvas.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY()), e));
+        myCanvas.setOnMousePressed(e -> startDrag(e));
+        myCanvas.setOnMouseReleased(e -> addBatch(e, startPos));
+    }
 
+    private void startDrag(MouseEvent event) {
+        startPos = new Vector(event.getX(), event.getY());
+        event.consume();
     }
 
 
-    public void addBGblock(Vector pos) {
+    private void addBGblock(Vector pos, MouseEvent event) {
         Vector center = FXProcessing.getBGCenter(pos, GRIDS);
         myManager.addBG(center);
+        event.consume();
     }
+
+    private void addBatch(MouseEvent event, Vector start) {
+        Vector end = new Vector(event.getX(), event.getY());
+        Vector startC = FXProcessing.getBGCenter(start, GRIDS);
+        Vector endC = FXProcessing.getBGCenter(end, GRIDS);
+        for (double i = startC.at(0); i <= endC.at(0); i += GRIDS) {
+            for (double j = startC.at(1); j <= endC.at(1); j += GRIDS) {
+                System.out.println(new Vector(i, j));
+                Vector center = FXProcessing.getBGCenter(new Vector(i, j), GRIDS);
+                myManager.addBG(center);
+            }
+        }
+        event.consume();
+    }
+
+
 
 
     /**
@@ -77,7 +104,9 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
                 this.getChildren().add(each.getImageList());
                 this.setAlignment(each.getImageList(), Pos.TOP_LEFT);
             }
+            this.getChildren().get(0).setOnDragDropped(e -> System.out.println("layer"));
         }
     }
+
 
 }
