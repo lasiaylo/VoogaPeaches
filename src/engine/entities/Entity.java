@@ -83,8 +83,7 @@ public class Entity extends Evented {
             Binding binding = new Binding();
             binding.setVariable("entity", this);
             binding.setVariable("game", null);
-            GroovyShell shell = new GroovyShell(binding);
-            shell.evaluate(code);
+            new GroovyShell(binding).evaluate(code);
         }
     }
 }
