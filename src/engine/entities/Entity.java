@@ -8,7 +8,6 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 
 import java.util.*;
 
@@ -101,6 +100,16 @@ public class Entity extends Evented {
 
     @Override
     public void initialize() {
-        
+        if (root == null)
+            if (parent != null)
+                for (Entity entity : children)
+                    entity.root = this;
+            else
+                for (Entity entity : children)
+                    entity.root = root;
+
+        for (Entity entity : children)
+            entity.parent = this;
+
     }
 }
