@@ -1,17 +1,14 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.scripthelpers.ScriptLoader;
 import engine.events.ClickEvent;
 import engine.events.Evented;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
+import groovy.lang.Binding;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import util.ErrorDisplay;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -21,9 +18,12 @@ import java.util.Map;
  * @author Albert
  */
 public class Entity extends Evented {
-    @Expose private Entity parent;
-    @Expose private Collection<Entity> children;
-    @Expose private Map<String, Object> properties;
+    @Expose
+    private Entity parent;
+    @Expose
+    private Collection<Entity> children;
+    @Expose
+    private Map<String, Object> properties;
     private Group group;
 
     /**
@@ -54,7 +54,7 @@ public class Entity extends Evented {
     public Entity getParent() {
         return parent;
     }
-    
+
     /**
      * Get map containing all of the entity's parameters
      *
@@ -77,8 +77,8 @@ public class Entity extends Evented {
         return group;
     }
 
-    public Collection<Entity> getChildren() {
-        return children;
+    public Iterator<Entity> getChildren() {
+        return children.iterator();
     }
 
     public Object getProperty(String name) {
@@ -86,6 +86,11 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        
+        for (Object script : (List) properties.get("scripts")) {
+            String code = ScriptLoader.stringForFile((String) script);
+            Binding binding = new Binding();
+            binding.setVariable("entity", this);
+            binding.setVariable("game", null);
+        }
     }
 }

@@ -23,11 +23,12 @@ public abstract class Event {
         fire(target);
 
         Entity root = target;
-        if(root.getChildren().isEmpty()) {
+        if(!root.getChildren().hasNext()) {
             return this;
         }
 
-        root.getChildren().forEach(e -> recursiveFire(e));
+        while (root.getChildren().hasNext())
+            recursiveFire(root.getChildren().next());
         return this;
     }
 }
