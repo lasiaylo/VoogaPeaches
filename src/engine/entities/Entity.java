@@ -18,12 +18,10 @@ import java.util.*;
  * @author Albert
  */
 public class Entity extends Evented {
-    @Expose
+
     private Entity parent;
-    @Expose
-    private Collection<Entity> children;
-    @Expose
-    private Map<String, Object> properties;
+    @Expose private Collection<Entity> children;
+    @Expose private Map<String, Object> properties;
     private Group group;
 
     /**
@@ -32,6 +30,7 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
+        properties = new HashMap<>();
         group.setOnMouseClicked(e -> new ClickEvent().fire(this));
         executeScripts();
     }
@@ -92,5 +91,10 @@ public class Entity extends Evented {
             binding.setVariable("entity", this);
             binding.setVariable("game", null);
         }
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

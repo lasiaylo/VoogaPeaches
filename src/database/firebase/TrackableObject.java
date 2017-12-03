@@ -23,4 +23,9 @@ public abstract class TrackableObject {
      */
     public TrackableObject() { UID = UUID.randomUUID().toString().replace("-",""); }
 
+    /**
+     * Initialize methods that performs further initialization once a trackable
+     * object has been recreated from the database
+     */
+    abstract public void initialize();
 }

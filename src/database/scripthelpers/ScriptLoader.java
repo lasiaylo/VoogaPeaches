@@ -39,8 +39,4 @@ public class ScriptLoader {
         return CACHED_SCRIPTS.get(filename);
     }
 
-    public static void main(String[] args) {
-        System.out.println(stringForFile("example.groovy"));
-    }
-
 }
