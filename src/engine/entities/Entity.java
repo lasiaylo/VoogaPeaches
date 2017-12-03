@@ -1,9 +1,12 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import engine.events.ClickEvent;
 import engine.events.Evented;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import util.ErrorDisplay;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,7 +30,7 @@ public class Entity extends Evented {
     public Entity() {
         group = new Group();
         children = new HashSet<>();
-
+        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
         executeScripts();
     }
 
@@ -70,7 +73,7 @@ public class Entity extends Evented {
         add(entity.getNodes());
     }
 
-    public Node getNodes() {
+    public Group getNodes() {
         return group;
     }
 
@@ -83,6 +86,5 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        
     }
 }
