@@ -20,10 +20,9 @@ import java.util.*;
  */
 public class Entity extends Evented {
     @Expose
-    private Entity parent;
-    @Expose
     private Collection<Entity> children;
-    @Expose
+    
+    private Entity parent;
     private Map<String, Object> properties;
     private Group group;
 
