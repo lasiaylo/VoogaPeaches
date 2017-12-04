@@ -18,7 +18,7 @@ import org.json.JSONObject;
 import sun.font.Script;
 
 public class EntityScriptTest extends Application {
-    private TickEvent tickEvent = new TickEvent(1000. / 60);
+    private TickEvent tickEvent = new TickEvent(1. / 60);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,9 +35,11 @@ public class EntityScriptTest extends Application {
         primaryStage.setScene(s);
         primaryStage.show();
 
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
             tickEvent.fire(entityFromFile);
         }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
      public static void main(String[] args) {

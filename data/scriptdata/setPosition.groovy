@@ -10,6 +10,8 @@ entity.on("move", { Event event ->
     entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx()))
     entity.setProperty("y", new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy()))
 
+    println entity.getProperty("x")
+    println entity.getProperty("y")
     entity.getNodes().relocate(entity.getProperty("x"), entity.getProperty("y"))
 })
 
