@@ -5,6 +5,7 @@
       "scripts": [
         "example.groovy"
       ],
-      "health":"My Motherfucking health boiiiiiiiii"
+      "health":"My Motherfucking health boiiiiiiiii",
+      "value":40.23423
     }
 }

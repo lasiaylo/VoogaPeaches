@@ -22,7 +22,6 @@ public class EntityScriptTest extends Application {
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
         String script = ScriptLoader.stringForFile("example.groovy");
-//        System.out.println(script);
         entityFromFile.on("tick", e -> {
             Binding binding = new Binding();
             binding.setVariable("entity", entityFromFile);

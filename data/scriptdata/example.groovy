@@ -1,3 +1,3 @@
 import engine.entities.Entity
 
-println entity.getProperty("health")
+println entity.getProperty("value")

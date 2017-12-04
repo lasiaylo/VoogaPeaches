@@ -23,7 +23,6 @@ public class Entity extends Evented {
 
     @Expose private Collection<Entity> children;
     @Expose private Map<String, Object> properties;
-//    private Entity() {}
 
 
     private Group group;
