@@ -74,6 +74,7 @@ public class CameraPanel implements Panel {
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 
+		myView.getStyleClass().add("camera");
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
 				PubSub.Channel.THEME_MESSAGE,
