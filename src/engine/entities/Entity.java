@@ -8,6 +8,7 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import org.json.JSONArray;
 
 import java.util.*;
 
@@ -37,8 +38,6 @@ public class Entity extends Evented {
         group = new Group();
         children = new HashSet<>();
         properties = new HashMap<>();
-        setEventListeners();
-        executeScripts();
     }
 
     /**
@@ -114,5 +113,7 @@ public class Entity extends Evented {
         for (Entity entity : children)
             entity.parent = this;
 
+        setEventListeners();
+        executeScripts();
     }
 }

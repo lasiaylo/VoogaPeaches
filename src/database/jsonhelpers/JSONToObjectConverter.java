@@ -31,6 +31,8 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             } else if(json.get(key).getClass() == JSONObject.class) {
                 // Create map for params of object that is being held by the overall object
                 params.put(key, parseParameters((JSONObject) json.get(key)));
+            } else if(json.get(key).getClass() == JSONArray.class) {
+                params.put(key, ((JSONArray) json.get(key)).toList());
             }
         }
         return params;
@@ -63,7 +65,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             }
 
             // Set UID field of TrackableObject
-            Field UIDField = newObject.getClass().getSuperclass().getDeclaredField("UID");
+            Field UIDField = newObject.getClass().getSuperclass().getSuperclass().getDeclaredField("UID");
             UIDField.setAccessible(true);
             UIDField.set(newObject, params.get("UID"));
             UIDField.setAccessible(false);
@@ -78,9 +80,10 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
                     Object heldObject = (Object) createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
-                } else if(params.get(param).getClass() == JSONArray.class) {
-                    JSONArray arr = (JSONArray) params.get(param);
-                    params.put(param, arr.toList());
+                } else if(instanceVar.getType().isAssignableFrom(Map.class)) {
+                     JSONObject objectForMap = new JSONObject((HashMap<String, Object>) params.get(param));
+                     params.put(param, parseParameters(objectForMap));
+
                 }
                 if(!instanceVar.isAccessible()) {
                     instanceVar.setAccessible(true);
