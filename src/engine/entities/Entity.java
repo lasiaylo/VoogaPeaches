@@ -89,7 +89,7 @@ public class Entity extends Evented {
             String code = ScriptLoader.stringForFile((String) script);
             Binding binding = new Binding();
             binding.setVariable("entity", this);
-            binding.setVariable("game", null);
+            binding.setVariable("game", root);
             new GroovyShell(binding).evaluate(code);
         }
     }
