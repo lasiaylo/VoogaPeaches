@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import util.math.num.Vector;
 
@@ -123,6 +124,7 @@ public class EntityManager extends TrackableObject {
             ImageScript script = new ImageScript();
             try {
                 image.reset();
+                System.out.println(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,6 +140,26 @@ public class EntityManager extends TrackableObject {
         }
         return null;
 	}
+
+	public Entity addNonBG(Vector pos, Image image) {
+        if (myMode > 0) {
+            if (myMode > myLayerList.size()) {
+                addLayer();
+            }
+            Entity newEnt = myLayerList.get(myMode - 1).addEntity(pos);
+            ImageScript script = new ImageScript();
+            script.setImage(image);
+            newEnt.addScript(script);
+            script.execute(newEnt);
+
+            newEnt.getRender().setOnMouseClicked(e -> changeRender(e, script, newEnt));
+            newEnt.getRender().setOnKeyPressed(e -> deleteEntity(newEnt, e));
+            newEnt.getRender().setOnMousePressed(e -> startDrag(e, newEnt));
+            newEnt.getRender().setOnMouseDragged(e -> drag(e, newEnt, startPos, startSize));
+            return newEnt;
+        }
+        return null;
+    }
 
 	private void startDrag(MouseEvent event, Entity entity) {
         startPos = new Vector(event.getX(), event.getY());
@@ -156,14 +178,28 @@ public class EntityManager extends TrackableObject {
 
     private void zoom(MouseEvent event, Entity entity, Vector startPos, Vector startSize) {
 	    Vector change = (new Vector(event.getX(), event.getY())).subtract(startPos);
+	    if (event.getX() < startPos.at(0)) {
+	        change.at(0, 0.0);
+        }
+        if (event.getY() < startPos.at(1)) {
+	        change.at(1, 0.0);
+        }
 	    entity.getTransform().setScale(startSize.add(change));
 	    entity.getRender().displayUpdate(entity.getTransform());
 	    event.consume();
     }
 
 	private void move(MouseEvent event, Entity entity) {
-
-        entity.getTransform().setPosition(new Vector(event.getX(), event.getY()));
+	    double xPos = event.getX();
+	    double yPos = event.getY();
+	    //LOL there is actually a bug here, if you try to drag over the right bound and lower bound
+	    if (event.getX() < entity.getTransform().getSize().at(0)/2) {
+	        xPos = entity.getTransform().getSize().at(0)/2;
+        }
+        if (event.getY() < entity.getTransform().getSize().at(1)/2) {
+	        yPos = entity.getTransform().getSize().at(1)/2;
+        }
+        entity.getTransform().setPosition(new Vector(xPos, yPos));
         entity.getRender().displayUpdate(entity.getTransform());
         event.consume();
     }

@@ -55,8 +55,10 @@ public class Camera {
         //myView.setViewportBounds(new BoundingBox(center.at(0)-size.at(0)/2, center.at(1)-size.at(1)/2, size.at(0), size.at(1)));
         myView.setPrefWidth(size.at(0));
         myView.setPrefHeight(size.at(1));
-        hScroll((center.at(0) - size.at(0) / 2) / myView.getContent().getLayoutBounds().getWidth() - size.at(0));
-        vScroll((center.at(1) - size.at(1) / 2) / myView.getContent().getLayoutBounds().getHeight() - size.at(1));
+        myView.setVvalue(0);
+        myView.setHvalue(0);
+//        hScroll((center.at(0) - size.at(0) / 2) / myView.getContent().getLayoutBounds().getWidth() - size.at(0));
+//        vScroll((center.at(1) - size.at(1) / 2) / myView.getContent().getLayoutBounds().getHeight() - size.at(1));
 
 
         myView.layout();
@@ -108,7 +110,7 @@ public class Camera {
      */
     public Pane getMiniMap(Vector size) {
         myMiniMap = new Canvas(size.at(0), size.at(1));
-        myMiniMap.setStyle("-fx-border-color: black");
+        myMiniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
         myPoint = new Circle(myView.getHvalue(), myView.getVvalue(), 5, Color.RED);
 
         NumberBinding xPoint = myView.hvalueProperty().multiply(size.at(0));

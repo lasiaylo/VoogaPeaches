@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -18,6 +19,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import util.math.num.Vector;
+
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * whole map for the game
@@ -50,6 +58,25 @@ public class Map extends StackPane implements ListChangeListener<Layer>{
         myCanvas.setOnMouseClicked(e -> addBGblock(new Vector(e.getX(), e.getY()), e));
         myCanvas.setOnMousePressed(e -> startDrag(e));
         myCanvas.setOnMouseReleased(e -> addBatch(e, startPos));
+
+        this.setOnDragOver(e -> dragOver(e, this));
+        this.setOnDragDropped(e -> dragDropped(e));
+    }
+
+    private void dragOver(DragEvent event, Node map) {
+        if (event.getGestureSource() != map && event.getDragboard().hasImage()) {
+            event.acceptTransferModes(TransferMode.COPY);
+        }
+        event.consume();
+    }
+
+    private void dragDropped(DragEvent event) {
+        Dragboard board = event.getDragboard();
+        if (board.hasImage()) {
+            myManager.addNonBG(new Vector(event.getX(), event.getY()), board.getImage());
+        }
+        event.setDropCompleted(true);
+        event.consume();
     }
 
     private void startDrag(MouseEvent event) {
