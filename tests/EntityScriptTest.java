@@ -18,7 +18,11 @@ public class EntityScriptTest extends Application {
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
     }
-     public static void main(String[] args) {
-        launch(args);
+    
+    public static void main(String[] args) {
+    		System.out.println("tets");
+    		launch(args);
+    		
     }
+    
 }

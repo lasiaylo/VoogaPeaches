@@ -6,8 +6,6 @@ import authoring.IPanelController;
 import authoring.Panel;
 import engine.Engine;
 import engine.camera.Camera;
-import engine.managers.EntityManager;
-import engine.util.FXProcessing;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;

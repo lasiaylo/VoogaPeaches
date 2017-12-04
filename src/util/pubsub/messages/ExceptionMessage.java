@@ -50,7 +50,8 @@ public class ExceptionMessage extends Message {
         return e.getStackTrace();
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return e.toString();
     }
 }

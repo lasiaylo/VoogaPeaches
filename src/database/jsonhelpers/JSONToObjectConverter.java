@@ -1,6 +1,5 @@
 package database.jsonhelpers;
 
-import database.examples.realtime.Post;
 import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -78,7 +77,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 // Recursively create objects that are being held by the original object
                 if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
-                    Object heldObject = (Object) createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
+                    Object heldObject = createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
                 } else if(instanceVar.getType().isAssignableFrom(Map.class)) {
                      JSONObject objectForMap = new JSONObject((HashMap<String, Object>) params.get(param));

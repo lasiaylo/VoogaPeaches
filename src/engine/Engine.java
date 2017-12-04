@@ -5,6 +5,7 @@ import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
 import engine.events.TickEvent;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -12,7 +13,6 @@ import util.ErrorDisplay;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +51,7 @@ public class Engine {
         }
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setCycleCount(Animation.INDEFINITE);
     }
 
     private void initializeLevelMap() {

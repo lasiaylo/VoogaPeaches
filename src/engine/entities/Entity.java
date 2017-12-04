@@ -8,8 +8,6 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import org.json.JSONArray;
-
 import java.util.*;
 
 

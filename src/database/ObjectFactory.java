@@ -4,11 +4,9 @@ import database.firebase.TrackableObject;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
-import engine.entities.Entity;
 import org.json.JSONObject;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
-import javax.sound.midi.Track;
 import java.util.Map;
 
 public class ObjectFactory<T extends TrackableObject> {

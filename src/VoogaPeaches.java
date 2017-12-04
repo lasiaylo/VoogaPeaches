@@ -13,7 +13,8 @@ public class VoogaPeaches extends Application {
 
 //    private Screen kitty;
 
-    public void start(Stage stage) {
+    @Override
+	public void start(Stage stage) {
         stage.setTitle(TITLE);
         stage.setMaximized(true);
         stage.setResizable(false);

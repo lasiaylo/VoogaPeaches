@@ -3,7 +3,9 @@
     "children": [],
     "properties": {
       "scripts": [
-        "example.groovy"
-      ]
+        "movement.groovy"
+      ],
+	"X Position": 30,
+	"Y Position": 40
     }
 }
