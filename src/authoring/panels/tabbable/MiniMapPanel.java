@@ -2,9 +2,8 @@ package authoring.panels.tabbable;
 
 import authoring.*;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class MiniMapPanel implements Panel{
 
@@ -25,6 +24,7 @@ public class MiniMapPanel implements Panel{
     public void setController(IPanelController controller) {
         myController = controller;
         myPane = myController.getMiniMap();
+        myPane.setBackground(new Background(new BackgroundFill(Color.ROYALBLUE, null, null)));
         myPane.setPadding(new Insets(20));
 
     }

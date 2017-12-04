@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import util.math.num.Vector;
 
 
@@ -108,18 +109,19 @@ public class Camera {
      */
     public Pane getMiniMap(Vector size) {
         myMiniMap = new Canvas(size.at(0), size.at(1));
-        myMiniMap.setStyle("-fx-border-color: black");
+        myMiniMap.getGraphicsContext2D().setFill(Color.BLACK);
+        myMiniMap.getGraphicsContext2D().fillRect(0, 0, size.at(0), size.at(1));
         myPoint = new Circle(myView.getHvalue(), myView.getVvalue(), 5, Color.RED);
 
-        NumberBinding xPoint = myView.hvalueProperty().multiply(size.at(0));
-        NumberBinding yPoint = myView.vvalueProperty().multiply(size.at(1));
+        NumberBinding xPoint = myView.hvalueProperty().multiply(size.at(0)).add(size.at(0));
+        NumberBinding yPoint = myView.vvalueProperty().multiply(size.at(1)).add(size.at(1));
         myPoint.centerXProperty().bind(xPoint);
         myPoint.centerYProperty().bind(yPoint);
 
         Pane miniPane = new Pane();
         miniPane.getChildren().add(myMiniMap);
         miniPane.getChildren().add(myPoint);
-
+        miniPane.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
         myMiniMap.setOnMouseClicked(e -> moveCamera(e));
 
         return miniPane;
