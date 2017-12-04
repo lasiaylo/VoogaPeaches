@@ -4,6 +4,7 @@
     "properties": {
       "scripts": [
         "example.groovy"
-      ]
+      ],
+      "health":"My Motherfucking health boiiiiiiiii"
     }
 }

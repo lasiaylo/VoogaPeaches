@@ -25,9 +25,7 @@ public class Engine {
     private static final int MAX_FRAMES_PER_SECOND = 60;
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
-    private Entity root;
-    private Map<String, Entity> levels;
-    private Entity currentLevel;
+    private EntityManager entityManager;
     private TickEvent tick = new TickEvent();
     private Timeline timeline;
     private Camera camera;
@@ -39,52 +37,22 @@ public class Engine {
      * @param level     name of the first level
      */
     public Engine(Entity root, String level, Camera camera) {
-        this.root = root;
+        this.entityManager = new EntityManager(root, level);
         this.camera = camera;
-        this.levels = new HashMap<>();
-        initializeLevelMap();
-        changeLevel(level);
-
-        for(String key : levels.keySet()) {
-            Entity entity = levels.get(key);
-            entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
-        }
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
-    private void initializeLevelMap() {
-        try {
-            Iterator<Entity> children = root.getChildren();
-            while(children.hasNext()) {
-                Entity child = children.next();
-                levels.put((String) child.getProperty("name"), child);
-            }
-        } catch(ClassCastException e) {
-            ErrorDisplay eDisplay = new ErrorDisplay("Fuck you", "Name was not string");
-            eDisplay.displayError();
-        }
-    }
-
-    /**
-     * Change current level
-     *
-     * @param level: new level
-     */
-    public void changeLevel(String level) {
-        if (!levels.containsKey(null))
-            new ErrorDisplay("Fuck you!", "Level " + level + " does not exist");
-        else
-            camera = new Camera((currentLevel = this.levels.get(level)).getNodes());
-
-    }
-
     private void loop() {
-        tick.recursiveFire(currentLevel);
+        tick.recursiveFire(entityManager.getCurrentLevel());
     }
 
     public void save(String name) {
-        new GameSaver(name).saveTrackableObjects(root);
+        new GameSaver(name).saveTrackableObjects(entityManager.getRoot());
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }
