@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class Entity extends Evented {
 
-    @Expose private Collection<Entity> children;
+    @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
 //    private Entity() {}
 
@@ -36,7 +36,7 @@ public class Entity extends Evented {
      */
     public Entity() {
         group = new Group();
-        children = new HashSet<>();
+        children = new ArrayList<>();
         properties = new HashMap<>();
     }
 
@@ -48,6 +48,7 @@ public class Entity extends Evented {
     public Entity(Entity parent) {
         this();
         this.parent = parent;
+        parent.add(this);
     }
 
     /**
@@ -66,12 +67,20 @@ public class Entity extends Evented {
     public void add(Entity entity) {
         children.add(entity);
         add(entity.getNodes());
-        entity.addTo(entity);
+        entity.addTo(this);
+    }
+    public void remove(Node node) {
+        group.getChildren().remove(node);
     }
 
     public Entity addTo(Entity parent) {
         this.parent = parent;
         return this;
+    }
+
+    public void remove(Entity entity) {
+        children.remove(entity);
+        remove(entity.getNodes());
     }
 
     public Group getNodes() {
@@ -80,6 +89,14 @@ public class Entity extends Evented {
 
     public Iterator<Entity> getChildren() {
         return children.iterator();
+    }
+
+    public int getChildrenSize() {
+        return children.size();
+    }
+
+    public Entity getChildren(int index) {
+        return children.get(index);
     }
 
     public Object getProperty(String name) {
