@@ -33,6 +33,7 @@ public class Render extends ImageView {
         FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
         this.setImage(new Image(manager.readFileData("holder.gif")));
         setPosition(entity.getTransform().getPosition());
+        this.setManaged(false);
     }
 
 	public void displayUpdate(Transform transform) {
@@ -57,4 +58,13 @@ public class Render extends ImageView {
 		this.setFitWidth(size.at(0));
 		this.setFitHeight(size.at(1));
 	}
+
+
+    /**
+     * getter for entity
+     * @return entity
+     */
+	public Entity getMyEntity() {
+	    return myEntity;
+    }
 }
