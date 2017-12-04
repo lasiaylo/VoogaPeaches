@@ -7,12 +7,19 @@ import engine.entities.Entity;
 import engine.events.TickEvent;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.json.JSONObject;
 import sun.font.Script;
 
 public class EntityScriptTest extends Application {
+    private TickEvent tickEvent = new TickEvent(1000. / 60);
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -21,18 +28,17 @@ public class EntityScriptTest extends Application {
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
-        String script = ScriptLoader.stringForFile("example.groovy");
-//        System.out.println(script);
-        entityFromFile.on("tick", e -> {
-            Binding binding = new Binding();
-            binding.setVariable("entity", entityFromFile);
-            binding.setVariable("game", null);
-            new GroovyShell(binding).evaluate(script);
-        });
+        Circle circle = new Circle(20);
+        entityFromFile.getNodes().getChildren().add(circle);
 
-        Entity child = new Entity(entityFromFile);
-        new TickEvent().fire(entityFromFile);
-        new TickEvent().fire(entityFromFile);
+        Scene s = new Scene(entityFromFile.getNodes());
+        primaryStage.setScene(s);
+        primaryStage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+            tickEvent.fire(entityFromFile);
+        }));
+        timeline.play();
     }
      public static void main(String[] args) {
         launch(args);

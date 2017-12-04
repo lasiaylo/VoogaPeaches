@@ -26,7 +26,7 @@ public class Engine {
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
     private EntityManager entityManager;
-    private TickEvent tick = new TickEvent();
+    private TickEvent tick = new TickEvent(FRAME_PERIOD);
     private Timeline timeline;
     private Camera camera;
 
@@ -37,7 +37,7 @@ public class Engine {
      * @param level     name of the first level
      */
     public Engine(Entity root, String level, Camera camera) {
-        this.entityManager = new EntityManager(root, level);
+        this.entityManager = new EntityManager(root, level, camera);
         this.camera = camera;
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));

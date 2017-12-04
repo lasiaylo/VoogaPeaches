@@ -5,6 +5,9 @@
       "scripts": [
         "example.groovy"
       ],
-      "health":"My Motherfucking health boiiiiiiiii"
+      "x": 30,
+      "y": 30,
+      "vx": 5,
+      "vy": 5
     }
 }

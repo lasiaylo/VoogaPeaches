@@ -22,6 +22,7 @@ public class EntityManager {
         this.camera = camera;
 
         initializeLevelMap();
+        this.currentLevel = levels.get(currentLevel);
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
             entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));

@@ -1,8 +1,9 @@
 import engine.events.Event;
 
 public class PrintEvent extends Event {
-    public PrintEvent(String type) {
-        super(type);
+    private String message;
+    public PrintEvent(String message) {
+        super("print");
     }
 
     public void printHellYeah() {
