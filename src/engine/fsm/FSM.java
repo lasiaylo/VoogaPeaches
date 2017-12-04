@@ -98,4 +98,18 @@ public class FSM extends TrackableObject{
 	public boolean check(Object state) {
 		return myCurrentState == (State) state;
 	}
+	
+	/**
+	 * @param properties map of an entity's properties
+	 * 
+	 * Overwrites FSM's parameters with entity's parameters
+	 */
+	public void pairParameters(Map<String, Object> properties) {
+		myParameters = properties;
+	}
+	
+	@Override
+	public void initialize() {
+
+	}
 }

@@ -1,2 +1,3 @@
-yeah
-boi
+import engine.entities.Entity
+
+println entity.getProperty("health")

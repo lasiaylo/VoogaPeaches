@@ -52,4 +52,9 @@ public class Transition extends TrackableObject {
 	public void setCondition(String logicStatement, Map<String,Object> parameter) {
 		condition = new Logic(logicStatement,parameter);
 	}
+
+	@Override
+	public void initialize() {
+
+	}
 }

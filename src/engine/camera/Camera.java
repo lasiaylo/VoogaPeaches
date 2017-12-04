@@ -1,10 +1,14 @@
 package engine.camera;
 
+import engine.entities.Entity;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
+
+import java.util.Iterator;
 
 /**
  * Camera that will pass a view to the authoring and player for game display
@@ -51,6 +55,13 @@ public class Camera {
         this.scale = size;
 
         return view;
+    }
+
+    public void setView(Entity entity) {
+        StackPane sPane = new StackPane();
+        Iterator<Entity> iterator = entity.getChildren();
+        iterator.forEachRemaining(e -> sPane.getChildren().add(e.getNodes()));
+        view.setContent(sPane);
     }
 
     private SubScene getMinimap(Vector size) {
