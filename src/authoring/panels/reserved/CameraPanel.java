@@ -64,7 +64,6 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
-		//myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
@@ -75,17 +74,6 @@ public class CameraPanel implements Panel {
 		myArea.setPadding(new Insets(5));
 
 		myView.getStyleClass().add("camera");
-		pubSub = PubSub.getInstance();
-		pubSub.subscribe(
-				PubSub.Channel.THEME_MESSAGE,
-				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
-	}
-
-	private void updateStyles(Region region, String css) {
-		if (region.getStylesheets().size() >= 1) {
-			region.getStylesheets().remove(0);
-		}
-		region.getStylesheets().add(css);
 	}
 
 	private HBox buttonRow() {
