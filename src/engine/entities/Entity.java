@@ -78,6 +78,14 @@ public class Entity extends Evented {
         return this;
     }
 
+    /**
+     * clear layer but leave the placeholder inside the group
+     */
+    public void clearLayer() {
+        children.clear();
+        group.getChildren().subList(1, group.getChildren().size()).clear();
+    }
+
     public void remove(Entity entity) {
         children.remove(entity);
         remove(entity.getNodes());
