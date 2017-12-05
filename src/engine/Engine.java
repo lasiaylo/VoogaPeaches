@@ -2,6 +2,7 @@ package engine;
 
 import database.GameSaver;
 import engine.camera.Camera;
+import engine.collisions.HitBox;
 import engine.entities.Entity;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
@@ -10,6 +11,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import util.math.num.Vector;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Initiates the engine's loop with a root game entity
@@ -71,5 +75,8 @@ public class Engine {
         return camera.getMinimap(size);
     }
 
-
+//    private Map<HitBox, Entity> getHitBoxes(Entity root, Map<HitBox, Entity> hitBoxes) {
+//        root.getHitBoxes().forEach(e -> hitBoxes.put(e, root));
+//        return
+//    }
 }

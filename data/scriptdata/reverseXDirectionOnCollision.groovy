@@ -5,6 +5,7 @@ import engine.entities.Entity
 import engine.events.CollisionEvent
 import engine.events.Event
 
+String fat = "collision"
 entity = (Entity) entity
 
 entity.on("collision", { Event event ->
@@ -16,8 +17,9 @@ entity.on("collision", { Event event ->
         collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
     }
 
-    if(otherHitBox.getTag().equals("rectangle")) {
 
-        collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
-    }
+//    if(otherHitBox.getTag().equals("rectangle")) {
+//
+//        collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
+//    }
 })
