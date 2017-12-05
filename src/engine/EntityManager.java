@@ -181,6 +181,16 @@ public class EntityManager {
         }
     }
 
+
+    /**
+     * change background type for clicking
+     * @param type
+     */
+    public void setMyBGType (InputStream type) {
+        BGType = type;
+    }
+
+
     /**
      * select BG layer
      */
