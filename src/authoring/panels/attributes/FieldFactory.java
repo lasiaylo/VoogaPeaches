@@ -45,7 +45,7 @@ public class FieldFactory {
 	 * @return
 	 * @throws GroovyInstantiationException 
 	 */
-	public static Field makeField(Map<Object, Object> map, Object key) throws GroovyInstantiationException {
+	public static Field makeField(Map<String, Object> map, String key) throws GroovyInstantiationException {
 		Setter set = new MapSetter(map, key);
 		Class<?> clazz = map.get(key).getClass();
 

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HitBoxPanel implements Panel {
+    private static final double RADIUS = 5;
+
     private static final String TITLE = "Create or Add Hitboxes!";
     private Entity entity;
     private Group entityView = new Group();
@@ -34,11 +36,13 @@ public class HitBoxPanel implements Panel {
         for(int i = 0; i < points.size(); i += 2) {
             double x = points.get(i);
             double y = points.get(i + 1);
+//            if()
         }
     }
 
     private boolean checkRadius(double x, double y, MouseDragEvent dragEvent) {
-        Vector v = new Vector(dragEvent.getX() - x)
+        Vector v = new Vector(dragEvent.getX() - x, dragEvent.getY() - y);
+        return v.norm() < RADIUS;
     }
 
     private void addPoint(MouseEvent event) {
