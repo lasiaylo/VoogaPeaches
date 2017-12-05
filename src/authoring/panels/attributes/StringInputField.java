@@ -1,8 +1,5 @@
 package authoring.panels.attributes;
 
-import java.lang.reflect.Method;
-
-import util.exceptions.GroovyInstantiationException;
 
 /**Allows users to change a String Field
  * @author lasia
@@ -10,19 +7,16 @@ import util.exceptions.GroovyInstantiationException;
  */
 public class StringInputField extends InputField {
 	
-	public StringInputField(Object object, Method get, Method set) throws GroovyInstantiationException {
-		super(object, get, set);
+	public StringInputField(Setter set) {
+		super(set);
 	}
 	
-	public StringInputField(Object object, String field, Method get, Method set) throws GroovyInstantiationException {
-		super(object, field, get, set);
-	}
 
 	@Override
 	protected void updateField() {
 	}
 
-	protected void getDefaultValue() throws GroovyInstantiationException {
+	protected void getDefaultValue() {
 		String defaultText = (String) getValue();
 		getTextField().setText(defaultText);
 	}

@@ -60,6 +60,10 @@ public class Entity extends Evented {
     public Entity getParent() {
         return parent;
     }
+    
+    public Map<String, Object> getProperties(){
+    	return properties;
+    }
 
     public void add(Node node) {
         group.getChildren().add(node);
