@@ -4,7 +4,7 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.camera.Camera;
 import engine.entities.Entity;
-import engine.events.ImgViewEvent;
+import engine.events.ImageViewEvent;
 import engine.events.KeyPressEvent;
 import engine.events.MapEvent;
 import engine.util.FXProcessing;
@@ -28,7 +28,6 @@ public class EntityManager {
     private Entity root;
     private Map<String, Entity> levels;
     private Entity currentLevel;
-    private Camera camera;
     private int mode = -1;
     private InputStream BGType;
     private int grid;
@@ -38,17 +37,17 @@ public class EntityManager {
     private Vector startPosBatch = new Vector(0, 0);
 
 
-    public EntityManager(Entity root, String currentLevel, Camera camera, int gridSize) {
+    public EntityManager(Entity root, int gridSize) {
         this.root = root;
         this.levels = new HashMap<>();
-        this.camera = camera;
         this.grid = gridSize;
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
 
-        initializeLevelMap();
-        this.currentLevel = levels.get(currentLevel);
+        //don't freak out about this..... just a initial level
+        addLevel("Level 1", 5000, 5000);
+        currentLevel = levels.get("level 1");
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
             entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
@@ -62,26 +61,26 @@ public class EntityManager {
             changeScriptBGType(view);
             setupImage(pos, view);
             BGblock.add(view);
-            ImgViewEvent addView = new ImgViewEvent("setView");
+            ImageViewEvent addView = new ImageViewEvent("setView");
             BGblock.on("setView", event -> {
-                ImgViewEvent setView = (ImgViewEvent)event;
+                ImageViewEvent setView = (ImageViewEvent)event;
                 setView.setView(view);
             });
             addView.fire(BGblock);
             BGblock.on("viewTransTrue", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(true);
             });
             BGblock.on("viewTransFalse", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(false);
             });
             BGblock.on("viewVisTrue", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(true);
             });
             BGblock.on("viewVisFalse", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(false);
             });
             view.setOnMouseClicked(e -> changeRender(e, view));
@@ -130,26 +129,26 @@ public class EntityManager {
             ImageView view = new ImageView(new Image(image));
             setupImage(pos, view);
             newEnt.add(view);
-            ImgViewEvent addView = new ImgViewEvent("setView");
+            ImageViewEvent addView = new ImageViewEvent("setView");
             newEnt.on("setView", event -> {
-                ImgViewEvent setView = (ImgViewEvent)event;
+                ImageViewEvent setView = (ImageViewEvent)event;
                 setView.setView(view);
             });
             addView.fire(newEnt);
             newEnt.on("viewTransTrue", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(true);
             });
             newEnt.on("viewTransFalse", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(false);
             });
             newEnt.on("viewVisTrue", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(true);
             });
             newEnt.on("viewVisFalse", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(false);
             });
             view.setOnMouseClicked(e -> changeRender(e, view));
@@ -168,26 +167,26 @@ public class EntityManager {
             ImageView view = new ImageView(image);
             setupImage(pos, view);
             newEnt.add(view);
-            ImgViewEvent addView = new ImgViewEvent("setView");
+            ImageViewEvent addView = new ImageViewEvent("setView");
             newEnt.on("setView", event -> {
-                ImgViewEvent setView = (ImgViewEvent)event;
+                ImageViewEvent setView = (ImageViewEvent)event;
                 setView.setView(view);
             });
             addView.fire(newEnt);
             newEnt.on("viewTransTrue", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(true);
             });
             newEnt.on("viewTransFalse", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(false);
             });
             newEnt.on("viewVisTrue", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(true);
             });
             newEnt.on("viewVisFalse", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(false);
             });
             view.setOnMouseClicked(e -> changeRender(e, view));
@@ -230,8 +229,8 @@ public class EntityManager {
     }
 
     private void select(Entity layer) {
-        ImgViewEvent viewTrans = new ImgViewEvent("viewTransFalse");
-        ImgViewEvent viewVis = new ImgViewEvent("viewVisTrue");
+        ImageViewEvent viewTrans = new ImageViewEvent("viewTransFalse");
+        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
 
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
@@ -240,8 +239,8 @@ public class EntityManager {
     }
 
     private void deselect(Entity layer) {
-        ImgViewEvent viewTrans = new ImgViewEvent("viewTransTrue");
-        ImgViewEvent viewVis = new ImgViewEvent("viewVisFalse");
+        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
+        ImageViewEvent viewVis = new ImageViewEvent("viewVisFalse");
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
             viewVis.fire(e);
@@ -249,8 +248,8 @@ public class EntityManager {
     }
 
     private void viewOnly(Entity layer) {
-        ImgViewEvent viewTrans = new ImgViewEvent("viewTransTrue");
-        ImgViewEvent viewVis = new ImgViewEvent("viewVisTrue");
+        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
+        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
             viewVis.fire(e);
@@ -361,7 +360,7 @@ public class EntityManager {
             addStack.setStack(stack);
         });
         mEvent.fire(level);
-
+        level.add(stack);
     }
 
     private void dragOver(DragEvent event, Node map) {
@@ -418,8 +417,7 @@ public class EntityManager {
         if (!levels.containsKey(null))
             new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist");
         else
-            camera.setView((currentLevel = this.levels.get(level)));
-//            camera = new Camera((currentLevel = this.levels.get(level)).getNodes());
+            currentLevel = levels.get(level);
     }
 
 
