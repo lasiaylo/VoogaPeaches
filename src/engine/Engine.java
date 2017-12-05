@@ -4,6 +4,7 @@ import database.GameSaver;
 import engine.camera.Camera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
+import engine.events.CollisionEvent;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,6 +46,8 @@ public class Engine {
 
     private void loop() {
         tick.recursiveFire(entityManager.getCurrentLevel());
+        Map<HitBox, Entity> hitBoxes = getHitBoxes(entityManager.getCurrentLevel(), new HashMap<>());
+        checkCollisions(hitBoxes);
     }
 
     public void save(String name) {
@@ -75,8 +78,19 @@ public class Engine {
         return camera.getMinimap(size);
     }
 
-//    private Map<HitBox, Entity> getHitBoxes(Entity root, Map<HitBox, Entity> hitBoxes) {
-//        root.getHitBoxes().forEach(e -> hitBoxes.put(e, root));
-//        return
-//    }
+    private Map<HitBox, Entity> getHitBoxes(Entity root, Map<HitBox, Entity> hitBoxes) {
+        root.getHitBoxes().forEach(e -> hitBoxes.put(e, root));
+        root.getChildren().forEach(e -> getHitBoxes(e, hitBoxes));
+        return hitBoxes;
+    }
+
+    private void checkCollisions(Map<HitBox, Entity> hitBoxes) {
+        for(HitBox hitBox : hitBoxes.keySet()) {
+            for(HitBox other : hitBoxes.keySet()) {
+                if(hitBox != other && hitBox.intersects(other)) {
+                    new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
+                    new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));                }
+            }
+        }
+    }
 }
