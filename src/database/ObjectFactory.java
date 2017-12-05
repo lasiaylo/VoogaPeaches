@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * A class for creating entities from a given blueprint, so that entities can
- * create entities for things like attacks
+ * create entities for things like attacks ☺️
  *
  * @author Walker Willetts
  */

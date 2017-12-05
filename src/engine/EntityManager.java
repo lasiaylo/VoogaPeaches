@@ -196,10 +196,10 @@ public class EntityManager {
             view.setOnMouseDragged(e -> drag(e, view, startPos, startSize));
         }
     }
-
     public void selectBGLayer() {
         selectLayer(0);
     }
+
 
     public void selectLayer(int layer) {
         mode = layer;
@@ -416,7 +416,7 @@ public class EntityManager {
      */
     public void changeLevel(String level) {
         if (!levels.containsKey(null))
-            new ErrorDisplay("Fuck you!", "Level " + level + " does not exist");
+            new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist");
         else
             camera.setView((currentLevel = this.levels.get(level)));
 //            camera = new Camera((currentLevel = this.levels.get(level)).getNodes());
