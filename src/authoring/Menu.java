@@ -27,9 +27,7 @@ import java.util.List;
  *
  */
 public class Menu {
-
-    //TODO: remove some of these values and put in a properties file or something, also make the menupanel and have the menu be a stage that holds a menupanel
-
+    
     private static final String AUTHORING_ENVIRONMENT = "AUTHORING";
     private static final String PLAYER = "PLAY";
     private static final String SETTINGS = "SETTINGS";
