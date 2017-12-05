@@ -2,7 +2,7 @@ import engine.entities.Entity
 import engine.events.Event
 import engine.events.MoveEvent
 
-entity = (Entity) entity
+entity = (Entity) entity;
 
 entity.on("move", { Event event ->
     MoveEvent moveEvent = (MoveEvent) event
