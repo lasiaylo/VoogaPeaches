@@ -4,19 +4,13 @@ import java.util.ResourceBundle;
 
 import authoring.IPanelController;
 import authoring.Panel;
-import engine.Engine;
-import engine.camera.Camera;
-import engine.managers.EntityManager;
+import engine.EntityManager;
 import engine.util.FXProcessing;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.util.Duration;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import util.math.num.Vector;
-
-import static java.lang.Character.getNumericValue;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -44,7 +38,7 @@ public class CameraPanel implements Panel {
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
-//	private EntityManager myManager;
+	private EntityManager myManager;
 
 	private ResourceBundle properties = ResourceBundle.getBundle("screenlayout");
 	private double cameraWidth;
