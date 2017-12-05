@@ -3,7 +3,6 @@ package engine.events;
 import javafx.scene.image.ImageView;
 
 public class ImageViewEvent extends Event {
-    private ImageView myImageView;
     private String action;
 
     public ImageViewEvent(String type) {
