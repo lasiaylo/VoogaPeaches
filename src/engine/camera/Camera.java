@@ -61,9 +61,9 @@ public class Camera {
         //todo
     }
 
-    private SubScene getMinimap(Vector size) {
-        //todo, get from old code
-    }
+//    private SubScene getMinimap(Vector size) {
+//        //todo, get from old code
+//    }
 
     /**
      * update imageview inside the viewport
