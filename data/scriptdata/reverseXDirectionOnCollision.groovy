@@ -17,9 +17,8 @@ entity.on("collision", { Event event ->
         collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
     }
 
+    if(otherHitBox.getTag().equals("rectangle")) {
 
-//    if(otherHitBox.getTag().equals("rectangle")) {
-//
-//        collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
-//    }
+        collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
+    }
 })
