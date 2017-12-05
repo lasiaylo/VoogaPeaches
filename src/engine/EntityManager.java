@@ -4,7 +4,7 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.camera.Camera;
 import engine.entities.Entity;
-import engine.events.ImgViewEvent;
+import engine.events.ImageViewEvent;
 import engine.events.KeyPressEvent;
 import engine.events.MapEvent;
 import engine.util.FXProcessing;
@@ -62,26 +62,26 @@ public class EntityManager {
             changeScriptBGType(view);
             setupImage(pos, view);
             BGblock.add(view);
-            ImgViewEvent addView = new ImgViewEvent("setView");
+            ImageViewEvent addView = new ImageViewEvent("setView");
             BGblock.on("setView", event -> {
-                ImgViewEvent setView = (ImgViewEvent)event;
+                ImageViewEvent setView = (ImageViewEvent)event;
                 setView.setView(view);
             });
             addView.fire(BGblock);
             BGblock.on("viewTransTrue", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(true);
             });
             BGblock.on("viewTransFalse", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(false);
             });
             BGblock.on("viewVisTrue", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(true);
             });
             BGblock.on("viewVisFalse", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(false);
             });
             view.setOnMouseClicked(e -> changeRender(e, view));
@@ -130,26 +130,26 @@ public class EntityManager {
             ImageView view = new ImageView(new Image(image));
             setupImage(pos, view);
             newEnt.add(view);
-            ImgViewEvent addView = new ImgViewEvent("setView");
+            ImageViewEvent addView = new ImageViewEvent("setView");
             newEnt.on("setView", event -> {
-                ImgViewEvent setView = (ImgViewEvent)event;
+                ImageViewEvent setView = (ImageViewEvent)event;
                 setView.setView(view);
             });
             addView.fire(newEnt);
             newEnt.on("viewTransTrue", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(true);
             });
             newEnt.on("viewTransFalse", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(false);
             });
             newEnt.on("viewVisTrue", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(true);
             });
             newEnt.on("viewVisFalse", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(false);
             });
             view.setOnMouseClicked(e -> changeRender(e, view));
@@ -168,26 +168,26 @@ public class EntityManager {
             ImageView view = new ImageView(image);
             setupImage(pos, view);
             newEnt.add(view);
-            ImgViewEvent addView = new ImgViewEvent("setView");
+            ImageViewEvent addView = new ImageViewEvent("setView");
             newEnt.on("setView", event -> {
-                ImgViewEvent setView = (ImgViewEvent)event;
+                ImageViewEvent setView = (ImageViewEvent)event;
                 setView.setView(view);
             });
             addView.fire(newEnt);
             newEnt.on("viewTransTrue", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(true);
             });
             newEnt.on("viewTransFalse", event -> {
-                ImgViewEvent viewTrans = (ImgViewEvent)event;
+                ImageViewEvent viewTrans = (ImageViewEvent)event;
                 viewTrans.setMouseTransparent(false);
             });
             newEnt.on("viewVisTrue", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(true);
             });
             newEnt.on("viewVisFalse", event -> {
-                ImgViewEvent viewVis = (ImgViewEvent)event;
+                ImageViewEvent viewVis = (ImageViewEvent)event;
                 viewVis.setVisible(false);
             });
             view.setOnMouseClicked(e -> changeRender(e, view));
@@ -243,8 +243,8 @@ public class EntityManager {
     }
 
     private void select(Entity layer) {
-        ImgViewEvent viewTrans = new ImgViewEvent("viewTransFalse");
-        ImgViewEvent viewVis = new ImgViewEvent("viewVisTrue");
+        ImageViewEvent viewTrans = new ImageViewEvent("viewTransFalse");
+        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
         while (layer.getChildren().hasNext()) {
             Entity each = layer.getChildren().next();
             viewTrans.fire(each);
@@ -253,8 +253,8 @@ public class EntityManager {
     }
 
     private void deselect(Entity layer) {
-        ImgViewEvent viewTrans = new ImgViewEvent("viewTransTrue");
-        ImgViewEvent viewVis = new ImgViewEvent("viewVisFalse");
+        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
+        ImageViewEvent viewVis = new ImageViewEvent("viewVisFalse");
         while (layer.getChildren().hasNext()) {
             Entity each = layer.getChildren().next();
             viewTrans.fire(each);
@@ -263,8 +263,8 @@ public class EntityManager {
     }
 
     private void viewOnly(Entity layer) {
-        ImgViewEvent viewTrans = new ImgViewEvent("viewTransTrue");
-        ImgViewEvent viewVis = new ImgViewEvent("viewVisTrue");
+        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
+        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
         while (layer.getChildren().hasNext()) {
             Entity each = layer.getChildren().next();
             viewTrans.fire(each);
