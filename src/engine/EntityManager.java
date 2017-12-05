@@ -4,9 +4,7 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.camera.Camera;
 import engine.entities.Entity;
-import engine.events.ImageViewEvent;
-import engine.events.KeyPressEvent;
-import engine.events.MapEvent;
+import engine.events.*;
 import engine.util.FXProcessing;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -69,28 +67,7 @@ public class EntityManager {
             BGblock.add(view);
             BGblock.setProperty("x", pos.at(0));
             BGblock.setProperty("y", pos.at(1));
-            ImageViewEvent addView = new ImageViewEvent("setView");
-            BGblock.on("setView", event -> {
-                ImageViewEvent setView = (ImageViewEvent)event;
-                setView.setView(view);
-            });
-            addView.fire(BGblock);
-            BGblock.on("viewTransTrue", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(true);
-            });
-            BGblock.on("viewTransFalse", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(false);
-            });
-            BGblock.on("viewVisTrue", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(true);
-            });
-            BGblock.on("viewVisFalse", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(false);
-            });
+
             view.setOnMouseClicked(e -> changeRender(e, view));
             view.setOnKeyPressed(e -> deleteEntity(e, BGblock));
         }
@@ -153,28 +130,7 @@ public class EntityManager {
             newEnt.add(view);
             newEnt.setProperty("x", pos.at(0));
             newEnt.setProperty("y", pos.at(1));
-            ImageViewEvent addView = new ImageViewEvent("setView");
-            newEnt.on("setView", event -> {
-                ImageViewEvent setView = (ImageViewEvent)event;
-                setView.setView(view);
-            });
-            addView.fire(newEnt);
-            newEnt.on("viewTransTrue", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(true);
-            });
-            newEnt.on("viewTransFalse", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(false);
-            });
-            newEnt.on("viewVisTrue", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(true);
-            });
-            newEnt.on("viewVisFalse", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(false);
-            });
+
             view.setOnMouseClicked(e -> changeRender(e, view));
             view.setOnKeyPressed(e -> deleteEntity(e, newEnt));
             view.setOnMousePressed(e -> startDrag(e, view));
@@ -243,8 +199,8 @@ public class EntityManager {
     }
 
     private void select(Entity layer) {
-        ImageViewEvent viewTrans = new ImageViewEvent("viewTransFalse");
-        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
+        TransparentMouseEvent viewTrans = new TransparentMouseEvent(false);
+        ViewVisEvent viewVis = new ViewVisEvent(true);
 
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
@@ -253,8 +209,8 @@ public class EntityManager {
     }
 
     private void deselect(Entity layer) {
-        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
-        ImageViewEvent viewVis = new ImageViewEvent("viewVisFalse");
+        TransparentMouseEvent viewTrans = new TransparentMouseEvent(true);
+        ViewVisEvent viewVis = new ViewVisEvent(false);
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
             viewVis.fire(e);
@@ -262,8 +218,8 @@ public class EntityManager {
     }
 
     private void viewOnly(Entity layer) {
-        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
-        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
+        TransparentMouseEvent viewTrans = new TransparentMouseEvent(true);
+        ViewVisEvent viewVis = new ViewVisEvent(true);
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
             viewVis.fire(e);
