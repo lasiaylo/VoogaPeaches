@@ -14,6 +14,7 @@ import java.util.List;
  * define an objects HitBox
  *
  * @author Walker
+ * @author Albert
  */
 public class HitBox extends TrackableObject {
 
