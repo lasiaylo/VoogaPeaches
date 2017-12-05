@@ -2,7 +2,6 @@ package engine.fsm;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
-import engine.managers.StateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
  * 
  * @author lasia
  *	@author Albert
+ * @author richardtseng
  */
 public class State extends TrackableObject {
+	
+	@Expose private String stateName;
 	@Expose private List<Transition> myTransitions;
 
 	/**
@@ -22,11 +24,19 @@ public class State extends TrackableObject {
 		myTransitions = new ArrayList<>();
 	}
 	
+	/**
+	 * Creates a new State with a name
+	 */
+	public State(String state) {
+		stateName = state;
+		myTransitions = new ArrayList<>();
+	}
+	
 	/**Checks the transitions of this state to see if the conditions are met
 	 * If they are, the manager's current state will be changed to the transition's destination
 	 * @param manager
 	 */
-	public void update(StateManager manager) {
+	public void update(FSM manager) {
 		for (Transition transition : myTransitions) {
 			if (transition.conditionsMeet(manager.getConditions())) {
 				manager.setCurrentState(transition.getDestinationState());
@@ -40,5 +50,13 @@ public class State extends TrackableObject {
 	public List<Transition> getTransitions(){
 		return myTransitions;
 	}
+	
+	public String getStateName() {
+		return stateName;
+	}
 
+	@Override
+	public void initialize() {
+
+	}
 }
