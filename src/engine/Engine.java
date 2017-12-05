@@ -1,75 +1,89 @@
 package engine;
 
-import database.GameSaver;
 import engine.camera.Camera;
+import engine.camera.Map;
+import engine.entities.EngineLoop;
 import engine.entities.Entity;
-import engine.events.TickEvent;
-import javafx.animation.KeyFrame;
+import engine.managers.EntityManager;
 import javafx.animation.Timeline;
+import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
+import javafx.scene.layout.StackPane;
 import util.math.num.Vector;
 
+import java.awt.*;
+import java.util.List;
+
 /**
- * Initiates the engine's loop with a root game entity
- *
+ * Class that holds the entities together
+ * @author ramilmsh
  * @author Albert
- * @author estellehe
  */
 public class Engine {
-    private static final int MAX_FRAMES_PER_SECOND = 60;
-    private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
-
-    private EntityManager entityManager;
-    private TickEvent tick = new TickEvent(FRAME_PERIOD);
-    private Timeline timeline;
-    private Camera camera;
+    private List<Entity> myEntities;
+    private EntityManager myManager;
+    private EngineLoop myGameLoop;
+    private Timeline myTimeline;
+    private Camera myCamera;
+    
+    public Engine(Number gridSize, Number mapWidth, Number mapHeight) {
+    		myManager = new EntityManager(gridSize.intValue());
+    		myGameLoop = new EngineLoop(myManager, myCamera);
+    		myTimeline = myGameLoop.getTimeline();
+    		myCamera = new Camera(new Map(myManager, gridSize.intValue(), mapWidth.intValue(), mapHeight.intValue()));
+    }
 
     /**
-     * Creates a new Engine
-     *
-     * @param root  root game entity
+     * Finds the sector in which the param resides
+     * @param entity    entity to find sector for
+     * @return          List of objects in the entity's sector
      */
-    public Engine(Entity root, int gridSize) {
-        this.entityManager = new EntityManager(root, gridSize);
-        this.camera = new Camera(entityManager.getCurrentLevel());
-
-        timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
+    public List<Entity> getSector(Entity entity) {
+        // TO DO
+        return null;
     }
-
-    private void loop() {
-        tick.recursiveFire(entityManager.getCurrentLevel());
-    }
-
-    public void save(String name) {
-        new GameSaver(name).saveTrackableObjects(entityManager.getRoot());
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
+    
+    /**
+     * start or resume the game loop
+     */
     public void play() {
-        timeline.play();
+    		myTimeline.play();
     }
-
+    
+    /**
+     * pause the game loop
+     */
     public void pause() {
-        timeline.pause();
+    		myTimeline.pause();
+    }
+    
+    /**
+     * get entity manager
+     * @return EntityManager
+     */
+    public EntityManager getEntityManager() {
+    		return myManager;
     }
 
-    public EntityManager getManager() {
-        return entityManager;
-    }
-
+    /**
+     * get camera view for camerapane
+     * @param center
+     * @param size
+     * @return
+     */
     public ScrollPane getCameraView(Vector center, Vector size) {
-        return camera.getView(center, size);
+        return myCamera.getView(center, size);
     }
 
+
+    /**
+     * get minimap
+     * @param size
+     * @return minimap
+     */
     public Pane getMiniMap(Vector size) {
-        return camera.getMinimap(size);
+        return myCamera.getMiniMap(size);
     }
-
 
 }
