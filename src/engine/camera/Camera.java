@@ -58,16 +58,11 @@ public class Camera {
     }
 
     public void setView(Entity entity) {
-        StackPane sPane = new StackPane();
-        Iterator<Entity> iterator = entity.getChildren();
-        iterator.forEachRemaining(e -> sPane.getChildren().add(e.getNodes()));
-        view.setContent(sPane);
+        //todo
     }
 
     private SubScene getMinimap(Vector size) {
-        //need to check, just blind coding
-        mini = new SubScene(node, size.at(0), size.at(1));
-        return mini;
+        //todo, get from old code
     }
 
     /**
