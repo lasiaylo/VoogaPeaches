@@ -1,9 +1,12 @@
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class TabPaneTester extends Application {
@@ -18,10 +21,17 @@ public class TabPaneTester extends Application {
 
     private Scene sizeScene(){
         TabPane tabPane = new TabPane();
+        tabPane.setStyle("-fx-open-tab-animation: NONE; -fx-close-tab-animation: NONE;");
         tabPane.setTabMinWidth(200);
         tabPane.getTabs().addAll(newTabs(3));
         Scene scene = new Scene(tabPane);
-        scene.setOnKeyPressed(e -> tabPane.getTabs().add(2, tabPane.getTabs().remove(0)));
+        ObservableList<Tab> tabs = tabPane.getTabs();
+        PauseTransition p = new PauseTransition(Duration.millis(150 + 20));
+        scene.setOnKeyPressed(e -> {
+            Tab remove = tabs.remove(0);
+            p.setOnFinished(e2 -> tabs.add(remove));
+            p.play();
+        });
         return scene;
     }
 
