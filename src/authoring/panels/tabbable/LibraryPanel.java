@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 
 import authoring.IPanelController;
 import authoring.Panel;
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.managers.EntityManager;
 import javafx.geometry.Insets;
@@ -36,7 +37,7 @@ public class LibraryPanel implements Panel {
     public LibraryPanel() {
         myTilePane = new TilePane();
         myEntType = new ChoiceBox<>();
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
 
         myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.setOnAction(e -> changeType());
@@ -54,7 +55,7 @@ public class LibraryPanel implements Panel {
     private void changeType() {
         String type = myEntType.getValue();
         myTilePane.getChildren().clear();
-        FileDataManager manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
         for(InputStream imageStream : manager.retrieveSubfolderFiles(type)) {
             Image image = new Image(imageStream);
             ImageView view = new ImageView(image);
