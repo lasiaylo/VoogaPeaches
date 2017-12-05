@@ -1,3 +1,4 @@
+import authoring.Login;
 import authoring.Menu;
 import authoring.Screen;
 import database.firebase.FirebaseConnector;
@@ -12,16 +13,17 @@ public class VoogaPeaches extends Application {
 
     private static final String TITLE = "VoogaPeaches: A Programmers for Peaches Production";
 
-    private Menu myMenu;
     private Screen kitty;
 
     public void start(Stage stage) {
-        myMenu = new Menu();
+//        Login startScreen = new Login();
+//        stage.setTitle(TITLE);
+//        stage.setScene(startScreen.getScene());
+//        stage.show();
         stage.setTitle(TITLE);
-        stage.setScene(myMenu.getScene());
-//        stage.setMaximized(true);
-//        stage.setResizable(false);
-//        kitty = new Screen(stage);
+        stage.setMaximized(true);
+        stage.setResizable(false);
+        kitty = new Screen(stage);
     }
 
     @Override

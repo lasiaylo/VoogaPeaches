@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import util.PropertiesReader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,24 +30,31 @@ public class Menu {
     private static final String AUTHORING_ENVIRONMENT = "AUTHORING";
     private static final String PLAYER = "PLAY";
     private static final String SETTINGS = "SETTINGS";
-    private static final String AUTHORINGPIC = "data/menudata/authoring.png";
-    private static final String PLAYERPIC = "data/menudata/player.png";
-    private static final String SETTINGSPIC = "data/menudata/settings.png";
+    private static final String AUTHORINGPIC = "resources/menuImages/authoring.png";
+    private static final String PLAYERPIC = "resources/menuImages/player.png";
+    private static final String SETTINGSPIC = "resources/menuImages/settings.png";
 
     private static final double WIDTH = Double.parseDouble(PropertiesReader.value("menulayout", "width"));
     private static final double HEIGHT = Double.parseDouble(PropertiesReader.value("menulayout", "height"));
 
-    private static final int BUTTONOFFSET = 50;
-    private static final int BUTTONS_PER_LINE = 3;
     private List<Button> buttons;
 
+    private Stage myStage;
     private Scene myScene;
     private Group myRoot;
 
     public Menu() {
+        myStage = new Stage();
         myRoot = new Group();
+
         setupSceneDimensions();
         setupScene();
+
+        myStage.setScene(myScene);
+        myStage.setResizable(false);
+        myStage.show();
+
+        formatButtons();
     }
 
     private void setupSceneDimensions() {
@@ -55,7 +63,7 @@ public class Menu {
 
     public void setupScene() {
         addButtons();
-        //addTitle();
+        addTitle();
     }
 
     private void chooseSim() { //http://www.java2s.com/Code/Java/JavaFX/AddClickactionlistenertoButton.htm
@@ -73,18 +81,16 @@ public class Menu {
         }
     }
 
-    private void resetMenu() {
-//        simChoice = null;
-    }
-
-//    private Stage getStageFromFile(Button buttonPressed) {
+//    private void resetMenu() {
+////        simChoice = null;
+//    }
+//
+//    private Stage onButtonPressed(Button buttonPressed) {
 //        String simFileString = buttonPressed.getAccessibleText();
 //        simFileString += ".xml";
 //        ClassLoader cl = getClass().getClassLoader();
 //        File simFile = new File(cl.getResource(simFileString).getFile());
-//        XMLParser parser = new XMLParser();
-//        parser.buttonChooseFile(simFile);
-//        return parser.getSimulation();
+//        return null;
 //    }
 
     private void addButtons() { //https://stackoverflow.com/questions/40883858/how-to-evenly-distribute-elements-of-a-javafx-vbox
@@ -94,48 +100,43 @@ public class Menu {
         Button settingsButton = createMenuButton(SETTINGSPIC, SETTINGS);
 
         buttons = new ArrayList<Button>(Arrays.asList(authoringButton, playerButton, settingsButton));
-        double buttonXPadding = (WIDTH - BUTTONOFFSET*2 - buttons.get(0).getWidth())/BUTTONS_PER_LINE;
-        double buttonYPadding = (HEIGHT/2 - BUTTONOFFSET - buttons.get(0).getHeight()*2)/BUTTONS_PER_LINE;
-
-        int line = 0;
-        while (line <= Math.floor(buttons.size()/BUTTONS_PER_LINE)) {
-            for (int i = line; i < line + BUTTONS_PER_LINE; i++) {
-                if (line*BUTTONS_PER_LINE + i < buttons.size()) {
-                    Button button = buttons.get(line*BUTTONS_PER_LINE + i);
-                    setMenuButtonLayout(button, BUTTONOFFSET + button.getMaxWidth() + i*buttonXPadding, HEIGHT/2 + line*buttonYPadding);
-                }
-            }
-            line++;
-        }
         myRoot.getChildren().addAll(buttons);
     }
 
-    private void setMenuButtonLayout(Button button, Double x, Double y) {
+    private void formatButtons() {
+        int numButtons = buttons.size();
+
+        double buttonXOffset = WIDTH/(numButtons+1);
+        double buttonYOffset = HEIGHT*2/3;
+
+        for (int i = 0; i < numButtons; i++) {
+            setMenuButtonLayout(buttons.get(i), buttonXOffset*(i+1) - buttons.get(i).getWidth()/2, buttonYOffset);
+        }
+    }
+
+    private void setMenuButtonLayout(Button button, double x, double y) {
         button.setLayoutX(x);
         button.setLayoutY(y);
     }
 
     private Button createMenuButton(String imageName, String buttonText) {
-        Image buttonImage = new Image(imageName);
+        File buttonImage = new File(imageName);
         Button myButton = new Button();
+        myButton.setGraphic(new ImageView(buttonImage.toURI().toString()));
+
         myButton.setTooltip(new Tooltip(buttonText));
-
-//        myButton.setScaleX(0.75);
-//        myButton.setScaleY(0.75);
-
-        myButton.setGraphic(new ImageView(buttonImage));
         myButton.setAccessibleText(buttonText);
 
         return myButton;
     }
 
-//    private void addTitle() {
-//        Image titleImage = new Image(getClass().getClassLoader().getResourceAsStream("cellsociety.png"));
-//        ImageView title = new ImageView(titleImage);
-//        title.setLayoutX(WIDTH / 2 - title.getBoundsInLocal().getWidth() / 2);
-//        title.setLayoutY(HEIGHT * 1 / 3 - title.getBoundsInLocal().getHeight() / 2);
-//        myRoot.getChildren().add(title);
-//    }
+    private void addTitle() {
+        File myImage = new File("resources/menuImages/authoring.png");
+        ImageView title = new ImageView(myImage.toURI().toString());
+        title.setLayoutX(WIDTH / 2 - title.getBoundsInLocal().getWidth() / 2);
+        title.setLayoutY(HEIGHT * 1 / 3 - title.getBoundsInLocal().getHeight() / 2);
+        myRoot.getChildren().add(title);
+    }
 
     public Scene getScene() {
         return myScene;
