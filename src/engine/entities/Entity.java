@@ -2,6 +2,7 @@ package engine.entities;
 
 import com.google.gson.annotations.Expose;
 import database.scripthelpers.ScriptLoader;
+import engine.collisions.HitBox;
 import engine.events.ClickEvent;
 import engine.events.Event;
 import engine.events.Evented;
@@ -25,6 +26,7 @@ public class Entity extends Evented {
 
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
+    @Expose private List<HitBox> hitBoxes;
 
     private Group group;
     private Entity parent;
@@ -37,6 +39,7 @@ public class Entity extends Evented {
         group = new Group();
         children = new ArrayList<>();
         properties = new HashMap<>();
+        hitBoxes = new ArrayList<>();
     }
 
     /**
@@ -108,6 +111,10 @@ public class Entity extends Evented {
 
     public void setProperty(String name, Object property) {
         properties.put(name, property);
+    }
+
+    public List<HitBox> getHitBoxes() {
+        return hitBoxes;
     }
 
     private void executeScripts() {
