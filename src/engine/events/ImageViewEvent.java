@@ -7,7 +7,7 @@ public class ImageViewEvent extends Event {
     private String action;
 
     public ImageViewEvent(String type) {
-        super(type);
+        super("ImageViewEvent");
     }
 
     public void setMouseTransparent(boolean trans) {

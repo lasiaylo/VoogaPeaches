@@ -1,0 +1,12 @@
+{
+    "UID": "2ca91312fdb14d03865fa4e59d8ee69b",
+    "children": [],
+    "properties": {
+      "scripts": [
+        "move.groovy",
+        "setPosition.groovy"
+      ],
+      "vx": -10.0,
+      "vy": -10.0
+    }
+}
