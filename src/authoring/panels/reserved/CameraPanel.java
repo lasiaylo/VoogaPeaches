@@ -3,7 +3,6 @@ package authoring.panels.reserved;
 import authoring.IPanelController;
 import authoring.Panel;
 import authoring.PanelController;
-import engine.managers.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -11,6 +10,13 @@ import javafx.scene.layout.*;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
+import engine.EntityManager;
+import engine.util.FXProcessing;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import util.math.num.Vector;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -35,10 +41,18 @@ public class CameraPanel implements Panel {
 	private Button myPause;
 	private Button myClear;
 	private VBox myArea;
+<<<<<<< HEAD
 	private ComboBox<String> myLayer;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
+=======
+	private ChoiceBox<String> myLayer;
+	private RadioButton myWhole;
+	private RadioButton myLocal;
+	private ToggleGroup myGroup;
+	private EntityManager myManager;
+>>>>>>> 72680ff92a5be9babb129fbecd7befff171ebd7c
 
 	private double cameraWidth;
 	private double cameraHeight;

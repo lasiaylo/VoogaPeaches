@@ -61,6 +61,8 @@ public class EntityManager {
             changeScriptBGType(view);
             setupImage(pos, view);
             BGblock.add(view);
+            BGblock.setProperty("x", pos.at(0));
+            BGblock.setProperty("y", pos.at(1));
             ImageViewEvent addView = new ImageViewEvent("setView");
             BGblock.on("setView", event -> {
                 ImageViewEvent setView = (ImageViewEvent)event;
@@ -129,6 +131,8 @@ public class EntityManager {
             ImageView view = new ImageView(new Image(image));
             setupImage(pos, view);
             newEnt.add(view);
+            newEnt.setProperty("x", pos.at(0));
+            newEnt.setProperty("y", pos.at(1));
             ImageViewEvent addView = new ImageViewEvent("setView");
             newEnt.on("setView", event -> {
                 ImageViewEvent setView = (ImageViewEvent)event;
@@ -167,6 +171,8 @@ public class EntityManager {
             ImageView view = new ImageView(image);
             setupImage(pos, view);
             newEnt.add(view);
+            newEnt.setProperty("x", pos.at(0));
+            newEnt.setProperty("y", pos.at(1));
             ImageViewEvent addView = new ImageViewEvent("setView");
             newEnt.on("setView", event -> {
                 ImageViewEvent setView = (ImageViewEvent)event;
@@ -297,6 +303,7 @@ public class EntityManager {
         }
         view.setX(FXProcessing.getXImageCoord(xPos, view));
         view.setY(FXProcessing.getYImageCoord(yPos, view));
+        //need to change the location properties, too lazy to do it
         event.consume();
     }
 
