@@ -2,12 +2,19 @@ package authoring.panels.tabbable;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import authoring.Panel;
 import authoring.panels.attributes.Attribute;
+import authoring.panels.attributes.Field;
+import authoring.panels.attributes.FieldFactory;
 import engine.entities.Entity;
-import javafx.scene.layout.HBox;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import util.exceptions.GroovyInstantiationException;
 
@@ -16,17 +23,20 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public class AttributesPanel implements Panel {
-	private HBox myHBox;
-	private Entity myEntity;
+	private final String TITLE = "Properties";
+	private final int LABEL_COL = 0;
+	private final int ATTRIBUTE_COL = 1;
+	private GridPane myGrid;
+	private Map<String, Object> myMap;
 
 	@Override
 	public Region getRegion() {
-		return myHBox;
+		return myGrid;
 	}
 	
 	@Override
 	public String title() {
-		return "Properties";
+		return TITLE;
 	}
 	
 	/**Takes in an entity and displays its properties
@@ -34,40 +44,37 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException 
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
-		myHBox = new HBox();
-		myEntity = entity;
-		addTest();
-//		addTransformProperty();
-//		addRenderProperty();
-//		addScriptProperties();
+		myGrid = new GridPane();
+		myMap = entity.getProperties();
+		addMap();
+		addLabels();
+		addAttribute(myEntity.getTransform(),"Transform", methods);
 //		addButton();
 	}
 
-	private void addTest() throws GroovyInstantiationException {
-		Set<String> methods = new HashSet<>(Arrays.asList("Position"));
-//		Attribute a = new Attribute(myEntity.getTransform(),"Transform",methods);
-//		myHBox.getChildren().add(a.getPane());
-	}
 
-	/**Displays the Transform properties of an entity
-	 * @throws GroovyInstantiationException 
-	 * 
-	 */
-	
-	/**Displays the Render properties of an entity
-	 * 
-	 */
-	private void addRenderProperty() {
-		// TODO Auto-generated method stub
+	private void addMap() {
+		int row = 0;
+		for (String s : myMap.keySet()) {
+			myGrid.add(addLabel(s), LABEL_COL, row);
+			myGrid.add(addAttribute, columnIndex, rowIndex);
+		}
 		
 	}
-	
-	/**Displays the individual scripts of an entity
-	 * 
-	 */
-	private void addScriptProperties() {
-		// TODO Auto-generated method stub
+
+	private Label addLabel(String string) {
+		return new Label(string);
 	}
+
+	private void addAttribute(String key) {
+		Field field = FieldFactory.makeField(myMap, key);
+	}
+	
+	private void addAttribute(Map<String, Object> map, String key, Object value) {
+		d
+	}
+
+	private void addParameter(Object object, )
 	
 	/**Displays a button that allows users to add more scripts to an entity
 	 * 

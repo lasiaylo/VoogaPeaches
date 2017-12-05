@@ -1,7 +1,7 @@
 package authoring.panels.attributes;
 
 import java.util.Set;
-import authoring.panels.attributes.Field;
+import authoring.panels.attributes.MethodSetter;
 import authoring.panels.attributes.FieldFactory;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
