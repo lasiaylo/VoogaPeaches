@@ -47,17 +47,16 @@ public class AttributesPanel implements Panel {
 		myGrid = new GridPane();
 		myMap = entity.getProperties();
 		addMap();
-	//	addLabels();
-	//	addAttribute(myEntity.getTransform(),"Transform", methods);
 //		addButton();
 	}
 
 
-	private void addMap() {
+	private void addMap() throws GroovyInstantiationException {
 		int row = 0;
 		for (String s : myMap.keySet()) {
 			myGrid.add(addLabel(s), LABEL_COL, row);
-	//		myGrid.add(addAttribute, columnIndex, rowIndex);
+			myGrid.add(addAttribute(s), ATTRIBUTE_COL, row);
+			row++;
 		}
 		
 	}
@@ -66,15 +65,10 @@ public class AttributesPanel implements Panel {
 		return new Label(string);
 	}
 
-	//private void addAttribute(String key) {
-	//	Field field = FieldFactory.makeField(myMap, key);
-	//}
-	
-	private void addAttribute(Map<String, Object> map, String key, Object value) {
-
+	private Node addAttribute(String key) throws GroovyInstantiationException {
+		Field field = FieldFactory.makeField(myMap, key);
+		return field.getControl();
 	}
-
-	//private void addParameter(Object object, )
 	
 	/**Displays a button that allows users to add more scripts to an entity
 	 * 
