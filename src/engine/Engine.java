@@ -30,7 +30,7 @@ public class Engine {
      * @param level name of the first level
      */
     public Engine(Entity root, String level, Camera camera) {
-        this.entityManager = new EntityManager(root, level, camera);
+//        this.entityManager = new EntityManager(root, level, camera);
         this.camera = camera;
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
