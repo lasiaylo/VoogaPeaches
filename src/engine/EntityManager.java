@@ -28,7 +28,6 @@ public class EntityManager {
     private Entity root;
     private Map<String, Entity> levels;
     private Entity currentLevel;
-    private Camera camera;
     private int mode = -1;
     private InputStream BGType;
     private int grid;
@@ -38,17 +37,17 @@ public class EntityManager {
     private Vector startPosBatch = new Vector(0, 0);
 
 
-    public EntityManager(Entity root, String currentLevel, Camera camera, int gridSize) {
+    public EntityManager(Entity root, int gridSize) {
         this.root = root;
         this.levels = new HashMap<>();
-        this.camera = camera;
         this.grid = gridSize;
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
 
-        initializeLevelMap();
-        this.currentLevel = levels.get(currentLevel);
+        //don't freak out about this..... just a initial level
+        addLevel("Level 1", 5000, 5000);
+        currentLevel = levels.get("level 1");
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
             entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
@@ -361,7 +360,7 @@ public class EntityManager {
             addStack.setStack(stack);
         });
         mEvent.fire(level);
-
+        level.add(stack);
     }
 
     private void dragOver(DragEvent event, Node map) {
@@ -418,8 +417,7 @@ public class EntityManager {
         if (!levels.containsKey(null))
             new ErrorDisplay("Fuck you!", "Level " + level + " does not exist");
         else
-            camera.setView((currentLevel = this.levels.get(level)));
-//            camera = new Camera((currentLevel = this.levels.get(level)).getNodes());
+            currentLevel = levels.get(level);
     }
 
 
