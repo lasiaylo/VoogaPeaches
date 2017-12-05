@@ -94,16 +94,12 @@ public class Entity extends Evented {
         return group;
     }
 
-    public Iterator<Entity> getChildren() {
-        return children.iterator();
+    public Collection<Entity> getChildren() {
+        return children;
     }
 
     public int getChildrenSize() {
         return children.size();
-    }
-
-    public Entity getChildren(int index) {
-        return children.get(index);
     }
 
     public Object getProperty(String name) {
