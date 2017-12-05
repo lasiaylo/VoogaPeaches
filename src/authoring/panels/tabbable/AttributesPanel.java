@@ -47,8 +47,8 @@ public class AttributesPanel implements Panel {
 		myGrid = new GridPane();
 		myMap = entity.getProperties();
 		addMap();
-		addLabels();
-		addAttribute(myEntity.getTransform(),"Transform", methods);
+	//	addLabels();
+	//	addAttribute(myEntity.getTransform(),"Transform", methods);
 //		addButton();
 	}
 
@@ -57,7 +57,7 @@ public class AttributesPanel implements Panel {
 		int row = 0;
 		for (String s : myMap.keySet()) {
 			myGrid.add(addLabel(s), LABEL_COL, row);
-			myGrid.add(addAttribute, columnIndex, rowIndex);
+	//		myGrid.add(addAttribute, columnIndex, rowIndex);
 		}
 		
 	}
@@ -66,15 +66,15 @@ public class AttributesPanel implements Panel {
 		return new Label(string);
 	}
 
-	private void addAttribute(String key) {
-		Field field = FieldFactory.makeField(myMap, key);
-	}
+	//private void addAttribute(String key) {
+	//	Field field = FieldFactory.makeField(myMap, key);
+	//}
 	
 	private void addAttribute(Map<String, Object> map, String key, Object value) {
-		d
+
 	}
 
-	private void addParameter(Object object, )
+	//private void addParameter(Object object, )
 	
 	/**Displays a button that allows users to add more scripts to an entity
 	 * 
