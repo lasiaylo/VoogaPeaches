@@ -422,8 +422,6 @@ public class EntityManager {
         event.consume();
     }
 
-
-
     private void addBGCenter(Vector pos, MouseEvent event) {
         Vector center = FXProcessing.getBGCenter(pos, grid);
         addBG(center);
