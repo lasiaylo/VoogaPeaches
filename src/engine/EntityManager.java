@@ -2,7 +2,6 @@ package engine;
 
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
-import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.*;
 import engine.util.FXProcessing;
@@ -19,7 +18,6 @@ import util.math.num.Vector;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class EntityManager {
@@ -284,20 +282,25 @@ public class EntityManager {
      * add layer to current level
      */
     public void addLayer() {
-        Entity layer = new Entity(currentLevel);
+        addLayer(currentLevel);
+    }
+
+    private void addLayer(Entity level) {
+        Entity layer = new Entity(level);
+        ImageView holder = setPlaceHolder();
+        layer.add(holder);
+        AddLayerEvent addLayer = new AddLayerEvent(layer);
+        addLayer.fire(level);
+    }
+
+    private ImageView setPlaceHolder() {
         ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
         holder.setX(0);
         holder.setY(0);
         holder.setFitWidth(grid);
         holder.setFitHeight(grid);
         holder.setMouseTransparent(true);
-        layer.add(holder);
-        MapEvent mEvent = new MapEvent("addLayer");
-        currentLevel.on("addLayer", event -> {
-            MapEvent addLayer = (MapEvent) event;
-            addLayer.addLayer(layer);
-        });
-        mEvent.fire(currentLevel);
+        return holder;
     }
 
     /**
@@ -310,12 +313,9 @@ public class EntityManager {
         Entity level = new Entity(root);
         //somehow fucking add the name to level properties
         levels.put(name, level);
-        Entity BGlayer = new Entity(level);
         Canvas canvas = new Canvas(mapWidth, mapHeight);
         StackPane stack = new StackPane();
         stack.getChildren().add(canvas);
-        stack.getChildren().add(BGlayer.getNodes());
-        stack.setAlignment(BGlayer.getNodes(), Pos.TOP_LEFT);
 
         canvas.setOnMouseClicked(e -> addBGCenter(new Vector(e.getX(), e.getY()), e));
         canvas.setOnMousePressed(e -> startDragBatch(e));
@@ -324,13 +324,14 @@ public class EntityManager {
         stack.setOnDragOver(e -> dragOver(e, stack));
         stack.setOnDragDropped(e -> dragDropped(e));
 
-        MapEvent mEvent = new MapEvent("addStack");
-        level.on("addStack", event -> {
-            MapEvent addStack = (MapEvent) event;
-            addStack.setStack(stack);
+        level.on("addLayer", event -> {
+            AddLayerEvent addLayer = (AddLayerEvent) event;
+            stack.getChildren().add(addLayer.getLayer().getNodes());
+            stack.setAlignment(addLayer.getLayer().getNodes(), Pos.TOP_LEFT);
         });
-        mEvent.fire(level);
         level.add(stack);
+
+        addLayer(level);
     }
 
     private void dragOver(DragEvent event, Node map) {

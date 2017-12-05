@@ -11,7 +11,7 @@ public class HitBoxPanel implements Panel {
     private static final String TITLE = "Create or Add Hitboxes!";
     private Entity entity;
     private Group group;
-    private List<Double> 
+    private List<Double> points;
 
     public HitBoxPanel(Entity entity) {
         this.entity = entity;
