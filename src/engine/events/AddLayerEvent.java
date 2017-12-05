@@ -2,6 +2,7 @@ package engine.events;
 
 import engine.entities.Entity;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
@@ -10,10 +11,11 @@ public class AddLayerEvent extends Event{
 
     public AddLayerEvent(Entity layer) {
         super("addLayer");
+        myLayer = layer;
     }
 
 
-    public Entity getLayer() {
-        return myLayer;
+    public Group getLayerGroup() {
+        return myLayer.getNodes();
     }
 }

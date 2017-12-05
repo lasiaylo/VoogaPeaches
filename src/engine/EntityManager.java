@@ -326,8 +326,8 @@ public class EntityManager {
 
         level.on("addLayer", event -> {
             AddLayerEvent addLayer = (AddLayerEvent) event;
-            stack.getChildren().add(addLayer.getLayer().getNodes());
-            stack.setAlignment(addLayer.getLayer().getNodes(), Pos.TOP_LEFT);
+            stack.getChildren().add(addLayer.getLayerGroup());
+            stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);
         });
         level.add(stack);
 
