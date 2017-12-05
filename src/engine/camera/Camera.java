@@ -1,11 +1,18 @@
 package engine.camera;
 
+import engine.EntityManager;
 import engine.entities.Entity;
+import javafx.beans.binding.NumberBinding;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import util.math.num.Vector;
 
 import java.util.Iterator;
@@ -19,17 +26,16 @@ import java.util.Iterator;
  */
 public class Camera {
     private ScrollPane view;
-    private Group node;
-    private SubScene mini;
+    private Entity currentLevel;
+    private Canvas miniMap;
     private Vector center;
     private Vector scale;
+    private Circle point;
 
-    public Camera(Group level) {
-        this.node = level;
-        view = new ScrollPane(node);
+    public Camera(Entity level) {
+        currentLevel = level;
+        view = new ScrollPane(level.getNodes().getChildren().get(0));
         view.setPannable(false);
-        view.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        view.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
@@ -43,12 +49,10 @@ public class Camera {
      * @return view
      */
     public ScrollPane getView(Vector center, Vector size) {
-        view.setViewportBounds(new BoundingBox(center.at(0) - size.at(0) / 2, center.at(1) - size.at(1) / 2, size.at(0), size.at(1)));
         view.setPrefWidth(size.at(0));
         view.setPrefHeight(size.at(1));
         hScroll((center.at(0) - size.at(0) / 2) / view.getContent().getLayoutBounds().getWidth() - size.at(0));
         vScroll((center.at(1) - size.at(1) / 2) / view.getContent().getLayoutBounds().getHeight() - size.at(1));
-
 
         view.layout();
         this.center = center;
@@ -57,34 +61,59 @@ public class Camera {
         return view;
     }
 
-    public void setView(Entity entity) {
-        //todo
+    public void changeLevel(Entity level) {
+        view.setContent(level.getNodes().getChildren().get(0));
+        currentLevel = level;
     }
 
-    private SubScene getMinimap(Vector size) {
-        //todo, get from old code
+    public Pane getMinimap(Vector size) {
+        miniMap = new Canvas(size.at(0), size.at(1));
+        miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
+        point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
+
+        NumberBinding xPoint = view.hvalueProperty().multiply(size.at(0));
+        NumberBinding yPoint = view.vvalueProperty().multiply(size.at(1));
+        point.centerXProperty().bind(xPoint);
+        point.centerYProperty().bind(yPoint);
+
+        Pane miniPane = new Pane();
+        miniPane.getChildren().add(miniMap);
+        miniPane.getChildren().add(point);
+
+        miniMap.setOnMouseClicked(e -> moveCamera(e));
+
+        return miniPane;
+
     }
 
-    /**
-     * update imageview inside the viewport
-     */
-    public void update() {
-        node.setLayoutX(center.x);
-        node.setLayoutY(center.y);
-        node.setScaleX(scale.x);
-        node.setScaleY(scale.y);
+    private void moveCamera(MouseEvent event) {
+        point.centerXProperty().unbind();
+        point.centerYProperty().unbind();
+
+        point.setCenterX(event.getX());
+        point.setCenterY(event.getY());
+        view.setHvalue(event.getX()/miniMap.getWidth());
+        view.setVvalue(event.getY()/miniMap.getHeight());
+
+        NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
+        NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
+        point.centerXProperty().bind(xPoint);
+        point.centerYProperty().bind(yPoint);
+
+        event.consume();
     }
+
 
 
     private void vScroll(double num) {
-        view.setVmin(num);
-        view.setVmax(num);
+        view.setVmin(0);
+        view.setVmax(1);
         view.setVvalue(num);
     }
 
     private void hScroll(double num) {
-        view.setHmax(num);
-        view.setHmin(num);
+        view.setHmax(1);
+        view.setHmin(0);
         view.setHvalue(num);
     }
 }
