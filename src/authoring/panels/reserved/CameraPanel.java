@@ -41,18 +41,13 @@ public class CameraPanel implements Panel {
 	private Button myPause;
 	private Button myClear;
 	private VBox myArea;
-<<<<<<< HEAD
-	private ComboBox<String> myLayer;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
-=======
-	private ChoiceBox<String> myLayer;
+	private ComboBox<String> myLayer;
 	private RadioButton myWhole;
 	private RadioButton myLocal;
 	private ToggleGroup myGroup;
-	private EntityManager myManager;
->>>>>>> 72680ff92a5be9babb129fbecd7befff171ebd7c
 
 	private double cameraWidth;
 	private double cameraHeight;
@@ -78,7 +73,7 @@ public class CameraPanel implements Panel {
 
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
-				PubSub.Channel.THEME_MESSAGE,
+				"THEME_MESSAGE",
 				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
 	}
 

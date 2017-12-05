@@ -5,7 +5,7 @@ import authoring.IPanelController;
 import authoring.Panel;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
-import engine.managers.EntityManager;
+import engine.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;

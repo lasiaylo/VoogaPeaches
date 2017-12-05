@@ -119,7 +119,7 @@ public class EntityManager {
 
     public void addNonBG(Vector pos, InputStream image) {
         if (mode > 0) {
-            if (mode > currentLevel.getChildrenSize() - 1) {
+            if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
             Entity newEnt = new Entity(currentLevel.getChildren().get((mode)));
@@ -164,7 +164,7 @@ public class EntityManager {
 
     public void addNonBG(Vector pos, Image image) {
         if (mode > 0) {
-            if (mode > currentLevel.getChildrenSize() - 1) {
+            if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
             Entity newEnt = new Entity(currentLevel.getChildren().get(mode));

@@ -5,11 +5,12 @@
       "scripts": [
         "example.groovy",
         "move.groovy",
-        "setPosition.groovy"
+        "setPosition.groovy",
+        "reverseXDirectionOnCollision.groovy"
       ],
       "x": 30,
       "y": 30,
-      "vx": 23,
-      "vy": 42
+      "vx": 50,
+      "vy": 50
     }
 }

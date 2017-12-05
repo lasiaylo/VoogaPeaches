@@ -26,6 +26,7 @@ public abstract class Evented extends TrackableObject {
     }
 
     public void dispatchEvent(Event event) {
+        // does not correctly do null check
         if (!callbacks.containsKey(event.getType()))
             return;
 
