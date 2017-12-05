@@ -54,11 +54,16 @@ public class EntityManager {
         }
     }
 
+    /**
+     * add background block from the current selected BGType
+     * BGtype is stored as a field inside manager, can be changed by library panel calling setBGType
+     * @param pos
+     */
     public void addBG(Vector pos) {
         if (mode == 0) {
             Entity BGblock = new Entity(currentLevel.getChildren().get(0));
             ImageView view = new ImageView();
-            changeScriptBGType(view);
+            changeBGImage(view);
             setupImage(pos, view);
             BGblock.add(view);
             BGblock.setProperty("x", pos.at(0));
@@ -93,7 +98,7 @@ public class EntityManager {
     private void changeRender(MouseEvent event, ImageView view) {
         view.requestFocus();
         if (event.getButton().equals(MouseButton.PRIMARY) && mode == 0) {
-            changeScriptBGType(view);
+            changeBGImage(view);
         }
         event.consume();
     }
@@ -106,7 +111,7 @@ public class EntityManager {
     }
 
 
-    private void changeScriptBGType(ImageView view) {
+    private void changeBGImage(ImageView view) {
         try {
             BGType.reset();
         } catch (IOException e) {
@@ -116,55 +121,29 @@ public class EntityManager {
     }
 
 
-
+    /**
+     * add nonBG entity through inputstream
+     * @param pos
+     * @param image
+     */
     public void addNonBG(Vector pos, InputStream image) {
-        if (mode > 0) {
-            if (mode > currentLevel.getChildrenSize() - 1) {
-                addLayer();
-            }
-            Entity newEnt = new Entity(currentLevel.getChildren().get((mode)));
-            try {
-                image.reset();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ImageView view = new ImageView(new Image(image));
-            setupImage(pos, view);
-            newEnt.add(view);
-            newEnt.setProperty("x", pos.at(0));
-            newEnt.setProperty("y", pos.at(1));
-            ImageViewEvent addView = new ImageViewEvent("setView");
-            newEnt.on("setView", event -> {
-                ImageViewEvent setView = (ImageViewEvent)event;
-                setView.setView(view);
-            });
-            addView.fire(newEnt);
-            newEnt.on("viewTransTrue", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(true);
-            });
-            newEnt.on("viewTransFalse", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(false);
-            });
-            newEnt.on("viewVisTrue", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(true);
-            });
-            newEnt.on("viewVisFalse", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(false);
-            });
-            view.setOnMouseClicked(e -> changeRender(e, view));
-            view.setOnKeyPressed(e -> deleteEntity(e, newEnt));
-            view.setOnMousePressed(e -> startDrag(e, view));
-            view.setOnMouseDragged(e -> drag(e, view, startPos, startSize));
+        try {
+            image.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        Image img = new Image(image);
+        addNonBG(pos, img);
     }
 
+    /**
+     * add nonBG entity thru image (for drag and drop)
+     * @param pos
+     * @param image
+     */
     public void addNonBG(Vector pos, Image image) {
         if (mode > 0) {
-            if (mode > currentLevel.getChildrenSize() - 1) {
+            if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
             Entity newEnt = new Entity(currentLevel.getChildren().get(mode));
@@ -201,11 +180,19 @@ public class EntityManager {
             view.setOnMouseDragged(e -> drag(e, view, startPos, startSize));
         }
     }
+
+    /**
+     * select BG layer
+     */
     public void selectBGLayer() {
         selectLayer(0);
     }
 
 
+    /**
+     * select any layer
+     * @param layer
+     */
     public void selectLayer(int layer) {
         mode = layer;
         currentLevel.getChildren().forEach(e -> deselect(e));
@@ -213,15 +200,25 @@ public class EntityManager {
         select(currentLevel.getChildren().get(layer));
     }
 
+    /**
+     * select all layer
+     */
     public void allLayer() {
         mode = -1;
         currentLevel.getChildren().forEach(e -> viewOnly(e));
     }
 
+    /**
+     * change BGType
+     * @param image
+     */
     public void setBGType(InputStream image) {
         BGType = image;
     }
 
+    /**
+     * clear entities on current layer
+     */
     public void clearOnLayer() {
         if (mode == 0) {
             currentLevel.getChildren().get(0).clearLayer();
@@ -326,6 +323,9 @@ public class EntityManager {
         }
     }
 
+    /**
+     * add layer to current level
+     */
     public void addLayer() {
         Entity layer = new Entity(currentLevel);
         ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
@@ -343,6 +343,12 @@ public class EntityManager {
         mEvent.fire(currentLevel);
     }
 
+    /**
+     * add new level
+     * @param name
+     * @param mapWidth
+     * @param mapHeight
+     */
     public void addLevel(String name, int mapWidth, int mapHeight) {
         Entity level = new Entity(root);
         //somehow fucking add the name to level properties

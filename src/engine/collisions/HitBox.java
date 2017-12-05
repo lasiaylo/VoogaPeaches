@@ -3,6 +3,7 @@ package engine.collisions;
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import util.math.num.Vector;
 
 
@@ -22,6 +23,7 @@ public class HitBox extends TrackableObject {
     @Expose private List<Double> polygonVertexTranslations;
     @Expose private double currentX;
     @Expose private double currentY;
+    @Expose private String tag;
 
     private HitBox(){}
 
@@ -41,8 +43,10 @@ public class HitBox extends TrackableObject {
      * @param entityYPosition is a {@code Double} that holds the
      *                       initial y coordinate of the entity object
      *                       that the HitBox is being created for
+     * @param tag is a {@code String} that represents this hitbox's identification tag
      */
-    public HitBox(List<Double> offsetPoints, Double entityXPosition, Double entityYPosition){
+    public HitBox(List<Double> offsetPoints, Double entityXPosition, Double entityYPosition, String tag){
+        this.tag = tag;
         currentX = entityXPosition;
         currentY = entityYPosition;
         // Add the offset points to the polygonVertexTranslation List
@@ -51,6 +55,25 @@ public class HitBox extends TrackableObject {
         double[] polygonPoints = createAdjustedPoints(entityXPosition, entityYPosition);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
+    }
+
+    /**
+     *
+     * @return  this hitbox's identification tag
+     */
+    public String getTag() {
+        return tag;
+    }
+
+    /**
+     * Returns a boolean value that describes whether or not this hitbox has intersected with another param hitbox
+     * @param other HitBox to check intersection
+     * @return  a {@tag boolean} that represents whether or not this hitbox has intersected with the param
+     */
+    public boolean intersects(HitBox other) {
+//        return hitboxShape.intersects(hitboxShape.sceneToLocal(other.getHitbox().localToScene(other.getHitbox().getBoundsInLocal())));
+        Shape intersect = Shape.intersect(hitboxShape, other.getHitbox());
+        return intersect.getBoundsInLocal().getWidth() != -1;
     }
 
     /**
