@@ -55,6 +55,7 @@ public class HitBox extends TrackableObject {
         double[] polygonPoints = createAdjustedPoints(entityXPosition, entityYPosition);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
+        hitboxShape.setVisible(false);
     }
 
     /**
