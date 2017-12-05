@@ -46,11 +46,12 @@ public class EntityManager {
         BGType = manager.readFileData("Background/grass.png");
 
         //don't freak out about this..... just a initial level
-        addLevel("Level 1", 5000, 5000);
+        addLevel("level 1", 5000, 5000);
+        if(levels.get("level 1") == null) System.out.println("here");
         currentLevel = levels.get("level 1");
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
-            entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
+            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
         }
     }
 
@@ -321,16 +322,6 @@ public class EntityManager {
         view.setFitHeight(grid);
         view.setX(FXProcessing.getXImageCoord(pos.at(0), view));
         view.setY(FXProcessing.getYImageCoord(pos.at(1), view));
-    }
-
-    private void initializeLevelMap() {
-        try {
-            root.getChildren().forEach(e -> levels.put((String) e.getProperty("name"), e));
-
-        } catch(ClassCastException e) {
-            ErrorDisplay eDisplay = new ErrorDisplay("Fuck you", "Name was not string");
-            eDisplay.displayError();
-        }
     }
 
     /**

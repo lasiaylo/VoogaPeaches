@@ -35,6 +35,7 @@ public class Camera {
 
     public Camera(Entity level) {
         currentLevel = level;
+
         view = new ScrollPane(level.getNodes().getChildren().get(0));
         view.setPannable(false);
 
