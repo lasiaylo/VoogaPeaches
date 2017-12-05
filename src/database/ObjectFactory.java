@@ -5,13 +5,16 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
 import org.json.JSONObject;
+import util.PropertiesReader;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
  * A class for creating entities from a given blueprint, so that entities can
- * create entities for things like attacks
+ * create entities for things like attacks ☺️
  *
  * @author Walker Willetts
  */
@@ -61,5 +64,14 @@ public class ObjectFactory {
             }
         }
         return converter.createObjectFromJSON(Entity.class, modifiedBlueprint);
+    }
+
+    /**
+     * @return A {@code String[]} of all the valid Entity Blueprint Names 
+     */
+    public static String[] getEntityTypes() {
+        File blueprintFolder =  new File(PropertiesReader.path("blueprints"));
+        if(blueprintFolder.isDirectory()) return blueprintFolder.list();
+        return new String[0];
     }
 }

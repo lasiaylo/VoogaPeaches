@@ -2,11 +2,8 @@ package engine;
 
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
-import engine.camera.Camera;
 import engine.entities.Entity;
-import engine.events.ImageViewEvent;
-import engine.events.KeyPressEvent;
-import engine.events.MapEvent;
+import engine.events.*;
 import engine.util.FXProcessing;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,7 +18,6 @@ import util.math.num.Vector;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class EntityManager {
@@ -46,45 +42,30 @@ public class EntityManager {
         BGType = manager.readFileData("Background/grass.png");
 
         //don't freak out about this..... just a initial level
-        addLevel("Level 1", 5000, 5000);
+        addLevel("level 1", 5000, 5000);
+        if(levels.get("level 1") == null) System.out.println("here");
         currentLevel = levels.get("level 1");
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
-            entity.getNodes().getScene().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
+            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
         }
     }
 
+    /**
+     * add background block from the current selected BGType
+     * BGtype is stored as a field inside manager, can be changed by library panel calling setBGType
+     * @param pos
+     */
     public void addBG(Vector pos) {
         if (mode == 0) {
             Entity BGblock = new Entity(currentLevel.getChildren().get(0));
             ImageView view = new ImageView();
-            changeScriptBGType(view);
+            changeBGImage(view);
             setupImage(pos, view);
             BGblock.add(view);
             BGblock.setProperty("x", pos.at(0));
             BGblock.setProperty("y", pos.at(1));
-            ImageViewEvent addView = new ImageViewEvent("setView");
-            BGblock.on("setView", event -> {
-                ImageViewEvent setView = (ImageViewEvent)event;
-                setView.setView(view);
-            });
-            addView.fire(BGblock);
-            BGblock.on("viewTransTrue", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(true);
-            });
-            BGblock.on("viewTransFalse", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(false);
-            });
-            BGblock.on("viewVisTrue", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(true);
-            });
-            BGblock.on("viewVisFalse", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(false);
-            });
+
             view.setOnMouseClicked(e -> changeRender(e, view));
             view.setOnKeyPressed(e -> deleteEntity(e, BGblock));
         }
@@ -93,7 +74,7 @@ public class EntityManager {
     private void changeRender(MouseEvent event, ImageView view) {
         view.requestFocus();
         if (event.getButton().equals(MouseButton.PRIMARY) && mode == 0) {
-            changeScriptBGType(view);
+            changeBGImage(view);
         }
         event.consume();
     }
@@ -106,7 +87,7 @@ public class EntityManager {
     }
 
 
-    private void changeScriptBGType(ImageView view) {
+    private void changeBGImage(ImageView view) {
         try {
             BGType.reset();
         } catch (IOException e) {
@@ -116,55 +97,29 @@ public class EntityManager {
     }
 
 
-
+    /**
+     * add nonBG entity through inputstream
+     * @param pos
+     * @param image
+     */
     public void addNonBG(Vector pos, InputStream image) {
-        if (mode > 0) {
-            if (mode > currentLevel.getChildrenSize() - 1) {
-                addLayer();
-            }
-            Entity newEnt = new Entity(currentLevel.getChildren().get((mode)));
-            try {
-                image.reset();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ImageView view = new ImageView(new Image(image));
-            setupImage(pos, view);
-            newEnt.add(view);
-            newEnt.setProperty("x", pos.at(0));
-            newEnt.setProperty("y", pos.at(1));
-            ImageViewEvent addView = new ImageViewEvent("setView");
-            newEnt.on("setView", event -> {
-                ImageViewEvent setView = (ImageViewEvent)event;
-                setView.setView(view);
-            });
-            addView.fire(newEnt);
-            newEnt.on("viewTransTrue", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(true);
-            });
-            newEnt.on("viewTransFalse", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(false);
-            });
-            newEnt.on("viewVisTrue", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(true);
-            });
-            newEnt.on("viewVisFalse", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(false);
-            });
-            view.setOnMouseClicked(e -> changeRender(e, view));
-            view.setOnKeyPressed(e -> deleteEntity(e, newEnt));
-            view.setOnMousePressed(e -> startDrag(e, view));
-            view.setOnMouseDragged(e -> drag(e, view, startPos, startSize));
+        try {
+            image.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        Image img = new Image(image);
+        addNonBG(pos, img);
     }
 
+    /**
+     * add nonBG entity thru image (for drag and drop)
+     * @param pos
+     * @param image
+     */
     public void addNonBG(Vector pos, Image image) {
         if (mode > 0) {
-            if (mode > currentLevel.getChildrenSize() - 1) {
+            if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
             Entity newEnt = new Entity(currentLevel.getChildren().get(mode));
@@ -173,28 +128,7 @@ public class EntityManager {
             newEnt.add(view);
             newEnt.setProperty("x", pos.at(0));
             newEnt.setProperty("y", pos.at(1));
-            ImageViewEvent addView = new ImageViewEvent("setView");
-            newEnt.on("setView", event -> {
-                ImageViewEvent setView = (ImageViewEvent)event;
-                setView.setView(view);
-            });
-            addView.fire(newEnt);
-            newEnt.on("viewTransTrue", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(true);
-            });
-            newEnt.on("viewTransFalse", event -> {
-                ImageViewEvent viewTrans = (ImageViewEvent)event;
-                viewTrans.setMouseTransparent(false);
-            });
-            newEnt.on("viewVisTrue", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(true);
-            });
-            newEnt.on("viewVisFalse", event -> {
-                ImageViewEvent viewVis = (ImageViewEvent)event;
-                viewVis.setVisible(false);
-            });
+
             view.setOnMouseClicked(e -> changeRender(e, view));
             view.setOnKeyPressed(e -> deleteEntity(e, newEnt));
             view.setOnMousePressed(e -> startDrag(e, view));
@@ -202,10 +136,28 @@ public class EntityManager {
         }
     }
 
+
+    /**
+     * change background type for clicking
+     * @param type
+     */
+    public void setMyBGType (InputStream type) {
+        BGType = type;
+    }
+
+
+    /**
+     * select BG layer
+     */
     public void selectBGLayer() {
         selectLayer(0);
     }
 
+
+    /**
+     * select any layer
+     * @param layer
+     */
     public void selectLayer(int layer) {
         mode = layer;
         currentLevel.getChildren().forEach(e -> deselect(e));
@@ -213,15 +165,25 @@ public class EntityManager {
         select(currentLevel.getChildren().get(layer));
     }
 
+    /**
+     * select all layer
+     */
     public void allLayer() {
         mode = -1;
         currentLevel.getChildren().forEach(e -> viewOnly(e));
     }
 
+    /**
+     * change BGType
+     * @param image
+     */
     public void setBGType(InputStream image) {
         BGType = image;
     }
 
+    /**
+     * clear entities on current layer
+     */
     public void clearOnLayer() {
         if (mode == 0) {
             currentLevel.getChildren().get(0).clearLayer();
@@ -235,8 +197,8 @@ public class EntityManager {
     }
 
     private void select(Entity layer) {
-        ImageViewEvent viewTrans = new ImageViewEvent("viewTransFalse");
-        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
+        TransparentMouseEvent viewTrans = new TransparentMouseEvent(false);
+        ViewVisEvent viewVis = new ViewVisEvent(true);
 
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
@@ -245,8 +207,8 @@ public class EntityManager {
     }
 
     private void deselect(Entity layer) {
-        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
-        ImageViewEvent viewVis = new ImageViewEvent("viewVisFalse");
+        TransparentMouseEvent viewTrans = new TransparentMouseEvent(true);
+        ViewVisEvent viewVis = new ViewVisEvent(false);
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
             viewVis.fire(e);
@@ -254,8 +216,8 @@ public class EntityManager {
     }
 
     private void viewOnly(Entity layer) {
-        ImageViewEvent viewTrans = new ImageViewEvent("viewTransTrue");
-        ImageViewEvent viewVis = new ImageViewEvent("viewVisTrue");
+        TransparentMouseEvent viewTrans = new TransparentMouseEvent(true);
+        ViewVisEvent viewVis = new ViewVisEvent(true);
         layer.getChildren().forEach(e -> {
             viewTrans.fire(e);
             viewVis.fire(e);
@@ -316,43 +278,44 @@ public class EntityManager {
         view.setY(FXProcessing.getYImageCoord(pos.at(1), view));
     }
 
-    private void initializeLevelMap() {
-        try {
-            root.getChildren().forEach(e -> levels.put((String) e.getProperty("name"), e));
-
-        } catch(ClassCastException e) {
-            ErrorDisplay eDisplay = new ErrorDisplay("Fuck you", "Name was not string");
-            eDisplay.displayError();
-        }
+    /**
+     * add layer to current level
+     */
+    public void addLayer() {
+        addLayer(currentLevel);
     }
 
-    public void addLayer() {
-        Entity layer = new Entity(currentLevel);
+    private void addLayer(Entity level) {
+        Entity layer = new Entity(level);
+        ImageView holder = setPlaceHolder();
+        layer.add(holder);
+        AddLayerEvent addLayer = new AddLayerEvent(layer);
+        addLayer.fire(level);
+    }
+
+    private ImageView setPlaceHolder() {
         ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
         holder.setX(0);
         holder.setY(0);
         holder.setFitWidth(grid);
         holder.setFitHeight(grid);
         holder.setMouseTransparent(true);
-        layer.add(holder);
-        MapEvent mEvent = new MapEvent("addLayer");
-        currentLevel.on("addLayer", event -> {
-            MapEvent addLayer = (MapEvent) event;
-            addLayer.addLayer(layer);
-        });
-        mEvent.fire(currentLevel);
+        return holder;
     }
 
+    /**
+     * add new level
+     * @param name
+     * @param mapWidth
+     * @param mapHeight
+     */
     public void addLevel(String name, int mapWidth, int mapHeight) {
         Entity level = new Entity(root);
         //somehow fucking add the name to level properties
         levels.put(name, level);
-        Entity BGlayer = new Entity(level);
         Canvas canvas = new Canvas(mapWidth, mapHeight);
         StackPane stack = new StackPane();
         stack.getChildren().add(canvas);
-        stack.getChildren().add(BGlayer.getNodes());
-        stack.setAlignment(BGlayer.getNodes(), Pos.TOP_LEFT);
 
         canvas.setOnMouseClicked(e -> addBGCenter(new Vector(e.getX(), e.getY()), e));
         canvas.setOnMousePressed(e -> startDragBatch(e));
@@ -361,13 +324,14 @@ public class EntityManager {
         stack.setOnDragOver(e -> dragOver(e, stack));
         stack.setOnDragDropped(e -> dragDropped(e));
 
-        MapEvent mEvent = new MapEvent("addStack");
-        level.on("addStack", event -> {
-            MapEvent addStack = (MapEvent) event;
-            addStack.setStack(stack);
+        level.on("addLayer", event -> {
+            AddLayerEvent addLayer = (AddLayerEvent) event;
+            stack.getChildren().add(addLayer.getLayerGroup());
+            stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);
         });
-        mEvent.fire(level);
         level.add(stack);
+
+        addLayer(level);
     }
 
     private void dragOver(DragEvent event, Node map) {
@@ -406,8 +370,6 @@ public class EntityManager {
         event.consume();
     }
 
-
-
     private void addBGCenter(Vector pos, MouseEvent event) {
         Vector center = FXProcessing.getBGCenter(pos, grid);
         addBG(center);
@@ -422,7 +384,7 @@ public class EntityManager {
      */
     public void changeLevel(String level) {
         if (!levels.containsKey(null))
-            new ErrorDisplay("Fuck you!", "Level " + level + " does not exist");
+            new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist");
         else
             currentLevel = levels.get(level);
     }

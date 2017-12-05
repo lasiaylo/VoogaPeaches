@@ -7,6 +7,7 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -34,6 +35,7 @@ public class Camera {
 
     public Camera(Entity level) {
         currentLevel = level;
+
         view = new ScrollPane(level.getNodes().getChildren().get(0));
         view.setPannable(false);
 
@@ -68,7 +70,10 @@ public class Camera {
 
     public Pane getMinimap(Vector size) {
         miniMap = new Canvas(size.at(0), size.at(1));
-        miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
+        GraphicsContext gc = miniMap.getGraphicsContext2D();
+        gc.setFill(Color.GRAY);
+        gc.fillRect(0, 0, size.at(0), size.at(1));
+        //miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
         point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
 
         NumberBinding xPoint = view.hvalueProperty().multiply(size.at(0));
