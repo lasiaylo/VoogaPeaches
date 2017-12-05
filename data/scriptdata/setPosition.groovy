@@ -16,9 +16,9 @@ entity.on("move", { Event event ->
 
     entity.getNodes().relocate(entity.getProperty("x"), entity.getProperty("y"))
 
-//    for(HitBox hitBox : entity.getHitBoxes()) {
-//        hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
-//    }
+    for(HitBox hitBox : entity.getHitBoxes()) {
+        hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
+    }
 
 })
 

@@ -31,14 +31,14 @@ public class BouncingEntities extends Application {
         triangleOffsets.add(50.0);
 
         List<Double> otherOffsets = new ArrayList<>();
-        otherOffsets.add(-100.0);
-        otherOffsets.add(-100.0);
-        otherOffsets.add(-100.0);
-        otherOffsets.add(100.0);
-        otherOffsets.add(100.0);
-        otherOffsets.add(100.0);
-        otherOffsets.add(100.0);
-        otherOffsets.add(-100.0);
+        otherOffsets.add(-50.0);
+        otherOffsets.add(-50.0);
+        otherOffsets.add(-50.0);
+        otherOffsets.add(50.0);
+        otherOffsets.add(50.0);
+        otherOffsets.add(50.0);
+        otherOffsets.add(50.0);
+        otherOffsets.add(-50.0);
 
 
         HitBox triangle = new HitBox(triangleOffsets, 20.0, 20.0, "triangle");
@@ -50,6 +50,16 @@ public class BouncingEntities extends Application {
 
         Entity triangleEntity = converter.createObjectFromJSON(Entity.class,blueprint);
         Entity squareEntity = converter.createObjectFromJSON(Entity.class,blueprint);
+
+        triangleEntity.setProperty("x", 20.0);
+        triangleEntity.setProperty("y", 20.0);
+
+        squareEntity.setProperty("x", 250.0);
+        squareEntity.setProperty("y", 250.0);
+
+        squareEntity.setProperty("vx", - (double) squareEntity.getProperty("vx"));
+        squareEntity.setProperty("vy", - (double) squareEntity.getProperty("vy"));
+
 
         triangleEntity.addHitBox(triangle);
         squareEntity.addHitBox(square);
@@ -67,8 +77,8 @@ public class BouncingEntities extends Application {
         primaryStage.show();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-//            tickEvent.recursiveFire(root);
-            tickEvent.fire(triangleEntity);
+            tickEvent.recursiveFire(root);
+//            tickEvent.fire(triangleEntity);
             for(HitBox triEach : triangleEntity.getHitBoxes()) {
                 for(HitBox squareEach : squareEntity.getHitBoxes()) {
                     if(triEach.intersects(squareEach)) {

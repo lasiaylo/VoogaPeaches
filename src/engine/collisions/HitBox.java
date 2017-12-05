@@ -3,6 +3,7 @@ package engine.collisions;
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import util.math.num.Vector;
 
 
@@ -71,7 +72,8 @@ public class HitBox extends TrackableObject {
      */
     public boolean intersects(HitBox other) {
 //        return hitboxShape.intersects(hitboxShape.sceneToLocal(other.getHitbox().localToScene(other.getHitbox().getBoundsInLocal())));
-        return hitboxShape.intersects(hitboxShape.getBoundsInLocal());
+        Shape intersect = Shape.intersect(hitboxShape, other.getHitbox());
+        return intersect.getBoundsInLocal().getWidth() != -1;
     }
 
     /**

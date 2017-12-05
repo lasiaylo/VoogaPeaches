@@ -8,9 +8,9 @@
         "setPosition.groovy",
         "reverseXDirectionOnCollision.groovy"
       ],
-      "x": 30,
-      "y": 30,
-      "vx": 50,
-      "vy": 50
+      "x": 30.0,
+      "y": 30.0,
+      "vx": 50.0,
+      "vy": 50.0
     }
 }

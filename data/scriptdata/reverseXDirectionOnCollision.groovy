@@ -11,15 +11,13 @@ entity.on("collision", { Event event ->
     CollisionEvent cEvent = (CollisionEvent) event
     HitBox otherHitBox = cEvent.getCollidedHitBox()
     Entity collidedWith = cEvent.getCollidedWith()
-
     if(otherHitBox.getTag().equals("triangle")) {
-//        println "1"
-//        println collidedWith.getProperty("vx")
 
-        collidedWith.setProperty("vx", new Double(-entity.getProperty("vx").doubleValue()))
+        collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
+    }
 
-//        println "2"
-//        println collidedWith.getProperty("vx")
+    if(otherHitBox.getTag().equals("rectangle")) {
 
+        collidedWith.setProperty("vx", new Double(-collidedWith.getProperty("vx").doubleValue()))
     }
 })
