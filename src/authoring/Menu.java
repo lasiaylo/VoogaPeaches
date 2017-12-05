@@ -53,6 +53,7 @@ public class Menu {
 
         myStage.setScene(myScene);
         myStage.setResizable(false);
+        myStage.setTitle("VoogaPeaches: Menu");
         myStage.show();
 
         formatButtons();
