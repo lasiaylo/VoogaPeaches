@@ -3,9 +3,11 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.scripthelpers.ScriptLoader;
 import engine.events.ClickEvent;
+import engine.events.Event;
 import engine.events.Evented;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import groovy.lang.Script;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import org.json.JSONArray;
@@ -23,13 +25,10 @@ public class Entity extends Evented {
 
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
-//    private Entity() {}
-
 
     private Group group;
     private Entity parent;
     private Entity root;
-
 
     /**
      * Create entity as root
@@ -111,12 +110,16 @@ public class Entity extends Evented {
         return properties.get(name);
     }
 
+    public void setProperty(String name, Object property) {
+        properties.put(name, property);
+    }
+
     private void executeScripts() {
         for (Object script : (List) properties.get("scripts")) {
             String code = ScriptLoader.stringForFile((String) script);
             Binding binding = new Binding();
             binding.setVariable("entity", this);
-            binding.setVariable("game", null);
+            binding.setVariable("game", root);
             new GroovyShell(binding).evaluate(code);
         }
     }

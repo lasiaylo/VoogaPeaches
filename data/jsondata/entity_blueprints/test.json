@@ -3,8 +3,13 @@
     "children": [],
     "properties": {
       "scripts": [
-        "example.groovy"
+        "example.groovy",
+        "move.groovy",
+        "setPosition.groovy"
       ],
-      "health":"My Motherfucking health boiiiiiiiii"
+      "x": 30,
+      "y": 30,
+      "vx": 5,
+      "vy": 5
     }
 }

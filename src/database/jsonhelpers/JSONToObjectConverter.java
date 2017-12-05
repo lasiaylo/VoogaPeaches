@@ -1,6 +1,5 @@
 package database.jsonhelpers;
 
-import database.examples.realtime.Post;
 import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,11 +23,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
         Map<String, Object> params = new HashMap<>();
         for(String key : json.keySet()) {
             params.put(key, json.get(key));
-            if(json.get(key) instanceof Number) {
-                // Convert Number object to appropriate type for object T
-                Number convertedVal = convertValue(key,  (Number) json.get(key));
-                params.put(key, convertedVal);
-            } else if(json.get(key).getClass() == JSONObject.class) {
+            if(json.get(key).getClass() == JSONObject.class) {
                 // Create map for params of object that is being held by the overall object
                 params.put(key, parseParameters((JSONObject) json.get(key)));
             } else if(json.get(key).getClass() == JSONArray.class) {
@@ -36,18 +31,6 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             }
         }
         return params;
-    }
-
-    private Number convertValue(String param, Number value) {
-        try {
-            Class<?> fieldType = myClass.getDeclaredField(param).getType();
-            if(fieldType == int.class) return new Integer(value.intValue());
-            if(fieldType == double.class) return new Double(value.doubleValue());
-            return value;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public <G extends TrackableObject> G createObjectFromJSON(Class<G> myClass, JSONObject json) {
