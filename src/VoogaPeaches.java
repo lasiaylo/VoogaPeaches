@@ -16,10 +16,11 @@ public class VoogaPeaches extends Application {
     private Screen kitty;
 
     public void start(Stage stage) {
-//        Login startScreen = new Login();
-//        stage.setTitle(TITLE);
-//        stage.setScene(startScreen.getScene());
-//        stage.show();
+        Stage mystage = new Stage();
+        Login startScreen = new Login();
+        mystage.setTitle(TITLE);
+        mystage.setScene(startScreen.getScene());
+        mystage.show();
         stage.setTitle(TITLE);
         stage.setMaximized(true);
         stage.setResizable(false);

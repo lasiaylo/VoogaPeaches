@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import util.PropertiesReader;
+import util.pubsub.PubSub;
+import util.pubsub.messages.ThemeMessage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,10 +24,11 @@ import java.util.List;
  * All user interactions are determined and executed in here
  *
  * @author Kelly Zhang
- * @author Dara Buggay
  *
  */
 public class Menu {
+
+    //TODO: remove some of these values and put in a properties file or something, also make the menupanel and have the menu be a stage that holds a menupanel
 
     private static final String AUTHORING_ENVIRONMENT = "AUTHORING";
     private static final String PLAYER = "PLAY";
@@ -55,6 +58,19 @@ public class Menu {
         myStage.show();
 
         formatButtons();
+        updateTheme();
+    }
+
+    private void updateTheme() {
+        PubSub.getInstance().subscribe(
+                PubSub.Channel.THEME_MESSAGE,
+                (message) -> {
+                    if (myRoot.getStylesheets().size() >= 1) {
+                        myRoot.getStylesheets().remove(0);
+                    }
+                    myRoot.getStylesheets().add(((ThemeMessage) message).readMessage());
+                }
+        );
     }
 
     private void setupSceneDimensions() {
