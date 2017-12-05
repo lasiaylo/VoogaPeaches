@@ -9,6 +9,7 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import util.math.num.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ public class HitBoxPanel implements Panel {
             double x = points.get(i);
             double y = points.get(i + 1);
         }
+    }
+
+    private boolean checkRadius(double x, double y, MouseDragEvent dragEvent) {
+        Vector v = new Vector(dragEvent.getX() - x)
     }
 
     private void addPoint(MouseEvent event) {
