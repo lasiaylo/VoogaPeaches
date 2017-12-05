@@ -76,7 +76,7 @@ public class BouncingEntities extends Application {
         primaryStage.setScene(s);
         primaryStage.show();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000/60.), e -> {
             tickEvent.recursiveFire(root);
 //            tickEvent.fire(triangleEntity);
             for(HitBox triEach : triangleEntity.getHitBoxes()) {

@@ -49,8 +49,7 @@ public class Entity extends Evented {
      */
     public Entity(Entity parent) {
         this();
-        this.parent = parent;
-        parent.add(this);
+        addTo(parent);
     }
 
     /**
