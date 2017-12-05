@@ -1,8 +1,8 @@
 package authoring;
 
 
-import authoring.panels.reserved.CameraPanel;
-import engine.managers.EntityManager;
+
+import engine.EntityManager;
 import javafx.scene.control.ScrollPane;
 import util.math.num.Vector;
 
