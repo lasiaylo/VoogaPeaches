@@ -45,8 +45,8 @@ public class AttributesPanel implements Panel {
 
 	private void addTest() throws GroovyInstantiationException {
 		Set<String> methods = new HashSet<>(Arrays.asList("Position"));
-		Attribute a = new Attribute(myEntity.getTransform(),"Transform",methods);
-		myHBox.getChildren().add(a.getPane());
+//		Attribute a = new Attribute(myEntity.getTransform(),"Transform",methods);
+//		myHBox.getChildren().add(a.getPane());
 	}
 
 	/**Displays the Transform properties of an entity
