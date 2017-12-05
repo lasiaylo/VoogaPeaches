@@ -57,7 +57,7 @@ public class EntityManager {
 
     public void addBG(Vector pos) {
         if (mode == 0) {
-            Entity BGblock = new Entity(currentLevel.getChildren(0));
+            Entity BGblock = new Entity(currentLevel.getChildren().get(0));
             ImageView view = new ImageView();
             changeScriptBGType(view);
             setupImage(pos, view);
@@ -121,7 +121,7 @@ public class EntityManager {
             if (mode > currentLevel.getChildrenSize() - 1) {
                 addLayer();
             }
-            Entity newEnt = new Entity(currentLevel.getChildren(mode));
+            Entity newEnt = new Entity(currentLevel.getChildren().get((mode)));
             try {
                 image.reset();
             } catch (IOException e) {
@@ -164,7 +164,7 @@ public class EntityManager {
             if (mode > currentLevel.getChildrenSize() - 1) {
                 addLayer();
             }
-            Entity newEnt = new Entity(currentLevel.getChildren(mode));
+            Entity newEnt = new Entity(currentLevel.getChildren().get(mode));
             ImageView view = new ImageView(image);
             setupImage(pos, view);
             newEnt.add(view);
@@ -198,29 +198,19 @@ public class EntityManager {
     }
 
     public void selectBGLayer() {
-        mode = 0;
-        Iterator<Entity> iter = currentLevel.getChildren();
-        while (iter.hasNext()) {
-            deselect(iter.next());
-        }
-        select(currentLevel.getChildren(0));
+        selectLayer(0);
     }
 
     public void selectLayer(int layer) {
         mode = layer;
-        Iterator<Entity> iter = currentLevel.getChildren();
-        while (iter.hasNext()) {
-            deselect(iter.next());
-        }
-        select(currentLevel.getChildren(layer));
+        currentLevel.getChildren().forEach(e -> deselect(e));
+
+        select(currentLevel.getChildren().get(layer));
     }
 
     public void allLayer() {
         mode = -1;
-        Iterator<Entity> iter = currentLevel.getChildren();
-        while (iter.hasNext()) {
-            viewOnly(iter.next());
-        }
+        currentLevel.getChildren().forEach(e -> viewOnly(e));
     }
 
     public void setBGType(InputStream image) {
@@ -229,47 +219,42 @@ public class EntityManager {
 
     public void clearOnLayer() {
         if (mode == 0) {
-            currentLevel.getChildren(0).clearLayer();
+            currentLevel.getChildren().get(0).clearLayer();
         }
         else if(mode == -1) {
-            Iterator<Entity> iter = currentLevel.getChildren();
-            while (iter.hasNext()) {
-                iter.next().clearLayer();
-            }
+            currentLevel.getChildren().forEach(e -> e.clearLayer());
         }
         else {
-            currentLevel.getChildren(mode).clearLayer();
+            currentLevel.getChildren().get(mode).clearLayer();
         }
     }
 
     private void select(Entity layer) {
         ImgViewEvent viewTrans = new ImgViewEvent("viewTransFalse");
         ImgViewEvent viewVis = new ImgViewEvent("viewVisTrue");
-        while (layer.getChildren().hasNext()) {
-            Entity each = layer.getChildren().next();
-            viewTrans.fire(each);
-            viewVis.fire(each);
-        }
+
+        layer.getChildren().forEach(e -> {
+            viewTrans.fire(e);
+            viewVis.fire(e);
+        });
     }
 
     private void deselect(Entity layer) {
         ImgViewEvent viewTrans = new ImgViewEvent("viewTransTrue");
         ImgViewEvent viewVis = new ImgViewEvent("viewVisFalse");
-        while (layer.getChildren().hasNext()) {
-            Entity each = layer.getChildren().next();
-            viewTrans.fire(each);
-            viewVis.fire(each);
-        }
+        layer.getChildren().forEach(e -> {
+            viewTrans.fire(e);
+            viewVis.fire(e);
+        });
     }
 
     private void viewOnly(Entity layer) {
         ImgViewEvent viewTrans = new ImgViewEvent("viewTransTrue");
         ImgViewEvent viewVis = new ImgViewEvent("viewVisTrue");
-        while (layer.getChildren().hasNext()) {
-            Entity each = layer.getChildren().next();
-            viewTrans.fire(each);
-            viewVis.fire(each);
-        }
+        layer.getChildren().forEach(e -> {
+            viewTrans.fire(e);
+            viewVis.fire(e);
+        });
     }
 
     private void startDrag(MouseEvent event, ImageView view) {
@@ -325,16 +310,10 @@ public class EntityManager {
         view.setY(FXProcessing.getYImageCoord(pos.at(1), view));
     }
 
-
-
-
     private void initializeLevelMap() {
         try {
-            Iterator<Entity> children = root.getChildren();
-            while(children.hasNext()) {
-                Entity child = children.next();
-                levels.put((String) child.getProperty("name"), child);
-            }
+            root.getChildren().forEach(e -> levels.put((String) e.getProperty("name"), e));
+
         } catch(ClassCastException e) {
             ErrorDisplay eDisplay = new ErrorDisplay("Fuck you", "Name was not string");
             eDisplay.displayError();

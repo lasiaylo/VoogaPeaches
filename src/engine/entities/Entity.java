@@ -97,7 +97,7 @@ public class Entity extends Evented {
         return group;
     }
 
-    public Collection<Entity> getChildren() {
+    public List<Entity> getChildren() {
         return children;
     }
 
