@@ -1,12 +1,8 @@
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
-import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
-import database.scripthelpers.ScriptLoader;
 import engine.entities.Entity;
 import engine.events.TickEvent;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -15,10 +11,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.json.JSONObject;
-import sun.font.Script;
 
 public class EntityScriptTest extends Application {
-    private TickEvent tickEvent = new TickEvent(1. / 60);
+    private TickEvent tickEvent = new TickEvent(1.  / 60);
 
     @Override
     public void start(Stage primaryStage) throws Exception {

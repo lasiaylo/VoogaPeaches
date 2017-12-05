@@ -2,10 +2,11 @@ package engine.events;
 
 import javafx.scene.image.ImageView;
 
-public class ImgViewEvent extends Event{
+public class ImageViewEvent extends Event {
     private ImageView myImageView;
+    private String action;
 
-    public ImgViewEvent(String type) {
+    public ImageViewEvent(String type) {
         super(type);
     }
 
