@@ -37,4 +37,8 @@ public class Post extends TrackableObject {
         return myContent + metadata.toString();
     }
 
+    @Override
+    public void initialize() {
+
+    }
 }

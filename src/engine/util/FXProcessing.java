@@ -23,12 +23,12 @@ public class FXProcessing {
         return image.getY() + image.getFitHeight()/ 2;
     }
 
-    public static double getXImageCoord(double xCenter, Entity myEnt) {
-        return xCenter - myEnt.getTransform().getSize().at(0)/2;
+    public static double getXImageCoord(double xCenter, ImageView image) {
+        return xCenter - image.getFitWidth()/2;
     }
 
-    public static double getYImageCoord(double yCenter, Entity myEnt) {
-        return yCenter - myEnt.getTransform().getSize().at(1)/2;
+    public static double getYImageCoord(double yCenter, ImageView image) {
+        return yCenter - image.getFitHeight()/2;
     }
 
     public static Vector getBGCenter(Vector click, double gridS) {

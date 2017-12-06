@@ -10,8 +10,7 @@ import java.util.Map;
  * A class that evaluates groovy class from a string
  * @author Albert
  * @author Lasia
- * @author Simran
- * @author Walker
+ * @author richardtseng
  */
 public class Logic extends TrackableObject {
     @Expose private String myLogic;
@@ -29,6 +28,7 @@ public class Logic extends TrackableObject {
     public Logic(String logicStatement, Map<String, Object> parameters) {
         myLogic = logicStatement;
         myParameters = parameters;
+
     }
 
     /**
@@ -44,7 +44,8 @@ public class Logic extends TrackableObject {
      * @return  A String that replaces variable names with values
      */
     private String parseGroovyEvalString() {
-        String[] evalLogicArray = myLogic.split("//s+");
+        String[] evalLogicArray = myLogic.split("\\s+");
+
         StringBuilder evalLogicBuilder = new StringBuilder("");
         for(int i = 0; i < evalLogicArray.length; i++) {
             if(myParameters.keySet().contains(evalLogicArray[i])) {
@@ -62,5 +63,10 @@ public class Logic extends TrackableObject {
      */
     public void setLogic(String newLogic) {
         myLogic = newLogic;
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }
