@@ -1,5 +1,7 @@
 package engine.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import groovy.util.Eval;
 
 import java.util.Map;
@@ -8,12 +10,16 @@ import java.util.Map;
  * A class that evaluates groovy class from a string
  * @author Albert
  * @author Lasia
- * @author Simran
- * @author Walker
+ * @author richardtseng
  */
-public class Logic {
-    private String myLogic;
-    private Map<String, Object> myParameters;
+public class Logic extends TrackableObject {
+    @Expose private String myLogic;
+    @Expose private Map<String, Object> myParameters;
+
+    /**
+     * Creates a new Logic object from the database
+     */
+    private Logic() {}
 
     /**
      * Creates a new Logic
@@ -22,6 +28,7 @@ public class Logic {
     public Logic(String logicStatement, Map<String, Object> parameters) {
         myLogic = logicStatement;
         myParameters = parameters;
+
     }
 
     /**
@@ -37,7 +44,8 @@ public class Logic {
      * @return  A String that replaces variable names with values
      */
     private String parseGroovyEvalString() {
-        String[] evalLogicArray = myLogic.split("//s+");
+        String[] evalLogicArray = myLogic.split("\\s+");
+
         StringBuilder evalLogicBuilder = new StringBuilder("");
         for(int i = 0; i < evalLogicArray.length; i++) {
             if(myParameters.keySet().contains(evalLogicArray[i])) {
@@ -57,10 +65,8 @@ public class Logic {
         myLogic = newLogic;
     }
 
-    /**
-     * @return  the string for which the groovy script would evaluate
-     */
-    public String getLogic() {
-        return myLogic;
+    @Override
+    public void initialize() {
+
     }
 }

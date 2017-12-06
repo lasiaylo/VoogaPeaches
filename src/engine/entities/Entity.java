@@ -1,111 +1,156 @@
 package engine.entities;
 
-import engine.scripts.Script;
-import engine.util.FXProcessing;
-import engine.scripts.IScript;
+import com.google.gson.annotations.Expose;
+import database.scripthelpers.ScriptLoader;
+import engine.collisions.HitBox;
+import engine.events.ClickEvent;
+import engine.events.Event;
+import engine.events.Evented;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+import groovy.lang.Script;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
-import util.math.num.Vector;
+import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 /**
- * Base engine class that is used as a template for all objects in game.
+ * Basic game object
  *
+ * @author ramilmsh
  * @author Albert
- * @author lasia
- * @author estellehe
- *
  */
-public class Entity {
-	private Transform myTransform;
-	private Render myRender;
-    private boolean isStatic;
-    private List<IScript> myScripts;
+public class Entity extends Evented {
+
+    @Expose private List<Entity> children;
+    @Expose private Map<String, Object> properties;
+    @Expose private List<HitBox> hitBoxes;
+
+    private Group group;
+    private Entity parent;
+    private Entity root;
 
     /**
-     *  Creates a new Entity
-     *  @param pos       Vector position of new Entity
-     *  @param scripts   Scripts attached to new Entity
+     * Create entity as root
      */
-    public Entity(Vector pos, List<IScript> scripts) {
-    	myTransform = new Transform(pos);
-        myScripts = scripts;
-        myRender = new Render();
+    public Entity() {
+        group = new Group();
+        children = new ArrayList<>();
+        properties = new HashMap<>();
+        hitBoxes = new ArrayList<>();
     }
 
     /**
-     * Create a new Entity
-     * @param x         X position of new Entity
-     * @param y         Y position of new Entity
-     * @param scripts   Scripts attached to new Entity
+     * Create entity as a child
+     *
+     * @param parent: entities parent entity
      */
-    public Entity(List<IScript> scripts, double x, double y) {
-
-    	this(new Vector(x, y), scripts);
+    public Entity(Entity parent) {
+        this();
+        addTo(parent);
     }
 
-	/**
-	 * run all defaults attached to the Entity
-	 */
-	public void update() {
-		for (IScript s : myScripts) {
-			s.execute(this);
-		}
-	}
-
     /**
-     * transform class that contains transform recorded for this entity
-     * @return transform
+     * Get entities parent
+     *
+     * @return (Entity.parent) or null, if root
      */
-	public Transform getTransform() {
-
-	    return myTransform;
-	}
-
-	/**
-	 * @return Render wrapper class that contains ImageView
-	 */
-	public Render getRender() {
-
-	    return myRender;
-	}
-
-    /**
-     * add script to entity
-     * @param script
-     */
-	public void addSript(IScript script) {
-	    myScripts.add(script);
+    public Entity getParent() {
+        return parent;
+    }
+    
+    public Map<String, Object> getProperties(){
+    	return properties;
     }
 
-	/**
-	 * @return List of entity's defaults
-	 */
-	public List<IScript> getScripts() {
+    public void add(Node node) {
+        group.getChildren().add(node);
+    }
 
-	    return myScripts;
-	}
+    public void add(Entity entity) {
+        children.add(entity);
+        add(entity.getNodes());
+        entity.addTo(this);
+    }
+    public void remove(Node node) {
+        group.getChildren().remove(node);
+    }
 
-	/**
-	 * @return Whether the entity is static or not. If an entity is static, it just
-	 *         needs to be updated once.
-	 */
-	public boolean isStatic() {
+    public Entity addTo(Entity parent) {
+        this.parent = parent;
+        parent.getNodes().getChildren().add(group);
+        parent.getChildren().add(this);
+        return this;
+    }
 
-	    return isStatic;
-	}
+    /**
+     * clear layer but leave the placeholder inside the group
+     */
+    public void clearLayer() {
+        children.clear();
+        group.getChildren().subList(1, group.getChildren().size()).clear();
+    }
 
-	/**	Sets whether an entity is static or not. If an entity is static, it just needs
-	 * 	to be updated once.
-	 *
-	 */
-	public void setStatic(boolean isStatic) {
+    public void remove(Entity entity) {
+        children.remove(entity);
+        remove(entity.getNodes());
+    }
 
-	    this.isStatic = isStatic;
-	}
+    public Group getNodes() {
+        return group;
+    }
 
+    public List<Entity> getChildren() {
+        return children;
+    }
+
+    public Object getProperty(String name) {
+        return properties.get(name);
+    }
+
+    public void setProperty(String name, Object property) {
+        properties.put(name, property);
+    }
+
+    public List<HitBox> getHitBoxes() {
+        return hitBoxes;
+    }
+
+    public void addHitBox(HitBox hitbox) {
+        hitBoxes.add(hitbox);
+        group.getChildren().add(hitbox.getHitbox());
+    }
+
+    private void executeScripts() {
+        for (Object script : (List) properties.get("scripts")) {
+            String code = ScriptLoader.stringForFile((String) script);
+            Binding binding = new Binding();
+            binding.setVariable("entity", this);
+            binding.setVariable("game", root);
+            new GroovyShell(binding).evaluate(code);
+        }
+    }
+
+    private void setEventListeners() {
+        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+    }
+
+    @Override
+    public void initialize() {
+        if (root == null)
+            if (parent != null)
+                for (Entity entity : children)
+                    entity.root = this;
+            else
+                for (Entity entity : children)
+                    entity.root = root;
+
+        for (Entity entity : children)
+            entity.addTo(this);
+
+        setEventListeners();
+        executeScripts();
+    }
 }
