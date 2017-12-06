@@ -3,12 +3,16 @@
 
     "children": [],
     "properties": {
-      "scripts": [
-        "example.groovy",
-        "move.groovy",
-        "setPosition.groovy",
-        "reverseXDirectionOnCollision.groovy"
-      ],
+      "scripts": {
+        "example.groovy": [
+        ],
+        "move.groovy": [
+        ],
+        "setPosition.groovy": [
+        ],
+        "reverseXDirectionOnCollision.groovy": [
+        ]
+      }
       "x": 30.0,
       "y": 30.0,
       "vx": 50.0,
