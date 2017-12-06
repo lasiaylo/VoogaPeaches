@@ -12,7 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import util.ErrorDisplay;
 import util.math.num.Vector;
 
@@ -64,12 +66,12 @@ public class HitBoxPanel implements Panel {
 
     private void addPoint(MouseEvent event) {
         if(points.size() > 1) {
-            Line line = new Line(points.get(points.size() - 1), points.get(points.size() - 2), event.getX(), event.getY());
+            Line line = new Line(points.get(points.size() - 2), points.get(points.size() - 1), event.getSceneX(), event.getSceneY());
             lines.add(line);
             entityView.getChildren().add(line);
         }
-        points.add(event.getX());
-        points.add(event.getY());
+        points.add(event.getSceneX());
+        points.add(event.getSceneY());
     }
 
     public void createHitBox() {
