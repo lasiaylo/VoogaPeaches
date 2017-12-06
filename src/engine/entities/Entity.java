@@ -124,11 +124,13 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        for (Object script : (List) properties.get("scripts")) {
-            String code = ScriptLoader.stringForFile((String) script);
+        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.get("scripts");
+        for (String script : listenActionPair.keySet() ) {
+            String code = ScriptLoader.stringForFile(script);
             Binding binding = new Binding();
             binding.setVariable("entity", this);
             binding.setVariable("game", root);
+            binding.setVariable("actions", listenActionPair.get(script));
             new GroovyShell(binding).evaluate(code);
         }
     }
