@@ -1,6 +1,7 @@
 package authoring.panels.tabbable;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,8 @@ public class AttributesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myGrid = new GridPane();
-		myMap = entity.getProperties();
+		myMap = new HashMap<String, Object>(entity.getProperties());
+		myMap.remove("scripts");
 		addMap();
 //		addButton();
 	}
