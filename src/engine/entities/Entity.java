@@ -22,7 +22,6 @@ import java.util.*;
  */
 public class Entity extends Evented {
 
-    @Expose private String test;
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
