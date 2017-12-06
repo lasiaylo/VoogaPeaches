@@ -46,7 +46,7 @@ public class AttributesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myGrid = new GridPane();
-		myMap = new HashMap<String, Object>(entity.getProperties());
+		myMap = entity.getProperties();
 		myMap.remove("scripts");
 		addMap();
 //		addButton();

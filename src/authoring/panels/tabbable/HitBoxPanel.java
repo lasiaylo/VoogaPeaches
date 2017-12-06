@@ -22,7 +22,7 @@ import java.util.List;
 public class HitBoxPanel implements Panel {
     private static final double RADIUS = 5;
     private static final String TITLE = "Create or Add Hitboxes!";
-    public static final int MIN_HEIGHT = 500;
+    private static final int MIN_HEIGHT = 500;
 
     private Entity entity;
     private Pane entityView = new Pane();
@@ -63,8 +63,10 @@ public class HitBoxPanel implements Panel {
     }
 
     private void addPoint(MouseEvent event) {
-        if(points.size() > 2) {
-            Line line = new Line(0, 0, 0, 0);
+        if(points.size() > 1) {
+            Line line = new Line(points.get(points.size() - 1), points.get(points.size() - 2), event.getX(), event.getY());
+            lines.add(line);
+            entityView.getChildren().add(line);
         }
         points.add(event.getX());
         points.add(event.getY());
@@ -72,7 +74,6 @@ public class HitBoxPanel implements Panel {
 
     public void createHitBox() {
         try {
-            System.out.println("hell yeah");
             HitBox hitBox = new HitBox(points, (Double) entity.getProperty("x"), (Double) entity.getProperty("y"), textField.getText());
             entity.addHitBox(hitBox);
             entity.getNodes().relocate((double) entity.getProperty("x"), (double) entity.getProperty("y"));

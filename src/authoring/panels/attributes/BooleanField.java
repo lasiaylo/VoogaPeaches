@@ -17,7 +17,8 @@ public class BooleanField extends Field{
 	
 	@Override
 	protected void makeControl() {
-		setControl(new CheckBox());
+		checkbox = new CheckBox();
+		setControl(checkbox);
 	}
 
 	@Override
