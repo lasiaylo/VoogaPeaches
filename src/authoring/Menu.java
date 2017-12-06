@@ -60,7 +60,7 @@ public class Menu {
     }
 
     private void updateTheme() {
-        PubSub.getInstance().subscribe(
+        /*PubSub.getInstance().subscribe(//TODO pbsb
                 PubSub.Channel.THEME_MESSAGE,
                 (message) -> {
                     if (myRoot.getStylesheets().size() >= 1) {
@@ -68,7 +68,7 @@ public class Menu {
                     }
                     myRoot.getStylesheets().add(((ThemeMessage) message).readMessage());
                 }
-        );
+        );*/
     }
 
     private void setupSceneDimensions() {

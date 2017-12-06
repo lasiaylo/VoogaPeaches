@@ -6,7 +6,7 @@ public enum EventType {
     IMAGE_VIEW(ImageViewEvent.class),
 
     KEY_PRESS(KeyPressEvent.class),
-    MAP(MapEvent.class),
+    MAP(AddLayerEvent.class),
     MOVE(MoveEvent.class),
     STATE(StateEvent.class),
     TICK(TickEvent.class);

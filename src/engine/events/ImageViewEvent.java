@@ -1,23 +1,17 @@
 package engine.events;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
 public class ImageViewEvent extends Event {
-    private ImageView myImageView;
-    private String action;
+    private Image image;
 
-    public ImageViewEvent(String type) {
-        super(type);
-    }
 
-    public void setMouseTransparent(boolean trans) {
-        myImageView.setMouseTransparent(trans);
+    public ImageViewEvent(Image image) {
+        super("Image View Event");
     }
 
-    public void setVisible(boolean vis) {
-        myImageView.setVisible(vis);
+    public Image getImage() {
+        return image;
     }
-    public void setView(ImageView view) {
-        myImageView = view;
-    }
+
 }

@@ -30,7 +30,7 @@ public class Login {
     }
 
     private void updateTheme() {
-        PubSub.getInstance().subscribe(
+        /*PubSub.getInstance().subscribe(//TODO pubsub
                 PubSub.Channel.THEME_MESSAGE,
                 (message) -> {
                     if (myArea.getStylesheets().size() >= 1) {
@@ -38,7 +38,7 @@ public class Login {
                     }
                     myArea.getStylesheets().add(((ThemeMessage) message).readMessage());
                 }
-        );
+        );*/
         myArea.getStyleClass().add("panel");
     }
 

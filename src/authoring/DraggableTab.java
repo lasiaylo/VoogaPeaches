@@ -104,9 +104,9 @@ public class DraggableTab extends Tab {
                 }
             });
             Scene newScene = new Scene(pane);
-            PubSub.getInstance().subscribe(
+            /*PubSub.getInstance().subscribe(//TODO: Reimplement pubsub and remove these comments
                     PubSub.Channel.THEME_MESSAGE,
-                    (message) -> newScene.getStylesheets().add(((ThemeMessage) message).readMessage()));
+                    (message) -> newScene.getStylesheets().add(((ThemeMessage) message).readMessage()));*/
             //newScene.getStylesheets().add("panel");
             newStage.setScene(newScene);
             newStage.initStyle(StageStyle.UTILITY);
