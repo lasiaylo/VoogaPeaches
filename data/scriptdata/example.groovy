@@ -1,0 +1,1 @@
+//println entity.getProperty("health")

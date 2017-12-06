@@ -1,5 +1,3 @@
-import authoring.Login;
-import authoring.Menu;
 import authoring.Screen;
 import database.firebase.FirebaseConnector;
 import javafx.application.Application;
@@ -16,14 +14,12 @@ public class VoogaPeaches extends Application {
     private Screen kitty;
 
     public void start(Stage stage) {
-//        Menu menuScreen = new Menu();
-//
-//        Stage loginStage = new Stage();
-//        Login loginScreen = new Login();
-//        loginStage.setTitle(TITLE);
-//        loginStage.setScene(loginScreen.getScene());
-//        loginStage.show();
-
+        /*Menu menuScreen = new Menu();
+        Stage loginStage = new Stage();
+        Login loginScreen = new Login();
+        loginStage.setTitle(TITLE);
+        loginStage.setScene(loginScreen.getScene());
+        loginStage.show();*/
         stage.setTitle(TITLE);
         stage.setMaximized(true);
         stage.setResizable(false);
@@ -33,8 +29,9 @@ public class VoogaPeaches extends Application {
     @Override
     public void stop() throws Exception{
         kitty.save();
-        super.stop();
         FirebaseConnector.closeFirebaseApp();
+        super.stop();
+
     }
 
     public static void main(String[] args){

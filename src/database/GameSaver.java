@@ -1,13 +1,13 @@
 package database;
 
 import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import org.json.JSONObject;
 import util.PropertiesReader;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * A class that provides an API for saving manipulating a game file within the database 
@@ -26,7 +26,7 @@ public class GameSaver {
      */
     public GameSaver(String gameName) {
         this.gameName = gameName;
-        manager = new JSONDataManager(JSONDataManager.JSONDataFolders.GAMES);
+        manager = new JSONDataManager(JSONDataFolders.GAMES);
         gameFolder = getGameFolder(gameName);
     }
 
@@ -48,15 +48,11 @@ public class GameSaver {
      *               Trackable objects that you want to store
      * @param <T> is the class of the TrackableObject being stored
      */
-    public <T extends TrackableObject> void saveTrackableObjects(List<T> toSave) {
-        if (toSave.size() != 0) {
-            String classFolder = gameName + "/" + toSave.get(0).getClass().getSimpleName();
-            if(!manager.folderExists(classFolder)) manager.createFolder(classFolder);
-            for (T object : toSave) {
-                JSONObject jsonForm = JSONHelper.JSONForObject(object);
-                String filepath = classFolder + "/" + jsonForm.get("UID");
-                manager.writeJSONFile(filepath,jsonForm);
-            }
-        }
+    public <T extends TrackableObject> void saveTrackableObjects(T toSave) {
+        String classFolder = gameName + "/" + toSave.getClass().getSimpleName();
+        if(!manager.folderExists(classFolder)) manager.createFolder(classFolder);
+        JSONObject jsonForm = JSONHelper.JSONForObject(toSave);
+        String filepath = classFolder + "/" + jsonForm.get("UID");
+        manager.writeJSONFile(filepath,jsonForm);
     }
 }
