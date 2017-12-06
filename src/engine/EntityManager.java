@@ -24,7 +24,7 @@ public class EntityManager {
     private Entity root;
     private Map<String, Entity> levels;
     private Entity currentLevel;
-    private int mode = -1;
+    private int[] mode = {-1};
     private InputStream BGType;
     private int grid;
     private FileDataManager manager;
@@ -57,7 +57,7 @@ public class EntityManager {
      * @param pos
      */
     public void addBG(Vector pos) {
-        if (mode == 0) {
+        if (mode[0] == 0) {
             Entity BGblock = new Entity(currentLevel.getChildren().get(0));
             ImageView view = new ImageView();
             changeBGImage(view);
@@ -73,7 +73,7 @@ public class EntityManager {
 
     private void changeRender(MouseEvent event, ImageView view) {
         view.requestFocus();
-        if (event.getButton().equals(MouseButton.PRIMARY) && mode == 0) {
+        if (event.getButton().equals(MouseButton.PRIMARY) && mode[0] == 0) {
             changeBGImage(view);
         }
         event.consume();
@@ -118,11 +118,11 @@ public class EntityManager {
      * @param image
      */
     public void addNonBG(Vector pos, Image image) {
-        if (mode > 0) {
-            if (mode > currentLevel.getChildren().size() - 1) {
+        if (mode[0] > 0) {
+            if (mode[0] > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            Entity newEnt = new Entity(currentLevel.getChildren().get(mode));
+            Entity newEnt = new Entity(currentLevel.getChildren().get(mode[0]));
             ImageView view = new ImageView(image);
             setupImage(pos, view);
             newEnt.add(view);
@@ -159,7 +159,7 @@ public class EntityManager {
      * @param layer
      */
     public void selectLayer(int layer) {
-        mode = layer;
+        mode[0] = layer;
         currentLevel.getChildren().forEach(e -> deselect(e));
 
         select(currentLevel.getChildren().get(layer));
@@ -169,7 +169,7 @@ public class EntityManager {
      * select all layer
      */
     public void allLayer() {
-        mode = -1;
+        mode[0] = -1;
         currentLevel.getChildren().forEach(e -> viewOnly(e));
     }
 
@@ -185,14 +185,14 @@ public class EntityManager {
      * clear entities on current layer
      */
     public void clearOnLayer() {
-        if (mode == 0) {
+        if (mode[0] == 0) {
             currentLevel.getChildren().get(0).clearLayer();
         }
-        else if(mode == -1) {
+        else if(mode[0] == -1) {
             currentLevel.getChildren().forEach(e -> e.clearLayer());
         }
         else {
-            currentLevel.getChildren().get(mode).clearLayer();
+            currentLevel.getChildren().get(mode[0]).clearLayer();
         }
     }
 
