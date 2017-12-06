@@ -94,7 +94,7 @@ public class Script extends TrackableObject implements IScript{
 	 *
 	 * @return Set of public fields. Fields returned can be used with get/set.
 	 */
-	public Set<?> getFields() {
+	public Set<String> getFields() {
 		return myScript.getFields();
 	}
 }

@@ -3,7 +3,9 @@ package authoring;
 
 import authoring.panels.reserved.CameraPanel;
 import engine.managers.EntityManager;
+import javafx.scene.SubScene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import util.math.num.Vector;
 
 import java.awt.*;
@@ -27,4 +29,6 @@ public interface IPanelController {
     void pause();
 
     void save();
+
+    Pane getMiniMap();
 }
