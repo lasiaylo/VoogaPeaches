@@ -3,7 +3,6 @@ package authoring.panels.reserved;
 import authoring.IPanelController;
 import authoring.Panel;
 import authoring.PanelController;
-import engine.managers.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -11,6 +10,13 @@ import javafx.scene.layout.*;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
+import engine.EntityManager;
+import engine.util.FXProcessing;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import util.math.num.Vector;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -35,10 +41,13 @@ public class CameraPanel implements Panel {
 	private Button myPause;
 	private Button myClear;
 	private VBox myArea;
-	private ComboBox<String> myLayer;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
+	private ComboBox<String> myLayer;
+	private RadioButton myWhole;
+	private RadioButton myLocal;
+	private ToggleGroup myGroup;
 
 	private double cameraWidth;
 	private double cameraHeight;
@@ -52,6 +61,7 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
+		//myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
@@ -63,7 +73,7 @@ public class CameraPanel implements Panel {
 
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
-				PubSub.Channel.THEME_MESSAGE,
+				"THEMES",
 				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
 	}
 

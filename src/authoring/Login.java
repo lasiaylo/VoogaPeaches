@@ -39,7 +39,7 @@ public class Login {
 
     private void updateTheme() {
         PubSub.getInstance().subscribe(
-                PubSub.Channel.THEME_MESSAGE,
+                "THEMES",
                 (message) -> {
                     if (myArea.getStylesheets().size() >= 1) {
                         myArea.getStylesheets().remove(0);

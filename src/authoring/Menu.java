@@ -62,7 +62,7 @@ public class Menu {
 
     private void updateTheme() {
         PubSub.getInstance().subscribe(
-                PubSub.Channel.THEME_MESSAGE,
+                "THEMES",
                 (message) -> {
                     if (myRoot.getStylesheets().size() >= 1) {
                         myRoot.getStylesheets().remove(0);

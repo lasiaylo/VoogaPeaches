@@ -69,6 +69,7 @@ public class JSONHelper {
         return new JSONObject(creator.toJson(obj));
     }
 
+
     /**
      * creates a map form of the JSONObject that is passed into the function
      * @param jsonObj is a {@code JSONObject} representing the object to make
