@@ -83,7 +83,8 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                         for(HashMap<String,Object> obj : trackableObjects) {
                             JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) obj);
                             JSONObject m = new JSONObject(parseParameters(heldObjectJSON));
-                            Object heldObject = (Object) createObjectFromJSON(listType, m);
+                            TrackableObject heldObject = (TrackableObject) createObjectFromJSON(listType, m);
+                            heldObject.initialize();
                             objectsList.add(heldObject);
                         }
                         params.put(param, objectsList);

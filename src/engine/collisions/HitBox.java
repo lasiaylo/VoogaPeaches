@@ -8,6 +8,7 @@ import javafx.scene.shape.Shape;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,8 +57,7 @@ public class HitBox extends TrackableObject {
         double[] polygonPoints = createAdjustedPoints(entityXPosition, entityYPosition);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
-        hitboxShape.setFill(Color.LIGHTGRAY);
-        //hitboxShape.setStroke(Color.BLACK);
+        hitboxShape.setFill(Color.TRANSPARENT);
     }
 
     /**
@@ -125,12 +125,27 @@ public class HitBox extends TrackableObject {
         return hitboxShape;
     }
 
+    public void addPoints(double x, double y) {
+        hitboxShape.getPoints().add(x);
+        hitboxShape.getPoints().add(y);
+        polygonVertexTranslations.add(x);
+        polygonVertexTranslations.add(y);
+    }
+
+    public List<Double> getPoints() {
+        List<Double> points = new ArrayList<>();
+        for(int i = 0; i < polygonVertexTranslations.size(); i+=2){
+            points.add(polygonVertexTranslations.get(i) + currentX);
+            points.add(polygonVertexTranslations.get(i + 1) + currentX);
+        }
+        return points;
+    }
+
     @Override
     public void initialize() {
         // Create points for initial polygon
         double[] polygonPoints = createAdjustedPoints(currentX, currentY);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
-        System.out.println("Hitbox Tag: " + tag);
     }
 }

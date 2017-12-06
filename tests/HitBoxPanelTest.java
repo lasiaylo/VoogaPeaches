@@ -21,8 +21,6 @@ public class HitBoxPanelTest extends Application {
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
         Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("test.json"));
 
-        System.out.println(readIn.getHitBoxes().get(0).getClass());
-
         HitBoxPanel hbPanel = new HitBoxPanel(readIn.getHitBoxes());
 
 

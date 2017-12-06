@@ -13,7 +13,7 @@
 
         ],
         "UID": "3a68d326fba84e4fb585711daebd0bb5",
-        "currentX": 0.0,
+        "currentX": 100.0,
         "currentY": 0.0,
         "tag": "Hitbox 1"
       },
@@ -29,7 +29,7 @@
         ],
         "UID": "3a68d326fba84e4fb585711daebd0bb5",
         "currentX": 0.0,
-        "currentY": 0.0,
+        "currentY": 100.0,
         "tag": "Hitbox 2"
       },
       {
