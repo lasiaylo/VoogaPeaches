@@ -104,10 +104,10 @@ public class DraggableTab extends Tab {
                 }
             });
             Scene newScene = new Scene(pane);
-            /*PubSub.getInstance().subscribe(//TODO: Reimplement pubsub and remove these comments
-                    PubSub.Channel.THEME_MESSAGE,
-                    (message) -> newScene.getStylesheets().add(((ThemeMessage) message).readMessage()));*/
-            //newScene.getStylesheets().add("panel");
+            PubSub.getInstance().subscribe(
+                    "THEME_MESSAGE",
+                    (message) -> newScene.getStylesheets().add(((ThemeMessage) message).readMessage()));
+            newScene.getStylesheets().add("panel");//TODO this was commented out, was it supposed to be?
             newStage.setScene(newScene);
             newStage.initStyle(StageStyle.UTILITY);
             newStage.setX(t.getScreenX());

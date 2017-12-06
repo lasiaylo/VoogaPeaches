@@ -60,15 +60,15 @@ public class Menu {
     }
 
     private void updateTheme() {
-        /*PubSub.getInstance().subscribe(//TODO pbsb
-                PubSub.Channel.THEME_MESSAGE,
+        PubSub.getInstance().subscribe(
+                "THEME_MESSAGE",
                 (message) -> {
                     if (myRoot.getStylesheets().size() >= 1) {
                         myRoot.getStylesheets().remove(0);
                     }
                     myRoot.getStylesheets().add(((ThemeMessage) message).readMessage());
                 }
-        );*/
+        );
     }
 
     private void setupSceneDimensions() {

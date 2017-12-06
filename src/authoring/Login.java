@@ -30,15 +30,15 @@ public class Login {
     }
 
     private void updateTheme() {
-        /*PubSub.getInstance().subscribe(//TODO pubsub
-                PubSub.Channel.THEME_MESSAGE,
+        PubSub.getInstance().subscribe(
+                "THEME_MESSAGE",
                 (message) -> {
                     if (myArea.getStylesheets().size() >= 1) {
                         myArea.getStylesheets().remove(0);
                     }
                     myArea.getStylesheets().add(((ThemeMessage) message).readMessage());
                 }
-        );*/
+        );
         myArea.getStyleClass().add("panel");
     }
 
