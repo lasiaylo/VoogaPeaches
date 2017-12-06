@@ -90,7 +90,7 @@ public class FSMGraph {
 
     private void transitionDragHandle(MouseEvent event, TransitionRender transition) {
         currentTRender = transition;
-        currentTRender.setHead(new Vector(event.getSceneX(), event.getSceneY()));
+        currentTRender.setHead(new Vector(event.getX(), event.getY()));
     }
 
     private void transitionDragExit() {
@@ -109,7 +109,7 @@ public class FSMGraph {
 
     private void dragExit(MouseEvent event) {
         StateRender contained = findContainedStateRender(event);
-        contained.addArrivingTransition(currentTRender);
+//        contained.addArrivingTransition(currentTRender);
         currentTRender = null;
     }
 }
