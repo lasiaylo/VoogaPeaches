@@ -11,7 +11,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +86,6 @@ public class HitBoxPanel implements Panel {
     private void addPointClicked(MouseEvent event) {
         if(hitboxSelection.getSelectionModel().getSelectedIndex() != 0) {
             addNewPoint(event.getX(), event.getY());
-            System.out.println(currentPoints.size());
             if(currentPoints.size() == 6) {
                 for(int i = 0; i < 6; i+=2)
                     hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(currentPoints.get(i), currentPoints.get(i + 1));
