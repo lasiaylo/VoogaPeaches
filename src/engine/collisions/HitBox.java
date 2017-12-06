@@ -2,11 +2,12 @@ package engine.collisions;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
-import util.math.num.Vector;
 
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -55,7 +56,8 @@ public class HitBox extends TrackableObject {
         double[] polygonPoints = createAdjustedPoints(entityXPosition, entityYPosition);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
-        hitboxShape.setVisible(false);
+        hitboxShape.setFill(Color.LIGHTGRAY);
+        //hitboxShape.setStroke(Color.BLACK);
     }
 
     /**
@@ -129,5 +131,6 @@ public class HitBox extends TrackableObject {
         double[] polygonPoints = createAdjustedPoints(currentX, currentY);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
+        System.out.println("Hitbox Tag: " + tag);
     }
 }

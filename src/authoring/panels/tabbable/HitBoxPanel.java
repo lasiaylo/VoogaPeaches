@@ -2,21 +2,16 @@ package authoring.panels.tabbable;
 
 import authoring.Panel;
 import authoring.buttons.CustomButton;
-import authoring.buttons.strategies.HitBoxSave;
 import engine.collisions.HitBox;
-import engine.entities.Entity;
-import javafx.scene.Group;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import util.ErrorDisplay;
-import util.math.num.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,64 +21,79 @@ public class HitBoxPanel implements Panel {
     private static final String TITLE = "Create or Add Hitboxes!";
     private static final int MIN_HEIGHT = 500;
 
-    private Entity entity;
     private Pane entityView = new Pane();
     private VBox region = new VBox();
-    private TextField textField = new TextField();
+    private TextField hitboxNameField = new TextField();
     private List<Double> points = new ArrayList<>();
-    private List<Line> lines = new ArrayList<>();
 
-    public HitBoxPanel() {
+    private List<HitBox> hitboxes;
+
+    private Polygon currentHitBox;
+    private ComboBox<String> hitboxSelection;
+
+    public HitBoxPanel(List<HitBox> boxes) {
+
+        hitboxes = boxes;
+
+        createEntityView();
+        createSaveButton();
+        createComboBox();
+        region.getChildren().add(hitboxNameField);
+
+        // Create the new hitbox polygon
+        currentHitBox = createPolygon();
+        entityView.getChildren().add(currentHitBox);
+    }
+
+    private void createComboBox() {
+        hitboxSelection = new ComboBox<>();
+        hitboxSelection.getItems().add("View All");
+        region.getChildren().add(hitboxSelection);
+        //for(HitBox h : hitboxes)
+            //hitboxSelection.getItems().add(h.getTag());
+    }
+
+    private void createSaveButton() {
+        CustomButton saveBtn = new CustomButton(() -> {
+            String boxName = hitboxNameField.getText();
+            hitboxSelection.getItems().add(boxName);
+            hitboxSelection.getSelectionModel().selectLast();
+            System.out.println(hitboxSelection.getSelectionModel().getSelectedItem());
+        }, "Save");
+        region.getChildren().add(saveBtn.getButton());
+    }
+
+    private void createEntityView(){
         entityView.setMinHeight(MIN_HEIGHT);
         region.getChildren().add(entityView);
-        entityView.setOnMouseClicked(e -> addPoint(e));
-        region.getChildren().add(textField);
-        region.getChildren().add(new CustomButton(new HitBoxSave(this), "Save").getButton());
+        entityView.setOnMouseClicked(e -> addPointClicked(e));
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-        entityView.getChildren().clear();
-        entityView.getChildren().add(entity.getNodes());
-//        entityView
-
+    private Polygon createPolygon() {
+        Polygon newPolygon = new Polygon();
+        newPolygon.setFill(Color.LIGHTGRAY);
+        return newPolygon;
     }
 
-//    private void dragHandle(MouseDragEvent dragEvent) {
-//        for(int i = 0; i < points.size(); i += 2) {
-//            double x = points.get(i);
-//            double y = points.get(i + 1);
-//            if(checkRadius(x, y, dragEvent)) {
-//
-//            }
-//        }
-//    }
-
-    private boolean checkRadius(double x, double y, MouseDragEvent dragEvent) {
-        Vector v = new Vector(dragEvent.getX() - x, dragEvent.getY() - y);
-        return v.norm() < RADIUS;
-    }
-
-    private void addPoint(MouseEvent event) {
-        if(points.size() > 1) {
-            Line line = new Line(points.get(points.size() - 2), points.get(points.size() - 1), event.getSceneX(), event.getSceneY());
-            lines.add(line);
-            entityView.getChildren().add(line);
+    private void addPointClicked(MouseEvent event) {
+        addNewPoint(event.getX(), event.getY());
+        if(points.size() > 4) {
+            entityView.getChildren().remove(1, entityView.getChildren().size());
+            currentHitBox.getPoints().addAll(points);
         }
-        points.add(event.getSceneX());
-        points.add(event.getSceneY());
     }
 
-    public void createHitBox() {
-        try {
-            HitBox hitBox = new HitBox(points, (Double) entity.getProperty("x"), (Double) entity.getProperty("y"), textField.getText());
-            entity.addHitBox(hitBox);
-            entity.getNodes().relocate((double) entity.getProperty("x"), (double) entity.getProperty("y"));
-        } catch (NullPointerException e) {
-            // do nothing
-        }
-        // move hit boxes?
+    private void addNewPoint(double x, double y) {
+        Circle newPoint = new Circle();
+        newPoint.setCenterX(x);
+        newPoint.setCenterY(y);
+        newPoint.setRadius(5);
+        newPoint.setFill(Color.BLACK);
+        points.add(x);
+        points.add(y);
+        entityView.getChildren().add(newPoint);
     }
+
 
     @Override
     public Region getRegion() {
