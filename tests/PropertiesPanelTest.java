@@ -1,3 +1,6 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import org.json.JSONObject;
 
 import authoring.panels.attributes.Attribute;
@@ -11,15 +14,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class PropertiesPanelTest extends Application{
-	AttributesPanel panel;
-	
+	private AttributesPanel panel;
+	private Entity testEntity;
+
 	@Override
 	public void start(Stage arg0) throws Exception {
 		panel = new AttributesPanel();
-		panel.updateProperties(createEntity());
+		panel.updateProperties((testEntity = createEntity()));
 		
 		setupStage();
-	
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
+			System.out.println(testEntity.getProperty("y"));
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 	}
 
 	private void setupStage() {
