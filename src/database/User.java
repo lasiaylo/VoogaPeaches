@@ -45,6 +45,7 @@ public class User extends TrackableObject {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));
         File[] listOfFiles = folder.listFiles();
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+        properties = new HashMap<>();
         for (File file : listOfFiles) {
             if (file.isFile() && file.getName().contains(PropertiesReader.value("defaults", "workspaceString"))) {
                 String fileName = file.getName().substring(0, file.getName().length() - PropertiesReader.PROPERTIES_SUFFIX.length() - 1);
