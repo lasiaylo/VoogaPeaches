@@ -25,4 +25,6 @@ public interface IPanelController {
     void play();
 
     void pause();
+
+    void save();
 }
