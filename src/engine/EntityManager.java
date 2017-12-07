@@ -241,13 +241,13 @@ public class EntityManager {
 
     private void zoom(MouseEvent event, ImageView view, Vector startPos, Vector startSize) {
         Vector change = (new Vector(event.getX(), event.getY())).subtract(startPos);
-        Vector fsize = change.add(startPos);
         if (event.getX() < startPos.at(0)) {
             change.at(0, 0.0);
         }
         if (event.getY() < startPos.at(1)) {
             change.at(1, 0.0);
         }
+        Vector fsize = change.add(startPos);
         view.setFitWidth(fsize.at(0));
         view.setFitHeight(fsize.at(1));
         event.consume();
