@@ -73,7 +73,7 @@ public class CameraPanel implements Panel {
 
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
-				"THEMES",
+				"THEME_MESSAGE",
 				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
 	}
 

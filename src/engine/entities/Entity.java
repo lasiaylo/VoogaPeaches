@@ -4,14 +4,12 @@ import com.google.gson.annotations.Expose;
 import database.scripthelpers.ScriptLoader;
 import engine.collisions.HitBox;
 import engine.events.ClickEvent;
-import engine.events.Event;
 import engine.events.Evented;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-import groovy.lang.Script;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import org.json.JSONArray;
+
 
 import java.util.*;
 

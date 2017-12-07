@@ -1,22 +1,15 @@
 package engine.camera;
 
-import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.beans.binding.NumberBinding;
-import javafx.geometry.BoundingBox;
-import javafx.scene.Group;
-import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import util.math.num.Vector;
-
-import java.util.Iterator;
 
 /**
  * Camera that will pass a view to the authoring and player for game display
