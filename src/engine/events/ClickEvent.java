@@ -11,8 +11,12 @@ public class ClickEvent extends Event {
     private int myMode[];
     private InputStream myBGType;
 
-    public ClickEvent(MouseButton mouse) {
+    public ClickEvent() {
         super("click");
+    }
+
+    public ClickEvent(MouseButton mouse) {
+        this();
         myMouseButton = mouse;
     }
 
