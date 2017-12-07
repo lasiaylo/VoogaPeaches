@@ -5,6 +5,7 @@ import database.filehelpers.FileDataManager
 import engine.entities.Entity
 import engine.events.ClickEvent
 import engine.events.Event
+import engine.events.EventType
 import engine.events.ImageViewEvent
 import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
@@ -29,12 +30,12 @@ datamanager = new FileDataManager(FileDataFolders.IMAGES)
 pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
 entity.add(pointer)
 
-entity.on("Image View Event", { Event event ->
+entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
     ImageViewEvent imgEvent = (ImageViewEvent) event
     pointer.setImage(imgEvent.getImage())
 })
 
-entity.on("setup initial imageview", { Event event ->
+entity.on(EventType.INITIAL_IMAGE.getType(), { Event event ->
     InitialImageEvent iEvent = (InitialImageEvent) event
     pointer.setFitWidth(iEvent.getMyGridSize())
     pointer.setFitHeight(iEvent.getMyGridSize())
@@ -42,23 +43,29 @@ entity.on("setup initial imageview", { Event event ->
     pointer.setY(FXProcessing.getYImageCoord(iEvent.getMyPos().at(1), pointer))
 })
 
-entity.on("Transparent Mouse Event", { Event event ->
+entity.on(EventType.TRANSPARENT_MOUSE.getType(), { Event event ->
     TransparentMouseEvent tEvent = (TransparentMouseEvent) event
     pointer.setMouseTransparent(tEvent.getBool())
 })
 
-entity.on("View Visibility Event", { Event event ->
+entity.on(EventType.VIEWVIS.getType(), { Event event ->
     ViewVisEvent visEvent = (ViewVisEvent) event
     pointer.setVisible(visEvent.getBool())
 })
 
-entity.on("click", { Event event ->
+entity.on(EventType.CLICK.getType(), { Event event ->
     ClickEvent cEvent = (ClickEvent) event
+    println(cEvent.getMyBGType())
+    pointer.requestFocus()
+    pointer.setImage(new Image(cEvent.getMyBGType()))
     pointer.setOnMouseClicked( { MouseEvent e ->
-        if (cEvent.getIsGaming() == false) {
+        if (!cEvent.getIsGaming()) {
+        println("here 1")
             pointer.requestFocus()
+            println("here 2")
             if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
                 //might need try catch here
+                println("Type: " + cEvent.getMyBGType())
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }
@@ -67,7 +74,7 @@ entity.on("click", { Event event ->
     })
 })
 
-entity.on("key press", { Event event ->
+entity.on(EventType.KEY_PRESS.getType(), { Event event ->
     KeyPressEvent kEvent = (KeyPressEvent) event
     pointer.setOnKeyPressed( { KeyEvent e ->
         if (kEvent.getIsGaming() == false && e.getCode().equals(kEvent.getKeyCode())) {
@@ -77,7 +84,7 @@ entity.on("key press", { Event event ->
     })
 })
 
-entity.on("mouse press", { Event event ->
+entity.on(EventType.MOUSE_PRESS.getType(), { Event event ->
     MousePressEvent pEvent = (MousePressEvent) event
     pointer.setOnMousePressed( { MouseEvent e ->
         if (pEvent.getIsGaming() == false && pEvent.getMyMode()[0] > 0) {
@@ -88,7 +95,7 @@ entity.on("mouse press", { Event event ->
     })
 })
 
-entity.on("mouse drag", { Event event ->
+entity.on(EventType.MOUSE_DRAG.getType(), { Event event ->
     MouseDragEvent dEvent = (MouseDragEvent) event
     pointer.setOnMouseDragged({ MouseEvent e ->
         if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {

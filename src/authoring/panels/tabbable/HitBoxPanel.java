@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 import authoring.Panel;
 import authoring.buttons.CustomButton;
 import engine.collisions.HitBox;
+import engine.entities.Entity;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +12,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +30,23 @@ public class HitBoxPanel implements Panel {
     private List<HitBox> hitboxes;
     private List<Double> currentPoints;
 
-    public HitBoxPanel(List<HitBox> boxes) {
-        hitboxes = boxes;
+    public HitBoxPanel() {
         createEntityView();
+
+        region.getChildren().add(hitboxNameField);
+        PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+            EntityPass entityPass = (EntityPass) e;
+            setEntity(entityPass.getEntity());
+        });
+        // Create the new hitbox polygon
+
+    }
+
+    public void setEntity(Entity entity) {
+        hitboxes = entity.getHitBoxes();
         createAddButton();
         createComboBox();
-        region.getChildren().add(hitboxNameField);
-
-        // Create the new hitbox polygon
-        for(HitBox h : boxes) {
+        for(HitBox h : hitboxes) {
             h.getHitbox().setFill(Color.LIGHTGRAY);
             entityView.getChildren().add(h.getHitbox());
         }

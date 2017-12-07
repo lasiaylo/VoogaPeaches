@@ -1,15 +1,14 @@
 package authoring.panels.tabbable;
 
-import authoring.*;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import authoring.Panel;
+import authoring.PanelController;
+import javafx.geometry.Pos;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class MiniMapPanel implements Panel{
 
     private Pane myPane;
-    private IPanelController myController;
 
     public MiniMapPanel() {
         myPane = new Pane();
@@ -18,15 +17,18 @@ public class MiniMapPanel implements Panel{
 
     @Override
     public Region getRegion() {
-        return myPane;
+        Pane holder = new StackPane();
+        holder.getChildren().add(myPane);
+        StackPane.setAlignment(myPane, Pos.CENTER);
+        return holder;
     }
 
     @Override
-    public void setController(IPanelController controller) {
-        myController = controller;
-        myPane = myController.getMiniMap();
-        myPane.setPadding(new Insets(20));
+    public void setController(PanelController controller) {
 
+        myPane = controller.getMiniMap();
+        myPane.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
+        myPane.setCenterShape(true);
     }
 
     @Override

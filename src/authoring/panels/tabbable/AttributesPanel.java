@@ -7,7 +7,10 @@ import authoring.panels.attributes.CollapsePane;
 import engine.entities.Entity;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import util.ErrorDisplay;
 import util.exceptions.GroovyInstantiationException;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 /**Displays the attributes associated with a particular Entity
  * @author lasia
@@ -20,6 +23,18 @@ public class AttributesPanel implements Panel {
 	private VBox myVBox;
 	private Map<String, Object> myParameters;
 	private Map<String, List<String>> myScripts;
+
+	public AttributesPanel() {
+		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+			EntityPass ePass = (EntityPass) e;
+			try {
+				this.updateProperties(ePass.getEntity());
+			} catch (GroovyInstantiationException exception) {
+				new ErrorDisplay("Groovy Error",
+						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
+			}
+		});
+	}
 
 	@Override
 	public Region getRegion() {
@@ -38,10 +53,10 @@ public class AttributesPanel implements Panel {
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myVBox = new VBox();
 		myParameters = entity.getProperties();
-		myParameters.remove("scripts");
 		myScripts = (Map<String, List<String>>) entity.getProperty("scripts");
-		
+		myParameters.remove("scripts");
 		updateView();
+		
 	}
 
 	/**Updates the view of the AttributesPanel

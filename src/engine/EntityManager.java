@@ -104,7 +104,6 @@ public class EntityManager {
     /**
      * add nonBG entity thru image (for drag and drop)
      * @param pos
-     * @param image
      */
     public void addNonBG(Vector pos, String entType) {
         if (mode[0] > 0) {
@@ -261,7 +260,7 @@ public class EntityManager {
         stack.setOnDragOver(e -> dragOver(e, stack));
         stack.setOnDragDropped(e -> dragDropped(e));
 
-        level.on("addLayer", event -> {
+        level.on(EventType.ADDLAYER.getType(), event -> {
             AddLayerEvent addLayer = (AddLayerEvent) event;
             stack.getChildren().add(addLayer.getLayerGroup());
             stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);
