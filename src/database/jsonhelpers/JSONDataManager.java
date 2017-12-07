@@ -1,7 +1,6 @@
 package database.jsonhelpers;
 
 import org.json.JSONObject;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;

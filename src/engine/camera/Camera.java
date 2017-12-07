@@ -3,6 +3,7 @@ package engine.camera;
 import engine.entities.Entity;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,7 @@ public class Camera {
 
     public Camera(Entity level) {
         currentLevel = level;
+
         view = new ScrollPane(level.getNodes().getChildren().get(0));
         view.setPannable(false);
 

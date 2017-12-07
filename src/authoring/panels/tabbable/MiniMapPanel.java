@@ -1,9 +1,8 @@
 package authoring.panels.tabbable;
 
-import authoring.*;
-import javafx.geometry.Insets;
+import authoring.Panel;
+import authoring.PanelController;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 

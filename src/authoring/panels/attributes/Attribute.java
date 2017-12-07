@@ -1,7 +1,7 @@
 package authoring.panels.attributes;
 
 import java.util.Set;
-import authoring.panels.attributes.Field;
+import authoring.panels.attributes.MethodSetter;
 import authoring.panels.attributes.FieldFactory;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -34,21 +34,16 @@ public class Attribute {
 	}
 	
 	private void addRow(String fieldName, int row) throws GroovyInstantiationException {
-		addLabel(fieldName, row);
-		addField(fieldName, row);
-	}
-	
-	private void addLabel(String labelName, int row) {
-		Label label = new Label(labelName);
-		myGrid.add(label, 0, row);
-	}
-	
-	private void addField(String fieldName, int row) throws GroovyInstantiationException {
+		myGrid.add(makeLabel(fieldName), 0, row);
 		Field field = FieldFactory.makeField(myAttribute, fieldName);
 		myGrid.add(field.getControl(), 1, row);
 	}
 	
-	public Node getNode() {
+	private Label makeLabel(String labelName) {
+		return new Label(labelName);
+	}
+	
+	public Node getPane() {
 		return myPane;
 	}
 }

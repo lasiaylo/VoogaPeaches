@@ -1,6 +1,5 @@
 package authoring.panels.attributes;
 
-import java.lang.reflect.Method;
 import javafx.scene.control.TextField;
 import util.exceptions.GroovyInstantiationException;
 
@@ -11,12 +10,8 @@ import util.exceptions.GroovyInstantiationException;
 public abstract class InputField extends Field{
 	private TextField textfield;
 	
-	public InputField(Object object, Method get, Method set) throws GroovyInstantiationException {
-		super(object, get, set);
-	}
-	
-	public InputField(Object object, String field, Method get, Method set) throws GroovyInstantiationException {
-		super(object, field, get, set);
+	public InputField(Setter set) {
+		super(set);
 	}
 	
 	protected void makeControl() {
@@ -29,8 +24,7 @@ public abstract class InputField extends Field{
 			try {
 				updateField();
 			} catch (GroovyInstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		
 			}
 		});
 	}
