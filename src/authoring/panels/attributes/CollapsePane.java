@@ -10,6 +10,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
 
+/**Displays a JavaFX TitledPane that holds a map
+ * @author lasia
+ *
+ */
 public class CollapsePane {
 	private final int LABEL_COL = 0;
 	private final int ATTRIBUTE_COL = 1;
@@ -17,8 +21,11 @@ public class CollapsePane {
 	private TitledPane myCollapse;
 	private Pane myPane;
 	
+	public CollapsePane(Map<String,?> map, String title) throws GroovyInstantiationException {
+		this(map, title, false);
+	}
+	
 	public CollapsePane(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
-		
 		myCollapse = new TitledPane(title, myPane);
 		myCollapse.setAnimated(false);
 		addMap(map);

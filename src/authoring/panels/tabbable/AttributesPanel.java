@@ -48,8 +48,8 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException
 	 */
 	private void updateView() throws GroovyInstantiationException {
-		addMap(myParameters, PARAMETERS);
-		addMap(myScripts, SCRIPTS);
+		addMap(myParameters, PARAMETERS, false);
+		addMap(myScripts, SCRIPTS, true);
 //		addButton();
 	}
 
@@ -57,10 +57,11 @@ public class AttributesPanel implements Panel {
 	/**Adds a collapse section that displays the map
 	 * @param map
 	 * @param title
+	 * @param collapse
 	 * @throws GroovyInstantiationException
 	 */
-	private void addMap(Map<String,?> map, String title) throws GroovyInstantiationException {
-		CollapsePane pane = new CollapsePane(map, title);
+	private void addMap(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
+		CollapsePane pane = new CollapsePane(map, title, collapse);
 		myVBox.getChildren().add(pane.getNode());
 	}
 	
