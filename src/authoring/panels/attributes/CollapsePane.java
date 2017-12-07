@@ -14,14 +14,14 @@ public class CollapsePane {
 	private TitledPane myPane;
 	private GridPane myGrid;
 	
-	public CollapsePane(Map<String,?> map, String title) {
+	public CollapsePane(Map<String,?> map, String title) throws GroovyInstantiationException {
 		myGrid = new GridPane();
 		myPane = new TitledPane(title, myGrid);
 		myPane.setAnimated(false);
 		addMap(map);
 	}
 	
-	private void addMap(Map<String, ?> map) {
+	private void addMap(Map<String, ?> map) throws GroovyInstantiationException {
 		int row = 0;
 		for (String s : map.keySet()) {
 			myGrid.add(addLabel(s), LABEL_COL, row);
