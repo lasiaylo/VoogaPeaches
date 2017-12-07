@@ -33,7 +33,9 @@ public abstract class TrackableObject {
 
     /**
      * Initialize methods that performs further initialization once a trackable
-     * object has been recreated from the database
+     * object has been recreated from the database. In classes implementing this
+     * method it can be safely assumed that @Expose marked variables will have their
+     * values set before this method has been called.
      */
     abstract public void initialize();
 
@@ -54,5 +56,4 @@ public abstract class TrackableObject {
         trackableObjects.put(object.UID, object);
         return true;
     }
-
 }
