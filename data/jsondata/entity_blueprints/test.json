@@ -1,10 +1,63 @@
 {
     "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
     "children": [],
+    "hitBoxes": [
+      {
+        "polygonVertexTranslations": [
+          20.0,
+          40.0,
+          40.0,
+          40.0,
+          30.0,
+          80.0
+
+        ],
+        "UID": "3a68d326fba84e4fb585711daebd0bb5",
+        "currentX": 100.0,
+        "currentY": 0.0,
+        "tag": "Hitbox 1"
+      },
+      {
+        "polygonVertexTranslations": [
+          20.0,
+          40.0,
+          40.0,
+          40.0,
+          30.0,
+          80.0
+
+        ],
+        "UID": "3a68d326fba84e4fb585711daebd0bb5",
+        "currentX": 0.0,
+        "currentY": 100.0,
+        "tag": "Hitbox 2"
+      },
+      {
+        "polygonVertexTranslations": [
+          20.0,
+          40.0,
+          40.0,
+          40.0,
+          30.0,
+          80.0
+
+        ],
+        "UID": "3a68d326fba84e4fb585711daebd0bb5",
+        "currentX": 0.0,
+        "currentY": 0.0,
+        "tag": "Hitbox 3"
+      }
+    ],
     "properties": {
-      "scripts": [
-        "example.groovy"
-      ],
-      "health":"My Motherfucking health boiiiiiiiii"
+      "scripts": {
+        "leftKeyPress.groovy": [
+          "print.groovy"
+        ]
+      },
+      "x": 30.0,
+      "y": 30.0,
+      "vx": 50.0,
+      "vy": 50.0,
+      "hell yeah": true
     }
 }

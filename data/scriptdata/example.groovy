@@ -1,3 +1,5 @@
 import engine.entities.Entity
 
-println entity.getProperty("health")
+import javax.swing.text.html.ImageView
+
+//println entity.getProperty("health")

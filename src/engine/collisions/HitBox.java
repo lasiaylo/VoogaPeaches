@@ -2,10 +2,13 @@ package engine.collisions;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import util.math.num.Vector;
+import javafx.scene.shape.Shape;
 
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +17,16 @@ import java.util.List;
  * define an objects HitBox
  *
  * @author Walker
+ * @author Albert
  */
 public class HitBox extends TrackableObject {
 
     /* Variables for Trackable Object */
-    @Expose private List<Vector> polygonVertexTranslations;
+    @Expose private List<Double> polygonVertexTranslations;
+    @Expose private double currentX;
+    @Expose private double currentY;
+    @Expose private String tag;
+
     private HitBox(){}
 
     /* Regular Instance Variables not Stored */
@@ -27,48 +35,83 @@ public class HitBox extends TrackableObject {
     /**
      * Creates a new HitBox that possesses the given polygon
      * vertex offsets from the center of the specified entity
-     * @param offsetPoints is a {@code List<Vector>} that represents
+     * @param offsetPoints is a {@code List<Double>} that represents
      *                     the offset of each vertex of the hitbox
      *                     polygon from the center of its corresponding
      *                     entity object
-     * @param centerOfEntity is a {@code Vector} that holds the
-     *                       initial coordinates of the entity object
+     * @param entityXPosition is a {@code Double} that holds the
+     *                       initial x coordinate of the entity object
      *                       that the HitBox is being created for
+     * @param entityYPosition is a {@code Double} that holds the
+     *                       initial y coordinate of the entity object
+     *                       that the HitBox is being created for
+     * @param tag is a {@code String} that represents this hitbox's identification tag
      */
-    public HitBox(List<Vector> offsetPoints, Vector centerOfEntity){
+    public HitBox(List<Double> offsetPoints, Double entityXPosition, Double entityYPosition, String tag){
+        this.tag = tag;
+        currentX = entityXPosition;
+        currentY = entityYPosition;
         // Add the offset points to the polygonVertexTranslation List
         polygonVertexTranslations = offsetPoints;
         // Create points for initial polygon
-        double[] polygonPoints = createAdjustedPoints(centerOfEntity);
+        double[] polygonPoints = createAdjustedPoints(entityXPosition, entityYPosition);
         // Create polygon from offsets
         hitboxShape = new Polygon(polygonPoints);
+        hitboxShape.setFill(Color.TRANSPARENT);
+    }
+
+    /**
+     *
+     * @return  this hitbox's identification tag
+     */
+    public String getTag() {
+        return tag;
+    }
+
+    /**
+     * Returns a boolean value that describes whether or not this hitbox has intersected with another param hitbox
+     * @param other HitBox to check intersection
+     * @return  a {@tag boolean} that represents whether or not this hitbox has intersected with the param
+     */
+    public boolean intersects(HitBox other) {
+//        return hitboxShape.intersects(hitboxShape.sceneToLocal(other.getHitbox().localToScene(other.getHitbox().getBoundsInLocal())));
+        Shape intersect = Shape.intersect(hitboxShape, other.getHitbox());
+        return intersect.getBoundsInLocal().getWidth() != -1;
     }
 
     /**
      * Creates the array of polygon points for the hitbox that represent
      * the translations of the polygon added to the center provided
-     * @param centerOfEntity is a {@code Vector} that represents the center
-     *                       of the {@code Entity} that the hitbox corresponds
-     *                       to
+     * @param entityXPosition is a {@code Double} that holds the
+     *                       initial x coordinate of the entity object
+     *                       that the HitBox is being created for
+     * @param entityYPosition is a {@code Double} that holds the
+     *                       initial y coordinate of the entity object
+     *                       that the HitBox is being created for
      * @return A {@code double[]} of the adjusted points for the polygon
      */
-    private double[] createAdjustedPoints(Vector centerOfEntity) {
+    private double[] createAdjustedPoints(Double entityXPosition, Double entityYPosition) {
         double[] adjustedPoints = new double[polygonVertexTranslations.size()];
         for(int i = 0; i < polygonVertexTranslations.size(); i += 2) {
-            adjustedPoints[i] = polygonVertexTranslations.get(i).at(0) + centerOfEntity.at(0);
-            adjustedPoints[i + 1] = polygonVertexTranslations.get(i).at(1) + centerOfEntity.at(1);
+            adjustedPoints[i] = polygonVertexTranslations.get(i) + entityXPosition;
+            adjustedPoints[i + 1] = polygonVertexTranslations.get(i + 1) + entityYPosition;
         }
         return adjustedPoints;
     }
 
     /**
      * Moves the HitBox's polygon with the center of its entity
-     * @param currentEntityCenter is a {@code Vector} representing the
-     *                            center of the entity that the polygon
-     *                            is moving with
+     * @param entityXPosition is a {@code Double} that holds the
+     *                       initial x coordinate of the entity object
+     *                       that the HitBox is being created for
+     * @param entityYPosition is a {@code Double} that holds the
+     *                       initial y coordinate of the entity object
+     *                       that the HitBox is being created for
      */
-    public void moveHitBox(Vector currentEntityCenter) {
-        double[] polygonPoints = createAdjustedPoints(currentEntityCenter);
+    public void moveHitBox(Double entityXPosition, Double entityYPosition) {
+        currentX = entityXPosition;
+        currentY = entityYPosition;
+        double[] polygonPoints = createAdjustedPoints(entityXPosition, entityYPosition);
         for(int i = 0; i < polygonPoints.length; i += 2) {
             hitboxShape.getPoints().set(i, polygonPoints[i]);
             hitboxShape.getPoints().set(i + 1, polygonPoints[i + 1]);
@@ -82,8 +125,27 @@ public class HitBox extends TrackableObject {
         return hitboxShape;
     }
 
+    public void addPoints(double x, double y) {
+        hitboxShape.getPoints().add(x);
+        hitboxShape.getPoints().add(y);
+        polygonVertexTranslations.add(x);
+        polygonVertexTranslations.add(y);
+    }
+
+    public List<Double> getPoints() {
+        List<Double> points = new ArrayList<>();
+        for(int i = 0; i < polygonVertexTranslations.size(); i+=2){
+            points.add(polygonVertexTranslations.get(i) + currentX);
+            points.add(polygonVertexTranslations.get(i + 1) + currentX);
+        }
+        return points;
+    }
+
     @Override
     public void initialize() {
-
+        // Create points for initial polygon
+        double[] polygonPoints = createAdjustedPoints(currentX, currentY);
+        // Create polygon from offsets
+        hitboxShape = new Polygon(polygonPoints);
     }
 }
