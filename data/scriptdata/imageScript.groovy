@@ -55,17 +55,11 @@ entity.on("View Visibility Event", { Event event ->
 
 entity.on(EventType.CLICK.getType(), { Event event ->
     ClickEvent cEvent = (ClickEvent) event
-    println(cEvent.getMyBGType())
-    pointer.requestFocus()
-    pointer.setImage(new Image(cEvent.getMyBGType()))
     pointer.setOnMouseClicked( { MouseEvent e ->
         if (!cEvent.getIsGaming()) {
-        println("here 1")
             pointer.requestFocus()
-            println("here 2")
             if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
                 //might need try catch here
-                println("Type: " + cEvent.getMyBGType())
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }

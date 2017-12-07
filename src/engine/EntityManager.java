@@ -140,6 +140,8 @@ public class EntityManager {
      */
     public void setMyBGType (InputStream type) {
         BGType = type;
+        ClickEvent cEvent = new ClickEvent(false, mode, BGType);
+
     }
 
 
