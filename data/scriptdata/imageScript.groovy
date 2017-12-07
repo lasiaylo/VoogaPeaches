@@ -4,6 +4,7 @@ import engine.entities.Entity
 import engine.events.ClickEvent
 import engine.events.Event
 import engine.events.ImageViewEvent
+import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
 import engine.events.MousePressEvent
@@ -22,13 +23,20 @@ import util.math.num.Vector
 entity = (Entity) entity
 
 pointer = new ImageView(new Image((String) entity.getProperty("image path")))
-entity.getNodes().getChildren().add(pointer)
+entity.add(pointer)
 
 
 entity.on("Image View Event", { Event event ->
     ImageViewEvent imgEvent = (ImageViewEvent) event
-
     pointer.setImage(imgEvent.getImage())
+})
+
+entity.on("Initial Imageview Setup", { Event event ->
+    InitialImageEvent iEvent = (InitialImageEvent) event
+    pointer.setFitWidth(iEvent.getMyGridSize())
+    pointer.setFitHeight(iEvent.getMyGridSize())
+    pointer.setX(FXProcessing.getXImageCoord(iEvent.getMyPos().at(0), pointer))
+    pointer.setY(FXProcessing.getYImageCoord(iEvent.getMyPos().at(1), pointer))
 })
 
 entity.on("Transparent Mouse Event", { Event event ->
@@ -59,7 +67,7 @@ entity.on("Authoring Click", { Event event ->
 entity.on("Authoring Key Pressed", { Event event ->
     KeyPressEvent kEvent = (KeyPressEvent) event
     pointer.setOnKeyPressed( { KeyEvent e ->
-        if (kEvent.getIsGaming() == false && e.getCode().equals(KeyCode.BACK_SPACE)) {
+        if (kEvent.getIsGaming() == false && e.getCode().equals(kEvent.getKeyCode())) {
             entity.getParent().remove(entity)
         }
         e.consume()

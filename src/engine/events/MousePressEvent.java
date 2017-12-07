@@ -5,7 +5,7 @@ import util.math.num.Vector;
 public class MousePressEvent extends Event{
     private Vector myStartPos;
     private Vector myStartSize;
-    private boolean isGaming = false;
+    private boolean isGaming = true;
     private int[] myMode;
 
     public MousePressEvent() {
