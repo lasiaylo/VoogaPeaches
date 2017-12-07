@@ -104,7 +104,6 @@ public class EntityManager {
     /**
      * add nonBG entity thru image (for drag and drop)
      * @param pos
-     * @param image
      */
     public void addNonBG(Vector pos, String entType) {
         if (mode[0] > 0) {
