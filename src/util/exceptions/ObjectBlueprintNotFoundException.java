@@ -8,7 +8,8 @@ package util.exceptions;
  * @author Walker Willetts
  */
 public class ObjectBlueprintNotFoundException extends Exception {
-    public String getMessage(){
+    @Override
+	public String getMessage(){
         return "Blueprint for the entity object could not be found.";
     }
 }

@@ -24,8 +24,7 @@ public abstract class InputField extends Field{
 			try {
 				updateField();
 			} catch (GroovyInstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		
 			}
 		});
 	}

@@ -5,6 +5,7 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.firebase.FirebaseConnector;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -78,7 +79,7 @@ public class TestApp extends Application {
 
         KeyFrame frame = new KeyFrame(Duration.millis(300), e -> step());
         Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.setCycleCount(Animation.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
 

@@ -4,9 +4,14 @@ import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.sound.midi.Track;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JSONToObjectConverter<T extends TrackableObject> {
@@ -33,6 +38,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
         return params;
     }
 
+
     public <G extends TrackableObject> G createObjectFromJSON(Class<G> myClass, JSONObject json) {
         Map<String, Object> params = parseParameters(json);
         try {
@@ -48,26 +54,52 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             }
 
             // Set UID field of TrackableObject
-            Field UIDField = newObject.getClass().getSuperclass().getSuperclass().getDeclaredField("UID");
-            UIDField.setAccessible(true);
-            UIDField.set(newObject, params.get("UID"));
-            UIDField.setAccessible(false);
-            params.remove("UID");
+            if(TrackableObject.class.isAssignableFrom(myClass)) {
+                Class<?> trackableClass = newObject.getClass().getSuperclass();
+                while(trackableClass != TrackableObject.class)
+                    trackableClass = trackableClass.getSuperclass();
+                Field UIDField = trackableClass.getDeclaredField("UID");
+                UIDField.setAccessible(true);
+                UIDField.set(newObject, params.get("UID"));
+                UIDField.setAccessible(false);
+                params.remove("UID");
+            }
 
             // Set the instance variables of the object being created
             for(String param : params.keySet()) {
+                //if(param.equals("UID") && !TrackableObject.class.isAssignableFrom(newObject.getClass())) continue;
+                // First get the instance variable
                 Field instanceVar = newObject.getClass().getDeclaredField(param);
-
-                // Recursively create objects that are being held by the original object
-                if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
+                // First need to check special case where you're storing a List<? extends TrackableObject> variable
+                if(List.class.isAssignableFrom(instanceVar.getType())) {
+                    // Get generic parameter of list
+                    Class listType  = (Class<?>) ((ParameterizedType) instanceVar.getGenericType()).getActualTypeArguments()[0];
+                    // Check to see if the list type extends TrackableObject
+                    if(TrackableObject.class.isAssignableFrom(listType)){
+                        // Case where List<? extends TrackableObject>
+                        List<HashMap<String,Object>> trackableObjects = (List<HashMap<String,Object>>) params.get(param);
+                        // Create new List<Objects> for each object
+                        List<Object> objectsList = new ArrayList<>();
+                        for(HashMap<String,Object> obj : trackableObjects) {
+                            JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) obj);
+                            JSONObject m = new JSONObject(parseParameters(heldObjectJSON));
+                            TrackableObject heldObject = (TrackableObject) createObjectFromJSON(listType, m);
+                            heldObject.initialize();
+                            objectsList.add(heldObject);
+                        }
+                        params.put(param, objectsList);
+                    }
+                // Next need to check if the parameter is actually just a TrackableObject
+                } else if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
-                    Object heldObject = (Object) createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
+                    Object heldObject = createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
+                // Finally check if the parameter is a Map
                 } else if(instanceVar.getType().isAssignableFrom(Map.class)) {
-                     JSONObject objectForMap = new JSONObject((HashMap<String, Object>) params.get(param));
-                     params.put(param, parseParameters(objectForMap));
-
+                    JSONObject objectForMap = new JSONObject((HashMap<String, Object>) params.get(param));
+                    params.put(param, parseParameters(objectForMap));
                 }
+
                 if(!instanceVar.isAccessible()) {
                     instanceVar.setAccessible(true);
                     instanceVar.set(newObject, params.get(param));
