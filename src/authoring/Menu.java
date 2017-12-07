@@ -54,7 +54,6 @@ public class Menu {
         myStage.setScene(myScene);
         myStage.setResizable(false);
         myStage.setTitle("VoogaPeaches: Menu");
-        myStage.show();
 
         formatButtons();
         updateTheme();
@@ -146,15 +145,17 @@ public class Menu {
     }
 
     private void addTitle() {
-        File myImage = new File("resources/menuImages/authoring.png");
+        File myImage = new File("resources/menuImages/VoogaLight.PNG");
         ImageView title = new ImageView(myImage.toURI().toString());
+        title.setScaleX(0.75);
+        title.setScaleY(0.75);
         title.setLayoutX(WIDTH / 2 - title.getBoundsInLocal().getWidth() / 2);
         title.setLayoutY(HEIGHT * 1 / 3 - title.getBoundsInLocal().getHeight() / 2);
         myRoot.getChildren().add(title);
     }
 
-    public Scene getScene() {
-        return myScene;
+    public Stage getStage() {
+        return myStage;
     }
 }
 

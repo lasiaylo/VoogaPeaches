@@ -1,4 +1,6 @@
 //import authoring.Screen;
+import authoring.Login;
+import authoring.Menu;
 import authoring.Screen;
 import database.firebase.FirebaseConnector;
 import javafx.application.Application;
@@ -15,6 +17,11 @@ public class VoogaPeaches extends Application {
     private Screen kitty;
 
     public void start(Stage stage) {
+        Login myLogin = new Login();
+
+        Menu myMenu = new Menu();
+        myMenu.getStage().show();
+
         stage.setTitle(TITLE);
         stage.setMaximized(true);
         stage.setResizable(false);

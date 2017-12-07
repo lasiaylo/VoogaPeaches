@@ -28,13 +28,12 @@ public class Login {
         myStage.setScene(myScene);
         myStage.setResizable(false);
         myStage.setTitle("VoogaPeaches: Login");
-        myStage.show();
 
         updateTheme();
     }
 
-    public Scene getScene() {
-        return myScene;
+    public Stage getStage() {
+        return myStage;
     }
 
     private void updateTheme() {
