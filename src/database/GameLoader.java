@@ -30,11 +30,4 @@ public class GameLoader {
      * @return An {@code Entity} that represents the root of the game
      */
     public Entity getRoot() { return gameRoot; }
-
-
-    public static void main(String[] args) {
-        GameLoader loader = new GameLoader("test_game");
-        Entity root = loader.getRoot();
-        System.out.println(root.getProperties());
-    }
 }
