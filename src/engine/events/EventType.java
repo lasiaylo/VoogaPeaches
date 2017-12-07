@@ -5,7 +5,7 @@ public enum EventType {
     CLICK("click"),
     COLLISION("collision"),
     IMAGE_VIEW("Image View Event"),
-    INITIAL_IMAGE(""),
+    INITIAL_IMAGE("setup initial imageview"),
     KEY_PRESS("key press"),
     MAP("map"),
     MOUSE_DRAG("mouse drag"),

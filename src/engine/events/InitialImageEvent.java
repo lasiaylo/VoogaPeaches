@@ -7,7 +7,7 @@ public class InitialImageEvent extends Event{
     private Vector myPos;
 
     public InitialImageEvent() {
-        super("setup initial imageview");
+        super(EventType.INITIAL_IMAGE.getType());
     }
 
     public InitialImageEvent(int gridSize, Vector pos) {

@@ -9,6 +9,12 @@ import util.PropertiesReader;
 
 import java.io.File;
 
+/**
+ * The class that handles the actual loading in of a game for the
+ * rest of the application to use.
+ *
+ * @author Walker Willetts
+ */
 public class GameLoader {
 
     /* Instance Variables */

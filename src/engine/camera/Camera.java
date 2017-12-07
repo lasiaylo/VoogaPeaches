@@ -63,10 +63,8 @@ public class Camera {
 
     public Pane getMinimap(Vector size) {
         miniMap = new Canvas(size.at(0), size.at(1));
-        GraphicsContext gc = miniMap.getGraphicsContext2D();
-        gc.setFill(Color.GRAY);
-        gc.fillRect(0, 0, size.at(0), size.at(1));
-        //miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
+        miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
+        miniMap.getGraphicsContext2D().fillRect(0, 0, size.x, size.y);
         point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
 
 
@@ -74,15 +72,12 @@ public class Camera {
         NumberBinding yPoint = view.vvalueProperty().multiply(size.at(1));
         point.centerXProperty().bind(xPoint);
         point.centerYProperty().bind(yPoint);
+        miniMap.setOnMouseClicked(this::moveCamera);
 
-        Pane miniPane = new Pane();
-        miniPane.getChildren().add(miniMap);
-        miniPane.getChildren().add(point);
-
-        miniMap.setOnMouseClicked(e -> moveCamera(e));
-
-        return miniPane;
-
+        Pane holder = new Pane(miniMap, point);
+        holder.maxWidthProperty().bind(miniMap.widthProperty());
+        holder.maxHeightProperty().bind(miniMap.heightProperty());
+        return holder;
     }
 
     private void moveCamera(MouseEvent event) {
