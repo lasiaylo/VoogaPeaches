@@ -80,7 +80,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             return null;
         }
     }
-    
+
     private <G extends TrackableObject> void setUIDField(Class<G> myClass, Map<String, Object> params, G newObject) {
         try {
             Class<?> trackableClass = newObject.getClass().getSuperclass();
