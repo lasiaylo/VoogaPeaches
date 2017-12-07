@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
@@ -27,7 +28,7 @@ import java.util.List;
  *
  */
 public class Menu {
-    
+
     private static final String AUTHORING_ENVIRONMENT = "AUTHORING";
     private static final String PLAYER = "PLAY";
     private static final String SETTINGS = "SETTINGS";
@@ -42,17 +43,19 @@ public class Menu {
 
     private Stage myStage;
     private Scene myScene;
-    private Group myRoot;
+    private Pane myRoot;
+    private Screen authoring;
 
-    public Menu() {
-        myStage = new Stage();
-        myRoot = new Group();
+    public Menu(Stage stage) {
+        myStage = stage;
+        myRoot = new Pane();
 
-        setupSceneDimensions();
+        myScene = new Scene(myRoot, WIDTH, HEIGHT);
         setupScene();
 
         myStage.setScene(myScene);
         myStage.setResizable(false);
+        myStage.setTitle("VoogaPeaches: Menu");
         myStage.show();
 
         formatButtons();
@@ -69,43 +72,39 @@ public class Menu {
                     myRoot.getStylesheets().add(((ThemeMessage) message).readMessage());
                 }
         );
+        myRoot.getStyleClass().add("panel");
     }
 
-    private void setupSceneDimensions() {
-        myScene = new Scene(myRoot, WIDTH, HEIGHT);
-    }
 
     public void setupScene() {
         addButtons();
         addTitle();
     }
 
-    private void chooseSim() { //http://www.java2s.com/Code/Java/JavaFX/AddClickactionlistenertoButton.htm
+    private void ifPressed() { //http://www.java2s.com/Code/Java/JavaFX/AddClickactionlistenertoButton.htm
         for (int i = 0; i < buttons.size(); i ++) {
             Button button = buttons.get(i);
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    System.out.println("clicked");
-//                    simChoice = getSimFromFile(button);
-//                    System.out.println("button pressed!!");
-//                    //System.out.println(file);
+                    onPressed(button);
                 }
             });
 
         }
     }
 
-//    private void resetMenu() {
-////        simChoice = null;
-//    }
-//
-//    private Stage onButtonPressed(Button buttonPressed) {
-//        String simFileString = buttonPressed.getAccessibleText();
-//        simFileString += ".xml";
-//        ClassLoader cl = getClass().getClassLoader();
-//        File simFile = new File(cl.getResource(simFileString).getFile());
-//        return null;
-//    }
+    private Stage onPressed(Button buttonPressed) {
+        String button = buttonPressed.getAccessibleText();
+        if (button.equals("AUTHORING")) {
+            Stage authoringStage = new Stage();
+            authoringStage.setTitle("VoogaPeaches: A Programmers for Peaches Production");
+            authoringStage.setMaximized(true);
+            authoringStage.setResizable(false);
+            authoring = new Screen(authoringStage);
+            System.out.println("hi");
+        }
+        return null;
+    }
 
     private void addButtons() { //https://stackoverflow.com/questions/40883858/how-to-evenly-distribute-elements-of-a-javafx-vbox
         //http://docs.oracle.com/javafx/2/ui_controls/button.htm
@@ -115,6 +114,7 @@ public class Menu {
 
         buttons = new ArrayList<Button>(Arrays.asList(authoringButton, playerButton, settingsButton));
         myRoot.getChildren().addAll(buttons);
+        ifPressed();
     }
 
     private void formatButtons() {
@@ -145,15 +145,16 @@ public class Menu {
     }
 
     private void addTitle() {
-        File myImage = new File("resources/menuImages/authoring.png");
+        File myImage = new File("resources/menuImages/VoogaLight.PNG");
         ImageView title = new ImageView(myImage.toURI().toString());
+        title.setScaleX(0.75);
+        title.setScaleY(0.75);
         title.setLayoutX(WIDTH / 2 - title.getBoundsInLocal().getWidth() / 2);
         title.setLayoutY(HEIGHT * 1 / 3 - title.getBoundsInLocal().getHeight() / 2);
         myRoot.getChildren().add(title);
     }
 
-    public Scene getScene() {
-        return myScene;
+    public Stage getStage() {
+        return myStage;
     }
 }
-
