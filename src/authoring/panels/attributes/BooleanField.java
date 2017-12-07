@@ -9,7 +9,6 @@ import util.exceptions.GroovyInstantiationException;
  */
 public class BooleanField extends Field{
 	private CheckBox checkbox;
-	private boolean defaultValue;
 	
 	public BooleanField(Setter setter) throws GroovyInstantiationException {
 		super(setter);
@@ -28,7 +27,7 @@ public class BooleanField extends Field{
 
 	@Override
 	protected void getDefaultValue() {
-		defaultValue = (boolean) getValue();
+		boolean defaultValue = (boolean) getValue();
 		checkbox.setSelected(defaultValue);
 	}
 	

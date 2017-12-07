@@ -92,7 +92,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 // Next need to check if the parameter is actually just a TrackableObject
                 } else if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) params.get(param));
-                    Object heldObject = (Object) createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
+                    Object heldObject = createObjectFromJSON((Class<G>)instanceVar.getType(), heldObjectJSON);
                     params.put(param, heldObject);
                 // Finally check if the parameter is a Map
                 } else if(instanceVar.getType().isAssignableFrom(Map.class)) {
