@@ -1,7 +1,7 @@
 package authoring.panels.tabbable;
 
 
-import authoring.IPanelController;
+import authoring.PanelController;
 import authoring.Panel;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
@@ -34,7 +34,7 @@ public class LibraryPanel implements Panel {
     private TilePane myTilePane;
     private ChoiceBox<String> myEntType;
     private VBox myArea;
-    private IPanelController myController;
+    private PanelController myController;
     private EntityManager myManager;
 
     public LibraryPanel() {
@@ -102,7 +102,7 @@ public class LibraryPanel implements Panel {
     }
 
     @Override
-    public void setController(IPanelController controller) {
+    public void setController(PanelController controller) {
         myController = controller;
         myManager = myController.getManager();
     }
