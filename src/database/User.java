@@ -24,6 +24,7 @@ public class User extends TrackableObject {
     @Expose private String themeName;
     @Expose private String workspaceName;
     @Expose private Map<String, Map<String, String>> properties;
+    private User() {}
 
     public User(String name) {
         userName = name;
@@ -34,7 +35,7 @@ public class User extends TrackableObject {
 
     @Override
     public void initialize() {
-
+        createProperties();
     }
 
     public void setTheme(String theme) {themeName = theme;}
@@ -58,5 +59,7 @@ public class User extends TrackableObject {
 
     public static void main(String[] args) {
         User user = new User("test");
+        JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+        manager.writeJSONFile("user1",JSONHelper.JSONForObject(user));
     }
 }
