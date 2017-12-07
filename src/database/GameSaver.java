@@ -46,13 +46,10 @@ public class GameSaver {
      * Saves the list of trackable objects to the game. Updates all previously stored objects.
      * @param toSave is a {@code List<T extends TrackableObject>} that contains all the
      *               Trackable objects that you want to store
-     * @param <T> is the class of the TrackableObject being stored
      */
-    public <T extends TrackableObject> void saveTrackableObjects(T toSave) {
-        String classFolder = gameName + "/" + toSave.getClass().getSimpleName();
-        if(!manager.folderExists(classFolder)) manager.createFolder(classFolder);
+    public void saveRootObject(TrackableObject toSave) {
         JSONObject jsonForm = JSONHelper.JSONForObject(toSave);
-        String filepath = classFolder + "/" + jsonForm.get("UID");
-        manager.writeJSONFile(filepath,jsonForm);
+        String filepath = gameName + "/root.json";
+        manager.writeJSONFile(filepath, jsonForm);
     }
 }
