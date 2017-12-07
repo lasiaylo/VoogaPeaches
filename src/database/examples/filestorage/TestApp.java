@@ -1,9 +1,11 @@
 package database.examples.filestorage;
 
 import database.filehelpers.FileConverter;
+import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.firebase.FirebaseConnector;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -12,7 +14,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ListView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,13 +22,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.ListView;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javafx.util.Duration;
 
 public class TestApp extends Application {
 
@@ -64,7 +65,7 @@ public class TestApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         connector = new FileStorageConnector();
-        manager = new FileDataManager(FileDataManager.FileDataFolders.IMAGES);
+        manager = new FileDataManager(FileDataFolders.IMAGES);
 
         myRoot = new Group();
         Scene myScene = new Scene(myRoot, 800, 800);
@@ -78,7 +79,7 @@ public class TestApp extends Application {
 
         KeyFrame frame = new KeyFrame(Duration.millis(300), e -> step());
         Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.setCycleCount(Animation.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
 

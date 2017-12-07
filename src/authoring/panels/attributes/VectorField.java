@@ -10,12 +10,8 @@ public class VectorField extends Field {
 	private TextField myX;
 	private TextField myY;
 	
-	public VectorField(Object object, Method get, Method set) throws GroovyInstantiationException {
-		super(object, get, set);
-	}
-
-	public VectorField(Object object, String title, Method get, Method set) throws GroovyInstantiationException {
-		super(object, title, get, set);
+	public VectorField(Setter set) {
+		super(set);
 	}
 
 	@Override
@@ -43,7 +39,7 @@ public class VectorField extends Field {
 	}
 	
 	@Override
-	protected void getDefaultValue() throws GroovyInstantiationException {
+	protected void getDefaultValue() {
 		String vector = getValue().toString();
 		vector = vector.substring(1, vector.length()-1);
 		String[] scalars = vector.split(",");

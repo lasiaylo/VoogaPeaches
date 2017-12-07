@@ -1,0 +1,38 @@
+{
+  "UID": "de37d411e04d4438bec59e5fb3b0ca99",
+  "themeName": "light.css",
+  "workspaceName": "LeftCameraWorkspace.properties",
+  "userName": "test",
+  "properties": {
+    "MiddleCameraWorkspace": {
+      "PropertiesPanel": "right",
+      "LibraryPanel": "left",
+      "MiniMapPanelvis": "false",
+      "rightdivision": "0.7",
+      "PropertiesPanelvis": "false",
+      "TwitterPanel": "left",
+      "ConsolePanel": "bottom",
+      "LibraryPanelvis": "false",
+      "TwitterPanelvis": "false",
+      "MiniMapPanel": "right",
+      "leftdivision": "0.2",
+      "ConsolePanelvis": "false",
+      "bodydivision": "0.7"
+    },
+    "LeftCameraWorkspace": {
+      "PropertiesPanel": "right",
+      "LibraryPanel": "bottom",
+      "MiniMapPanelvis": "false",
+      "PropertiesPanelvis": "false",
+      "TwitterPanel": "right",
+      "ConsolePanel": "bottom",
+      "LibraryPanelvis": "false",
+      "TwitterPanelvis": "false",
+      "MiniMapPanel": "right",
+      "YoutubePanel": "right",
+      "ConsolePanelvis": "false",
+      "middledivision": "0.7",
+      "bodydivision": "0.7"
+    }
+  }
+}

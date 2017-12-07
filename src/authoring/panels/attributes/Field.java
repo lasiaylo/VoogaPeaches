@@ -1,51 +1,26 @@
 package authoring.panels.attributes;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 import util.exceptions.GroovyInstantiationException;
 
-/**An Field that sets an object's field to what is inputted from the user
+/**A JavaFX Node that changes a particular field 
  * @author lasia
  *
  */
 public abstract class Field {
 	private Node myControl;
-	private Object myObject;
-	private String myField;
-	private Method getMethod;
-	private Method setMethod;
+	private Setter mySetter;
 	
-	
-	/**Creates a Field that corresponds to a static field
-	 * @param object
-	 * @param get
-	 * @param set
-	 * @throws GroovyInstantiationException 
+	/**Creates a new Field that needs a way of setting
+	 * @param setter
 	 */
-	public Field(Object object,Method get, Method set) throws GroovyInstantiationException {
-		this(object, null, get, set);
+	public Field(Setter setter) {
+		mySetter = setter;
+		makeControl();
+		setControlAction();
+		getDefaultValue();
 	}
 
-	/**Creates a Field that corresponds to a dynamic field
-	 * @param object
-	 * @param get
-	 * @param set
-	 * @param field
-	 * @throws GroovyInstantiationException 
-	 */
-	public Field(Object object, String field, Method get, Method set) throws GroovyInstantiationException {
-		myObject = object;
-		myField = field;
-		getMethod = get;
-		setMethod = set;
-		makeControl();
-		getDefaultValue();
-		setControlAction();
-	}
-	
 	/**Creates the JavaFX Controller
 	 * 
 	 */
@@ -60,7 +35,7 @@ public abstract class Field {
 	 * @throws GroovyInstantiationException 
 	 * 
 	 */
-	protected abstract void getDefaultValue() throws GroovyInstantiationException;
+	protected abstract void getDefaultValue();
 
 	/**
 	 * @return Control
@@ -76,33 +51,12 @@ public abstract class Field {
 		myControl = control;
 	}
 	
-	/**Gets the desired field inside the object
-	 * @return getMethod
-	 * @throws GroovyInstantiationException 
-	 */
-	protected Object getValue() throws GroovyInstantiationException {
-		try {
-			if (myField == null) {
-				return getMethod.invoke(myObject);
-			}
-			return getMethod.invoke(myObject, myField);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			throw new GroovyInstantiationException();
-		}
+	protected Object getValue() {
+		return mySetter.getValue();
 	}
 	
-	/**Sets the desired field inside the object
-	 * @throws GroovyInstantiationException 
-	 */
-	protected void setValue(Object args) throws GroovyInstantiationException {
-		try {
-			if (myField == null)
-				setMethod.invoke(myObject, args);
-			else
-				setMethod.invoke(myObject, myField, args);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new GroovyInstantiationException();
-		}
+	protected void setValue(Object arg) {
+		mySetter.setValue(arg);
 	}
+	
 }

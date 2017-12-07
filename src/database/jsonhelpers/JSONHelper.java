@@ -2,7 +2,6 @@ package database.jsonhelpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -68,6 +67,7 @@ public class JSONHelper {
         Gson creator = createGSON();
         return new JSONObject(creator.toJson(obj));
     }
+
 
     /**
      * creates a map form of the JSONObject that is passed into the function

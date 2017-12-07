@@ -2,11 +2,14 @@ package engine.fsm;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
-import engine.fsm.Logic;
-import engine.fsm.State;
 
 import java.util.Map;
 
+/**
+ * @author Albert
+ * @author Lasia
+ * @author richardtseng
+ */
 public class Transition extends TrackableObject {
 	@Expose private State myDestinationState;
 	@Expose private Logic condition;
@@ -46,5 +49,10 @@ public class Transition extends TrackableObject {
 	 */
 	public void setCondition(String logicStatement, Map<String,Object> parameter) {
 		condition = new Logic(logicStatement,parameter);
+	}
+
+	@Override
+	public void initialize() {
+
 	}
 }

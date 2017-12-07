@@ -8,7 +8,8 @@ import util.exceptions.ObjectIdNotFoundException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The DatabaseConnector class offers an API for connecting to the online
@@ -94,7 +95,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
      *               as values
      * @return A {@code G} object built from the given parameters
      */
-     private <G> G createObject(Class<G> myClass, Map<String, Object> params) {
+     private <G extends TrackableObject> G createObject(Class<G> myClass, Map<String, Object> params) {
         try {
             // Get constructor and create new instance of object
             Constructor<G> constructor = myClass.getDeclaredConstructor();
@@ -120,7 +121,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
 
                 // Recursively create objects that are being held by the original object
                 if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
-                    Object heldObject = (Object) createObject(instanceVar.getType(), (Map<String,Object>) params.get(param));
+                    Object heldObject = createObject((Class<G>)instanceVar.getType(), (Map<String,Object>) params.get(param));
                     params.put(param, heldObject);
                 }
 
@@ -132,6 +133,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
                 }
                 instanceVar.set(newObject, params.get(param));
             }
+            newObject.initialize();
             return newObject;
         } catch (Exception e){
             e.printStackTrace();
@@ -151,25 +153,25 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T newObject = (T) createObject(myClass, params);
+                T newObject = createObject(myClass, params);
                 reactor.reactToNewData(newObject);
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T changedObject = (T) createObject(myClass, params);
+                T changedObject = createObject(myClass, params);
                 reactor.reactToDataChanged(changedObject);
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T removedObject = (T) createObject(myClass, params);
+                T removedObject = createObject(myClass, params);
                 reactor.reactToDataRemoved(removedObject);
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T movedObject = (T) createObject(myClass, params);
+                T movedObject = createObject(myClass, params);
                 reactor.reactToDataMoved(movedObject);
             }
             @Override

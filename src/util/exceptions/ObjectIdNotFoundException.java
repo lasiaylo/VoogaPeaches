@@ -9,7 +9,8 @@ package util.exceptions;
  * @author Walker Willetts
  */
 public class ObjectIdNotFoundException extends Exception {
-    public String getMessage() {
+    @Override
+	public String getMessage() {
         return "The object being added to the database doesn't have an id instance variable marked with the @Expose annotation.";
     }
 }
