@@ -28,9 +28,7 @@ public class HitBoxPanel implements Panel {
     private List<Double> currentPoints;
 
     public HitBoxPanel(List<HitBox> boxes) {
-
         hitboxes = boxes;
-
         createEntityView();
         createAddButton();
         createComboBox();
