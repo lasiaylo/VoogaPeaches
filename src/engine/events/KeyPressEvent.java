@@ -7,7 +7,7 @@ public class KeyPressEvent extends Event {
     private boolean isGaming = true;
 
     public KeyPressEvent(KeyCode code) {
-        super("key press");
+        super(EventType.KEY_PRESS.getType());
         myKeyCode = code;
     }
 

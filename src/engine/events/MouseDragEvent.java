@@ -9,7 +9,7 @@ public class MouseDragEvent extends Event {
     private int[] myMode;
 
     public MouseDragEvent() {
-        super("mouse drag");
+        super(EventType.MOUSE_DRAG.getType());
     }
     public MouseDragEvent(Vector startPos, Vector startSize, boolean gaming, int[] mode) {
         this();
