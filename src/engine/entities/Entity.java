@@ -4,14 +4,12 @@ import com.google.gson.annotations.Expose;
 import database.scripthelpers.ScriptLoader;
 import engine.collisions.HitBox;
 import engine.events.ClickEvent;
-import engine.events.Event;
 import engine.events.Evented;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-import groovy.lang.Script;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import org.json.JSONArray;
+
 
 import java.util.*;
 
@@ -49,8 +47,7 @@ public class Entity extends Evented {
      */
     public Entity(Entity parent) {
         this();
-        this.parent = parent;
-        parent.add(this);
+        addTo(parent);
     }
 
     /**
@@ -60,6 +57,10 @@ public class Entity extends Evented {
      */
     public Entity getParent() {
         return parent;
+    }
+    
+    public Map<String, Object> getProperties(){
+    	return properties;
     }
 
     public void add(Node node) {
@@ -77,6 +78,8 @@ public class Entity extends Evented {
 
     public Entity addTo(Entity parent) {
         this.parent = parent;
+        parent.getNodes().getChildren().add(group);
+        parent.getChildren().add(this);
         return this;
     }
 
@@ -101,10 +104,6 @@ public class Entity extends Evented {
         return children;
     }
 
-    public int getChildrenSize() {
-        return children.size();
-    }
-
     public Object getProperty(String name) {
         return properties.get(name);
     }
@@ -117,12 +116,19 @@ public class Entity extends Evented {
         return hitBoxes;
     }
 
+    public void addHitBox(HitBox hitbox) {
+        hitBoxes.add(hitbox);
+        group.getChildren().add(hitbox.getHitbox());
+    }
+
     private void executeScripts() {
-        for (Object script : (List) properties.get("scripts")) {
-            String code = ScriptLoader.stringForFile((String) script);
+        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.get("scripts");
+        for (String script : listenActionPair.keySet() ) {
+            String code = ScriptLoader.stringForFile(script);
             Binding binding = new Binding();
             binding.setVariable("entity", this);
             binding.setVariable("game", root);
+            binding.setVariable("actions", listenActionPair.get(script));
             new GroovyShell(binding).evaluate(code);
         }
     }
@@ -142,7 +148,7 @@ public class Entity extends Evented {
                     entity.root = root;
 
         for (Entity entity : children)
-            entity.parent = this;
+            entity.addTo(this);
 
         setEventListeners();
         executeScripts();

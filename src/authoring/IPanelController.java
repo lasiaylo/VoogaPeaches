@@ -1,12 +1,8 @@
 package authoring;
 
-
-
 import engine.EntityManager;
 import javafx.scene.control.ScrollPane;
-import util.math.num.Vector;
-
-import java.awt.*;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -25,4 +21,8 @@ public interface IPanelController {
     void play();
 
     void pause();
+
+    void save(String name);
+
+    Pane getMiniMap();
 }

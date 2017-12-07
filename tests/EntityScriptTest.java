@@ -37,7 +37,11 @@ public class EntityScriptTest extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-     public static void main(String[] args) {
-        launch(args);
+    
+    public static void main(String[] args) {
+    		System.out.println("tets");
+    		launch(args);
+    		
     }
+    
 }
