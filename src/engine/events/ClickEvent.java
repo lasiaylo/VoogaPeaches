@@ -12,7 +12,7 @@ public class ClickEvent extends Event {
     private InputStream myBGType;
 
     public ClickEvent() {
-        super("click");
+        super(EventType.CLICK.getType());
     }
 
     public ClickEvent(MouseButton mouse) {

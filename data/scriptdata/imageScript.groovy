@@ -5,6 +5,7 @@ import database.filehelpers.FileDataManager
 import engine.entities.Entity
 import engine.events.ClickEvent
 import engine.events.Event
+import engine.events.EventType
 import engine.events.ImageViewEvent
 import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
@@ -29,7 +30,7 @@ datamanager = new FileDataManager(FileDataFolders.IMAGES)
 pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
 entity.add(pointer)
 
-entity.on("Image View Event", { Event event ->
+entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
     ImageViewEvent imgEvent = (ImageViewEvent) event
     pointer.setImage(imgEvent.getImage())
 })
@@ -52,10 +53,10 @@ entity.on("View Visibility Event", { Event event ->
     pointer.setVisible(visEvent.getBool())
 })
 
-entity.on("click", { Event event ->
+entity.on(EventType.CLICK.getType(), { Event event ->
     ClickEvent cEvent = (ClickEvent) event
     pointer.setOnMouseClicked( { MouseEvent e ->
-        if (cEvent.getIsGaming() == false) {
+        if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
             if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
                 //might need try catch here

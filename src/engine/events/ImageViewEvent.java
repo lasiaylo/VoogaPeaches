@@ -7,7 +7,8 @@ public class ImageViewEvent extends Event {
 
 
     public ImageViewEvent(Image image) {
-        super("Image View Event");
+        super(EventType.IMAGE_VIEW.getType());
+        this.image = image;
     }
 
     public Image getImage() {

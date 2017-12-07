@@ -261,7 +261,7 @@ public class EntityManager {
         stack.setOnDragOver(e -> dragOver(e, stack));
         stack.setOnDragDropped(e -> dragDropped(e));
 
-        level.on("addLayer", event -> {
+        level.on(EventType.ADDLAYER.getType(), event -> {
             AddLayerEvent addLayer = (AddLayerEvent) event;
             stack.getChildren().add(addLayer.getLayerGroup());
             stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);

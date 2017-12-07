@@ -10,7 +10,7 @@ public class AddLayerEvent extends Event{
     Entity myLayer;
 
     public AddLayerEvent(Entity layer) {
-        super("addLayer");
+        super(EventType.ADDLAYER.getType());
         myLayer = layer;
     }
 
