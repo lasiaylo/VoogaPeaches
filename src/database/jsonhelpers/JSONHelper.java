@@ -15,6 +15,9 @@ import java.util.Map;
  */
 public class JSONHelper {
 
+    /* Instance Variables */
+    private static final Gson GSON = createGSON();
+
     /**
      * Creates a GSON for use with the rest of the class
      * @return a {@code GSON} object with particular user_settings
@@ -63,10 +66,7 @@ public class JSONHelper {
      * @return A {@code JSONObject} representing the converted
      * form of the passed in object
      */
-    public static JSONObject JSONForObject(Object obj) {
-        Gson creator = createGSON();
-        return new JSONObject(creator.toJson(obj));
-    }
+    public static JSONObject JSONForObject(Object obj) { return new JSONObject(GSON.toJson(obj)); }
 
 
     /**
