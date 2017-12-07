@@ -26,9 +26,9 @@ public class CollapsePane {
 	}
 	
 	public CollapsePane(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
+		addMap(map);
 		myCollapse = new TitledPane(title, myPane);
 		myCollapse.setAnimated(false);
-		addMap(map);
 	}
 	
 	private void addMap(Map<String, ?> map) throws GroovyInstantiationException {
@@ -65,7 +65,8 @@ public class CollapsePane {
 	}
 	
 	private Node addAttribute(Map<String,?> map, String key) throws GroovyInstantiationException {
-		Field field = FieldFactory.makeField(map, key);
+		Map<String, Object> input = (Map<String, Object>) map;
+		Field field = FieldFactory.makeFieldMap(input, key);
 		return field.getControl();
 	}
 
