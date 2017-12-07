@@ -60,38 +60,51 @@ public class LibraryPanel implements Panel {
         String type = myEntType.getValue();
         myTilePane.getChildren().clear();
         FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
-        if (type.equals(BG)) {
-            for(InputStream imageStream : manager.retrieveSubfolderFiles(BG)) {
+        if (type.equals(PLAYER)) {
+            for (String each: ObjectFactory.getEntityTypes()) {
+                //todo user-defined entity
+//                try {
+//                    ObjectFactory factory = new ObjectFactory(each);
+//                    Entity entity = factory.newObject();
+//                    ImageView view = new ImageView(new Image(manager.readFileData((String) entity.getProperty("image path"))));
+//                    view.setFitWidth(50);
+//                    view.setFitHeight(50);
+//                    myTilePane.getChildren().add(view);
+//                    view.setOnDragDetected(e -> startDragEnt(e, each, view));
+//                } catch (ObjectBlueprintNotFoundException e) {
+//                    e.printStackTrace();
+                //}
+            }
+        }
+        else {
+            for (InputStream imageStream: manager.retrieveSubfolderFiles(type)) {
                 Image image = new Image(imageStream);
                 ImageView view = new ImageView(image);
                 view.setFitWidth(50);
                 view.setFitHeight(50);
                 myTilePane.getChildren().add(view);
-                view.setOnMouseClicked(e -> myManager.setMyBGType(imageStream));
-            }
-        }
-        else {
-            FileDataManager datamanager = new FileDataManager(FileDataFolders.IMAGES);
-            for (String each: ObjectFactory.getEntityTypes()) {
-                try {
-                    ObjectFactory factory = new ObjectFactory(each);
-                    Entity entity = factory.newObject();
-                    ImageView view = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))));
-                    view.setFitWidth(50);
-                    view.setFitHeight(50);
-                    myTilePane.getChildren().add(view);
-                    view.setOnDragDetected(e -> startDrag(e, each, view));
-                } catch (ObjectBlueprintNotFoundException e) {
-                    e.printStackTrace();
+                if (type.equals(BG)) {
+                    view.setOnMouseClicked(e -> myManager.setMyBGType(imageStream));
+                }
+                else {
+                    view.setOnDragDetected(e -> startDragImg(e, image, view));
                 }
             }
         }
     }
 
-    private void startDrag(MouseEvent event, String entType, ImageView view) {
+    private void startDragEnt(MouseEvent event, String uid, ImageView view) {
         Dragboard board = view.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
-        content.putString(entType);
+        content.putString(uid);
+        board.setContent(content);
+        event.consume();
+    }
+
+    private void startDragImg(MouseEvent event, Image image, ImageView view) {
+        Dragboard board = view.startDragAndDrop(TransferMode.COPY);
+        ClipboardContent content = new ClipboardContent();
+        content.putImage(image);
         board.setContent(content);
         event.consume();
     }
