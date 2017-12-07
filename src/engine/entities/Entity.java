@@ -1,10 +1,6 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
-import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONDataManager;
 import database.scripthelpers.ScriptLoader;
 import engine.collisions.HitBox;
 import engine.events.ClickEvent;
@@ -13,8 +9,6 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 
 import java.util.*;
@@ -128,7 +122,7 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.getOrDefault("scripts", new HashMap<String, List<String>>());
+        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.get("scripts");
         for (String script : listenActionPair.keySet() ) {
             String code = ScriptLoader.stringForFile(script);
             Binding binding = new Binding();
@@ -153,8 +147,8 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-      //  for (Entity entity : children)
-        //    entity.addTo(this);
+        for (Entity entity : children)
+            entity.addTo(this);
 
         setEventListeners();
         executeScripts();

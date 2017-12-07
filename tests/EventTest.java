@@ -1,6 +1,9 @@
 import engine.entities.Entity;
+import engine.events.Event;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.util.function.Consumer;
 
 public class EventTest extends Application {
     @Override
