@@ -153,8 +153,8 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-        for (Entity entity : children)
-            entity.addTo(this);
+      //  for (Entity entity : children)
+        //    entity.addTo(this);
 
         setEventListeners();
         executeScripts();
