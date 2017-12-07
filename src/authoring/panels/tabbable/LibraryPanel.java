@@ -1,12 +1,11 @@
 package authoring.panels.tabbable;
 
 
-import authoring.IPanelController;
 import authoring.Panel;
+import authoring.PanelController;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.EntityManager;
-import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,8 +16,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import util.PropertiesReader;
-import util.math.num.Vector;
 
 
 import java.io.InputStream;
@@ -31,7 +28,7 @@ public class LibraryPanel implements Panel {
     private TilePane myTilePane;
     private ChoiceBox<String> myEntType;
     private VBox myArea;
-    private IPanelController myController;
+    private PanelController myController;
     private EntityManager myManager;
 
     public LibraryPanel() {
@@ -86,7 +83,7 @@ public class LibraryPanel implements Panel {
     }
 
     @Override
-    public void setController(IPanelController controller) {
+    public void setController(PanelController controller) {
         myController = controller;
         myManager = myController.getManager();
     }

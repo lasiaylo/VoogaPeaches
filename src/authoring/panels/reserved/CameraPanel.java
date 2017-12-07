@@ -1,7 +1,7 @@
 package authoring.panels.reserved;
 
-import authoring.IPanelController;
 import authoring.Panel;
+import authoring.PanelController;
 import engine.EntityManager;
 import engine.util.FXProcessing;
 import javafx.geometry.Insets;
@@ -46,7 +46,7 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String nodeStyle = properties.getString("nodeStyle");
-	private IPanelController myController;
+	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
 		cameraWidth = width;
@@ -145,7 +145,7 @@ public class CameraPanel implements Panel {
 	}
 
 	@Override
-	public void setController(IPanelController controller) {
+	public void setController(PanelController controller) {
 		this.myController = controller;
 		this.getView(myController.getCamera());
 		myManager = myController.getManager();
