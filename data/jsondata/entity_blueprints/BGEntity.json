@@ -4,7 +4,7 @@
   "hitBoxes": [],
   "properties": {
     "scripts": {
-    "imageScript.groovy": []
+      "imageScript.groovy": []
   },
     "image path":"default_image.jpg"
   }

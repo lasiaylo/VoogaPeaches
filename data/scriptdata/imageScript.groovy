@@ -22,14 +22,12 @@ import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import util.math.num.Vector
 
-import java.util.function.Consumer
 
 entity = (Entity) entity
 
 datamanager = new FileDataManager(FileDataFolders.IMAGES)
-pointer = new ImageView(new Image(datamanager.readFileData(entity.getProperty("image path"))))
+pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
 entity.add(pointer)
-
 
 entity.on("Image View Event", { Event event ->
     ImageViewEvent imgEvent = (ImageViewEvent) event

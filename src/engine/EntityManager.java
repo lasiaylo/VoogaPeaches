@@ -45,7 +45,7 @@ public class EntityManager {
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
         try {
-            objectFactory = new ObjectFactory("default");
+            objectFactory = new ObjectFactory("BGEntity");
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
@@ -86,47 +86,52 @@ public class EntityManager {
         }
     }
 
-    /**
-     * add nonBG entity through inputstream
-     * @param pos
-     * @param image
-     */
-    public void addNonBG(Vector pos, InputStream image) {
-        try {
-            image.reset();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image img = new Image(image);
-        addNonBG(pos, img);
-    }
+//    /**
+//     * add nonBG entity through inputstream
+//     * @param pos
+//     * @param image
+//     */
+//    public void addNonBG(Vector pos, InputStream image) {
+//        try {
+//            image.reset();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Image img = new Image(image);
+//        addNonBG(pos, img);
+//    }
 
     /**
      * add nonBG entity thru image (for drag and drop)
      * @param pos
      * @param image
      */
-    public void addNonBG(Vector pos, Image image) {
+    public void addNonBG(Vector pos, String entType) {
         if (mode[0] > 0) {
             if (mode[0] > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            Entity newEnt = objectFactory.newObject();
-            newEnt.addTo(currentLevel.getChildren().get(mode[0]));
-            ImageViewEvent imgEvent = new ImageViewEvent(image);
-            InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
-            //the BGType here should not be applied to the image, mode should check for it
-            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
-            MousePressEvent mEvent = new MousePressEvent(startPos, startSize, false, mode);
-            MouseDragEvent dEvent = new MouseDragEvent(startPos, startSize, false, mode);
+            try {
+                ObjectFactory nonBGFactory = new ObjectFactory(entType);
+                Entity newEnt = objectFactory.newObject();
+                newEnt.addTo(currentLevel.getChildren().get(mode[0]));
 
-            imgEvent.fire(newEnt);
-            iEvent.fire(newEnt);
-            cEvent.fire(newEnt);
-            pEvent.fire(newEnt);
-            mEvent.fire(newEnt);
-            dEvent.fire(newEnt);
+                //should not set the image for imageview cuz the type should set the image
+                InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
+                //the BGType here should not be applied to the image, mode should check for it
+                ClickEvent cEvent = new ClickEvent(false, mode, BGType);
+                KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
+                MousePressEvent mEvent = new MousePressEvent(startPos, startSize, false, mode);
+                MouseDragEvent dEvent = new MouseDragEvent(startPos, startSize, false, mode);
+
+                iEvent.fire(newEnt);
+                cEvent.fire(newEnt);
+                pEvent.fire(newEnt);
+                mEvent.fire(newEnt);
+                dEvent.fire(newEnt);
+            } catch (ObjectBlueprintNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -275,8 +280,8 @@ public class EntityManager {
 
     private void dragDropped(DragEvent event) {
         Dragboard board = event.getDragboard();
-        if (board.hasImage()) {
-            addNonBG(new Vector(event.getX(), event.getY()), board.getImage());
+        if (board.hasString()) {
+            addNonBG(new Vector(event.getX(), event.getY()), board.getString());
         }
         event.setDropCompleted(true);
         event.consume();
