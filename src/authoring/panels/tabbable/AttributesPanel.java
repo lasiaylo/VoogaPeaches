@@ -38,10 +38,10 @@ public class AttributesPanel implements Panel {
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myVBox = new VBox();
 		myParameters = entity.getProperties();
-		myParameters.remove("scripts");
 		myScripts = (Map<String, List<String>>) entity.getProperty("scripts");
-		
+		myParameters.remove("scripts");
 		updateView();
+		
 	}
 
 	/**Updates the view of the AttributesPanel

@@ -9,7 +9,7 @@ public class MousePressEvent extends Event{
     private int[] myMode;
 
     public MousePressEvent() {
-        super("mouse press");
+        super(EventType.MOUSE_PRESS.getType());
     }
 
     public MousePressEvent(Vector startPos, Vector startSize, boolean gaming, int[] mode) {

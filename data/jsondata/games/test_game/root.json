@@ -1,16 +1,22 @@
 {
   "UID": "75e9825fb4fb4d2496eaefe3b355f999",
-  "children": [{
-    "UID": "607acbb44dfb4e9f98ef05315b707f9a",
-    "children": [{
-      "UID": "862a3faf37be4a02a4d5f81c4a6e569b",
-      "children": [],
+  "children": [
+    {
+      "UID": "607acbb44dfb4e9f98ef05315b707f9a",
+      "children": [
+        {
+          "UID": "862a3faf37be4a02a4d5f81c4a6e569b",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "test property":"dog man"
+          }
+        }
+      ],
       "hitBoxes": [],
       "properties": {}
-    }],
-    "hitBoxes": [],
-    "properties": {}
-  }],
+    }
+  ],
   "hitBoxes": [],
   "properties": {
     "test property":"catfish"
