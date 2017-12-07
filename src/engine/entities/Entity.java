@@ -122,7 +122,7 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.get("scripts");
+        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.getOrDefault("scripts", new HashMap<String, List<String>>());
         for (String script : listenActionPair.keySet() ) {
             String code = ScriptLoader.stringForFile(script);
             Binding binding = new Binding();
