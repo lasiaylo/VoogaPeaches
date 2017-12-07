@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 import authoring.Panel;
 import authoring.buttons.CustomButton;
 import engine.collisions.HitBox;
+import engine.entities.Entity;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,22 +28,23 @@ public class HitBoxPanel implements Panel {
     private List<HitBox> hitboxes;
     private List<Double> currentPoints;
 
-    public HitBoxPanel(List<HitBox> boxes) {
-
-        hitboxes = boxes;
-
+    public HitBoxPanel() {
         createEntityView();
-        createAddButton();
-        createComboBox();
+
         region.getChildren().add(hitboxNameField);
 
         // Create the new hitbox polygon
-        for(HitBox h : boxes) {
+
+    }
+
+    public void setEntity(Entity entity) {
+        hitboxes = entity.getHitBoxes();
+        createAddButton();
+        createComboBox();
+        for(HitBox h : hitboxes) {
             h.getHitbox().setFill(Color.LIGHTGRAY);
             entityView.getChildren().add(h.getHitbox());
         }
-
-        entityView.setMinWidth(200);
     }
 
     private void createComboBox() {
