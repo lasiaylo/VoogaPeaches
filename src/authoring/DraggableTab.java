@@ -196,6 +196,7 @@ public class DraggableTab extends Tab {
     private InsertData getInsertData(Point2D screenPoint) {
         for(TabPane tabPane : tabPanes) {
             Rectangle2D tabAbsolute = getAbsoluteRect(tabPane);
+            tabPane.getStyleClass().add("tabPane");
             if(tabAbsolute.contains(screenPoint)) {
                 int tabInsertIndex = 0;
                 if(!tabPane.getTabs().isEmpty()) {
