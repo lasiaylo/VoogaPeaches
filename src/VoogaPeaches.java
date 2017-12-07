@@ -24,7 +24,7 @@ public class VoogaPeaches extends Application {
 
     @Override
     public void stop() throws Exception{
-//        kitty.save();
+        kitty.save();
         super.stop();
         FirebaseConnector.closeFirebaseApp();
     }
