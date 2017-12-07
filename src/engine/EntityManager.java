@@ -1,5 +1,6 @@
 package engine;
 
+import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.entities.Entity;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
+import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
 
 import java.io.IOException;
@@ -32,6 +34,7 @@ public class EntityManager {
     private Vector startPos = new Vector(0, 0);
     private Vector startSize = new Vector(0, 0);
     private Vector startPosBatch = new Vector(0, 0);
+    private ObjectFactory objectFactory;
 
 
     public EntityManager(Entity root, int gridSize) {
@@ -41,10 +44,14 @@ public class EntityManager {
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
+        try {
+            objectFactory = new ObjectFactory("BGEntity");
+        } catch (ObjectBlueprintNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //don't freak out about this..... just a initial level
         addLevel("level 1", 5000, 5000);
-        if(levels.get("level 1") == null) System.out.println("here");
         currentLevel = levels.get("level 1");
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
@@ -60,7 +67,7 @@ public class EntityManager {
     public void addBG(Vector pos) {
         if (mode[0] == 0) {
             //todo this should be replaced by object factory
-            Entity BGblock = new Entity(currentLevel.getChildren().get(0));
+            Entity BGblock = objectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
             try {
                 BGType.reset();
@@ -79,47 +86,51 @@ public class EntityManager {
         }
     }
 
-    /**
-     * add nonBG entity through inputstream
-     * @param pos
-     * @param image
-     */
-    public void addNonBG(Vector pos, InputStream image) {
-        try {
-            image.reset();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image img = new Image(image);
-        addNonBG(pos, img);
-    }
+//    /**
+//     * add nonBG entity through inputstream
+//     * @param pos
+//     * @param image
+//     */
+//    public void addNonBG(Vector pos, InputStream image) {
+//        try {
+//            image.reset();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Image img = new Image(image);
+//        addNonBG(pos, img);
+//    }
 
     /**
      * add nonBG entity thru image (for drag and drop)
      * @param pos
-     * @param image
      */
-    public void addNonBG(Vector pos, Image image) {
+    public void addNonBG(Vector pos, String entType) {
         if (mode[0] > 0) {
             if (mode[0] > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            Entity newEnt = new Entity(currentLevel.getChildren().get(mode[0]));
-            newEnt.addTo(currentLevel.getChildren().get(mode[0]));
-            ImageViewEvent imgEvent = new ImageViewEvent(image);
-            InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
-            //the BGType here should not be applied to the image, mode should check for it
-            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
-            MousePressEvent mEvent = new MousePressEvent(startPos, startSize, false, mode);
-            MouseDragEvent dEvent = new MouseDragEvent(startPos, startSize, false, mode);
+            try {
+                ObjectFactory nonBGFactory = new ObjectFactory(entType);
+                Entity newEnt = objectFactory.newObject();
+                newEnt.addTo(currentLevel.getChildren().get(mode[0]));
 
-            imgEvent.fire(newEnt);
-            iEvent.fire(newEnt);
-            cEvent.fire(newEnt);
-            pEvent.fire(newEnt);
-            mEvent.fire(newEnt);
-            dEvent.fire(newEnt);
+                //should not set the image for imageview cuz the type should set the image
+                InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
+                //the BGType here should not be applied to the image, mode should check for it
+                ClickEvent cEvent = new ClickEvent(false, mode, BGType);
+                KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
+                MousePressEvent mEvent = new MousePressEvent(startPos, startSize, false, mode);
+                MouseDragEvent dEvent = new MouseDragEvent(startPos, startSize, false, mode);
+
+                iEvent.fire(newEnt);
+                cEvent.fire(newEnt);
+                pEvent.fire(newEnt);
+                mEvent.fire(newEnt);
+                dEvent.fire(newEnt);
+            } catch (ObjectBlueprintNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -249,7 +260,7 @@ public class EntityManager {
         stack.setOnDragOver(e -> dragOver(e, stack));
         stack.setOnDragDropped(e -> dragDropped(e));
 
-        level.on("addLayer", event -> {
+        level.on(EventType.ADDLAYER.getType(), event -> {
             AddLayerEvent addLayer = (AddLayerEvent) event;
             stack.getChildren().add(addLayer.getLayerGroup());
             stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);
@@ -268,8 +279,8 @@ public class EntityManager {
 
     private void dragDropped(DragEvent event) {
         Dragboard board = event.getDragboard();
-        if (board.hasImage()) {
-            addNonBG(new Vector(event.getX(), event.getY()), board.getImage());
+        if (board.hasString()) {
+            addNonBG(new Vector(event.getX(), event.getY()), board.getString());
         }
         event.setDropCompleted(true);
         event.consume();

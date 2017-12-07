@@ -8,7 +8,8 @@ import util.exceptions.ObjectIdNotFoundException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The DatabaseConnector class offers an API for connecting to the online
