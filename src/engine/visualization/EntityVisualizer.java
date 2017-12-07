@@ -7,7 +7,6 @@ import javafx.scene.shape.Line;
 import util.math.num.Vector;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class EntityVisualizer {

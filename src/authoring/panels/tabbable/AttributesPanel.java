@@ -1,21 +1,12 @@
 package authoring.panels.tabbable;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import authoring.Panel;
-import authoring.panels.attributes.Attribute;
-import authoring.panels.attributes.Field;
-import authoring.panels.attributes.FieldFactory;
+import authoring.panels.attributes.CollapsePane;
 import engine.entities.Entity;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
 
 /**Displays the attributes associated with a particular Entity
@@ -23,15 +14,16 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public class AttributesPanel implements Panel {
+	private static final String SCRIPTS = "Scripts";
+	private static final String PARAMETERS = "Parameters";
 	private final String TITLE = "Properties";
-	private final int LABEL_COL = 0;
-	private final int ATTRIBUTE_COL = 1;
-	private GridPane myGrid;
-	private Map<String, Object> myMap;
+	private VBox myVBox;
+	private Map<String, Object> myParameters;
+	private Map<String, List<String>> myScripts;
 
 	@Override
 	public Region getRegion() {
-		return myGrid;
+		return myVBox;
 	}
 	
 	@Override
@@ -44,37 +36,34 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException 
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
-		myGrid = new GridPane();
-		myMap = entity.getProperties();
-		addMap();
-	//	addLabels();
-	//	addAttribute(myEntity.getTransform(),"Transform", methods);
+		myVBox = new VBox();
+		myParameters = entity.getProperties();
+		myParameters.remove("scripts");
+		myScripts = (Map<String, List<String>>) entity.getProperty("scripts");
+		
+		updateView();
+	}
+
+	/**Updates the view of the AttributesPanel
+	 * @throws GroovyInstantiationException
+	 */
+	private void updateView() throws GroovyInstantiationException {
+		addMap(myParameters, PARAMETERS, false);
+		addMap(myScripts, SCRIPTS, true);
 //		addButton();
 	}
 
 
-	private void addMap() {
-		int row = 0;
-		for (String s : myMap.keySet()) {
-			myGrid.add(addLabel(s), LABEL_COL, row);
-	//		myGrid.add(addAttribute, columnIndex, rowIndex);
-		}
-		
+	/**Adds a collapse section that displays the map
+	 * @param map
+	 * @param title
+	 * @param collapse
+	 * @throws GroovyInstantiationException
+	 */
+	private void addMap(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
+		CollapsePane pane = new CollapsePane(map, title, collapse);
+		myVBox.getChildren().add(pane.getNode());
 	}
-
-	private Label addLabel(String string) {
-		return new Label(string);
-	}
-
-	//private void addAttribute(String key) {
-	//	Field field = FieldFactory.makeField(myMap, key);
-	//}
-	
-	private void addAttribute(Map<String, Object> map, String key, Object value) {
-
-	}
-
-	//private void addParameter(Object object, )
 	
 	/**Displays a button that allows users to add more scripts to an entity
 	 * 

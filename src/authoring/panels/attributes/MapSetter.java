@@ -7,10 +7,10 @@ import java.util.Map;
  *
  */
 public class MapSetter implements Setter{
-	private Map<Object,Object> myMap;
-	private Object myKey;
+	private Map<String,Object> myMap;
+	private String myKey;
 	
-	public MapSetter(Map<Object,Object> map, Object key) {
+	public MapSetter(Map<String,Object> map, String key) {
 		myMap = map;
 		myKey = key;
 	}

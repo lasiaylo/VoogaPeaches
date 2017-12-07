@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import util.PropertiesReader;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * A class that provides an API for saving manipulating a game file within the database 

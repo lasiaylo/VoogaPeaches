@@ -4,14 +4,12 @@ import com.google.gson.annotations.Expose;
 import database.scripthelpers.ScriptLoader;
 import engine.collisions.HitBox;
 import engine.events.ClickEvent;
-import engine.events.Event;
 import engine.events.Evented;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-import groovy.lang.Script;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import org.json.JSONArray;
+
 
 import java.util.*;
 
@@ -124,11 +122,13 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        for (Object script : (List) properties.get("scripts")) {
-            String code = ScriptLoader.stringForFile((String) script);
+        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.get("scripts");
+        for (String script : listenActionPair.keySet() ) {
+            String code = ScriptLoader.stringForFile(script);
             Binding binding = new Binding();
             binding.setVariable("entity", this);
             binding.setVariable("game", root);
+            binding.setVariable("actions", listenActionPair.get(script));
             new GroovyShell(binding).evaluate(code);
         }
     }

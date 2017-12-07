@@ -67,7 +67,7 @@ public class ObjectFactory {
     }
 
     /**
-     * @return A {@code String[]} of all the valid Entity Blueprint Names 
+     * @return A {@code String[]} of all the valid Entity Blueprint Names
      */
     public static String[] getEntityTypes() {
         File blueprintFolder =  new File(PropertiesReader.path("blueprints"));
