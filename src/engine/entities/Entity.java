@@ -15,6 +15,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 
 import java.util.*;
@@ -140,7 +142,11 @@ public class Entity extends Evented {
     }
 
     private void setEventListeners() {
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+        group.setOnMouseClicked(e -> {
+            new ClickEvent().fire(this);
+            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(this));
+        });
+
     }
 
     @Override

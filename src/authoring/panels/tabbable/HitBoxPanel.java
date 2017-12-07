@@ -12,6 +12,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,10 @@ public class HitBoxPanel implements Panel {
         createEntityView();
 
         region.getChildren().add(hitboxNameField);
-
+        PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+            EntityPass entityPass = (EntityPass) e;
+            setEntity(entityPass.getEntity());
+        });
         // Create the new hitbox polygon
 
     }
