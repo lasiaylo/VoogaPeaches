@@ -109,6 +109,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 instanceVar.set(newObject, params.get(param));
             }
             newObject.initialize();
+            TrackableObject.trackTrackableObject(newObject);
             return newObject;
         } catch (Exception e){
             e.printStackTrace();
