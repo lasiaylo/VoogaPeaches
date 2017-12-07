@@ -52,6 +52,12 @@
       "scripts": {
         "leftKeyPress.groovy": [
           "print.groovy"
+        ],
+        "example.groovy": [
+          "print.groovy"
+        ],
+        "print.groovy" : [
+
         ]
       },
       "x": 30.0,
