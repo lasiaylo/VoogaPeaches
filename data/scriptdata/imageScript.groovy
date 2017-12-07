@@ -1,5 +1,7 @@
 package scriptdata
 
+import database.filehelpers.FileDataFolders
+import database.filehelpers.FileDataManager
 import engine.entities.Entity
 import engine.events.ClickEvent
 import engine.events.Event
@@ -20,9 +22,12 @@ import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import util.math.num.Vector
 
+import java.util.function.Consumer
+
 entity = (Entity) entity
 
-pointer = new ImageView(new Image((String) entity.getProperty("image path")))
+datamanager = new FileDataManager(FileDataFolders.IMAGES)
+pointer = new ImageView(new Image(datamanager.readFileData(entity.getProperty("image path"))))
 entity.add(pointer)
 
 

@@ -52,7 +52,6 @@ public class EntityManager {
 
         //don't freak out about this..... just a initial level
         addLevel("level 1", 5000, 5000);
-        if(levels.get("level 1") == null) System.out.println("here");
         currentLevel = levels.get("level 1");
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
@@ -67,6 +66,7 @@ public class EntityManager {
      */
     public void addBG(Vector pos) {
         if (mode[0] == 0) {
+            //todo this should be replaced by object factory
             Entity BGblock = objectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
             try {
