@@ -28,9 +28,7 @@ public class HitBoxPanel implements Panel {
     private List<Double> currentPoints;
 
     public HitBoxPanel(List<HitBox> boxes) {
-
         hitboxes = boxes;
-
         createEntityView();
         createAddButton();
         createComboBox();
@@ -41,8 +39,6 @@ public class HitBoxPanel implements Panel {
             h.getHitbox().setFill(Color.LIGHTGRAY);
             entityView.getChildren().add(h.getHitbox());
         }
-
-        entityView.setMinWidth(200);
     }
 
     private void createComboBox() {
