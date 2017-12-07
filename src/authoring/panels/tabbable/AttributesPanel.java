@@ -37,6 +37,7 @@ public class AttributesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myVBox = new VBox();
+		getRegion().getStyleClass().add("panel");
 		myParameters = entity.getProperties();
 		myParameters.remove("scripts");
 		myScripts = (Map<String, List<String>>) entity.getProperty("scripts");
