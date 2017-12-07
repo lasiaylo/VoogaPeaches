@@ -12,8 +12,7 @@ public class KeyPressEvent extends Event {
     }
 
     public KeyPressEvent(KeyCode code, boolean gaming) {
-        super("key press");
-        myKeyCode = code;
+        this(code);
         isGaming = gaming;
     }
 

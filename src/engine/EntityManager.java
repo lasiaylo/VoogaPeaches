@@ -1,5 +1,6 @@
 package engine;
 
+import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.entities.Entity;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
+import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
 
 import java.io.IOException;
@@ -32,6 +34,7 @@ public class EntityManager {
     private Vector startPos = new Vector(0, 0);
     private Vector startSize = new Vector(0, 0);
     private Vector startPosBatch = new Vector(0, 0);
+    private ObjectFactory objectFactory;
 
 
     public EntityManager(Entity root, int gridSize) {
@@ -41,6 +44,11 @@ public class EntityManager {
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
+        try {
+            objectFactory = new ObjectFactory("default");
+        } catch (ObjectBlueprintNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //don't freak out about this..... just a initial level
         addLevel("level 1", 5000, 5000);
@@ -59,8 +67,7 @@ public class EntityManager {
      */
     public void addBG(Vector pos) {
         if (mode[0] == 0) {
-            //todo this should be replaced by object factory
-            Entity BGblock = new Entity(currentLevel.getChildren().get(0));
+            Entity BGblock = objectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
             try {
                 BGType.reset();
@@ -104,7 +111,7 @@ public class EntityManager {
             if (mode[0] > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            Entity newEnt = new Entity(currentLevel.getChildren().get(mode[0]));
+            Entity newEnt = objectFactory.newObject();
             newEnt.addTo(currentLevel.getChildren().get(mode[0]));
             ImageViewEvent imgEvent = new ImageViewEvent(image);
             InitialImageEvent iEvent = new InitialImageEvent(grid, pos);

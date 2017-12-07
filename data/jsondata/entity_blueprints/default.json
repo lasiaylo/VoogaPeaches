@@ -3,7 +3,9 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": {},
+    "scripts": {
+    "imageScript.groovy": []
+  },
     "image path":"default_image.jpg"
   }
 }
