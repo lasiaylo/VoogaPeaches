@@ -3,7 +3,7 @@ package engine.events;
 public class ViewVisEvent extends Event {
     private boolean bool;
     public ViewVisEvent(boolean bool) {
-        super("View Visibility Event");
+        super(EventType.VIEWVIS.getType());
         this.bool = bool;
     }
 

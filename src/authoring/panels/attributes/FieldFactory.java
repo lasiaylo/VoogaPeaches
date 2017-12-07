@@ -34,7 +34,8 @@ public class FieldFactory {
 			Setter set = new MethodSetter(attribute, getMethod, setMethod);
 			return makeField(set, determineType(inputClass));
 		
-		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) { 
+		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {
+			e.printStackTrace();
 			throw new GroovyInstantiationException();
 		}
 	}
@@ -45,7 +46,7 @@ public class FieldFactory {
 	 * @return
 	 * @throws GroovyInstantiationException 
 	 */
-	public static Field makeField(Map<String, Object> map, String key) throws GroovyInstantiationException {
+	public static Field makeFieldMap(Map<String, Object> map, String key) throws GroovyInstantiationException {
 		Setter set = new MapSetter(map, key);
 		Class<?> clazz = map.get(key).getClass();
 
