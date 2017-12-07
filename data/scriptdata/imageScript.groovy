@@ -31,7 +31,7 @@ entity.on("Image View Event", { Event event ->
     pointer.setImage(imgEvent.getImage())
 })
 
-entity.on("Initial Imageview Setup", { Event event ->
+entity.on("setup initial imageview", { Event event ->
     InitialImageEvent iEvent = (InitialImageEvent) event
     pointer.setFitWidth(iEvent.getMyGridSize())
     pointer.setFitHeight(iEvent.getMyGridSize())
@@ -49,7 +49,7 @@ entity.on("View Visibility Event", { Event event ->
     pointer.setVisible(visEvent.getBool())
 })
 
-entity.on("Authoring Click", { Event event ->
+entity.on("click", { Event event ->
     ClickEvent cEvent = (ClickEvent) event
     pointer.setOnMouseClicked( { MouseEvent e ->
         if (cEvent.getIsGaming() == false) {
@@ -64,7 +64,7 @@ entity.on("Authoring Click", { Event event ->
     })
 })
 
-entity.on("Authoring Key Pressed", { Event event ->
+entity.on("key press", { Event event ->
     KeyPressEvent kEvent = (KeyPressEvent) event
     pointer.setOnKeyPressed( { KeyEvent e ->
         if (kEvent.getIsGaming() == false && e.getCode().equals(kEvent.getKeyCode())) {
@@ -74,7 +74,7 @@ entity.on("Authoring Key Pressed", { Event event ->
     })
 })
 
-entity.on("Authoring Mouse Pressed", { Event event ->
+entity.on("mouse press", { Event event ->
     MousePressEvent pEvent = (MousePressEvent) event
     pointer.setOnMousePressed( { MouseEvent e ->
         if (pEvent.getIsGaming() == false && pEvent.getMyMode()[0] > 0) {
@@ -85,7 +85,7 @@ entity.on("Authoring Mouse Pressed", { Event event ->
     })
 })
 
-entity.on("Authoring Mouse Dragged", { Event event ->
+entity.on("mouse drag", { Event event ->
     MouseDragEvent dEvent = (MouseDragEvent) event
     pointer.setOnMouseDragged({ MouseEvent e ->
         if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
