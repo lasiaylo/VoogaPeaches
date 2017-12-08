@@ -2,6 +2,7 @@ package authoring.panels.reserved;
 
 import authoring.Panel;
 import authoring.PanelController;
+import database.CurrentUser;
 import engine.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -65,6 +66,7 @@ public class CameraPanel implements Panel {
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
+		myArea.getStylesheets().add(CurrentUser.currentUser.getThemeName());
 
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
@@ -77,7 +79,6 @@ public class CameraPanel implements Panel {
 		if (region.getStylesheets().size() >= 1) {
 			region.getStylesheets().remove(0);
 		}
-		System.out.println(css);
 		region.getStylesheets().add(css);
 	}
 

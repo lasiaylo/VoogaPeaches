@@ -167,9 +167,6 @@ public class DraggableTab extends Tab {
         });
         p.play();
 
-
-
-
     }
 
     /**
@@ -254,25 +251,6 @@ public class DraggableTab extends Tab {
         return xPoint >= lowerBound && xPoint <= upperBound;
     }
 
-    private static class InsertData {
-
-        private final int index;
-        private final TabPane insertPane;
-
-        InsertData(int index, TabPane insertPane) {
-            this.index = index;
-            this.insertPane = insertPane;
-        }
-
-        int getIndex() {
-            return index;
-        }
-
-        TabPane getInsertPane() {
-            return insertPane;
-        }
-
-    }
 
 }
 
