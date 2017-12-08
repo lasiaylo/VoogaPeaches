@@ -61,10 +61,7 @@ public class Entity extends Evented {
         return parent;
     }
 
-    public Entity getRoot() {
-        return root;
-    }
-    
+
     public Map<String, Object> getProperties(){
     	return properties;
     }
@@ -133,12 +130,6 @@ public class Entity extends Evented {
     }
 
     private void setEventListeners() {
-//
-//        group.setOnMouseClicked(e -> {
-//            new ClickEvent().fire(this);
-//            System.out.println("set event listeners");
-//            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(this));
-//        });
 
     }
 
@@ -151,9 +142,6 @@ public class Entity extends Evented {
             else
                 for (Entity entity : children)
                     entity.root = root;
-
-      //  for (Entity entity : children)
-        //    entity.addTo(this);
 
         setEventListeners();
         executeScripts();
