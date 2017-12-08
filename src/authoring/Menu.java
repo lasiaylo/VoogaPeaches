@@ -1,5 +1,6 @@
 package authoring;
 
+import database.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -45,9 +46,11 @@ public class Menu {
     private Scene myScene;
     private Pane myRoot;
     private Screen authoring;
+    private User myUser;
 
-    public Menu(Stage stage) {
+    public Menu(Stage stage, User user) {
         myStage = stage;
+        myUser = user;
         myRoot = new Pane();
 
         myScene = new Scene(myRoot, WIDTH, HEIGHT);
@@ -63,7 +66,7 @@ public class Menu {
     }
 
     private void updateTheme() {
-        myRoot.getStylesheets().add("dark.css"); //update from database
+        myRoot.getStylesheets().add(myUser.getThemeName());
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {
@@ -101,7 +104,7 @@ public class Menu {
             authoringStage.setTitle("VoogaPeaches: A Programmers for Peaches Production");
             authoringStage.setMaximized(true);
             authoringStage.setResizable(false);
-            authoring = new Screen(authoringStage);
+            authoring = new Screen(authoringStage, myUser);
         }
         return null;
     }

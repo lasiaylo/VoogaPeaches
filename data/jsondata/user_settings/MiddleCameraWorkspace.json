@@ -7,10 +7,10 @@
   "Propertiesvis": "false",
   "Youtubevis": "false",
   "Consolevis": "false",
-  "Console": "right",
+  "Console": "bottom",
   "Youtube": "right",
   "leftdivision": "0.0",
-  "Library": "right",
+  "Library": "left",
   "Libraryvis": "false",
   "Social Mediavis": "false",
   "bodydivision": "0.0"
