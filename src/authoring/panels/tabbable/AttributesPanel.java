@@ -22,7 +22,7 @@ import util.pubsub.messages.EntityPass;
  * @author lasia
  *
  */
-public class AttributesPanel implements Panel {
+public class PropertiesPanel implements Panel {
 	private static final String SCRIPTS = "Scripts";
 	private static final String PARAMETERS = "Parameters";
 	private final String TITLE = "Properties";
@@ -31,7 +31,7 @@ public class AttributesPanel implements Panel {
 	private Map<String, Object> myParameters;
 	private Map<String, List<String>> myScripts;
 
-	public AttributesPanel() {
+	public PropertiesPanel() {
 		myVBox = new VBox();
 		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
 			EntityPass ePass = (EntityPass) e;
@@ -67,14 +67,11 @@ public class AttributesPanel implements Panel {
 		myEntity = entity;
 		//myVBox = new VBox();
 		myVBox.getChildren().clear();
-		//myParameters = entity.getProperties();
-		Map<String, Object> newParams = new HashMap<>();
-		for(String key : entity.getProperties().keySet()) {
-			newParams.put(key, entity.getProperties().get(key));
-		}
-		myScripts = (Map<String, List<String>>) newParams.remove("scripts");
-		myParameters = newParams;
+		myParameters = entity.getProperties();
+		myScripts = (Map<String, List<String>>) myParameters.remove("scripts");
 		updateView();
+		myParameters.put("scripts", myScripts);
+
 	}
 
 	/**Updates the view of the AttributesPanel
