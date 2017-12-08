@@ -220,6 +220,12 @@ public class EntityManager {
         addLayer(currentLevel);
     }
 
+    public void deleteLayer() {
+        if (mode[0] > 0) {
+            currentLevel.remove(currentLevel.getChildren().get(mode[0]));
+        }
+    }
+
     private void addLayer(Entity level) {
         Entity layer = new Entity(level);
         ImageView holder = setPlaceHolder();

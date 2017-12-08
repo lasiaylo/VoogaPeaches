@@ -3,16 +3,23 @@ package authoring.panels.tabbable;
 import authoring.Panel;
 import authoring.PanelController;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 public class MiniMapPanel implements Panel{
 
     private Pane myPane;
+    private TextField levelName;
+    private TextField mapWidth;
+    private TextField mapHeight;
+    private Button addLevel;
 
     public MiniMapPanel() {
         myPane = new Pane();
         myPane.getStyleClass().add("panel");
+        levelName = new TextField();
     }
 
     @Override

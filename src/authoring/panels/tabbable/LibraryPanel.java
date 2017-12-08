@@ -13,6 +13,7 @@ import javafx.geometry.Insets;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.EntityManager;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -42,6 +44,8 @@ public class LibraryPanel implements Panel {
     private EntityManager myManager;
     private ObjectFactory factory;
     private FileDataManager manager;
+    private Button update;
+    private String type;
 
     public LibraryPanel() {
         myTilePane = new TilePane();
@@ -61,14 +65,18 @@ public class LibraryPanel implements Panel {
         myTilePane.setPrefTileWidth(50);
         myTilePane.setPrefTileHeight(50);
         myTilePane.setHgap(10);
+        update = new Button("update");
+        update.setOnMouseClicked(e -> changeType());
 
-        myArea = new VBox(myEntType, myTilePane);
+        HBox top = new HBox(myEntType, update);
+        top.setSpacing(10);
+        myArea = new VBox(top, myTilePane);
         myArea.getStyleClass().add("panel");
         myArea.setSpacing(10);
     }
 
     private void changeType() {
-        String type = myEntType.getValue();
+        type = myEntType.getValue();
         myTilePane.getChildren().clear();
         if (type.equals(PLAYER)) {
             for (String each: ObjectFactory.getEntityTypes()) {
