@@ -46,6 +46,15 @@ public abstract class TrackableObject {
      */
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
 
+    public static String UIDforObject(TrackableObject object) {
+        for (String each: trackableObjects.keySet()) {
+            if (trackableObjects.get(each).equals(object)) {
+                return each;
+            }
+        }
+        return null;
+    }
+
     /**
      * Adds the passed object to the map of tracked objects
      * @param object is a {@code TrackableObject} that is to be added to the map of tracked objects

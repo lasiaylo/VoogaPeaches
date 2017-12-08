@@ -13,7 +13,6 @@ import engine.events.MouseDragEvent
 import engine.events.MousePressEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
-import engine.fsm.Transition
 import engine.util.FXProcessing
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView

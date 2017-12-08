@@ -6,6 +6,7 @@ import authoring.PanelController;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
+import database.firebase.TrackableObject;
 import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.geometry.Insets;
@@ -39,13 +40,20 @@ public class LibraryPanel implements Panel {
     private VBox myArea;
     private PanelController myController;
     private EntityManager myManager;
+    private ObjectFactory factory;
+    private FileDataManager manager;
 
     public LibraryPanel() {
         myTilePane = new TilePane();
         myEntType = new ChoiceBox<>();
-        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
+        manager = new FileDataManager(FileDataFolders.IMAGES);
+        try {
+            factory = new ObjectFactory("PlayerEntity");
+        } catch (ObjectBlueprintNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        myEntType.getItems().add(BG);
+        myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.getItems().add(PLAYER);
         myEntType.setOnAction(e -> changeType());
         myEntType.getStyleClass().add("choice-box");
@@ -62,21 +70,19 @@ public class LibraryPanel implements Panel {
     private void changeType() {
         String type = myEntType.getValue();
         myTilePane.getChildren().clear();
-        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
         if (type.equals(PLAYER)) {
             for (String each: ObjectFactory.getEntityTypes()) {
-                //todo user-defined entity
-//                try {
-//                    ObjectFactory factory = new ObjectFactory(each);
-//                    Entity entity = factory.newObject();
-//                    ImageView view = new ImageView(new Image(manager.readFileData((String) entity.getProperty("image path"))));
-//                    view.setFitWidth(50);
-//                    view.setFitHeight(50);
-//                    myTilePane.getChildren().add(view);
-//                    view.setOnDragDetected(e -> startDragEnt(e, each, view));
-//                } catch (ObjectBlueprintNotFoundException e) {
-//                    e.printStackTrace();
-                //}
+                try {
+                    factory.setObjectBlueprint(each);
+                } catch (ObjectBlueprintNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Entity entity = factory.newObject();
+                ImageView view = new ImageView(new Image(manager.readFileData((String) entity.getProperty("image path"))));
+                view.setFitWidth(50);
+                view.setFitHeight(50);
+                myTilePane.getChildren().add(view);
+                view.setOnDragDetected(e -> startDragEnt(e, view));
             }
         }
         else {
@@ -96,10 +102,11 @@ public class LibraryPanel implements Panel {
         }
     }
 
-    private void startDragEnt(MouseEvent event, String uid, ImageView view) {
+    private void startDragEnt(MouseEvent event, ImageView view) {
+        Entity entity = factory.newObject();
         Dragboard board = view.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
-        content.putString(uid);
+        content.putString(TrackableObject.UIDforObject(entity));
         board.setContent(content);
         event.consume();
     }

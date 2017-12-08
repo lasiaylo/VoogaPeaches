@@ -49,7 +49,7 @@ public class EntityManager {
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
             //todo get a default script for nonBGscript
-            defaultObjectFactory = new ObjectFactory("BGEntity");
+            defaultObjectFactory = new ObjectFactory("PlayerEntity");
 
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
