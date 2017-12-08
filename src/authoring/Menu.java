@@ -63,6 +63,7 @@ public class Menu {
     }
 
     private void updateTheme() {
+        myRoot.getStylesheets().add("dark.css"); //update from database
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {
@@ -101,7 +102,6 @@ public class Menu {
             authoringStage.setMaximized(true);
             authoringStage.setResizable(false);
             authoring = new Screen(authoringStage);
-            System.out.println("hi");
         }
         return null;
     }

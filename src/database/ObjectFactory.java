@@ -33,6 +33,17 @@ public class ObjectFactory {
      * not found within the database
      */
     public ObjectFactory(String objectName) throws ObjectBlueprintNotFoundException {
+        setObjectBlueprint(objectName);
+    }
+
+    /**
+     * Sets the ObjectFactory to use a new JSON file's blueprint
+     * @param objectName is {@code String} representing the name of the file corresponding
+     *                   to the blueprint you want to use
+     * @throws ObjectBlueprintNotFoundException if the blueprint for the objectName is not
+     * found within the database
+     */
+    public void setObjectBlueprint(String objectName) throws ObjectBlueprintNotFoundException {
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         blueprintJSON = manager.readJSONFile(objectName);
         if(blueprintJSON == null) throw new ObjectBlueprintNotFoundException();

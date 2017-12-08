@@ -8,7 +8,7 @@ public class MapEvent extends Event{
     private StackPane myStackPane;
 
     public MapEvent(String type) {
-        super(type);
+        super(EventType.MAP.getType());
     }
 
     public void setStack(StackPane stack) {

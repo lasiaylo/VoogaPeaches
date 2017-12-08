@@ -1,7 +1,7 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.scripthelpers.ScriptLoader;
+import database.fileloaders.ScriptLoader;
 import engine.collisions.HitBox;
 import engine.events.ClickEvent;
 import engine.events.Evented;
@@ -9,6 +9,8 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 
 import java.util.*;
@@ -122,7 +124,7 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
-        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.get("scripts");
+        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.getOrDefault("scripts", new HashMap<String, List<String>>());
         for (String script : listenActionPair.keySet() ) {
             String code = ScriptLoader.stringForFile(script);
             Binding binding = new Binding();
@@ -134,7 +136,11 @@ public class Entity extends Evented {
     }
 
     private void setEventListeners() {
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+        group.setOnMouseClicked(e -> {
+            new ClickEvent().fire(this);
+            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(this));
+        });
+
     }
 
     @Override
@@ -147,8 +153,8 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-        for (Entity entity : children)
-            entity.addTo(this);
+      //  for (Entity entity : children)
+        //    entity.addTo(this);
 
         setEventListeners();
         executeScripts();
