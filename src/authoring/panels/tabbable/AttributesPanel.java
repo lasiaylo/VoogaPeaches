@@ -5,6 +5,8 @@ import java.util.Map;
 import authoring.Panel;
 import authoring.panels.attributes.CollapsePane;
 import engine.entities.Entity;
+import javafx.scene.Node;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.ErrorDisplay;
@@ -63,9 +65,19 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException
 	 */
 	private void updateView() throws GroovyInstantiationException {
-		addMap(myParameters, PARAMETERS, false);
-		addMap(myScripts, SCRIPTS, true);
+		makeParameters();
+
+
+		Node scripts = addMap(myScripts,true);
 //		addButton();
+	}
+
+	private void makeParameters() throws GroovyInstantiationException {
+		VBox parameterBox = new VBox();
+
+		Node parameters = addMap(myParameters,false);
+		TitledPane pane = new TitledPane(PARAMETERS, parameters);
+
 	}
 
 
@@ -75,9 +87,9 @@ public class AttributesPanel implements Panel {
 	 * @param collapse
 	 * @throws GroovyInstantiationException
 	 */
-	private void addMap(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
-		CollapsePane pane = new CollapsePane(map, title, collapse);
-		myVBox.getChildren().add(pane.getNode());
+	private Node addMap(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
+		CollapsePane pane = new CollapsePane(map, collapse);
+		return pane.getNode();
 	}
 	
 	/**Displays a button that allows users to add more scripts to an entity
