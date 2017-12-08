@@ -1,6 +1,7 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.AttributesPanel;
+import authoring.panels.tabbable.PropertiesPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -23,7 +24,7 @@ public class ParameterButton {
     private ComboBox comboBox;
     private Button button;
 
-    public ParameterButton(Map<String, Object> map, AttributesPanel panel) {
+    public ParameterButton(Map<String, Object> map, PropertiesPanel panel) {
         myMap = map;
         hbox = new HBox();
         myPanel = panel;

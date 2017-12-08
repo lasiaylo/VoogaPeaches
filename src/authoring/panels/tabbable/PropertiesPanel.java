@@ -126,4 +126,8 @@ public class PropertiesPanel implements Panel {
 		// TODO Auto-generated method stub
 	}
 
+	public Entity getEntity(){
+		return myEntity;
+	}
+
 }
