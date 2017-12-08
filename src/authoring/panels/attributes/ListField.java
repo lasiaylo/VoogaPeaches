@@ -57,7 +57,9 @@ public class ListField extends Field {
             for (File file:db.getFiles()) {
                 filePath = file.getAbsolutePath();
                 System.out.println(filePath);
-                OBList.add(filePath);
+                if (filePath.endsWith(".groovy"))
+                	filePath = file.getName();
+                	OBList.add(filePath);
             }
         }
         event.setDropCompleted(success);

@@ -35,14 +35,12 @@ public class CameraPanel implements Panel {
 	private Button myPlay;
 	private Button myPause;
 	private Button myClear;
+	private Button myDelete;
 	private VBox myArea;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
 	private ComboBox<String> myLayer;
-	private RadioButton myWhole;
-	private RadioButton myLocal;
-	private ToggleGroup myGroup;
 
 	private double cameraWidth;
 	private double cameraHeight;
@@ -87,12 +85,13 @@ public class CameraPanel implements Panel {
 		myText = new TextField(TEXT);
 		myText.getStyleClass().add("textField");
 		myClear = new Button(CLEAR);
+		myDelete = new Button("delete");
 
 		setupButton();
 
-		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear);
+		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/15);
+		buttonRow.setSpacing(cameraWidth/30);
 
 		return buttonRow;
 	}
@@ -116,19 +115,24 @@ public class CameraPanel implements Panel {
 		myPause.setOnMouseClicked(e -> myController.pause());
 
 		myClear.setOnMouseClicked(e -> myManager.clearOnLayer());
+		myDelete.setOnMouseClicked(e -> {
+		    myManager.deleteLayer();
+		    myLayer.getItems().remove(myLayer.getValue());
+		    myLayer.getSelectionModel().clearAndSelect(1);
+        });
 
 	}
 
 	private void changeName(KeyCode code) {
-	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL))) {
+	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL)) && (!myOption.equals(BGL))) {
 	        myText.commitValue();
 	        myLayer.getItems().set(myLayer.getItems().indexOf(myLayer.getValue()), myText.getText());
         }
     }
 
 	private void changeLayer() {
-		String option = myLayer.getValue();
-		switch (option) {
+		myOption = myLayer.getValue();
+		switch (myOption) {
 			case NEWL:
 				myManager.addLayer();
 				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
@@ -142,7 +146,7 @@ public class CameraPanel implements Panel {
 				myManager.selectBGLayer();
 				break;
 			default:
-				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				int layer = myLayer.getItems().indexOf(myLayer.getValue()) - 1;
 				myManager.selectLayer(layer);
 				break;
 		}

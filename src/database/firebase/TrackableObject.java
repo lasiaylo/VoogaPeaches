@@ -33,7 +33,9 @@ public abstract class TrackableObject {
 
     /**
      * Initialize methods that performs further initialization once a trackable
-     * object has been recreated from the database
+     * object has been recreated from the database. In classes implementing this
+     * method it can be safely assumed that @Expose marked variables will have their
+     * values set before this method has been called.
      */
     abstract public void initialize();
 
@@ -43,6 +45,15 @@ public abstract class TrackableObject {
      * @return The {@code TrackableObject} with the UID passed into the method
      */
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
+
+    public static String UIDforObject(TrackableObject object) {
+        for (String each: trackableObjects.keySet()) {
+            if (trackableObjects.get(each).equals(object)) {
+                return each;
+            }
+        }
+        return null;
+    }
 
     /**
      * Adds the passed object to the map of tracked objects
@@ -54,5 +65,4 @@ public abstract class TrackableObject {
         trackableObjects.put(object.UID, object);
         return true;
     }
-
 }

@@ -23,9 +23,7 @@ public class PropertiesPanelTest extends Application{
 		panel.updateProperties((testEntity = createEntity()));
 		
 		setupStage();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
-			System.out.println(testEntity.getProperty("y"));
-		}));
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10)));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 	}
