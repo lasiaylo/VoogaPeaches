@@ -1,5 +1,6 @@
 package engine.fsm;
 
+import engine.entities.Entity;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 
@@ -39,8 +40,6 @@ public class State {
     }
 
     public void updateCode(String name, String code) {
-        System.out.println(name);
-        System.out.println(code);
         transitions.put(name, (Closure) shell.evaluate(code));
         this.code.put(name, code);
     }
@@ -49,10 +48,10 @@ public class State {
         return code.entrySet().iterator();
     }
 
-    String transition() {
+    String transition(Entity entity) {
         String name = null;
         for (Map.Entry<String, Closure> entry : transitions.entrySet())
-            name = (Boolean) entry.getValue().call() ? entry.getKey() : name;
+            name = (Boolean) entry.getValue().call(entity) ? entry.getKey() : name;
         return name;
     }
 }
