@@ -1,7 +1,7 @@
 {
-  "UID": "f6c868e307f24a0bbb476916f9d4f913",
+  "UID": "9b338c81a11848029f2b58aea6b648b4",
   "themeName": "dark.css",
-  "workspaceName": "LeftCameraWorkspace.properties",
+  "workspaceName": "LeftCameraWorkspace",
   "userName": "user1",
   "properties": {
     "MiddleCameraWorkspace": {
@@ -31,7 +31,7 @@
       "Consolevis": "false",
       "Console": "right",
       "Youtube": "right",
-      "Library": "right",
+      "Library": "left",
       "Libraryvis": "false",
       "middledivision": "0.0",
       "Social Mediavis": "false",

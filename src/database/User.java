@@ -31,6 +31,7 @@ public class User extends TrackableObject {
         userName = name;
         themeName = PropertiesReader.value("defaults","theme");
         workspaceName = PropertiesReader.value("defaults", "workspace");
+        games = new ArrayList<>();
         createProperties();
     }
 
@@ -70,12 +71,5 @@ public class User extends TrackableObject {
                 manager.writeJSONFile(fileName, jsonObject);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        User user = new User("test");
-        user.setTheme("dark.css");
-        JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
-        manager.writeJSONFile("user1",JSONHelper.JSONForObject(user));
     }
 }

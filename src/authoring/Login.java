@@ -78,12 +78,10 @@ public class Login {
             CurrentUser.currentUser = user;
 //        #TODO Update the workspace properties files with the given information from user.
         } catch (Exception error) {
-            error.printStackTrace();
 //            THROW AN ERROR
             CurrentUser.currentUser = new User("Default");
             System.out.println("wrong username, but you can keep playing I guess");
         }
-        System.out.println(CurrentUser.currentUser.getThemeName());
         Stage menuStage = new Stage();
         Menu myMenu = new Menu(menuStage);
     }
