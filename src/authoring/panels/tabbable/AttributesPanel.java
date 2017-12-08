@@ -7,10 +7,12 @@ import authoring.Panel;
 import authoring.PanelController;
 import authoring.panels.attributes.CollapsePane;
 import authoring.panels.attributes.ParameterButton;
+import authoring.panels.attributes.ScriptButton;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.ErrorDisplay;
@@ -99,7 +101,7 @@ public class AttributesPanel implements Panel {
 	private void makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 		Node parameters = addMap(myScripts, true);
-		Node button = new PanelController.ScriptButton(myScripts, this).getNode();
+		Node button = new ScriptButton(myScripts, this, myEntity).getNode();
 		scriptBox.getChildren().add(parameters);
 		scriptBox.getChildren().add(button);
 		addPane(SCRIPTS, scriptBox);
