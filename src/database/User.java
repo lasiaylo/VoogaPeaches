@@ -24,7 +24,6 @@ public class User extends TrackableObject {
     @Expose private String themeName;
     @Expose private String workspaceName;
     @Expose private Map<String, Map<String, String>> properties;
-    private User() {}
 
     public User(String name) {
         userName = name;
@@ -32,6 +31,8 @@ public class User extends TrackableObject {
         workspaceName = PropertiesReader.value("defaults", "workspace");
         createProperties();
     }
+
+    private User() {}
 
     @Override
     public void initialize() {
@@ -41,6 +42,10 @@ public class User extends TrackableObject {
     public void setTheme(String theme) {themeName = theme;}
 
     public void setWorkspace(String workspace) {workspaceName = workspace;}
+
+    public String getWorkspaceName() { return workspaceName; }
+
+    public String getThemeName() { return themeName; }
 
     private void createProperties() {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));
@@ -59,6 +64,7 @@ public class User extends TrackableObject {
 
     public static void main(String[] args) {
         User user = new User("test");
+        user.setTheme("dark.css");
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
         manager.writeJSONFile("user1",JSONHelper.JSONForObject(user));
     }
