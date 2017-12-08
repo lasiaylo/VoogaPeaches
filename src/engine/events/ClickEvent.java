@@ -21,7 +21,7 @@ public class ClickEvent extends Event {
     }
 
     public ClickEvent(boolean gaming, int[] mode, InputStream BGType) {
-        super("click");
+        super(EventType.CLICK.getType());
         isGaming = gaming;
         myMode = mode;
         myBGType = BGType;
