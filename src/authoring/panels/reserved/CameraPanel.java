@@ -1,22 +1,17 @@
 package authoring.panels.reserved;
 
-import authoring.IPanelController;
 import authoring.Panel;
 import authoring.PanelController;
+import engine.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
-import engine.EntityManager;
-import engine.util.FXProcessing;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import util.math.num.Vector;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -40,28 +35,26 @@ public class CameraPanel implements Panel {
 	private Button myPlay;
 	private Button myPause;
 	private Button myClear;
+	private Button myDelete;
 	private VBox myArea;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
 	private ComboBox<String> myLayer;
-	private RadioButton myWhole;
-	private RadioButton myLocal;
-	private ToggleGroup myGroup;
 
 	private double cameraWidth;
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
 	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
-	private IPanelController myController;
+	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
 		cameraWidth = width;
 		cameraHeight = height;
 
 		myView = new ScrollPane();
-		//myView.getStyleClass().add("camera");
+		myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
@@ -90,13 +83,15 @@ public class CameraPanel implements Panel {
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
+		myText.getStyleClass().add("textField");
 		myClear = new Button(CLEAR);
+		myDelete = new Button("delete");
 
 		setupButton();
 
-		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear);
+		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/15);
+		buttonRow.setSpacing(cameraWidth/30);
 
 		return buttonRow;
 	}
@@ -113,12 +108,18 @@ public class CameraPanel implements Panel {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
+		myLayer.getStyleClass().add("choice-box");
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
 		myPause.setOnMouseClicked(e -> myController.pause());
 
 		myClear.setOnMouseClicked(e -> myManager.clearOnLayer());
+		myDelete.setOnMouseClicked(e -> {
+		    myManager.deleteLayer();
+		    myLayer.getItems().remove(myLayer.getValue());
+		    myLayer.getSelectionModel().clearAndSelect(1);
+        });
 
 	}
 
@@ -130,8 +131,8 @@ public class CameraPanel implements Panel {
     }
 
 	private void changeLayer() {
-		String option = myLayer.getValue();
-		switch (option) {
+		myOption = myLayer.getValue();
+		switch (myOption) {
 			case NEWL:
 				myManager.addLayer();
 				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
@@ -145,7 +146,7 @@ public class CameraPanel implements Panel {
 				myManager.selectBGLayer();
 				break;
 			default:
-				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				int layer = Character.getNumericValue(myOption.charAt(myOption.length()-1));
 				myManager.selectLayer(layer);
 				break;
 		}
@@ -159,7 +160,7 @@ public class CameraPanel implements Panel {
 	}
 
 	@Override
-	public void setController(IPanelController controller) {
+	public void setController(PanelController controller) {
 		this.myController = controller;
 		this.getView(myController.getCamera());
 		myManager = myController.getManager();

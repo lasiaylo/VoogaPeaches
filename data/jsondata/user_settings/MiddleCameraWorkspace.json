@@ -1,0 +1,15 @@
+{
+  "PropertiesPanel": "right",
+  "LibraryPanel": "left",
+  "MiniMapPanelvis": "false",
+  "rightdivision": "0.7",
+  "PropertiesPanelvis": "false",
+  "TwitterPanel": "left",
+  "ConsolePanel": "bottom",
+  "LibraryPanelvis": "false",
+  "TwitterPanelvis": "false",
+  "MiniMapPanel": "right",
+  "leftdivision": "0.2",
+  "ConsolePanelvis": "false",
+  "bodydivision": "0.7"
+}

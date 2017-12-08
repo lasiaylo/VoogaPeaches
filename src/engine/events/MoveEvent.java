@@ -5,7 +5,7 @@ public class MoveEvent extends Event {
     private double dy;
 
     public MoveEvent(double dx, double dy) {
-        super("move");
+        super(EventType.MOVE.getType());
         this.dx = dx;
         this.dy = dy;
     }
