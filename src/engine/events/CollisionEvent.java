@@ -8,7 +8,7 @@ public class CollisionEvent extends Event {
     private Entity collidedWith;
 
     public CollisionEvent(HitBox hitBox, Entity collidedWith) {
-        super("collision");
+        super(EventType.COLLISION.getType());
         this.collidedHitBox = hitBox;
         this.collidedWith = collidedWith;
     }

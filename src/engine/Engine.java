@@ -51,7 +51,11 @@ public class Engine {
     }
 
     public void save(String name) {
-        new GameSaver(name).saveTrackableObjects(entityManager.getRoot());
+        new GameSaver(name).saveRootObject(entityManager.getRoot());
+    }
+
+    public void load(String name) {
+
     }
 
     public EntityManager getEntityManager() {

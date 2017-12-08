@@ -4,6 +4,7 @@ import database.jsonhelpers.JSONToObjectConverter;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
 import engine.events.CollisionEvent;
+import engine.events.EventType;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -68,7 +69,7 @@ public class BouncingEntities extends Application {
         triangleEntity.addTo(root);
         squareEntity.addTo(root);
 
-        root.on("tick", e -> {
+        root.on(EventType.TICK.getType(),e -> {
 
         });
 

@@ -56,7 +56,7 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
-		//myView.getStyleClass().add("camera");
+		myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
@@ -85,6 +85,7 @@ public class CameraPanel implements Panel {
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
+		myText.getStyleClass().add("textField");
 		myClear = new Button(CLEAR);
 
 		setupButton();
@@ -108,6 +109,7 @@ public class CameraPanel implements Panel {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
+		myLayer.getStyleClass().add("choice-box");
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
