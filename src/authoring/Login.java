@@ -25,6 +25,13 @@ import util.pubsub.messages.WorkspaceChange;
 
 import java.io.File;
 
+/**
+ * Login splash screen. Should give information about the user if there is a valid user object corresponding
+ * to the username.
+ *
+ * @author Simran Singh
+ * @author Kelly Zhang
+ */
 public class Login {
 
     private Stage myStage;
@@ -64,6 +71,13 @@ public class Login {
         return vbox;
     }
 
+    /**
+     * On the login, it reads the text that the user input. No password check currently. It tries to find a
+     * JSON with the username, if it isn't there, it currently doesn't do anything, but if a JSON file exists,
+     * it'll publish the current theme and workspace.
+     *
+     * @param e
+     */
     private void loginPressed(ActionEvent e) {
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
         try {
@@ -72,6 +86,7 @@ public class Login {
             User user = converter.createObjectFromJSON(User.class,blueprint);
             PubSub.getInstance().publish("WORKSPACE_CHANGE", new WorkspaceChange(user.getWorkspaceName()));
             PubSub.getInstance().publish("THEME_MESSAGE", new ThemeMessage(user.getThemeName()));
+//        #TODO Update the workspace properties files with the given information from user.
         } catch (Exception error) {
             error.printStackTrace();
 //
