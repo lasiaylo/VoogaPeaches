@@ -113,14 +113,12 @@ public class EntityManager {
             //the BGType here should not be applied to the image, mode should check for it
             ClickEvent cEvent = new ClickEvent(false, mode, BGType);
             KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
-            MousePressEvent mEvent = new MousePressEvent(startPos, startSize, false, mode);
-            MouseDragEvent dEvent = new MouseDragEvent(startPos, startSize, false, mode);
+            MouseDragEvent dEvent = new MouseDragEvent(false, mode);
 
             imgEvent.fire(entity);
             iEvent.fire(entity);
             cEvent.fire(entity);
             pEvent.fire(entity);
-            mEvent.fire(entity);
             dEvent.fire(entity);
         }
     }
