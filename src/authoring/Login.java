@@ -1,5 +1,10 @@
 package authoring;
 
+import database.User;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONToObjectConverter;
+import engine.entities.Entity;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,8 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.WorkspaceChange;
 
 import java.io.File;
 
@@ -23,6 +30,8 @@ public class Login {
     private Stage myStage;
     private Scene myScene;
     private VBox myArea;
+    private TextField userTextField;
+    private TextField passwordField;
 
     public Login(Stage stage) {
         myStage = stage;
@@ -44,21 +53,36 @@ public class Login {
         vbox.setAlignment(Pos.CENTER_LEFT);
 
         Text userLabel = new Text("User Name");
-        TextField userTextField = new TextField();
+        userTextField = new TextField();
         Text passLabel = new Text("Password");
-        TextField passwordField = new TextField();
+        passwordField = new TextField();
         Button loginButton = new Button("Login");
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                Stage menuStage = new Stage();
-                Menu myMenu = new Menu(menuStage);
-            }
-        });
+        loginButton.setOnAction(e -> loginPressed(e));
 
         vbox.getChildren().addAll(userLabel, userTextField, passLabel, passwordField, loginButton);
 
         return vbox;
     }
+
+    private void loginPressed(ActionEvent e) {
+        JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+        try {
+            JSONObject blueprint = manager.readJSONFile(userTextField.getText());
+            JSONToObjectConverter<User> converter = new JSONToObjectConverter<>(User.class);
+            User user = converter.createObjectFromJSON(User.class,blueprint);
+            PubSub.getInstance().publish("WORKSPACE_CHANGE", new WorkspaceChange(user.getWorkspaceName()));
+            PubSub.getInstance().publish("THEME_MESSAGE", new ThemeMessage(user.getThemeName()));
+        } catch (Exception error) {
+            error.printStackTrace();
+//
+//
+//            THROW AN ERROR
+            System.out.println("wrong username, but you can keep playing I guess");
+        }
+        Stage menuStage = new Stage();
+        Menu myMenu = new Menu(menuStage);
+    }
+
 
     public Stage getStage() {
         return myStage;
