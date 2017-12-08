@@ -40,7 +40,9 @@ public class CollapsePane {
 	
 	private void formatCollapse(Map<String, ?> map) throws GroovyInstantiationException {
 		VBox vBox = new VBox();
-		
+		if(map == null) {
+			System.out.println("map null");
+		}
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);
 			TitledPane title = new TitledPane(s, node);

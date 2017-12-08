@@ -32,8 +32,8 @@ public class HitBoxPanel implements Panel {
 
     public HitBoxPanel() {
         createEntityView();
-
         region.getChildren().add(hitboxNameField);
+        createAddButton();
         PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
             EntityPass entityPass = (EntityPass) e;
             setEntity(entityPass.getEntity());
@@ -43,8 +43,10 @@ public class HitBoxPanel implements Panel {
     }
 
     public void setEntity(Entity entity) {
+        entityView.getChildren().clear();
         hitboxes = entity.getHitBoxes();
-        createAddButton();
+        region.getChildren().remove(hitboxSelection);
+
         createComboBox();
         for(HitBox h : hitboxes) {
             h.getHitbox().setFill(Color.LIGHTGRAY);
