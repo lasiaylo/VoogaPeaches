@@ -65,20 +65,6 @@ public class CameraPanel implements Panel {
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 		myArea.getStyleClass().add("panel");
-
-		pubSub = PubSub.getInstance();
-		pubSub.subscribe(
-				"THEME_MESSAGE",
-				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
-	}
-
-
-	private void updateStyles(Region region, String css) {
-		if (region.getStylesheets().size() >= 1) {
-			region.getStylesheets().remove(0);
-		}
-		System.out.println(css);
-		region.getStylesheets().add(css);
 	}
 
 	private HBox buttonRow() {
@@ -106,6 +92,7 @@ public class CameraPanel implements Panel {
 
 
 	private void setupButton() {
+		myLayer.getStyleClass().add("choice-box");
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
