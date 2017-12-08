@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import authoring.Panel;
 import authoring.PanelController;
+import authoring.buttons.CustomButton;
+import authoring.buttons.strategies.EntitySave;
 import authoring.panels.attributes.CollapsePane;
 import authoring.panels.attributes.ParameterButton;
 import authoring.panels.attributes.ScriptButton;
@@ -82,7 +84,7 @@ public class PropertiesPanel implements Panel {
 		myVBox.getChildren().clear();
 		makeParameters();
 		makeScripts();
-//		addButton();
+		addButton();
 	}
 
 	private void makeParameters() throws GroovyInstantiationException {
@@ -97,7 +99,7 @@ public class PropertiesPanel implements Panel {
 	private void makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 		Node parameters = addMap(myScripts, true);
-		Node button = new ScriptButton(myScripts, this, myEntity).getNode();
+		Node button = new ScriptButton(myScripts, this).getNode();
 		scriptBox.getChildren().add(parameters);
 		scriptBox.getChildren().add(button);
 		addPane(SCRIPTS, scriptBox);
@@ -124,7 +126,8 @@ public class PropertiesPanel implements Panel {
 	 * 
 	 */
 	private void addButton() {
-		// TODO Auto-generated method stub
+		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "save");
+		myVBox.getChildren().add(saveEntity.getButton());
 	}
 
 	public Entity getEntity(){
