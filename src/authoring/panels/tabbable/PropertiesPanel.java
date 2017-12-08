@@ -99,7 +99,7 @@ public class PropertiesPanel implements Panel {
 	private void makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 		Node parameters = addMap(myScripts, true);
-		Node button = new ScriptButton(myScripts, this, myEntity).getNode();
+		Node button = new ScriptButton(myScripts, this).getNode();
 		scriptBox.getChildren().add(parameters);
 		scriptBox.getChildren().add(button);
 		addPane(SCRIPTS, scriptBox);

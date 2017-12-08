@@ -31,7 +31,7 @@ public class EntitySave implements IButtonStrategy{
     public void initializeFileChooser(){
         fileChooser = new FileChooser();
         fileChooser.setTitle(PROMPT);
-        fileChooser.setInitialDirectory(new File(PropertiesReader.path("blueprints")));
+        //fileChooser.setInitialDirectory(new File(PropertiesReader.path("blueprints")));
         FileChooser.ExtensionFilter jsonFiles = new FileChooser.ExtensionFilter("JSON files", "*.json");
         fileChooser.getExtensionFilters().add(jsonFiles);
     }

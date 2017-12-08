@@ -8,6 +8,9 @@ import engine.entities.Entity;
 import engine.events.*;
 import engine.events.MouseDragEvent;
 import engine.util.FXProcessing;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -37,12 +40,14 @@ public class EntityManager {
     private Vector startPosBatch = new Vector(0, 0);
     private ObjectFactory BGObjectFactory;
     private ObjectFactory defaultObjectFactory;
+    private ObservableMap<String, Vector> levelSize;
 
 
     public EntityManager(Entity root, int gridSize) {
         this.root = root;
         this.levels = new HashMap<>();
         this.grid = gridSize;
+        this.levelSize = FXCollections.observableMap(new HashMap<>());
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
@@ -251,9 +256,14 @@ public class EntityManager {
      * @param mapHeight
      */
     public void addLevel(String name, int mapWidth, int mapHeight) {
+        if (levels.containsKey(name)) {
+            new ErrorDisplay("Level Name", "Level name already exists").displayError();
+            return;
+        }
         Entity level = new Entity(root);
         //somehow fucking add the name to level properties
         levels.put(name, level);
+        levelSize.put(name, new Vector(mapWidth, mapHeight));
         Canvas canvas = new Canvas(mapWidth, mapHeight);
         StackPane stack = new StackPane();
         stack.getChildren().add(canvas);
@@ -340,4 +350,17 @@ public class EntityManager {
         return root;
     }
 
+    public void addMapListener(MapChangeListener<String, Vector> listener) {
+        levelSize.addListener(listener);
+    }
+
+    public void changeCurrentLevelName(String name) {
+        Entity cLevel = currentLevel;
+        levels.keySet().forEach(e -> {
+            if (levels.get(e).equals(cLevel)) {
+                levels.remove(e);
+                levels.put(name, cLevel);
+            }
+        });
+    }
 }
