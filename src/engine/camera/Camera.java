@@ -67,6 +67,7 @@ public class Camera {
         miniMap.getGraphicsContext2D().fillRect(0, 0, size.x, size.y);
         point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
 
+
         NumberBinding xPoint = view.hvalueProperty().multiply(size.at(0));
         NumberBinding yPoint = view.vvalueProperty().multiply(size.at(1));
         point.centerXProperty().bind(xPoint);
@@ -101,12 +102,12 @@ public class Camera {
     private void vScroll(double num) {
         view.setVmin(0);
         view.setVmax(1);
-        view.setVvalue(num);
+        view.setVvalue(0);
     }
 
     private void hScroll(double num) {
         view.setHmax(1);
         view.setHmin(0);
-        view.setHvalue(num);
+        view.setHvalue(0);
     }
 }

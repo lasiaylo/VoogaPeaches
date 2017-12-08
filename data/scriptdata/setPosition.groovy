@@ -1,11 +1,12 @@
 import engine.collisions.HitBox
 import engine.entities.Entity
 import engine.events.Event
+import engine.events.EventType
 import engine.events.MoveEvent
 
 entity = (Entity) entity;
 
-entity.on("move", { Event event ->
+entity.on(EventType.MOVE.getType(), { Event event ->
     MoveEvent moveEvent = (MoveEvent) event
 
     entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx() ))

@@ -92,7 +92,7 @@ public class CameraPanel implements Panel {
 
 		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/15);
+		buttonRow.setSpacing(cameraWidth/20);
 
 		return buttonRow;
 	}
@@ -127,8 +127,8 @@ public class CameraPanel implements Panel {
     }
 
 	private void changeLayer() {
-		String option = myLayer.getValue();
-		switch (option) {
+		myOption = myLayer.getValue();
+		switch (myOption) {
 			case NEWL:
 				myManager.addLayer();
 				myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
@@ -142,7 +142,7 @@ public class CameraPanel implements Panel {
 				myManager.selectBGLayer();
 				break;
 			default:
-				int layer = Character.getNumericValue(option.charAt(option.length()-1));
+				int layer = Character.getNumericValue(myOption.charAt(myOption.length()-1));
 				myManager.selectLayer(layer);
 				break;
 		}

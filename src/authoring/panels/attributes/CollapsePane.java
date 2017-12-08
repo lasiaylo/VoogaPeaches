@@ -18,22 +18,22 @@ public class CollapsePane {
 	private final int LABEL_COL = 0;
 	private final int ATTRIBUTE_COL = 1;
 	private boolean collapse;
-	private TitledPane myCollapse;
 	private Pane myPane;
 	
-	public CollapsePane(Map<String,?> map, String title) throws GroovyInstantiationException {
-		this(map, title, false);
+	public CollapsePane(Map<String,?> map) throws GroovyInstantiationException {
+		this(map, false);
 	}
 	
-	public CollapsePane(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
-		myCollapse = new TitledPane(title, myPane);
-		myCollapse.setAnimated(false);
+	public CollapsePane(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
+		this.collapse = collapse;
 		addMap(map);
 	}
 	
 	private void addMap(Map<String, ?> map) throws GroovyInstantiationException {
-		if (collapse)
+		if (collapse){
 			formatCollapse(map);
+		}
+
 		else
 			formatGrid(map);
 	}
@@ -44,6 +44,7 @@ public class CollapsePane {
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);
 			TitledPane title = new TitledPane(s, node);
+			title.setAnimated(false);
 			vBox.getChildren().add(title);
 		}
 		myPane = vBox;
@@ -65,11 +66,12 @@ public class CollapsePane {
 	}
 	
 	private Node addAttribute(Map<String,?> map, String key) throws GroovyInstantiationException {
-		Field field = FieldFactory.makeField(map, key);
+		Map<String, Object> input = (Map<String, Object>) map;
+		Field field = FieldFactory.makeFieldMap(input, key);
 		return field.getControl();
 	}
 
 	public Node getNode() {
-		return myCollapse;
+		return myPane;
 	}
 }

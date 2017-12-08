@@ -1,3 +1,4 @@
+import database.firebase.TrackableObject;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
@@ -23,19 +24,16 @@ public class EntityScriptTest extends Application {
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
-        Circle circle = new Circle(20);
-        entityFromFile.getNodes().getChildren().add(circle);
+        //Entity e = (Entity) TrackableObject.objectForUID("2ca91312fdb14d03865fa4e59d8ee69a");
+        //System.out.println(e.getProperty("hell yeah"));
+
 
         Scene s = new Scene(entityFromFile.getNodes());
         primaryStage.setScene(s);
         primaryStage.show();
 
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-            tickEvent.fire(entityFromFile);
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+
     }
     
     public static void main(String[] args) {
