@@ -7,13 +7,12 @@ public class KeyPressEvent extends Event {
     private boolean isGaming = true;
 
     public KeyPressEvent(KeyCode code) {
-        super("key press");
+        super(EventType.KEY_PRESS.getType());
         myKeyCode = code;
     }
 
     public KeyPressEvent(KeyCode code, boolean gaming) {
-        super("key press");
-        myKeyCode = code;
+        this(code);
         isGaming = gaming;
     }
 

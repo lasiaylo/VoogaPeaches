@@ -63,6 +63,7 @@ public class Menu {
     }
 
     private void updateTheme() {
+        myRoot.getStylesheets().add("dark.css"); //update from database
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {

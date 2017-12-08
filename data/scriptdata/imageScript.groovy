@@ -1,37 +1,36 @@
 package scriptdata
 
+import database.filehelpers.FileDataFolders
+import database.filehelpers.FileDataManager
 import engine.entities.Entity
 import engine.events.ClickEvent
 import engine.events.Event
+import engine.events.EventType
 import engine.events.ImageViewEvent
 import engine.events.InitialImageEvent
-import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
-import engine.events.MousePressEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
-import engine.fsm.Transition
 import engine.util.FXProcessing
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
-import javafx.scene.input.KeyCode
-import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import util.math.num.Vector
 
+
 entity = (Entity) entity
 
-pointer = new ImageView(new Image((String) entity.getProperty("image path")))
+datamanager = new FileDataManager(FileDataFolders.IMAGES)
+pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
 entity.add(pointer)
 
-
-entity.on("Image View Event", { Event event ->
+entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
     ImageViewEvent imgEvent = (ImageViewEvent) event
     pointer.setImage(imgEvent.getImage())
 })
 
-entity.on("Initial Imageview Setup", { Event event ->
+entity.on(EventType.INITIAL_IMAGE.getType(), { Event event ->
     InitialImageEvent iEvent = (InitialImageEvent) event
     pointer.setFitWidth(iEvent.getMyGridSize())
     pointer.setFitHeight(iEvent.getMyGridSize())
@@ -39,23 +38,24 @@ entity.on("Initial Imageview Setup", { Event event ->
     pointer.setY(FXProcessing.getYImageCoord(iEvent.getMyPos().at(1), pointer))
 })
 
-entity.on("Transparent Mouse Event", { Event event ->
+entity.on(EventType.TRANSPARENT_MOUSE.getType(), { Event event ->
     TransparentMouseEvent tEvent = (TransparentMouseEvent) event
     pointer.setMouseTransparent(tEvent.getBool())
 })
 
-entity.on("View Visibility Event", { Event event ->
+entity.on(EventType.VIEWVIS.getType(), { Event event ->
     ViewVisEvent visEvent = (ViewVisEvent) event
     pointer.setVisible(visEvent.getBool())
 })
 
-entity.on("Authoring Click", { Event event ->
+entity.on(EventType.CLICK.getType(), { Event event ->
     ClickEvent cEvent = (ClickEvent) event
     pointer.setOnMouseClicked( { MouseEvent e ->
-        if (cEvent.getIsGaming() == false) {
+        if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
             if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
                 //might need try catch here
+                System.out.println(cEvent.getMyBGType());
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }
@@ -64,51 +64,39 @@ entity.on("Authoring Click", { Event event ->
     })
 })
 
-entity.on("Authoring Key Pressed", { Event event ->
-    KeyPressEvent kEvent = (KeyPressEvent) event
-    pointer.setOnKeyPressed( { KeyEvent e ->
-        if (kEvent.getIsGaming() == false && e.getCode().equals(kEvent.getKeyCode())) {
-            entity.getParent().remove(entity)
-        }
-        e.consume()
-    })
-})
 
-entity.on("Authoring Mouse Pressed", { Event event ->
-    MousePressEvent pEvent = (MousePressEvent) event
-    pointer.setOnMousePressed( { MouseEvent e ->
-        if (pEvent.getIsGaming() == false && pEvent.getMyMode()[0] > 0) {
-            pEvent.setMyStartPos(e.getX(), e.getY())
-            pEvent.setMyStartSize(pointer.getFitWidth(), pointer.getFitHeight())
-        }
-        e.consume()
-    })
-})
-
-entity.on("Authoring Mouse Dragged", { Event event ->
+entity.on(EventType.MOUSE_DRAG.getType(), { Event event ->
     MouseDragEvent dEvent = (MouseDragEvent) event
-    pointer.setOnMouseDragged({ MouseEvent e ->
-        if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
+    if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
+        pointer.setOnMousePressed({ MouseEvent e ->
+            if (e.getButton().equals(MouseButton.SECONDARY)) {
+                dEvent.setMyStartPos(e.getX(), e.getY())
+                dEvent.setMyStartSize(pointer.getFitWidth(), pointer.getFitHeight())
+            }
+            e.consume()
+        })
+        pointer.setOnMouseDragged({ MouseEvent e ->
             if (e.getButton().equals(MouseButton.PRIMARY)) {
                 move(e)
             } else if (e.getButton().equals(MouseButton.SECONDARY)) {
                 zoom(dEvent, e)
             }
-        }
-        e.consume()
-    })
+            e.consume()
+        })
+    }
 })
 
 
 void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent) {
-    def change = new Vector(mouseEvent.getX(), mouseEvent.getY()).subtract(dEvent.getMyStartPos())
-    if (mouseEvent.getX() < dEvent.getMyStartPos().at(0)) {
-        change.at(0, 0.0)
-    }
-    if (mouseEvent.getY() < dEvent.getMyStartPos().at(1)) {
-        change.at(1, 0.0)
-    }
+    def change = (new Vector(mouseEvent.getX(), mouseEvent.getY())).subtract(dEvent.getMyStartPos())
     def fsize = change.add(dEvent.getMyStartSize())
+    if (fsize.at(0) < 0) {
+        fsize.at(0, 0.1)
+    }
+    if (fsize.at(1) < 0) {
+        fsize.at(1, 0.1)
+    }
+    System.out.println(fsize)
     pointer.setFitWidth(fsize.at(0))
     pointer.setFitHeight(fsize.at(1))
 }
@@ -122,9 +110,7 @@ void move(MouseEvent mouseEvent) {
     }
     if (mouseEvent.getY() < pointer.getFitHeight() / 2) {
         yPos = pointer.getFitHeight() / 2
-
-        pointer.setX(FXProcessing.getXImageCoord(xPos, pointer))
-        pointer.setY(FXProcessing.getYImageCoord(yPos, pointer))
-        //need to change the location properties, too lazy to do it
     }
+    pointer.setX(FXProcessing.getXImageCoord(xPos, pointer))
+    pointer.setY(FXProcessing.getYImageCoord(yPos, pointer))
 }

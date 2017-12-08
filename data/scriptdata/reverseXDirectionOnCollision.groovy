@@ -4,11 +4,11 @@ import engine.collisions.HitBox
 import engine.entities.Entity
 import engine.events.CollisionEvent
 import engine.events.Event
+import engine.events.EventType
 
-String fat = "collision"
 entity = (Entity) entity
 
-entity.on("collision", { Event event ->
+entity.on(EventType.COLLISION.getType(), { Event event ->
     CollisionEvent cEvent = (CollisionEvent) event
     HitBox otherHitBox = cEvent.getCollidedHitBox()
     Entity collidedWith = cEvent.getCollidedWith()

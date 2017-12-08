@@ -36,7 +36,7 @@ public class TestEngine implements DataReactor<Post> {
             db.addToDatabase(newPost);
             db.addToDatabase(secondPost);
 
-            manager.writeJSONFile("postOne", JSONHelper.JSONForObject(posts));
+            //manager.writeJSONFile("postOne", JSONHelper.JSONForObject(posts));
 
             // Have to force a sleep to wait for data to finish sending, but
             // with actual project this shouldn't be a problem
