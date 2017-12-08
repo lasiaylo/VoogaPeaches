@@ -15,6 +15,7 @@ public class ParameterButton {
     private final String STRING = "String";
     private final String DOUBLE = "Double";
     private final String BOOLEAN = "Boolean";
+    private final String ADD = "Add";
     private AttributesPanel myPanel;
     private Map<String, Object> myMap;
     private HBox hbox;
@@ -50,7 +51,7 @@ public class ParameterButton {
     }
 
     private Button makeButton() {
-        Button button = new Button("Add");
+        Button button = new Button(ADD);
         button.setOnAction(e -> add());
         return button;
     }

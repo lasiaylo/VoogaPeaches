@@ -86,7 +86,10 @@ public class AttributesPanel implements Panel {
 	private void makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 		Node parameters = addMap(myScripts, true);
-		addPane(parameters);
+		Node button = new ScriptButton(myScripts, this).getNode();
+		scriptBox.getChildren().add(parameters);
+		scriptBox.getChildren().add(button);
+		addPane(scriptBox);
 	}
 
 	private void addPane(Node pane) {
