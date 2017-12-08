@@ -55,7 +55,6 @@ entity.on(EventType.CLICK.getType(), { Event event ->
             pointer.requestFocus()
             if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
                 //might need try catch here
-                System.out.println(cEvent.getMyBGType());
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }

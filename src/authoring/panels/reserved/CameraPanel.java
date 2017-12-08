@@ -35,14 +35,12 @@ public class CameraPanel implements Panel {
 	private Button myPlay;
 	private Button myPause;
 	private Button myClear;
+	private Button myDelete;
 	private VBox myArea;
 	private PubSub pubSub;
 	private EntityManager myManager;
 	private TextField myText;
 	private ComboBox<String> myLayer;
-	private RadioButton myWhole;
-	private RadioButton myLocal;
-	private ToggleGroup myGroup;
 
 	private double cameraWidth;
 	private double cameraHeight;
@@ -86,12 +84,13 @@ public class CameraPanel implements Panel {
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
 		myClear = new Button(CLEAR);
+		myDelete = new Button("delete");
 
 		setupButton();
 
-		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear);
+		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/20);
+		buttonRow.setSpacing(cameraWidth/30);
 
 		return buttonRow;
 	}
@@ -114,6 +113,11 @@ public class CameraPanel implements Panel {
 		myPause.setOnMouseClicked(e -> myController.pause());
 
 		myClear.setOnMouseClicked(e -> myManager.clearOnLayer());
+		myDelete.setOnMouseClicked(e -> {
+		    myManager.deleteLayer();
+		    myLayer.getItems().remove(myLayer.getValue());
+		    myLayer.getSelectionModel().clearAndSelect(1);
+        });
 
 	}
 
