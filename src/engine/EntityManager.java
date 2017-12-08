@@ -3,6 +3,7 @@ package engine;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.events.*;
 import engine.events.MouseDragEvent;
@@ -95,8 +96,7 @@ public class EntityManager {
      * @param uid
      */
     public void addNonBG(Vector pos, String uid) {
-        //todo get the objectfactory to return entity from uid
-        Entity entity = new Entity();
+        Entity entity = (Entity) TrackableObject.objectForUID(uid);
         Image image = new Image(manager.readFileData((String) entity.getProperty("image path")));
         addNonBGPrivate(pos, image, entity);
     }
