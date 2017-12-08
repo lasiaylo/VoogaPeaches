@@ -1,5 +1,6 @@
 package authoring.panels.attributes;
 
+import authoring.panels.tabbable.AttributesPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -10,17 +11,29 @@ import javafx.scene.layout.HBox;
 
 import java.util.Map;
 
-
 public class ParameterButton {
-    private final String CLASS = "java.lang.";
+    private final String STRING = "String";
+    private final String DOUBLE = "Double";
+    private final String BOOLEAN = "Boolean";
+    private AttributesPanel myPanel;
     private Map<String, Object> myMap;
     private HBox hbox;
     private TextField text;
     private ComboBox comboBox;
+    private Button button;
 
-    public ParameterButton(Map<String, Object> map) {
+    public ParameterButton(Map<String, Object> map, AttributesPanel panel) {
         myMap = map;
+        hbox = new HBox();
+        myPanel = panel;
         makeVisual();
+        addtoBox();
+    }
+
+    private void addtoBox() {
+        hbox.getChildren().add(text);
+        hbox.getChildren().add(comboBox);
+        hbox.getChildren().add(button);
     }
 
     public void makeVisual() {
@@ -32,7 +45,8 @@ public class ParameterButton {
                         "Boolean"
                 );
         comboBox = new ComboBox(options);
-        Button button = makeButton();
+        button = makeButton();
+
     }
 
     private Button makeButton() {
@@ -45,11 +59,24 @@ public class ParameterButton {
         try {
             String string = text.getText();
             String type = comboBox.getSelectionModel().getSelectedItem().toString();
-            Class clazz = Class.forName(CLASS + type);
-            myMap.put(string, clazz.newInstance());
-        } catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
-            e.printStackTrace();
+            Object obj = determineType(type);
+            myMap.put(string, obj);
+            myPanel.updateView();
+        }catch(Exception e){}
+    }
+
+    private Object determineType(String type){
+        if (type == STRING){
+            String string = "";
+            return string;
         }
+        if (type == DOUBLE){
+            return Double.parseDouble("0");
+        }
+        if (type == BOOLEAN){
+            return Boolean.parseBoolean("false");
+        }
+        return null;
     }
 
     public Node getNode(){

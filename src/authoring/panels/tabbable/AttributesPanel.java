@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 import authoring.Panel;
 import authoring.panels.attributes.CollapsePane;
+import authoring.panels.attributes.ParameterButton;
 import engine.entities.Entity;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import util.ErrorDisplay;
 import util.exceptions.GroovyInstantiationException;
 import util.pubsub.PubSub;
@@ -22,6 +24,7 @@ public class AttributesPanel implements Panel {
 	private static final String SCRIPTS = "Scripts";
 	private static final String PARAMETERS = "Parameters";
 	private final String TITLE = "Properties";
+	private Entity myEntity;
 	private VBox myVBox;
 	private Map<String, Object> myParameters;
 	private Map<String, List<String>> myScripts;
@@ -53,41 +56,52 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException 
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
+		myEntity = entity;
 		myVBox = new VBox();
 		myParameters = entity.getProperties();
 		myScripts = (Map<String, List<String>>) entity.getProperty("scripts");
 		myParameters.remove("scripts");
 		updateView();
-		
 	}
 
 	/**Updates the view of the AttributesPanel
 	 * @throws GroovyInstantiationException
 	 */
-	private void updateView() throws GroovyInstantiationException {
+	public void updateView() throws GroovyInstantiationException {
+		myVBox.getChildren().clear();
 		makeParameters();
-
-
-		Node scripts = addMap(myScripts,true);
+		makeScripts();
 //		addButton();
 	}
 
 	private void makeParameters() throws GroovyInstantiationException {
 		VBox parameterBox = new VBox();
-
 		Node parameters = addMap(myParameters,false);
-		TitledPane pane = new TitledPane(PARAMETERS, parameters);
-
+		Node button = new ParameterButton(myParameters, this).getNode();
+		parameterBox.getChildren().add(parameters);
+		parameterBox.getChildren().add(button);
+		addPane(parameterBox);
 	}
 
+	private void makeScripts() throws GroovyInstantiationException {
+		VBox scriptBox = new VBox();
+		Node parameters = addMap(myScripts, true);
+		addPane(parameters);
+	}
+
+	private void addPane(Node pane) {
+		TitledPane tPane = new TitledPane(PARAMETERS, pane);
+		tPane.setAnimated(false);
+		myVBox.getChildren().add(tPane);
+	}
 
 	/**Adds a collapse section that displays the map
 	 * @param map
-	 * @param title
 	 * @param collapse
 	 * @throws GroovyInstantiationException
 	 */
 	private Node addMap(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
+		System.out.println(map.toString());
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
