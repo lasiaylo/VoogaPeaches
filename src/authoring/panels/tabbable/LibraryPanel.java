@@ -1,6 +1,7 @@
 package authoring.panels.tabbable;
 
 
+import authoring.PanelController;
 import authoring.Panel;
 import authoring.PanelController;
 import database.ObjectFactory;
