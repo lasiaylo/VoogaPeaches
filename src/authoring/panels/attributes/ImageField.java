@@ -1,5 +1,7 @@
 package authoring.panels.attributes;
 
+import database.filehelpers.FileDataFolders;
+import database.filehelpers.FileDataManager;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -18,14 +20,16 @@ public class ImageField extends Field {
 
     @Override
     protected void makeControl() {
-       Image image = new Image((String) getValue());
-       view = new ImageView(image);
-       setControl(view);
+        String file = (String) getValue();
+        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
+        Image image = new Image(manager.readFileData(file));
+        view = new ImageView(image);
+        setControl(view);
     }
 
     @Override
     protected void setControlAction() {
-        view.setOnMouseClicked(e->chooseFile());
+        view.setOnMouseClicked(e -> chooseFile());
     }
 
     private void chooseFile() {
