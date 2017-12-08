@@ -1,6 +1,6 @@
 package scriptdata
 
-import database.scripthelpers.ScriptLoader
+import database.fileloaders.ScriptLoader
 import engine.entities.Entity
 import engine.events.Event
 import engine.events.EventType
