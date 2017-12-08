@@ -17,6 +17,7 @@ import util.pubsub.messages.ThemeMessage;
 /**
  * camera panel inside authoring environment that displays the game
  * @author estellehe
+ * @author Kelly Zhang
  *
  */
 public class CameraPanel implements Panel {
@@ -57,29 +58,13 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
-		myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
 		myArea = new VBox(myView, buttonRow());
-		myArea.getStyleClass().add("panel");
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
-		myArea.setPadding(new Insets(5));
-		myArea.getStylesheets().add(CurrentUser.currentUser.getThemeName());
-
-		pubSub = PubSub.getInstance();
-		pubSub.subscribe(
-				"THEME_MESSAGE",
-				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
-	}
-
-
-	private void updateStyles(Region region, String css) {
-		if (region.getStylesheets().size() >= 1) {
-			region.getStylesheets().remove(0);
-		}
-		region.getStylesheets().add(css);
+		myArea.getStyleClass().add("panel");
 	}
 
 	private HBox buttonRow() {
@@ -87,7 +72,6 @@ public class CameraPanel implements Panel {
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
-		myText.getStyleClass().add("textField");
 		myClear = new Button(CLEAR);
 
 		setupButton();
@@ -108,10 +92,10 @@ public class CameraPanel implements Panel {
 
 
 	private void setupButton() {
+		myLayer.getStyleClass().add("choice-box");
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
-		myLayer.getStyleClass().add("choice-box");
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());

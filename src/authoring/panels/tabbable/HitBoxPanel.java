@@ -32,7 +32,6 @@ public class HitBoxPanel implements Panel {
 
     public HitBoxPanel() {
         createEntityView();
-
         region.getChildren().add(hitboxNameField);
         PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
             EntityPass entityPass = (EntityPass) e;

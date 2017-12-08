@@ -123,7 +123,7 @@ public class Menu {
         double buttonYOffset = HEIGHT*2/3;
 
         for (int i = 0; i < numButtons; i++) {
-            setMenuButtonLayout(buttons.get(i), buttonXOffset*(i+1) - buttons.get(i).getWidth()/2, buttonYOffset);
+            setMenuButtonLayout(buttons.get(i), buttonXOffset*(i+1) - buttons.get(i).getBoundsInLocal().getWidth()/2, buttonYOffset);
         }
     }
 
@@ -133,9 +133,8 @@ public class Menu {
     }
 
     private Button createMenuButton(String imageName, String buttonText) {
-        File buttonImage = new File(imageName);
         Button myButton = new Button();
-        myButton.setGraphic(new ImageView(buttonImage.toURI().toString()));
+        myButton.setGraphic(createImageView(imageName));
 
         myButton.setTooltip(new Tooltip(buttonText));
         myButton.setAccessibleText(buttonText);
@@ -144,13 +143,18 @@ public class Menu {
     }
 
     private void addTitle() {
-        File myImage = new File("resources/menuImages/VoogaLight.PNG");
-        ImageView title = new ImageView(myImage.toURI().toString());
+        ImageView title = createImageView("resources/menuImages/VoogaTransparent.png");
         title.setScaleX(0.75);
         title.setScaleY(0.75);
         title.setLayoutX(WIDTH / 2 - title.getBoundsInLocal().getWidth() / 2);
         title.setLayoutY(HEIGHT * 1 / 3 - title.getBoundsInLocal().getHeight() / 2);
         myRoot.getChildren().add(title);
+    }
+
+    private ImageView createImageView(String picLocation) {
+        File myFile = new File(picLocation);
+        ImageView myImageView = new ImageView(myFile.toURI().toString());
+        return myImageView;
     }
 
     public Stage getStage() {

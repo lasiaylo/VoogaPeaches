@@ -13,8 +13,10 @@ public class VoogaPeaches extends Application {
 
     @Override
 	public void start(Stage stage) {
-        Login myLogin = new Login(stage);
-        myLogin.getStage().show();
+//        Login myLogin = new Login(stage);
+//        myLogin.getStage().show();
+        Screen kitty = new Screen(stage);
+
     }
 
     @Override
