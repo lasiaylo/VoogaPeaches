@@ -1,5 +1,6 @@
 package authoring;
 
+import database.CurrentUser;
 import database.User;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
@@ -84,13 +85,10 @@ public class Login {
             JSONObject blueprint = manager.readJSONFile(userTextField.getText());
             JSONToObjectConverter<User> converter = new JSONToObjectConverter<>(User.class);
             User user = converter.createObjectFromJSON(User.class,blueprint);
-            PubSub.getInstance().publish("WORKSPACE_CHANGE", new WorkspaceChange(user.getWorkspaceName()));
-            PubSub.getInstance().publish("THEME_MESSAGE", new ThemeMessage(user.getThemeName()));
+            CurrentUser.currentUser = user;
 //        #TODO Update the workspace properties files with the given information from user.
         } catch (Exception error) {
             error.printStackTrace();
-//
-//
 //            THROW AN ERROR
             System.out.println("wrong username, but you can keep playing I guess");
         }

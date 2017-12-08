@@ -47,6 +47,8 @@ public class User extends TrackableObject {
 
     public String getThemeName() { return themeName; }
 
+    public Map<String, Map<String, String>> getProperties() { return properties; }
+
     private void createProperties() {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));
         File[] listOfFiles = folder.listFiles();
