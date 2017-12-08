@@ -18,6 +18,7 @@ public class UserTest {
         User newUser = new User(userName);
         String theme = "dark.css";
         newUser.setTheme(theme);
+        newUser.setWorkspace("LeftCameraWorkspace");
 //        Make User JSON File
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
         manager.writeJSONFile(userName, JSONHelper.JSONForObject(newUser));
