@@ -101,7 +101,6 @@ public class Menu {
             authoringStage.setMaximized(true);
             authoringStage.setResizable(false);
             authoring = new Screen(authoringStage);
-            System.out.println("hi");
         }
         return null;
     }
