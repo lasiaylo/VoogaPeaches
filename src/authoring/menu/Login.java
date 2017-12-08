@@ -1,4 +1,4 @@
-package authoring;
+package authoring.menu;
 
 import database.User;
 import database.firebase.DatabaseConnector;

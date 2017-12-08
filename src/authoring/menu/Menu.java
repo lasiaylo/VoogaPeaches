@@ -1,7 +1,6 @@
-package authoring;
+package authoring.menu;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import authoring.Screen;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -12,7 +11,6 @@ import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,11 +82,7 @@ public class Menu {
     private void ifPressed() { //http://www.java2s.com/Code/Java/JavaFX/AddClickactionlistenertoButton.htm
         for (int i = 0; i < buttons.size(); i ++) {
             Button button = buttons.get(i);
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                    onPressed(button);
-                }
-            });
+            button.setOnAction(e -> onPressed(button));
 
         }
     }
@@ -111,7 +105,7 @@ public class Menu {
         Button playerButton = createMenuButton(PLAYERPIC, PLAYER);
         Button settingsButton = createMenuButton(SETTINGSPIC, SETTINGS);
 
-        buttons = new ArrayList<Button>(Arrays.asList(authoringButton, playerButton, settingsButton));
+        buttons = new ArrayList<>(Arrays.asList(authoringButton, playerButton, settingsButton));
         myRoot.getChildren().addAll(buttons);
         ifPressed();
     }
