@@ -5,6 +5,7 @@ import java.util.Map;
 import authoring.Panel;
 import authoring.panels.attributes.CollapsePane;
 import authoring.panels.attributes.ParameterButton;
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
@@ -50,7 +51,11 @@ public class AttributesPanel implements Panel {
 	public String title() {
 		return TITLE;
 	}
-	
+
+	public void updateProperties(String UID) throws GroovyInstantiationException {
+		Entity entity = (Entity) TrackableObject.objectForUID(UID);
+		updateProperties(entity);
+	}
 	/**Takes in an entity and displays its properties
 	 * @param entity
 	 * @throws GroovyInstantiationException 
@@ -80,7 +85,7 @@ public class AttributesPanel implements Panel {
 		Node button = new ParameterButton(myParameters, this).getNode();
 		parameterBox.getChildren().add(parameters);
 		parameterBox.getChildren().add(button);
-		addPane(parameterBox);
+		addPane(PARAMETERS, parameterBox);
 	}
 
 	private void makeScripts() throws GroovyInstantiationException {
@@ -89,11 +94,11 @@ public class AttributesPanel implements Panel {
 		Node button = new ScriptButton(myScripts, this).getNode();
 		scriptBox.getChildren().add(parameters);
 		scriptBox.getChildren().add(button);
-		addPane(scriptBox);
+		addPane(SCRIPTS, scriptBox);
 	}
 
-	private void addPane(Node pane) {
-		TitledPane tPane = new TitledPane(PARAMETERS, pane);
+	private void addPane(String title, Node pane) {
+		TitledPane tPane = new TitledPane(title, pane);
 		tPane.setAnimated(false);
 		myVBox.getChildren().add(tPane);
 	}
