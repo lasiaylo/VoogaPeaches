@@ -124,6 +124,7 @@ public class Entity extends Evented {
     }
 
     private void executeScripts() {
+        clear();
         Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.getOrDefault("scripts", new HashMap<String, List<String>>());
         for (String script : listenActionPair.keySet() ) {
             String code = ScriptLoader.stringForFile(script);
@@ -136,10 +137,12 @@ public class Entity extends Evented {
     }
 
     private void setEventListeners() {
-        group.setOnMouseClicked(e -> {
-            new ClickEvent().fire(this);
-            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(this));
-        });
+//
+//        group.setOnMouseClicked(e -> {
+//            new ClickEvent().fire(this);
+//            System.out.println("set event listeners");
+//            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(this));
+//        });
 
     }
 

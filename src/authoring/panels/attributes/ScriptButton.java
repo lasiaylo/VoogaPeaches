@@ -1,5 +1,6 @@
-package authoring.panels.tabbable;
+package authoring.panels.attributes;
 
+import authoring.panels.tabbable.PropertiesPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -17,11 +18,11 @@ import java.util.Map;
 public class ScriptButton {
     private final String ADD = "Add";
     private Map<String, List<String>> myMap;
-    private AttributesPanel myPanel;
+    private PropertiesPanel myPanel;
     private ComboBox comboBox;
     private HBox hbox;
 
-    public ScriptButton(Map<String, List<String>> map, AttributesPanel panel){
+    public ScriptButton(Map<String, List<String>> map, PropertiesPanel panel){
         myMap = map;
         myPanel = panel;
         hbox = new HBox();

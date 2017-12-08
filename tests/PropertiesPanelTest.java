@@ -4,7 +4,7 @@ import javafx.util.Duration;
 import org.json.JSONObject;
 
 import authoring.panels.attributes.Attribute;
-import authoring.panels.tabbable.AttributesPanel;
+import authoring.panels.tabbable.PropertiesPanel;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
@@ -14,12 +14,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class PropertiesPanelTest extends Application{
-	private AttributesPanel panel;
+	private PropertiesPanel panel;
 	private Entity testEntity;
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		panel = new AttributesPanel();
+		panel = new PropertiesPanel();
 		panel.updateProperties((testEntity = createEntity()));
 		
 		setupStage();

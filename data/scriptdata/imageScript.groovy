@@ -19,6 +19,8 @@ import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import util.math.num.Vector
+import util.pubsub.PubSub
+import util.pubsub.messages.EntityPass
 
 
 entity = (Entity) entity
@@ -60,6 +62,7 @@ entity.on(EventType.CLICK.getType(), { Event event ->
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }
+            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
         }
         e.consume()
     })
