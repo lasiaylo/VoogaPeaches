@@ -1,6 +1,5 @@
 package authoring.panels.attributes;
 
-import authoring.panels.tabbable.AttributesPanel;
 import authoring.panels.tabbable.PropertiesPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +16,7 @@ public class ParameterButton {
     private final String DOUBLE = "Double";
     private final String BOOLEAN = "Boolean";
     private final String ADD = "Add";
-    private AttributesPanel myPanel;
+    private PropertiesPanel myPanel;
     private Map<String, Object> myMap;
     private HBox hbox;
     private TextField text;
