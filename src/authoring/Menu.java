@@ -1,12 +1,11 @@
 package authoring;
 
+import database.CurrentUser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -63,7 +62,7 @@ public class Menu {
     }
 
     private void updateTheme() {
-        myRoot.getStylesheets().add("dark.css"); //update from database
+        myRoot.getStylesheets().add(CurrentUser.currentUser.getWorkspaceName()); //update from database
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {

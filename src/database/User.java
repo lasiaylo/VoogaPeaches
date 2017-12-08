@@ -31,6 +31,7 @@ public class User extends TrackableObject {
         userName = name;
         themeName = PropertiesReader.value("defaults","theme");
         workspaceName = PropertiesReader.value("defaults", "workspace");
+        games = new ArrayList<>();
         createProperties();
     }
 
