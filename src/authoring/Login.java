@@ -1,9 +1,10 @@
 package authoring;
 
-import database.CurrentUser;
 import database.User;
+import database.firebase.DatabaseConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -11,10 +12,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.VoogaPeaches;
 import org.json.JSONObject;
+
+
 
 /**
  * Login splash screen. Should give information about the user if there is a valid user object corresponding
@@ -29,7 +34,6 @@ public class Login {
     private Scene myScene;
     private VBox myArea;
     private TextField userTextField;
-    private TextField passwordField;
 
     public Login(Stage stage) {
         myStage = stage;
@@ -38,52 +42,61 @@ public class Login {
 
         myStage.setScene(myScene);
         myStage.setResizable(false);
-        myStage.setTitle("VoogaPeaches: Login");
+        myStage.setTitle("main.VoogaPeaches: Login");
 
         updateTheme();
     }
 
     private VBox createVBoxLayout() {
         VBox vbox = new VBox();
-
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(5));
         vbox.setAlignment(Pos.CENTER_LEFT);
-
         Text userLabel = new Text("User Name");
         userTextField = new TextField();
-        Text passLabel = new Text("Password");
-        passwordField = new TextField();
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+
         Button loginButton = new Button("Login");
-        loginButton.setOnAction(e -> loginPressed(e));
+        loginButton.setOnAction(e -> loginPressed());
+        grid.add(loginButton, 0,0);
 
-        vbox.getChildren().addAll(userLabel, userTextField, passLabel, passwordField, loginButton);
+        Button signupButton = new Button("Create Profile");
+        signupButton.setOnAction(e -> createAccount() );
+        grid.add(signupButton, 1, 0);
 
+        vbox.getChildren().addAll(userLabel, userTextField, grid);
         return vbox;
     }
+
+    private void createAccount(){
+        if(!userTextField.getText().trim().isEmpty()){
+            User newUser = new User(userTextField.getText().trim());
+            JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+            manager.writeJSONFile(userTextField.getText().trim(), JSONHelper.JSONForObject(newUser));
+            VoogaPeaches.changeUser(newUser);
+            Stage menuStage = new Stage();
+            Menu myMenu = new Menu(menuStage);
+        }
+    }
+
 
     /**
      * On the login, it reads the text that the user input. No password check currently. It tries to find a
      * JSON with the username, if it isn't there, it currently doesn't do anything, but if a JSON file exists,
      * it'll publish the current theme and workspace.
-     *
-     * @param e
      */
-    private void loginPressed(ActionEvent e) {
+    private void loginPressed() {
+        DatabaseConnector<User> connector = new DatabaseConnector<>(User.class);
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
-        try {
-            JSONObject blueprint = manager.readJSONFile(userTextField.getText());
+        JSONObject blueprint = manager.readJSONFile(userTextField.getText());
+        if (blueprint != null) {
             JSONToObjectConverter<User> converter = new JSONToObjectConverter<>(User.class);
-            User user = converter.createObjectFromJSON(User.class,blueprint);
-            CurrentUser.currentUser = user;
-//        #TODO Update the workspace properties files with the given information from user.
-        } catch (Exception error) {
-//            THROW AN ERROR
-            CurrentUser.currentUser = new User("Default");
-            System.out.println("wrong username, but you can keep playing I guess");
+            User user = converter.createObjectFromJSON(User.class, blueprint);
+            VoogaPeaches.changeUser(user);
+            Stage menuStage = new Stage();
+            Menu myMenu = new Menu(menuStage);
         }
-        Stage menuStage = new Stage();
-        Menu myMenu = new Menu(menuStage);
     }
 
     private void updateTheme() {

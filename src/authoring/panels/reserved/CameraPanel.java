@@ -2,7 +2,6 @@ package authoring.panels.reserved;
 
 import authoring.Panel;
 import authoring.PanelController;
-import database.CurrentUser;
 import engine.EntityManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -10,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
@@ -66,7 +66,7 @@ public class CameraPanel implements Panel {
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
-		myArea.getStylesheets().add(CurrentUser.currentUser.getThemeName());
+		myArea.getStylesheets().add(VoogaPeaches.getUser().getThemeName());
 
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
