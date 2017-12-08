@@ -35,7 +35,6 @@ public class FieldFactory {
 			return makeField(set, determineType(inputClass));
 		
 		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {
-			e.printStackTrace();
 			throw new GroovyInstantiationException();
 		}
 	}
