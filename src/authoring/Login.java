@@ -5,26 +5,16 @@ import database.User;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
-import engine.entities.Entity;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONObject;
-import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
-import util.pubsub.messages.WorkspaceChange;
-
-import java.io.File;
 
 /**
  * Login splash screen. Should give information about the user if there is a valid user object corresponding
@@ -90,8 +80,10 @@ public class Login {
         } catch (Exception error) {
             error.printStackTrace();
 //            THROW AN ERROR
+            CurrentUser.currentUser = new User("Default");
             System.out.println("wrong username, but you can keep playing I guess");
         }
+        System.out.println(CurrentUser.currentUser.getThemeName());
         Stage menuStage = new Stage();
         Menu myMenu = new Menu(menuStage);
     }
