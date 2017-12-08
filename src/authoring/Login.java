@@ -99,21 +99,7 @@ public class Login {
     }
 
     private void updateTheme() {
-        PubSub.getInstance().publish(
-                "THEME_MESSAGE",
-                new ThemeMessage("dark.css")
-                //TODO: get this from database
-        );
-        myArea.getStylesheets().add("dark.css"); //update from database
-        PubSub.getInstance().subscribe(
-                "THEME_MESSAGE",
-                (message) -> {
-                    if (myArea.getStylesheets().size() >= 1) {
-                        myArea.getStylesheets().remove(0);
-                    }
-                    myArea.getStylesheets().add(((ThemeMessage) message).readMessage());
-                }
-        );
+        myArea.getStylesheets().add("light.css"); //update from database
         myArea.getStyleClass().add("panel");
     }
 
