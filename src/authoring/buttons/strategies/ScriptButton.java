@@ -46,7 +46,7 @@ public class ScriptButton {
 
     private void add() {
         String type = comboBox.getSelectionModel().getSelectedItem().toString();
-        myMap.put(type, new ArrayList<String>());
+        myMap.put(type, new ArrayList<>());
         try {
             myPanel.updateView();
         } catch (GroovyInstantiationException e) {}

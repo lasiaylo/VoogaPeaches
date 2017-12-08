@@ -1,29 +1,20 @@
 package authoring;
 
+import database.CurrentUser;
 import database.User;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
-import engine.entities.Entity;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONObject;
-import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
-import util.pubsub.messages.WorkspaceChange;
-
-import java.io.File;
 
 /**
  * Login splash screen. Should give information about the user if there is a valid user object corresponding
@@ -38,13 +29,11 @@ public class Login {
     private Scene myScene;
     private VBox myArea;
     private TextField userTextField;
-//    private TextField passwordField;
+    private TextField passwordField;
 
     public Login(Stage stage) {
         myStage = stage;
         myArea = createVBoxLayout();
-        createLoginButtons();
-
         myScene = new Scene(myArea, 350,400);
 
         myStage.setScene(myScene);
@@ -63,22 +52,14 @@ public class Login {
 
         Text userLabel = new Text("User Name");
         userTextField = new TextField();
-//        Text passLabel = new Text("Password");
-//        passwordField = new TextField();
-
-        vbox.getChildren().addAll(userLabel, userTextField/*, passLabel, passwordField*/);
-
-        return vbox;
-    }
-
-    private void createLoginButtons() {
+        Text passLabel = new Text("Password");
+        passwordField = new TextField();
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e -> loginPressed(e));
-        Button newUserButton = new Button("New Account");
-        newUserButton.setScaleX(0.75);
-        newUserButton.setScaleY(0.75);
-        newUserButton.setOnAction(e -> newUserPressed(e));
-        myArea.getChildren().addAll(loginButton, newUserButton);
+
+        vbox.getChildren().addAll(userLabel, userTextField, passLabel, passwordField, loginButton);
+
+        return vbox;
     }
 
     /**
@@ -94,39 +75,15 @@ public class Login {
             JSONObject blueprint = manager.readJSONFile(userTextField.getText());
             JSONToObjectConverter<User> converter = new JSONToObjectConverter<>(User.class);
             User user = converter.createObjectFromJSON(User.class,blueprint);
-            PubSub.getInstance().publish("WORKSPACE_CHANGE", new WorkspaceChange(user.getWorkspaceName()));
-            PubSub.getInstance().publish("THEME_MESSAGE", new ThemeMessage(user.getThemeName()));
-            Stage menuStage = new Stage();
-            Menu myMenu = new Menu(menuStage, user);
+            CurrentUser.currentUser = user;
 //        #TODO Update the workspace properties files with the given information from user.
         } catch (Exception error) {
-            error.printStackTrace();
-//
-//
 //            THROW AN ERROR
-            System.out.println("no user exists or wrong password");
+            CurrentUser.currentUser = new User("Default");
+            System.out.println("wrong username, but you can keep playing I guess");
         }
-    }
-
-    private void newUserPressed(ActionEvent e) {
-        Stage newAccount = new Stage();
-        newAccount.setTitle("VoogaPeaches: New Account");
-        VBox newArea = createVBoxLayout();
-        Scene newScene = new Scene(newArea, 500, 300);
-
-        Button createButton = new Button("Go");
-        String newUsername = ((TextField) newArea.getChildren().get(1)).getText();
-        createButton.setOnAction(f -> createPressed(f, newUsername, newAccount));
-
-        newArea.getChildren().add(createButton);
-        newAccount.setScene(newScene);
-        newAccount.show();
-    }
-
-    private void createPressed(ActionEvent e, String username, Stage stage) {
-        //TODO: add the user to the userbase and check if it has already been created
-        User newUser = new User(username);
-        stage.close();
+        Stage menuStage = new Stage();
+        Menu myMenu = new Menu(menuStage);
     }
 
     private void updateTheme() {

@@ -1,13 +1,11 @@
 package authoring;
 
-import database.User;
+import database.CurrentUser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -46,11 +44,9 @@ public class Menu {
     private Scene myScene;
     private Pane myRoot;
     private Screen authoring;
-    private User myUser;
 
-    public Menu(Stage stage, User user) {
+    public Menu(Stage stage) {
         myStage = stage;
-        myUser = user;
         myRoot = new Pane();
 
         myScene = new Scene(myRoot, WIDTH, HEIGHT);
@@ -66,7 +62,7 @@ public class Menu {
     }
 
     private void updateTheme() {
-        myRoot.getStylesheets().add(myUser.getThemeName());
+        myRoot.getStylesheets().add(CurrentUser.currentUser.getWorkspaceName()); //update from database
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {
@@ -104,7 +100,7 @@ public class Menu {
             authoringStage.setTitle("VoogaPeaches: A Programmers for Peaches Production");
             authoringStage.setMaximized(true);
             authoringStage.setResizable(false);
-            authoring = new Screen(authoringStage, myUser);
+            authoring = new Screen(authoringStage);
         }
         return null;
     }
