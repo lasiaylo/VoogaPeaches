@@ -35,6 +35,8 @@ public abstract class Evented extends TrackableObject {
     }
 
     protected void clear() {
-        callbacks.clear();
+        if(callbacks != null) {
+            callbacks.clear();
+        }
     }
 }
