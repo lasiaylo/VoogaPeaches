@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import util.PropertiesReader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class User extends TrackableObject {
     @Expose private String themeName;
     @Expose private String workspaceName;
     @Expose private Map<String, Map<String, String>> properties;
+    @Expose private ArrayList<String> games;
 
     public User(String name) {
         userName = name;
@@ -48,6 +50,12 @@ public class User extends TrackableObject {
     public String getThemeName() { return themeName; }
 
     public Map<String, Map<String, String>> getProperties() { return properties; }
+
+    public ArrayList<String> getGames() { return games; }
+
+    public void setGames(ArrayList<String> games) { this.games = games; }
+
+    public void addGame(String game) { games.add(game); }
 
     private void createProperties() {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));

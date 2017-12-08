@@ -27,4 +27,5 @@ public class PubSubTest {
         pubSub.getInstance().publish("THEME_MESSAGE", new ThemeMessage(theme));
         assertEquals("Test Theme Message", theme, messages[0]);
     }
+
 }
