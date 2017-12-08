@@ -1,5 +1,6 @@
 package authoring.panels.tabbable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import authoring.Panel;
@@ -31,6 +32,7 @@ public class AttributesPanel implements Panel {
 	private Map<String, List<String>> myScripts;
 
 	public AttributesPanel() {
+		myVBox = new VBox();
 		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
 			EntityPass ePass = (EntityPass) e;
 			try {
@@ -40,6 +42,7 @@ public class AttributesPanel implements Panel {
 						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
 			}
 		});
+
 	}
 
 	@Override
@@ -62,10 +65,15 @@ public class AttributesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
-		myVBox = new VBox();
-		myParameters = entity.getProperties();
-		myScripts = (Map<String, List<String>>) entity.getProperty("scripts");
-		myParameters.remove("scripts");
+		//myVBox = new VBox();
+		myVBox.getChildren().clear();
+		//myParameters = entity.getProperties();
+		Map<String, Object> newParams = new HashMap<>();
+		for(String key : entity.getProperties().keySet()) {
+			newParams.put(key, entity.getProperties().get(key));
+		}
+		myScripts = (Map<String, List<String>>) newParams.remove("scripts");
+		myParameters = newParams;
 		updateView();
 	}
 
@@ -109,7 +117,7 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException
 	 */
 	private Node addMap(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
-//		System.out.println(map.toString());
+		System.out.println(map.toString() + "\n\n");
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
