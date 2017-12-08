@@ -1,13 +1,14 @@
 {
-  "UID": "9b338c81a11848029f2b58aea6b648b4",
-  "themeName": "dark.css",
-  "workspaceName": "LeftCameraWorkspace",
-  "userName": "user1",
+  "UID": "728ed74ec2024ef8bdfcf8bfd21413ad",
+  "themeName": "light.css",
+  "games": [],
+  "workspaceName": "MiddleCameraWorkspace",
+  "userName": "Bobby D",
   "properties": {
     "MiddleCameraWorkspace": {
       "Social Media": "right",
       "Mini Map": "right",
-      "rightdivision": "0.0",
+      "rightdivision": "0. 0",
       "Mini Mapvis": "false",
       "Properties": "right",
       "Propertiesvis": "false",

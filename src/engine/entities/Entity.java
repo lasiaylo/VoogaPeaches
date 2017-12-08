@@ -60,7 +60,8 @@ public class Entity extends Evented {
     public Entity getParent() {
         return parent;
     }
-    
+
+
     public Map<String, Object> getProperties(){
     	return properties;
     }
@@ -125,24 +126,10 @@ public class Entity extends Evented {
 
     private void executeScripts() {
         clear();
-        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.getOrDefault("scripts", new HashMap<String, List<String>>());
-        for (String script : listenActionPair.keySet() ) {
-            String code = ScriptLoader.stringForFile(script);
-            Binding binding = new Binding();
-            binding.setVariable("entity", this);
-            binding.setVariable("game", root);
-            binding.setVariable("actions", listenActionPair.get(script));
-            new GroovyShell(binding).evaluate(code);
-        }
+        EntityScriptFactory.executeScripts(this);
     }
 
     private void setEventListeners() {
-//
-//        group.setOnMouseClicked(e -> {
-//            new ClickEvent().fire(this);
-//            System.out.println("set event listeners");
-//            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(this));
-//        });
 
     }
 
@@ -155,9 +142,6 @@ public class Entity extends Evented {
             else
                 for (Entity entity : children)
                     entity.root = root;
-
-      //  for (Entity entity : children)
-        //    entity.addTo(this);
 
         setEventListeners();
         executeScripts();

@@ -7,10 +7,9 @@
       "imageScript.groovy": {
         "actions" : [],
         "bindings" : {
-          "image path" : "default_image.jpg"
+          "image path":"default_image.jpg"
         }
       }
-    },
-    "image path":"default_image.jpg"
+    }
   }
 }

@@ -26,7 +26,8 @@ import util.pubsub.messages.EntityPass
 entity = (Entity) entity
 
 datamanager = new FileDataManager(FileDataFolders.IMAGES)
-pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
+println image_path
+pointer = new ImageView(new Image(datamanager.readFileData((String) image_path)))
 entity.add(pointer)
 
 entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
