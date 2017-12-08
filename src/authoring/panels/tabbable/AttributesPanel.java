@@ -98,6 +98,7 @@ public class AttributesPanel implements Panel {
 		scriptBox.getChildren().add(parameters);
 		scriptBox.getChildren().add(button);
 		addPane(scriptBox);
+		myEntity.getProperties().put("scripts", myScripts);
 	}
 
 	private void addPane(Node pane) {
