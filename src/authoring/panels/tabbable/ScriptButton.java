@@ -12,6 +12,7 @@ import util.exceptions.GroovyInstantiationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ScriptButton {
     private final String ADD = "Add";
@@ -28,7 +29,7 @@ public class ScriptButton {
     }
 
     private void makeVisual() {
-        List<String> events= PropertiesReader.keySet("events");
+        Set<String> events= PropertiesReader.map("events").keySet();
         ObservableList<String> options = FXCollections.observableArrayList(events);
         comboBox = new ComboBox(options);
 
