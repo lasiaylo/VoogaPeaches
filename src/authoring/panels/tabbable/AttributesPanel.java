@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 import java.util.List;
 import java.util.Map;
 import authoring.Panel;
+import authoring.PanelController;
 import authoring.panels.attributes.CollapsePane;
 import authoring.panels.attributes.ParameterButton;
 import database.firebase.TrackableObject;
@@ -11,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import util.ErrorDisplay;
 import util.exceptions.GroovyInstantiationException;
 import util.pubsub.PubSub;
@@ -91,7 +91,7 @@ public class AttributesPanel implements Panel {
 	private void makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 		Node parameters = addMap(myScripts, true);
-		Node button = new ScriptButton(myScripts, this).getNode();
+		Node button = new PanelController.ScriptButton(myScripts, this).getNode();
 		scriptBox.getChildren().add(parameters);
 		scriptBox.getChildren().add(button);
 		addPane(SCRIPTS, scriptBox);
@@ -109,7 +109,7 @@ public class AttributesPanel implements Panel {
 	 * @throws GroovyInstantiationException
 	 */
 	private Node addMap(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
-		System.out.println(map.toString());
+//		System.out.println(map.toString());
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
