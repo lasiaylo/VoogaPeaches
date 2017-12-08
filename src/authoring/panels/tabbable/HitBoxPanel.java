@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HitBoxPanel implements Panel {
-    private static final String TITLE = "Create or Add Hitboxes!";
+    private static final String TITLE = "HitBoxes";
     private static final int MIN_HEIGHT = 500;
 
     private Pane entityView = new Pane();

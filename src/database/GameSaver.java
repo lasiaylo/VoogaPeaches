@@ -10,7 +10,9 @@ import util.PropertiesReader;
 import java.io.File;
 
 /**
- * A class that provides an API for saving manipulating a game file within the database 
+ * A class that provides an API for saving manipulating a game file within the database
+ *
+ * @author Walker Willetts
  */
 public class GameSaver {
 
