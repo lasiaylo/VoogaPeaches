@@ -60,6 +60,10 @@ public class Entity extends Evented {
     public Entity getParent() {
         return parent;
     }
+
+    public Entity getRoot() {
+        return root;
+    }
     
     public Map<String, Object> getProperties(){
     	return properties;
@@ -125,15 +129,7 @@ public class Entity extends Evented {
 
     private void executeScripts() {
         clear();
-        Map<String, List<String>> listenActionPair = (Map<String, List<String>>) properties.getOrDefault("scripts", new HashMap<String, List<String>>());
-        for (String script : listenActionPair.keySet() ) {
-            String code = ScriptLoader.stringForFile(script);
-            Binding binding = new Binding();
-            binding.setVariable("entity", this);
-            binding.setVariable("game", root);
-            binding.setVariable("actions", listenActionPair.get(script));
-            new GroovyShell(binding).evaluate(code);
-        }
+        EntityScriptFactory.executeScripts(this);
     }
 
     private void setEventListeners() {
