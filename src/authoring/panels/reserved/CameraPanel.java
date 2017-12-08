@@ -77,6 +77,7 @@ public class CameraPanel implements Panel {
 		if (region.getStylesheets().size() >= 1) {
 			region.getStylesheets().remove(0);
 		}
+		System.out.println(css);
 		region.getStylesheets().add(css);
 	}
 

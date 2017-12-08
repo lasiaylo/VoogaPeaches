@@ -60,11 +60,13 @@ public class Login {
         return vbox;
     }
 
-    public Stage getStage() {
-        return myStage;
-    }
-
     private void updateTheme() {
+        PubSub.getInstance().publish(
+                "THEME_MESSAGE",
+                new ThemeMessage("dark.css")
+                //TODO: get this from database
+        );
+        myArea.getStylesheets().add("dark.css"); //update from database
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {
@@ -75,6 +77,11 @@ public class Login {
                 }
         );
         myArea.getStyleClass().add("panel");
+    }
+
+
+    public Stage getStage() {
+        return myStage;
     }
 
 }

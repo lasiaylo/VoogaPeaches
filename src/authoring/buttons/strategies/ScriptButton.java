@@ -1,5 +1,6 @@
-package authoring.panels.tabbable;
+package authoring.buttons.strategies;
 
+import authoring.panels.tabbable.AttributesPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -28,7 +29,7 @@ public class ScriptButton {
     }
 
     private void makeVisual() {
-        List<String> events= PropertiesReader.keySet("events");
+        List<String> events= (List<String>) PropertiesReader.map("events").keySet();
         ObservableList<String> options = FXCollections.observableArrayList(events);
         comboBox = new ComboBox(options);
 
