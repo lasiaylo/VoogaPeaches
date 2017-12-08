@@ -11,8 +11,6 @@ public class MiniMapPanel implements Panel{
     private Pane myPane;
 
     public MiniMapPanel() {
-        myPane = new Pane();
-        myPane.getStyleClass().add("panel");
     }
 
     @Override
