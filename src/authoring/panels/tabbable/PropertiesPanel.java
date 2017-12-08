@@ -126,7 +126,7 @@ public class PropertiesPanel implements Panel {
 	 * 
 	 */
 	private void addButton() {
-		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "save");
+		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");
 		myVBox.getChildren().add(saveEntity.getButton());
 	}
 
