@@ -16,6 +16,7 @@ import util.pubsub.messages.ThemeMessage;
 /**
  * camera panel inside authoring environment that displays the game
  * @author estellehe
+ * @author Kelly Zhang
  *
  */
 public class CameraPanel implements Panel {
