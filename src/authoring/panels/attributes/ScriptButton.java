@@ -1,6 +1,6 @@
 package authoring.panels.attributes;
 
-import authoring.panels.tabbable.AttributesPanel;
+import authoring.panels.tabbable.PropertiesPanel;
 import engine.entities.Entity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,12 +19,12 @@ import java.util.Set;
 public class ScriptButton {
     private final String ADD = "Add";
     private Map<String, List<String>> myMap;
-    private AttributesPanel myPanel;
+    private PropertiesPanel myPanel;
     private ComboBox comboBox;
     private HBox hbox;
     private Entity entity;
 
-    public ScriptButton(Map<String, List<String>> map, AttributesPanel panel, Entity entity){
+    public ScriptButton(Map<String, List<String>> map, PropertiesPanel panel, Entity entity){
         myMap = map;
         myPanel = panel;
         hbox = new HBox();
