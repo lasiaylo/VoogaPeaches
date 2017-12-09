@@ -5,7 +5,9 @@
   "properties": {
     "scripts": {
       "move.groovy": [],
+      "gravity.groovy": [],
       "update_position.groovy": [],
+      "update_acceleration.groovy": [],
       "circle.groovy": []
     },
     "x": 50,
