@@ -1,4 +1,4 @@
-package authoring;
+package authoring.menu;
 
 import database.User;
 import database.firebase.DatabaseConnector;
@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.VoogaPeaches;
 import org.json.JSONObject;
-
+import util.exceptions.ObjectIdNotFoundException;
 
 
 /**
@@ -74,6 +74,19 @@ public class Login {
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
             manager.writeJSONFile(userTextField.getText().trim(), JSONHelper.JSONForObject(newUser));
             VoogaPeaches.changeUser(newUser);
+
+            DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
+            try {
+                db.addToDatabase(newUser);
+
+                //manager.writeJSONFile("postOne", JSONHelper.JSONForObject(posts));
+
+                // Have to force a sleep to wait for data to finish sending, but
+                // with actual project this shouldn't be a problem
+                Thread.sleep(1000);
+            } catch (ObjectIdNotFoundException | InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
             Stage menuStage = new Stage();
             Menu myMenu = new Menu(menuStage);
         }

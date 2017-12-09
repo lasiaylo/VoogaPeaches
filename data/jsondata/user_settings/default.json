@@ -1,10 +1,10 @@
 {
-  "UID": "def44a5bede84fb8af0453d69aa1e4f2",
-  "themeName": "dark.css",
+  "UID": "b9c3011c87304d09909a5e9c8cd112b7",
+  "themeName": "light.css",
   "authoring": [],
   "games": [],
-  "workspaceName": "LeftCameraWorkspace",
-  "userName": "user1",
+  "workspaceName": "MiddleCameraWorkspace",
+  "userName": "default",
   "properties": {
     "MiddleCameraWorkspace": {
       "Social Media": "right",
