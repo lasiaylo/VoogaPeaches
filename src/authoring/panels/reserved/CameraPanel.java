@@ -11,7 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.StringMessage;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -69,7 +69,7 @@ public class CameraPanel implements Panel {
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
 				"THEME_MESSAGE",
-				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
+				(message) -> updateStyles(myArea, ((StringMessage) message).readMessage()));
 	}
 
 

@@ -2,17 +2,15 @@ package authoring;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.StringMessage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,7 +67,7 @@ public class Menu {
                     if (myRoot.getStylesheets().size() >= 1) {
                         myRoot.getStylesheets().remove(0);
                     }
-                    myRoot.getStylesheets().add(((ThemeMessage) message).readMessage());
+                    myRoot.getStylesheets().add(((StringMessage) message).readMessage());
                 }
         );
         myRoot.getStyleClass().add("panel");

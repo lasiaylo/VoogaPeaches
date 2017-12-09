@@ -4,19 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
-
-import java.io.File;
+import util.pubsub.messages.StringMessage;
 
 public class Login {
 
@@ -72,7 +67,7 @@ public class Login {
                     if (myArea.getStylesheets().size() >= 1) {
                         myArea.getStylesheets().remove(0);
                     }
-                    myArea.getStylesheets().add(((ThemeMessage) message).readMessage());
+                    myArea.getStylesheets().add(((StringMessage) message).readMessage());
                 }
         );
         myArea.getStyleClass().add("panel");
