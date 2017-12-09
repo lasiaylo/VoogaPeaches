@@ -100,7 +100,6 @@ public class Menu {
             authoringStage.setResizable(false);
             authoring = new Screen(authoringStage);
             authoringStage.setOnCloseRequest(e -> authoring.save());
-            System.out.println("hi");
         }
         myStage.close();
         return null;
