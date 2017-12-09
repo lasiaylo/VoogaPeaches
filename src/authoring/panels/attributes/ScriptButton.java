@@ -1,39 +1,44 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.PropertiesPanel;
+import database.jsonhelpers.JSONDataManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import org.apache.commons.io.FilenameUtils;
 import util.PropertiesReader;
 import util.exceptions.GroovyInstantiationException;
 
+import java.io.File;
 import java.util.*;
 
 public class ScriptButton {
-    private final String ADD = "Add";
+    private final String ADD = "Add Script";
     private Map<String, Map<String, Object>> myMap;
     private PropertiesPanel myPanel;
-    private ComboBox comboBox;
-    private HBox hbox;
+    private Button myButton;
+    private FileChooser fileChooser;
 
     public ScriptButton(Map<String, Map<String, Object>> map, PropertiesPanel panel){
         myMap = map;
         myPanel = panel;
-        hbox = new HBox();
         makeVisual();
     }
 
     private void makeVisual() {
-        Collection<String> events= PropertiesReader.map("events").keySet();
-        ObservableList<String> options = FXCollections.observableArrayList(events);
-        comboBox = new ComboBox(options);
+        createFileChooser();
+        myButton = makeButton();
+    }
 
-        Button button = makeButton();
-        hbox.getChildren().add(comboBox);
-        hbox.getChildren().add(button);
+    private void createFileChooser() {
+        fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter groovy = new FileChooser.ExtensionFilter("Groovy Files", "*.groovy");
+        fileChooser.getExtensionFilters().add(groovy);
+        fileChooser.setInitialDirectory(new File(PropertiesReader.value("filepaths", "db_scripts")));
     }
 
     private Button makeButton() {
@@ -43,21 +48,22 @@ public class ScriptButton {
     }
 
     private void add() {
-        String type = comboBox.getSelectionModel().getSelectedItem().toString();
-        myMap.put(type, createMap());
-        try {
-            myPanel.updateProperties();
-        } catch (GroovyInstantiationException e) {}
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            String fileName = FilenameUtils.removeExtension(file.getName());
+            myMap.put(fileName, createMap());
+            try {
+                myPanel.updateProperties();
+            } catch (GroovyInstantiationException e) { }
+        }
     }
 
     private Map<String,Object> createMap() {
         Map<String, Object> newMap = new HashMap<String, Object>();
-        newMap.put("bindings", new HashMap<String, Object>());
-        newMap.put("actions", new ArrayList<String>());
         return newMap;
     }
 
     public Node getNode(){
-        return hbox;
+        return myButton;
     }
 }
