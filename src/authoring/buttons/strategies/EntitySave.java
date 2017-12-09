@@ -2,6 +2,7 @@ package authoring.buttons.strategies;
 
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -15,7 +16,7 @@ public class EntitySave implements IButtonStrategy{
     public static final String DEFAULT_NAME = "UserEntity";
     public static final String BLUEPRINTS_FILEPATH = "blueprints";
     public static final String JSON_EXTENSION_FILTER = "JSON files";
-    public static final String JSON_FILE = "*.JSON";
+    public static final String JSON_FILE = "*.json";
 
     private Entity entity;
     private FileChooser fileChooser;
@@ -41,7 +42,7 @@ public class EntitySave implements IButtonStrategy{
     public void fire() {
         File selectedFile = fileChooser.showSaveDialog(s);
         if (selectedFile != null){
-            JSONObject jsonObject = new JSONObject(entity.getProperties());
+            JSONObject jsonObject =  JSONHelper.JSONForObject(entity);
             jsonDataManager.writeJSONFile(selectedFile.getName(), jsonObject);
         }
     }
