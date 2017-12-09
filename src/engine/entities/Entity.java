@@ -111,7 +111,7 @@ public class Entity extends Evented {
     }
 
     public Object getProperty(String name) {
-        return properties.get(name);
+        return properties.getOrDefault(name, 0);
     }
 
     public void setProperty(String name, Object property) {
