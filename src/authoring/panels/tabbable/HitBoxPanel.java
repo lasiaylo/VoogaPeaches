@@ -7,10 +7,7 @@ import engine.entities.Entity;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import util.ErrorDisplay;
@@ -28,16 +25,14 @@ public class HitBoxPanel implements Panel {
     private VBox region = new VBox();
     private TextField hitboxNameField = new TextField();
     private ComboBox<String> hitboxSelection = new ComboBox<>();
-    private VBox options = new VBox();
-    private HBox upperHBox = new HBox();
-    private HBox lowerHBox = new HBox();
+    private GridPane options = new GridPane();
 
     private List<HitBox> hitboxes = new ArrayList<>();
     private List<Double> currentPoints;
 
     public HitBoxPanel() {
-        upperHBox.getChildren().add(hitboxNameField);
-        lowerHBox.getChildren().add(hitboxSelection);
+        options.add(hitboxNameField, 0, 0);
+        options.add(hitboxSelection, 0, 1);
 
         createEntityView();
         createAddButton();
@@ -45,10 +40,7 @@ public class HitBoxPanel implements Panel {
 
         createSaveButton();
 
-
-
         region.getChildren().add(options);
-        options.getChildren().addAll(upperHBox, lowerHBox);
         PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
             EntityPass entityPass = (EntityPass) e;
             setEntity(entityPass.getEntity());
@@ -81,8 +73,6 @@ public class HitBoxPanel implements Panel {
                     entityView.getChildren().add(box.getHitbox());
                 });
             } else {
-                System.out.println(oldVal);
-                System.out.println(newVal);
                 hitboxes.get(newVal.intValue() - 1).getHitbox().setFill(Color.LIGHTGRAY);
                 entityView.getChildren().add(hitboxes.get(newVal.intValue() - 1).getHitbox());
                 currentPoints = hitboxes.get(newVal.intValue() - 1).getPoints();
@@ -91,7 +81,7 @@ public class HitBoxPanel implements Panel {
     }
 
     private void createSaveButton() {
-        upperHBox.getChildren().add(new CustomButton(() -> {
+        options.add(new CustomButton(() -> {
             String boxName = hitboxNameField.getText();
             if(boxName.equals("")) {
                 new ErrorDisplay("HitBox error", "Your HitBox's tag was empty!").displayError();
@@ -99,15 +89,17 @@ public class HitBoxPanel implements Panel {
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex()).setTag(boxName);
                 hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
             }
-        }, "Save").getButton());
+        }, "Save").getButton(), 1, 0);
     }
 
     private void createAddButton() {
-       lowerHBox.getChildren().add(new CustomButton(() -> {
+        
+        options.add(new CustomButton(() -> {
             hitboxSelection.getItems().add("");
             hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, ""));
             hitboxSelection.getSelectionModel().selectLast();
-        }, "Add Hitbox").getButton());
+        }, "Add Hitbox").getButton(), 1, 1);
+
     }
 
     private void createEntityView(){
