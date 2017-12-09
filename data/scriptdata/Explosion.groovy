@@ -7,10 +7,11 @@ import engine.events.EventType
 import javafx.scene.Group
 
 entity = (Entity) entity
+param = (String) param
 
 entity.on(EventType.COLLISION.getType(), { Event event ->
     CollisionEvent cEvent = (CollisionEvent) cEvent;
-    if(cEvent.getCollidedHitBox().equals("rectangle")) {
+    if(cEvent.getCollidedHitBox().equals(param)) {
 
 
     }

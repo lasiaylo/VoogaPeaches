@@ -37,4 +37,10 @@ public abstract class Evented extends TrackableObject {
         for (Consumer<Event> callback : callbacks.get(event.getType()))
             callback.accept(event);
     }
+
+    protected void clear() {
+        if(callbacks != null){
+            callbacks.clear();
+        }
+    }
 }
