@@ -51,7 +51,7 @@ public class Engine {
     }
 
     public void save(String name) {
-        new GameSaver(name).saveRootObject(entityManager.getRoot());
+        new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
     public void load(String name) {

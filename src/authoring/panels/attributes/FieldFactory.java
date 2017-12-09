@@ -79,6 +79,7 @@ public class FieldFactory {
 				return PropertiesReader.value(FIELD, "Image");
 			}
 		}
+		System.out.println(clazz.toString());
 		return PropertiesReader.value(FIELD, clazz.toString());
 	}
 }

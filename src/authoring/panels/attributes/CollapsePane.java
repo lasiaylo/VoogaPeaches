@@ -30,10 +30,8 @@ public class CollapsePane {
 	}
 	
 	private void addMap(Map<String, ?> map) throws GroovyInstantiationException {
-		if (collapse){
+		if (collapse)
 			formatCollapse(map);
-		}
-
 		else
 			formatGrid(map);
 	}
