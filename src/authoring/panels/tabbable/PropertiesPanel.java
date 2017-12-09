@@ -30,8 +30,7 @@ public class PropertiesPanel implements Panel {
     private final String TITLE = "Properties";
     private final String SCRIPTS = "Scripts";
     private final String PARAMETERS = "Parameters";
-    private final String BINDINGS = "bindings";
-    private final String ACTIONS = "actions";
+    private final String EVENTS = "Events";
     private Entity myEntity;
     private VBox myVBox;
     private Map<String, Object> myParameters;
@@ -70,11 +69,6 @@ public class PropertiesPanel implements Panel {
         updateProperties(myEntity);
     }
 
-    public void updateProperties(String UID) throws GroovyInstantiationException {
-        Entity entity = (Entity) TrackableObject.objectForUID(UID);
-        updateProperties(entity);
-    }
-
     /**
      * Takes in an entity and displays its properties
      *
@@ -95,7 +89,7 @@ public class PropertiesPanel implements Panel {
         myVBox.getChildren().addAll(
                 addPane(PARAMETERS, makeParameters(myParameters)),
                 addPane(SCRIPTS, makeScripts(myScripts)),
-                makeEvents()
+                addPane(EVENTS,makeEvents())
         );
         addButton();
         myParameters.put("scripts", myScripts);
@@ -118,13 +112,8 @@ public class PropertiesPanel implements Panel {
             eventBox.getChildren().add(
                     addChildPane(name, makeScripts(myEvents.get(name))));
         }
-        return addPane("Events", eventBox);
-    }
-
-    private Node makeList(Map<String, Object> event) throws GroovyInstantiationException {
-        Field field = FieldFactory.makeFieldMap(event, ACTIONS);
-        Node node = field.getControl();
-        return addPane(ACTIONS, field.getControl());
+        eventBox.getChildren().add(new EventButton(myEvents,this).getNode());
+        return eventBox;
     }
 
     private TitledPane addChildPane(String title, Node... pane) {
@@ -137,18 +126,6 @@ public class PropertiesPanel implements Panel {
         TitledPane tPane = new TitledPane(title, pane);
         tPane.setAnimated(false);
         return tPane;
-    }
-
-    /**
-     * Adds a collapse section that displays the map
-     *
-     * @param map
-     * @param collapse
-     * @throws GroovyInstantiationException
-     */
-    private Node addMap(Map<String, ?> map, boolean collapse) throws GroovyInstantiationException {
-        CollapsePane pane = new CollapsePane(map, collapse);
-        return pane.getNode();
     }
 
     /**
