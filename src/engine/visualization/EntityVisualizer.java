@@ -21,6 +21,7 @@ public class EntityVisualizer {
 
     private Group group;
     private Circle circle;
+    private StackPane rootStackPane;
     private List<EntityVisualizer> children;
     private List<Line> connections = new ArrayList<>();
     private Entity root;
@@ -35,29 +36,28 @@ public class EntityVisualizer {
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
         group = new Group();
-        group.getChildren().add(drawRoot());
+        drawRoot();
         drawChildren(root);
     }
 
-    private StackPane drawRoot() {
-        StackPane stackPane = new StackPane();
+    private void drawRoot() {
         circle = new Circle(RADIUS);
         circle.setCenterX(0);
         circle.setCenterY(0);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.WHITE);
-        stackPane.getChildren().addAll(circle, createText(root.UIDforObject()));
-        return stackPane;
+        group.getChildren().add(circle);
+        createText(root.UIDforObject(), circle);
     }
 
-    private Text createText(String s) {
-        Text text = new Text(s.substring(0, 5));
+    private void createText(String s, Circle c) {
+        Text text = new Text(c.getCenterX(), c.getCenterY(), s.substring(0, 5));
         text.setBoundsType(TextBoundsType.VISUAL);
         text.setStyle(
                 "-fx-font-family: \"Georgia\";" +
                         "-fx-font-size: 8px;"
         );
-        return text;
+        group.getChildren().add(text);
     }
 
     private void drawChildren(Entity root) {
@@ -65,7 +65,7 @@ public class EntityVisualizer {
         if (children.size() <= MAX_DISPLAY) {
             draw(children.size());
         } else {
-            StackPane lastCircle = draw(MAX_DISPLAY);
+            Circle lastCircle = draw(MAX_DISPLAY);
             // replace last circle
         }
     }
@@ -74,21 +74,20 @@ public class EntityVisualizer {
         return group;
     }
 
-    private StackPane draw(int size) {
-//        children.forEach(e -> group.getChildren().removeAll(childrenVis)); // check to make sure not null pointer exception
+    private Circle draw(int size) {
         double angle = 2 * Math.PI / (size + 1);
-        StackPane stackPane = new StackPane();
+        Circle c = new Circle();
         if (parent != null) {
             drawTotal(0, vizParent);
         }
         for (int i = 0; i < size; i++) {
-            stackPane = drawTotal(angle * (i + 1), children.get(i));
+            c = drawTotal(angle * (i + 1), children.get(i));
             System.out.println(angle * (i + 1));
         }
-        return stackPane;
+        return c;
     }
 
-    private StackPane drawTotal(double angle, EntityVisualizer entityVisualizer) {
+    private Circle drawTotal(double angle, EntityVisualizer entityVisualizer) {
         Line line = drawLine(angle);
         return drawCircle(angle, entityVisualizer, line.getEndX(), line.getEndY());
     }
@@ -102,19 +101,15 @@ public class EntityVisualizer {
         return line;
     }
 
-    private StackPane drawCircle(double angle, EntityVisualizer entityVisualizer, double lineEndX, double lineEndY) {
+    private Circle drawCircle(double angle, EntityVisualizer entityVisualizer, double lineEndX, double lineEndY) {
         Circle newCircle = new Circle(RADIUS);
         newCircle.setCenterX(lineEndX + RADIUS * Math.cos(angle));
         newCircle.setCenterY(lineEndY + RADIUS * Math.sin(angle));
         newCircle.setFill(Color.ORCHID);
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(newCircle, createText(entityVisualizer.root.UIDforObject()));
-        stackPane.setLayoutX(lineEndX + RADIUS * Math.cos(angle));
-        stackPane.setLayoutY(lineEndY + RADIUS * Math.sin(angle));
-
-        group.getChildren().add(stackPane);
-        stackPane.setOnMouseClicked(e -> gameVisualizer.focus(entityVisualizer));
-        return stackPane;
+        group.getChildren().add(newCircle);
+        createText(entityVisualizer.root.UIDforObject(), newCircle);
+        newCircle.setOnMouseClicked(e -> gameVisualizer.focus(entityVisualizer));
+        return newCircle;
     }
 
     private Vector vecFromHypotenuse(Vector ogPosition, double length, double angle) {
