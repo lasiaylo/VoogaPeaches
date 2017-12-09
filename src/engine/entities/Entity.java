@@ -98,8 +98,6 @@ public class Entity extends Evented {
         remove(entity.getNodes());
     }
 
-    public Entity getRoot() {return root;}
-
     public Group getNodes() {
         return group;
     }
