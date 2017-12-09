@@ -1,44 +1,71 @@
 package engine.entities;
 
 import database.fileloaders.ScriptLoader;
-import groovy.lang.Binding;
 import groovy.lang.Closure;
-import groovy.lang.GroovyShell;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class EntityScriptFactory {
+class EntityScriptFactory {
 
-    public static void executeScripts(Entity entity) {
+    static void executeScripts(Entity entity) {
         Map<String, Object> properties = entity.getProperties();
-        Map<String, Map<String, Object>> scriptMap = (Map<String, Map<String, Object>>)
-                properties.getOrDefault("scripts", new HashMap<String, Map<String, Object>>());
-        for (String script : scriptMap.keySet() ) {
-            Closure code = ScriptLoader.stringForFile(script);
+        parseScripts(entity, properties);
+        parseListeners(entity, properties);
+    }
 
-            System.out.println(scriptMap.get(script).get("actions").getClass());
-            List<String> listenActionPair = (List<String>) scriptMap.get(script).get("actions");
-            Map<String, Object> params = (Map<String, Object>) scriptMap.get(script).get("bindings");
+    private static void parseScripts(Entity entity, Map<String, Object> properties) {
+        List scripts = (List) properties.getOrDefault("scripts", new HashMap<String, ArrayList<Map>>());
 
-            Binding binding = new Binding();
-            binding.setVariable("entity", entity);
-            binding.setVariable("game", entity.getRoot());
-            binding.setVariable("actions", listenActionPair);
-            Iterator<String> paramIter = params.keySet().iterator();
-            paramIter.forEachRemaining(key -> {
-                String whiteSpaceReplace = key.replaceAll("\\s+", "_").toLowerCase();
-                if(!key.equals(whiteSpaceReplace)) {
-                    params.put(whiteSpaceReplace, params.get(key));
-                    params.remove(key);
-                    key = whiteSpaceReplace;
-                }
-                binding.setVariable(key, params.get(key));
-            });
-
-            code.call(binding);
+        for (Object o : scripts) {
+            Map<String, Object> bindings = new HashMap<>();
+            parse(entity, bindings, o).call(bindings);
         }
+    }
+
+    private static void parseListeners(Entity entity, Map<String, Object> properties) {
+        Map listeners = (Map) properties.getOrDefault("listeners", new HashMap<String, ArrayList<Map>>());
+
+        for (Object o : listeners.entrySet()) {
+            String type = (String) ((Map.Entry) o).getValue();
+
+            List callbacks = (List) properties.getOrDefault(type, new HashMap<String, ArrayList<Map>>());
+
+            for (Object oo : callbacks) {
+                Map<String, Object> bindings = new HashMap<>();
+                Closure callback = parse(entity, bindings, o);
+
+                entity.on(type, (event) -> {
+                    bindings.put("event", event);
+                    callback.call(bindings);
+                });
+            }
+        }
+    }
+
+    private static Closure parse(Entity entity, Map<String, Object> bindings, Object o) {
+        String name;
+
+        try {
+            name = (String) o;
+        } catch (ClassCastException e) {
+            Map params = (Map) o;
+
+            name = (String) params.get("name");
+            addBindings(entity, params, bindings);
+        }
+
+        return ScriptLoader.stringForFile(name);
+    }
+
+    private static void addBindings(Entity entity, Map params, Map<String, Object> bindings) {
+        bindings.put("entity", entity);
+        bindings.put("game", entity.getRoot());
+
+        if (params != null)
+            for (Object e : params.entrySet())
+                bindings.put((String) ((Map.Entry) e).getKey(), ((Map.Entry) e).getValue());
     }
 }
