@@ -44,6 +44,8 @@ public class User extends TrackableObject {
         createProperties();
     }
 
+    public String getUserName() { return userName; }
+
     public void setTheme(String theme) {themeName = theme;}
 
     public void setWorkspace(String workspace) {workspaceName = workspace;}
