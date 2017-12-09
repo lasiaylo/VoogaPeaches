@@ -61,7 +61,7 @@ public class Entity extends Evented {
         return parent;
     }
 
-    public Entity getRoot(){
+    public Entity getRoot() {
         return root;
     }
 
@@ -101,6 +101,8 @@ public class Entity extends Evented {
         children.remove(entity);
         remove(entity.getNodes());
     }
+
+    public Entity getRoot() {return root;}
 
     public Group getNodes() {
         return group;

@@ -73,7 +73,7 @@ public class PropertiesPanel implements Panel {
 		//myVBox = new VBox();
 		myVBox.getChildren().clear();
 		myParameters = entity.getProperties();
-		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
+		//myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
 		updateView();
 		myParameters.put("scripts", myScripts);
 
@@ -140,7 +140,7 @@ public class PropertiesPanel implements Panel {
 	 * 
 	 */
 	private void addButton() {
-		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "save");
+		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");
 		myVBox.getChildren().add(saveEntity.getButton());
 	}
 
