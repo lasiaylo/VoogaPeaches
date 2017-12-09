@@ -65,17 +65,18 @@ public class EntityVisualizer {
         if (children.size() <= MAX_DISPLAY) {
             draw(children.size());
         } else {
-            ChoiceBox<String> cb = new ChoiceBox<>();
-            group.getChildren().add(cb);
-            cb.setStyle("-fx-text-box-border: transparent;"
-                    + "-fx-background-color: transparent, transparent, transparent, transparent;"
-                    + "-fx-text-alignment: center;");
             Circle lastCircle = draw(MAX_DISPLAY);
             lastCircle.setFill(Color.BISQUE);
+            ChoiceBox<String> cb = new ChoiceBox<>();
+            cb.setStyle("-fx-text-box-border: transparent;"
+                    + "-fx-mark-color: transparent;"
+                    + "-fx-background-color: transparent, transparent, transparent, transparent;"
+                    + "-fx-text-alignment: center;");
             cb.setLayoutX(lastCircle.getCenterX());
             cb.setLayoutY(lastCircle.getCenterY());
+            group.getChildren().add(cb);
             cb.toFront();
-            lastCircle.setOnMouseMoved(f -> {
+            lastCircle.setOnMouseEntered(f -> {
                 for (int i = MAX_DISPLAY; i < children.size(); i++){
                     String UID = children.get(i).root.UIDforObject();
                     if (!cb.getItems().contains(UID)){
