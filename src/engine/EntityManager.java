@@ -33,7 +33,7 @@ public class EntityManager {
     private Map<String, Entity> levels;
     private Entity currentLevel;
     private int[] mode = {-1};
-    private InputStream BGType;
+    private String BGType;
     private int grid;
     private FileDataManager manager;
     private Vector startPos = new Vector(0, 0);
@@ -53,7 +53,7 @@ public class EntityManager {
         this.levelSize = FXCollections.observableMap(new HashMap<>());
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
-        BGType = manager.readFileData("Background/grass.png");
+        BGType = "Background/grass.png";
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
             defaultObjectFactory = new ObjectFactory("PlayerEntity");
@@ -85,12 +85,7 @@ public class EntityManager {
         if (mode[0] == 0) {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
-            try {
-                BGType.reset();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ImageViewEvent imgEvent = new ImageViewEvent(new Image(BGType));
+            ImageViewEvent imgEvent = new ImageViewEvent(BGType);
             InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
             ClickEvent cEvent = new ClickEvent(false, mode, BGType);
             KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
@@ -109,25 +104,22 @@ public class EntityManager {
      */
     public void addNonBG(Vector pos, String uid) {
         Entity entity = (Entity) TrackableObject.objectForUID(uid);
-        Image image = new Image(manager.readFileData((String) entity.getProperty("image path")));
-        addNonBGPrivate(pos, image, entity);
+        addNonBGPrivate(pos, entity);
     }
 
-    private void addNonBGPrivate(Vector pos, Image image, Entity entity) {
+    private void addNonBGPrivate(Vector pos, Entity entity) {
         if (mode[0] > 0) {
             if (mode[0] > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
             entity.addTo(currentLevel.getChildren().get(mode[0]));
 
-            ImageViewEvent imgEvent = new ImageViewEvent(image);
             InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
             //the BGType here should not be applied to the image, mode should check for it
             ClickEvent cEvent = new ClickEvent(false, mode, BGType);
             KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
             MouseDragEvent dEvent = new MouseDragEvent(false, mode);
 
-            imgEvent.fire(entity);
             iEvent.fire(entity);
             cEvent.fire(entity);
             pEvent.fire(entity);
@@ -135,19 +127,12 @@ public class EntityManager {
         }
     }
 
-    /**
-     * add nonBG default entity
-     * @param pos
-     */
-    public void addNonBG(Vector pos, Image image) {
-        addNonBGPrivate(pos, image, defaultObjectFactory.newObject());
-    }
 
     /**
      * change background type for clicking
      * @param type
      */
-    public void setMyBGType (InputStream type) {
+    public void setMyBGType (String type) {
         BGType = type;
         ClickEvent cEvent = new ClickEvent(false, mode, BGType);
 
@@ -169,7 +154,7 @@ public class EntityManager {
     public void selectLayer(int layer) {
         mode[0] = layer;
         currentLevel.getChildren().forEach(e -> deselect(e));
-
+        viewOnly(currentLevel.getChildren().get(0));
         select(currentLevel.getChildren().get(layer));
     }
 
@@ -301,9 +286,6 @@ public class EntityManager {
 
     private void dragDropped(DragEvent event) {
         Dragboard board = event.getDragboard();
-        if (board.hasImage()) {
-            addNonBG(new Vector(event.getX(), event.getY()), board.getImage());
-        }
         if (board.hasString()) {
             addNonBG(new Vector(event.getX(), event.getY()), board.getString());
         }
@@ -367,10 +349,10 @@ public class EntityManager {
         levelSize.addListener(listener);
     }
 
-    public void changeCurrentLevelName(String name) {
-        levels.replace(name, levels.get(currentLevelName));
-        Vector temp = levelSize.get(currentLevelName);
-        levelSize.remove(currentLevelName);
-        levelSize.put(name, temp);
+    public void changeLevelName(String oldName, String newName) {
+        levels.replace(newName, levels.get(oldName));
+        Vector temp = levelSize.get(oldName);
+        levelSize.remove(oldName);
+        levelSize.put(newName, temp);
     }
 }

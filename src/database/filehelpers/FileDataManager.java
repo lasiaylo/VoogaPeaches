@@ -148,4 +148,13 @@ public class FileDataManager {
         }
         return subFolder;
     }
+
+    public List<String> getSubFile(String path) {
+        List<String> file = new ArrayList<>();
+        File base = new File(baseFolder + path);
+        for(File subfile : base.listFiles()){
+            file.add(subfile.getName());
+        }
+        return file;
+    }
 }

@@ -9,10 +9,7 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -35,6 +32,9 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private ObservableList<Map.Entry> levelList;
     private TextField newName;
     private HBox bar;
+    private ContextMenu menu;
+    private MenuItem change;
+    private MenuItem delete;
 
     public MiniMapPanel() {
         myPane = new Pane();
@@ -70,6 +70,11 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         bar.setSpacing(10);
         bar.setAlignment(Pos.CENTER);
 
+        menu = new ContextMenu();
+        change = new MenuItem("Change Name");
+        delete = new MenuItem("Delete");
+        change.setOnAction(e -> change());
+
         levelTable = new TableView<>();
         levelTable.setItems(levelList);
         TableColumn<Map.Entry, String> levelT = new TableColumn<>("Level");
@@ -83,17 +88,20 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         levelTable.setOnMouseClicked(e -> selectLevel());
 
         addLevel.setOnMouseClicked(e -> add());
-        newName.setOnKeyPressed(e -> change(e));
+        newName.setOnKeyPressed(e -> change());
 
 
     }
 
-    private void change(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ENTER)) {
-            newName.commitValue();
-            manager.changeCurrentLevelName(newName.getText());
-            newName.setText("new name");
-        }
+    private void change() {
+        TextInputDialog popup = new TextInputDialog();
+        popup.setTitle("Change Level Name");
+        popup.setContentText("New Level Name:");
+        popup.setOnCloseRequest(e -> submitName());
+    }
+
+    private void submitName() {
+
     }
 
     private void selectLevel() {
