@@ -5,7 +5,6 @@ import engine.entities.Entity
 
 entity = (Entity) entity
 
-
 entity.setProperty("x", ((Double) entity.getProperty("x")).doubleValue() + event.dx())
 entity.setProperty("y", ((Double) entity.getProperty("y")).doubleValue() + event.dy())
 

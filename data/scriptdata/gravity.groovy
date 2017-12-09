@@ -9,4 +9,4 @@ double gx = (Double) entity.getProperty("gx")
 double gy = (Double) entity.getProperty("gy")
 double mass = (Double) entity.getProperty("mass")
 
-new AccelerateEvent(gx.doubleValue() / mass.doubleValue() * tickEvent.getDt(), gy.doubleValue() / mass.doubleValue() * tickEvent.getDt()).fire(entity as Entity)
+new AccelerateEvent(gx.doubleValue() / mass.doubleValue() * event.getDt(), gy.doubleValue() / mass.doubleValue() * event.getDt()).fire(entity as Entity)

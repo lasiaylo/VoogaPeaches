@@ -9,8 +9,11 @@ actions = (List<String>) actions
 entity.on(EventType.MOVE, { Event event ->
     event = (engine.events.MoveEvent) event
 
-    for(String action : actions) {
-        String code = ScriptLoader.stringForFile(action)
-        evaluate(code)
-    }
+    Binding binding = new Binding()
+    binding.setVariable("event", event)
+    binding.setVariable("entity", entity)
+    GroovyShell shell = new GroovyShell(binding)
+
+    for (String action : actions)
+        shell.evaluate(ScriptLoader.stringForFile(action))
 })
