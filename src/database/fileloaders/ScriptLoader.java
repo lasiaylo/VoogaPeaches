@@ -62,8 +62,6 @@ public class ScriptLoader {
                 e.printStackTrace();
             }
 
-            System.out.println(cache);
-
         return cache;
     }
 
