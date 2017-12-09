@@ -1,5 +1,4 @@
 {
-    "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
     "children": [],
     "hitBoxes": [
       {
@@ -50,20 +49,26 @@
     ],
     "properties": {
       "scripts": {
-        "leftKeyPress.groovy": [
-          "print.groovy"
-        ],
-        "example.groovy": [
-          "print.groovy"
-        ],
-        "print.groovy" : [
-
-        ]
+        "leftKeyPress.groovy": {
+          "actions": [],
+          "bindings":{"x": 30.0}
+        },
+        "example.groovy": {
+          "actions": [
+            "print.groovy"
+          ],
+          "bindings": {}
+        },
+        "print.groovy" : {
+          "actions": [],
+          "bindings":{}
+        }
       },
       "x": 30.0,
       "y": 30.0,
       "vx": 50.0,
       "vy": 50.0,
-      "hell yeah": true
+      "hell yeah": true,
+      "image path":"default_image.jpg"
     }
 }

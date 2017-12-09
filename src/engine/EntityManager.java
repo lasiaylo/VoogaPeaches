@@ -3,10 +3,14 @@ package engine;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import engine.events.*;
 import engine.events.MouseDragEvent;
 import engine.util.FXProcessing;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -34,18 +38,24 @@ public class EntityManager {
     private Vector startPos = new Vector(0, 0);
     private Vector startSize = new Vector(0, 0);
     private Vector startPosBatch = new Vector(0, 0);
-    private ObjectFactory objectFactory;
+    private ObjectFactory BGObjectFactory;
+    private ObjectFactory defaultObjectFactory;
+    private ObservableMap<String, Vector> levelSize;
 
 
     public EntityManager(Entity root, int gridSize) {
         this.root = root;
         this.levels = new HashMap<>();
         this.grid = gridSize;
+        this.levelSize = FXCollections.observableMap(new HashMap<>());
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = manager.readFileData("Background/grass.png");
         try {
-            objectFactory = new ObjectFactory("BGEntity");
+            BGObjectFactory = new ObjectFactory("BGEntity");
+            //todo get a default script for nonBGscript
+            defaultObjectFactory = new ObjectFactory("PlayerEntity");
+
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
@@ -66,8 +76,7 @@ public class EntityManager {
      */
     public void addBG(Vector pos) {
         if (mode[0] == 0) {
-            //todo this should be replaced by object factory
-            Entity BGblock = objectFactory.newObject();
+            Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
             try {
                 BGType.reset();
@@ -86,52 +95,45 @@ public class EntityManager {
         }
     }
 
-//    /**
-//     * add nonBG entity through inputstream
-//     * @param pos
-//     * @param image
-//     */
-//    public void addNonBG(Vector pos, InputStream image) {
-//        try {
-//            image.reset();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Image img = new Image(image);
-//        addNonBG(pos, img);
-//    }
-
     /**
-     * add nonBG entity thru image (for drag and drop)
+     * add nonbg user-defined entity
      * @param pos
+     * @param uid
      */
-    public void addNonBG(Vector pos, String entType) {
+    public void addNonBG(Vector pos, String uid) {
+        Entity entity = (Entity) TrackableObject.objectForUID(uid);
+        Image image = new Image(manager.readFileData((String) entity.getProperty("image path")));
+        addNonBGPrivate(pos, image, entity);
+    }
+
+    private void addNonBGPrivate(Vector pos, Image image, Entity entity) {
         if (mode[0] > 0) {
             if (mode[0] > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            try {
-                ObjectFactory nonBGFactory = new ObjectFactory(entType);
-                Entity newEnt = objectFactory.newObject();
-                newEnt.addTo(currentLevel.getChildren().get(mode[0]));
+            entity.addTo(currentLevel.getChildren().get(mode[0]));
 
-                //should not set the image for imageview cuz the type should set the image
-                InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
-                //the BGType here should not be applied to the image, mode should check for it
-                ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-                KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
-                MousePressEvent mEvent = new MousePressEvent(startPos, startSize, false, mode);
-                MouseDragEvent dEvent = new MouseDragEvent(startPos, startSize, false, mode);
+            ImageViewEvent imgEvent = new ImageViewEvent(image);
+            InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
+            //the BGType here should not be applied to the image, mode should check for it
+            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
+            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
+            MouseDragEvent dEvent = new MouseDragEvent(false, mode);
 
-                iEvent.fire(newEnt);
-                cEvent.fire(newEnt);
-                pEvent.fire(newEnt);
-                mEvent.fire(newEnt);
-                dEvent.fire(newEnt);
-            } catch (ObjectBlueprintNotFoundException e) {
-                e.printStackTrace();
-            }
+            imgEvent.fire(entity);
+            iEvent.fire(entity);
+            cEvent.fire(entity);
+            pEvent.fire(entity);
+            dEvent.fire(entity);
         }
+    }
+
+    /**
+     * add nonBG default entity
+     * @param pos
+     */
+    public void addNonBG(Vector pos, Image image) {
+        addNonBGPrivate(pos, image, defaultObjectFactory.newObject());
     }
 
     /**
@@ -140,6 +142,8 @@ public class EntityManager {
      */
     public void setMyBGType (InputStream type) {
         BGType = type;
+        ClickEvent cEvent = new ClickEvent(false, mode, BGType);
+
     }
 
 
@@ -221,6 +225,12 @@ public class EntityManager {
         addLayer(currentLevel);
     }
 
+    public void deleteLayer() {
+        if (mode[0] > 0) {
+            currentLevel.remove(currentLevel.getChildren().get(mode[0]));
+        }
+    }
+
     private void addLayer(Entity level) {
         Entity layer = new Entity(level);
         ImageView holder = setPlaceHolder();
@@ -246,9 +256,14 @@ public class EntityManager {
      * @param mapHeight
      */
     public void addLevel(String name, int mapWidth, int mapHeight) {
+        if (levels.containsKey(name)) {
+            new ErrorDisplay("Level Name", "Level name already exists").displayError();
+            return;
+        }
         Entity level = new Entity(root);
         //somehow fucking add the name to level properties
         levels.put(name, level);
+        levelSize.put(name, new Vector(mapWidth, mapHeight));
         Canvas canvas = new Canvas(mapWidth, mapHeight);
         StackPane stack = new StackPane();
         stack.getChildren().add(canvas);
@@ -271,7 +286,7 @@ public class EntityManager {
     }
 
     private void dragOver(DragEvent event, Node map) {
-        if (event.getGestureSource() != map && event.getDragboard().hasImage()) {
+        if (event.getGestureSource() != map && (event.getDragboard().hasImage() || event.getDragboard().hasString())) {
             event.acceptTransferModes(TransferMode.COPY);
         }
         event.consume();
@@ -279,6 +294,9 @@ public class EntityManager {
 
     private void dragDropped(DragEvent event) {
         Dragboard board = event.getDragboard();
+        if (board.hasImage()) {
+            addNonBG(new Vector(event.getX(), event.getY()), board.getImage());
+        }
         if (board.hasString()) {
             addNonBG(new Vector(event.getX(), event.getY()), board.getString());
         }
@@ -332,4 +350,17 @@ public class EntityManager {
         return root;
     }
 
+    public void addMapListener(MapChangeListener<String, Vector> listener) {
+        levelSize.addListener(listener);
+    }
+
+    public void changeCurrentLevelName(String name) {
+        Entity cLevel = currentLevel;
+        levels.keySet().forEach(e -> {
+            if (levels.get(e).equals(cLevel)) {
+                levels.remove(e);
+                levels.put(name, cLevel);
+            }
+        });
+    }
 }

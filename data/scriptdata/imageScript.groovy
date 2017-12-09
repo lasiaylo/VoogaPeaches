@@ -10,24 +10,24 @@ import engine.events.ImageViewEvent
 import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
-import engine.events.MousePressEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
-import engine.fsm.Transition
 import engine.util.FXProcessing
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
-import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import util.math.num.Vector
+import util.pubsub.PubSub
+import util.pubsub.messages.EntityPass
 
 
 entity = (Entity) entity
 
 datamanager = new FileDataManager(FileDataFolders.IMAGES)
-pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
+println image_path
+pointer = new ImageView(new Image(datamanager.readFileData((String) image_path)))
 entity.add(pointer)
 
 entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
@@ -55,20 +55,15 @@ entity.on(EventType.VIEWVIS.getType(), { Event event ->
 
 entity.on(EventType.CLICK.getType(), { Event event ->
     ClickEvent cEvent = (ClickEvent) event
-    println(cEvent.getMyBGType())
-    pointer.requestFocus()
-    pointer.setImage(new Image(cEvent.getMyBGType()))
     pointer.setOnMouseClicked( { MouseEvent e ->
         if (!cEvent.getIsGaming()) {
-        println("here 1")
             pointer.requestFocus()
-            println("here 2")
             if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
                 //might need try catch here
-                println("Type: " + cEvent.getMyBGType())
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }
+            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
         }
         e.consume()
     })
@@ -84,41 +79,38 @@ entity.on(EventType.KEY_PRESS.getType(), { Event event ->
     })
 })
 
-entity.on(EventType.MOUSE_PRESS.getType(), { Event event ->
-    MousePressEvent pEvent = (MousePressEvent) event
-    pointer.setOnMousePressed( { MouseEvent e ->
-        if (pEvent.getIsGaming() == false && pEvent.getMyMode()[0] > 0) {
-            pEvent.setMyStartPos(e.getX(), e.getY())
-            pEvent.setMyStartSize(pointer.getFitWidth(), pointer.getFitHeight())
-        }
-        e.consume()
-    })
-})
 
 entity.on(EventType.MOUSE_DRAG.getType(), { Event event ->
     MouseDragEvent dEvent = (MouseDragEvent) event
-    pointer.setOnMouseDragged({ MouseEvent e ->
-        if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
+    if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
+        pointer.setOnMousePressed({ MouseEvent e ->
+            if (e.getButton().equals(MouseButton.SECONDARY)) {
+                dEvent.setMyStartPos(e.getX(), e.getY())
+                dEvent.setMyStartSize(pointer.getFitWidth(), pointer.getFitHeight())
+            }
+            e.consume()
+        })
+        pointer.setOnMouseDragged({ MouseEvent e ->
             if (e.getButton().equals(MouseButton.PRIMARY)) {
                 move(e)
             } else if (e.getButton().equals(MouseButton.SECONDARY)) {
                 zoom(dEvent, e)
             }
-        }
-        e.consume()
-    })
+            e.consume()
+        })
+    }
 })
 
 
 void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent) {
-    def change = new Vector(mouseEvent.getX(), mouseEvent.getY()).subtract(dEvent.getMyStartPos())
-    if (mouseEvent.getX() < dEvent.getMyStartPos().at(0)) {
-        change.at(0, 0.0)
-    }
-    if (mouseEvent.getY() < dEvent.getMyStartPos().at(1)) {
-        change.at(1, 0.0)
-    }
+    def change = (new Vector(mouseEvent.getX(), mouseEvent.getY())).subtract(dEvent.getMyStartPos())
     def fsize = change.add(dEvent.getMyStartSize())
+    if (fsize.at(0) < 0) {
+        fsize.at(0, 0.1)
+    }
+    if (fsize.at(1) < 0) {
+        fsize.at(1, 0.1)
+    }
     pointer.setFitWidth(fsize.at(0))
     pointer.setFitHeight(fsize.at(1))
 }
@@ -132,9 +124,7 @@ void move(MouseEvent mouseEvent) {
     }
     if (mouseEvent.getY() < pointer.getFitHeight() / 2) {
         yPos = pointer.getFitHeight() / 2
-
-        pointer.setX(FXProcessing.getXImageCoord(xPos, pointer))
-        pointer.setY(FXProcessing.getYImageCoord(yPos, pointer))
-        //need to change the location properties, too lazy to do it
     }
+    pointer.setX(FXProcessing.getXImageCoord(xPos, pointer))
+    pointer.setY(FXProcessing.getYImageCoord(yPos, pointer))
 }

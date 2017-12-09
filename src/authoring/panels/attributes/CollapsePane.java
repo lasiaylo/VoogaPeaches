@@ -18,32 +18,29 @@ public class CollapsePane {
 	private final int LABEL_COL = 0;
 	private final int ATTRIBUTE_COL = 1;
 	private boolean collapse;
-	private TitledPane myCollapse;
 	private Pane myPane;
 	
-	public CollapsePane(Map<String,?> map, String title) throws GroovyInstantiationException {
-		this(map, title, false);
+	public CollapsePane(Map<String,?> map) throws GroovyInstantiationException {
+		this(map, false);
 	}
 	
-	public CollapsePane(Map<String,?> map, String title, boolean collapse) throws GroovyInstantiationException {
+	public CollapsePane(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
 		this.collapse = collapse;
 		addMap(map);
-		myCollapse = new TitledPane(title, myPane);
-		myCollapse.setAnimated(false);
 	}
 	
 	private void addMap(Map<String, ?> map) throws GroovyInstantiationException {
-		if (collapse){
+		if (collapse)
 			formatCollapse(map);
-		}
-
 		else
 			formatGrid(map);
 	}
 	
 	private void formatCollapse(Map<String, ?> map) throws GroovyInstantiationException {
 		VBox vBox = new VBox();
-		
+		if(map == null) {
+			System.out.println("map null");
+		}
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);
 			TitledPane title = new TitledPane(s, node);
@@ -75,6 +72,6 @@ public class CollapsePane {
 	}
 
 	public Node getNode() {
-		return myCollapse;
+		return myPane;
 	}
 }

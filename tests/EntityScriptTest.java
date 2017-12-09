@@ -20,12 +20,12 @@ public class EntityScriptTest extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
-        JSONObject blueprint = manager.readJSONFile("test");
+        JSONObject blueprint = manager.readJSONFile("test2");
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
-        Entity e = (Entity) TrackableObject.objectForUID("2ca91312fdb14d03865fa4e59d8ee69a");
-        System.out.println(e.getProperty("hell yeah"));
+        //Entity e = (Entity) TrackableObject.objectForUID("2ca91312fdb14d03865fa4e59d8ee69a");
+        //System.out.println(e.getProperty("hell yeah"));
 
 
         Scene s = new Scene(entityFromFile.getNodes());

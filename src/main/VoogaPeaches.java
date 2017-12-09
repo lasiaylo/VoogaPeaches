@@ -1,6 +1,7 @@
-//import authoring.Screen;
+package main;//import authoring.Screen;
 import authoring.Login;
 import authoring.Screen;
+import database.User;
 import database.firebase.FirebaseConnector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
  * @author Brian Nieves
  */
 public class VoogaPeaches extends Application {
+
+    static public User currentUser;
 
     @Override
 	public void start(Stage stage) {
@@ -22,6 +25,10 @@ public class VoogaPeaches extends Application {
         FirebaseConnector.closeFirebaseApp();
         super.stop();
     }
+
+    public static void changeUser(User newUser) {currentUser = newUser;}
+
+    public static User getUser() {return currentUser; }
 
     public static void main(String[] args){
         launch();

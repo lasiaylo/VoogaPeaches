@@ -1,5 +1,4 @@
 {
-  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
   "children": [],
   "hitBoxes": [],
   "properties": {
@@ -10,7 +9,6 @@
           "image path" : "default_image.jpg"
         }
       }
-    },
-    "image path":"default_image.jpg"
+    }
   }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.StringMessage;
@@ -53,7 +54,7 @@ public class Menu {
 
         myStage.setScene(myScene);
         myStage.setResizable(false);
-        myStage.setTitle("VoogaPeaches: Menu");
+        myStage.setTitle("main.VoogaPeaches: Menu");
         myStage.show();
 
         formatButtons();
@@ -61,6 +62,7 @@ public class Menu {
     }
 
     private void updateTheme() {
+        myRoot.getStylesheets().add(VoogaPeaches.getUser().getWorkspaceName()); //update from database
         PubSub.getInstance().subscribe(
                 "THEME_MESSAGE",
                 (message) -> {
@@ -95,13 +97,11 @@ public class Menu {
         String button = buttonPressed.getAccessibleText();
         if (button.equals("AUTHORING")) {
             Stage authoringStage = new Stage();
-            authoringStage.setTitle("VoogaPeaches: A Programmers for Peaches Production");
+            authoringStage.setTitle("main.VoogaPeaches: A Programmers for Peaches Production");
             authoringStage.setMaximized(true);
             authoringStage.setResizable(false);
             authoring = new Screen(authoringStage);
-            authoringStage.setOnCloseRequest(e -> authoring.save());
         }
-        myStage.close();
         return null;
     }
 
