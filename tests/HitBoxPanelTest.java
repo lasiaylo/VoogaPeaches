@@ -19,12 +19,10 @@ public class HitBoxPanelTest extends Application {
         // Read in test entity
         JSONDataManager j = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
-        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("PlayerEntity.json"));
+        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("test.json"));
 
         HitBoxPanel hbPanel = new HitBoxPanel();
         hbPanel.setEntity(readIn);
-
-
 
         Scene s = new Scene(hbPanel.getRegion());
         primaryStage.setScene(s);

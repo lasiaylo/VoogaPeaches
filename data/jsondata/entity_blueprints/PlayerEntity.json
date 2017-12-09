@@ -2,12 +2,11 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": [
-      {
-        "name": "imageScript",
+    "scripts": {
+      "imageScript": {
         "image_path" : "default_image.jpg"
       }
-    ],
+    },
     "listeners" : {
 
     }
