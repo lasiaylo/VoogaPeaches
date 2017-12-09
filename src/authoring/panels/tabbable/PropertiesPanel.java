@@ -47,7 +47,6 @@ public class PropertiesPanel implements Panel {
 						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
 			}
 		});
-
 	}
 
 	@Override
@@ -100,15 +99,16 @@ public class PropertiesPanel implements Panel {
 
 	private Node makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
-		for (String s : myScripts.keySet()){
 
+		for (String s : myScripts.keySet()){
 			Map<String, Object> event = myScripts.get(s);
-			Map<String, Object>  bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
-			addChildren(scriptBox, addChildPane(s, makeList(event),
+			Map<String, Object> bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
+			addChildren(scriptBox,
+					addChildPane(s, makeList(event),
 					makeParameters(bindings)));
 		}
+		addChildren(scriptBox, new ScriptButton(myScripts, this).getNode());
 		return addPane(SCRIPTS,scriptBox);
-
 	}
 
 	private Node makeList(Map<String, Object> event) throws GroovyInstantiationException {
@@ -124,7 +124,6 @@ public class PropertiesPanel implements Panel {
 	private TitledPane addPane(String title, Node pane) {
 		TitledPane tPane = new TitledPane(title, pane);
 		tPane.setAnimated(false);
-//		tPane.setExpanded(false);
 		return tPane;
 	}
 

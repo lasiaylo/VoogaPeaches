@@ -13,7 +13,6 @@ public class ImageField extends Field {
 
     public static final int IMAGE_HEIGHT = 200;
     public static final int IMAGE_WIDTH = 200;
-    public static final String USER_IMAGES = "user_images/";
 
     private ImageView view;
     private File selectedImage;
@@ -56,7 +55,7 @@ public class ImageField extends Field {
         if (selectedImage != null){
             setValue(selectedImage.getName());
             Image image = new Image(selectedImage.toURI().toString());
-            manager.writeFileData(FileConverter.convertImageToByteArray(image),USER_IMAGES + selectedImage.getName());
+            manager.writeFileData(FileConverter.convertImageToByteArray(image), "user_images/" + selectedImage.getName());
             view.setImage(image);
         }
     }
