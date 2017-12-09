@@ -1,9 +1,12 @@
-import engine.collisions.HitBox
 import engine.entities.Entity
 import engine.events.Event
 import engine.events.EventType
 import engine.events.MoveEvent
 import engine.events.TickEvent
+
+{event, entity ->
+
+}
 
 entity = (Entity) entity;
 

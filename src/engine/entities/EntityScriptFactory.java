@@ -2,6 +2,7 @@ package engine.entities;
 
 import database.fileloaders.ScriptLoader;
 import groovy.lang.Binding;
+import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class EntityScriptFactory {
         Map<String, Map<String, Object>> scriptMap = (Map<String, Map<String, Object>>)
                 properties.getOrDefault("scripts", new HashMap<String, Map<String, Object>>());
         for (String script : scriptMap.keySet() ) {
-            String code = ScriptLoader.stringForFile(script);
+            Closure code = ScriptLoader.stringForFile(script);
 
             List<String> listenActionPair = (List<String>) scriptMap.get(script).get("actions");
             Map<String, Object> params = (Map<String, Object>) scriptMap.get(script).get("bindings");
@@ -35,7 +36,8 @@ public class EntityScriptFactory {
                 }
                 binding.setVariable(key, params.get(key));
             });
-            new GroovyShell(binding).evaluate(code);
+
+            code.call(binding);
         }
     }
 }

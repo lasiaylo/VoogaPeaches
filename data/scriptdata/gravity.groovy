@@ -1,14 +1,10 @@
-package scriptdata
-
 import engine.entities.Entity
-import engine.events.Event
-import engine.events.EventType
-import engine.events.MoveEvent
+import engine.events.AccelerateEvent
 
 entity = (Entity) entity
 
-entity.on(EventType.MOVE, { Event event ->
-    event = (MoveEvent) event
+double gx = (Double) entity.getProperty("gx")
+double gy = (Double) entity.getProperty("gy")
+double mass = (Double) entity.getProperty("mass")
 
-    
-})
+new AccelerateEvent(gx.doubleValue() / mass.doubleValue() * event.getDt(), gy.doubleValue() / mass.doubleValue() * event.getDt()).fire(entity as Entity)
