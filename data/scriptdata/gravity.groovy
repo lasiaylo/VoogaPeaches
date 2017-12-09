@@ -1,5 +1,3 @@
-package scriptdata
-
 import engine.entities.Entity
 import engine.events.AccelerateEvent
 

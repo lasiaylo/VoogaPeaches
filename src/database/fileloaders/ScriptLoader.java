@@ -1,5 +1,7 @@
 package database.fileloaders;
 
+import groovy.lang.Closure;
+import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
@@ -19,7 +21,7 @@ public class ScriptLoader {
 
     /* Final Variables */
     private static final String SCRIPT_PATH = "./data/scriptdata/";
-    private static final Map<String, String> CACHED_SCRIPTS = cache(SCRIPT_PATH);
+    private static final Map<String, Closure> CACHED_SCRIPTS = cache(SCRIPT_PATH);
 
     /**
      * Loads in the different Groovy files and saves them in a HashMap
@@ -44,14 +46,15 @@ public class ScriptLoader {
      * @return {@code Map<String, String>} of loaded groovy script strings
      * corresponding to the name of a groovy script
      */
-    private static Map<String, String> cache(String path) {
-        Map<String, String> cache = new HashMap<>();
+    private static Map<String, Closure> cache(String path) {
+        Map<String, Closure> cache = new HashMap<>();
         File directory = new File(path);
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[]{"groovy"}, true);
         File file;
+        GroovyShell shell = new GroovyShell();
 
         while (iterator.hasNext() && (file = iterator.next()) != null)
-            cache.put(file.getPath().substring(path.length() + 1), "{ event, entity -> " + readStringForFile(file) + " }");
+            cache.put(file.getPath().substring(path.length()), (Closure) shell.evaluate(readStringForFile(file)));
 
         return cache;
     }
@@ -88,7 +91,7 @@ public class ScriptLoader {
      *                 of the Groovy Script that you want to retireve
      * @return A {@code String} containing the groovy code to be executed
      */
-    public static String stringForFile(String filename) {
+    public static Closure stringForFile(String filename) {
         return CACHED_SCRIPTS.get(filename);
     }
 }

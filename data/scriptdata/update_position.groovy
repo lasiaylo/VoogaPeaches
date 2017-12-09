@@ -1,5 +1,3 @@
-package scriptdata
-
 import engine.collisions.HitBox
 import engine.entities.Entity
 
