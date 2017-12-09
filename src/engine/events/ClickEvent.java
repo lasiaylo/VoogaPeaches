@@ -9,7 +9,7 @@ public class ClickEvent extends Event {
     private MouseButton myMouseButton;
     private boolean isGaming = true;
     private int myMode[];
-    private InputStream myBGType;
+    private String myBGType;
 
     public ClickEvent() {
         super(EventType.CLICK.getType());
@@ -20,7 +20,7 @@ public class ClickEvent extends Event {
         myMouseButton = mouse;
     }
 
-    public ClickEvent(boolean gaming, int[] mode, InputStream BGType) {
+    public ClickEvent(boolean gaming, int[] mode, String BGType) {
         super(EventType.CLICK.getType());
         isGaming = gaming;
         myMode = mode;
@@ -39,7 +39,7 @@ public class ClickEvent extends Event {
         return myMode;
     }
 
-    public InputStream getMyBGType() {
+    public String getMyBGType() {
         return myBGType;
     }
 }

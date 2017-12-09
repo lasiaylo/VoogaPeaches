@@ -5,7 +5,7 @@ public class AccelerateEvent extends Event {
     private double dvy;
 
     public AccelerateEvent(double dvx, double dvy) {
-        super(EventType.MOVE.getType());
+        super(EventType.ACCELERATE.getType());
         this.dvx = dvx;
         this.dvy = dvy;
     }

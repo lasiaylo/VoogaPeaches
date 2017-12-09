@@ -1,0 +1,42 @@
+{
+  "UID": "13ba68b4edc34f5da9e0689d7766a3fe",
+  "themeName": "light.css",
+  "games": [],
+  "workspaceName": "MiddleCameraWorkspace",
+  "userName": ",jh",
+  "properties": {
+    "MiddleCameraWorkspace": {
+      "Social Media": "right",
+      "Mini Map": "right",
+      "rightdivision": "0.0",
+      "Mini Mapvis": "false",
+      "Properties": "right",
+      "Propertiesvis": "false",
+      "Youtubevis": "false",
+      "Consolevis": "false",
+      "Console": "bottom",
+      "Youtube": "right",
+      "leftdivision": "0.0",
+      "Library": "left",
+      "Libraryvis": "false",
+      "Social Mediavis": "false",
+      "bodydivision": "0.0"
+    },
+    "LeftCameraWorkspace": {
+      "Social Media": "right",
+      "Mini Map": "right",
+      "Mini Mapvis": "false",
+      "Properties": "right",
+      "Propertiesvis": "false",
+      "Youtubevis": "false",
+      "Consolevis": "false",
+      "Console": "right",
+      "Youtube": "right",
+      "Library": "left",
+      "Libraryvis": "false",
+      "middledivision": "0.0",
+      "Social Mediavis": "false",
+      "bodydivision": "0.0"
+    }
+  }
+}

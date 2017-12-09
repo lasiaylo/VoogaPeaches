@@ -9,8 +9,11 @@ actions = (List<String>) actions
 entity.on(EventType.TICK, { Event event ->
     event = (engine.events.TickEvent) event
 
-    for(String action : actions) {
-        String code = ScriptLoader.stringForFile(action)
-        evaluate(code)
-    }
+    Binding binding = new Binding()
+    binding.setVariable("event", event)
+    binding.setVariable("entity", entity)
+    GroovyShell shell = new GroovyShell(binding)
+
+    for (String action : actions)
+        shell.evaluate(ScriptLoader.getScript(action))
 })
