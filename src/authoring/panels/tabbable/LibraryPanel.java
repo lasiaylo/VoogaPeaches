@@ -8,6 +8,7 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.EntityManager;
 import engine.entities.Entity;
+import engine.events.ImageViewEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -35,6 +36,7 @@ public class LibraryPanel implements Panel {
     private PanelController myController;
     private EntityManager myManager;
     private ObjectFactory factory;
+    private ObjectFactory defaultFactory;
     private FileDataManager manager;
     private Button update;
     private String type;
@@ -44,6 +46,7 @@ public class LibraryPanel implements Panel {
         myEntType = new ChoiceBox<>();
         manager = new FileDataManager(FileDataFolders.IMAGES);
         try {
+            defaultFactory = new ObjectFactory("PlayerEntity");
             factory = new ObjectFactory("PlayerEntity");
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
@@ -74,37 +77,41 @@ public class LibraryPanel implements Panel {
         if (type.equals(PLAYER)) {
             for (String each: ObjectFactory.getEntityTypes()) {
                 try {
-                    factory.setObjectBlueprint(each);
+                    factory.setObjectBlueprint("user_defined/" + each);
                 } catch (ObjectBlueprintNotFoundException e) {
                     e.printStackTrace();
                 }
                 Entity entity = factory.newObject();
-                ImageView view = new ImageView(new Image(manager.readFileData((String) entity.getProperty("image path"))));
+                Image image = new Image(manager.readFileData((String) entity.getProperty("image path")));
+                ImageView view = new ImageView(image);
                 view.setFitWidth(50);
                 view.setFitHeight(50);
                 myTilePane.getChildren().add(view);
-                view.setOnDragDetected(e -> startDragEnt(e, view));
+                view.setOnDragDetected(e -> startDragEnt(e, view, (String) entity.getProperty("image path"), factory));
             }
         }
         else {
-            for (InputStream imageStream: manager.retrieveSubfolderFiles(type)) {
+            for (String each: manager.getSubFile(type)) {
+                InputStream imageStream = manager.readFileData(type + "/" + each);
                 Image image = new Image(imageStream);
                 ImageView view = new ImageView(image);
                 view.setFitWidth(50);
                 view.setFitHeight(50);
                 myTilePane.getChildren().add(view);
                 if (type.equals(BG)) {
-                    view.setOnMouseClicked(e -> myManager.setMyBGType(imageStream));
+                    view.setOnMouseClicked(e -> myManager.setMyBGType(type + "/" + each));
                 }
                 else {
-                    view.setOnDragDetected(e -> startDragImg(e, image, view));
+                    view.setOnDragDetected(e -> startDragEnt(e, view, type + "/" + each, defaultFactory));
                 }
             }
         }
     }
 
-    private void startDragEnt(MouseEvent event, ImageView view) {
-        Entity entity = factory.newObject();
+    private void startDragEnt(MouseEvent event, ImageView view, String path, ObjectFactory fact) {
+        Entity entity = fact.newObject();
+        ImageViewEvent iEvent = new ImageViewEvent(path);
+        iEvent.fire(entity);
         Dragboard board = view.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
         content.putString(entity.UIDforObject());
@@ -112,13 +119,6 @@ public class LibraryPanel implements Panel {
         event.consume();
     }
 
-    private void startDragImg(MouseEvent event, Image image, ImageView view) {
-        Dragboard board = view.startDragAndDrop(TransferMode.COPY);
-        ClipboardContent content = new ClipboardContent();
-        content.putImage(image);
-        board.setContent(content);
-        event.consume();
-    }
 
     @Override
     public Region getRegion() {

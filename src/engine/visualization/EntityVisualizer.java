@@ -1,8 +1,9 @@
 package engine.visualization;
 
-import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Group;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -15,78 +16,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityVisualizer {
-    public static final double RADIUS = 20;
+    public static final double RADIUS = 50;
     public static final double CONNECTION_LENGTH = 30;
     public static final int MAX_DISPLAY = 4;
 
     private Group group;
-    private Circle circle;
+    private Circle rootCircle;
     private List<EntityVisualizer> children;
     private List<Line> connections = new ArrayList<>();
-    private Entity entity;
+    private Entity root;
     private GameVisualizer gameVisualizer;
     private Entity parent;
     private EntityVisualizer vizParent;
 
-    public EntityVisualizer(GameVisualizer gameVisualizer, Entity entity, EntityVisualizer vizParent, Entity parent) {
-        this.entity = entity;
+    public EntityVisualizer(GameVisualizer gameVisualizer, Entity root, EntityVisualizer vizParent, Entity parent) {
+        this.root = root;
         this.parent = parent;
         this.vizParent = vizParent;
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
-
-        StackPane stackPane = new StackPane();
-        circle = new Circle(RADIUS);
-        circle.setCenterX(0);
-        circle.setCenterY(0);
-        circle.setStroke(Color.BLACK);
-        circle.setFill(Color.WHITE);
-        stackPane.getChildren().addAll(circle, createText(entity.UIDforObject()));
-
         group = new Group();
-        group.getChildren().add(stackPane);
-        drawChildren(entity);
+        drawRoot();
+        drawChildren(root);
     }
 
-    private Text createText(String s){
-        Text text = new Text(s.substring(0, 5));
+    private void createText(String s, Circle c) {
+        Text text = new Text(c.getCenterX(), c.getCenterY(), s.substring(0, 5));
         text.setBoundsType(TextBoundsType.VISUAL);
         text.setStyle(
                 "-fx-font-family: \"Georgia\";" +
                         "-fx-font-size: 8px;"
         );
-        return text;
+        group.getChildren().add(text);
+    }
+
+    private void drawRoot() {
+        rootCircle = new Circle(RADIUS);
+        rootCircle.setCenterX(0);
+        rootCircle.setCenterY(0);
+        rootCircle.setStroke(Color.BLACK);
+        rootCircle.setFill(Color.WHITE);
+        group.getChildren().add(rootCircle);
+        createText(root.UIDforObject(), rootCircle);
     }
 
     private void drawChildren(Entity root) {
-        root.getChildren().forEach(e -> children.add(new EntityVisualizer(gameVisualizer, e, this, root)));
-        if(children.size() <= MAX_DISPLAY) {
+        root.getChildren().forEach(e -> {
+            children.add(new EntityVisualizer(gameVisualizer, e, this, root));
+            drawChildren(e);
+        });
+        if (children.size() <= MAX_DISPLAY) {
             draw(children.size());
         } else {
             Circle lastCircle = draw(MAX_DISPLAY);
-            // replace last circle
+            lastCircle.setFill(Color.BISQUE);
+            ChoiceBox<String> cb = new ChoiceBox<>();
+            cb.setVisible(false);
+            cb.setLayoutX(lastCircle.getCenterX());
+            cb.setLayoutY(lastCircle.getCenterY());
+            group.getChildren().add(cb);
+            cb.toFront();
+            lastCircle.setOnMouseClicked(f -> {
+                for (int i = MAX_DISPLAY - 1; i < children.size(); i++){
+                    String UID = children.get(i).root.UIDforObject();
+                    if (!cb.getItems().contains(UID)){
+                        cb.getItems().add(UID);
+                    }
+                }
+                cb.show();
+                cb.setOnAction(g -> {
+                    if (cb.getValue() != null) {
+                        gameVisualizer.focus(children.get(indexByUID(cb.getValue())));
+                        cb.valueProperty().set(null);
+                    }
+                });
+            });
         }
-    }
-
-    protected Group getGroup() {
-        return group;
     }
 
     private Circle draw(int size) {
-//        children.forEach(e -> group.getChildren().removeAll(childrenVis)); // check to make sure not null pointer exception
-        double angle = 2 * Math.PI / ( size + 1 );
-        Circle circle = new Circle();
-
-        if(parent != null) {
-            drawTotal(0, vizParent);
+        double angle = 2 * Math.PI / (size + 1);
+        Circle c = new Circle();
+        if (parent != null) {
+            Circle parentCircle = drawTotal(0, vizParent);
+            parentCircle.setFill(Color.CORNFLOWERBLUE);
         }
-
-        for(int i = 0; i < size; i++) {
-            circle = drawTotal(angle * (i + 1), children.get(i));
-            
+        for (int i = 0; i < size; i++) {
+            c = drawTotal(angle * (i + 1), children.get(i));
             System.out.println(angle * (i + 1));
         }
-        return circle;
+        return c;
     }
 
     private Circle drawTotal(double angle, EntityVisualizer entityVisualizer) {
@@ -95,9 +114,8 @@ public class EntityVisualizer {
     }
 
     private Line drawLine(double angle) {
-        Vector radialOffset = vecFromHypotenuse(new Vector(circle.getCenterX(), circle.getCenterY()), circle.getRadius(), angle);
+        Vector radialOffset = vecFromHypotenuse(new Vector(rootCircle.getCenterX(), rootCircle.getCenterY()), rootCircle.getRadius(), angle);
         Vector lineEnd = vecFromHypotenuse(radialOffset, CONNECTION_LENGTH, angle);
-
         Line line = new Line(radialOffset.at(0), radialOffset.at(1), lineEnd.at(0), lineEnd.at(1));
         connections.add(line);
         group.getChildren().add(line);
@@ -108,12 +126,27 @@ public class EntityVisualizer {
         Circle newCircle = new Circle(RADIUS);
         newCircle.setCenterX(lineEndX + RADIUS * Math.cos(angle));
         newCircle.setCenterY(lineEndY + RADIUS * Math.sin(angle));
+        newCircle.setFill(Color.ORCHID);
         group.getChildren().add(newCircle);
+        createText(entityVisualizer.root.UIDforObject(), newCircle);
         newCircle.setOnMouseClicked(e -> gameVisualizer.focus(entityVisualizer));
         return newCircle;
     }
 
     private Vector vecFromHypotenuse(Vector ogPosition, double length, double angle) {
         return ogPosition.add(new Vector(length * Math.cos(angle), length * Math.sin(angle)));
+    }
+
+    protected Group getGroup() {
+        return group;
+    }
+
+    private int indexByUID(String UID){
+        for (int i = MAX_DISPLAY; i < children.size(); i++){
+            if (children.get(i).root.UIDforObject().equals(UID)){
+                return i;
+            }
+        }
+        return -1;
     }
 }
