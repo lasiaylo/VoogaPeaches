@@ -50,17 +50,11 @@ public class ScriptButton {
     private void add() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            String fileName = FilenameUtils.removeExtension(file.getName());
-            myMap.put(fileName, createMap());
             try {
-                myPanel.updateProperties();
-            } catch (GroovyInstantiationException e) { }
+                myPanel.addFile(myMap, file);
+            } catch (GroovyInstantiationException e) {
+            }
         }
-    }
-
-    private Map<String,Object> createMap() {
-        Map<String, Object> newMap = new HashMap<String, Object>();
-        return newMap;
     }
 
     public Node getNode(){
