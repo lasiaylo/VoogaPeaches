@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityVisualizer {
-    public static final double RADIUS = 50;
+    public static final double RADIUS = 20;
     public static final double CONNECTION_LENGTH = 75;
     public static final int MAX_DISPLAY = 4;
 
@@ -28,8 +28,6 @@ public class EntityVisualizer {
     private GameVisualizer gameVisualizer;
     private Entity parent;
     private EntityVisualizer vizParent;
-    private double rootPosX;
-    private double rootPosY;
 
     public EntityVisualizer(GameVisualizer gameVisualizer, Entity root, EntityVisualizer vizParent, Entity parent, double rootPosX, double rootPosY) {
         this.root = root;
@@ -38,8 +36,6 @@ public class EntityVisualizer {
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
         group = new Group();
-        this.rootPosX = rootPosX;
-        this.rootPosY = rootPosY;
         rootCircle = new Circle(RADIUS);
         rootCircle.setCenterX(rootPosX);
         rootCircle.setCenterY(rootPosY);
@@ -70,18 +66,14 @@ public class EntityVisualizer {
             double angle = 2 * Math.PI / (entVis.root.getChildren().size() + 1);
             for (int j = 0; j < entVis.root.getChildren().size(); j++) {
                 Line l = drawLine(angle * (j + 1), entVis.rootCircle);
-                entVis.children.add(new EntityVisualizer(gameVisualizer, entVis.root.getChildren().get(j), this, root, l.getEndX(), l.getEndY()));
+                entVis.children.add(new EntityVisualizer(gameVisualizer, entVis.root.getChildren().get(j), this, entVis.root, l.getEndX(), l.getEndY()));
                 drawCircle(angle, entVis.children.get(j), l.getEndX(), l.getEndY());
-
                 drawTree(entVis.children.get(j));
             }
-
         }
     }
 
-    public void drawRoot(double posX, double posY) {
-        rootCircle.setCenterX(posX);
-        rootCircle.setCenterY(posY);
+    public void drawRoot() {
         rootCircle.setStroke(Color.BLACK);
         rootCircle.setFill(Color.WHITE);
         //group.getChildren().add(rootCircle);

@@ -12,7 +12,7 @@ public class GameVisualizer {
         this.root = root;
         this.group = new Group();
         vizRoot = new EntityVisualizer(this, root, null,null, 0, 0);
-        vizRoot.drawRoot(0,0);
+        vizRoot.drawRoot();
         focus(vizRoot);
     }
 
