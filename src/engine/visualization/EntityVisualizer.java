@@ -61,7 +61,10 @@ public class EntityVisualizer {
     }
 
     private void drawChildren(Entity root) {
-        root.getChildren().forEach(e -> children.add(new EntityVisualizer(gameVisualizer, e, this, root)));
+        root.getChildren().forEach(e -> {
+            children.add(new EntityVisualizer(gameVisualizer, e, this, root));
+            drawChildren(e);
+        });
         if (children.size() <= MAX_DISPLAY) {
             draw(children.size());
         } else {
@@ -74,7 +77,7 @@ public class EntityVisualizer {
             group.getChildren().add(cb);
             cb.toFront();
             lastCircle.setOnMouseClicked(f -> {
-                for (int i = MAX_DISPLAY; i < children.size(); i++){
+                for (int i = MAX_DISPLAY - 1; i < children.size(); i++){
                     String UID = children.get(i).root.UIDforObject();
                     if (!cb.getItems().contains(UID)){
                         cb.getItems().add(UID);
@@ -146,5 +149,4 @@ public class EntityVisualizer {
         }
         return -1;
     }
-
 }
