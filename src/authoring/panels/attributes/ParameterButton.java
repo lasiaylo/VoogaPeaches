@@ -47,7 +47,6 @@ public class ParameterButton {
                 );
         comboBox = new ComboBox(options);
         button = makeButton();
-
     }
 
     private Button makeButton() {
