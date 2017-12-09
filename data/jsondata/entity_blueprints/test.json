@@ -49,15 +49,20 @@
     ],
     "properties": {
       "scripts": {
-        "leftKeyPress.groovy": [
-          "print.groovy"
-        ],
-        "example.groovy": [
-          "print.groovy"
-        ],
-        "print.groovy" : [
-
-        ]
+        "leftKeyPress.groovy": {
+          "actions": [],
+          "bindings":{"x": 30.0}
+        },
+        "example.groovy": {
+          "actions": [
+            "print.groovy"
+          ],
+          "bindings": {}
+        },
+        "print.groovy" : {
+          "actions": [],
+          "bindings":{}
+        }
       },
       "x": 30.0,
       "y": 30.0,

@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
@@ -63,6 +64,7 @@ public class CameraPanel implements Panel {
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
+		myArea.getStylesheets().add(VoogaPeaches.getUser().getThemeName());
 
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
@@ -124,7 +126,7 @@ public class CameraPanel implements Panel {
 	}
 
 	private void changeName(KeyCode code) {
-	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL))) {
+	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL)) && (!myOption.equals(BGL))) {
 	        myText.commitValue();
 	        myLayer.getItems().set(myLayer.getItems().indexOf(myLayer.getValue()), myText.getText());
         }
@@ -146,7 +148,7 @@ public class CameraPanel implements Panel {
 				myManager.selectBGLayer();
 				break;
 			default:
-				int layer = Character.getNumericValue(myOption.charAt(myOption.length()-1));
+				int layer = myLayer.getItems().indexOf(myLayer.getValue()) - 1;
 				myManager.selectLayer(layer);
 				break;
 		}

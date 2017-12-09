@@ -8,21 +8,26 @@ import engine.events.Event
 import engine.events.EventType
 import engine.events.ImageViewEvent
 import engine.events.InitialImageEvent
+import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
 import engine.util.FXProcessing
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import util.math.num.Vector
+import util.pubsub.PubSub
+import util.pubsub.messages.EntityPass
 
 
 entity = (Entity) entity
 
 datamanager = new FileDataManager(FileDataFolders.IMAGES)
-pointer = new ImageView(new Image(datamanager.readFileData((String) entity.getProperty("image path"))))
+println image_path
+pointer = new ImageView(new Image(datamanager.readFileData((String) image_path)))
 entity.add(pointer)
 
 entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
@@ -58,6 +63,17 @@ entity.on(EventType.CLICK.getType(), { Event event ->
                 cEvent.getMyBGType().reset()
                 pointer.setImage(new Image(cEvent.getMyBGType()))
             }
+            PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
+        }
+        e.consume()
+    })
+})
+
+entity.on(EventType.KEY_PRESS.getType(), { Event event ->
+    KeyPressEvent kEvent = (KeyPressEvent) event
+    pointer.setOnKeyPressed( { KeyEvent e ->
+        if (kEvent.getIsGaming() == false && e.getCode().equals(kEvent.getKeyCode())) {
+            entity.getParent().remove(entity)
         }
         e.consume()
     })
@@ -95,7 +111,6 @@ void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent) {
     if (fsize.at(1) < 0) {
         fsize.at(1, 0.1)
     }
-    System.out.println(fsize)
     pointer.setFitWidth(fsize.at(0))
     pointer.setFitHeight(fsize.at(1))
 }

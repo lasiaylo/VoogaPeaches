@@ -69,6 +69,14 @@ public class HitBox extends TrackableObject {
     }
 
     /**
+     * Set this hitbox's tag to param
+     * @param tag   this hitbox's identification tag
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
      * Returns a boolean value that describes whether or not this hitbox has intersected with another param hitbox
      * @param other HitBox to check intersection
      * @return  a {@tag boolean} that represents whether or not this hitbox has intersected with the param

@@ -20,7 +20,7 @@ public class EntityScriptTest extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
-        JSONObject blueprint = manager.readJSONFile("test");
+        JSONObject blueprint = manager.readJSONFile("test2");
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
