@@ -10,6 +10,10 @@ import javafx.stage.FileChooser;
 import java.io.File;
 
 public class ImageField extends Field {
+
+    public static final int IMAGE_HEIGHT = 200;
+    public static final int IMAGE_WIDTH = 200;
+
     private ImageView view;
     private File selectedImage;
     private FileChooser fileChooser;
@@ -30,6 +34,8 @@ public class ImageField extends Field {
         manager = new FileDataManager(FileDataFolders.IMAGES);
         Image image = new Image(manager.readFileData(file));
         view = new ImageView(image);
+        view.setFitHeight(IMAGE_HEIGHT);
+        view.setFitWidth(IMAGE_WIDTH);
         setControl(view);
     }
 
