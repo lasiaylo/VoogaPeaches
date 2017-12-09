@@ -7,6 +7,7 @@ public class GameVisualizer {
     private Entity root;
     private Group group;
     private EntityVisualizer vizRoot;
+
     public GameVisualizer(Entity root) {
         this.root = root;
         this.group = new Group();
@@ -14,13 +15,14 @@ public class GameVisualizer {
         focus(vizRoot);
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
     protected void focus(EntityVisualizer entityVisualizer) {
         group.getChildren().clear();
         group.getChildren().add(entityVisualizer.getGroup());
         entityVisualizer.getGroup().relocate(100, 100);
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
 }
