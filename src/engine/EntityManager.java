@@ -369,6 +369,8 @@ public class EntityManager {
 
     public void changeCurrentLevelName(String name) {
         levels.replace(name, levels.get(currentLevelName));
-        levelSize.replace(name, levelSize.get(currentLevelName));
+        Vector temp = levelSize.get(currentLevelName);
+        levelSize.remove(currentLevelName);
+        levelSize.put(name, temp);
     }
 }
