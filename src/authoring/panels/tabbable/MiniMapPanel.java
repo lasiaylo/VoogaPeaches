@@ -17,6 +17,7 @@ public class MiniMapPanel implements Panel{
     @Override
     public Region getRegion() {
         holder.getChildren().add(myPane);
+        holder.getStyleClass().add("panel");
         StackPane.setAlignment(myPane, Pos.CENTER);
         return holder;
     }
