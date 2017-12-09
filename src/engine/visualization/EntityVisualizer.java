@@ -68,10 +68,7 @@ public class EntityVisualizer {
             Circle lastCircle = draw(MAX_DISPLAY);
             lastCircle.setFill(Color.BISQUE);
             ChoiceBox<String> cb = new ChoiceBox<>();
-            cb.setStyle("-fx-text-box-border: transparent;"
-                    + "-fx-mark-color: transparent;"
-                    + "-fx-background-color: transparent, transparent, transparent, transparent;"
-                    + "-fx-text-alignment: center;");
+            cb.setVisible(false);
             cb.setLayoutX(lastCircle.getCenterX());
             cb.setLayoutY(lastCircle.getCenterY());
             group.getChildren().add(cb);
