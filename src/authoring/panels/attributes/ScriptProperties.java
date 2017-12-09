@@ -26,7 +26,7 @@ public class ScriptProperties {
         myVBox.setOnDragDropped(e->setControl(e));
         for (String name : map.keySet()) {
             myVBox.getChildren().add(
-                    addChildPane(name, makeParameters(map.get(name), panel))
+                    TPane.addChildPane(name, makeParameters(map.get(name), panel))
             );
         }
         myVBox.getChildren().add(new ScriptButton(map, panel).getNode());
@@ -35,19 +35,6 @@ public class ScriptProperties {
     private Node makeParameters(Map<String, Object> map, PropertiesPanel panel) throws GroovyInstantiationException {
         ParameterProperties parameters = new ParameterProperties(map, panel);
         return parameters.getNode();
-    }
-
-
-    private TitledPane addChildPane(String title, Node... pane) {
-        VBox box = new VBox();
-        box.getChildren().addAll(pane);
-        return addPane(title, box);
-    }
-
-    private TitledPane addPane(String title, Node pane) {
-        TitledPane tPane = new TitledPane(title, pane);
-        tPane.setAnimated(false);
-        return tPane;
     }
 
     public void handle(DragEvent event) {

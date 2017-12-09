@@ -87,11 +87,11 @@ public class PropertiesPanel implements Panel {
         myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
         myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
         myVBox.getChildren().addAll(
-                addPane(PARAMETERS, makeParameters(myParameters)),
-                addPane(SCRIPTS, makeScripts(myScripts)),
-                addPane(EVENTS,makeEvents())
+                TPane.addPane(PARAMETERS, makeParameters(myParameters)),
+                TPane.addPane(SCRIPTS, makeScripts(myScripts)),
+                TPane.addPane(EVENTS,makeEvents()),
+                addButton()
         );
-        addButton();
         myParameters.put("scripts", myScripts);
         myParameters.put("listeners", myEvents);
     }
@@ -110,36 +110,23 @@ public class PropertiesPanel implements Panel {
         VBox eventBox = new VBox();
         for (String name : myEvents.keySet()) {
             eventBox.getChildren().add(
-                    addChildPane(name, makeScripts(myEvents.get(name))));
+                    TPane.addChildPane(name, makeScripts(myEvents.get(name))));
         }
         eventBox.getChildren().add(new EventButton(myEvents,this).getNode());
         return eventBox;
     }
 
-    private TitledPane addChildPane(String title, Node... pane) {
-        VBox box = new VBox();
-        box.getChildren().addAll(pane);
-        return addPane(title, box);
-    }
-
-    private TitledPane addPane(String title, Node pane) {
-        TitledPane tPane = new TitledPane(title, pane);
-        tPane.setAnimated(false);
-        return tPane;
-    }
-
     /**
      * Displays a button that allows users to add more scripts to an entity
      */
-    private void addButton() {
-        CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");
-        myVBox.getChildren().add(saveEntity.getButton());
+    private Node addButton() {
+        return new CustomButton(new EntitySave(myEntity), "Save Entity").getButton();
     }
 
     public void addFile(Map<String, Map<String,Object>> map, File file) throws GroovyInstantiationException {
         if (file != null) {
             String fileName = FilenameUtils.removeExtension(file.getName());
-            map.put(fileName, new HashMap<String, Object>());
+            map.put(fileName, new HashMap<>());
         }
         updateProperties();
     }
