@@ -46,10 +46,8 @@ public class ImageField extends Field {
 
     private void initializeFileChooser(){
         fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter JPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter PNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        FileChooser.ExtensionFilter GIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
-        fileChooser.getExtensionFilters().addAll(JPG, PNG, GIF);
+        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter("JPG files (*.jpg), PNG files (*.png), GIF files (*.gif)", "*.jpg", "*.png", "*.gif");
+        fileChooser.getExtensionFilters().addAll(JPG_PNG_GIF);
     }
 
     private void chooseFile() {
