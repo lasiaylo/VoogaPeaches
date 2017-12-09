@@ -26,13 +26,16 @@ import util.pubsub.messages.EntityPass
 entity = (Entity) entity
 
 datamanager = new FileDataManager(FileDataFolders.IMAGES)
-println image_path
 pointer = new ImageView(new Image(datamanager.readFileData((String) image_path)))
 entity.add(pointer)
 
 entity.on(EventType.IMAGE_VIEW.getType(), { Event event ->
     ImageViewEvent imgEvent = (ImageViewEvent) event
-    pointer.setImage(imgEvent.getImage())
+    pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
+    Map<String, Map<String, Object>> scriptMap = (Map<String, Map<String, Object>>) entity.getProperty("scripts")
+    Map<String, Object> imageScript = (Map<String, Object>) scriptMap.get("imageScript.groovy")
+    Map<String, Object> parameters = (Map<String, Object>) imageScript.get("bindings")
+    parameters.put("image_path", imgEvent.getPath())
 })
 
 entity.on(EventType.INITIAL_IMAGE.getType(), { Event event ->

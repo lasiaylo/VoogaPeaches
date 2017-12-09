@@ -13,7 +13,7 @@ entity.on(EventType.KEY_PRESS.getType(), { Event e ->
     KeyPressEvent keyEvent = (KeyPressEvent) e
     if(keyEvent.getKeyCode().equals(KeyCode.LEFT)) {
         for(String action : actions) {
-            String code = ScriptLoader.stringForFile(action)
+            String code = ScriptLoader.getScript(action)
             evaluate(code)
         }
 
