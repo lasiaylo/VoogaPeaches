@@ -13,6 +13,7 @@ import engine.entities.Entity;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -59,16 +60,29 @@ public class PropertiesPanel implements Panel {
 		return TITLE;
 	}
 
+	/**Updates the view of the AttributesPanel
+	 * @throws GroovyInstantiationException
+	 */
+	public void updateProperties() throws GroovyInstantiationException {
+		updateProperties(myEntity);
+	}
+
 	public void updateProperties(String UID) throws GroovyInstantiationException {
 		Entity entity = (Entity) TrackableObject.objectForUID(UID);
 		updateProperties(entity);
 	}
+
 	/**Takes in an entity and displays its properties
 	 * @param entity
-	 * @throws GroovyInstantiationException 
+	 * @throws GroovyInstantiationException
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
+		entity.initialize();
+		updateVisuals();
+	}
+
+	private void updateVisuals() throws GroovyInstantiationException {
 		myVBox.getChildren().clear();
 		myParameters = myEntity.getProperties();
 		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
@@ -78,12 +92,6 @@ public class PropertiesPanel implements Panel {
 		myParameters.put("scripts", myScripts);
 	}
 
-	/**Updates the view of the AttributesPanel
-	 * @throws GroovyInstantiationException
-	 */
-	public void updateProperties() throws GroovyInstantiationException {
-		updateProperties(myEntity);
-	}
 
 	private Node makeParameters(Map<String, Object> parameterMap) throws GroovyInstantiationException {
 		VBox parameterBox = new VBox();
@@ -113,6 +121,7 @@ public class PropertiesPanel implements Panel {
 
 	private Node makeList(Map<String, Object> event) throws GroovyInstantiationException {
 		Field field = FieldFactory.makeFieldMap(event, ACTIONS);
+		Node node = field.getControl();
 		return addPane(ACTIONS,field.getControl());
 	}
 
@@ -142,7 +151,7 @@ public class PropertiesPanel implements Panel {
 	 */
 	private void addButton() {
 		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");
-		myVBox.getChildren().add(saveEntity.getButton());
+		addChildren(myVBox, saveEntity.getButton());
 	}
 
 	public Entity getEntity(){

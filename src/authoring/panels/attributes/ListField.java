@@ -3,6 +3,8 @@ package authoring.panels.attributes;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import database.jsonhelpers.JSONDataManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -11,11 +13,12 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 
 public class ListField extends Field {
 	private ListView<String> listview;
 	private ObservableList<String> OBList;
-	
+
 	public ListField(Setter setter) {
 		super(setter);
 	}
@@ -31,6 +34,17 @@ public class ListField extends Field {
 		listview.setOnKeyPressed(e-> delete(e));
 		listview.setOnDragOver(e->handle(e));
 		listview.setOnDragDropped(e->setControl(e));
+		listview.setOnMouseClicked((e-> open()));
+	}
+
+	private void open() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter groovy = new FileChooser.ExtensionFilter("Groovy Scripts", "*.groovy");
+		fileChooser.getExtensionFilters().add(groovy);
+		File selected = fileChooser.showOpenDialog(null);
+		if (selected != null){
+			addFileToList(selected);
+		}
 	}
 
 	private void delete(KeyEvent e) {
@@ -55,17 +69,20 @@ public class ListField extends Field {
             success = true;
             String filePath = null;
             for (File file:db.getFiles()) {
-                filePath = file.getAbsolutePath();
-                System.out.println(filePath);
-                if (filePath.endsWith(".groovy")) {
-					filePath = file.getName();
-					OBList.add(filePath);
-				}
+				addFileToList(file);
             }
         }
         event.setDropCompleted(success);
         event.consume();
     }
+
+	private void addFileToList(File file) {
+		String filePath = file.getAbsolutePath();
+		if (filePath.endsWith(".groovy")) {
+            filePath = file.getName();
+            OBList.add(filePath);
+        }
+	}
 
 	@Override
 	protected void getDefaultValue() {

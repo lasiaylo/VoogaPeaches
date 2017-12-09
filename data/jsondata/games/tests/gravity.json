@@ -4,26 +4,32 @@
   "hitBoxes": [],
   "properties": {
     "scripts": {
-      "move.groovy": {
-        "actions" : [],
-        "bindings" : {
-        }},
-      "gravity.groovy": {
-        "actions" : [],
-        "bindings" : {
-        }},
-      "update_position.groovy": {
-        "actions" : [],
-        "bindings" : {
-        }},
-      "update_acceleration.groovy": {
-        "actions" : [],
-        "bindings" : {
-        }},
+      "TickEvent.groovy": {
+        "actions": [
+          "gravity.groovy", "move.groovy"
+        ],
+        "bindings": {
+        }
+      },
+      "MoveEvent.groovy": {
+        "actions": [
+          "update_position.groovy"
+        ],
+        "bindings": {
+        }
+      },
+      "AccelerateEvent.groovy": {
+        "actions": [
+          "update_velocity.groovy"
+        ],
+        "bindings": {
+        }
+      },
       "circle.groovy": {
-        "actions" : [],
-        "bindings" : {
-        }}
+        "actions": [],
+        "bindings": {
+        }
+      }
     },
     "x": 50,
     "y": 50,
