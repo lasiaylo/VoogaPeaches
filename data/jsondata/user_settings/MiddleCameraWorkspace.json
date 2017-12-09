@@ -6,15 +6,17 @@
   "Create or Add Hitboxes!vis": "false",
   "Create or Add Hitboxes!": "bottom",
   "Properties": "left",
+  "HitBoxes": "right",
   "Propertiesvis": "true",
   "Youtubevis": "false",
-  "Consolevis": "true",
+  "Consolevis": "false",
   "Console": "bottom",
   "Youtube": "bottom",
+  "HitBoxesvis": "false",
   "leftdivision": "0.18125",
   "Library": "left",
   "Libraryvis": "true",
   "middledivision": "0.2",
   "Social Mediavis": "false",
-  "bodydivision": "0.5547309833024119"
+  "bodydivision": "0.8327044025157233"
 }

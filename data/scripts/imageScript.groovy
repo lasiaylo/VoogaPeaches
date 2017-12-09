@@ -35,7 +35,6 @@ import java.util.stream.Collectors
         ImageViewEvent imgEvent = (ImageViewEvent) call
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
         scriptList = ((List) entity.getProperty("scripts"))
-        println scriptList.get(0).getClass()
         result = scriptList.stream().filter({ Map<String, Object> map ->
             map.get("name").equals("imageScript")
         }).collect(Collectors.toList())

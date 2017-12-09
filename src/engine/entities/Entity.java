@@ -127,7 +127,7 @@ public class Entity extends Evented {
         group.getChildren().add(hitbox.getHitbox());
     }
 
-    private void executeScripts() {
+    public void executeScripts() {
         clear();
         EntityScriptFactory.executeScripts(this);
     }
