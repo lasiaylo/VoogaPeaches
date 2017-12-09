@@ -341,6 +341,10 @@ public class EntityManager {
         return currentLevel;
     }
 
+    public String getCurrentLevelName() {
+        return currentLevelName;
+    }
+
     public Entity getRoot() {
         return root;
     }
@@ -350,9 +354,19 @@ public class EntityManager {
     }
 
     public void changeLevelName(String oldName, String newName) {
-        levels.replace(newName, levels.get(oldName));
+        if (oldName.equals(currentLevelName)) {
+            currentLevelName = newName;
+        }
+        Entity ent = levels.get(oldName);
+        levels.remove(oldName);
+        levels.put(newName, ent);
         Vector temp = levelSize.get(oldName);
         levelSize.remove(oldName);
         levelSize.put(newName, temp);
+    }
+
+    public void deleteLevel(String name) {
+        levels.remove(name);
+        levelSize.remove(name);
     }
 }
