@@ -75,7 +75,7 @@ public class FieldFactory {
 		Class<?> clazz = obj.getClass();
 		if (clazz.equals(String.class)){
 			String string = (String) obj;
-			if (string.matches("^(.*(gif|jpg|png|GIF|JPG|PNG))")){
+			if (string.matches("^.+(\\.)(gif|GIF|png|PNG|jpg|JPG)+")){
 				return PropertiesReader.value(FIELD, "Image");
 			}
 		}
