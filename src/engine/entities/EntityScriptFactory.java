@@ -3,6 +3,7 @@ package engine.entities;
 import database.fileloaders.ScriptLoader;
 import engine.events.EventType;
 import groovy.lang.Closure;
+import groovy.lang.Script;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ class EntityScriptFactory {
         }
 
         addBindings(entity, params, bindings);
+        System.out.println(ScriptLoader.getScript(name));
         return ScriptLoader.getScript(name);
     }
 
