@@ -11,7 +11,8 @@ public class GameVisualizer {
     public GameVisualizer(Entity root) {
         this.root = root;
         this.group = new Group();
-        vizRoot = new EntityVisualizer(this, root, null,null);
+        vizRoot = new EntityVisualizer(this, root, null,null, 0, 0);
+        vizRoot.drawRoot(0,0);
         focus(vizRoot);
     }
 
