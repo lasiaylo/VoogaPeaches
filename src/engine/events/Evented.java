@@ -20,6 +20,10 @@ public abstract class Evented extends TrackableObject {
         callbacks.get(type).add(callback);
     }
 
+    public void on(EventType type, Consumer<Event> callback) {
+        on(type.getType(), callback);
+    }
+
     public void off(String type, Consumer<Event> callback) {
         if (callbacks != null && callbacks.containsKey(type))
             callbacks.get(type).remove(callback);
