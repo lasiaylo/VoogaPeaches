@@ -4,6 +4,7 @@ import authoring.Panel;
 import authoring.PanelController;
 import engine.EntityManager;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -93,6 +94,7 @@ public class CameraPanel implements Panel {
 		setupButton();
 
 		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
+		buttonRow.setAlignment(Pos.CENTER);
 		buttonRow.setPrefWidth(cameraWidth);
 		buttonRow.setSpacing(cameraWidth/30);
 
@@ -130,6 +132,7 @@ public class CameraPanel implements Panel {
 	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL)) && (!myOption.equals(BGL))) {
 	        myText.commitValue();
 	        myLayer.getItems().set(myLayer.getItems().indexOf(myLayer.getValue()), myText.getText());
+	        myText.setText(TEXT);
         }
     }
 

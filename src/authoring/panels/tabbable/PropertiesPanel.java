@@ -54,7 +54,7 @@ public class PropertiesPanel implements Panel {
 	public Region getRegion() {
 		return myVBox;
 	}
-	
+
 	@Override
 	public String title() {
 		return TITLE;
@@ -66,7 +66,7 @@ public class PropertiesPanel implements Panel {
 	}
 	/**Takes in an entity and displays its properties
 	 * @param entity
-	 * @throws GroovyInstantiationException 
+	 * @throws GroovyInstantiationException
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
@@ -98,7 +98,7 @@ public class PropertiesPanel implements Panel {
 	}
 
 	private void addChildren(Pane pane, Node...nodes) {
-			pane.getChildren().addAll(nodes);
+		pane.getChildren().addAll(nodes);
 	}
 
 	private Node makeScripts() throws GroovyInstantiationException {
@@ -141,9 +141,9 @@ public class PropertiesPanel implements Panel {
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
-	
+
 	/**Displays a button that allows users to add more scripts to an entity
-	 * 
+	 *
 	 */
 	private void addButton() {
 		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");

@@ -10,19 +10,16 @@ import javafx.scene.layout.HBox;
 import util.PropertiesReader;
 import util.exceptions.GroovyInstantiationException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ScriptButton {
     private final String ADD = "Add";
-    private Map<String, List<String>> myMap;
+    private Map<String, Map<String, Object>> myMap;
     private PropertiesPanel myPanel;
     private ComboBox comboBox;
     private HBox hbox;
 
-    public ScriptButton(Map<String, List<String>> map, PropertiesPanel panel){
+    public ScriptButton(Map<String, Map<String, Object>> map, PropertiesPanel panel){
         myMap = map;
         myPanel = panel;
         hbox = new HBox();
@@ -47,10 +44,17 @@ public class ScriptButton {
 
     private void add() {
         String type = comboBox.getSelectionModel().getSelectedItem().toString();
-        myMap.put(type, new ArrayList<String>());
+        myMap.put(type, createMap());
         try {
-            myPanel.updateView();
+            myPanel.updateProperties();
         } catch (GroovyInstantiationException e) {}
+    }
+
+    private Map<String,Object> createMap() {
+        Map<String, Object> newMap = new HashMap<String, Object>();
+        newMap.put("bindings", new HashMap<String, Object>());
+        newMap.put("actions", new ArrayList<String>());
+        return newMap;
     }
 
     public Node getNode(){

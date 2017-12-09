@@ -4,6 +4,7 @@ import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
+import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.*;
 import engine.events.MouseDragEvent;
@@ -41,6 +42,8 @@ public class EntityManager {
     private ObjectFactory BGObjectFactory;
     private ObjectFactory defaultObjectFactory;
     private ObservableMap<String, Vector> levelSize;
+    private Camera camera;
+    private String currentLevelName;
 
 
     public EntityManager(Entity root, int gridSize) {
@@ -53,7 +56,6 @@ public class EntityManager {
         BGType = manager.readFileData("Background/grass.png");
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
-            //todo get a default script for nonBGscript
             defaultObjectFactory = new ObjectFactory("PlayerEntity");
 
         } catch (ObjectBlueprintNotFoundException e) {
@@ -63,10 +65,15 @@ public class EntityManager {
         //don't freak out about this..... just a initial level
         addLevel("level 1", 5000, 5000);
         currentLevel = levels.get("level 1");
+        currentLevelName = "level 1";
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
             entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
         }
+    }
+
+    public void setCamera(Camera c) {
+        camera = c;
     }
 
     /**
@@ -262,8 +269,6 @@ public class EntityManager {
         }
         Entity level = new Entity(root);
         //somehow fucking add the name to level properties
-        levels.put(name, level);
-        levelSize.put(name, new Vector(mapWidth, mapHeight));
         Canvas canvas = new Canvas(mapWidth, mapHeight);
         StackPane stack = new StackPane();
         stack.getChildren().add(canvas);
@@ -280,7 +285,9 @@ public class EntityManager {
             stack.getChildren().add(addLayer.getLayerGroup());
             stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);
         });
-        level.add(stack);
+        level.getNodes().getChildren().add(stack);
+        levels.put(name, level);
+        levelSize.put(name, new Vector(mapWidth, mapHeight));
 
         addLayer(level);
     }
@@ -335,10 +342,16 @@ public class EntityManager {
      * @param level: new level
      */
     public void changeLevel(String level) {
-        if (!levels.containsKey(null))
-            new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist");
-        else
-            currentLevel = levels.get(level);
+        if (!levels.containsKey(level)) {
+            new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist").displayError();
+            return;
+        }
+        if (currentLevel.equals(levels.get(level))) {
+            return;
+        }
+        currentLevel = levels.get(level);
+        currentLevelName = level;
+        camera.changeLevel(currentLevel);
     }
 
 
@@ -355,12 +368,7 @@ public class EntityManager {
     }
 
     public void changeCurrentLevelName(String name) {
-        Entity cLevel = currentLevel;
-        levels.keySet().forEach(e -> {
-            if (levels.get(e).equals(cLevel)) {
-                levels.remove(e);
-                levels.put(name, cLevel);
-            }
-        });
+        levels.replace(name, levels.get(currentLevelName));
+        levelSize.replace(name, levelSize.get(currentLevelName));
     }
 }
