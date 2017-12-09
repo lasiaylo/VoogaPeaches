@@ -1,12 +1,12 @@
 package util;
 
+
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PubSubTest {
 

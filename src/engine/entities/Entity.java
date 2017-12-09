@@ -61,10 +61,6 @@ public class Entity extends Evented {
         return parent;
     }
 
-    public Entity getRoot() {
-        return root;
-    }
-
     public Map<String, Object> getProperties(){
     	return properties;
     }
@@ -101,6 +97,8 @@ public class Entity extends Evented {
         children.remove(entity);
         remove(entity.getNodes());
     }
+
+    public Entity getRoot() { return root; }
 
     public Group getNodes() {
         return group;
