@@ -29,6 +29,8 @@ public class Gravity extends Application {
         timeline.play();
 
         Scene s = new Scene(readIn.getNodes());
+        primaryStage.setMinHeight(400);
+        primaryStage.setMinWidth(400);
         primaryStage.setScene(s);
         primaryStage.show();
     }

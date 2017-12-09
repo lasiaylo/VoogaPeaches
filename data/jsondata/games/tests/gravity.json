@@ -4,14 +4,17 @@
   "hitBoxes": [],
   "properties": {
     "scripts": [
+      "base/view/circle"
     ],
     "listeners": {
-      "tick": [{"name": "move"}]
+      "tick": [{"name": "base/animate/move"}],
+      "move": ["base/animate/update_position"],
+      "accelerate": ["base/animate/update_velocity"]
     },
     "x": 50,
     "y": 50,
-    "vx": 0,
-    "vy": 0,
+    "vx": 0.01,
+    "vy": 0.01,
     "gx": 0,
     "gy": 0,
     "mass": 1
