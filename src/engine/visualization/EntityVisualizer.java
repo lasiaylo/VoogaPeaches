@@ -1,9 +1,14 @@
 package engine.visualization;
 
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Group;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import util.math.num.Vector;
 
 import java.util.ArrayList;
@@ -30,13 +35,27 @@ public class EntityVisualizer {
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
 
+        StackPane stackPane = new StackPane();
         circle = new Circle(RADIUS);
         circle.setCenterX(0);
         circle.setCenterY(0);
+        circle.setStroke(Color.BLACK);
+        circle.setFill(Color.WHITE);
+        stackPane.getChildren().addAll(circle, createText(entity.UIDforObject()));
 
         group = new Group();
-        group.getChildren().add(circle);
+        group.getChildren().add(stackPane);
         drawChildren(entity);
+    }
+
+    private Text createText(String s){
+        Text text = new Text(s.substring(0, 5));
+        text.setBoundsType(TextBoundsType.VISUAL);
+        text.setStyle(
+                "-fx-font-family: \"Georgia\";" +
+                        "-fx-font-size: 8px;"
+        );
+        return text;
     }
 
     private void drawChildren(Entity root) {
@@ -64,6 +83,7 @@ public class EntityVisualizer {
 
         for(int i = 0; i < size; i++) {
             circle = drawTotal(angle * (i + 1), children.get(i));
+            
             System.out.println(angle * (i + 1));
         }
         return circle;

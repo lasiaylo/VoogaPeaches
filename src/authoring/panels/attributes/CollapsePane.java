@@ -30,17 +30,17 @@ public class CollapsePane {
 	}
 	
 	private void addMap(Map<String, ?> map) throws GroovyInstantiationException {
-		if (collapse){
+		if (collapse)
 			formatCollapse(map);
-		}
-
 		else
 			formatGrid(map);
 	}
 	
 	private void formatCollapse(Map<String, ?> map) throws GroovyInstantiationException {
 		VBox vBox = new VBox();
-		
+		if(map == null) {
+			System.out.println("map null");
+		}
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);
 			TitledPane title = new TitledPane(s, node);

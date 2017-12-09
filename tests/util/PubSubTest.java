@@ -1,18 +1,17 @@
 package util;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.StringMessage;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PubSubTest {
 
     private PubSub pubSub;
 
-    @Before
+    @BeforeAll
     public void setUp () {
         pubSub = PubSub.getInstance();
     }
@@ -24,8 +23,8 @@ public class PubSubTest {
         final String[] messages = new String[1];
         pubSub.subscribe(
                 "THEME_MESSAGE",
-                (message) -> messages[0] = ((ThemeMessage) message).readMessage());
-        pubSub.getInstance().publish("THEME_MESSAGE", new ThemeMessage(theme));
+                (message) -> messages[0] = ((StringMessage) message).readMessage());
+        pubSub.getInstance().publish("THEME_MESSAGE", new StringMessage(theme));
         assertEquals("Test Theme Message", theme, messages[0]);
     }
 

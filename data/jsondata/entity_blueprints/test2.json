@@ -1,0 +1,15 @@
+{
+  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "imageScript.groovy": {
+        "actions" : [],
+        "bindings" : {
+          "image path":"default_image.jpg"
+        }
+      }
+    }
+  }
+}
