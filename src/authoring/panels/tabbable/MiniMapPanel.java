@@ -25,6 +25,7 @@ import java.util.*;
 public class MiniMapPanel implements Panel, MapChangeListener{
 
     private Pane myPane;
+    private Pane holder = new StackPane();
     private TextField levelName;
     private TextField mapWidth;
     private TextField mapHeight;
@@ -113,6 +114,9 @@ public class MiniMapPanel implements Panel, MapChangeListener{
 
     @Override
     public Region getRegion() {
+        holder.getChildren().add(myPane);
+        holder.getStyleClass().add("panel");
+        StackPane.setAlignment(myPane, Pos.CENTER);
         VBox box = new VBox(myPane, levelBar, bar, levelTable);
         box.setSpacing(15);
         box.setPadding(new Insets(15));
