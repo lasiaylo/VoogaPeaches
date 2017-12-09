@@ -7,9 +7,7 @@ import authoring.Panel;
 import authoring.PanelController;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
-import authoring.panels.attributes.CollapsePane;
-import authoring.panels.attributes.ParameterButton;
-import authoring.panels.attributes.ScriptButton;
+import authoring.panels.attributes.*;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Node;
@@ -28,9 +26,11 @@ import util.pubsub.messages.EntityPass;
  *
  */
 public class PropertiesPanel implements Panel {
-	private static final String SCRIPTS = "Scripts";
-	private static final String PARAMETERS = "Parameters";
 	private final String TITLE = "Properties";
+	private final String SCRIPTS = "Scripts";
+	private final String PARAMETERS = "Parameters";
+	private final String BINDINGS = "bindings";
+	private final String ACTIONS = "actions";
 	private Entity myEntity;
 	private VBox myVBox;
 	private Map<String, Object> myParameters;
@@ -47,7 +47,6 @@ public class PropertiesPanel implements Panel {
 						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
 			}
 		});
-
 	}
 
 	@Override
@@ -70,23 +69,20 @@ public class PropertiesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
-		//myVBox = new VBox();
 		myVBox.getChildren().clear();
-		myParameters = entity.getProperties();
+		myParameters = myEntity.getProperties();
 		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
-		updateView();
+		addChildren(myVBox, makeParameters(myParameters),
+				makeScripts());
+		addButton();
 		myParameters.put("scripts", myScripts);
-
 	}
 
 	/**Updates the view of the AttributesPanel
 	 * @throws GroovyInstantiationException
 	 */
-	public void updateView() throws GroovyInstantiationException {
-		myVBox.getChildren().clear();
-		addChildren(myVBox, makeParameters(myParameters),
-				makeScripts());
-		addButton();
+	public void updateProperties() throws GroovyInstantiationException {
+		updateProperties(myEntity);
 	}
 
 	private Node makeParameters(Map<String, Object> parameterMap) throws GroovyInstantiationException {
@@ -98,30 +94,29 @@ public class PropertiesPanel implements Panel {
 	}
 
 	private void addChildren(Pane pane, Node...nodes) {
-			pane.getChildren().addAll(nodes);
+		pane.getChildren().addAll(nodes);
 	}
 
 	private Node makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 
 		for (String s : myScripts.keySet()){
-
 			Map<String, Object> event = myScripts.get(s);
-			List<String> actions = (List<String>) myScripts.get(s).get("actions");
-			Map<String, Object>  bindings = (Map<String, Object>) myScripts.get(s).get("bindings");
-			addChildren(scriptBox, addChildPane(s, makeParameters(bindings)));
-//			addChildren(scriptBox,makeParameters(bindings));
-//			addChildren(scriptBox, title);
+			Map<String, Object> bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
+			addChildren(scriptBox,
+					addChildPane(s, makeList(event),
+					makeParameters(bindings)));
 		}
-//		Node parameters = addMap(myScripts, true);
-//		Node button = new ScriptButton(myScripts, this).getNode();
-//		scriptBox.getChildren().add(parameters);
-//		scriptBox.getChildren().add(button);
+		addChildren(scriptBox, new ScriptButton(myScripts, this).getNode());
 		return addPane(SCRIPTS,scriptBox);
-
 	}
 
-	private TitledPane addChildPane(String title, Node pane) {
+	private Node makeList(Map<String, Object> event) throws GroovyInstantiationException {
+		Field field = FieldFactory.makeFieldMap(event, ACTIONS);
+		return addPane(ACTIONS,field.getControl());
+	}
+
+	private TitledPane addChildPane(String title, Node...pane) {
 		VBox box = new VBox();
 		addChildren(box, pane);
 		return addPane(title, box);

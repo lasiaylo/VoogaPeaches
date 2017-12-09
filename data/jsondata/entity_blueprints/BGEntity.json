@@ -9,8 +9,15 @@
         "bindings" : {
           "image path" : "default_image.jpg"
         }
+      },
+      "tick.groovy" : {
+        "actions" : [
+          "gravity.groovy"
+        ],
+        "bindings" : {
+
+        }
       }
     },
-    "image path":"default_image.jpg"
   }
 }
