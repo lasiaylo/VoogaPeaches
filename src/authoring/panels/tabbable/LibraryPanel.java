@@ -62,6 +62,7 @@ public class LibraryPanel implements Panel {
         myTilePane.setHgap(10);
 
         myArea = new VBox(myEntType, myTilePane);
+        getRegion().getStyleClass().add("panel");
         myArea.setSpacing(10);
     }
 

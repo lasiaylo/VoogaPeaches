@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import main.VoogaPeaches;
 import util.pubsub.PubSub;
 import util.pubsub.messages.ThemeMessage;
 
@@ -39,6 +40,7 @@ public class DraggableTab extends Tab {
     private boolean detachable;
     private Stage markerStage;
     private final List<TabPane> tabPanes;
+    private String myTheme;
 
     /**
      * Create a new draggable tab. This can be added to any normal TabPane,
@@ -47,7 +49,9 @@ public class DraggableTab extends Tab {
      * <p>
      * @param text the text to appear on the tag label.
      */
-    public DraggableTab(String text, Stage markerStage, List<TabPane> panes) {
+    public DraggableTab(String text, Stage markerStage, List<TabPane> panes/*, String currentTheme*/) {
+//        myTheme = currentTheme;
+        System.out.println(myTheme);
         tabPanes = panes;
         this.markerStage = markerStage;
         nameLabel = new Label(text);
@@ -104,10 +108,17 @@ public class DraggableTab extends Tab {
                 }
             });
             Scene newScene = new Scene(pane);
+            newScene.getStylesheets().add(VoogaPeaches.getUser().getThemeName());
             PubSub.getInstance().subscribe(
                     "THEME_MESSAGE",
-                    (message) -> newScene.getStylesheets().add(((ThemeMessage) message).readMessage()));
-            newScene.getStylesheets().add("panel");//TODO this was commented out, was it supposed to be?
+                    (message) -> {
+                        if (newScene.getStylesheets().size() >= 1) {
+                            newScene.getStylesheets().remove(0);
+                        }
+                        newScene.getStylesheets().add(((ThemeMessage) message).readMessage());
+                    }
+            );
+//            newScene.getStylesheets().add(myTheme);
             newStage.setScene(newScene);
             newStage.initStyle(StageStyle.UTILITY);
             newStage.setX(t.getScreenX());
