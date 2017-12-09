@@ -51,7 +51,7 @@ public class ScriptLoader {
         File file;
 
         while (iterator.hasNext() && (file = iterator.next()) != null)
-            cache.put(file.getPath().substring(path.length() + 1), "{ event, entity -> " + readStringForFile(file) + " }");
+            cache.put(file.getPath().substring(path.length()), "{ event, entity -> \n" + readStringForFile(file) + " }");
 
         return cache;
     }
