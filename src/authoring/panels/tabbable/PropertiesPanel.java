@@ -71,7 +71,7 @@ public class PropertiesPanel implements Panel {
 		//myVBox = new VBox();
 		myVBox.getChildren().clear();
 		myParameters = entity.getProperties();
-		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
+		//myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
 		updateView();
 		myParameters.put("scripts", myScripts);
 
