@@ -39,6 +39,8 @@ public class AttributesPanel implements Panel {
 						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
 			}
 		});
+		myVBox = new VBox();
+		getRegion().getStyleClass().add("panel");
 	}
 
 	@Override
