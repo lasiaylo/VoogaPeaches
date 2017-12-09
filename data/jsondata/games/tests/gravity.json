@@ -3,40 +3,20 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": {
-      "TickEvent.groovy": {
-        "actions": [
-          "gravity.groovy", "move.groovy"
-        ],
-        "bindings": {
-        }
-      },
-      "MoveEvent.groovy": {
-        "actions": [
-          "update_position.groovy"
-        ],
-        "bindings": {
-        }
-      },
-      "AccelerateEvent.groovy": {
-        "actions": [
-          "update_velocity.groovy"
-        ],
-        "bindings": {
-        }
-      },
-      "circle.groovy": {
-        "actions": [],
-        "bindings": {
-        }
-      }
+    "scripts": [
+      {"name" : "base/view/circle"}
+    ],
+    "listeners": {
+      "tick": [{"name": "base/animate/move"}, "gravity"],
+      "move": ["base/animate/update_position"],
+      "accelerate": ["base/animate/update_velocity"]
     },
-    "x": 50,
-    "y": 50,
-    "vx": 0,
-    "vy": 0,
-    "gx": 0,
-    "gy": 0,
-    "mass": 1
+    "x": 0,
+    "y": 300,
+    "vx": 0.08,
+    "vy": -0.24,
+    "gx": 0.0,
+    "gy": 0.00016,
+    "mass": 1.0
   }
 }
