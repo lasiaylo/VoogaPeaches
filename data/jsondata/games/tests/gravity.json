@@ -12,11 +12,8 @@
     "y": 50,
     "vx": 0,
     "vy": 0,
-    "ax": 0,
-    "ay": 0,
-    "mass": 1,
-    "source_x": 100,
-    "source_y": -100000,
-    "source_mass": 10000000
+    "gx": 0,
+    "gy": 0,
+    "mass": 1
   }
 }
