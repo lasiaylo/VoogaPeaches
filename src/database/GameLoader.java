@@ -10,9 +10,7 @@ import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import util.PropertiesReader;
 
-import java.io.File;
 import java.util.List;
 
 /**
