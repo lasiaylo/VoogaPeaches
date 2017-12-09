@@ -1,5 +1,7 @@
 package authoring;
 
+import com.sun.javafx.scene.control.behavior.TabPaneBehavior;
+import com.sun.javafx.scene.control.skin.TabPaneSkin;
 import javafx.animation.PauseTransition;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Point2D;
@@ -17,8 +19,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.MoveTabMessage;
+import util.pubsub.messages.StringMessage;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,7 +35,7 @@ import java.util.List;
  * @author Brian Nieves
  * @see <a href = "http://berry120.blogspot.co.uk/2014/01/draggable-and-detachable-tabs-in-javafx.html">Draggable and detachable tabs in JavaFX 2</a>
  */
-public class DraggableTab extends Tab {
+public class VoogaTab extends Tab{
 
     private Label nameLabel;
     private Text dragText;
@@ -47,7 +51,7 @@ public class DraggableTab extends Tab {
      * <p>
      * @param text the text to appear on the tag label.
      */
-    public DraggableTab(String text, Stage markerStage, List<TabPane> panes) {
+    public VoogaTab(String text, Stage markerStage, List<TabPane> panes) {
         tabPanes = panes;
         this.markerStage = markerStage;
         nameLabel = new Label(text);
@@ -70,13 +74,21 @@ public class DraggableTab extends Tab {
         });
     }
 
+    /**
+     * Returns the text of this tab. Note: Calling getText() will return an empty string.
+     * @return text the text for this tab
+     */
+    public String getPanelName() {
+        return nameLabel.getText();
+    }
+
     private void finishSwitch(Stage markerStage, MouseEvent t) {
         markerStage.hide();
         dragStage.hide();
         if(!t.isStillSincePress()) {
             Point2D screenPoint = new Point2D(t.getScreenX(), t.getScreenY());
             TabPane oldTabPane = getTabPane();
-            int oldIndex = oldTabPane.getTabs().indexOf(DraggableTab.this);
+            int oldIndex = oldTabPane.getTabs().indexOf(VoogaTab.this);
             InsertData insertData = getInsertData(screenPoint);
             if(insertData != null) {
                 int addIndex = insertData.getIndex();
@@ -94,10 +106,17 @@ public class DraggableTab extends Tab {
             tabPanes.add(pane);
             newStage.setOnHiding(t1 -> {
                 tabPanes.remove(pane);
-                tabPanes.get(0).getTabs().addAll(((TabPane)newStage.getScene().getRoot()).getTabs());
+                for (Iterator i = pane.getTabs().iterator(); i.hasNext();) {
+                    VoogaTab tab = (VoogaTab)i.next();
+                    TabPaneBehavior behavior = ((TabPaneSkin) getTabPane().getSkin()).getBehavior();
+                    if (behavior.canCloseTab(tab)) {
+                        i.remove();
+                        behavior.closeTab(tab);
+                    }
+                }
             });
-            getTabPane().getTabs().remove(DraggableTab.this);
-            pane.getTabs().add(DraggableTab.this);
+            getTabPane().getTabs().remove(VoogaTab.this);
+            pane.getTabs().add(VoogaTab.this);
             pane.getTabs().addListener((ListChangeListener<Tab>) change -> {
                 if(pane.getTabs().isEmpty()) {
                     newStage.hide();
@@ -106,10 +125,17 @@ public class DraggableTab extends Tab {
             Scene newScene = new Scene(pane);
             PubSub.getInstance().subscribe(
                     "THEME_MESSAGE",
-                    (message) -> newScene.getStylesheets().add(((ThemeMessage) message).readMessage()));
-            newScene.getStylesheets().add("panel");//TODO this was commented out, was it supposed to be?
+                    (message) -> {
+                        if (newScene.getStylesheets().size() >= 1) {
+                            newScene.getStylesheets().remove(0);
+                        }
+                        newScene.getStylesheets().add(((StringMessage) message).readMessage());//TODO: figure out how to get this from throwing a warning
+                    }
+            );
+            //newScene.getStylesheets().add(myTheme);
+            newScene.getStylesheets().add("panel");
             newStage.setScene(newScene);
-            newStage.initStyle(StageStyle.UTILITY);
+            //newStage.initStyle(StageStyle.UTILITY);
             newStage.setX(t.getScreenX());
             newStage.setY(t.getScreenY());
             newStage.setWidth(oldTabPane.getWidth());
@@ -152,17 +178,19 @@ public class DraggableTab extends Tab {
     }
 
     private void handleSwitch(TabPane oldTabPane, int oldIndex, InsertData insertData, int addIndex) {
-        oldTabPane.getTabs().remove(DraggableTab.this);
+        oldTabPane.getTabs().remove(VoogaTab.this);
         if(oldIndex < addIndex && oldTabPane == insertData.getInsertPane()) {
             addIndex--;
         }
         if(addIndex > insertData.getInsertPane().getTabs().size()) {
             addIndex = insertData.getInsertPane().getTabs().size();
         }
+        PubSub.getInstance().publish("PUT_TAB", new MoveTabMessage(nameLabel.getText(), insertData.getInsertPane()));
+
         PauseTransition p = new PauseTransition(Duration.millis(150 + 20));
         final int index = addIndex;
         p.setOnFinished(e -> {
-            insertData.getInsertPane().getTabs().add(index, DraggableTab.this);
+            insertData.getInsertPane().getTabs().add(index, VoogaTab.this);
             insertData.getInsertPane().selectionModelProperty().get().select(index);
         });
         p.play();
@@ -212,7 +240,7 @@ public class DraggableTab extends Tab {
                         for(int i = 0; i < tabPane.getTabs().size() - 1; i++) {
                             Tab leftTab = tabPane.getTabs().get(i);
                             Tab rightTab = tabPane.getTabs().get(i + 1);
-                            if(leftTab instanceof DraggableTab && rightTab instanceof DraggableTab) {
+                            if(leftTab instanceof VoogaTab && rightTab instanceof VoogaTab) {
                                 Rectangle2D leftTabRect = getAbsoluteRect(leftTab);
                                 Rectangle2D rightTabRect = getAbsoluteRect(rightTab);
                                 if(betweenX(leftTabRect, rightTabRect, screenPoint.getX())) {
@@ -237,7 +265,7 @@ public class DraggableTab extends Tab {
     }
 
     private Rectangle2D getAbsoluteRect(Tab tab) {
-        Control node = ((DraggableTab) tab).getLabel();
+        Control node = ((VoogaTab) tab).getLabel();
         return getAbsoluteRect(node);
     }
 

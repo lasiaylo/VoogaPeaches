@@ -18,7 +18,7 @@ public class GameVisualizer {
     protected void focus(EntityVisualizer entityVisualizer) {
         group.getChildren().clear();
         group.getChildren().add(entityVisualizer.getGroup());
-        entityVisualizer.getGroup().relocate(100, 100);
+        entityVisualizer.getGroup().relocate(200, 200);
     }
 
     public Group getGroup() {

@@ -68,6 +68,7 @@
       "y": 30.0,
       "vx": 50.0,
       "vy": 50.0,
-      "hell yeah": true
+      "hell yeah": true,
+      "image path":"default_image.jpg"
     }
 }

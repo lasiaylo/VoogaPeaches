@@ -35,6 +35,7 @@ public class HitBoxPanel implements Panel {
         options.add(hitboxSelection, 0, 1);
 
         createEntityView();
+        getRegion().getStyleClass().add("panel");
         createAddButton();
         createComboBox();
 

@@ -1,5 +1,3 @@
-package util;
-
 import database.User;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
@@ -8,7 +6,8 @@ import database.jsonhelpers.JSONToObjectConverter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
 
@@ -28,7 +27,7 @@ public class UserTest {
         JSONToObjectConverter<User> converter = new JSONToObjectConverter<>(User.class);
         User user = converter.createObjectFromJSON(User.class, blueprint);
 
-        assertEquals("Test Theme Saving", theme, user.getThemeName());
+        assertEquals(theme, user.getThemeName(), "Test Theme Saving");
     }
 
 }

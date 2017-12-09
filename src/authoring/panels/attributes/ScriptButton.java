@@ -40,7 +40,7 @@ public class ScriptButton {
         Button button = new Button(ADD);
         button.setOnAction(e-> add());
         return button;
-        }
+    }
 
     private void add() {
         String type = comboBox.getSelectionModel().getSelectedItem().toString();

@@ -54,7 +54,7 @@ public class PropertiesPanel implements Panel {
 	public Region getRegion() {
 		return myVBox;
 	}
-	
+
 	@Override
 	public String title() {
 		return TITLE;
@@ -113,7 +113,7 @@ public class PropertiesPanel implements Panel {
 			Map<String, Object> bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
 			addChildren(scriptBox,
 					addChildPane(s, makeList(event),
-					makeParameters(bindings)));
+							makeParameters(bindings)));
 		}
 		addChildren(scriptBox, new ScriptButton(myScripts, this).getNode());
 		return addPane(SCRIPTS,scriptBox);
@@ -145,9 +145,9 @@ public class PropertiesPanel implements Panel {
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
-	
+
 	/**Displays a button that allows users to add more scripts to an entity
-	 * 
+	 *
 	 */
 	private void addButton() {
 		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");

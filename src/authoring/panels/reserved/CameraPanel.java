@@ -13,11 +13,12 @@ import javafx.scene.layout.VBox;
 import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.StringMessage;
 
 /**
  * camera panel inside authoring environment that displays the game
  * @author estellehe
+ * @author Kelly Zhang
  *
  */
 public class CameraPanel implements Panel {
@@ -70,7 +71,7 @@ public class CameraPanel implements Panel {
 		pubSub = PubSub.getInstance();
 		pubSub.subscribe(
 				"THEME_MESSAGE",
-				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
+				(message) -> updateStyles(myArea, ((StringMessage) message).readMessage()));
 	}
 
 
@@ -109,10 +110,10 @@ public class CameraPanel implements Panel {
 
 
 	private void setupButton() {
+		myLayer.getStyleClass().add("choice-box");
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
-		myLayer.getStyleClass().add("choice-box");
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
