@@ -17,4 +17,12 @@ public class MoveEvent extends Event {
     public double getDy() {
         return dy;
     }
+
+    public double dx() {
+        return dx;
+    }
+
+    public double dy() {
+        return dy;
+    }
 }

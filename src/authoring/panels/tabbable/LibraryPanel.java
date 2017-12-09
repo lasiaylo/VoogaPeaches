@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import engine.EntityManager;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -115,7 +116,7 @@ public class LibraryPanel implements Panel {
         Entity entity = factory.newObject();
         Dragboard board = view.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
-        content.putString(TrackableObject.UIDforObject(entity));
+        content.putString(entity.UIDforObject());
         board.setContent(content);
         event.consume();
     }

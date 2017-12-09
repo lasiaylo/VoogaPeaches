@@ -1,0 +1,19 @@
+{
+  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "move.groovy": [],
+      "update_position.groovy": [],
+      "circle.groovy": []
+    },
+    "x": 50,
+    "y": 50,
+    "vx": 0,
+    "vy": 0,
+    "gx": 0,
+    "gy": 0,
+    "mass": 1
+  }
+}

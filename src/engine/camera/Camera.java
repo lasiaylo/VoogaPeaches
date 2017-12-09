@@ -57,6 +57,9 @@ public class Camera {
     }
 
     public void changeLevel(Entity level) {
+        if (currentLevel.getNodes().getChildren().size() == 0) {
+            currentLevel.add(view.getContent());
+        }
         view.setContent(level.getNodes().getChildren().get(0));
         currentLevel = level;
     }

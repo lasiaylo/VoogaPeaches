@@ -70,23 +70,20 @@ public class PropertiesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
-		//myVBox = new VBox();
 		myVBox.getChildren().clear();
-		myParameters = entity.getProperties();
+		myParameters = myEntity.getProperties();
 		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
-		updateView();
+		addChildren(myVBox, makeParameters(myParameters),
+				makeScripts());
+		addButton();
 		myParameters.put("scripts", myScripts);
-
 	}
 
 	/**Updates the view of the AttributesPanel
 	 * @throws GroovyInstantiationException
 	 */
-	public void updateView() throws GroovyInstantiationException {
-		myVBox.getChildren().clear();
-		addChildren(myVBox, makeParameters(myParameters),
-				makeScripts());
-		addButton();
+	public void updateProperties() throws GroovyInstantiationException {
+		updateProperties(myEntity);
 	}
 
 	private Node makeParameters(Map<String, Object> parameterMap) throws GroovyInstantiationException {
@@ -98,7 +95,7 @@ public class PropertiesPanel implements Panel {
 	}
 
 	private void addChildren(Pane pane, Node...nodes) {
-			pane.getChildren().addAll(nodes);
+		pane.getChildren().addAll(nodes);
 	}
 
 	private Node makeScripts() throws GroovyInstantiationException {
@@ -127,6 +124,7 @@ public class PropertiesPanel implements Panel {
 	private TitledPane addPane(String title, Node pane) {
 		TitledPane tPane = new TitledPane(title, pane);
 		tPane.setAnimated(false);
+//		tPane.setExpanded(false);
 		return tPane;
 	}
 

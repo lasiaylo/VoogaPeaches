@@ -11,6 +11,7 @@ public enum EventType {
     MOUSE_DRAG("mouse drag"),
     MOUSE_PRESS("mouse press"),
     MOVE("move"),
+    ACCELERATE("accelerate"),
     STATE("state"),
     TICK("tick"),
     TRANSPARENT_MOUSE("Transparent Mouse Event"),
