@@ -19,7 +19,6 @@ public class EntityScriptFactory {
         for (String script : scriptMap.keySet() ) {
             Closure code = ScriptLoader.stringForFile(script);
 
-            System.out.println(scriptMap.get(script).get("actions").getClass());
             List<String> listenActionPair = (List<String>) scriptMap.get(script).get("actions");
             Map<String, Object> params = (Map<String, Object>) scriptMap.get(script).get("bindings");
 

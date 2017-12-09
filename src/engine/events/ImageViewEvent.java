@@ -3,15 +3,15 @@ package engine.events;
 import javafx.scene.image.Image;
 
 public class ImageViewEvent extends Event {
-    private Image myImage;
+    private String myPath;
 
-    public ImageViewEvent(Image image) {
+    public ImageViewEvent(String path) {
         super(EventType.IMAGE_VIEW.getType());
-        myImage = image;
+        myPath = path;
     }
 
-    public Image getImage() {
-        return myImage;
+    public String getPath() {
+        return myPath;
     }
 
 }
