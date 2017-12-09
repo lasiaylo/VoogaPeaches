@@ -15,5 +15,5 @@ entity.on(EventType.MOVE, { Event event ->
     GroovyShell shell = new GroovyShell(binding)
 
     for (String action : actions)
-        shell.evaluate(ScriptLoader.stringForFile(action))
+        shell.evaluate(ScriptLoader.getScript(action))
 })

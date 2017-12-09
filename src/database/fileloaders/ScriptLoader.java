@@ -20,7 +20,7 @@ import java.util.Map;
 public class ScriptLoader {
 
     /* Final Variables */
-    private static final String SCRIPT_PATH = "./data/scriptdata/";
+    private static final String SCRIPT_PATH = "./data/scripts/";
     private static final Map<String, Closure> CACHED_SCRIPTS = cache(SCRIPT_PATH);
 
     /**
@@ -54,7 +54,13 @@ public class ScriptLoader {
         GroovyShell shell = new GroovyShell();
 
         while (iterator.hasNext() && (file = iterator.next()) != null)
-            cache.put(file.getPath().substring(path.length()), (Closure) shell.evaluate(readStringForFile(file)));
+            try {
+                cache.put(file.getPath().substring(path.length()), (Closure) shell.evaluate(readStringForFile(file)));
+            } catch (ClassCastException e) {
+                System.out.println("Script " + file.getName() + " has wrong format");
+                System.out.println(e.toString());
+                e.printStackTrace();
+            }
 
         return cache;
     }
@@ -91,7 +97,7 @@ public class ScriptLoader {
      *                 of the Groovy Script that you want to retireve
      * @return A {@code String} containing the groovy code to be executed
      */
-    public static Closure stringForFile(String filename) {
-        return CACHED_SCRIPTS.get(filename);
+    public static Closure getScript(String filename) {
+        return CACHED_SCRIPTS.get(filename + ".groovy");
     }
 }

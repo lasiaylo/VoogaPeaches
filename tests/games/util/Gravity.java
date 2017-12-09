@@ -20,10 +20,10 @@ public class Gravity extends Application {
         JSONDataManager j = new JSONDataManager(JSONDataFolders.GAMES);
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
         Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("tests/gravity.json"));
-        TickEvent event = new TickEvent(10.);
+        TickEvent e = new TickEvent(10);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), dt -> {
-            event.fire(readIn);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10),  (dt) -> {
+            e.fire(readIn);
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -34,7 +34,7 @@ public class Gravity extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
 }
