@@ -39,6 +39,22 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     public MiniMapPanel() {
         myPane = new Pane();
         levelList = FXCollections.observableList(new ArrayList<>());
+        levelList.add(new Map.Entry() {
+            @Override
+            public Object getKey() {
+                return "level 1";
+            }
+
+            @Override
+            public Object getValue() {
+                return new Vector(5000, 5000);
+            }
+
+            @Override
+            public Object setValue(Object value) {
+                return null;
+            }
+        });
 
         myPane.getStyleClass().add("panel");
         levelName = new TextField("level name");
@@ -123,6 +139,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         myPane.setCenterShape(true);
         manager = controller.getManager();
         manager.addMapListener(this);
+
     }
 
     @Override
