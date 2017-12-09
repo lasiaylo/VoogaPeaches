@@ -34,7 +34,12 @@ public class EntityVisualizer {
         this.vizParent = vizParent;
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
+        group = new Group();
+        group.getChildren().add(drawRoot());
+        drawChildren(entity);
+    }
 
+    private StackPane drawRoot(){
         StackPane stackPane = new StackPane();
         circle = new Circle(RADIUS);
         circle.setCenterX(0);
@@ -42,10 +47,7 @@ public class EntityVisualizer {
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.WHITE);
         stackPane.getChildren().addAll(circle, createText(entity.UIDforObject()));
-
-        group = new Group();
-        group.getChildren().add(stackPane);
-        drawChildren(entity);
+        return stackPane;
     }
 
     private Text createText(String s){
