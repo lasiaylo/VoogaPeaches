@@ -15,17 +15,16 @@ import javafx.stage.Stage;
 
 public class PropertiesPanelTest extends Application{
 	private PropertiesPanel panel;
+	private final String ENTITYNAME = "BGEntity";
 	private Entity testEntity;
 
 	@Override
 	public void start(Stage arg0) throws Exception {
 		panel = new PropertiesPanel();
-		panel.updateProperties((testEntity = createEntity()));
+		testEntity = createEntity();
+		panel.updateProperties(testEntity);
 		
 		setupStage();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10)));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
 	}
 
 	private void setupStage() {
@@ -38,11 +37,10 @@ public class PropertiesPanelTest extends Application{
 	private Entity createEntity() {
 
 		JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
-        JSONObject blueprint = manager.readJSONFile("test");
+        JSONObject blueprint = manager.readJSONFile(ENTITYNAME);
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
 
         Entity entity = converter.createObjectFromJSON(Entity.class,blueprint);
-		System.out.println(entity.getProperties().toString());
 		return entity;
 	}
 

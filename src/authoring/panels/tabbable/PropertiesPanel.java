@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import authoring.Panel;
-import authoring.panels.attributes.CollapsePane;
-import authoring.panels.attributes.ParameterButton;
-import authoring.panels.attributes.ScriptButton;
+import authoring.PanelController;
+import authoring.buttons.CustomButton;
+import authoring.buttons.strategies.EntitySave;
+import authoring.panels.attributes.*;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.ErrorDisplay;
@@ -23,13 +26,15 @@ import util.pubsub.messages.EntityPass;
  *
  */
 public class PropertiesPanel implements Panel {
-	private static final String SCRIPTS = "Scripts";
-	private static final String PARAMETERS = "Parameters";
 	private final String TITLE = "Properties";
+	private final String SCRIPTS = "Scripts";
+	private final String PARAMETERS = "Parameters";
+	private final String BINDINGS = "bindings";
+	private final String ACTIONS = "actions";
 	private Entity myEntity;
 	private VBox myVBox;
 	private Map<String, Object> myParameters;
-	private Map<String, List<String>> myScripts;
+	private Map<String, Map<String, Object>> myScripts;
 
 	public PropertiesPanel() {
 		myVBox = new VBox();
@@ -65,47 +70,62 @@ public class PropertiesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
-		//myVBox = new VBox();
 		myVBox.getChildren().clear();
-		myParameters = entity.getProperties();
-		myScripts = (Map<String, List<String>>) myParameters.remove("scripts");
-		updateView();
+		myParameters = myEntity.getProperties();
+		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
+		addChildren(myVBox, makeParameters(myParameters),
+				makeScripts());
+		addButton();
 		myParameters.put("scripts", myScripts);
-
 	}
 
 	/**Updates the view of the AttributesPanel
 	 * @throws GroovyInstantiationException
 	 */
-	public void updateView() throws GroovyInstantiationException {
-		myVBox.getChildren().clear();
-		makeParameters();
-		makeScripts();
-//		addButton();
+	public void updateProperties() throws GroovyInstantiationException {
+		updateProperties(myEntity);
 	}
 
-	private void makeParameters() throws GroovyInstantiationException {
+	private Node makeParameters(Map<String, Object> parameterMap) throws GroovyInstantiationException {
 		VBox parameterBox = new VBox();
-		Node parameters = addMap(myParameters,false);
-		Node button = new ParameterButton(myParameters, this).getNode();
-		parameterBox.getChildren().add(parameters);
-		parameterBox.getChildren().add(button);
-		addPane(PARAMETERS, parameterBox);
+		Node parameters = addMap(parameterMap,false);
+		Node button = new ParameterButton(parameterMap, this).getNode();
+		addChildren(parameterBox, parameters, button);
+		return addPane(PARAMETERS, parameterBox);
 	}
 
-	private void makeScripts() throws GroovyInstantiationException {
+	private void addChildren(Pane pane, Node...nodes) {
+		pane.getChildren().addAll(nodes);
+	}
+
+	private Node makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
-		Node parameters = addMap(myScripts, true);
-		Node button = new ScriptButton(myScripts, this).getNode();
-		scriptBox.getChildren().add(parameters);
-		scriptBox.getChildren().add(button);
-		addPane(SCRIPTS, scriptBox);
+		for (String s : myScripts.keySet()){
+
+			Map<String, Object> event = myScripts.get(s);
+			Map<String, Object>  bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
+			addChildren(scriptBox, addChildPane(s, makeList(event),
+					makeParameters(bindings)));
+		}
+		return addPane(SCRIPTS,scriptBox);
+
 	}
 
-	private void addPane(String title, Node pane) {
+	private Node makeList(Map<String, Object> event) throws GroovyInstantiationException {
+		Field field = FieldFactory.makeFieldMap(event, ACTIONS);
+		return addPane(ACTIONS,field.getControl());
+	}
+
+	private TitledPane addChildPane(String title, Node...pane) {
+		VBox box = new VBox();
+		addChildren(box, pane);
+		return addPane(title, box);
+	}
+	private TitledPane addPane(String title, Node pane) {
 		TitledPane tPane = new TitledPane(title, pane);
 		tPane.setAnimated(false);
-		myVBox.getChildren().add(tPane);
+//		tPane.setExpanded(false);
+		return tPane;
 	}
 
 	/**Adds a collapse section that displays the map
@@ -114,7 +134,6 @@ public class PropertiesPanel implements Panel {
 	 * @throws GroovyInstantiationException
 	 */
 	private Node addMap(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
-		System.out.println(map.toString() + "\n\n");
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
@@ -123,7 +142,8 @@ public class PropertiesPanel implements Panel {
 	 * 
 	 */
 	private void addButton() {
-		// TODO Auto-generated method stub
+		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");
+		myVBox.getChildren().add(saveEntity.getButton());
 	}
 
 	public Entity getEntity(){
