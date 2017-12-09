@@ -19,7 +19,7 @@ public class HitBoxPanelTest extends Application {
         // Read in test entity
         JSONDataManager j = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
-        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("test.json"));
+        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("PlayerEntity.json"));
 
         HitBoxPanel hbPanel = new HitBoxPanel();
         hbPanel.setEntity(readIn);
@@ -29,6 +29,9 @@ public class HitBoxPanelTest extends Application {
         Scene s = new Scene(hbPanel.getRegion());
         primaryStage.setScene(s);
         primaryStage.show();
+
+        System.out.println(hbPanel.getAddWidth());
+        System.out.println(hbPanel.getNameWidth());
     }
 
     public static void main(String[] args) {
