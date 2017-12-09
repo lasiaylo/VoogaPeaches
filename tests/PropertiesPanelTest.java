@@ -38,8 +38,9 @@ public class PropertiesPanelTest extends Application{
 
 		JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         JSONObject blueprint = manager.readJSONFile(ENTITYNAME);
+        System.out.println(blueprint);
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
-
+		System.out.println(converter);
         Entity entity = converter.createObjectFromJSON(Entity.class,blueprint);
 		return entity;
 	}

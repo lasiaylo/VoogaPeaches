@@ -21,20 +21,28 @@ import javafx.scene.input.MouseEvent
 import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.EntityPass
+
+import java.util.stream.Collectors
+
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
 
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-    pointer = new ImageView(new Image(datamanager.readFileData((String) image_path)))
+    pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     entity.add(pointer)
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
-        Map<String, Map<String, Object>> scriptMap = (Map<String, Map<String, Object>>) entity.getProperty("scripts")
-        Map<String, Object> imageScript = (Map<String, Object>) scriptMap.get("imageScript.groovy")
-        Map<String, Object> parameters = (Map<String, Object>) imageScript.get("bindings")
-        parameters.put("image_path", imgEvent.getPath())
+        scriptList = ((List) entity.getProperty("scripts"))
+        println scriptList.get(0).getClass()
+        result = scriptList.stream().filter({ Map<String, Object> map ->
+            map.get("name").equals("imageScript")
+        }).collect(Collectors.toList())
+
+        result.forEach( { Map map ->
+            map.put("image_path", imgEvent.getPath())
+        })
     })
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->

@@ -1,20 +1,15 @@
 package authoring.panels.tabbable;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import authoring.Panel;
-import authoring.PanelController;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
 import authoring.panels.attributes.*;
 import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.ErrorDisplay;
@@ -35,7 +30,7 @@ public class PropertiesPanel implements Panel {
 	private Entity myEntity;
 	private VBox myVBox;
 	private Map<String, Object> myParameters;
-	private Map<String, Map<String, Object>> myScripts;
+	private List<Map<String, Object>> myScripts;
 
 	public PropertiesPanel() {
 		myVBox = new VBox();
@@ -54,7 +49,7 @@ public class PropertiesPanel implements Panel {
 	public Region getRegion() {
 		return myVBox;
 	}
-	
+
 	@Override
 	public String title() {
 		return TITLE;
@@ -85,9 +80,11 @@ public class PropertiesPanel implements Panel {
 	private void updateVisuals() throws GroovyInstantiationException {
 		myVBox.getChildren().clear();
 		myParameters = myEntity.getProperties();
-		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
-		addChildren(myVBox, makeParameters(myParameters),
-				makeScripts());
+		myScripts = (List<Map<String, Object>>) myParameters.remove("scripts");
+		myVBox.getChildren().addAll(
+				makeParameters(myParameters),
+				makeScripts()
+		);
 		addButton();
 		myParameters.put("scripts", myScripts);
 	}
@@ -97,27 +94,31 @@ public class PropertiesPanel implements Panel {
 		VBox parameterBox = new VBox();
 		Node parameters = addMap(parameterMap,false);
 		Node button = new ParameterButton(parameterMap, this).getNode();
-		addChildren(parameterBox, parameters, button);
+		parameterBox.getChildren().addAll(parameters,button);
 		return addPane(PARAMETERS, parameterBox);
 	}
 
-	private void addChildren(Pane pane, Node...nodes) {
-		pane.getChildren().addAll(nodes);
-	}
 
 	private Node makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 
-		for (String s : myScripts.keySet()){
-			Map<String, Object> event = myScripts.get(s);
-			Map<String, Object> bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
-			addChildren(scriptBox,
-					addChildPane(s, makeList(event),
-					makeParameters(bindings)));
+		for (Map<String, Object> map : myScripts){
+			String name = (String) map.remove("name");
+
+			scriptBox.getChildren().add(
+					addPane(name, makeParameters(map)));
+			map.put("name", name);
 		}
-		addChildren(scriptBox, new ScriptButton(myScripts, this).getNode());
+//		scriptBox.getChildren().add(new ScriptButton(myScripts, this).getNode());
 		return addPane(SCRIPTS,scriptBox);
 	}
+
+	private void makeEvents(){
+		VBox eventBox = new VBox();
+//		Map<String, Object> event = myScripts.get(s);
+//		Map<String, Object> bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
+	}
+
 
 	private Node makeList(Map<String, Object> event) throws GroovyInstantiationException {
 		Field field = FieldFactory.makeFieldMap(event, ACTIONS);
@@ -127,9 +128,10 @@ public class PropertiesPanel implements Panel {
 
 	private TitledPane addChildPane(String title, Node...pane) {
 		VBox box = new VBox();
-		addChildren(box, pane);
+		box.getChildren().addAll(pane);
 		return addPane(title, box);
 	}
+
 	private TitledPane addPane(String title, Node pane) {
 		TitledPane tPane = new TitledPane(title, pane);
 		tPane.setAnimated(false);
@@ -145,13 +147,13 @@ public class PropertiesPanel implements Panel {
 		CollapsePane pane = new CollapsePane(map, collapse);
 		return pane.getNode();
 	}
-	
+
 	/**Displays a button that allows users to add more scripts to an entity
-	 * 
+	 *
 	 */
 	private void addButton() {
 		CustomButton saveEntity = new CustomButton(new EntitySave(myEntity), "Save Entity");
-		addChildren(myVBox, saveEntity.getButton());
+		myVBox.getChildren().add(saveEntity.getButton());
 	}
 
 	public Entity getEntity(){
