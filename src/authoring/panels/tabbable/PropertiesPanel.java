@@ -30,7 +30,8 @@ public class PropertiesPanel implements Panel {
 	private Entity myEntity;
 	private VBox myVBox;
 	private Map<String, Object> myParameters;
-	private List<Map<String, Object>> myScripts;
+	private Map<String, Map<String, Object>> myScripts;
+	private Map<String, Map<String, Map<String, Object>>> myEvents;
 
 	public PropertiesPanel() {
 		myVBox = new VBox();
@@ -80,13 +81,16 @@ public class PropertiesPanel implements Panel {
 	private void updateVisuals() throws GroovyInstantiationException {
 		myVBox.getChildren().clear();
 		myParameters = myEntity.getProperties();
-		myScripts = (List<Map<String, Object>>) myParameters.remove("scripts");
+		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
+		myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
 		myVBox.getChildren().addAll(
-				makeParameters(myParameters),
-				makeScripts()
+				addPane(PARAMETERS,makeParameters(myParameters)),
+				makeScripts(myScripts),
+				makeEvents()
 		);
 		addButton();
 		myParameters.put("scripts", myScripts);
+		myParameters.put("listeners",myEvents);
 	}
 
 
@@ -95,26 +99,28 @@ public class PropertiesPanel implements Panel {
 		Node parameters = addMap(parameterMap,false);
 		Node button = new ParameterButton(parameterMap, this).getNode();
 		parameterBox.getChildren().addAll(parameters,button);
-		return addPane(PARAMETERS, parameterBox);
+		return parameterBox;
 	}
 
 
-	private Node makeScripts() throws GroovyInstantiationException {
+	private Node makeScripts(Map<String,Map<String, Object>> map) throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 
-		for (Map<String, Object> map : myScripts){
-			String name = (String) map.remove("name");
-
+		for (String name : map.keySet()){
 			scriptBox.getChildren().add(
-					addPane(name, makeParameters(map)));
-			map.put("name", name);
+					addChildPane(name, makeParameters(map.get(name))));
 		}
 //		scriptBox.getChildren().add(new ScriptButton(myScripts, this).getNode());
 		return addPane(SCRIPTS,scriptBox);
 	}
 
-	private void makeEvents(){
+	private Node makeEvents() throws GroovyInstantiationException {
 		VBox eventBox = new VBox();
+		for (String name : myEvents.keySet()){
+			eventBox.getChildren().add(
+					addChildPane(name,makeScripts(myEvents.get(name))));
+		}
+		return addPane("Events",eventBox);
 //		Map<String, Object> event = myScripts.get(s);
 //		Map<String, Object> bindings = (Map<String, Object>) myScripts.get(s).get(BINDINGS);
 	}

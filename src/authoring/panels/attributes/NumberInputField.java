@@ -1,5 +1,7 @@
 package authoring.panels.attributes;
 
+import java.text.DecimalFormat;
+
 /**Allows users to change a number field
  * @author lasia
  *
@@ -11,7 +13,9 @@ public class NumberInputField extends InputField{
 	}
 	
 	protected void getDefaultValue() {
-		String defaultText = Double.toString((Double) getValue());
+		Number number = (Number) getValue();
+		DecimalFormat format = new DecimalFormat("#.######");
+		String defaultText = format.format(number);
 		getTextField().setText(defaultText);
 	}
 

@@ -49,7 +49,6 @@ class EntityScriptFactory {
         Map params = (Map) entry.getValue();
 
         addBindings(entity, params, bindings);
-        System.out.println(ScriptLoader.getScript(name));
         return ScriptLoader.getScript(name);
     }
 
