@@ -7,6 +7,7 @@ import util.pubsub.messages.ThemeMessage;
 
 import static org.junit.Assert.assertEquals;
 
+
 public class PubSubTest {
 
     private PubSub pubSub;
