@@ -73,7 +73,7 @@ public class PropertiesPanel implements Panel {
 		//myVBox = new VBox();
 		myVBox.getChildren().clear();
 		myParameters = entity.getProperties();
-		//myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
+		myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
 		updateView();
 		myParameters.put("scripts", myScripts);
 
@@ -109,7 +109,8 @@ public class PropertiesPanel implements Panel {
 			Map<String, Object> event = myScripts.get(s);
 			List<String> actions = (List<String>) myScripts.get(s).get("actions");
 			Map<String, Object>  bindings = (Map<String, Object>) myScripts.get(s).get("bindings");
-			addChildren(scriptBox,makeParameters(bindings));
+			addChildren(scriptBox, addChildPane(s, makeParameters(bindings)));
+//			addChildren(scriptBox,makeParameters(bindings));
 //			addChildren(scriptBox, title);
 		}
 //		Node parameters = addMap(myScripts, true);
@@ -120,6 +121,11 @@ public class PropertiesPanel implements Panel {
 
 	}
 
+	private TitledPane addChildPane(String title, Node pane) {
+		VBox box = new VBox();
+		addChildren(box, pane);
+		return addPane(title, box);
+	}
 	private TitledPane addPane(String title, Node pane) {
 		TitledPane tPane = new TitledPane(title, pane);
 		tPane.setAnimated(false);
