@@ -15,7 +15,7 @@ public class EntitySave implements IButtonStrategy{
     public static final String DEFAULT_NAME = "UserEntity";
     public static final String BLUEPRINTS_FILEPATH = "blueprints";
     public static final String JSON_EXTENSION_FILTER = "JSON files";
-    public static final String JSON_FILE = "*.JSON";
+    public static final String JSON_FILE = "*.json";
 
     private Entity entity;
     private FileChooser fileChooser;

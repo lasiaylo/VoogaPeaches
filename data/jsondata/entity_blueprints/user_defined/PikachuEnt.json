@@ -1,0 +1,7 @@
+{
+  "scripts": {"imageScript.groovy": {
+    "bindings": {"image_path": "default_image.jpg"},
+    "actions": []
+  }},
+  "image path": "Pikachu.png"
+}
