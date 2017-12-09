@@ -3,8 +3,12 @@
   "hitBoxes": [],
   "properties": {
     "scripts": {
-      "imageScript.groovy": []
-    },
-    "image path":"default_image.jpg"
+      "imageScript.groovy": {
+        "actions" : [],
+        "bindings" : {
+          "image path" : "default_image.jpg"
+        }
+      }
+    }
   }
 }

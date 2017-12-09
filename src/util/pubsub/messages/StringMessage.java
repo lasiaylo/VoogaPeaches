@@ -1,10 +1,10 @@
 package util.pubsub.messages;
 
-public class PanelToggle extends Message {
+public class StringMessage extends Message {
 
     private String myMessage;
 
-    public PanelToggle(String message) {
+    public StringMessage(String message) {
         myMessage = message;
     }
 

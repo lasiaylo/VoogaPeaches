@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import util.ErrorDisplay;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
@@ -19,13 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HitBoxPanel implements Panel {
-    private static final String TITLE = "Create or Add Hitboxes!";
+    private static final String TITLE = "HitBoxes";
     private static final int MIN_HEIGHT = 500;
 
     private Pane entityView = new Pane();
     private VBox region = new VBox();
     private TextField hitboxNameField = new TextField();
-    private ComboBox<String> hitboxSelection;
+    private ComboBox<String> hitboxSelection = new ComboBox<>();
 
     private List<HitBox> hitboxes;
     private List<Double> currentPoints;
@@ -34,6 +35,9 @@ public class HitBoxPanel implements Panel {
         createEntityView();
         getRegion().getStyleClass().add("panel");
         region.getChildren().add(hitboxNameField);
+        createAddButton();
+        createComboBox();
+        createSaveButton();
         PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
             EntityPass entityPass = (EntityPass) e;
             setEntity(entityPass.getEntity());
@@ -43,9 +47,10 @@ public class HitBoxPanel implements Panel {
     }
 
     public void setEntity(Entity entity) {
+        entityView.getChildren().clear();
         hitboxes = entity.getHitBoxes();
-        createAddButton();
-        createComboBox();
+        hitboxSelection.getItems().clear();
+
         for(HitBox h : hitboxes) {
             h.getHitbox().setFill(Color.LIGHTGRAY);
             entityView.getChildren().add(h.getHitbox());
@@ -53,7 +58,6 @@ public class HitBoxPanel implements Panel {
     }
 
     private void createComboBox() {
-        hitboxSelection = new ComboBox<>();
         hitboxSelection.getItems().add("View All");
         region.getChildren().add(hitboxSelection);
         hitboxSelection.getSelectionModel().selectLast();
@@ -70,16 +74,26 @@ public class HitBoxPanel implements Panel {
                 hitboxes.get(newVal.intValue() - 1).getHitbox().setFill(Color.LIGHTGRAY);
                 entityView.getChildren().add(hitboxes.get(newVal.intValue() - 1).getHitbox());
                 currentPoints = hitboxes.get(newVal.intValue() - 1).getPoints();
-
             }
         });
     }
 
+    private void createSaveButton() {
+        region.getChildren().add(new CustomButton(() -> {
+            String boxName = hitboxNameField.getText();
+            if(boxName.equals("")) {
+                new ErrorDisplay("HitBox error", "Your HitBox's tag was empty!").displayError();
+            } else {
+                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex()).setTag(boxName);
+                hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
+            }
+        }, "Save").getButton());
+    }
+
     private void createAddButton() {
        region.getChildren().add(new CustomButton(() -> {
-            String boxName = hitboxNameField.getText();
-            hitboxSelection.getItems().add(boxName);
-            hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, boxName));
+            hitboxSelection.getItems().add("");
+            hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, ""));
             hitboxSelection.getSelectionModel().selectLast();
         }, "Add Hitbox").getButton());
     }

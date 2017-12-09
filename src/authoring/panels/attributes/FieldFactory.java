@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import authoring.panels.attributes.MethodSetter;
+import util.PropertiesReader;
 import util.exceptions.GroovyInstantiationException;
 
 /**Creates a particular subclass of Field depending on the class of what the Field is setting
@@ -14,7 +14,7 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public class FieldFactory {
-	private static ResourceBundle myResources = ResourceBundle.getBundle("fields");
+	private static final String FIELD = "fields";
 	private static final String GET = "get";
 	private static final String SET = "set";
 	
@@ -32,10 +32,9 @@ public class FieldFactory {
 			Method setMethod = clazz.getDeclaredMethod(SET + methodName, inputClass);
 			
 			Setter set = new MethodSetter(attribute, getMethod, setMethod);
-			return makeField(set, determineType(inputClass));
+			return makeField(set, determineType(attribute));
 		
 		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {
-			e.printStackTrace();
 			throw new GroovyInstantiationException();
 		}
 	}
@@ -48,9 +47,9 @@ public class FieldFactory {
 	 */
 	public static Field makeFieldMap(Map<String, Object> map, String key) throws GroovyInstantiationException {
 		Setter set = new MapSetter(map, key);
-		Class<?> clazz = map.get(key).getClass();
+		Object object  = map.get(key);
 
-		return makeField(set, determineType(clazz));
+		return makeField(set, determineType(object));
 	}
 	
 	/**Creates a field
@@ -72,7 +71,14 @@ public class FieldFactory {
 		}
 	}
 	
-	private static String determineType(Class<?> clazz) {
-		return myResources.getString(clazz.toString());
+	private static String determineType(Object obj) {
+		Class<?> clazz = obj.getClass();
+		if (clazz.equals(String.class)){
+			String string = (String) obj;
+			if (string.matches("^.+(\\.)(gif|GIF|png|PNG|jpg|JPG)+")){
+				return PropertiesReader.value(FIELD, "Image");
+			}
+		}
+		return PropertiesReader.value(FIELD, clazz.toString());
 	}
 }

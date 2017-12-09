@@ -1,0 +1,42 @@
+{
+  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "TickEvent.groovy": {
+        "actions": [
+          "gravity.groovy", "move.groovy"
+        ],
+        "bindings": {
+        }
+      },
+      "MoveEvent.groovy": {
+        "actions": [
+          "update_position.groovy"
+        ],
+        "bindings": {
+        }
+      },
+      "AccelerateEvent.groovy": {
+        "actions": [
+          "update_velocity.groovy"
+        ],
+        "bindings": {
+        }
+      },
+      "circle.groovy": {
+        "actions": [],
+        "bindings": {
+        }
+      }
+    },
+    "x": 50,
+    "y": 50,
+    "vx": 0,
+    "vy": 0,
+    "gx": 0,
+    "gy": 0,
+    "mass": 1
+  }
+}

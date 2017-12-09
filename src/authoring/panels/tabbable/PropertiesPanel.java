@@ -1,9 +1,6 @@
 package authoring.panels.tabbable;
 
-import java.util.List;
-import java.util.Map;
 import authoring.Panel;
-import authoring.buttons.strategies.ScriptButton;
 import authoring.panels.attributes.CollapsePane;
 import authoring.panels.attributes.ParameterButton;
 import engine.entities.Entity;
@@ -16,11 +13,14 @@ import util.exceptions.GroovyInstantiationException;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
+import java.util.List;
+import java.util.Map;
+
 /**Displays the attributes associated with a particular Entity
  * @author lasia
  *
  */
-public class AttributesPanel implements Panel {
+public class PropertiesPanel implements Panel {
 	private static final String SCRIPTS = "Scripts";
 	private static final String PARAMETERS = "Parameters";
 	private final String TITLE = "Properties";
@@ -29,7 +29,7 @@ public class AttributesPanel implements Panel {
 	private Map<String, Object> myParameters;
 	private Map<String, List<String>> myScripts;
 
-	public AttributesPanel() {
+	public PropertiesPanel() {
 		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
 			EntityPass ePass = (EntityPass) e;
 			try {
@@ -88,9 +88,10 @@ public class AttributesPanel implements Panel {
 	private void makeScripts() throws GroovyInstantiationException {
 		VBox scriptBox = new VBox();
 		Node parameters = addMap(myScripts, true);
-		Node button = new ScriptButton(myScripts, this).getNode();
+//		Commeted Because I got Scared fight me @Simran
+//		Node button = new ScriptButton(myScripts, this).getNode();
 		scriptBox.getChildren().add(parameters);
-		scriptBox.getChildren().add(button);
+//		scriptBox.getChildren().add(button);
 		addPane(scriptBox);
 	}
 
