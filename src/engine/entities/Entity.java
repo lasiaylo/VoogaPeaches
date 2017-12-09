@@ -61,6 +61,9 @@ public class Entity extends Evented {
         return parent;
     }
 
+    public Entity getRoot() {
+        return root;
+    }
 
     public Map<String, Object> getProperties(){
     	return properties;
