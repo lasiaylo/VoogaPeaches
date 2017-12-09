@@ -18,7 +18,7 @@ import java.util.List;
 public class EntityVisualizer {
     public static final double RADIUS = 50;
     public static final double CONNECTION_LENGTH = 30;
-    public static final int MAX_DISPLAY = 1;
+    public static final int MAX_DISPLAY = 4;
 
     private Group group;
     private Circle rootCircle;
@@ -76,13 +76,14 @@ public class EntityVisualizer {
             cb.setLayoutY(lastCircle.getCenterY());
             group.getChildren().add(cb);
             cb.toFront();
-            lastCircle.setOnMouseEntered(f -> {
+            lastCircle.setOnMouseClicked(f -> {
                 for (int i = MAX_DISPLAY; i < children.size(); i++){
                     String UID = children.get(i).root.UIDforObject();
                     if (!cb.getItems().contains(UID)){
                         cb.getItems().add(UID);
                     }
                 }
+                cb.show();
                 cb.setOnAction(g -> {
                     if (cb.getValue() != null) {
                         gameVisualizer.focus(children.get(indexByUID(cb.getValue())));
