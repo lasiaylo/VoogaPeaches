@@ -18,9 +18,9 @@ public class Gravity extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Read in test entity
-        JSONDataManager j = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
+        JSONDataManager j = new JSONDataManager(JSONDataFolders.GAMES);
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
-        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("PlayerEntity.json"));
+        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("tests/gravity.json"));
         TickEvent e = new TickEvent(1);
 
 
