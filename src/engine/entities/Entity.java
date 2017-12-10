@@ -152,6 +152,7 @@ public class Entity extends Evented {
     }
 
     public Entity substitute() {
+        System.out.println("substituting");
         clear();
         Entity entity = new Entity(parent);
         entity.UID = UID;

@@ -44,12 +44,14 @@ public class EntityManager {
     private ObservableMap<String, Vector> levelSize;
     private Camera camera;
     private String currentLevelName;
+    private boolean isGaming;
 
 
-    public EntityManager(Entity root, int gridSize) {
+    public EntityManager(Entity root, int gridSize, boolean gaming) {
         this.root = root;
         this.levels = new HashMap<>();
         this.grid = gridSize;
+        this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
@@ -82,13 +84,13 @@ public class EntityManager {
      * @param pos
      */
     public void addBG(Vector pos) {
-        if (mode == 0) {
+        if (mode == 0 && !isGaming) {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
 
             new ImageViewEvent(BGType).fire(BGblock);
             new InitialImageEvent(new Vector(grid, grid), pos).fire(BGblock);
-            new ClickEvent(false).fire(BGblock);
+            new ClickEvent(isGaming).fire(BGblock);
             new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(BGblock);
         }
     }
@@ -104,16 +106,16 @@ public class EntityManager {
     }
 
     private void addNonBGPrivate(Vector pos, Entity entity) {
-        if (mode > 0) {
+        if (mode > 0 && !isGaming) {
             if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
-            new ClickEvent(false).fire(entity);
+            new ClickEvent(isGaming).fire(entity);
             new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(entity);
-            new MouseDragEvent(false, false).fire(entity);
+            new MouseDragEvent(isGaming, false).fire(entity);
         }
     }
 
@@ -274,7 +276,7 @@ public class EntityManager {
 
     private void dragDropped(DragEvent event) {
         Dragboard board = event.getDragboard();
-        if (board.hasString()) {
+        if (board.hasString() && !isGaming) {
             addNonBG(new Vector(event.getX(), event.getY()), board.getString());
         }
         event.setDropCompleted(true);
@@ -357,4 +359,7 @@ public class EntityManager {
         levels.remove(name);
         levelSize.remove(name);
     }
-}
+    public void setIsGaming(boolean gaming) {
+        isGaming = gaming;
+    }
+ }
