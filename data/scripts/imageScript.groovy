@@ -14,6 +14,7 @@ import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
@@ -97,7 +98,6 @@ import java.util.stream.Collectors
         })
     })
 
-
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
         if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
@@ -118,6 +118,14 @@ import java.util.stream.Collectors
             })
         }
     })
+
+    if(!((boolean) getProperties().getOrDefault("bg", false))) {
+        new InitialImageEvent(new Vector((double) entity.getProperty("width"), (double) entity.getProperty("height")),
+                new Vector((double) entity.getProperty("x"), (double) entity.getProperty("y"))).fire(entity)
+        new KeyPressEvent(KeyCode.BACK_SPACE).fire(entity)
+        new ClickEvent(false).fire(entity)
+        new MouseDragEvent(false).fire(entity)
+    }
 }
 
 void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent, Entity entity) {
