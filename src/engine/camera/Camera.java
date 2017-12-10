@@ -31,9 +31,9 @@ public class Camera {
         currentLevel = level;
 
         view = new ScrollPane(level.getNodes().getChildren().get(0));
-        view.setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
         view.setPannable(false);
 
+        changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
     }
@@ -48,8 +48,10 @@ public class Camera {
     public ScrollPane getView(Vector center, Vector size) {
         view.setPrefWidth(size.at(0));
         view.setPrefHeight(size.at(1));
-        hScroll((center.at(0) - size.at(0) / 2) / view.getContent().getLayoutBounds().getWidth() - size.at(0));
-        vScroll((center.at(1) - size.at(1) / 2) / view.getContent().getLayoutBounds().getHeight() - size.at(1));
+//        hScroll((center.at(0) - size.at(0) / 2) / view.getContent().getLayoutBounds().getWidth() - size.at(0));
+//        vScroll((center.at(1) - size.at(1) / 2) / view.getContent().getLayoutBounds().getHeight() - size.at(1));
+        hScroll(0);
+        vScroll(0);
 
         view.layout();
         this.center = center;
@@ -63,8 +65,9 @@ public class Camera {
             currentLevel.add(view.getContent());
         }
         view.setContent(level.getNodes().getChildren().get(0));
+        view.getContent().requestFocus();
+        view.getContent().setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
         currentLevel = level;
-        view.setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(currentLevel));
     }
 
     public Pane getMinimap(Vector size) {
@@ -106,14 +109,18 @@ public class Camera {
 
 
     private void vScroll(double num) {
-        view.setVmin(0);
-        view.setVmax(1);
-        view.setVvalue(0);
+        view.setVmin(num);
+        view.setVmax(num);
+        view.setVvalue(num);
+        view.vminProperty().bind(view.vvalueProperty());
+        view.vmaxProperty().bind(view.vvalueProperty());
     }
 
     private void hScroll(double num) {
-        view.setHmax(1);
-        view.setHmin(0);
-        view.setHvalue(0);
+        view.setHmax(num);
+        view.setHmin(num);
+        view.setHvalue(num);
+        view.hminProperty().bind(view.hvalueProperty());
+        view.hmaxProperty().bind(view.hvalueProperty());
     }
 }

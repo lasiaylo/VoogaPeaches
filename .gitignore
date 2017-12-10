@@ -6,6 +6,7 @@
 .idea/
 out/
 local.properties
+data/jsondata/user_settings/*
 
 # Generic Android ignores #
 ###########################

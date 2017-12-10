@@ -27,7 +27,6 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-    println "image script executed"
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth(entity.getProperty("width"))
     pointer.setFitHeight(entity.getProperty("height"));
