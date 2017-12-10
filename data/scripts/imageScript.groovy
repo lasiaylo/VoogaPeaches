@@ -36,17 +36,11 @@ import java.util.stream.Collectors
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
-<<<<<<< HEAD
-        scriptList = ((List) entity.getProperty("scripts"))
-        result = scriptList.stream().filter({ Map<String, Object> map ->
-            map.get("name").equals("imageScript")
-=======
         scriptMap = ((Map) entity.getProperty("scripts"))
         imagePathList = scriptMap.keySet().stream().filter({String name ->
             name.equals("imageScript")
         }).filter({ String name ->
             scriptMap.get(name).get("image_path").equals(originalPath)
->>>>>>> 39f842927bb22796e30db63b445d345caeaa2fd9
         }).collect(Collectors.toList())
 
         imagePathList.forEach({ String path ->
