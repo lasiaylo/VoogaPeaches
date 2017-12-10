@@ -27,12 +27,12 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-
+    println "image script executed"
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth(entity.getProperty("width"))
     pointer.setFitHeight(entity.getProperty("height"));
-    pointer.setX(FXProcessing.getXImageCoord((double) entity.getProperty("x"), pointer))
-    pointer.setY(FXProcessing.getYImageCoord((double) entity.getProperty("y"), pointer))
+    pointer.setX((double) entity.getProperty("x"))
+    pointer.setY((double) entity.getProperty("y"))
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
 
@@ -60,8 +60,8 @@ import java.util.stream.Collectors
         entity.setProperty("width", iEvent.getMyGridSize().at(0))
         pointer.setFitHeight(iEvent.getMyGridSize().at(1))
         entity.setProperty("height", iEvent.getMyGridSize().at(1))
-        pointer.setX(FXProcessing.getXImageCoord(iEvent.getMyPos().at(0), pointer))
-        pointer.setY(FXProcessing.getYImageCoord(iEvent.getMyPos().at(1), pointer))
+        pointer.setX(iEvent.getMyPos().at(0))
+        pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0));
         entity.setProperty("y", iEvent.getMyPos().at(1));
     })
@@ -146,8 +146,8 @@ void move(MouseEvent mouseEvent, Entity entity) {
     if (mouseEvent.getY() < pointer.getFitHeight() / 2) {
         yPos = pointer.getFitHeight() / 2
     }
-    pointer.setX(FXProcessing.getXImageCoord(xPos, pointer))
-    pointer.setY(FXProcessing.getYImageCoord(yPos, pointer))
+    pointer.setX(xPos)
+    pointer.setY(yPos)
     entity.setProperty("x", xPos);
     entity.setProperty("y", yPos);
 }

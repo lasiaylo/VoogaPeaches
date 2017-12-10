@@ -155,6 +155,7 @@ public class Entity extends Evented {
     }
 
     public Entity substitute() {
+        System.out.println("substituting");
         clear();
         Entity entity = new Entity(parent);
         entity.UID = UID;
@@ -173,7 +174,6 @@ public class Entity extends Evented {
                 entity.add(child.substitute());
 
         entity.initialize();
-        entity.executeScripts();
         if(!((boolean) getProperties().getOrDefault("bg", false))) {
             new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
                     new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);

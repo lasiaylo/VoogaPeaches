@@ -1,6 +1,7 @@
 package engine.camera;
 
 import engine.entities.Entity;
+import engine.events.KeyPressEvent;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -30,6 +31,7 @@ public class Camera {
         currentLevel = level;
 
         view = new ScrollPane(level.getNodes().getChildren().get(0));
+        view.setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
         view.setPannable(false);
 
         center = new Vector(0, 0);
@@ -62,6 +64,7 @@ public class Camera {
         }
         view.setContent(level.getNodes().getChildren().get(0));
         currentLevel = level;
+        view.setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(currentLevel));
     }
 
     public Pane getMinimap(Vector size) {
