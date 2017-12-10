@@ -6,15 +6,13 @@ public class MouseDragEvent extends Event {
     private Vector myStartPos = new Vector(0, 0);
     private Vector myStartSize = new Vector(0, 0);
     private boolean isGaming = true;
-    private boolean isBG;
 
     public MouseDragEvent() {
         super(EventType.MOUSE_DRAG.getType());
     }
-    public MouseDragEvent(boolean gaming, boolean BG) {
+    public MouseDragEvent(boolean gaming) {
         this();
         isGaming = gaming;
-        isBG = BG;
     }
 
     public Vector getMyStartSize() {
@@ -39,7 +37,4 @@ public class MouseDragEvent extends Event {
         return isGaming;
     }
 
-    public boolean getIsBG() {
-        return isBG;
-    }
 }

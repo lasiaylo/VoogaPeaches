@@ -4,9 +4,11 @@ import engine.entities.Entity
 import engine.events.AddLayerEvent
 import engine.events.Event
 import engine.events.EventType
+import engine.events.MapSetupEvent
 import engine.events.MouseDragEvent
 import engine.util.FXProcessing
 import javafx.geometry.Pos
+import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
@@ -23,6 +25,7 @@ import util.pubsub.messages.NonBGMessage
     canvas = new Canvas((double)entity.getProperty("mapwidth"), (double)entity.getProperty("mapheight"))
     stack = new StackPane()
     stack.getChildren().add(canvas)
+    entity.add(stack)
 
 
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
@@ -33,7 +36,7 @@ import util.pubsub.messages.NonBGMessage
                 e.consume()
             })
             canvas.setOnMouseReleased({ MouseEvent e ->
-                addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridSize"))
+                addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridsize"))
             })
         }
     })
@@ -43,33 +46,26 @@ import util.pubsub.messages.NonBGMessage
         stack.getChildren().add(addLayer.getLayerGroup())
         stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
     })
-    entity.getNodes().getChildren().add(stack)
 
-            {
-                canvas.setOnMouseClicked({ MouseEvent e ->
-                    PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridSize"))))
-                    e.consume()
-                })
+    entity.on(EventType.MAPSETUP.getType(), { Event call ->
+        MapSetupEvent setup = (MapSetupEvent) call
+        canvas.setOnMouseClicked({ MouseEvent e ->
+            PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridsize"))))
+            e.consume()
+        })
+        stack.setOnDragOver({ DragEvent e ->
+            if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
+                e.acceptTransferModes(TransferMode.COPY)
             }
-
-            {
-                stack.setOnDragOver({ DragEvent e ->
-                    if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
-                        e.acceptTransferModes(TransferMode.COPY)
-                    }
-                    e.consume()
-                })
+            e.consume()
+        })
+        stack.setOnDragDropped({ DragEvent e ->
+            if (e.getDragboard().hasString()) {
+                PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
+                        new Vector(e.getX(), e.getY())))
             }
-
-            {
-                stack.setOnDragDropped({ DragEvent e ->
-                    if (e.getDragboard().hasString()) {
-                        PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
-                                new Vector(e.getX(), e.getY())))
-                    }
-                    e.setDropCompleted(true)
-                    e.consume()
-                })
-            }
-
+            e.setDropCompleted(true)
+            e.consume()
+        })
+    })
 }

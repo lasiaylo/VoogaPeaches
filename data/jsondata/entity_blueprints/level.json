@@ -3,7 +3,7 @@
   "hitBoxes": [],
   "properties": {
     "scripts": {
-      "mapscript": {}
+      "mapScript": {}
     },
     "listeners" : {},
     "gridsize": 50,
