@@ -1,28 +1,14 @@
 package scripts
 
-import database.filehelpers.FileDataFolders
-import database.filehelpers.FileDataManager
 import engine.entities.Entity
-import engine.events.ClickEvent
 import engine.events.Event
-import engine.events.EventType
-import engine.events.ImageViewEvent
-import engine.events.InitialImageEvent
-import engine.events.KeyPressEvent
-import engine.events.MouseDragEvent
-import engine.events.TransparentMouseEvent
-import engine.events.ViewVisEvent
-import engine.util.FXProcessing
-import javafx.scene.image.Image
-import javafx.scene.image.ImageView
-import javafx.scene.input.KeyEvent
-import javafx.scene.input.MouseButton
-import javafx.scene.input.MouseEvent
-import util.math.num.Vector
-import util.pubsub.PubSub
-import util.pubsub.messages.EntityPass
 
-import java.util.stream.Collectors
+{ Entity entity, Map<String, Object> bindings, Event event = null ->
+    entity = (Entity) entity
+    canvas = new Canvas
+
+}
+
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
