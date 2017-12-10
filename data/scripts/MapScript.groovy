@@ -1,140 +1,75 @@
 package scripts
 
 import engine.entities.Entity
+import engine.events.AddLayerEvent
 import engine.events.Event
+import engine.events.EventType
+import engine.events.MouseDragEvent
+import engine.util.FXProcessing
+import javafx.geometry.Pos
+import javafx.scene.canvas.Canvas
+import javafx.scene.input.DragEvent
+import javafx.scene.input.MouseEvent
+import javafx.scene.input.TransferMode
+import javafx.scene.layout.StackPane
+import util.math.num.Vector
+import util.pubsub.PubSub
+import util.pubsub.messages.BGMessage
+import util.pubsub.messages.NonBGMessage
+
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
-    canvas = new Canvas
-
-}
-
-
-{ Entity entity, Map<String, Object> bindings, Event event = null ->
-    entity = (Entity) entity
-    datamanager = new FileDataManager(FileDataFolders.IMAGES)
-    pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
-    pointer.setFitWidth(entity.getProperty("width"))
-    pointer.setFitHeight(entity.getProperty("height"));
-    pointer.setX((double) entity.getProperty("x"))
-    pointer.setY((double) entity.getProperty("y"))
-    originalPath = (String) bindings.get("image_path")
-    entity.add(pointer)
-
-    entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
-        ImageViewEvent imgEvent = (ImageViewEvent) call
-
-        pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
-        scriptMap = ((Map) entity.getProperty("scripts"))
-
-        imagePathList = scriptMap.keySet().stream().filter({String name ->
-            name.equals("imageScript")
-        }).filter({ String name ->
-            scriptMap.get(name).get("image_path").equals(originalPath)
-        }).collect(Collectors.toList())
-
-        imagePathList.forEach({ String path ->
-            entity.getProperty("scripts").get(path).put("image_path", imgEvent.getPath())
-            originalPath = path
-        })
-    })
-
-    entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
-        InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
-        entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
-        entity.setProperty("height", iEvent.getMyGridSize().at(1))
-        pointer.setX(iEvent.getMyPos().at(0))
-        pointer.setY(iEvent.getMyPos().at(1))
-        entity.setProperty("x", iEvent.getMyPos().at(0));
-        entity.setProperty("y", iEvent.getMyPos().at(1));
-    })
-
-    entity.on(EventType.TRANSPARENT_MOUSE.getType(), { Event call ->
-        TransparentMouseEvent tEvent = (TransparentMouseEvent) call
-        pointer.setMouseTransparent(tEvent.getBool())
-    })
-
-    entity.on(EventType.VIEWVIS.getType(), { Event call ->
-        ViewVisEvent visEvent = (ViewVisEvent) call
-        pointer.setVisible(visEvent.getBool())
-    })
-
-    entity.on(EventType.CLICK.getType(), { Event call ->
-        ClickEvent cEvent = (ClickEvent) call
-        pointer.setOnMouseClicked( { MouseEvent e ->
-            if (!cEvent.getIsGaming()) {
-                pointer.requestFocus()
-                if(!entity.getProperties().getOrDefault("bg", false)) {
-                    PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
-                }            }
-            e.consume()
-        })
-    })
-
-    entity.on(EventType.KEY_PRESS.getType(), { Event call ->
-        KeyPressEvent kEvent = (KeyPressEvent) call
-        pointer.setOnKeyPressed( { KeyEvent e ->
-            if (kEvent.getIsGaming() == false && e.getCode().equals(kEvent.getKeyCode())) {
-                entity.getParent().remove(entity)
-            }
-            e.consume()
-        })
-    })
+    canvas = new Canvas((double)entity.getProperty("mapwidth"), (double)entity.getProperty("mapheight"))
+    stack = new StackPane()
+    stack.getChildren().add(canvas)
 
 
-    entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
+    entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (dEvent.getIsGaming() == false && !entity.getProperties().getOrDefault("bg", false)) {
-            pointer.setOnMousePressed({ MouseEvent e ->
-                if (e.getButton().equals(MouseButton.SECONDARY)) {
-                    dEvent.setMyStartPos(e.getX(), e.getY())
-                    dEvent.setMyStartSize(pointer.getFitWidth(), pointer.getFitHeight())
-                }
+        if (!dEvent.isGaming) {
+            canvas.setOnMousePressed({ MouseEvent e ->
+                dEvent.setMyStartPos(e.getX(), e.getY())
                 e.consume()
             })
-            pointer.setOnMouseDragged({ MouseEvent e ->
-                if (e.getButton().equals(MouseButton.PRIMARY)) {
-                    move(e, entity)
-                } else if (e.getButton().equals(MouseButton.SECONDARY)) {
-                    zoom(dEvent, e, entity)
-                }
-                e.consume()
+            canvas.setOnMouseReleased({ MouseEvent e ->
+                addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridSize"))
             })
         }
     })
-}
 
-void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent, Entity entity) {
-    def change = (new Vector(mouseEvent.getX(), mouseEvent.getY())).subtract(dEvent.getMyStartPos())
-    def fsize = change.add(dEvent.getMyStartSize())
-    if (fsize.at(0) < 0) {
-        fsize.at(0, 0.1)
-    }
-    if (fsize.at(1) < 0) {
-        fsize.at(1, 0.1)
-    }
-    pointer.setFitWidth(fsize.at(0))
-    pointer.setFitHeight(fsize.at(1))
-    entity.setProperty("width", fsize.at(0));
-    entity.setProperty("height", fsize.at(1));
-}
+    entity.on(EventType.ADDLAYER.getType(), { Event call ->
+        AddLayerEvent addLayer = (AddLayerEvent) call
+        stack.getChildren().add(addLayer.getLayerGroup())
+        stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
+    })
+    entity.getNodes().getChildren().add(stack)
 
-void move(MouseEvent mouseEvent, Entity entity) {
-    def xPos = mouseEvent.getX()
-    def yPos = mouseEvent.getY()
-    //LOL there is actually a bug here, if you try to drag over the right bound and lower bound
-    if (mouseEvent.getX() < pointer.getFitWidth() / 2) {
-        xPos = pointer.getFitWidth() / 2
-    }
-    if (mouseEvent.getY() < pointer.getFitHeight() / 2) {
-        yPos = pointer.getFitHeight() / 2
-    }
-    pointer.setX(xPos)
-    pointer.setY(yPos)
+            {
+                canvas.setOnMouseClicked({ MouseEvent e ->
+                    PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridSize"))))
+                    e.consume()
+                })
+            }
 
-    println xPos + " :: " + yPos
-    entity.setProperty("x", xPos);
-    entity.setProperty("y", yPos);
+            {
+                stack.setOnDragOver({ DragEvent e ->
+                    if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
+                        e.acceptTransferModes(TransferMode.COPY)
+                    }
+                    e.consume()
+                })
+            }
+
+            {
+                stack.setOnDragDropped({ DragEvent e ->
+                    if (e.getDragboard().hasString()) {
+                        PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
+                                new Vector(e.getX(), e.getY())))
+                    }
+                    e.setDropCompleted(true)
+                    e.consume()
+                })
+            }
+
 }
