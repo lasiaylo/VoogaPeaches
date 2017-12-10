@@ -11,7 +11,5 @@ public class HitBoxSave implements IButtonStrategy {
     }
 
     @Override
-    public void fire() {
-
-    }
+    public void fire() { }
 }

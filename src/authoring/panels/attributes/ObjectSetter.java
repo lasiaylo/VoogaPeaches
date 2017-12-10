@@ -1,6 +1,7 @@
 package authoring.panels.attributes;
 
 public class ObjectSetter implements Setter {
+
     private Object myObject;
 
     public ObjectSetter(Object object){

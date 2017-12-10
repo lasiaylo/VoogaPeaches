@@ -1,4 +1,4 @@
-package scriptdata
+package scripts
 
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
@@ -29,8 +29,8 @@ import java.util.stream.Collectors
 
     println "creating new pointer"
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
-    pointer.setFitWidth(entity.getProperty("width"))
-    pointer.setFitHeight(entity.getProperty("height"));
+    pointer.setFitWidth((double) entity.getProperty("width"))
+    pointer.setFitHeight((double) entity.getProperty("height"))
     pointer.setX((double) entity.getProperty("x"))
     pointer.setY((double) entity.getProperty("y"))
     originalPath = (String) bindings.get("image_path")
@@ -104,7 +104,7 @@ import java.util.stream.Collectors
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (dEvent.getIsGaming() == false && !entity.getProperties().getOrDefault("bg", false)) {
+        if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
             pointer.setOnMousePressed({ MouseEvent e ->
                 if (e.getButton().equals(MouseButton.SECONDARY)) {
                     dEvent.setMyStartPos(e.getX(), e.getY())

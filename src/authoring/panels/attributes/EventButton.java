@@ -12,6 +12,7 @@ import util.PropertiesReader;
 import java.util.*;
 
 public class EventButton {
+    private static final String EVENTS = "events";
     private final String ADD = "Add Event";
     private Map<String, Map<String, Map<String, Object>>> myMap;
     private PropertiesPanel myPanel;
@@ -26,10 +27,9 @@ public class EventButton {
     }
 
     private void makeVisual() {
-        Collection<String> events= PropertiesReader.map("events").keySet();
+        Collection<String> events= PropertiesReader.map(EVENTS).keySet();
         ObservableList<String> options = FXCollections.observableArrayList(events);
         comboBox = new ComboBox(options);
-
         Button button = makeButton();
         hbox.getChildren().add(comboBox);
         hbox.getChildren().add(button);
@@ -42,8 +42,6 @@ public class EventButton {
     }
 
     private void add() {
-
-
         try {
             String type = comboBox.getSelectionModel().getSelectedItem().toString();
             myMap.put(type, createMap());

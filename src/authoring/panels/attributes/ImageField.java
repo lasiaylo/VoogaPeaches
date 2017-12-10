@@ -11,15 +11,22 @@ import java.io.File;
 
 public class ImageField extends Field {
 
-    public static final int IMAGE_HEIGHT = 200;
-    public static final int IMAGE_WIDTH = 200;
-
+    private static final int IMAGE_HEIGHT = 200;
+    private static final int IMAGE_WIDTH = 200;
+    private static final String IMAGE_PROMPT = "JPG files (*.jpg), PNG files (*.png), GIF files (*.gif)";
+    private static final String JPG = "*.jpg";
+    private static final String PNG = "*.png";
+    private static final String GIF = "*.gif";
+    private static final String USER_IMAGES_FILEPATH = "user_images/";
     private ImageView view;
     private File selectedImage;
     private FileChooser fileChooser;
     private FileDataManager manager;
+
     /**
      * Creates a new Field that needs a way of setting
+     *
+     * @author Richard Tseng
      *
      * @param setter
      */
@@ -46,7 +53,7 @@ public class ImageField extends Field {
 
     private void initializeFileChooser(){
         fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter("JPG files (*.jpg), PNG files (*.png), GIF files (*.gif)", "*.jpg", "*.png", "*.gif");
+        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter(IMAGE_PROMPT, JPG, PNG, GIF);
         fileChooser.getExtensionFilters().addAll(JPG_PNG_GIF);
     }
 
@@ -55,9 +62,8 @@ public class ImageField extends Field {
         if (selectedImage != null){
             setValue(selectedImage.getName());
             Image image = new Image(selectedImage.toURI().toString());
-            manager.writeFileData(FileConverter.convertImageToByteArray(image), "user_images/" + selectedImage.getName());
+            manager.writeFileData(FileConverter.convertImageToByteArray(image), USER_IMAGES_FILEPATH + selectedImage.getName());
             view.setImage(image);
-
         }
     }
 

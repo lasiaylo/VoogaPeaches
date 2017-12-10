@@ -9,7 +9,7 @@ import java.util.Optional;
 public class GameSavePrompt {
 
     private static final String SAVE_GAME = "Save Game";
-    public static final String SAVE_PROMPT = "Please enter your game's name:";
+    private static final String SAVE_PROMPT = "Please enter your game's name:";
     private PanelController panelController;
 
     public GameSavePrompt(PanelController panelController) {
@@ -31,5 +31,4 @@ public class GameSavePrompt {
         if(name.trim().length() != 0)
             panelController.save(name.trim());
     }
-
 }
