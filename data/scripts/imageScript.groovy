@@ -12,7 +12,6 @@ import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
-import engine.util.FXProcessing
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyEvent
@@ -149,7 +148,7 @@ void move(MouseEvent mouseEvent, Entity entity) {
     pointer.setX(xPos)
     pointer.setY(yPos)
 
-    println xPos + " :: " + yPos
+//    println xPos + " :: " + yPos
     entity.setProperty("x", xPos);
     entity.setProperty("y", yPos);
 }
