@@ -113,7 +113,7 @@ public class EntityManager {
             //the BGType here should not be applied to the image, mode should check for it
             new ClickEvent(false).fire(entity);
             new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(entity);
-            new MouseDragEvent(false, mode).fire(entity);
+            new MouseDragEvent(false, false).fire(entity);
         }
     }
 

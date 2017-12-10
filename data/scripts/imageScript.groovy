@@ -81,8 +81,9 @@ import java.util.stream.Collectors
         pointer.setOnMouseClicked( { MouseEvent e ->
             if (!cEvent.getIsGaming()) {
                 pointer.requestFocus()
-                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
-            }
+                if(!entity.getProperties().getOrDefault("bg", false)) {
+                    PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
+                }            }
             e.consume()
         })
     })
@@ -100,7 +101,7 @@ import java.util.stream.Collectors
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (dEvent.getIsGaming() == false && dEvent.getMyMode() > 0) {
+        if (dEvent.getIsGaming() == false && !entity.getProperties().getOrDefault("bg", false)) {
             pointer.setOnMousePressed({ MouseEvent e ->
                 if (e.getButton().equals(MouseButton.SECONDARY)) {
                     dEvent.setMyStartPos(e.getX(), e.getY())
@@ -110,9 +111,9 @@ import java.util.stream.Collectors
             })
             pointer.setOnMouseDragged({ MouseEvent e ->
                 if (e.getButton().equals(MouseButton.PRIMARY)) {
-                    move(e)
+                    move(e, entity)
                 } else if (e.getButton().equals(MouseButton.SECONDARY)) {
-                    zoom(dEvent, e)
+                    zoom(dEvent, e, entity)
                 }
                 e.consume()
             })
@@ -120,7 +121,7 @@ import java.util.stream.Collectors
     })
 }
 
-void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent) {
+void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent, Entity entity) {
     def change = (new Vector(mouseEvent.getX(), mouseEvent.getY())).subtract(dEvent.getMyStartPos())
     def fsize = change.add(dEvent.getMyStartSize())
     if (fsize.at(0) < 0) {
@@ -131,9 +132,11 @@ void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent) {
     }
     pointer.setFitWidth(fsize.at(0))
     pointer.setFitHeight(fsize.at(1))
+    entity.setProperty("width", fsize.at(0));
+    entity.setProperty("height", fsize.at(1));
 }
 
-void move(MouseEvent mouseEvent) {
+void move(MouseEvent mouseEvent, Entity entity) {
     def xPos = mouseEvent.getX()
     def yPos = mouseEvent.getY()
     //LOL there is actually a bug here, if you try to drag over the right bound and lower bound
@@ -145,4 +148,6 @@ void move(MouseEvent mouseEvent) {
     }
     pointer.setX(FXProcessing.getXImageCoord(xPos, pointer))
     pointer.setY(FXProcessing.getYImageCoord(yPos, pointer))
+    entity.setProperty("x", xPos);
+    entity.setProperty("y", yPos);
 }
