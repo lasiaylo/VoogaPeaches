@@ -89,7 +89,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
 
         addLevel.setOnMouseClicked(e -> add());
 
-
+        getRegion().getStyleClass().add("panel");
     }
 
     private void delete() {
@@ -144,7 +144,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
 
     @Override
     public Region getRegion() {
-        holder.getStyleClass().add("panel");
         StackPane.setAlignment(myPane, Pos.CENTER);
         VBox box = new VBox(myPane, levelBar, addLevel, levelTable);
         box.setSpacing(15);

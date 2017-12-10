@@ -35,18 +35,19 @@ public class PropertiesPanel implements Panel {
     private Map<String, Map<String, Object>> myScripts;
     private Map<String, Map<String, Map<String, Object>>> myEvents;
 
-    public PropertiesPanel() {
-        myVBox = new VBox();
-        PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
-            EntityPass ePass = (EntityPass) e;
-            try {
-                this.updateProperties(ePass.getEntity());
-            } catch (GroovyInstantiationException exception) {
-                new ErrorDisplay("Groovy Error",
-                        "You're trying to set something incorrectly, bro! Not Groovy!").displayError();
-            }
-        });
-    }
+	public PropertiesPanel() {
+		myVBox = new VBox();
+		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+			EntityPass ePass = (EntityPass) e;
+			try {
+				this.updateProperties(ePass.getEntity());
+			} catch (GroovyInstantiationException exception) {
+				new ErrorDisplay("Groovy Error",
+						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
+			}
+		});
+		getRegion().getStyleClass().add("panel");
+	}
 
     @Override
     public Region getRegion() {
