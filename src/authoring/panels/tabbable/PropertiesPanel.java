@@ -25,9 +25,17 @@ import util.pubsub.messages.EntityPass;
  * Displays the attributes associated with a particular Entity
  *
  * @author lasia
+ * @author Richard Tseng
  */
 public class PropertiesPanel implements Panel,Updatable {
-//    Should probably move these strings out to a properties file or something
+
+    private static final String ENTITY_PASS = "ENTITY_PASS";
+    private static final String GROOVY_ERROR = "Groovy Error";
+    private static final String GROOVY_ERROR_PROMPT = "You're trying to set something incorrectly, bro! Not Groovy!";
+    private static final String PANEL = "panel";
+    private static final String LISTENERS = "listeners";
+    private static final String SAVE_ENTITY = "Save Entity";
+    private static final String UPDATE_ENTITY = "Update Entity";
     private final String TITLE = "Properties";
     private final String SCRIPTS = "Scripts";
     private final String PARAMETERS = "Parameters";
@@ -40,16 +48,16 @@ public class PropertiesPanel implements Panel,Updatable {
 
 	public PropertiesPanel() {
 		myVBox = new VBox();
-		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+		PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
 			EntityPass ePass = (EntityPass) e;
 			try {
 				this.updateProperties(ePass.getEntity());
 			} catch (GroovyInstantiationException exception) {
-				new ErrorDisplay("Groovy Error",
-						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
+				new ErrorDisplay(GROOVY_ERROR,
+                        GROOVY_ERROR_PROMPT).displayError();
 			}
 		});
-		getRegion().getStyleClass().add("panel");
+		getRegion().getStyleClass().add(PANEL);
 	}
 
     @Override
@@ -82,11 +90,11 @@ public class PropertiesPanel implements Panel,Updatable {
     public void updateProperties(Entity entity) throws GroovyInstantiationException {
         myEntity = entity.substitute();
         myParameters = myEntity.getProperties();
-        myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
-        myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
+        myScripts = (Map<String, Map<String, Object>>) myParameters.remove(SCRIPTS);
+        myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove(LISTENERS);
         updateVisuals();
-        myParameters.put("scripts", myScripts);
-        myParameters.put("listeners", myEvents);
+        myParameters.put(SCRIPTS, myScripts);
+        myParameters.put(LISTENERS, myEvents);
     }
 
     private void updateVisuals() throws GroovyInstantiationException {
@@ -119,8 +127,8 @@ public class PropertiesPanel implements Panel,Updatable {
      */
     private Node addButton() {
         HBox hbox = new HBox();
-        hbox.getChildren().add(new CustomButton(new EntitySave(myEntity), "Save Entity").getButton());
-        hbox.getChildren().add(new CustomButton(new Update(this), "Update Entity").getButton());
+        hbox.getChildren().add(new CustomButton(new EntitySave(myEntity), SAVE_ENTITY).getButton());
+        hbox.getChildren().add(new CustomButton(new Update(this), UPDATE_ENTITY).getButton());
         return hbox;
     }
 
@@ -135,5 +143,4 @@ public class PropertiesPanel implements Panel,Updatable {
     public Entity getEntity() {
         return myEntity;
     }
-
 }
