@@ -26,7 +26,7 @@ public class StateRender {
     private GraphDelegate myGraph;
     private boolean deleting;
 
-    private List<TransitionRender> myLeavingTransitions = new ArrayList<>();
+    private List<Arrow> myLeavingTransitions = new ArrayList<>();
 
     public StateRender(double X, double Y, String title, State state, GraphDelegate graph) {
         myState = state;
@@ -82,25 +82,25 @@ public class StateRender {
         myRender.setFill(color);
     }
 
-    protected void addLeavingTransition(TransitionRender tRender) {
-        myState.getTransitions().add(tRender.getTransition());
+    protected void addLeavingTransition(Arrow tRender) {
+//        #TODO ASK RAMIL ABOUT ADDING TRANSITIONS
         myLeavingTransitions.add(tRender);
     }
 
-    protected void removeLeavingTransition(TransitionRender tRender) {
-        myState.getTransitions().remove(tRender.getTransition());
+    protected void removeLeavingTransition(Arrow tRender) {
+//        myState.getTransitions().remove(tRender.getTransition());
         myLeavingTransitions.remove(tRender);
     }
 
-    protected List<TransitionRender> getMyLeavingTransitions() {
+    protected List<Arrow> getMyLeavingTransitions() {
         return myLeavingTransitions;
     }
 
-    protected void addArrivingTransition(TransitionRender tRender) {
+    protected void addArrivingTransition(Arrow tRender) {
 
     }
 
-    public void removeArrivingTransition(TransitionRender tRender) {
+    public void removeArrivingTransition(Arrow tRender) {
 
     }
 }

@@ -22,31 +22,31 @@ import java.util.List;
  */
 public class FSMGraph implements GraphDelegate {
     private List<StateRender> myStateRenders;
-    private List<TransitionRender> myTransitionRenders;
+    private List<Arrow> myArrows;
     private Group myGroup = new Group();
-    private TransitionRender currentTRender;
+    private Arrow currentTRender;
     private boolean addingState;
 
     /**
      * Creates a new FSMGraph from scratch
      */
     public FSMGraph() {
-        this(new ArrayList<StateRender>(), new ArrayList<TransitionRender>());
+        this(new ArrayList<StateRender>(), new ArrayList<Arrow>());
     }
 
     /**
      * Creates a new FSMGraph from existing arraylist params
      * @param stateRenders      list of stateRenders
-     * @param transitionRenders list of transitionRenders
+     * @param Arrows list of Arrows
      */
-    public FSMGraph(List<StateRender> stateRenders, List<TransitionRender> transitionRenders) {
+    public FSMGraph(List<StateRender> stateRenders, List<Arrow> Arrows) {
         myStateRenders = stateRenders;
-        myTransitionRenders = transitionRenders;
+        myArrows = Arrows;
         myGroup.setOnMouseDragged(e -> dragHandle(e));
         myGroup.setOnMouseReleased(e -> dragExit(e));
-        for(TransitionRender tRender: myTransitionRenders) {
-            tRender.getArrow().getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
-            tRender.getArrow().getRender().setOnMouseReleased(e -> transitionDragExit());
+        for(Arrow tRender: myArrows) {
+            tRender.getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
+            tRender.getRender().setOnMouseReleased(e -> transitionDragExit());
         }
     }
 
@@ -64,7 +64,7 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private boolean validClick(MouseEvent e) {
-        return !addingState && findContainedStateRender(e) == null && findContainedTransitionRender(e) == null;
+        return !addingState && findContainedStateRender(e) == null && findContainedArrow(e) == null;
     }
 
 
@@ -133,10 +133,10 @@ public class FSMGraph implements GraphDelegate {
         }
     }
 
-    private TransitionRender findContainedTransitionRender(MouseEvent event) {
+    private Arrow findContainedArrow(MouseEvent event) {
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
-        for(TransitionRender tRender : myTransitionRenders) {
-            Node node = tRender.getArrow().getRender();
+        for(Arrow tRender : myArrows) {
+            Node node = tRender.getRender();
             if(node.contains(mousePosition)) {
                 return tRender;
             }
@@ -156,7 +156,7 @@ public class FSMGraph implements GraphDelegate {
         return null;
     }
 
-    private void transitionDragHandle(MouseEvent event, TransitionRender transition) {
+    private void transitionDragHandle(MouseEvent event, Arrow transition) {
         currentTRender = transition;
         currentTRender.setHead(new Vector(event.getX(), event.getY()));
     }
@@ -166,13 +166,12 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private void createArrow(Vector vectorMousePosition, StateRender sRender) {
-        Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition, this);
-        TransitionRender tRender = new TransitionRender(sRender, newArrow);
+        Arrow tRender = new Arrow(vectorMousePosition, vectorMousePosition, this);
         currentTRender = tRender;
-        myTransitionRenders.add(tRender);
-        myGroup.getChildren().add(tRender.getArrow().getRender());
-        tRender.getArrow().getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
-        tRender.getArrow().getRender().setOnMouseReleased(e -> transitionDragExit());
+        myArrows.add(tRender);
+        myGroup.getChildren().add(tRender.getRender());
+        tRender.getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
+        tRender.getRender().setOnMouseReleased(e -> transitionDragExit());
     }
 
     private void dragExit(MouseEvent event) {
