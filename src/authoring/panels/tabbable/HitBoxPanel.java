@@ -35,7 +35,6 @@ public class HitBoxPanel implements Panel {
         options.add(hitboxSelection, 0, 1);
 
         createEntityView();
-        getRegion().getStyleClass().add("panel");
         createAddButton();
         createComboBox();
 
@@ -48,6 +47,7 @@ public class HitBoxPanel implements Panel {
         });
         // Create the new hitbox polygon
 
+        getRegion().getStyleClass().add("panel");
     }
 
     public void setEntity(Entity entity) {
