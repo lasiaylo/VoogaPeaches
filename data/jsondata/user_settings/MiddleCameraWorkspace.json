@@ -1,18 +1,9 @@
 {
-  "": "======",
-  "FSM": "right",
   "Social Media": "right",
-  "rightdivision": "0.796875",
   "Mini Map": "right",
-<<<<<<< HEAD
-=======
-  "rightdivision": "0.7975",
+  "rightdivision": "0.7972222222222223",
   "Game Graphvis": "false",
->>>>>>> 455409d8fe0c02a994ac5c47117a9afd969f420f
   "Mini Mapvis": "true",
-  "Game Graphvis": "false",
-  "FSMvis": "true",
-  ">>>>>>>": "79fac958ff025ce42f0131d416919bd64eb7791a",
   "Properties": "right",
   "HitBoxes": "right",
   "Propertiesvis": "true",
@@ -21,19 +12,10 @@
   "Console": "right",
   "Youtube": "right",
   "Game Graph": "right",
-  "leftdivision": "0.140625",
   "HitBoxesvis": "true",
-<<<<<<< HEAD
-=======
-  "leftdivision": "0.14125",
->>>>>>> 455409d8fe0c02a994ac5c47117a9afd969f420f
+  "leftdivision": "0.14097222222222222",
   "Library": "left",
   "Libraryvis": "true",
-  "<<<<<<<": "HEAD",
   "Social Mediavis": "false",
-<<<<<<< HEAD
-  "bodydivision": "0.6851612903225807"
-=======
-  "bodydivision": "0.9324009324009324"
->>>>>>> 455409d8fe0c02a994ac5c47117a9afd969f420f
+  "bodydivision": "0.9325714285714286"
 }
