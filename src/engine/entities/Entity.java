@@ -30,8 +30,6 @@ public class Entity extends Evented {
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
-    @Expose private String fieldName = null;
-    @Expose private Vector mapSize = null;
 
     private Group group;
     private Entity parent;
@@ -56,22 +54,6 @@ public class Entity extends Evented {
         this();
         if(parent == null) return;
         addTo(parent);
-    }
-
-    public Vector getMapSize() {
-        return mapSize;
-    }
-
-    public void setMapSize(Vector size) {
-        mapSize = size;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public void setFieldName(String name) {
-        fieldName = name;
     }
 
     /**
@@ -155,14 +137,11 @@ public class Entity extends Evented {
     }
 
     public Entity substitute() {
-        System.out.println("substituting");
         clear();
         Entity entity = new Entity(parent);
         entity.UID = UID;
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
-        entity.fieldName = fieldName;
-        entity.mapSize = mapSize;
         try {
             parent.getNodes().getChildren().remove(group);
         } catch(NullPointerException e){
@@ -181,13 +160,7 @@ public class Entity extends Evented {
             new ClickEvent(false).fire(this);
             new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
         }
-
         return entity;
-    }
-
-
-    private void setEventListeners() {
-
     }
 
     @Override
@@ -200,7 +173,6 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-        setEventListeners();
         executeScripts();
     }
 }

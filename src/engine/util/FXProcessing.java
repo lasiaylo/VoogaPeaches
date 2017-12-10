@@ -30,7 +30,7 @@ public class FXProcessing {
         return yCenter - image.getFitHeight()/2;
     }
 
-    public static Vector getBGCenter(Vector click, double gridS) {
+    public static Vector getBGCenter(Vector click, int gridS) {
         double extraX = click.at(0) % gridS;
         double xCount = (click.at(0) - extraX) / gridS + 0.5;
         double extraY = click.at(1) % gridS;

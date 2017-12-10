@@ -15,6 +15,8 @@ import java.io.File;
 import java.util.Map;
 
 public class ScriptProperties {
+
+    private static final String DELETE_SCRIPT = "Delete Script";
     private final PropertiesPanel myPanel;
     private final Map<String, Map<String, Object>> myMap;
     private VBox myVBox;
@@ -42,7 +44,7 @@ public class ScriptProperties {
     private void context(ContextMenuEvent event, Node node, String name) {
         ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem item1 = new MenuItem("Delete Script");
+        MenuItem item1 = new MenuItem(DELETE_SCRIPT);
         item1.setOnAction(e -> {
             remove(name);
         });

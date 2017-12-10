@@ -6,12 +6,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import util.math.num.Vector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import static engine.visualization.EntityViz.CONNECTION_LENGTH;
+import java.util.*;
 
 public class TreeVisualizer {
 
@@ -26,30 +21,51 @@ public class TreeVisualizer {
         this.visualizer = visualizer;
         group = new Group();
         styleRoot(visualizer);
-        recurse(visualizer);
+        BFS(visualizer);
     }
 
     private void styleRoot(Visualizer visualizer){
-        visualizer.getGroup().relocate(0, 0);
         Circle circle = (Circle) visualizer.getGroup().getChildren().get(0);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.WHITE);
-        group.getChildren().add(visualizer.getGroup());
     }
 
-    private void recurse(Visualizer visualizer){
-        if (visualizer.getNumChildren() <= 0){
-            return;
+    private void draw(Visualizer visualizer){
+        group.getChildren().add(visualizer.getGroup());
+        visualizer.getGroup().relocate(0, 0);
+        if (visualizer.getParentVisualizer() != null){
+            Line l = visualizer.getParentVisualizer().getLines().get(0);
+            visualizer.getParentVisualizer().getLines().remove(0);
+            visualizer.getGroup().relocate(l.getEndX(), l.getEndY());
         }
-        else{
-            for (int i = 0; i < visualizer.getNumChildren(); i++) {
+        if (visualizer.getNumChildren() > 0){
+            linesFromCircle(visualizer);
+            for (int i = 0; i < visualizer.getLines().size(); i++) {
                 Visualizer child = visualizer.getChildrenList().get(i);
-                linesFromCircle(visualizer);
-                Line l = visualizer.getLines().get(i);
-                child.getGroup().relocate(l.getEndX(), l.getEndY());
                 ((Circle) child.getGroup().getChildren().get(0)).setFill(Color.ORCHID);
-                group.getChildren().add(child.getGroup());
-                recurse(child);
+            }
+        }
+    }
+
+    private void BFS(Visualizer visualizer)
+    {
+        Map<String, Boolean> visited = new HashMap<>();
+        Queue<Visualizer> queue = new LinkedList<>();
+        visited.put(visualizer.getUID(), true);
+        queue.add(visualizer);
+        while (queue.size() != 0)
+        {
+            Visualizer currentVisualizer = queue.poll();
+            draw(currentVisualizer);
+            Iterator<Visualizer> i = currentVisualizer.getChildrenList().listIterator();
+            while (i.hasNext())
+            {
+                Visualizer nextVisualizer = i.next();
+                if (!visited.containsKey(nextVisualizer.getUID()))
+                {
+                    visited.put(nextVisualizer.getUID(), true);
+                    queue.add(nextVisualizer);
+                }
             }
         }
     }
@@ -70,7 +86,5 @@ public class TreeVisualizer {
         }
     }
 
-    public Group getGroup() {
-        return group;
-    }
+    public Group getGroup() {return group;}
 }
