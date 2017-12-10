@@ -23,8 +23,6 @@ public class Gravity extends Application {
         Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("PlayerEntity.json"));
         TickEvent e = new TickEvent(1);
 
-
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1),  (dt) -> {
             e.fire(readIn);
         }));
