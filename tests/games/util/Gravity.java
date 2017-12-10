@@ -21,11 +21,9 @@ public class Gravity extends Application {
         JSONDataManager j = new JSONDataManager(JSONDataFolders.GAMES);
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
         Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("tests/gravity.json"));
-        TickEvent e = new TickEvent(1);
+        TickEvent e = new TickEvent(10);
 
-
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1),  (dt) -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10),  (dt) -> {
             e.fire(readIn);
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);

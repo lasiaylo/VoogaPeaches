@@ -148,6 +148,8 @@ void move(MouseEvent mouseEvent, Entity entity) {
     }
     pointer.setX(xPos)
     pointer.setY(yPos)
+
+    println xPos + " :: " + yPos
     entity.setProperty("x", xPos);
     entity.setProperty("y", yPos);
 }
