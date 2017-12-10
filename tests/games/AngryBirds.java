@@ -1,6 +1,6 @@
 package games;
 
-import engine.visualization.GameVisualizer;
+//import engine.visualization.GameVisualizer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,11 +9,11 @@ public class AngryBirds extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        GameVisualizer gameVisualizer = new GameVisualizer(null);
-
-        Scene s = new Scene(gameVisualizer.getGroup());
-        primaryStage.setScene(s);
-        primaryStage.show();
+//        GameVisualizer gameVisualizer = new GameVisualizer(null);
+//
+//        Scene s = new Scene(gameVisualizer.getGroup());
+//        primaryStage.setScene(s);
+//        primaryStage.show();
     }
 
     public static void main(String[] args) {

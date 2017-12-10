@@ -1,8 +1,5 @@
 package authoring.panels.attributes;
 
-import authoring.panels.attributes.EventButton;
-import authoring.panels.attributes.ScriptProperties;
-import authoring.panels.attributes.TPane;
 import authoring.panels.tabbable.PropertiesPanel;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -12,7 +9,6 @@ import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
 
 import java.util.Map;
-import java.util.Properties;
 
 public class EventProperties {
     private final Map<String, Map<String, Map<String, Object>>> myMap;
@@ -52,11 +48,9 @@ public class EventProperties {
         contextMenu.show(node,event.getScreenX(), event.getScreenY());
     }
 
-    private void remove(String name){
+    private void remove(String name) {
         myMap.remove(name);
-        try {
-            myPanel.updateProperties();
-        } catch (GroovyInstantiationException e) { }
+        myPanel.update();
     }
 
     public Node getNode(){

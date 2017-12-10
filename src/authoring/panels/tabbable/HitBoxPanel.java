@@ -95,20 +95,11 @@ public class HitBoxPanel implements Panel {
             if(boxName.equals("")) {
                 new ErrorDisplay("HitBox error", "Your HitBox's tag was empty!").displayError();
             } else {
-                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex()).setTag(boxName);
+                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).setTag(boxName);
                 hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
             }
         }, "Save").getButton();
         options.add(saveButton, 1, 0);
-    }
-
-    public double getAddWidth() {
-        //temp
-        return addButton.getWidth();
-    }
-
-    public double getNameWidth() {
-        return hitboxNameField.getWidth();
     }
 
     private void createAddButton() {
