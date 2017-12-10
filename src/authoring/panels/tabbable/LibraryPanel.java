@@ -55,7 +55,6 @@ public class LibraryPanel implements Panel {
         myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.getItems().add(PLAYER);
         myEntType.setOnAction(e -> changeType());
-        myEntType.getStyleClass().add("choice-box");
         myTilePane.setPrefColumns(2);
         myTilePane.setPrefTileWidth(50);
         myTilePane.setPrefTileHeight(50);
@@ -66,8 +65,8 @@ public class LibraryPanel implements Panel {
         HBox top = new HBox(myEntType, update);
         top.setSpacing(10);
         myArea = new VBox(top, myTilePane);
-        myArea.getStyleClass().add("panel");
         myArea.setSpacing(10);
+
         getRegion().getStyleClass().add("panel");
     }
 
