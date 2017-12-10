@@ -1,0 +1,65 @@
+{
+  "UID": "7fc02c4d88d74e4984c1e9787c3109b2",
+  "children": [{
+    "UID": "0c21c44e52314062b418be76ecc2a50e",
+    "children": [
+      {
+        "UID": "058618b5d1da459a9f593464b323bbba",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {}
+      },
+      {
+        "UID": "ab3784a15f934ae292f994de73fae9c7",
+        "children": [
+          {
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0.1,
+              "vy": 0.1,
+              "listeners": {
+                "move": {"base/animate/update_position": {}},
+                "tick": {"base/animate/move": {}},
+                "key press": {"movement": {}}
+              },
+              "x": 227,
+              "width": 50,
+              "y": 85,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0.1,
+              "vy": 0.1,
+              "listeners": {
+                "move": {"base/animate/update_position": {}},
+                "tick": {"base/animate/move": {}},
+                "key press": {"movement": {}}
+              },
+              "x": 161,
+              "width": 50,
+              "y": 293,
+              "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {}
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "mapwidth": 5000,
+      "mapheight": 5000,
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

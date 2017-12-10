@@ -139,6 +139,30 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
         currentListener = null;
     }
 
+    public static boolean addToDatabasePath(TrackableObject objectToAdd, String path) throws ObjectIdNotFoundException{
+        JSONObject json = new JSONObject(JSONHelper.JSONForObject(objectToAdd).toString().replace("/","|"));
+        String[] pathItems = path.split("/");
+        if(pathItems.length == 0) return false;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        for(int i = 0; i < pathItems.length; i++)
+            ref = ref.child(pathItems[i]);
+        try {
+            ref.setValueAsync(JSONHelper.mapFromJSON(json));
+            return true;
+        } catch(JSONException e){ throw new ObjectIdNotFoundException(); }
+    }
+
+    public static boolean removeFromDatabasePath(String path) throws ObjectIdNotFoundException{
+        String[] pathItems = path.split("/");
+        if(pathItems.length == 0) return false;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        for(int i = 0; i < pathItems.length; i++)
+            ref = ref.child(pathItems[i]);
+        try {
+            ref.removeValueAsync();
+            return true;
+        } catch(JSONException e){ throw new ObjectIdNotFoundException(); }
+    }
     /**
      * Adds an object of type T into the database. Note: If the object
      * is already contained within the database, then it will be overwritten.
