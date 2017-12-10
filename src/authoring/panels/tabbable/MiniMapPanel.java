@@ -9,6 +9,7 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -23,7 +24,7 @@ import java.util.*;
 
 public class MiniMapPanel implements Panel, MapChangeListener{
 
-    private Pane myPane;
+    private Node myPane;
     private Pane holder = new StackPane();
     private TextField levelName;
     private TextField mapWidth;
@@ -159,8 +160,8 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     public void setController(PanelController controller) {
 
         myPane = controller.getMiniMap();
-        myPane.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
-        myPane.setCenterShape(true);
+//        myPane.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
+//        myPane.setCenterShape(true);
         manager = controller.getManager();
         manager.addMapListener(this);
 
