@@ -9,6 +9,6 @@ public class HitBoxSave implements IButtonStrategy {
     }
     @Override
     public void fire() {
-        hbPanel.createHitBox();
+//        hbPanel.createHitBox();
     }
 }

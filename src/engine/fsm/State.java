@@ -1,63 +1,57 @@
 package engine.fsm;
 
-import com.google.gson.annotations.Expose;
-import database.firebase.TrackableObject;
+import engine.entities.Entity;
+import groovy.lang.Closure;
+import groovy.lang.GroovyShell;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-/**Represents a state within a Finite State Machine
- * 
- * @author lasia
- * @author Albert
- * @author richardtseng
- */
-public class State extends TrackableObject {
-	
-	@Expose private String stateName;
-	@Expose private List<Transition> myTransitions;
+public class State {
+    private String name;
+    private LinkedHashMap<String, Closure> transitions;
+    private LinkedHashMap<String, String> code;
+    private LinkedHashMap<String, Object> properties;
+    private GroovyShell shell;
 
-	/**
-	 * Creates a new State
-	 */
-	public State() {
-		myTransitions = new ArrayList<>();
-	}
-	
-	/**
-	 * Creates a new State with a name
-	 */
-	public State(String state) {
-		stateName = state;
-		myTransitions = new ArrayList<>();
-	}
-	
-	/**
-	 * Checks the transitions of this state to see if the conditions are met
-	 * If they are, the manager's current state will be changed to the transition's destination
-	 * @param manager
-	 */
-	public void update(FSM manager) {
-		for (Transition transition : myTransitions) {
-			if (transition.conditionsMeet(manager.getConditions())) {
-				manager.setCurrentState(transition.getDestinationState());
-			}
-		}
-	}
-	
-	/**
-	 * @return Transitions going out of this state
-	 */
-	public List<Transition> getTransitions(){
-		return myTransitions;
-	}
-	
-	public String getStateName() {
-		return stateName;
-	}
+    State(String name, LinkedHashMap<String, LinkedHashMap<String, Object>> data) {
+        this.name = name;
 
-	@Override
-	public void initialize() {
+        if (!data.containsKey("transitions"))
+            return;
 
-	}
+        transitions = new LinkedHashMap<>();
+        code = new LinkedHashMap<>();
+        shell = new GroovyShell();
+
+        for (Map.Entry<String, Object> entry : data.get("transitions").entrySet())
+            updateCode(entry.getKey(), (String) entry.getValue());
+
+        this.properties = data.get("properties");
+    }
+
+    public Object getProperty(String name) {
+        return this.properties.get(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void updateCode(String name, String code) {
+        transitions.put(name, (Closure) shell.evaluate(code));
+        this.code.put(name, code);
+    }
+
+    public Iterator<Map.Entry<String, String>> getTransitions() {
+        return code.entrySet().iterator();
+    }
+
+    String transition(Entity entity) {
+        String name = null;
+        for (Map.Entry<String, Closure> entry : transitions.entrySet())
+            name = (Boolean) entry.getValue().call(entity) ? entry.getKey() : name;
+        return name;
+    }
 }

@@ -2,85 +2,145 @@ package authoring.panels.tabbable;
 
 import authoring.Panel;
 import authoring.buttons.CustomButton;
-import authoring.buttons.strategies.HitBoxSave;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
-import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import util.ErrorDisplay;
-import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HitBoxPanel implements Panel {
-    private static final double RADIUS = 5;
-    private static final String TITLE = "Create or Add Hitboxes!";
+    private static final String TITLE = "HitBoxes";
     private static final int MIN_HEIGHT = 500;
 
-    private Entity entity;
     private Pane entityView = new Pane();
     private VBox region = new VBox();
-    private TextField textField = new TextField();
-    private List<Double> points = new ArrayList<>();
-    private List<Line> lines = new ArrayList<>();
+    private TextField hitboxNameField = new TextField();
+    private ComboBox<String> hitboxSelection = new ComboBox<>();
+    private GridPane options = new GridPane();
+
+    private List<HitBox> hitboxes = new ArrayList<>();
+    private List<Double> currentPoints;
+    private Button saveButton;
+    private Button addButton;
 
     public HitBoxPanel() {
-        entityView.setMinHeight(MIN_HEIGHT);
-        region.getChildren().add(entityView);
-        entityView.setOnMouseClicked(e -> addPoint(e));
-        region.getChildren().add(textField);
-        region.getChildren().add(new CustomButton(new HitBoxSave(this), "Save").getButton());
+        createEntityView();
+
+        region.getChildren().add(options);
+
+        options.add(hitboxNameField, 0, 0);
+        options.add(hitboxSelection, 0, 1);
+//        GridPane.setHgrow(hitboxNameField, Priority.ALWAYS);
+
+
+        getRegion().getStyleClass().add("panel");
+        createAddButton();
+        createComboBox();
+
+        createSaveButton();
+        PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+            EntityPass entityPass = (EntityPass) e;
+            setEntity(entityPass.getEntity());
+        });
     }
 
     public void setEntity(Entity entity) {
-        this.entity = entity;
+        hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
-        entityView.getChildren().add(entity.getNodes());
-//        entityView
+        hitboxes = entity.getHitBoxes();
+        hitboxSelection.getItems().clear();
+        createComboBox();
 
+        options.getColumnConstraints().addAll(
+                new ColumnConstraints(region.getWidth() * 0.8), new ColumnConstraints(region.getWidth()* 0.2));
+        hitboxNameField.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
+        hitboxSelection.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
+        addButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
+        saveButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
     }
 
-//    private void dragHandle(MouseDragEvent dragEvent) {
-//        for(int i = 0; i < points.size(); i += 2) {
-//            double x = points.get(i);
-//            double y = points.get(i + 1);
-//            if(checkRadius(x, y, dragEvent)) {
-//
-//            }
-//        }
-//    }
-
-    private boolean checkRadius(double x, double y, MouseDragEvent dragEvent) {
-        Vector v = new Vector(dragEvent.getX() - x, dragEvent.getY() - y);
-        return v.norm() < RADIUS;
+    private void createComboBox() {
+        hitboxSelection.getItems().add("View All");
+        hitboxSelection.getSelectionModel().selectLast();
+        for(HitBox h : hitboxes)
+            hitboxSelection.getItems().add(h.getTag());
+        hitboxSelection.getSelectionModel().selectedIndexProperty().addListener((arg, oldVal, newVal) ->{
+            entityView.getChildren().remove(0, entityView.getChildren().size());
+            if(newVal.intValue() == 0 | newVal.intValue() == -1){
+                hitboxes.forEach(box -> {
+                    box.getHitbox().setFill(Color.LIGHTGRAY);
+                    entityView.getChildren().add(box.getHitbox());
+                });
+            } else {
+                hitboxes.get(newVal.intValue() - 1).getHitbox().setFill(Color.LIGHTGRAY);
+                entityView.getChildren().add(hitboxes.get(newVal.intValue() - 1).getHitbox());
+                currentPoints = hitboxes.get(newVal.intValue() - 1).getPoints();
+            }
+        });
     }
 
-    private void addPoint(MouseEvent event) {
-        if(points.size() > 1) {
-            Line line = new Line(points.get(points.size() - 1), points.get(points.size() - 2), event.getX(), event.getY());
-            lines.add(line);
-            entityView.getChildren().add(line);
+    private void createSaveButton() {
+        saveButton = new CustomButton(() -> {
+            String boxName = hitboxNameField.getText();
+            if(boxName.equals("")) {
+                new ErrorDisplay("HitBox error", "Your HitBox's tag was empty!").displayError();
+            } else {
+                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).setTag(boxName);
+                hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
+            }
+        }, "Save").getButton();
+        options.add(saveButton, 1, 0);
+    }
+
+    private void createAddButton() {
+        addButton = new CustomButton(() -> {
+            hitboxSelection.getItems().add("");
+            hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, ""));
+            hitboxSelection.getSelectionModel().selectLast();
+        }, "Add Hitbox").getButton();
+        options.add(addButton, 1, 1);
+    }
+
+    private void createEntityView(){
+        entityView.setMinHeight(MIN_HEIGHT);
+        region.getChildren().add(entityView);
+        entityView.setOnMouseClicked(e -> addPointClicked(e));
+    }
+
+    private void addPointClicked(MouseEvent event) {
+        if(hitboxSelection.getSelectionModel().getSelectedIndex() != 0) {
+            addNewPoint(event.getX(), event.getY());
+            if(currentPoints.size() == 6) {
+                for(int i = 0; i < 6; i+=2)
+                    hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(currentPoints.get(i), currentPoints.get(i + 1));
+            } else if (currentPoints.size() > 6) {
+                entityView.getChildren().remove(1, entityView.getChildren().size());
+                currentPoints.add(event.getX());
+                currentPoints.add(event.getY());
+                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(event.getX(),event.getY());
+            }
         }
-        points.add(event.getX());
-        points.add(event.getY());
     }
 
-    public void createHitBox() {
-        try {
-            HitBox hitBox = new HitBox(points, (Double) entity.getProperty("x"), (Double) entity.getProperty("y"), textField.getText());
-            entity.addHitBox(hitBox);
-            entity.getNodes().relocate((double) entity.getProperty("x"), (double) entity.getProperty("y"));
-        } catch (NullPointerException e) {
-            // do nothing
-        }
-        // move hit boxes?
+    private void addNewPoint(double x, double y) {
+        Circle newPoint = new Circle();
+        newPoint.setCenterX(x);
+        newPoint.setCenterY(y);
+        newPoint.setRadius(5);
+        newPoint.setFill(Color.BLACK);
+        currentPoints.add(x);
+        currentPoints.add(y);
+        entityView.getChildren().add(newPoint);
     }
 
     @Override

@@ -1,22 +1,15 @@
 package engine.camera;
 
-import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.beans.binding.NumberBinding;
-import javafx.geometry.BoundingBox;
-import javafx.scene.Group;
-import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import util.math.num.Vector;
-
-import java.util.Iterator;
 
 /**
  * Camera that will pass a view to the authoring and player for game display
@@ -64,31 +57,30 @@ public class Camera {
     }
 
     public void changeLevel(Entity level) {
+        if (currentLevel.getNodes().getChildren().size() == 0) {
+            currentLevel.add(view.getContent());
+        }
         view.setContent(level.getNodes().getChildren().get(0));
         currentLevel = level;
     }
 
     public Pane getMinimap(Vector size) {
         miniMap = new Canvas(size.at(0), size.at(1));
-        GraphicsContext gc = miniMap.getGraphicsContext2D();
-        gc.setFill(Color.GRAY);
-        gc.fillRect(0, 0, size.at(0), size.at(1));
-        //miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
+        miniMap.setStyle("-fx-border-color: black; -fx-border-width: 10");
+        miniMap.getGraphicsContext2D().fillRect(0, 0, size.x, size.y);
         point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
+
 
         NumberBinding xPoint = view.hvalueProperty().multiply(size.at(0));
         NumberBinding yPoint = view.vvalueProperty().multiply(size.at(1));
         point.centerXProperty().bind(xPoint);
         point.centerYProperty().bind(yPoint);
+        miniMap.setOnMouseClicked(this::moveCamera);
 
-        Pane miniPane = new Pane();
-        miniPane.getChildren().add(miniMap);
-        miniPane.getChildren().add(point);
-
-        miniMap.setOnMouseClicked(e -> moveCamera(e));
-
-        return miniPane;
-
+        Pane holder = new Pane(miniMap, point);
+        holder.maxWidthProperty().bind(miniMap.widthProperty());
+        holder.maxHeightProperty().bind(miniMap.heightProperty());
+        return holder;
     }
 
     private void moveCamera(MouseEvent event) {
@@ -113,12 +105,12 @@ public class Camera {
     private void vScroll(double num) {
         view.setVmin(0);
         view.setVmax(1);
-        view.setVvalue(num);
+        view.setVvalue(0);
     }
 
     private void hScroll(double num) {
         view.setHmax(1);
         view.setHmin(0);
-        view.setHvalue(num);
+        view.setHvalue(0);
     }
 }

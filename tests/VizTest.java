@@ -12,13 +12,23 @@ public class VizTest extends Application {
         Entity child1 = new Entity(root);
         Entity child2 = new Entity(root);
 
-        Entity child11 = new Entity(child1);
-        Entity child12 = new Entity(child2);
+        for (int i = 0; i < 5; i++){
+            Entity e = new Entity(root);
+        }
+
+
+        Entity grandChild1 = new Entity(child1);
+        Entity grandChild2 = new Entity(child1);
+
+        Entity grandChild3 = new Entity(child2);
+        Entity grandChild4 = new Entity(child2);
 
         GameVisualizer gameVisualizer = new GameVisualizer(root);
 
         Scene s = new Scene(gameVisualizer.getGroup());
         primaryStage.setScene(s);
+        primaryStage.setHeight(800);
+        primaryStage.setWidth(800);
         primaryStage.show();
     }
 

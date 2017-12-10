@@ -3,7 +3,7 @@ package engine.events;
 public class TransparentMouseEvent extends Event {
     private boolean bool;
     public TransparentMouseEvent(boolean bool) {
-        super("Transparent Mouse Event");
+        super(EventType.TRANSPARENT_MOUSE.getType());
         this.bool = bool;
     }
 

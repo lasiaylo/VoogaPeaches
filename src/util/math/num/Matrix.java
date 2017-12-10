@@ -1,7 +1,6 @@
 package util.math.num;
 
 import util.math.interfaces.IMatrix;
-import util.math.interfaces.IVector;
 
 public class Matrix implements IMatrix<Matrix, Double> {
     private double[][] m;

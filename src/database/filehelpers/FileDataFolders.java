@@ -8,6 +8,7 @@ import util.PropertiesReader;
  * FileDataManager class
  */
 public enum FileDataFolders {
+    USER_IMAGES("images/user_images"),
     IMAGES("images"),
     SOUNDS("sounds");
 

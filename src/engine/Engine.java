@@ -39,6 +39,7 @@ public class Engine {
     public Engine(Entity root, int gridSize) {
         this.entityManager = new EntityManager(root, gridSize);
         this.camera = new Camera(entityManager.getCurrentLevel());
+        entityManager.setCamera(camera);
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -51,7 +52,11 @@ public class Engine {
     }
 
     public void save(String name) {
-        new GameSaver(name).saveTrackableObjects(entityManager.getRoot());
+        new GameSaver(name).saveGame(entityManager.getRoot());
+    }
+
+    public void load(String name) {
+
     }
 
     public EntityManager getEntityManager() {

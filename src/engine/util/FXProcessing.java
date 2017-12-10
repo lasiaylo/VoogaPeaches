@@ -1,6 +1,5 @@
 package engine.util;
 
-import engine.entities.Entity;
 import javafx.scene.image.ImageView;
 import util.math.num.Vector;
 

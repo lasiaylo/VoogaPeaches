@@ -4,7 +4,7 @@ import javafx.util.Duration;
 import org.json.JSONObject;
 
 import authoring.panels.attributes.Attribute;
-import authoring.panels.tabbable.AttributesPanel;
+import authoring.panels.tabbable.PropertiesPanel;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
@@ -14,20 +14,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class PropertiesPanelTest extends Application{
-	private AttributesPanel panel;
+	private PropertiesPanel panel;
+	private final String ENTITYNAME = "test";
 	private Entity testEntity;
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		panel = new AttributesPanel();
-		panel.updateProperties((testEntity = createEntity()));
+		panel = new PropertiesPanel();
+		testEntity = createEntity();
+		panel.updateProperties(testEntity);
 		
 		setupStage();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
-			System.out.println(testEntity.getProperty("y"));
-		}));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
 	}
 
 	private void setupStage() {
@@ -40,11 +37,11 @@ public class PropertiesPanelTest extends Application{
 	private Entity createEntity() {
 
 		JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
-        JSONObject blueprint = manager.readJSONFile("test");
+        JSONObject blueprint = manager.readJSONFile(ENTITYNAME);
+        System.out.println(blueprint);
         JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
-
+		System.out.println(converter);
         Entity entity = converter.createObjectFromJSON(Entity.class,blueprint);
-		System.out.println(entity.getProperties().toString());
 		return entity;
 	}
 

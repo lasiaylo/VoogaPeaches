@@ -7,7 +7,8 @@ public interface IMatrix<Self, Primary> {
      *
      * @return string
      */
-    String toString();
+    @Override
+	String toString();
 
     /**
      * Add two matrices
