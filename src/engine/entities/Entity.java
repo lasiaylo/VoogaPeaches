@@ -58,22 +58,6 @@ public class Entity extends Evented {
         addTo(parent);
     }
 
-    public Vector getMapSize() {
-        return mapSize;
-    }
-
-    public void setMapSize(Vector size) {
-        mapSize = size;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public void setFieldName(String name) {
-        fieldName = name;
-    }
-
     /**
      * Get entities parent
      *
@@ -155,7 +139,6 @@ public class Entity extends Evented {
     }
 
     public Entity substitute() {
-        System.out.println("substituting");
         clear();
         Entity entity = new Entity(parent);
         entity.UID = UID;
@@ -181,13 +164,7 @@ public class Entity extends Evented {
             new ClickEvent(false).fire(this);
             new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
         }
-
         return entity;
-    }
-
-
-    private void setEventListeners() {
-
     }
 
     @Override
@@ -200,7 +177,6 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-        setEventListeners();
         executeScripts();
     }
 }
