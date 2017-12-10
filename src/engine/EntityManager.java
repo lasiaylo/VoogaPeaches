@@ -109,8 +109,6 @@ public class EntityManager {
                 addLayer();
             }
             entity.addTo(currentLevel.getChildren().get(mode));
-            entity.setProperty("x", pos.at(0));
-            entity.setProperty("y", pos.at(1));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
             new ClickEvent(false).fire(entity);

@@ -9,6 +9,7 @@ import authoring.buttons.strategies.EntitySave;
 import authoring.panels.attributes.*;
 import engine.entities.Entity;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.apache.commons.io.FilenameUtils;
@@ -50,7 +51,7 @@ public class PropertiesPanel implements UpdatablePanel {
 
     @Override
     public Region getRegion() {
-        return myVBox;
+        return new ScrollPane(myVBox);
     }
 
     @Override

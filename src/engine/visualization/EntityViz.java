@@ -28,7 +28,6 @@ public class EntityViz {
     private Circle rootCircle;
     private StackPane sp;
 
-
     public EntityViz(Entity root, Entity parent, EntityViz vizParent, GameVisualizer gameVizualiser){
         this.root = root;
         this.parent = parent;
@@ -82,7 +81,7 @@ public class EntityViz {
         Circle c = new Circle(posX, posY, RADIUS);
         c.setFill(Color.ORCHID);
         group.getChildren().add(c);
-        c.setOnMouseClicked(f -> gameVisualizer.focus(entityViz));
+        //c.setOnMouseClicked(f -> gameVisualizer.focus(entityViz));
         return c;
     }
 

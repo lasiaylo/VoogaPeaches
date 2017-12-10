@@ -4,32 +4,26 @@ import engine.entities.Entity;
 import javafx.scene.Group;
 
 public class GameVisualizer {
+
     private Entity root;
     private Group group;
-    //private EntityVisualizer vizRoot;
-    //private EntityViz vizRoot;
-    private TreeVisualizer vizRoot;
+    private TreeVisualizer treeVisualizer;
 
     public GameVisualizer(Entity root) {
         this.root = root;
         this.group = new Group();
-        //vizRoot = new EntityVisualizer(this, root, null,null, 0, 0);
-        //vizRoot.drawRoot();
-        //vizRoot = new EntityViz(root, null, null, this);
-        Visualizer v = new Visualizer(root, null);
-        vizRoot = new  TreeVisualizer(this, v);
-
-        //focus(vizRoot);
+        Visualizer visualizer = new Visualizer(root, null);
+        treeVisualizer = new TreeVisualizer(this, visualizer);
+        focus(treeVisualizer);
     }
 
-    protected void focus(EntityViz entityVisualizer) {
+    protected void focus(TreeVisualizer treeVisualizer) {
         group.getChildren().clear();
-        group.getChildren().add(entityVisualizer.getGroup());
-        entityVisualizer.getGroup().relocate(200, 200);
+        group.getChildren().add(treeVisualizer.getGroup());
+        treeVisualizer.getGroup().relocate(250, 250);
     }
 
     public Group getGroup() {
         return group;
     }
-
 }
