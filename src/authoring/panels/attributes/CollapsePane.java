@@ -16,7 +16,7 @@ import util.exceptions.GroovyInstantiationException;
  */
 public class CollapsePane {
 
-	public static final String MAP_NULL = "Map null";
+	private static final String MAP_NULL = "Map null";
 	private final int LABEL_COL = 0;
 	private final int ATTRIBUTE_COL = 1;
 	private boolean collapse;
