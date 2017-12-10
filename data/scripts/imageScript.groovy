@@ -26,9 +26,10 @@ import java.util.stream.Collectors
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
-
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
+
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
+
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
 

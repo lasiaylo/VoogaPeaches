@@ -149,6 +149,7 @@ public class Entity extends Evented {
     public void executeScripts() {
         clear();
         EntityScriptFactory.executeScripts(this);
+        children.forEach(e -> e.executeScripts());
     }
 
     private void setEventListeners() {
