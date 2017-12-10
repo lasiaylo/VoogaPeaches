@@ -22,6 +22,9 @@ import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
 import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.BGMessage;
+import util.pubsub.messages.NonBGMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +35,7 @@ public class EntityManager {
     private Entity root;
     private Map<String, Entity> levels;
     private Entity currentLevel;
-    private int[] mode = {-1};
+    private int mode = -1;
     private String BGType;
     private int grid;
     private FileDataManager manager;
@@ -44,16 +47,28 @@ public class EntityManager {
     private ObservableMap<String, Vector> levelSize;
     private Camera camera;
     private String currentLevelName;
+    private boolean isGaming;
 
 
-    public EntityManager(Entity root, int gridSize) {
+    public EntityManager(Entity root, int gridSize, boolean gaming) {
         this.root = root;
         this.levels = new HashMap<>();
         this.grid = gridSize;
+        this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = "Background/grass.png";
+        PubSub.getInstance().subscribe("ADD_BG", message -> {
+            BGMessage bgMessage = (BGMessage) message;
+            addBG(bgMessage.getPos());
+        });
+
+        PubSub.getInstance().subscribe("ADD_NON_BG", message -> {
+            NonBGMessage nonBGMessage = (NonBGMessage) message;
+            addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
+        });
+
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
             defaultObjectFactory = new ObjectFactory("PlayerEntity");
@@ -61,14 +76,19 @@ public class EntityManager {
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
-
-        //don't freak out about this..... just a initial level
-        addLevel("level 1", 5000, 5000);
-        currentLevel = levels.get("level 1");
-        currentLevelName = "level 1";
-        for(String key : levels.keySet()) {
-            Entity entity = levels.get(key);
-            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
+        if (root.getChildren().isEmpty()) {
+            //don't freak out about this..... just a initial level
+            addLevel("level 1", 5000, 5000);
+            currentLevel = levels.get("level 1");
+            currentLevelName = "level 1";
+        }
+        else {
+            root.getChildren().forEach(e -> {
+                levels.put((String) e.getProperty("levelname"), e);
+                levelSize.put((String) e.getProperty("levelname"), new Vector((double) e.getProperty("mapwidth"), (double) e.getProperty("mapheight")));
+            });
+            currentLevel = root.getChildren().get(0);
+            currentLevelName = (String) currentLevel.getProperty("levelname");
         }
     }
 
@@ -82,18 +102,14 @@ public class EntityManager {
      * @param pos
      */
     public void addBG(Vector pos) {
-        if (mode[0] == 0) {
+        if (mode == 0 && !isGaming) {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
-            ImageViewEvent imgEvent = new ImageViewEvent(BGType);
-            InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
-            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
 
-            imgEvent.fire(BGblock);
-            iEvent.fire(BGblock);
-            cEvent.fire(BGblock);
-            pEvent.fire(BGblock);
+            new ImageViewEvent(BGType).fire(BGblock);
+            new InitialImageEvent(new Vector(grid, grid), pos).fire(BGblock);
+            new ClickEvent(isGaming).fire(BGblock);
+            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(BGblock);
         }
     }
 
@@ -108,22 +124,16 @@ public class EntityManager {
     }
 
     private void addNonBGPrivate(Vector pos, Entity entity) {
-        if (mode[0] > 0) {
-            if (mode[0] > currentLevel.getChildren().size() - 1) {
+        if (mode > 0 && !isGaming) {
+            if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            entity.addTo(currentLevel.getChildren().get(mode[0]));
-
-            InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
+            entity.addTo(currentLevel.getChildren().get(mode));
+            new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
-            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
-            MouseDragEvent dEvent = new MouseDragEvent(false, mode);
-
-            iEvent.fire(entity);
-            cEvent.fire(entity);
-            pEvent.fire(entity);
-            dEvent.fire(entity);
+            new ClickEvent(isGaming).fire(entity);
+            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(entity);
+            new MouseDragEvent(isGaming, false).fire(entity);
         }
     }
 
@@ -134,8 +144,7 @@ public class EntityManager {
      */
     public void setMyBGType (String type) {
         BGType = type;
-        ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-
+//        ClickEvent cEvent = new ClickEvent(false, mode, BGType);
     }
 
 
@@ -152,7 +161,7 @@ public class EntityManager {
      * @param layer
      */
     public void selectLayer(int layer) {
-        mode[0] = layer;
+        mode = layer;
         currentLevel.getChildren().forEach(e -> deselect(e));
         viewOnly(currentLevel.getChildren().get(0));
         select(currentLevel.getChildren().get(layer));
@@ -162,23 +171,22 @@ public class EntityManager {
      * select all layer
      */
     public void allLayer() {
-        mode[0] = -1;
+        mode= -1;
         currentLevel.getChildren().forEach(e -> viewOnly(e));
     }
-
 
     /**
      * clear entities on current layer
      */
     public void clearOnLayer() {
-        if (mode[0] == 0) {
+        if (mode == 0) {
             currentLevel.getChildren().get(0).clearLayer();
         }
-        else if(mode[0] == -1) {
+        else if(mode == -1) {
             currentLevel.getChildren().forEach(e -> e.clearLayer());
         }
         else {
-            currentLevel.getChildren().get(mode[0]).clearLayer();
+            currentLevel.getChildren().get(mode).clearLayer();
         }
     }
 
@@ -218,8 +226,8 @@ public class EntityManager {
     }
 
     public void deleteLayer() {
-        if (mode[0] > 0) {
-            currentLevel.remove(currentLevel.getChildren().get(mode[0]));
+        if (mode > 0) {
+            currentLevel.remove(currentLevel.getChildren().get(mode));
         }
     }
 
@@ -273,12 +281,15 @@ public class EntityManager {
         level.getNodes().getChildren().add(stack);
         levels.put(name, level);
         levelSize.put(name, new Vector(mapWidth, mapHeight));
+        level.setProperty("levelname", name);
+        level.setProperty("mapwidth", mapWidth);
+        level.setProperty("mapheight", mapHeight);
 
         addLayer(level);
     }
 
     private void dragOver(DragEvent event, Node map) {
-        if (event.getGestureSource() != map && (event.getDragboard().hasImage() || event.getDragboard().hasString())) {
+        if (event.getGestureSource() != map && event.getDragboard().hasString()) {
             event.acceptTransferModes(TransferMode.COPY);
         }
         event.consume();
@@ -286,7 +297,7 @@ public class EntityManager {
 
     private void dragDropped(DragEvent event) {
         Dragboard board = event.getDragboard();
-        if (board.hasString()) {
+        if (board.hasString() && !isGaming) {
             addNonBG(new Vector(event.getX(), event.getY()), board.getString());
         }
         event.setDropCompleted(true);
@@ -369,4 +380,7 @@ public class EntityManager {
         levels.remove(name);
         levelSize.remove(name);
     }
-}
+    public void setIsGaming(boolean gaming) {
+        isGaming = gaming;
+    }
+ }

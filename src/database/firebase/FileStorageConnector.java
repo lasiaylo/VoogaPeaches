@@ -25,14 +25,16 @@ public class FileStorageConnector extends FirebaseConnector {
     private Bucket storageBucket;
     private DatabaseReference storageDBRef;
     private Map<String, String> fileMap;
+    private String path;
 
     /**
      * Creates a FileStorageConnector that can be used to
      * talk to the file storage bucket on Firebase
      */
-    public FileStorageConnector() {
+    public FileStorageConnector(String path) {
+        this.path = path + "/";
         storageBucket = StorageClient.getInstance().bucket();
-        storageDBRef = FirebaseDatabase.getInstance().getReference("storage");
+        storageDBRef = FirebaseDatabase.getInstance().getReference(path);
         fileMap = new HashMap<>();
         setupListening();
     }
@@ -83,7 +85,7 @@ public class FileStorageConnector extends FirebaseConnector {
         } catch (IOException e) { throw e; }
 
         // Store the file in the storage bucket, and update db mapping
-        storageBucket.create(file.getName(), fileBytes);
+        storageBucket.create(path + file.getName(), fileBytes);
         storageDBRef.child(fileName).setValueAsync(file.getName());
         fileMap.put(fileName, file.getName());
     }
@@ -95,7 +97,7 @@ public class FileStorageConnector extends FirebaseConnector {
      */
     public Image retrieveImage(String image) {
         // Get the raw bytes corresponding to the image from the storage bucket
-        byte[] imageBytes = storageBucket.get(fileMap.get(image)).getContent();
+        byte[] imageBytes = storageBucket.get(fileMap.get(path + image)).getContent();
         // Create a new image from the bytes and return it
         return new Image(new ByteArrayInputStream(imageBytes));
     }

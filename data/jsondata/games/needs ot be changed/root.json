@@ -1,13 +1,32 @@
 {
-  "UID": "3d56be44ee92444ab91fb96b3e86abc3",
+  "UID": "062b501e2def4a6fabef8c10fb74647a",
   "children": [{
-    "UID": "c2b37db7d8f2403cbe1b85a2dc5fef44",
-    "children": [{
-      "UID": "1c9376598359431c8d47b71048ab50c3",
-      "children": [],
-      "hitBoxes": [],
-      "properties": {}
-    }],
+    "UID": "304ecc5eeaf941c3bbc17f60a46db527",
+    "children": [
+      {
+        "UID": "4917e17c73e84d678e71a0aa4476f841",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {}
+      },
+      {
+        "UID": "5be371dc9c3e44999f549488b9e1a1e1",
+        "children": [{
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "listeners": {
+              "move": {"base/animate/update_position": {}},
+              "tick": {"base/animate/move": {}},
+              "key press": {"movement": {}}
+            },
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}}
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {}
+      }
+    ],
     "hitBoxes": [],
     "properties": {}
   }],

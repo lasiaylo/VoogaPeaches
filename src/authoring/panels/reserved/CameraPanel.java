@@ -82,7 +82,7 @@ public class CameraPanel implements Panel {
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
 		myClear = new Button(CLEAR);
-		myDelete = new Button("delete");
+		myDelete = new Button("Delete Layer");
 
 		setupButton();
 

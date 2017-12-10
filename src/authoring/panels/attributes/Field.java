@@ -8,6 +8,7 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public abstract class Field {
+
 	private Node myControl;
 	private Setter mySetter;
 	
@@ -51,12 +52,11 @@ public abstract class Field {
 		myControl = control;
 	}
 	
-	protected Object getValue() {
+	public Object getValue() {
 		return mySetter.getValue();
 	}
 	
 	protected void setValue(Object arg) {
 		mySetter.setValue(arg);
 	}
-	
 }

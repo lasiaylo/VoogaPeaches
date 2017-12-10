@@ -3,12 +3,13 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.fileloaders.ScriptLoader;
 import engine.collisions.HitBox;
-import engine.events.ClickEvent;
-import engine.events.Evented;
+import engine.events.*;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
+import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
@@ -51,6 +52,7 @@ public class Entity extends Evented {
      */
     public Entity(Entity parent) {
         this();
+        if(parent == null) return;
         addTo(parent);
     }
 
@@ -82,7 +84,9 @@ public class Entity extends Evented {
 
     public Entity addTo(Entity parent) {
         this.parent = parent;
-        parent.getNodes().getChildren().add(group);
+        parent.getNodes()
+                .getChildren()
+                .add(group);
         parent.getChildren().add(this);
         return this;
     }
@@ -111,7 +115,7 @@ public class Entity extends Evented {
     }
 
     public Object getProperty(String name) {
-        return properties.getOrDefault(name, 0);
+        return properties.getOrDefault(name, null);
     }
 
     public void setProperty(String name, Object property) {
@@ -130,11 +134,33 @@ public class Entity extends Evented {
     public void executeScripts() {
         clear();
         EntityScriptFactory.executeScripts(this);
-        children.forEach(e -> e.executeScripts());
     }
 
-    private void setEventListeners() {
+    public Entity substitute() {
+        clear();
+        Entity entity = new Entity(parent);
+        entity.UID = UID;
+        entity.properties = properties;
+        entity.hitBoxes = hitBoxes;
+        try {
+            parent.getNodes().getChildren().remove(group);
+        } catch(NullPointerException e){
+            // do nothing
+        }
 
+        if(!children.isEmpty())
+            for(Entity child : children)
+                entity.add(child.substitute());
+
+        entity.initialize();
+        if(!((boolean) getProperties().getOrDefault("bg", false))) {
+            new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
+                    new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
+            new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
+            new ClickEvent(false).fire(this);
+            new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
+        }
+        return entity;
     }
 
     @Override
@@ -147,7 +173,6 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-        setEventListeners();
         executeScripts();
     }
 }
