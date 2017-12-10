@@ -165,13 +165,6 @@ public class Entity extends Evented {
                 entity.add(child.substitute());
 
         entity.initialize();
-        if(!((boolean) getProperties().getOrDefault("bg", false))) {
-            new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
-                    new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
-            new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
-            new ClickEvent(false).fire(this);
-            new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
-        }
         return entity;
     }
 
