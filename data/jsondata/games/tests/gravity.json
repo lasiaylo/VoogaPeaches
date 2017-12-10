@@ -3,13 +3,20 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": [
-      {"name" : "base/view/circle"}
-    ],
+    "scripts": {
+      "base/view/circle": {}
+    },
     "listeners": {
-      "tick": [{"name": "base/animate/move"}, "gravity"],
-      "move": ["base/animate/update_position"],
-      "accelerate": ["base/animate/update_velocity"]
+      "tick": {
+        "base/animate/move": {},
+        "gravity": {}
+      },
+      "move": {
+        "base/animate/update_position": {}
+      },
+      "accelerate": {
+        "base/animate/update_velocity": {}
+      }
     },
     "x": 0,
     "y": 300,

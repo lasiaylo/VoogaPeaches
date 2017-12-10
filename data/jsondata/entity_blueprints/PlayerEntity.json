@@ -2,13 +2,14 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": {
-      "imageScript.groovy": {
-        "actions" : [],
-        "bindings" : {
-          "image path" : "default_image.jpg"
-        }
+    "scripts": [
+      {
+        "name": "imageScript",
+        "image_path" : "default_image.jpg"
       }
+    ],
+    "listeners" : {
+
     }
   }
 }
