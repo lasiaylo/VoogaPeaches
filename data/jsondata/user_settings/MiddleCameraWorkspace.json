@@ -1,7 +1,7 @@
 {
   "Social Media": "right",
   "Mini Map": "right",
-  "rightdivision": "0.005625",
+  "rightdivision": "0.796875",
   "Game Graphvis": "false",
   "Mini Mapvis": "false",
   "Properties": "right",
@@ -12,10 +12,10 @@
   "Console": "right",
   "Youtube": "right",
   "Game Graph": "right",
-  "HitBoxesvis": "false",
-  "leftdivision": "0.001875",
-  "Library": "right",
-  "Libraryvis": "false",
+  "HitBoxesvis": "true",
+  "leftdivision": "0.14",
+  "Library": "left",
+  "Libraryvis": "true",
   "Social Mediavis": "false",
   "bodydivision": "0.6853146853146853"
 }

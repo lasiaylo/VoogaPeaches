@@ -13,7 +13,9 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StateRender {
     private static final double PADDING = 30;
@@ -24,6 +26,7 @@ public class StateRender {
     private Rectangle myRender = new Rectangle();
     private State myState;
     private GraphDelegate myGraph;
+    private Map<String, Object> myInfo;
     private boolean deleting;
 
     private List<Arrow> myLeavingTransitions = new ArrayList<>();
@@ -34,6 +37,7 @@ public class StateRender {
         myRender.setX(X);
         myRender.setY(Y);
         myGraph = graph;
+        myInfo = new HashMap<>();
 
         myTitle = new Label(title);
         myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
@@ -55,6 +59,7 @@ public class StateRender {
 
     private FlowPane createPopup() {
         FlowPane flow = new FlowPane();
+//        flow.getChildren().add(new ParameterProperties(myInfo).getNode());
         flow.setMinSize(100, 200);
         Button delete = new Button("Delete State");
         Button save = new Button("Save");
