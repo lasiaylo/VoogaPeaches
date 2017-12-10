@@ -28,7 +28,6 @@ public class StateRender {
     private GraphDelegate myGraph;
     private Map<String, Object> myInfo;
     private boolean deleting;
-
     private List<Arrow> myLeavingTransitions = new ArrayList<>();
 
     public StateRender(double X, double Y, String title, State state, GraphDelegate graph) {
@@ -101,11 +100,4 @@ public class StateRender {
         return myLeavingTransitions;
     }
 
-    protected void addArrivingTransition(Arrow tRender) {
-
-    }
-
-    public void removeArrivingTransition(Arrow tRender) {
-
-    }
 }

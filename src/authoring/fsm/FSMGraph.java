@@ -31,7 +31,7 @@ public class FSMGraph implements GraphDelegate {
      * Creates a new FSMGraph from scratch
      */
     public FSMGraph() {
-        this(new ArrayList<StateRender>(), new ArrayList<Arrow>());
+        this(new ArrayList<>(), new ArrayList<>());
     }
 
     /**
@@ -93,15 +93,21 @@ public class FSMGraph implements GraphDelegate {
     @Override
     public void removeMyself(StateRender state) {
         myStateRenders.remove(state);
+        myGroup.getChildren().remove(state.getRender());
+        for (Arrow arrow: state.getMyLeavingTransitions()){
+            removeMyself(arrow);
+        }
     }
 
     @Override
     public void removeMyself(Arrow arrow) {
+        myArrows.remove(arrow);
+        myGroup.getChildren().remove(arrow.getRender());
     }
 
     /**
      * Adds a state to the graph
-     * @param sRender   stateRender to add
+     * @param sRender stateRender to add
      */
     private void addState(StateRender sRender) {
         myGroup.getChildren().add(sRender.getRender());
@@ -126,9 +132,10 @@ public class FSMGraph implements GraphDelegate {
             if(currentTRender == null) {
                 createArrow(vectorMousePosition, contained);
                 contained.addLeavingTransition(currentTRender);
+                currentTRender.setOriginal(contained);
             } else {
                 currentTRender.setHead(vectorMousePosition);
-                contained.addArrivingTransition(currentTRender);
+                currentTRender.setDestination(contained);
             }
         }
     }

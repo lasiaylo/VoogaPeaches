@@ -23,6 +23,8 @@ public class Arrow {
     private Line myPositiveHead = new Line();
     private GraphDelegate myGraph;
     private boolean deleting;
+    private StateRender original;
+    private StateRender destination;
 
     public Arrow(Vector origin, Vector head, GraphDelegate graph) {
         myGraph = graph;
@@ -104,5 +106,21 @@ public class Arrow {
         myHead = headPosition;
         myLength = myHead.subtract(myOrigin);
         setArrow();
+    }
+
+    public StateRender getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(StateRender original) {
+        this.original = original;
+    }
+
+    public StateRender getDestination() {
+        return destination;
+    }
+
+    public void setDestination(StateRender destination) {
+        this.destination = destination;
     }
 }
