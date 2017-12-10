@@ -24,6 +24,7 @@ public class StateRender {
     private Rectangle myRender = new Rectangle();
     private State myState;
     private GraphDelegate myGraph;
+    private boolean deleting;
 
     private List<TransitionRender> myLeavingTransitions = new ArrayList<>();
 
@@ -41,10 +42,13 @@ public class StateRender {
     }
 
     private void onClick() {
+        if (deleting) { return; }
+        deleting = true;
         Scene scene = new Scene(new Group());
         FlowPane flow = createPopup();
         scene.setRoot(flow);
         Stage stage = new Stage();
+        stage.setOnHidden(e -> deleting = false);
         stage.setScene(scene);
         stage.show();
     }
@@ -54,10 +58,20 @@ public class StateRender {
         flow.setMinSize(100, 200);
         Button delete = new Button("Delete State");
         Button save = new Button("Save");
-        delete.setOnMouseClicked(e -> myGraph.removeMyself(this));
-        save.setOnMouseClicked(e -> System.out.println("Update map"));
+        delete.setOnMouseClicked(e -> onDelete(delete));
+        save.setOnMouseClicked(e -> onSave(save));
         flow.getChildren().addAll(delete, save);
         return flow;
+    }
+
+    private void onSave(Button save) {
+        ((Stage) save.getScene().getWindow()).close();
+        System.out.println("Update map!");
+    }
+
+    private void onDelete(Button delete) {
+        ((Stage) delete.getScene().getWindow()).close();
+        myGraph.removeMyself(this);
     }
 
     protected Shape getRender() {

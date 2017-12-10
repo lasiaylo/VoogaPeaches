@@ -21,8 +21,11 @@ public class Arrow {
     private Line myBody = new Line();
     private Line myNegativeHead = new Line();
     private Line myPositiveHead = new Line();
+    private GraphDelegate myGraph;
+    private boolean deleting;
 
-    public Arrow(Vector origin, Vector head) {
+    public Arrow(Vector origin, Vector head, GraphDelegate graph) {
+        myGraph = graph;
         myOrigin = origin;
         myHead = head;
         myLength = head.subtract(origin);
@@ -34,10 +37,13 @@ public class Arrow {
     }
 
     private void onClick() {
+        if (deleting) { return; }
+        deleting = true;
         Scene scene = new Scene(new Group());
         FlowPane flow = createPopup();
         scene.setRoot(flow);
         Stage stage = new Stage();
+        stage.setOnHidden(e -> deleting = false);
         stage.setScene(scene);
         stage.show();
     }
@@ -49,10 +55,19 @@ public class Arrow {
         Button save = new Button("Save");
         TextField name = new TextField();
         name.setPromptText("Enter your closure lol");
-        delete.setOnMouseClicked(e -> myGroup.getChildren().removeAll(myGroup.getChildren()));
-        save.setOnMouseClicked(e -> System.out.println(name.getText()));
+        delete.setOnMouseClicked(e -> onDelete(delete));
+        save.setOnMouseClicked(e -> onSave(save));
         flow.getChildren().addAll(delete, save, name);
         return flow;
+    }
+
+    private void onDelete(Button delete) {
+        ((Stage) delete.getScene().getWindow()).close();
+        myGraph.removeMyself(this);
+    }
+
+    private void onSave(Button save) {
+        ((Stage) save.getScene().getWindow()).close();
     }
 
     public Group getRender() {

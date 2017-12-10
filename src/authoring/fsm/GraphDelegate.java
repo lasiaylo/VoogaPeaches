@@ -8,6 +8,6 @@ package authoring.fsm;
 public interface GraphDelegate {
 
     void removeMyself(StateRender state);
-    void removeMyself(TransitionRender transition);
+    void removeMyself(Arrow arrow);
 
 }

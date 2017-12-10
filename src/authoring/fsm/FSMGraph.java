@@ -86,17 +86,15 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private void onClose(Button cancel) {
-        addingState = false;
         ((Stage) cancel.getScene().getWindow()).close();
     }
 
     @Override
     public void removeMyself(StateRender state) {
-
     }
 
     @Override
-    public void removeMyself(TransitionRender transition) {
+    public void removeMyself(Arrow arrow) {
     }
 
     /**
@@ -131,7 +129,6 @@ public class FSMGraph implements GraphDelegate {
                 contained.addArrivingTransition(currentTRender);
             }
         }
-
     }
 
     private StateRender findContainedStateRender(MouseEvent event) {
@@ -156,7 +153,7 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private void createArrow(Vector vectorMousePosition, StateRender sRender) {
-        Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition);
+        Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition, this);
         TransitionRender tRender = new TransitionRender(sRender, newArrow);
         currentTRender = tRender;
         myTransitionRenders.add(tRender);
