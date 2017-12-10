@@ -26,30 +26,25 @@ public class TreeVisualizer {
         this.visualizer = visualizer;
         group = new Group();
         styleRoot(visualizer);
-        recurse(visualizer);
+        recurseDraw(visualizer, new Vector(0, 0));
     }
 
     private void styleRoot(Visualizer visualizer){
-        visualizer.getGroup().relocate(0, 0);
         Circle circle = (Circle) visualizer.getGroup().getChildren().get(0);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.WHITE);
-        group.getChildren().add(visualizer.getGroup());
     }
 
-    private void recurse(Visualizer visualizer){
-        if (visualizer.getNumChildren() <= 0){
-            return;
-        }
-        else{
-            for (int i = 0; i < visualizer.getNumChildren(); i++) {
-                Visualizer child = visualizer.getChildrenList().get(i);
-                linesFromCircle(visualizer);
+    private void recurseDraw(Visualizer visualizer, Vector position){
+        group.getChildren().add(visualizer.getGroup());
+        visualizer.getGroup().relocate(position.at(0), position.at(1));
+        if (visualizer.getNumChildren() > 0){
+            linesFromCircle(visualizer);
+            for (int i = 0; i < visualizer.getLines().size(); i++) {
                 Line l = visualizer.getLines().get(i);
-                child.getGroup().relocate(l.getEndX(), l.getEndY());
+                Visualizer child = visualizer.getChildrenList().get(i);
                 ((Circle) child.getGroup().getChildren().get(0)).setFill(Color.ORCHID);
-                group.getChildren().add(child.getGroup());
-                recurse(child);
+                recurseDraw(child, new Vector(l.getEndX(), l.getEndY()));
             }
         }
     }
