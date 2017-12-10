@@ -69,3 +69,16 @@ import util.pubsub.messages.NonBGMessage
         })
     })
 }
+
+void addBatch(MouseEvent event, Vector start, int grid) {
+    def end = new Vector(event.getX(), event.getY())
+    def startC = FXProcessing.getBGCenter(start, grid)
+    def endC = FXProcessing.getBGCenter(end, grid)
+    for (def i = startC.at(0); i <= endC.at(0); i += grid) {
+        for (def j = startC.at(1); j <= endC.at(1); j += grid) {
+            PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(FXProcessing.getBGCenter(new Vector(i, j), grid), grid)))
+
+        }
+    }
+    event.consume()
+}
