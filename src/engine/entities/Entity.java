@@ -133,7 +133,7 @@ public class Entity extends Evented {
     }
 
     public Object getProperty(String name) {
-        return properties.getOrDefault(name, 0);
+        return properties.getOrDefault(name, null);
     }
 
     public void setProperty(String name, Object property) {
