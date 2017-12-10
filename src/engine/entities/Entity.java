@@ -9,6 +9,7 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
@@ -29,6 +30,8 @@ public class Entity extends Evented {
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
+    @Expose private String fieldName = null;
+    @Expose private Vector mapSize = null;
 
     private Group group;
     private Entity parent;
@@ -52,6 +55,22 @@ public class Entity extends Evented {
     public Entity(Entity parent) {
         this();
         addTo(parent);
+    }
+
+    public Vector getMapSize() {
+        return mapSize;
+    }
+
+    public void setMapSize(Vector size) {
+        mapSize = size;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String name) {
+        fieldName = name;
     }
 
     /**
