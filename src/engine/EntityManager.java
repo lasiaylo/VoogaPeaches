@@ -85,15 +85,11 @@ public class EntityManager {
         if (mode == 0) {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
-            ImageViewEvent imgEvent = new ImageViewEvent(BGType);
-            InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
-            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
 
-            imgEvent.fire(BGblock);
-            iEvent.fire(BGblock);
-            cEvent.fire(BGblock);
-            pEvent.fire(BGblock);
+            new ImageViewEvent(BGType).fire(BGblock);
+            new InitialImageEvent(grid, pos).fire(BGblock);
+            new ClickEvent(false, mode, BGType).fire(BGblock);
+            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(BGblock);
         }
     }
 
@@ -112,18 +108,20 @@ public class EntityManager {
             if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
+<<<<<<< HEAD
             entity.addTo(currentLevel.getChildren().get(mode));
 
             InitialImageEvent iEvent = new InitialImageEvent(grid, pos);
+=======
+            entity.addTo(currentLevel.getChildren().get(mode[0]));
+            entity.setProperty("x", pos.at(0));
+            entity.setProperty("y", pos.at(1));
+            new InitialImageEvent(grid, pos).fire(entity);
+>>>>>>> 3032c6309cf8c328b5ae656188f89e19b3cd1d2f
             //the BGType here should not be applied to the image, mode should check for it
-            ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-            KeyPressEvent pEvent = new KeyPressEvent(KeyCode.BACK_SPACE, false);
-            MouseDragEvent dEvent = new MouseDragEvent(false, mode);
-
-            iEvent.fire(entity);
-            cEvent.fire(entity);
-            pEvent.fire(entity);
-            dEvent.fire(entity);
+            new ClickEvent(false, mode, BGType).fire(entity);
+            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(entity);
+            new MouseDragEvent(false, mode).fire(entity);
         }
     }
 
@@ -135,7 +133,6 @@ public class EntityManager {
     public void setMyBGType (String type) {
         BGType = type;
         ClickEvent cEvent = new ClickEvent(false, mode, BGType);
-
     }
 
 
@@ -165,7 +162,6 @@ public class EntityManager {
         mode= -1;
         currentLevel.getChildren().forEach(e -> viewOnly(e));
     }
-
 
     /**
      * clear entities on current layer

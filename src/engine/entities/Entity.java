@@ -149,8 +149,27 @@ public class Entity extends Evented {
     public void executeScripts() {
         clear();
         EntityScriptFactory.executeScripts(this);
-        children.forEach(e -> e.executeScripts());
     }
+
+    public Entity substitute() {
+        clear();
+        Entity entity = new Entity(parent);
+        entity.UID = UID;
+        entity.properties = properties;
+        entity.hitBoxes = hitBoxes;
+        entity.fieldName = fieldName;
+        entity.mapSize = mapSize;
+        parent.getNodes().getChildren().remove(group);
+
+        if(!children.isEmpty())
+            for(Entity child : children)
+                entity.add(child.substitute());
+
+        entity.initialize();
+        entity.executeScripts();
+        return entity;
+    }
+
 
     private void setEventListeners() {
 

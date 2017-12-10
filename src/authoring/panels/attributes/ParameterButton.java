@@ -16,7 +16,7 @@ public class ParameterButton {
     private final String DOUBLE = "Double";
     private final String BOOLEAN = "Boolean";
     private final String ADD = "Add";
-    private PropertiesPanel myPanel;
+    private UpdatablePanel myPanel;
     private Map<String, Object> myMap;
     private HBox hbox;
     private TextField text;

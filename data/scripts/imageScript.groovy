@@ -29,14 +29,19 @@ import java.util.stream.Collectors
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
 
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
-
+    pointer.setFitWidth(entity.getProperty("width"))
+    pointer.setFitHeight(entity.getProperty("height"));
+    pointer.setX(FXProcessing.getXImageCoord((double) entity.getProperty("x"), pointer))
+    pointer.setY(FXProcessing.getYImageCoord((double) entity.getProperty("y"), pointer))
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
+
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
         scriptMap = ((Map) entity.getProperty("scripts"))
+
         imagePathList = scriptMap.keySet().stream().filter({String name ->
             name.equals("imageScript")
         }).filter({ String name ->
