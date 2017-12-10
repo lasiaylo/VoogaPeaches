@@ -16,8 +16,12 @@ public class VizTest extends Application {
             Entity e = new Entity(root);
         }
 
-        Entity child11 = new Entity(child1);
-        Entity child12 = new Entity(child2);
+
+        Entity grandChild1 = new Entity(child1);
+        Entity grandChild2 = new Entity(child1);
+
+        Entity grandChild3 = new Entity(child2);
+        Entity grandChild4 = new Entity(child2);
 
         GameVisualizer gameVisualizer = new GameVisualizer(root);
 

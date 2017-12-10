@@ -85,6 +85,11 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
         }
     }
 
+    public T convertDataSnapshotToObject(DataSnapshot snapshot){
+        Map<String, Object> params = parseParameters(snapshot);
+        return converter.createObjectFromJSON(myClass, new JSONObject(params));
+    }
+
     /**
      * Creates an event listener that uses the passed in reactor in order
      * to decide on how to respond to changes in the data

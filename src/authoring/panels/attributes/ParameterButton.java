@@ -1,6 +1,5 @@
 package authoring.panels.attributes;
 
-import authoring.panels.tabbable.PropertiesPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -16,17 +15,17 @@ public class ParameterButton {
     private final String DOUBLE = "Double";
     private final String BOOLEAN = "Boolean";
     private final String ADD = "Add";
-    private PropertiesPanel myPanel;
+    private Updatable myPanel;
     private Map<String, Object> myMap;
     private HBox hbox;
     private TextField text;
     private ComboBox comboBox;
     private Button button;
 
-    public ParameterButton(Map<String, Object> map, PropertiesPanel panel) {
+    public ParameterButton(Map<String, Object> map, Updatable panel) {
         myMap = map;
         hbox = new HBox();
-        myPanel = panel;
+        //myPanel = panel;
         makeVisual();
         addtoBox();
     }
@@ -61,7 +60,7 @@ public class ParameterButton {
             String type = comboBox.getSelectionModel().getSelectedItem().toString();
             Object obj = determineType(type);
             myMap.put(string, obj);
-            myPanel.updateProperties();
+            myPanel.update();
         }catch(Exception e){}
     }
 

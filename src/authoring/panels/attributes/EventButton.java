@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import util.PropertiesReader;
-import util.exceptions.GroovyInstantiationException;
 
 import java.util.*;
 
@@ -43,11 +42,13 @@ public class EventButton {
     }
 
     private void add() {
-        String type = comboBox.getSelectionModel().getSelectedItem().toString();
-        myMap.put(type, createMap());
+
+
         try {
-            myPanel.updateProperties();
-        } catch (GroovyInstantiationException e) {}
+            String type = comboBox.getSelectionModel().getSelectedItem().toString();
+            myMap.put(type, createMap());
+            myPanel.update();
+        } catch (Exception e) {}
     }
 
     private Map<String, Map<String, Object>> createMap() {

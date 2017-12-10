@@ -21,7 +21,7 @@ public class NumberInputField extends InputField{
 
 	@Override
 	protected void updateField() {
-		String text = getTextField().getText();
+		String text = getTextField().textProperty().getValue();
 		if (!text.isEmpty()) {
 			try {
 			Number input = Double.parseDouble(text);

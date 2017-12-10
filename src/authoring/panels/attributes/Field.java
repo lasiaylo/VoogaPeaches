@@ -51,7 +51,7 @@ public abstract class Field {
 		myControl = control;
 	}
 	
-	protected Object getValue() {
+	public Object getValue() {
 		return mySetter.getValue();
 	}
 	
