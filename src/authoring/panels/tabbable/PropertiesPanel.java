@@ -24,6 +24,7 @@ import util.pubsub.messages.EntityPass;
  * @author lasia
  */
 public class PropertiesPanel implements Panel {
+//    Should probably move these strings out to a properties file
     private final String TITLE = "Properties";
     private final String SCRIPTS = "Scripts";
     private final String PARAMETERS = "Parameters";
@@ -75,22 +76,22 @@ public class PropertiesPanel implements Panel {
     public void updateProperties(Entity entity) throws GroovyInstantiationException {
         myEntity = entity;
         entity.executeScripts();
+        myParameters = myEntity.getProperties();
+        myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
+        myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
         updateVisuals();
+        myParameters.put("scripts", myScripts);
+        myParameters.put("listeners", myEvents);
     }
 
     private void updateVisuals() throws GroovyInstantiationException {
         myVBox.getChildren().clear();
-        myParameters = myEntity.getProperties();
-        myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
-        myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
         myVBox.getChildren().addAll(
                 TPane.addPane(PARAMETERS, makeParameters(myParameters)),
                 TPane.addPane(SCRIPTS, makeScripts(myScripts)),
                 TPane.addPane(EVENTS,makeEvents(myEvents)),
                 addButton()
         );
-        myParameters.put("scripts", myScripts);
-        myParameters.put("listeners", myEvents);
     }
 
     private Node makeParameters(Map<String, Object> parameterMap) throws GroovyInstantiationException {
