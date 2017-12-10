@@ -36,11 +36,7 @@ public class Visualizer {
     private void initialize(){
         addCircle();
         addText(UID.substring(0, 3));
-        if (numChildren > 0){
-            for (Entity e : entity.getChildren()){
-                childrenList.add(new Visualizer(e, this));
-            }
-        }
+        entity.getChildren().forEach(e -> {childrenList.add(new Visualizer(e, this));});
     }
 
     private void addCircle(){

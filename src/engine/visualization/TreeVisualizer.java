@@ -22,7 +22,6 @@ public class TreeVisualizer {
         group = new Group();
         styleRoot(visualizer);
         BFS(visualizer);
-
     }
 
     private void styleRoot(Visualizer visualizer){
@@ -70,7 +69,6 @@ public class TreeVisualizer {
             }
         }
     }
-
 
     private Vector vecFromHypotenuse(Vector oldPosition, double length, double angle) {
         return oldPosition.add(new Vector(length * Math.cos(angle), length * Math.sin(angle)));
