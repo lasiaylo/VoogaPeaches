@@ -1,5 +1,6 @@
 package database;
 
+import com.google.firebase.database.FirebaseDatabase;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
@@ -9,10 +10,7 @@ import org.json.JSONObject;
 import util.PropertiesReader;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A class that provides an API for saving manipulating a game file within the database
@@ -25,6 +23,7 @@ public class GameSaver {
     private String gameName;
     private JSONDataManager manager;
     private File gameFolder;
+    private String UID;
 
     /**
      * Creates a new GameSaver for saving the game to the database
@@ -67,10 +66,10 @@ public class GameSaver {
      *               to upload
      */
     private void uploadImages(String[] images){
-        FileStorageConnector connector = new FileStorageConnector();
+        FileStorageConnector connector = new FileStorageConnector("images");
         for(String image : images)
             try {
-                connector.saveFile(new File(image));
+                connector.saveFile(new File("./data/filedata/images/" + image));
             } catch(Exception e){
                 // Do Nothing if file wasn't saved
             }
@@ -86,6 +85,9 @@ public class GameSaver {
         JSONObject jsonForm = JSONHelper.JSONForObject(toSave);
         String filepath = gameName + "/root.json";
         manager.writeJSONFile(filepath, jsonForm);
+        FirebaseDatabase.getInstance().getReference("gameNames").child(gameName).setValueAsync(toSave.UIDforObject());
+        JSONObject save = new JSONObject(JSONHelper.JSONForObject(toSave).toString().replace("/", "|"));
+        FirebaseDatabase.getInstance().getReference("games").child(toSave.UIDforObject()).setValueAsync(JSONHelper.mapFromJSON(save));
     }
 
     /**
@@ -101,8 +103,11 @@ public class GameSaver {
         retrieveImageNames(imageNames, toSave);
         String filepath = gameName + "/images.json";
         Map<String, String[]> imageMap = new HashMap<>();
-        imageMap.put("images", imageNames.toArray(new String[0]));
+        imageMap.put(toSave.UIDforObject(), imageNames.toArray(new String[0]));
         manager.writeJSONFile(filepath, new JSONObject(imageMap));
+        List<String> names = new ArrayList<String>();
+        imageNames.forEach(e -> names.add(e));
+        FirebaseDatabase.getInstance().getReference("images").child(toSave.UIDforObject()).setValueAsync(names);
         return imageNames.toArray(new String[0]);
     }
 
@@ -115,9 +120,12 @@ public class GameSaver {
      *             game that the traversal is at
      */
     private void retrieveImageNames(Set<String> currentSet, Entity root){
-        String imageName = (String) ((Map<String,Object>)  ((Map<String, Map<String,Object>>) root.getProperties().get("scripts") ).get("bindings")).get("image_path");
-        if(!currentSet.contains(imageName)) currentSet.add(imageName);
+        if(root == null) return;
+        String imageName = (String) ((HashMap<String,Object>)
+                ((HashMap<String, Object>) root.getProperties().getOrDefault("scripts", new HashMap<>()))
+                        .getOrDefault("imageScript",new HashMap<>())).getOrDefault("image_path","");
+        if(!imageName.isEmpty() && !currentSet.contains(imageName)) currentSet.add(imageName);
         for(Entity child : root.getChildren())
-            retrieveImageNames(currentSet, root);
+            retrieveImageNames(currentSet, child);
     }
 }

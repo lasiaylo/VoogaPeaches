@@ -1,20 +1,16 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.PropertiesPanel;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TitledPane;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import org.apache.commons.io.FilenameUtils;
 import util.exceptions.GroovyInstantiationException;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Map;
 
@@ -61,7 +57,7 @@ public class ScriptProperties {
 
     private void remove(String name){
         myMap.remove(name);
-        myPanel.updateProperties();
+        myPanel.update();
     }
 
     private void handle(DragEvent event) {
