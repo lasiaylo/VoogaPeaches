@@ -1,28 +1,17 @@
 {
-  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "gx": 0,
-    "vx": 0.08,
-    "gy": 1.6E-4,
-    "vy": -0.24,
     "listeners": {
       "move": {"base/animate/update_position": {}},
-      "accelerate": {"base/animate/update_velocity": {}},
-      "tick": {
-        "gravity": {},
-        "base/animate/move": {}
-      }
+      "tick": {"base/animate/move": {}},
+      "key press": {"movement": {}}
     },
-    "mass": 1,
-    "x": 0,
-    "y": 300,
-    "scripts": {
-      "gravity": {},
-      "circle": {},
-      "base/view/circle": {},
-      "imageScript": {}
-    }
+    "x": 172,
+    "width": 50,
+    "y": 120,
+    "dead": false,
+    "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+    "height": 50
   }
 }

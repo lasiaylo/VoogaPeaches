@@ -14,7 +14,7 @@ public class StringInputField extends InputField {
 
 	@Override
 	protected void updateField() {
-		String text = getTextField().getText();
+		String text = getTextField().textProperty().getValue();
 		setValue(text);
 	}
 
