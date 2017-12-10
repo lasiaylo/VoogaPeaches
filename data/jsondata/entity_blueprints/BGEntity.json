@@ -1,23 +1,19 @@
 {
-  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": {
-      "imageScript.groovy": {
-        "actions" : [],
-        "bindings" : {
-          "image path" : "default_image.jpg"
-        }
-      },
-      "tick.groovy" : {
-        "actions" : [
-          "gravity.groovy"
-        ],
-        "bindings" : {
-
-        }
+    "scripts": [
+      {
+        "name": "imageScript",
+        "image_path" : "default_image.jpg"
       }
+    ],
+    "listeners" : {
+
     },
+    "x" : 0,
+    "y" : 0,
+    "width" : 50,
+    "height" : 50
   }
 }

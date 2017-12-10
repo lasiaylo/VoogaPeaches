@@ -24,6 +24,7 @@ import java.util.*;
 public class MiniMapPanel implements Panel, MapChangeListener{
 
     private Pane myPane;
+    private Pane holder = new StackPane();
     private TextField levelName;
     private TextField mapWidth;
     private TextField mapHeight;
@@ -88,7 +89,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
 
         addLevel.setOnMouseClicked(e -> add());
 
-
+        getRegion().getStyleClass().add("panel");
     }
 
     private void delete() {
@@ -110,9 +111,16 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         });
     }
 
-
     private void selectLevel(MouseEvent event) {
-        String selectL = (String) levelTable.getSelectionModel().getSelectedItem().getKey();
+        String selectL = null;
+        try {
+            selectL = (String) levelTable.
+                    getSelectionModel().
+                    getSelectedItem().
+                    getKey();
+        } catch (NullPointerException e) {
+            //TODO: There's nothing in the table, should we do any handling?
+        }
         manager.changeLevel(selectL);
     }
 
@@ -136,6 +144,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
 
     @Override
     public Region getRegion() {
+        StackPane.setAlignment(myPane, Pos.CENTER);
         VBox box = new VBox(myPane, levelBar, addLevel, levelTable);
         box.setSpacing(15);
         box.setPadding(new Insets(15));

@@ -12,8 +12,10 @@ import javafx.scene.Node;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -109,7 +111,7 @@ public class Entity extends Evented {
     }
 
     public Object getProperty(String name) {
-        return properties.get(name);
+        return properties.getOrDefault(name, 0);
     }
 
     public void setProperty(String name, Object property) {
@@ -125,9 +127,10 @@ public class Entity extends Evented {
         group.getChildren().add(hitbox.getHitbox());
     }
 
-    private void executeScripts() {
+    public void executeScripts() {
         clear();
         EntityScriptFactory.executeScripts(this);
+        children.forEach(e -> e.executeScripts());
     }
 
     private void setEventListeners() {

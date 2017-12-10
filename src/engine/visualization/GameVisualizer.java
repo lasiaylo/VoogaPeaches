@@ -11,14 +11,15 @@ public class GameVisualizer {
     public GameVisualizer(Entity root) {
         this.root = root;
         this.group = new Group();
-        vizRoot = new EntityVisualizer(this, root, null,null);
+        vizRoot = new EntityVisualizer(this, root, null,null, 0, 0);
+        vizRoot.drawRoot();
         focus(vizRoot);
     }
 
     protected void focus(EntityVisualizer entityVisualizer) {
         group.getChildren().clear();
         group.getChildren().add(entityVisualizer.getGroup());
-        entityVisualizer.getGroup().relocate(100, 100);
+        entityVisualizer.getGroup().relocate(200, 200);
     }
 
     public Group getGroup() {

@@ -3,6 +3,7 @@ package engine.entities;
 import database.fileloaders.ScriptLoader;
 import engine.events.EventType;
 import groovy.lang.Closure;
+import groovy.lang.Script;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +18,16 @@ class EntityScriptFactory {
         parseListeners(entity, properties);
     }
 
-    private static void parseScripts(Entity entity, Map<String, Object> properties) {
-        List scripts = (List) properties.getOrDefault("scripts", new HashMap<String, ArrayList<Map>>());
+    public static void executeScripts(Entity entity, String path, Map<String, Object> bindings) {
+//        Closure closure = parse(entity, )
+    }
 
-        for (Object o : scripts) {
+    private static void parseScripts(Entity entity, Map<String, Object> properties) {
+        Map scripts = (Map) properties.getOrDefault("scripts", new HashMap<String, ArrayList<Map>>());
+
+        for (Object o : scripts.entrySet()) {
             Map<String, Object> bindings = new HashMap<>();
-            parse(entity, bindings, o).call(entity, bindings);
+            parse(entity, bindings, (Map.Entry) o).call(entity, bindings);
         }
     }
 
@@ -32,27 +37,20 @@ class EntityScriptFactory {
         for (Object o : listeners.entrySet()) {
             String type = (String) ((Map.Entry) o).getKey();
 
-            List callbacks = (List) listeners.getOrDefault(type, new ArrayList<>());
+            Map callbacks = (Map) listeners.getOrDefault(type, new HashMap<>());
 
-            for (Object oo : callbacks) {
+            for (Object oo : callbacks.entrySet()) {
                 Map<String, Object> bindings = new HashMap<>();
-                Closure callback = parse(entity, bindings, oo);
+                Closure callback = parse(entity, bindings, (Map.Entry) oo);
 
                 entity.on(type, (event) -> callback.call(entity, bindings, event));
             }
         }
     }
 
-    private static Closure parse(Entity entity, Map<String, Object> bindings, Object o) {
-        String name;
-        Map params = null;
-
-        try {
-            name = (String) o;
-        } catch (ClassCastException e) {
-            params = (Map) o;
-            name = (String) params.get("name");
-        }
+    private static Closure parse(Entity entity, Map<String, Object> bindings, Map.Entry entry) {
+        String name = (String) entry.getKey();
+        Map params = (Map) entry.getValue();
 
         addBindings(entity, params, bindings);
         return ScriptLoader.getScript(name);

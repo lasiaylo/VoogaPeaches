@@ -26,12 +26,14 @@ public class User extends TrackableObject {
     @Expose private String workspaceName;
     @Expose private Map<String, Map<String, String>> properties;
     @Expose private ArrayList<String> games;
+    @Expose private ArrayList<String> authoring;
 
     public User(String name) {
         userName = name;
         themeName = PropertiesReader.value("defaults","theme");
         workspaceName = PropertiesReader.value("defaults", "workspace");
         games = new ArrayList<>();
+        authoring = new ArrayList<>();
         createProperties();
     }
 
@@ -42,6 +44,15 @@ public class User extends TrackableObject {
         createProperties();
     }
 
+    /**
+     * @return the username associated with the profile
+     */
+    public String getUserName() { return userName; }
+
+    /**
+     * sets the user's theme to the current one in use
+     * @param theme the new theme
+     */
     public void setTheme(String theme) {themeName = theme;}
 
     public void setWorkspace(String workspace) {workspaceName = workspace;}
@@ -54,9 +65,11 @@ public class User extends TrackableObject {
 
     public ArrayList<String> getGames() { return games; }
 
-    public void setGames(ArrayList<String> games) { this.games = games; }
-
     public void addGame(String game) { games.add(game); }
+
+    public ArrayList<String> getAuthoring() { return authoring; }
+
+    public void addAuthoring(String game) { authoring.add(game); }
 
     private void createProperties() {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));

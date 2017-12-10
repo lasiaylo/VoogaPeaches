@@ -3,6 +3,7 @@ package database.fileloaders;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -54,13 +55,12 @@ public class ScriptLoader {
 
         while (iterator.hasNext() && (file = iterator.next()) != null)
             try {
-                cache.put(file.getPath().substring(path.length()), (Closure) shell.evaluate(readStringForFile(file)));
+                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
             } catch (ClassCastException e) {
                 System.out.println("Script " + file.getName() + " has wrong format");
                 System.out.println(e.toString());
                 e.printStackTrace();
             }
-
         return cache;
     }
 

@@ -1,21 +1,14 @@
 package authoring.panels.tabbable;
 
 
-import authoring.PanelController;
 import authoring.Panel;
 import authoring.PanelController;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
-import database.firebase.TrackableObject;
 import engine.EntityManager;
 import engine.entities.Entity;
 import engine.events.ImageViewEvent;
-import javafx.geometry.Insets;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
-import engine.EntityManager;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -28,10 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import util.PropertiesReader;
 import util.exceptions.ObjectBlueprintNotFoundException;
-import util.math.num.Vector;
-
 
 import java.io.InputStream;
 
@@ -72,12 +62,13 @@ public class LibraryPanel implements Panel {
         myTilePane.setHgap(10);
         update = new Button("update");
         update.setOnMouseClicked(e -> changeType());
-
+        myArea = new VBox(myEntType, myTilePane);
         HBox top = new HBox(myEntType, update);
         top.setSpacing(10);
         myArea = new VBox(top, myTilePane);
         myArea.getStyleClass().add("panel");
         myArea.setSpacing(10);
+        getRegion().getStyleClass().add("panel");
     }
 
     private void changeType() {

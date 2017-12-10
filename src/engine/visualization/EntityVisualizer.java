@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityVisualizer {
-    public static final double RADIUS = 50;
-    public static final double CONNECTION_LENGTH = 30;
+    public static final double RADIUS = 20;
+    public static final double CONNECTION_LENGTH = 75;
     public static final int MAX_DISPLAY = 4;
 
     private Group group;
@@ -29,15 +29,23 @@ public class EntityVisualizer {
     private Entity parent;
     private EntityVisualizer vizParent;
 
-    public EntityVisualizer(GameVisualizer gameVisualizer, Entity root, EntityVisualizer vizParent, Entity parent) {
+    public EntityVisualizer(GameVisualizer gameVisualizer, Entity root, EntityVisualizer vizParent, Entity parent, double rootPosX, double rootPosY) {
         this.root = root;
         this.parent = parent;
         this.vizParent = vizParent;
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
         group = new Group();
-        drawRoot();
-        drawChildren(root);
+        rootCircle = new Circle(RADIUS);
+        rootCircle.setCenterX(rootPosX);
+        rootCircle.setCenterY(rootPosY);
+        group.getChildren().add(rootCircle);
+
+        //rootCircle.setCenterX(rootPosX);
+        //rootCircle.setCenterY(rootPosY);
+
+        //drawRoot(rootPosX, rootPosY);
+        //drawChildren(root);
     }
 
     private void createText(String s, Circle c) {
@@ -50,18 +58,35 @@ public class EntityVisualizer {
         group.getChildren().add(text);
     }
 
-    private void drawRoot() {
-        rootCircle = new Circle(RADIUS);
-        rootCircle.setCenterX(0);
-        rootCircle.setCenterY(0);
+    private void drawTree(EntityVisualizer entVis){
+        if (entVis.root.getChildren().isEmpty()){
+            return;
+        }
+        else {
+            double angle = 2 * Math.PI / (entVis.root.getChildren().size() + 1);
+            for (int j = 0; j < entVis.root.getChildren().size(); j++) {
+                Line l = drawLine(angle * (j + 1), entVis.rootCircle);
+                entVis.children.add(new EntityVisualizer(gameVisualizer, entVis.root.getChildren().get(j), this, entVis.root, l.getEndX(), l.getEndY()));
+                drawCircle(angle, entVis.children.get(j), l.getEndX(), l.getEndY());
+                drawTree(entVis.children.get(j));
+            }
+        }
+    }
+
+    public void drawRoot() {
         rootCircle.setStroke(Color.BLACK);
         rootCircle.setFill(Color.WHITE);
-        group.getChildren().add(rootCircle);
+        //group.getChildren().add(rootCircle);
         createText(root.UIDforObject(), rootCircle);
+        if (!root.getChildren().isEmpty()){
+            drawTree(this);
+        }
     }
 
     private void drawChildren(Entity root) {
-        root.getChildren().forEach(e -> children.add(new EntityVisualizer(gameVisualizer, e, this, root)));
+        root.getChildren().forEach(e -> {
+           //children.add(new EntityVisualizer(gameVisualizer, e, this, root));
+        });
         if (children.size() <= MAX_DISPLAY) {
             draw(children.size());
         } else {
@@ -74,7 +99,7 @@ public class EntityVisualizer {
             group.getChildren().add(cb);
             cb.toFront();
             lastCircle.setOnMouseClicked(f -> {
-                for (int i = MAX_DISPLAY; i < children.size(); i++){
+                for (int i = MAX_DISPLAY - 1; i < children.size(); i++){
                     String UID = children.get(i).root.UIDforObject();
                     if (!cb.getItems().contains(UID)){
                         cb.getItems().add(UID);
@@ -95,23 +120,23 @@ public class EntityVisualizer {
         double angle = 2 * Math.PI / (size + 1);
         Circle c = new Circle();
         if (parent != null) {
-            Circle parentCircle = drawTotal(0, vizParent);
+            Circle parentCircle = drawTotal(0, vizParent, rootCircle);
             parentCircle.setFill(Color.CORNFLOWERBLUE);
         }
         for (int i = 0; i < size; i++) {
-            c = drawTotal(angle * (i + 1), children.get(i));
+            c = drawTotal(angle * (i + 1), children.get(i), children.get(i).rootCircle);
             System.out.println(angle * (i + 1));
         }
         return c;
     }
 
-    private Circle drawTotal(double angle, EntityVisualizer entityVisualizer) {
-        Line line = drawLine(angle);
+    private Circle drawTotal(double angle, EntityVisualizer entityVisualizer, Circle fromCircle) {
+        Line line = drawLine(angle, fromCircle);
         return drawCircle(angle, entityVisualizer, line.getEndX(), line.getEndY());
     }
 
-    private Line drawLine(double angle) {
-        Vector radialOffset = vecFromHypotenuse(new Vector(rootCircle.getCenterX(), rootCircle.getCenterY()), rootCircle.getRadius(), angle);
+    private Line drawLine(double angle, Circle fromCircle) {
+        Vector radialOffset = vecFromHypotenuse(new Vector(fromCircle.getCenterX(), fromCircle.getCenterY()), rootCircle.getRadius(), angle);
         Vector lineEnd = vecFromHypotenuse(radialOffset, CONNECTION_LENGTH, angle);
         Line line = new Line(radialOffset.at(0), radialOffset.at(1), lineEnd.at(0), lineEnd.at(1));
         connections.add(line);
@@ -146,5 +171,4 @@ public class EntityVisualizer {
         }
         return -1;
     }
-
 }

@@ -1,9 +1,10 @@
 {
-  "UID": "d3d8a0b40a534847a9501db77880fd00",
+  "UID": "409f039b494645abafdab1aab6eb6836",
   "themeName": "light.css",
+  "authoring": [],
   "games": [],
   "workspaceName": "MiddleCameraWorkspace",
-  "userName": "jhk",
+  "userName": "bitasy1",
   "properties": {
     "MiddleCameraWorkspace": {
       "Social Media": "right",
@@ -11,31 +12,21 @@
       "rightdivision": "0.0",
       "Mini Mapvis": "false",
       "Properties": "right",
-      "Propertiesvis": "false",
-      "Youtubevis": "false",
-      "Consolevis": "false",
-      "Console": "bottom",
-      "Youtube": "right",
-      "leftdivision": "0.0",
-      "Library": "left",
-      "Libraryvis": "false",
-      "Social Mediavis": "false",
-      "bodydivision": "0.0"
-    },
-    "LeftCameraWorkspace": {
-      "Social Media": "right",
-      "Mini Map": "right",
-      "Mini Mapvis": "false",
-      "Properties": "right",
+      "HitBoxes": "right",
       "Propertiesvis": "false",
       "Youtubevis": "false",
       "Consolevis": "false",
       "Console": "right",
       "Youtube": "right",
-      "Library": "left",
+      "leftdivision": "0.0",
+      "HitBoxesvis": "false",
+      "Library": "right",
       "Libraryvis": "false",
-      "middledivision": "0.0",
       "Social Mediavis": "false",
+      "bodydivision": "0.0037105751391465678"
+    },
+    "LeftCameraWorkspace": {
+      "middledivision": "0.0",
       "bodydivision": "0.0"
     }
   }

@@ -4,6 +4,7 @@ import authoring.Panel;
 import authoring.buttons.CustomButton;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -29,35 +30,43 @@ public class HitBoxPanel implements Panel {
 
     private List<HitBox> hitboxes = new ArrayList<>();
     private List<Double> currentPoints;
+    private Button saveButton;
+    private Button addButton;
 
     public HitBoxPanel() {
+        createEntityView();
+
+        region.getChildren().add(options);
+
         options.add(hitboxNameField, 0, 0);
         options.add(hitboxSelection, 0, 1);
+//        GridPane.setHgrow(hitboxNameField, Priority.ALWAYS);
 
-        createEntityView();
+
+        getRegion().getStyleClass().add("panel");
         createAddButton();
         createComboBox();
 
         createSaveButton();
-
-        region.getChildren().add(options);
         PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
             EntityPass entityPass = (EntityPass) e;
             setEntity(entityPass.getEntity());
         });
-        // Create the new hitbox polygon
-
     }
 
     public void setEntity(Entity entity) {
+        hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
         hitboxes = entity.getHitBoxes();
         hitboxSelection.getItems().clear();
         createComboBox();
-//        for(HitBox h : hitboxes) {
-//            h.getHitbox().setFill(Color.LIGHTGRAY);
-//            entityView.getChildren().add(h.getHitbox());
-//        }
+
+        options.getColumnConstraints().addAll(
+                new ColumnConstraints(region.getWidth() * 0.8), new ColumnConstraints(region.getWidth()* 0.2));
+        hitboxNameField.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
+        hitboxSelection.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
+        addButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
+        saveButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
     }
 
     private void createComboBox() {
@@ -81,7 +90,7 @@ public class HitBoxPanel implements Panel {
     }
 
     private void createSaveButton() {
-        options.add(new CustomButton(() -> {
+        saveButton = new CustomButton(() -> {
             String boxName = hitboxNameField.getText();
             if(boxName.equals("")) {
                 new ErrorDisplay("HitBox error", "Your HitBox's tag was empty!").displayError();
@@ -89,17 +98,26 @@ public class HitBoxPanel implements Panel {
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex()).setTag(boxName);
                 hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
             }
-        }, "Save").getButton(), 1, 0);
+        }, "Save").getButton();
+        options.add(saveButton, 1, 0);
+    }
+
+    public double getAddWidth() {
+        //temp
+        return addButton.getWidth();
+    }
+
+    public double getNameWidth() {
+        return hitboxNameField.getWidth();
     }
 
     private void createAddButton() {
-        
-        options.add(new CustomButton(() -> {
+        addButton = new CustomButton(() -> {
             hitboxSelection.getItems().add("");
             hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, ""));
             hitboxSelection.getSelectionModel().selectLast();
-        }, "Add Hitbox").getButton(), 1, 1);
-
+        }, "Add Hitbox").getButton();
+        options.add(addButton, 1, 1);
     }
 
     private void createEntityView(){
@@ -133,7 +151,6 @@ public class HitBoxPanel implements Panel {
         currentPoints.add(y);
         entityView.getChildren().add(newPoint);
     }
-
 
     @Override
     public Region getRegion() {

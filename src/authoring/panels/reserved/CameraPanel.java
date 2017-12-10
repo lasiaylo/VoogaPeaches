@@ -13,11 +13,14 @@ import javafx.scene.layout.VBox;
 import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.StringMessage;
 
 /**
  * camera panel inside authoring environment that displays the game
+ * this holds a map of the entire level (continuous) and can be scrolled through
+ * Note: separate levels/non-contiguous parts of the map must be on separate levels
  * @author estellehe
+ * @author Kelly Zhang
  *
  */
 public class CameraPanel implements Panel {
@@ -56,31 +59,23 @@ public class CameraPanel implements Panel {
 		cameraHeight = height;
 
 		myView = new ScrollPane();
-		myView.getStyleClass().add("camera");
 		myView.setPrefWidth(width);
 		myView.setPrefHeight(height);
 
 		myArea = new VBox(myView, buttonRow());
-		myArea.getStyleClass().add("panel");
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
-		myArea.getStylesheets().add(VoogaPeaches.getUser().getThemeName());
 
-		pubSub = PubSub.getInstance();
-		pubSub.subscribe(
-				"THEME_MESSAGE",
-				(message) -> updateStyles(myArea, ((ThemeMessage) message).readMessage()));
+
+		myView.getStyleClass().add("camera");
+		myArea.getStyleClass().add("panel");
 	}
 
-
-	private void updateStyles(Region region, String css) {
-		if (region.getStylesheets().size() >= 1) {
-			region.getStylesheets().remove(0);
-		}
-		region.getStylesheets().add(css);
-	}
-
+	/**
+	 * sets up the button row that belongs in the camerapanel
+	 * @return HBox with all the buttons for the camera
+	 */
 	private HBox buttonRow() {
 		myPlay = new Button(PLAY);
 		myPause = new Button(PAUSE);
@@ -101,18 +96,25 @@ public class CameraPanel implements Panel {
 	}
 
 
-	private void getView(ScrollPane view) {
+	/**
+	 * sets the camera in the panel
+	 * @param view (the actual camera)
+	 */
+	private void setView(ScrollPane view) {
 		myView = view;
 		myArea.getChildren().set(0, myView);
 		myView.setMouseTransparent(false);
 	}
 
 
+	/**
+	 * adds the action connections to the buttons
+	 */
 	private void setupButton() {
+		myLayer.getStyleClass().add("choice-box");
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
-		myLayer.getStyleClass().add("choice-box");
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
@@ -127,6 +129,10 @@ public class CameraPanel implements Panel {
 
 	}
 
+	/**
+	 * changes the name of the layer
+	 * @param code the key pressed
+	 */
 	private void changeName(KeyCode code) {
 	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL)) && (!myOption.equals(BGL))) {
 	        myText.commitValue();
@@ -135,6 +141,9 @@ public class CameraPanel implements Panel {
         }
     }
 
+	/**
+	 * used to switch between layers (levels/non contiguous) parts of the map
+	 */
 	private void changeLayer() {
 		myOption = myLayer.getValue();
 		switch (myOption) {
@@ -167,7 +176,7 @@ public class CameraPanel implements Panel {
 	@Override
 	public void setController(PanelController controller) {
 		this.myController = controller;
-		this.getView(myController.getCamera());
+		this.setView(myController.getCamera());
 		myManager = myController.getManager();
 	}
 
