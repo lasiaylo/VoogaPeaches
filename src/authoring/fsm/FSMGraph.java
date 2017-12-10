@@ -64,8 +64,9 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private boolean validClick(MouseEvent e) {
-        return !addingState && findContainedStateRender(e) == null;
+        return !addingState && findContainedStateRender(e) == null && findContainedTransitionRender(e) == null;
     }
+
 
     private FlowPane createPopup(MouseEvent e) {
         FlowPane flow = new FlowPane();
@@ -91,6 +92,7 @@ public class FSMGraph implements GraphDelegate {
 
     @Override
     public void removeMyself(StateRender state) {
+        myStateRenders.remove(state);
     }
 
     @Override
@@ -129,6 +131,17 @@ public class FSMGraph implements GraphDelegate {
                 contained.addArrivingTransition(currentTRender);
             }
         }
+    }
+
+    private TransitionRender findContainedTransitionRender(MouseEvent event) {
+        Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
+        for(TransitionRender tRender : myTransitionRenders) {
+            Node node = tRender.getArrow().getRender();
+            if(node.contains(mousePosition)) {
+                return tRender;
+            }
+        }
+        return null;
     }
 
     private StateRender findContainedStateRender(MouseEvent event) {
