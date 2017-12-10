@@ -6,12 +6,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import util.math.num.Vector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import static engine.visualization.EntityViz.CONNECTION_LENGTH;
+import java.util.*;
 
 public class TreeVisualizer {
 
@@ -26,7 +21,8 @@ public class TreeVisualizer {
         this.visualizer = visualizer;
         group = new Group();
         styleRoot(visualizer);
-        recurseDraw(visualizer, new Vector(0, 0));
+        BFS(visualizer);
+
     }
 
     private void styleRoot(Visualizer visualizer){
@@ -35,19 +31,46 @@ public class TreeVisualizer {
         circle.setFill(Color.WHITE);
     }
 
-    private void recurseDraw(Visualizer visualizer, Vector position){
+    private void draw(Visualizer visualizer){
         group.getChildren().add(visualizer.getGroup());
-        visualizer.getGroup().relocate(position.at(0), position.at(1));
+        visualizer.getGroup().relocate(0, 0);
+        if (visualizer.getParentVisualizer() != null){
+            Line l = visualizer.getParentVisualizer().getLines().get(0);
+            visualizer.getParentVisualizer().getLines().remove(0);
+            visualizer.getGroup().relocate(l.getEndX(), l.getEndY());
+        }
         if (visualizer.getNumChildren() > 0){
             linesFromCircle(visualizer);
             for (int i = 0; i < visualizer.getLines().size(); i++) {
-                Line l = visualizer.getLines().get(i);
                 Visualizer child = visualizer.getChildrenList().get(i);
                 ((Circle) child.getGroup().getChildren().get(0)).setFill(Color.ORCHID);
-                recurseDraw(child, new Vector(l.getEndX(), l.getEndY()));
             }
         }
     }
+
+    private void BFS(Visualizer visualizer)
+    {
+        Map<String, Boolean> visited = new HashMap<>();
+        Queue<Visualizer> queue = new LinkedList<>();
+        visited.put(visualizer.getUID(), true);
+        queue.add(visualizer);
+        while (queue.size() != 0)
+        {
+            Visualizer currentVisualizer = queue.poll();
+            draw(currentVisualizer);
+            Iterator<Visualizer> i = currentVisualizer.getChildrenList().listIterator();
+            while (i.hasNext())
+            {
+                Visualizer nextVisualizer = i.next();
+                if (!visited.containsKey(nextVisualizer.getUID()))
+                {
+                    visited.put(nextVisualizer.getUID(), true);
+                    queue.add(nextVisualizer);
+                }
+            }
+        }
+    }
+
 
     private Vector vecFromHypotenuse(Vector oldPosition, double length, double angle) {
         return oldPosition.add(new Vector(length * Math.cos(angle), length * Math.sin(angle)));
@@ -65,7 +88,5 @@ public class TreeVisualizer {
         }
     }
 
-    public Group getGroup() {
-        return group;
-    }
+    public Group getGroup() {return group;}
 }
