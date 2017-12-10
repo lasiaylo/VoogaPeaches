@@ -17,7 +17,11 @@ public class FieldFactory {
 	private static final String FIELD = "fields";
 	private static final String GET = "get";
 	private static final String SET = "set";
-	
+
+	public static Field makeField(Object attribute) throws GroovyInstantiationException {
+		Setter set = new ObjectSetter(attribute);
+		return makeField(set, determineType(attribute));
+	}
 	/**Creates a MethodField
 	 * @param attribute
 	 * @param methodName
