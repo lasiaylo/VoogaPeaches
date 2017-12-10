@@ -4,6 +4,7 @@ public enum EventType {
     ADDLAYER("addLayer"),
     CLICK("click"),
     COLLISION("collision"),
+    DRAG_EXITED("drag exited"),
     IMAGE_VIEW("Image View Event"),
     INITIAL_IMAGE("setup initial imageview"),
     KEY_PRESS("key press"),

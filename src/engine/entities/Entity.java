@@ -138,7 +138,6 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        System.out.println(UID);
         Entity entity = new Entity(parent);
         entity.UID = this.UID;
         DatabaseConnector<Entity> db = new DatabaseConnector<>(Entity.class);

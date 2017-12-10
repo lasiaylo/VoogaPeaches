@@ -110,8 +110,6 @@ public class EntityManager {
 
             new ImageViewEvent(BGType).fire(BGblock);
             new InitialImageEvent(new Vector(grid, grid), pos).fire(BGblock);
-            new ClickEvent(isGaming).fire(BGblock);
-            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(BGblock);
         }
     }
 
@@ -133,9 +131,6 @@ public class EntityManager {
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
-            new ClickEvent(isGaming).fire(entity);
-            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(entity);
-            new MouseDragEvent(isGaming).fire(entity);
         }
     }
 
@@ -269,7 +264,7 @@ public class EntityManager {
 //        level.setProperty("mapwidth", mapWidth);
 //        level.setProperty("mapheight", mapHeight);
 //        level = level.substitute();
-        new MouseDragEvent(isGaming).fire(level);
+//        new MouseDragEvent(isGamingg).fire(level);
         new MapSetupEvent().fire(level);
         levels.put(name, level);
         levelSize.put(name, new Vector(mapWidth, mapHeight));
