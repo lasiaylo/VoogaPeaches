@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring.Panel;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
 import authoring.panels.attributes.*;
@@ -23,7 +24,7 @@ import util.pubsub.messages.EntityPass;
  *
  * @author lasia
  */
-public class PropertiesPanel implements UpdatablePanel {
+public class PropertiesPanel implements Panel,Updatable {
 //    Should probably move these strings out to a properties file or something
     private final String TITLE = "Properties";
     private final String SCRIPTS = "Scripts";

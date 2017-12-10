@@ -2,6 +2,6 @@ package authoring.panels.attributes;
 
 import authoring.Panel;
 
-public interface UpdatablePanel extends Panel {
+public interface Updatable {
     public abstract void updateProperties();
 }
