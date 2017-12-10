@@ -8,7 +8,7 @@ public class GameVisualizer {
     private Group group;
     //private EntityVisualizer vizRoot;
     //private EntityViz vizRoot;
-    private TreeVisualizer;
+    private TreeVisualizer vizRoot;
 
     public GameVisualizer(Entity root) {
         this.root = root;
@@ -19,7 +19,7 @@ public class GameVisualizer {
         Visualizer v = new Visualizer(root, null);
         vizRoot = new  TreeVisualizer(this, v);
 
-        focus(vizRoot);
+        //focus(vizRoot);
     }
 
     protected void focus(EntityViz entityVisualizer) {

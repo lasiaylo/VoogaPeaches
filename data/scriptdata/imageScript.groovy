@@ -39,8 +39,8 @@ import util.pubsub.messages.EntityPass
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize())
-        pointer.setFitHeight(iEvent.getMyGridSize())
+        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
+        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
         pointer.setX(FXProcessing.getXImageCoord(iEvent.getMyPos().at(0), pointer))
         pointer.setY(FXProcessing.getYImageCoord(iEvent.getMyPos().at(1), pointer))
     })
@@ -60,12 +60,14 @@ import util.pubsub.messages.EntityPass
         pointer.setOnMouseClicked( { MouseEvent e ->
             if (!cEvent.getIsGaming()) {
                 pointer.requestFocus()
-                if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
-                    //might need try catch here
-                    cEvent.getMyBGType().reset()
-                    pointer.setImage(new Image(cEvent.getMyBGType()))
+//                if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode() == 0) {
+//                    //might need try catch here
+//                    cEvent.getMyBGType().reset()
+//                    pointer.setImage(new Image(cEvent.getMyBGType()))
+//                }
+                if(entity.getProperties().getOrDefault("bg", false)) {
+                    PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
                 }
-                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
             e.consume()
         })
@@ -84,7 +86,7 @@ import util.pubsub.messages.EntityPass
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
+        if (dEvent.getIsGaming() == false && dEvent.getMyMode() > 0) {
             pointer.setOnMousePressed({ MouseEvent e ->
                 if (e.getButton().equals(MouseButton.SECONDARY)) {
                     dEvent.setMyStartPos(e.getX(), e.getY())
