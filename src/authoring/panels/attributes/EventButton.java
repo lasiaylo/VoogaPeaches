@@ -1,7 +1,6 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.PropertiesPanel;
-import engine.events.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -13,14 +12,14 @@ import util.exceptions.GroovyInstantiationException;
 
 import java.util.*;
 
-public class EventClass {
-    private final String ADD = "Add";
-    private Map<String, Map<String, Object>> myMap;
+public class EventButton {
+    private final String ADD = "Add Event";
+    private Map<String, Map<String, Map<String, Object>>> myMap;
     private PropertiesPanel myPanel;
     private ComboBox comboBox;
     private HBox hbox;
 
-    public EventClass(Map<String, Map<String, Object>> map, PropertiesPanel panel){
+    public EventButton(Map<String, Map<String, Map<String, Object>>> map, PropertiesPanel panel){
         myMap = map;
         myPanel = panel;
         hbox = new HBox();
@@ -51,10 +50,8 @@ public class EventClass {
         } catch (GroovyInstantiationException e) {}
     }
 
-    private Map<String,Object> createMap() {
-        Map<String, Object> newMap = new HashMap<String, Object>();
-        newMap.put("bindings", new HashMap<String, Object>());
-        newMap.put("actions", new ArrayList<String>());
+    private Map<String, Map<String, Object>> createMap() {
+        Map<String, Map<String, Object>> newMap = new HashMap<String, Map<String, Object>>();
         return newMap;
     }
 
