@@ -5,14 +5,21 @@
     "scripts": {
       "imageScript": {
         "image_path" : "default_image.jpg"
+
       }
     },
     "listeners" : {
+      "key press": {
+          "movement":{
 
-    },
-    "x" : 0,
-    "y" : 0,
-    "width" : 50,
-    "height" : 50
+          }
+      },
+      "tick": {
+        "base/animate/move": {}
+      },
+      "move": {
+        "base/animate/update_position": {}
+      }
+    }
   }
 }
