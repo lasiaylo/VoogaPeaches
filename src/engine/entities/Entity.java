@@ -5,10 +5,13 @@ import database.fileloaders.ScriptLoader;
 import engine.collisions.HitBox;
 import engine.events.ClickEvent;
 import engine.events.Evented;
+import engine.events.InitialImageEvent;
+import engine.events.KeyPressEvent;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
@@ -167,6 +170,10 @@ public class Entity extends Evented {
 
         entity.initialize();
         entity.executeScripts();
+        new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
+                new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
+        new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
+        new ClickEvent(false).fire(this);
         return entity;
     }
 

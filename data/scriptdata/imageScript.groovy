@@ -39,8 +39,8 @@ import util.pubsub.messages.EntityPass
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize())
-        pointer.setFitHeight(iEvent.getMyGridSize())
+        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
+        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
         pointer.setX(FXProcessing.getXImageCoord(iEvent.getMyPos().at(0), pointer))
         pointer.setY(FXProcessing.getYImageCoord(iEvent.getMyPos().at(1), pointer))
     })
@@ -65,7 +65,9 @@ import util.pubsub.messages.EntityPass
 //                    cEvent.getMyBGType().reset()
 //                    pointer.setImage(new Image(cEvent.getMyBGType()))
 //                }
-                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
+                if(entity.getProperties().getOrDefault("bg", false)) {
+                    PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
+                }
             }
             e.consume()
         })
