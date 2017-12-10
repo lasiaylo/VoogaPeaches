@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
  */
 public class NumberInputField extends InputField{
 
-	public static final String FORMAT = "#.######";
+	private static final String FORMAT = "#.######";
 
 	public NumberInputField(Setter set) {
 		super(set);
