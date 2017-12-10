@@ -74,7 +74,7 @@ public class PropertiesPanel implements Panel {
 	 */
 	public void updateProperties(Entity entity) throws GroovyInstantiationException {
 		myEntity = entity;
-		entity.initialize();
+		entity.executeScripts();
 		updateVisuals();
 	}
 
