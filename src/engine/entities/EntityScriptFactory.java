@@ -36,7 +36,6 @@ class EntityScriptFactory {
 
         for (Object o : listeners.entrySet()) {
             String type = (String) ((Map.Entry) o).getKey();
-
             Map callbacks = (Map) listeners.getOrDefault(type, new HashMap<>());
 
             for (Object oo : callbacks.entrySet()) {

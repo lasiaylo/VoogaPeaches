@@ -30,8 +30,6 @@ public class Entity extends Evented {
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
-    @Expose private String fieldName = null;
-    @Expose private Vector mapSize = null;
 
     private Group group;
     private Entity parent;
@@ -144,8 +142,6 @@ public class Entity extends Evented {
         entity.UID = UID;
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
-        entity.fieldName = fieldName;
-        entity.mapSize = mapSize;
         try {
             parent.getNodes().getChildren().remove(group);
         } catch(NullPointerException e){

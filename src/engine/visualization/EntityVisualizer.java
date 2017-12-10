@@ -4,15 +4,9 @@
 //import engine.entities.Entity;
 //import javafx.scene.Group;
 //import javafx.scene.control.ChoiceBox;
-//import javafx.scene.control.ComboBox;
-//import javafx.scene.layout.StackPane;
 //import javafx.scene.paint.Color;
 //import javafx.scene.shape.Circle;
 //import javafx.scene.shape.Line;
-//import javafx.scene.text.Text;
-//import javafx.scene.text.TextBoundsType;
-//import util.math.num.Vector;
-//
 //import java.util.ArrayList;
 //import java.util.List;
 //
@@ -34,7 +28,6 @@
 //
 //    }
 //
-//
 //    private void drawTree(EntityVisualizer entVis){
 //        if (entVis.root.getChildren().isEmpty()){
 //            return;
@@ -53,8 +46,6 @@
 //    public void drawRoot() {
 //        rootCircle.setStroke(Color.BLACK);
 //        rootCircle.setFill(Color.WHITE);
-//        //group.getChildren().add(rootCircle);
-//        createText(root.UIDforObject(), rootCircle);
 //        if (!root.getChildren().isEmpty()){
 //            drawTree(this);
 //        }
@@ -112,14 +103,12 @@
 //        return drawCircle(angle, entityVisualizer, line.getEndX(), line.getEndY());
 //    }
 //
-//
 //    private Circle drawCircle(double angle, EntityVisualizer entityVisualizer, double lineEndX, double lineEndY) {
 //        group.getChildren().add(newCircle);
 //        createText(entityVisualizer.root.UIDforObject(), newCircle);
 //        newCircle.setOnMouseClicked(e -> gameVisualizer.focus(entityVisualizer));
 //        return newCircle;
 //    }
-//
 //
 //    private int indexByUID(String UID){
 //        for (int i = MAX_DISPLAY; i < children.size(); i++){
