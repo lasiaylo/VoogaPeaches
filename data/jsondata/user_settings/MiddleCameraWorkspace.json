@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "": "======",
   "Social Media": "right",
   "Mini Map": "right",
@@ -6,6 +7,13 @@
   "Game Graphvis": "false",
   "Mini Mapvis": "false",
   ">>>>>>>": "f8141c7017ddc4302a7cd4bc5bc1590d30e7fb0e",
+=======
+  "Social Media": "right",
+  "Mini Map": "right",
+  "rightdivision": "0.7972222222222223",
+  "Game Graphvis": "false",
+  "Mini Mapvis": "true",
+>>>>>>> 79fac958ff025ce42f0131d416919bd64eb7791a
   "Properties": "right",
   "HitBoxes": "right",
   "Propertiesvis": "false",
@@ -15,10 +23,18 @@
   "Youtube": "right",
   "Game Graph": "right",
   "HitBoxesvis": "true",
+<<<<<<< HEAD
   "leftdivision": "0.140625",
   "Library": "left",
   "Libraryvis": "true",
   "<<<<<<<": "HEAD",
   "Social Mediavis": "false",
   "bodydivision": "0.6861219195849546"
+=======
+  "leftdivision": "0.14097222222222222",
+  "Library": "left",
+  "Libraryvis": "true",
+  "Social Mediavis": "false",
+  "bodydivision": "0.6855345911949685"
+>>>>>>> 79fac958ff025ce42f0131d416919bd64eb7791a
 }
