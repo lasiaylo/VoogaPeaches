@@ -44,6 +44,15 @@ public class User extends TrackableObject {
         createProperties();
     }
 
+    /**
+     * @return the username associated with the profile
+     */
+    public String getUserName() { return userName; }
+
+    /**
+     * sets the user's theme to the current one in use
+     * @param theme the new theme
+     */
     public void setTheme(String theme) {themeName = theme;}
 
     public void setWorkspace(String workspace) {workspaceName = workspace;}

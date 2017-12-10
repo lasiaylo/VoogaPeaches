@@ -43,6 +43,7 @@ public class PropertiesPanel implements Panel {
 						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
 			}
 		});
+		getRegion().getStyleClass().add("panel");
 	}
 
 	@Override
