@@ -5,6 +5,7 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.camera.Camera;
+import engine.camera.NewCamera;
 import engine.entities.Entity;
 import engine.events.*;
 import engine.events.MouseDragEvent;
@@ -45,7 +46,7 @@ public class EntityManager {
     private ObjectFactory BGObjectFactory;
     private ObjectFactory defaultObjectFactory;
     private ObservableMap<String, Vector> levelSize;
-    private Camera camera;
+    private NewCamera camera;
     private String currentLevelName;
     private boolean isGaming;
 
@@ -92,7 +93,7 @@ public class EntityManager {
         }
     }
 
-    public void setCamera(Camera c) {
+    public void setCamera(NewCamera c) {
         camera = c;
     }
 

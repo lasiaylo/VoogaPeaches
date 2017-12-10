@@ -5,6 +5,7 @@ import authoring.PanelController;
 import engine.EntityManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -105,12 +106,10 @@ public class CameraPanel implements Panel {
 	 * sets the camera in the panel
 	 * @param view (the actual camera)
 	 */
-	private void setView(ScrollPane view) {
-		myView = view;
-		myArea.getChildren().set(0, myView);
+	private void setView(Node view) {
+		myView.setContent(view);
 		myView.setMouseTransparent(false);
 	}
-
 
 	/**
 	 * adds the action connections to the buttons
