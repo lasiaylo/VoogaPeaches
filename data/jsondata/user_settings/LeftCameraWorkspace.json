@@ -1,4 +1,18 @@
 {
-  "middledivision": "0.0",
-  "bodydivision": "0.0"
+  "Social Media": "bottom",
+  "Mini Map": "right",
+  "Mini Mapvis": "false",
+  "Properties": "right",
+  "HitBoxes": "right",
+  "Propertiesvis": "false",
+  "Youtubevis": "false",
+  "Consolevis": "false",
+  "Console": "right",
+  "Youtube": "bottom",
+  "HitBoxesvis": "false",
+  "Library": "right",
+  "Libraryvis": "false",
+  "middledivision": "0.5",
+  "Social Mediavis": "true",
+  "bodydivision": "0.310760667903525"
 }
