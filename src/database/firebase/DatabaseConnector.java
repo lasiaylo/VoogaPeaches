@@ -85,6 +85,11 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
         }
     }
 
+    public T convertDataSnapshotToObject(DataSnapshot snapshot){
+        Map<String, Object> params = parseParameters(snapshot);
+        return converter.createObjectFromJSON(myClass, new JSONObject(params));
+    }
+
     /**
      * Creates an event listener that uses the passed in reactor in order
      * to decide on how to respond to changes in the data
@@ -157,6 +162,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
      */
     public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
         JSONObject tempJSON = JSONHelper.JSONForObject(objectToRemove);
+        System.out.println(tempJSON.toString(4));
         try {
             String uid = tempJSON.get("UID").toString();
             dbRef.child(uid).removeValueAsync();

@@ -1,0 +1,16 @@
+{
+  "UID": "fc18cdda963b4673950732d8ecd96f50",
+  "children": [{
+    "UID": "6a7db7bfdb7a4406bf01fe43a9efa94d",
+    "children": [{
+      "UID": "ec017254a6c44f62888adbe34a8375bd",
+      "children": [],
+      "hitBoxes": [],
+      "properties": {}
+    }],
+    "hitBoxes": [],
+    "properties": {}
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

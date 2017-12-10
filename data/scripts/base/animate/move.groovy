@@ -7,6 +7,5 @@ import engine.events.TickEvent
     event = (TickEvent) event
     double vx = (Double) entity.getProperty("vx")
     double vy = (Double) entity.getProperty("vy")
-
     new MoveEvent((double) vx.doubleValue() * event.getDt(), vy.doubleValue() * event.getDt()).fire(entity)
 }

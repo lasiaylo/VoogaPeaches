@@ -19,8 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HitBoxPanel implements Panel {
+
     private static final String TITLE = "HitBoxes";
     private static final int MIN_HEIGHT = 500;
+    private static final String PANEL = "panel";
+    private static final String ENTITY_PASS = "ENTITY_PASS";
+    private static final String VIEW_ALL = "View All";
+    private static final String HITBOX_ERROR = "HitBox error";
+    private static final String EMPTY_HITBOX_TAG = "Your HitBox's tag was empty!";
+    private static final String EMPTY_STRING = "";
+    private static final String SAVE = "Save";
+    private static final String ADD_HITBOX = "Add Hitbox";
+    private static final double OPTIONS_WIDTH_RATIO = 0.2;
+    private static final double OPTION_WIDTH_RATIO = 0.8;
+    private static final int RADIUS = 5;
 
     private Pane entityView = new Pane();
     private VBox region = new VBox();
@@ -43,12 +55,12 @@ public class HitBoxPanel implements Panel {
 //        GridPane.setHgrow(hitboxNameField, Priority.ALWAYS);
 
 
-        getRegion().getStyleClass().add("panel");
+        getRegion().getStyleClass().add(PANEL);
         createAddButton();
         createComboBox();
 
         createSaveButton();
-        PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+        PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
             EntityPass entityPass = (EntityPass) e;
             setEntity(entityPass.getEntity());
         });
@@ -62,7 +74,7 @@ public class HitBoxPanel implements Panel {
         createComboBox();
 
         options.getColumnConstraints().addAll(
-                new ColumnConstraints(region.getWidth() * 0.8), new ColumnConstraints(region.getWidth()* 0.2));
+                new ColumnConstraints(region.getWidth() * OPTION_WIDTH_RATIO), new ColumnConstraints(region.getWidth()* OPTIONS_WIDTH_RATIO));
         hitboxNameField.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
         hitboxSelection.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
         addButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
@@ -70,7 +82,7 @@ public class HitBoxPanel implements Panel {
     }
 
     private void createComboBox() {
-        hitboxSelection.getItems().add("View All");
+        hitboxSelection.getItems().add(VIEW_ALL);
         hitboxSelection.getSelectionModel().selectLast();
         for(HitBox h : hitboxes)
             hitboxSelection.getItems().add(h.getTag());
@@ -92,31 +104,22 @@ public class HitBoxPanel implements Panel {
     private void createSaveButton() {
         saveButton = new CustomButton(() -> {
             String boxName = hitboxNameField.getText();
-            if(boxName.equals("")) {
-                new ErrorDisplay("HitBox error", "Your HitBox's tag was empty!").displayError();
+            if(boxName.equals(EMPTY_STRING)) {
+                new ErrorDisplay(HITBOX_ERROR, EMPTY_HITBOX_TAG).displayError();
             } else {
-                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex()).setTag(boxName);
+                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).setTag(boxName);
                 hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
             }
-        }, "Save").getButton();
+        }, SAVE).getButton();
         options.add(saveButton, 1, 0);
-    }
-
-    public double getAddWidth() {
-        //temp
-        return addButton.getWidth();
-    }
-
-    public double getNameWidth() {
-        return hitboxNameField.getWidth();
     }
 
     private void createAddButton() {
         addButton = new CustomButton(() -> {
-            hitboxSelection.getItems().add("");
-            hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, ""));
+            hitboxSelection.getItems().add(EMPTY_STRING);
+            hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, EMPTY_STRING));
             hitboxSelection.getSelectionModel().selectLast();
-        }, "Add Hitbox").getButton();
+        }, ADD_HITBOX).getButton();
         options.add(addButton, 1, 1);
     }
 
@@ -145,7 +148,7 @@ public class HitBoxPanel implements Panel {
         Circle newPoint = new Circle();
         newPoint.setCenterX(x);
         newPoint.setCenterY(y);
-        newPoint.setRadius(5);
+        newPoint.setRadius(RADIUS);
         newPoint.setFill(Color.BLACK);
         currentPoints.add(x);
         currentPoints.add(y);
