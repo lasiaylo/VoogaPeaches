@@ -83,7 +83,6 @@ import java.util.stream.Collectors
         pointer.setOnMouseClicked( { MouseEvent e ->
             if (!cEvent.getIsGaming()) {
                 pointer.requestFocus()
-                println(count)
                 if(!entity.getProperties().getOrDefault("bg", false)) {
                     PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
                 }
