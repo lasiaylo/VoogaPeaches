@@ -2,6 +2,8 @@ package engine.entities;
 
 import com.google.gson.annotations.Expose;
 import database.fileloaders.ScriptLoader;
+import database.firebase.DatabaseConnector;
+import database.firebase.TrackableObject;
 import engine.collisions.HitBox;
 import engine.events.*;
 import groovy.lang.Binding;
@@ -9,14 +11,13 @@ import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import util.ErrorDisplay;
+import util.exceptions.ObjectIdNotFoundException;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -26,7 +27,6 @@ import java.util.Map;
  * @author Albert
  */
 public class Entity extends Evented {
-
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
@@ -138,8 +138,18 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
+        System.out.println(UID);
         Entity entity = new Entity(parent);
-        entity.UID = UID;
+        entity.UID = this.UID;
+        DatabaseConnector<Entity> db = new DatabaseConnector<>(Entity.class);
+//        try {
+//            db.removeFromDatabase(this);
+//            db.addToDatabase(entity);
+//        } catch (ObjectIdNotFoundException e) {
+//            e.printStackTrace();
+//            new ErrorDisplay("Oh no!", "We can't recreate this entity!").displayError();
+//        }
+
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
         try {
@@ -148,20 +158,27 @@ public class Entity extends Evented {
             // do nothing
         }
 
-        if(!children.isEmpty())
+        if(!children.isEmpty()) {
             for(Entity child : children)
                 entity.add(child.substitute());
+        }
 
         entity.initialize();
+        fireInitialImageEvents(entity);
+
+        return entity;
+    }
+
+    private void fireInitialImageEvents(Entity entity) {
         if(!((boolean) getProperties().getOrDefault("bg", false))) {
             new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
                     new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
             new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
             new ClickEvent(false).fire(this);
-            new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
+            new MouseDragEvent(false, false).fire(entity);
         }
-        return entity;
     }
+
 
     @Override
     public void initialize() {
@@ -174,5 +191,11 @@ public class Entity extends Evented {
                     entity.root = root;
 
         executeScripts();
+        DatabaseConnector<Entity> connector = new DatabaseConnector<>(Entity.class);
+        try {
+            connector.addToDatabase(this);
+        } catch(Exception e) {
+
+        }
     }
 }
