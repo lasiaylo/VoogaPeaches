@@ -1,21 +1,21 @@
 {
   "Social Media": "right",
   "Mini Map": "right",
-  "rightdivision": "0.7975",
+  "rightdivision": "0.7973958333333333",
   "Game Graphvis": "false",
   "Mini Mapvis": "true",
   "Properties": "right",
   "HitBoxes": "right",
-  "Propertiesvis": "true",
+  "Propertiesvis": "false",
   "Youtubevis": "false",
   "Consolevis": "false",
   "Console": "right",
   "Youtube": "right",
   "Game Graph": "right",
   "HitBoxesvis": "true",
-  "leftdivision": "0.14125",
+  "leftdivision": "0.14114583333333333",
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "false",
-  "bodydivision": "0.9324009324009324"
+  "bodydivision": "0.9324324324324325"
 }

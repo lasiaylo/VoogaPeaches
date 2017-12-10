@@ -2,6 +2,7 @@ package engine.entities;
 
 import com.google.gson.annotations.Expose;
 import database.fileloaders.ScriptLoader;
+import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;
 import groovy.lang.Binding;
@@ -31,6 +32,7 @@ public class Entity extends Evented {
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
 
+    private String dbPath;
     private Group group;
     private Entity parent;
     private Entity root;
@@ -138,8 +140,18 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
+        this.parent.remove(this);
         Entity entity = new Entity(parent);
-        entity.UID = UID;
+        entity.properties = properties;
+        replaceInUIDMap(UIDforObject(), entity);
+        try {
+            DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
         try {
@@ -161,6 +173,23 @@ public class Entity extends Evented {
             new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
         }
         return entity;
+    }
+
+    public String getDbPath() {
+        // Case: Set already
+        if(dbPath != null) return dbPath;
+        // Case: Parent is root and it's set already
+        if(parent == null) return "games/" + this.UIDforObject() + "/";
+        // Case: Other
+        String basePath = parent.getDbPath() + "children/";
+        int childIndex= 0;
+        for(Entity child : parent.getChildren()) {
+            // Break once you get the right index
+            if(this == child) break;
+            childIndex++;
+        }
+        dbPath = basePath + childIndex + "/" ;
+        return dbPath;
     }
 
     @Override
