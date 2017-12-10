@@ -172,7 +172,6 @@ public class CameraPanel implements Panel {
 
 	}
 
-
 	@Override
 	public Region getRegion() {
 		return myArea;
