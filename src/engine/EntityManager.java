@@ -63,14 +63,19 @@ public class EntityManager {
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
-
-        //don't freak out about this..... just a initial level
-        addLevel("level 1", 5000, 5000);
-        currentLevel = levels.get("level 1");
-        currentLevelName = "level 1";
-        for(String key : levels.keySet()) {
-            Entity entity = levels.get(key);
-            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e).fire(entity));
+        if (root.getChildren().isEmpty()) {
+            //don't freak out about this..... just a initial level
+            addLevel("level 1", 5000, 5000);
+            currentLevel = levels.get("level 1");
+            currentLevelName = "level 1";
+        }
+        else {
+            root.getChildren().forEach(e -> {
+                levels.put((String) e.getProperty("levelname"), e);
+                levelSize.put((String) e.getProperty("levelname"), new Vector((double) e.getProperty("mapwidth"), (double) e.getProperty("mapheight")));
+            });
+            currentLevel = root.getChildren().get(0);
+            currentLevelName = (String) currentLevel.getProperty("levelname");
         }
     }
 
@@ -263,6 +268,9 @@ public class EntityManager {
         level.getNodes().getChildren().add(stack);
         levels.put(name, level);
         levelSize.put(name, new Vector(mapWidth, mapHeight));
+        level.setProperty("levelname", name);
+        level.setProperty("mapwidth", mapWidth);
+        level.setProperty("mapheight", mapHeight);
 
         addLayer(level);
     }
