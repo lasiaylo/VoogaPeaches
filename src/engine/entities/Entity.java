@@ -54,6 +54,7 @@ public class Entity extends Evented {
      */
     public Entity(Entity parent) {
         this();
+        if(parent == null) return;
         addTo(parent);
     }
 
@@ -101,7 +102,9 @@ public class Entity extends Evented {
 
     public Entity addTo(Entity parent) {
         this.parent = parent;
-        parent.getNodes().getChildren().add(group);
+        parent.getNodes()
+                .getChildren()
+                .add(group);
         parent.getChildren().add(this);
         return this;
     }
@@ -159,7 +162,11 @@ public class Entity extends Evented {
         entity.hitBoxes = hitBoxes;
         entity.fieldName = fieldName;
         entity.mapSize = mapSize;
-        parent.getNodes().getChildren().remove(group);
+        try {
+            parent.getNodes().getChildren().remove(group);
+        } catch(NullPointerException e){
+            // do nothing
+        }
 
         if(!children.isEmpty())
             for(Entity child : children)
