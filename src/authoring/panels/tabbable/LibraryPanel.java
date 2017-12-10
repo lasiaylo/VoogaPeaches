@@ -24,6 +24,7 @@ import javafx.scene.layout.VBox;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.InputStream;
+import java.util.Map;
 
 
 public class LibraryPanel implements Panel {
@@ -78,17 +79,17 @@ public class LibraryPanel implements Panel {
             for (String each: ObjectFactory.getEntityTypes()) {
                 try {
                     factory.setObjectBlueprint("user_defined/" + each);
-                    System.out.println(each);
                 } catch (ObjectBlueprintNotFoundException e) {
                     e.printStackTrace();
                 }
                 Entity entity = factory.newObject();
-                Image image = new Image(manager.readFileData((String) entity.getProperty("image path")));
+                String path = (String) ((Map)((Map) entity.getProperty("scripts")).getOrDefault("imageScript", null)).getOrDefault("image_path", null);
+                Image image = new Image(manager.readFileData(path));
                 ImageView view = new ImageView(image);
                 view.setFitWidth(50);
                 view.setFitHeight(50);
                 myTilePane.getChildren().add(view);
-                view.setOnDragDetected(e -> startDragEnt(e, view, (String) entity.getProperty("image path"), factory));
+                view.setOnDragDetected(e -> startDragEnt(e, view, path, factory));
             }
         }
         else {
