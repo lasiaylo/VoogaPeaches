@@ -78,6 +78,7 @@ public class LibraryPanel implements Panel {
             for (String each: ObjectFactory.getEntityTypes()) {
                 try {
                     factory.setObjectBlueprint("user_defined/" + each);
+                    System.out.println(each);
                 } catch (ObjectBlueprintNotFoundException e) {
                     e.printStackTrace();
                 }
