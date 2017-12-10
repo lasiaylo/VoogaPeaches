@@ -74,8 +74,7 @@ public class PropertiesPanel implements Panel {
      * @throws GroovyInstantiationException
      */
     public void updateProperties(Entity entity) throws GroovyInstantiationException {
-        myEntity = entity;
-        entity.executeScripts();
+        myEntity = entity.substitute();
         myParameters = myEntity.getProperties();
         myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
         myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
