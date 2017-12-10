@@ -40,7 +40,6 @@ import java.util.stream.Collectors
         ImageViewEvent imgEvent = (ImageViewEvent) call
 
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
-        println entity.getProperty("width")
         scriptMap = ((Map) entity.getProperty("scripts"))
 
         imagePathList = scriptMap.keySet().stream().filter({String name ->

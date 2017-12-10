@@ -23,7 +23,7 @@ public class ParameterButton {
     private ComboBox comboBox;
     private Button button;
 
-    public ParameterButton(Map<String, Object> map, PropertiesPanel panel) {
+    public ParameterButton(Map<String, Object> map, UpdatablePanel panel) {
         myMap = map;
         hbox = new HBox();
         myPanel = panel;

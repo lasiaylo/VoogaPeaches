@@ -43,11 +43,13 @@ public class EventButton {
     }
 
     private void add() {
-        String type = comboBox.getSelectionModel().getSelectedItem().toString();
-        myMap.put(type, createMap());
+
+
         try {
+            String type = comboBox.getSelectionModel().getSelectedItem().toString();
+            myMap.put(type, createMap());
             myPanel.updateProperties();
-        } catch (GroovyInstantiationException e) {}
+        } catch (Exception e) {}
     }
 
     private Map<String, Map<String, Object>> createMap() {

@@ -62,19 +62,13 @@ public class EntityManager {
             e.printStackTrace();
         }
 
-        if (root.getChildren().isEmpty()) {
-            //don't freak out about this..... just a initial level
-            addLevel("level 1", 5000, 5000);
-            currentLevel = levels.get("level 1");
-            currentLevelName = "level 1";
-        }
-        else {
-            root.getChildren().forEach(e -> {
-                levels.put(e.getFieldName(), e);
-                levelSize.put(e.getFieldName(), e.getMapSize());
-            });
-            currentLevel = root.getChildren().get(0);
-            currentLevelName = currentLevel.getFieldName();
+        //don't freak out about this..... just a initial level
+        addLevel("level 1", 5000, 5000);
+        currentLevel = levels.get("level 1");
+        currentLevelName = "level 1";
+        for(String key : levels.keySet()) {
+            Entity entity = levels.get(key);
+            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e).fire(entity));
         }
     }
 

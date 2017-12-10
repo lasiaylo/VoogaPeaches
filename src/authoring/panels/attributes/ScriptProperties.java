@@ -34,7 +34,6 @@ public class ScriptProperties {
                     addScript(name)
             );
         }
-        System.out.println(panel);
         myVBox.getChildren().add(new ScriptButton(map, panel).getNode());
     }
 
@@ -62,9 +61,7 @@ public class ScriptProperties {
 
     private void remove(String name){
         myMap.remove(name);
-        try {
-            myPanel.updateProperties();
-        } catch (GroovyInstantiationException e) { }
+        myPanel.updateProperties();
     }
 
     private void handle(DragEvent event) {
