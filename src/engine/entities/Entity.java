@@ -3,10 +3,7 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.fileloaders.ScriptLoader;
 import engine.collisions.HitBox;
-import engine.events.ClickEvent;
-import engine.events.Evented;
-import engine.events.InitialImageEvent;
-import engine.events.KeyPressEvent;
+import engine.events.*;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import javafx.scene.Group;
@@ -170,11 +167,14 @@ public class Entity extends Evented {
 
         entity.initialize();
         entity.executeScripts();
-        System.out.println(getProperty("width"));
-        new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
-                new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
-        new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
-        new ClickEvent(false).fire(this);
+        if(!((boolean) getProperties().getOrDefault("bg", false))) {
+            new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
+                    new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
+            new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
+            new ClickEvent(false).fire(this);
+            new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
+        }
+
         return entity;
     }
 
