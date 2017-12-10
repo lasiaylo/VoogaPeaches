@@ -3,7 +3,6 @@ package authoring.fsm;
 import engine.fsm.State;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -31,7 +30,11 @@ public class StateRender {
         myTitle = new Label(title);
         myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
         myRender.widthProperty().bind(myTitle.widthProperty().add(PADDING));
-        // color red
+        myRender.setOnMouseClicked(e -> onClick());
+    }
+
+    private void onClick() {
+        System.out.println("rect clicked!");
     }
 
     protected Shape getRender() {

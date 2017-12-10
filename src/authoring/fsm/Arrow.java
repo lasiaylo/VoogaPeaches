@@ -1,7 +1,6 @@
 package authoring.fsm;
 
 import javafx.scene.Group;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
 import util.math.num.Vector;
@@ -23,8 +22,15 @@ public class Arrow {
         myHead = head;
         myLength = head.subtract(origin);
         setArrow();
-
+        myBody.setOnMouseClicked(e -> onClick());
+        myNegativeHead.setOnMouseClicked(e -> onClick());
+        myPositiveHead.setOnMouseClicked(e -> onClick());
+        myGroup.setOnMouseClicked(e -> onClick());
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
+    }
+
+    private void onClick() {
+        System.out.println("mybody clicked!");
     }
 
     public Group getRender() {
