@@ -1,7 +1,7 @@
 {
   "Social Media": "right",
   "Mini Map": "right",
-  "rightdivision": "0.7973958333333333",
+  "rightdivision": "0.7354166666666667",
   "Game Graphvis": "false",
   "Mini Mapvis": "true",
   "Properties": "right",
@@ -17,5 +17,5 @@
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "true",
-  "bodydivision": "0.6480769230769231"
+  "bodydivision": "0.5875"
 }
