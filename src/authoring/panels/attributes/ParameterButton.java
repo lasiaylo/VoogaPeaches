@@ -26,7 +26,7 @@ public class ParameterButton {
     public ParameterButton(Map<String, Object> map, UpdatablePanel panel) {
         myMap = map;
         hbox = new HBox();
-        myPanel = panel;
+        //myPanel = panel;
         makeVisual();
         addtoBox();
     }

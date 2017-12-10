@@ -60,11 +60,11 @@ import util.pubsub.messages.EntityPass
         pointer.setOnMouseClicked( { MouseEvent e ->
             if (!cEvent.getIsGaming()) {
                 pointer.requestFocus()
-                if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode()[0] == 0) {
-                    //might need try catch here
-                    cEvent.getMyBGType().reset()
-                    pointer.setImage(new Image(cEvent.getMyBGType()))
-                }
+//                if (e.getButton() == MouseButton.PRIMARY && cEvent.getMyMode() == 0) {
+//                    //might need try catch here
+//                    cEvent.getMyBGType().reset()
+//                    pointer.setImage(new Image(cEvent.getMyBGType()))
+//                }
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
             e.consume()
@@ -84,7 +84,7 @@ import util.pubsub.messages.EntityPass
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (dEvent.getIsGaming() == false && dEvent.getMyMode()[0] > 0) {
+        if (dEvent.getIsGaming() == false && dEvent.getMyMode() > 0) {
             pointer.setOnMousePressed({ MouseEvent e ->
                 if (e.getButton().equals(MouseButton.SECONDARY)) {
                     dEvent.setMyStartPos(e.getX(), e.getY())
