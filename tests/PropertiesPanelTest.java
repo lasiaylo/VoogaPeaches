@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class PropertiesPanelTest extends Application{
 	private PropertiesPanel panel;
-	private final String ENTITYNAME = "test";
+	private final String ENTITYNAME = "gravity";
 	private Entity testEntity;
 
 	@Override

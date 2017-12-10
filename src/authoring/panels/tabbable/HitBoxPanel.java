@@ -34,12 +34,16 @@ public class HitBoxPanel implements Panel {
     private Button addButton;
 
     public HitBoxPanel() {
+        createEntityView();
+
         region.getChildren().add(options);
 
         options.add(hitboxNameField, 0, 0);
         options.add(hitboxSelection, 0, 1);
+//        GridPane.setHgrow(hitboxNameField, Priority.ALWAYS);
 
-        createEntityView();
+
+        getRegion().getStyleClass().add("panel");
         createAddButton();
         createComboBox();
 
@@ -48,16 +52,21 @@ public class HitBoxPanel implements Panel {
             EntityPass entityPass = (EntityPass) e;
             setEntity(entityPass.getEntity());
         });
-        // Create the new hitbox polygon
-
-        getRegion().getStyleClass().add("panel");
     }
 
     public void setEntity(Entity entity) {
+        hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
         hitboxes = entity.getHitBoxes();
         hitboxSelection.getItems().clear();
         createComboBox();
+
+        options.getColumnConstraints().addAll(
+                new ColumnConstraints(region.getWidth() * 0.8), new ColumnConstraints(region.getWidth()* 0.2));
+        hitboxNameField.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
+        hitboxSelection.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
+        addButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
+        saveButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
     }
 
     private void createComboBox() {
