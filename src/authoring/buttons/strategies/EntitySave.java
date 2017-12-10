@@ -23,6 +23,9 @@ public class EntitySave implements IButtonStrategy{
     private JSONDataManager jsonDataManager;
     private Stage s;
 
+    /**
+     * @author Richard Tseng
+     */
     public EntitySave(Entity entity) {
         this.entity = entity;
         initializeFileChooser();
