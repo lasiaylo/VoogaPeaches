@@ -30,9 +30,12 @@ public abstract class Evented extends TrackableObject {
     }
 
     public void dispatchEvent(Event event) {
-        // does not correctly do null check
-        if (callbacks == null || !callbacks.containsKey(event.getType()))
+        if (callbacks == null) {
+            callbacks = new HashMap<>();
             return;
+        } else if(!callbacks.containsKey(event.getType())) {
+            return;
+        }
 
         for (Consumer<Event> callback : callbacks.get(event.getType()))
             callback.accept(event);
