@@ -18,12 +18,12 @@ public class Gravity extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Read in test entity
-        JSONDataManager j = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
+        JSONDataManager j = new JSONDataManager(JSONDataFolders.GAMES);
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
-        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("PlayerEntity.json"));
-        TickEvent e = new TickEvent(1);
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1),  (dt) -> {
+        Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("tests/gravity.json"));
+        TickEvent e = new TickEvent(10);
+        
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10),  (dt) -> {
             e.fire(readIn);
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
