@@ -1,0 +1,29 @@
+{
+  "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "base/view/circle": {}
+    },
+    "listeners": {
+      "tick": {
+        "base/animate/move": {},
+        "gravity": {}
+      },
+      "move": {
+        "base/animate/update_position": {}
+      },
+      "accelerate": {
+        "base/animate/update_velocity": {}
+      }
+    },
+    "x": 0,
+    "y": 300,
+    "vx": 0.08,
+    "vy": -0.24,
+    "gx": 0.0,
+    "gy": 0.00016,
+    "mass": 1.0
+  }
+}
