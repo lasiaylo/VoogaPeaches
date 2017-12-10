@@ -13,8 +13,7 @@ public class GameWindow {
         setupStage();
     }
 
-    private void loadgame() {
-    }
+    private void loadgame() { }
 
     private void setupStage() {
         stage = new Stage();
