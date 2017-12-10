@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class GameSelectionList extends ListView<String> {
 
+    private static final String GAME_NAMES = "gameNames";
     private Map<String, String> gameUIDS;
 
     public GameSelectionList(double width, double height) {
@@ -20,12 +21,10 @@ public class GameSelectionList extends ListView<String> {
         applyStyles();
     }
 
-    private void applyStyles() {
-
-    }
+    private void applyStyles() { }
 
     private void loadGameList() {
-        FirebaseDatabase.getInstance().getReference("gameNames").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(GAME_NAMES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataSnapshot.getChildren().forEach(key -> {
@@ -39,7 +38,6 @@ public class GameSelectionList extends ListView<String> {
             }
         });
     }
-
 
     public String getSelectedUID(){
         if(this.getSelectionModel().getSelectedItem() != null)
