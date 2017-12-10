@@ -24,7 +24,8 @@ import util.pubsub.messages.StringMessage;
  *
  */
 public class CameraPanel implements Panel {
-	private static final String PLAY = "Play";
+
+    private static final String PLAY = "Play";
 	private static final String PAUSE = "Pause";
 	private static final String ALLL = "All Layers";
 	private static final String BGL = "Background Layer";
@@ -32,11 +33,19 @@ public class CameraPanel implements Panel {
 	private static final String LAYER = "Layer ";
 	private static final String TEXT = "Layer Name";
 	private static final String CLEAR = "Clear";
-
 	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
+    private static final String CAMERA = "camera";
+    private static final String PANEL = "panel";
+    private static final String TEXT_FIELD = "textField";
+    private static final String DELETE_LAYER = "Delete Layer";
+    private static final int CAMERA_WIDTH_RATIO = 30;
+    private static final String CHOICE_BOX = "choice-box";
+    private static final String GAME_CAMERA = "Game Camera";
+    private static final String SCREENLAYOUT = "screenlayout";
+    private static final String NODE_STYLE = "nodeStyle";
 
-	private ScrollPane myView;
+    private ScrollPane myView;
 	private Button myPlay;
 	private Button myPause;
 	private Button myClear;
@@ -46,12 +55,11 @@ public class CameraPanel implements Panel {
 	private EntityManager myManager;
 	private TextField myText;
 	private ComboBox<String> myLayer;
-
 	private double cameraWidth;
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
+	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
@@ -67,9 +75,8 @@ public class CameraPanel implements Panel {
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
 
-
-		myView.getStyleClass().add("camera");
-		myArea.getStyleClass().add("panel");
+		myView.getStyleClass().add(CAMERA);
+		myArea.getStyleClass().add(PANEL);
 	}
 
 	/**
@@ -81,20 +88,19 @@ public class CameraPanel implements Panel {
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
-		myText.getStyleClass().add("textField");
+		myText.getStyleClass().add(TEXT_FIELD);
 		myClear = new Button(CLEAR);
-		myDelete = new Button("Delete Layer");
+		myDelete = new Button(DELETE_LAYER);
 
 		setupButton();
 
 		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
 		buttonRow.setAlignment(Pos.CENTER);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/30);
+		buttonRow.setSpacing(cameraWidth/CAMERA_WIDTH_RATIO);
 
 		return buttonRow;
 	}
-
 
 	/**
 	 * sets the camera in the panel
@@ -106,12 +112,11 @@ public class CameraPanel implements Panel {
 		myView.setMouseTransparent(false);
 	}
 
-
 	/**
 	 * adds the action connections to the buttons
 	 */
 	private void setupButton() {
-		myLayer.getStyleClass().add("choice-box");
+		myLayer.getStyleClass().add(CHOICE_BOX);
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
@@ -167,7 +172,6 @@ public class CameraPanel implements Panel {
 
 	}
 
-
 	@Override
 	public Region getRegion() {
 		return myArea;
@@ -182,8 +186,6 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public String title(){
-		return "Game Camera";
+		return GAME_CAMERA;
 	}
-
-
 }

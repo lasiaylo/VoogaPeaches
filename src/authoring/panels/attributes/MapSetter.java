@@ -7,6 +7,7 @@ import java.util.Map;
  *
  */
 public class MapSetter implements Setter{
+
 	private Map<String,Object> myMap;
 	private String myKey;
 	
@@ -24,5 +25,4 @@ public class MapSetter implements Setter{
 	public void setValue(Object arg) {
 		myMap.put(myKey, arg);
 	}
-
 }

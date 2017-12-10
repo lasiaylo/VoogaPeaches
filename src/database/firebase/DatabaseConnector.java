@@ -186,6 +186,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
      */
     public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
         JSONObject tempJSON = JSONHelper.JSONForObject(objectToRemove);
+        System.out.println(tempJSON.toString(4));
         try {
             String uid = tempJSON.get("UID").toString();
             dbRef.child(uid).removeValueAsync();

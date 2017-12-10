@@ -1,4 +1,4 @@
-package scriptdata
+package scripts
 
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
@@ -14,6 +14,7 @@ import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
@@ -26,9 +27,11 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
+
+    println "creating new pointer"
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
-    pointer.setFitWidth(entity.getProperty("width"))
-    pointer.setFitHeight(entity.getProperty("height"));
+    pointer.setFitWidth((double) entity.getProperty("width"))
+    pointer.setFitHeight((double) entity.getProperty("height"))
     pointer.setX((double) entity.getProperty("x"))
     pointer.setY((double) entity.getProperty("y"))
     originalPath = (String) bindings.get("image_path")
@@ -50,6 +53,7 @@ import java.util.stream.Collectors
             entity.getProperty("scripts").get(path).put("image_path", imgEvent.getPath())
             originalPath = path
         })
+        pointer.requestFocus();
     })
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
@@ -79,10 +83,10 @@ import java.util.stream.Collectors
         pointer.setOnMouseClicked( { MouseEvent e ->
             if (!cEvent.getIsGaming()) {
                 pointer.requestFocus()
-                println(entity.UIDforObject())
                 if(!entity.getProperties().getOrDefault("bg", false)) {
                     PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
-                }            }
+                }
+            }
             e.consume()
         })
     })
@@ -97,10 +101,9 @@ import java.util.stream.Collectors
         })
     })
 
-
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (dEvent.getIsGaming() == false && !entity.getProperties().getOrDefault("bg", false)) {
+        if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
             pointer.setOnMousePressed({ MouseEvent e ->
                 if (e.getButton().equals(MouseButton.SECONDARY)) {
                     dEvent.setMyStartPos(e.getX(), e.getY())
@@ -118,6 +121,14 @@ import java.util.stream.Collectors
             })
         }
     })
+
+    if(!((boolean) getProperties().getOrDefault("bg", false))) {
+        new InitialImageEvent(new Vector((double) entity.getProperty("width"), (double) entity.getProperty("height")),
+                new Vector((double) entity.getProperty("x"), (double) entity.getProperty("y"))).fire(entity)
+        new KeyPressEvent(KeyCode.BACK_SPACE).fire(entity)
+        new ClickEvent(false).fire(entity)
+        new MouseDragEvent(false).fire(entity)
+    }
 }
 
 void zoom(MouseDragEvent dEvent, MouseEvent mouseEvent, Entity entity) {
@@ -149,6 +160,6 @@ void move(MouseEvent mouseEvent, Entity entity) {
     pointer.setY(yPos)
 
 //    println xPos + " :: " + yPos
-    entity.setProperty("x", xPos);
-    entity.setProperty("y", yPos);
+    entity.setProperty("x", xPos)
+    entity.setProperty("y", yPos)
 }
