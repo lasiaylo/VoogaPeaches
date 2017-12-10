@@ -57,6 +57,7 @@ public class ImageField extends Field {
             Image image = new Image(selectedImage.toURI().toString());
             manager.writeFileData(FileConverter.convertImageToByteArray(image), "user_images/" + selectedImage.getName());
             view.setImage(image);
+
         }
     }
 

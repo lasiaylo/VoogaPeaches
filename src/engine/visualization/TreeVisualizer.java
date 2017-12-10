@@ -8,6 +8,8 @@ import util.math.num.Vector;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static engine.visualization.EntityViz.CONNECTION_LENGTH;
+
 public class TreeVisualizer {
 
     private GameVisualizer gameVisualizer;

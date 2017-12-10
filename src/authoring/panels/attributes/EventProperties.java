@@ -52,11 +52,9 @@ public class EventProperties {
         contextMenu.show(node,event.getScreenX(), event.getScreenY());
     }
 
-    private void remove(String name){
+    private void remove(String name) {
         myMap.remove(name);
-        try {
-            myPanel.updateProperties();
-        } catch (GroovyInstantiationException e) { }
+        myPanel.updateProperties();
     }
 
     public Node getNode(){

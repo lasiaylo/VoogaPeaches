@@ -16,7 +16,7 @@ public class ParameterButton {
     private final String DOUBLE = "Double";
     private final String BOOLEAN = "Boolean";
     private final String ADD = "Add";
-    private PropertiesPanel myPanel;
+    private UpdatablePanel myPanel;
     private Map<String, Object> myMap;
     private HBox hbox;
     private TextField text;
@@ -26,7 +26,7 @@ public class ParameterButton {
     public ParameterButton(Map<String, Object> map, UpdatablePanel panel) {
         myMap = map;
         hbox = new HBox();
-        myPanel = panel;
+        //myPanel = panel;
         makeVisual();
         addtoBox();
     }
