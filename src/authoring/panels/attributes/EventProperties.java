@@ -1,8 +1,9 @@
-package authoring.panels.tabbable;
+package authoring.panels.attributes;
 
 import authoring.panels.attributes.EventButton;
 import authoring.panels.attributes.ScriptProperties;
 import authoring.panels.attributes.TPane;
+import authoring.panels.tabbable.PropertiesPanel;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
