@@ -1,11 +1,16 @@
 package authoring.fsm;
 
 import engine.fsm.State;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +39,23 @@ public class StateRender {
     }
 
     private void onClick() {
-        System.out.println("rect clicked!");
+        Scene scene = new Scene(new Group());
+        FlowPane flow = createPopup();
+        scene.setRoot(flow);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private FlowPane createPopup() {
+        FlowPane flow = new FlowPane();
+        flow.setMinSize(100, 200);
+        Button delete = new Button("Delete State");
+        Button save = new Button("Save");
+        delete.setOnMouseClicked(e -> ((Group) myRender.getParent()).getChildren().remove(myRender));
+        save.setOnMouseClicked(e -> System.out.println("Update map"));
+        flow.getChildren().addAll(delete, save);
+        return flow;
     }
 
     protected Shape getRender() {

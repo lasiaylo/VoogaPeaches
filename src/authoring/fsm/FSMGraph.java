@@ -13,7 +13,7 @@ import java.util.List;
  * A class that handles the rendering of the graph of a finite state machine
  * @author Albert
  */
-public class FSMGraph {
+public class FSMGraph implements GraphDelegate {
     private List<StateRender> myStateRenders;
     private List<TransitionRender> myTransitionRenders;
     private Group myGroup = new Group();
@@ -42,6 +42,14 @@ public class FSMGraph {
         }
     }
 
+    @Override
+    public void removeMyself(StateRender state) {
+    }
+
+    @Override
+    public void removeMyself(TransitionRender transition) {
+    }
+
     /**
      * Adds a state to the graph
      * @param sRender   stateRender to add
@@ -68,6 +76,7 @@ public class FSMGraph {
         if(contained != null) {
             if(currentTRender == null) {
                 createArrow(vectorMousePosition, contained);
+                contained.addLeavingTransition(currentTRender);
             } else {
                 currentTRender.setHead(vectorMousePosition);
                 contained.addArrivingTransition(currentTRender);
@@ -112,4 +121,5 @@ public class FSMGraph {
 //        contained.addArrivingTransition(currentTRender);
         currentTRender = null;
     }
+
 }

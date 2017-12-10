@@ -1,8 +1,13 @@
 package authoring.fsm;
 
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 import util.math.num.Vector;
 
 public class Arrow {
@@ -25,12 +30,29 @@ public class Arrow {
         myBody.setOnMouseClicked(e -> onClick());
         myNegativeHead.setOnMouseClicked(e -> onClick());
         myPositiveHead.setOnMouseClicked(e -> onClick());
-        myGroup.setOnMouseClicked(e -> onClick());
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
     }
 
     private void onClick() {
-        System.out.println("mybody clicked!");
+        Scene scene = new Scene(new Group());
+        FlowPane flow = createPopup();
+        scene.setRoot(flow);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private FlowPane createPopup() {
+        FlowPane flow = new FlowPane();
+        flow.setMinSize(100, 200);
+        Button delete = new Button("Delete Transition");
+        Button save = new Button("Save");
+        TextField name = new TextField();
+        name.setPromptText("Enter your closure lol");
+        delete.setOnMouseClicked(e -> myGroup.getChildren().removeAll(myGroup.getChildren()));
+        save.setOnMouseClicked(e -> System.out.println(name.getText()));
+        flow.getChildren().addAll(delete, save, name);
+        return flow;
     }
 
     public Group getRender() {
