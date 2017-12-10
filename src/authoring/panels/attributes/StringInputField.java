@@ -1,6 +1,5 @@
 package authoring.panels.attributes;
 
-
 /**Allows users to change a String Field
  * @author lasia
  *
@@ -10,7 +9,6 @@ public class StringInputField extends InputField {
 	public StringInputField(Setter set) {
 		super(set);
 	}
-	
 
 	@Override
 	protected void updateField() {
@@ -22,6 +20,4 @@ public class StringInputField extends InputField {
 		String defaultText = (String) getValue();
 		getTextField().setText(defaultText);
 	}
-
-
 }

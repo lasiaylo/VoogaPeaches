@@ -7,6 +7,7 @@ import util.exceptions.GroovyInstantiationException;
 import java.util.Map;
 
 public class ParameterProperties {
+
     private VBox parameterBox = new VBox();
 
     public ParameterProperties(Map<String, Object> parameterMap, Updatable panel) throws GroovyInstantiationException {

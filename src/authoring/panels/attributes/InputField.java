@@ -34,5 +34,4 @@ public abstract class InputField extends Field{
 	protected TextField getTextField() {
 		return textfield;
 	}
-
 }
