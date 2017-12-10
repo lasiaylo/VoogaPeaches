@@ -8,6 +8,7 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public class BooleanField extends Field{
+
 	private CheckBox checkbox;
 	
 	public BooleanField(Setter setter) throws GroovyInstantiationException {
@@ -35,6 +36,4 @@ public class BooleanField extends Field{
 		boolean checked = checkbox.isSelected();
 		setValue(checked);
 	}
-
-
 }

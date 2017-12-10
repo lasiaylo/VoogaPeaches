@@ -27,6 +27,8 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
+
+    println "creating new pointer"
     pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth((double) entity.getProperty("width"))
     pointer.setFitHeight((double) entity.getProperty("height"))
@@ -51,6 +53,7 @@ import java.util.stream.Collectors
             entity.getProperty("scripts").get(path).put("image_path", imgEvent.getPath())
             originalPath = path
         })
+        pointer.requestFocus();
     })
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
@@ -80,10 +83,11 @@ import java.util.stream.Collectors
         pointer.setOnMouseClicked( { MouseEvent e ->
             if (!cEvent.getIsGaming()) {
                 pointer.requestFocus()
-                println(entity.UIDforObject())
+                println(count)
                 if(!entity.getProperties().getOrDefault("bg", false)) {
                     PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
-                }            }
+                }
+            }
             e.consume()
         })
     })
