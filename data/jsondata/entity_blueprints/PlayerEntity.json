@@ -2,14 +2,24 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "scripts": [
-      {
-        "name": "imageScript",
+    "scripts": {
+      "imageScript": {
         "image_path" : "default_image.jpg"
-      }
-    ],
-    "listeners" : {
 
+      }
+    },
+    "listeners" : {
+      "key press": {
+          "movement":{
+
+          }
+      },
+      "tick": {
+        "base/animate/move": {}
+      },
+      "move": {
+        "base/animate/update_position": {}
+      }
     }
   }
 }

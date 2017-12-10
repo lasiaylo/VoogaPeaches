@@ -63,12 +63,12 @@ public class LibraryPanel implements Panel {
         update = new Button("update");
         update.setOnMouseClicked(e -> changeType());
         myArea = new VBox(myEntType, myTilePane);
-        getRegion().getStyleClass().add("panel");
         HBox top = new HBox(myEntType, update);
         top.setSpacing(10);
         myArea = new VBox(top, myTilePane);
         myArea.getStyleClass().add("panel");
         myArea.setSpacing(10);
+        getRegion().getStyleClass().add("panel");
     }
 
     private void changeType() {

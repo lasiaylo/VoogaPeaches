@@ -67,6 +67,7 @@ public class FieldFactory {
 			return field;
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
+			System.out.println(fieldType);
 			throw new GroovyInstantiationException();
 		}
 	}
