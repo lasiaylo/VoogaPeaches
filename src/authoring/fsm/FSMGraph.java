@@ -195,4 +195,9 @@ public class FSMGraph implements GraphDelegate {
         currentArrow = null;
     }
 
+    public void export() {
+        for (StateRender state: myStateRenders) {
+
+        }
+    }
 }

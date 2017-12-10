@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class FSMPanel implements UpdatablePanel {
 
-    private final String TITLE = "Properties";
+    private final String TITLE = "FSM";
     private FSMGraph graph;
 
     public FSMPanel() {
@@ -29,8 +29,6 @@ public class FSMPanel implements UpdatablePanel {
 
         pane.setOnMouseClicked(graph::onSceneClick);
         VBox box = new VBox(button, pane);
-
-
 
         return button;
     }

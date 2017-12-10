@@ -37,8 +37,9 @@ public class StateRender {
         myRender.setY(Y);
         myGraph = graph;
         myInfo = new HashMap<>();
-
+        System.out.println(title);
         myTitle = new Label(title);
+
         myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
         myRender.widthProperty().bind(myTitle.widthProperty().add(PADDING));
         myRender.setOnMouseClicked(e -> onClick());
@@ -86,14 +87,12 @@ public class StateRender {
         myRender.setFill(color);
     }
 
-    protected void addLeavingTransition(Arrow tRender) {
-//        #TODO ASK RAMIL ABOUT ADDING TRANSITIONS
-        myLeavingTransitions.add(tRender);
+    protected void addLeavingTransition(Arrow arrow) {
+        myLeavingTransitions.add(arrow);
     }
 
-    protected void removeLeavingTransition(Arrow tRender) {
-//        myState.getTransitions().remove(tRender.getTransition());
-        myLeavingTransitions.remove(tRender);
+    protected void removeLeavingTransition(Arrow arrow) {
+        myLeavingTransitions.remove(arrow);
     }
 
     protected List<Arrow> getMyLeavingTransitions() {
