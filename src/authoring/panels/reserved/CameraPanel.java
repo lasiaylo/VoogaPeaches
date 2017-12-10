@@ -35,13 +35,15 @@ public class CameraPanel implements Panel {
 	private static final String CLEAR = "Clear";
 	private static final double GRIDS = 50;
 	private static final double SPACING = 10;
-    public static final String CAMERA = "camera";
-    public static final String PANEL = "panel";
-    public static final String TEXT_FIELD = "textField";
-    public static final String DELETE_LAYER = "Delete Layer";
-    public static final int CAMERA_WIDTH_RATIO = 30;
-    public static final String CHOICE_BOX = "choice-box";
-    public static final String GAME_CAMERA = "Game Camera";
+    private static final String CAMERA = "camera";
+    private static final String PANEL = "panel";
+    private static final String TEXT_FIELD = "textField";
+    private static final String DELETE_LAYER = "Delete Layer";
+    private static final int CAMERA_WIDTH_RATIO = 30;
+    private static final String CHOICE_BOX = "choice-box";
+    private static final String GAME_CAMERA = "Game Camera";
+    private static final String SCREENLAYOUT = "screenlayout";
+    private static final String NODE_STYLE = "nodeStyle";
 
     private ScrollPane myView;
 	private Button myPlay;
@@ -57,7 +59,7 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value("screenlayout","nodeStyle");
+	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
@@ -100,7 +102,6 @@ public class CameraPanel implements Panel {
 		return buttonRow;
 	}
 
-
 	/**
 	 * sets the camera in the panel
 	 * @param view (the actual camera)
@@ -110,7 +111,6 @@ public class CameraPanel implements Panel {
 		myArea.getChildren().set(0, myView);
 		myView.setMouseTransparent(false);
 	}
-
 
 	/**
 	 * adds the action connections to the buttons
