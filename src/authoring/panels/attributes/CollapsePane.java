@@ -15,6 +15,8 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public class CollapsePane {
+
+	public static final String MAP_NULL = "Map null";
 	private final int LABEL_COL = 0;
 	private final int ATTRIBUTE_COL = 1;
 	private boolean collapse;
@@ -39,7 +41,7 @@ public class CollapsePane {
 	private void formatCollapse(Map<String, ?> map) throws GroovyInstantiationException {
 		VBox vBox = new VBox();
 		if(map == null) {
-			System.out.println("map null");
+			System.out.println(MAP_NULL);
 		}
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);
