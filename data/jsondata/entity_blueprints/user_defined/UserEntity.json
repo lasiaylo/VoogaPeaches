@@ -7,10 +7,9 @@
       "tick": {"base/animate/move": {}},
       "key press": {"movement": {}}
     },
-    "x": 172,
+    "x": 290,
     "width": 50,
-    "y": 120,
-    "dead": false,
+    "y": 217,
     "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
     "height": 50
   }

@@ -276,7 +276,7 @@ public class EntityManager {
     }
 
     private void dragOver(DragEvent event, Node map) {
-        if (event.getGestureSource() != map && (event.getDragboard().hasImage() || event.getDragboard().hasString())) {
+        if (event.getGestureSource() != map && event.getDragboard().hasString()) {
             event.acceptTransferModes(TransferMode.COPY);
         }
         event.consume();

@@ -6,7 +6,7 @@
   "Mini Mapvis": "true",
   "Properties": "right",
   "HitBoxes": "right",
-  "Propertiesvis": "false",
+  "Propertiesvis": "true",
   "Youtubevis": "false",
   "Consolevis": "false",
   "Console": "right",
@@ -17,5 +17,5 @@
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "false",
-  "bodydivision": "0.6855345911949685"
+  "bodydivision": "0.9320754716981132"
 }
