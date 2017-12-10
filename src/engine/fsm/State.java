@@ -9,7 +9,7 @@ import java.util.List;
 /**Represents a state within a Finite State Machine
  * 
  * @author lasia
- *	@author Albert
+ * @author Albert
  * @author richardtseng
  */
 public class State extends TrackableObject {
@@ -32,7 +32,8 @@ public class State extends TrackableObject {
 		myTransitions = new ArrayList<>();
 	}
 	
-	/**Checks the transitions of this state to see if the conditions are met
+	/**
+	 * Checks the transitions of this state to see if the conditions are met
 	 * If they are, the manager's current state will be changed to the transition's destination
 	 * @param manager
 	 */

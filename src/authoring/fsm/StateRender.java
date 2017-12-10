@@ -23,14 +23,16 @@ public class StateRender {
     private Pane myPane;
     private Rectangle myRender = new Rectangle();
     private State myState;
+    private GraphDelegate myGraph;
 
     private List<TransitionRender> myLeavingTransitions = new ArrayList<>();
 
-    public StateRender(double X, double Y, String title, State state) {
+    public StateRender(double X, double Y, String title, State state, GraphDelegate graph) {
         myState = state;
         myRender.setFill(ERROR); // hard coded
         myRender.setX(X);
         myRender.setY(Y);
+        myGraph = graph;
 
         myTitle = new Label(title);
         myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
@@ -52,7 +54,7 @@ public class StateRender {
         flow.setMinSize(100, 200);
         Button delete = new Button("Delete State");
         Button save = new Button("Save");
-        delete.setOnMouseClicked(e -> ((Group) myRender.getParent()).getChildren().remove(myRender));
+        delete.setOnMouseClicked(e -> myGraph.removeMyself(this));
         save.setOnMouseClicked(e -> System.out.println("Update map"));
         flow.getChildren().addAll(delete, save);
         return flow;

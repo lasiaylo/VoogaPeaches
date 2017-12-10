@@ -1,9 +1,15 @@
 package authoring.fsm;
 
+import engine.fsm.State;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import util.math.num.Vector;
 
 import java.util.ArrayList;
@@ -12,12 +18,14 @@ import java.util.List;
 /**
  * A class that handles the rendering of the graph of a finite state machine
  * @author Albert
+ * @author Simran
  */
 public class FSMGraph implements GraphDelegate {
     private List<StateRender> myStateRenders;
     private List<TransitionRender> myTransitionRenders;
     private Group myGroup = new Group();
     private TransitionRender currentTRender;
+    private boolean addingState;
 
     /**
      * Creates a new FSMGraph from scratch
@@ -42,8 +50,49 @@ public class FSMGraph implements GraphDelegate {
         }
     }
 
+    public void onSceneClick(MouseEvent e) {
+        if (validClick(e)) {
+            Scene scene = new Scene(new Group());
+            FlowPane flow = createPopup(e);
+            addingState = true;
+            scene.setRoot(flow);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setOnHidden(f -> addingState = false);
+            stage.show();
+        }
+    }
+
+    private boolean validClick(MouseEvent e) {
+        return !addingState && findContainedStateRender(e) == null;
+    }
+
+    private FlowPane createPopup(MouseEvent e) {
+        FlowPane flow = new FlowPane();
+        flow.setMinSize(100, 200);
+        Button newState = new Button("Create New State?");
+        Button cancel = new Button("Cancel");
+        TextField name = new TextField();
+        name.setPromptText("Enter your name lol");
+        newState.setOnMouseClicked(f -> onCreate(e, newState, name.getText()));
+        cancel.setOnMouseClicked(f -> onClose(cancel));
+        flow.getChildren().addAll(newState, cancel, name);
+        return flow;
+    }
+
+    private void onCreate(MouseEvent e, Button newState, String name){
+        addState(new StateRender(e.getX(), e.getY(), name , new State(), this));
+        onClose(newState);
+    }
+
+    private void onClose(Button cancel) {
+        addingState = false;
+        ((Stage) cancel.getScene().getWindow()).close();
+    }
+
     @Override
     public void removeMyself(StateRender state) {
+
     }
 
     @Override
@@ -54,7 +103,7 @@ public class FSMGraph implements GraphDelegate {
      * Adds a state to the graph
      * @param sRender   stateRender to add
      */
-    public void addState(StateRender sRender) {
+    private void addState(StateRender sRender) {
         myGroup.getChildren().add(sRender.getRender());
         myStateRenders.add(sRender);
     }
