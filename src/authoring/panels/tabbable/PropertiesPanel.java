@@ -7,10 +7,12 @@ import java.util.Map;
 import authoring.Panel;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
+import authoring.buttons.strategies.Update;
 import authoring.panels.attributes.*;
 import engine.entities.Entity;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.apache.commons.io.FilenameUtils;
@@ -65,7 +67,7 @@ public class PropertiesPanel implements Panel,Updatable {
      *
      * @throws GroovyInstantiationException
      */
-    public void updateProperties() {
+    public void update() {
         try {
             updateProperties(myEntity);
         } catch (GroovyInstantiationException e) { }
@@ -116,7 +118,10 @@ public class PropertiesPanel implements Panel,Updatable {
      * Displays a button that allows users to save their entity as a blueprint
      */
     private Node addButton() {
-        return new CustomButton(new EntitySave(myEntity), "Save Entity").getButton();
+        HBox hbox = new HBox();
+        hbox.getChildren().add(new CustomButton(new EntitySave(myEntity), "Save Entity").getButton());
+        hbox.getChildren().add(new CustomButton(new Update(this), "Update Entity").getButton());
+        return hbox;
     }
 
     public void addFile(Map<String, Map<String,Object>> map, File file) throws GroovyInstantiationException {
@@ -124,7 +129,7 @@ public class PropertiesPanel implements Panel,Updatable {
             String fileName = FilenameUtils.removeExtension(file.getName());
             map.put(fileName, new HashMap<>());
         }
-        updateProperties();
+        update();
     }
 
     public Entity getEntity() {

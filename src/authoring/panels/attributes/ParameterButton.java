@@ -60,7 +60,7 @@ public class ParameterButton {
             String type = comboBox.getSelectionModel().getSelectedItem().toString();
             Object obj = determineType(type);
             myMap.put(string, obj);
-            myPanel.updateProperties();
+            myPanel.update();
         }catch(Exception e){}
     }
 
