@@ -87,6 +87,7 @@ public class LibraryPanel implements Panel {
                 ImageView view = new ImageView(image);
                 view.setFitWidth(50);
                 view.setFitHeight(50);
+//                view.getStyleClass().add("entity");
                 myTilePane.getChildren().add(view);
                 view.setOnDragDetected(e -> startDragEnt(e, view, path, factory));
             }
