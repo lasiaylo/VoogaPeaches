@@ -23,7 +23,7 @@ import util.pubsub.messages.EntityPass;
  *
  * @author lasia
  */
-public class PropertiesPanel implements Panel {
+public class PropertiesPanel implements UpdatablePanel {
 //    Should probably move these strings out to a properties file
     private final String TITLE = "Properties";
     private final String SCRIPTS = "Scripts";
@@ -64,8 +64,10 @@ public class PropertiesPanel implements Panel {
      *
      * @throws GroovyInstantiationException
      */
-    public void updateProperties() throws GroovyInstantiationException {
-        updateProperties(myEntity);
+    public void updateProperties() {
+        try {
+            updateProperties(myEntity);
+        } catch (GroovyInstantiationException e) { }
     }
 
     /**
