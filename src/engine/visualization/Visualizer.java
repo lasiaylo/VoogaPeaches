@@ -5,7 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -62,7 +61,7 @@ public class Visualizer {
         return UID;
     }
 
-    protected Group getGroup() {
+    public Group getGroup() {
         return group;
     }
 }
