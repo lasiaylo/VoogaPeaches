@@ -1,5 +1,6 @@
 package authoring.menu;
 
+import authoring.PanelController;
 import authoring.panels.attributes.Field;
 import authoring.panels.attributes.FieldFactory;
 import javafx.scene.Node;
@@ -8,18 +9,21 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import util.exceptions.GroovyInstantiationException;
 
-public class GameSaver {
+public class GameSavePrompt {
     private String name;
     private Stage stage;
     private Field field;
+    private PanelController panelController;
 
-    public GameSaver() {
+    public GameSavePrompt(PanelController panelController) {
         name = "Name to be saved...";
         stage =  new Stage();
+        this.panelController = panelController;
         try {
-            Field field = FieldFactory.makeField(name);
+            field = FieldFactory.makeField(name);
             Node node = field.getControl();
             node.setOnKeyPressed(e->handle(e));
             setupStage(node);
@@ -31,6 +35,7 @@ public class GameSaver {
     private void setupStage(Node node) {
         Scene scene = new Scene((Parent) node);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
     }
@@ -39,8 +44,8 @@ public class GameSaver {
         KeyCode key = e.getCode();
         if (key == KeyCode.ENTER){
             name = (String) field.getValue();
-            System.out.println(name);
             stage.close();
+            panelController.save(name);
         }
     }
 
