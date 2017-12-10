@@ -22,6 +22,9 @@ import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
 import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.BGMessage;
+import util.pubsub.messages.NonBGMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,6 +59,16 @@ public class EntityManager {
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = "Background/grass.png";
+        PubSub.getInstance().subscribe("ADD_BG", message -> {
+            BGMessage bgMessage = (BGMessage) message;
+            addBG(bgMessage.getPos());
+        });
+
+        PubSub.getInstance().subscribe("ADD_NON_BG", message -> {
+            NonBGMessage nonBGMessage = (NonBGMessage) message;
+            addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
+        });
+
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
             defaultObjectFactory = new ObjectFactory("PlayerEntity");
