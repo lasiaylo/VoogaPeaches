@@ -89,7 +89,7 @@ public class CameraPanel implements Panel {
 		myText = new TextField(TEXT);
 		myText.getStyleClass().add("textField");
 		myClear = new Button(CLEAR);
-		myDelete = new Button("delete");
+		myDelete = new Button("Delete Layer");
 
 		setupButton();
 

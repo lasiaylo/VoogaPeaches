@@ -18,6 +18,10 @@ class EntityScriptFactory {
         parseListeners(entity, properties);
     }
 
+    public static void executeScripts(Entity entity, String path, Map<String, Object> bindings) {
+//        Closure closure = parse(entity, )
+    }
+
     private static void parseScripts(Entity entity, Map<String, Object> properties) {
         Map scripts = (Map) properties.getOrDefault("scripts", new HashMap<String, ArrayList<Map>>());
 
