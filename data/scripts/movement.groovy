@@ -9,31 +9,31 @@ import javafx.scene.input.KeyCode
     event = (KeyPressEvent) event
     switch(event.keyCode){
         case KeyCode.UP:
-            if(entity.getProperty("vy") == 20) {
+            if(entity.getProperty("vy") == 0.1) {
                 entity.setProperty("vy", 0)
             } else {
-                entity.setProperty("vy", -20)
+                entity.setProperty("vy", -0.1)
             }
             break
         case KeyCode.DOWN:
-            if(entity.getProperty("vy") == -20){
+            if(entity.getProperty("vy") == -0.1){
                 entity.setProperty("vy",0)
             } else {
-                entity.setProperty("vy", 20)
+                entity.setProperty("vy", 0.1)
             }
             break
         case KeyCode.LEFT:
-            if(entity.getProperty("vx") == 20) {
+            if(entity.getProperty("vx") == 0.1) {
                 entity.setProperty("vx", 0)
             } else {
-                entity.setProperty("vx", -20)
+                entity.setProperty("vx", -0.1)
             }
             break
         case KeyCode.RIGHT:
-            if(entity.getProperty("vx") == -20) {
+            if(entity.getProperty("vx") == -0.1) {
                 entity.setProperty("vx", 0)
             } else {
-                entity.setProperty("vx", 20)
+                entity.setProperty("vx", 0.1)
             }
             break
     }

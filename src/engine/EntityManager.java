@@ -68,7 +68,7 @@ public class EntityManager {
         currentLevelName = "level 1";
         for(String key : levels.keySet()) {
             Entity entity = levels.get(key);
-            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e.getCode()).fire(entity));
+            entity.getNodes().setOnKeyPressed(e -> new KeyPressEvent(e).fire(entity));
         }
     }
 
