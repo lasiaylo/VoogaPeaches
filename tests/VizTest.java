@@ -17,7 +17,6 @@ public class VizTest extends Application {
         Entity grandChild2 = new Entity(child1);
         Entity grandChild3 = new Entity(child2);
         Entity grandChild4 = new Entity(child2);
-
         GameVisualizer gameVisualizer = new GameVisualizer(root);
         Scene s = new Scene(gameVisualizer.getGroup());
         primaryStage.setScene(s);
