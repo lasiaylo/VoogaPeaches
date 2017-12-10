@@ -2,17 +2,14 @@ package authoring.panels.tabbable;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import authoring.Panel;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
 import authoring.panels.attributes.*;
-import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import javafx.scene.Node;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.apache.commons.io.FilenameUtils;
@@ -89,7 +86,7 @@ public class PropertiesPanel implements Panel {
         myVBox.getChildren().addAll(
                 TPane.addPane(PARAMETERS, makeParameters(myParameters)),
                 TPane.addPane(SCRIPTS, makeScripts(myScripts)),
-                TPane.addPane(EVENTS,makeEvents()),
+                TPane.addPane(EVENTS,makeEvents(myEvents)),
                 addButton()
         );
         myParameters.put("scripts", myScripts);
@@ -106,18 +103,13 @@ public class PropertiesPanel implements Panel {
         return scripts.getNode();
     }
 
-    private Node makeEvents() throws GroovyInstantiationException {
-        VBox eventBox = new VBox();
-        for (String name : myEvents.keySet()) {
-            eventBox.getChildren().add(
-                    TPane.addChildPane(name, makeScripts(myEvents.get(name))));
-        }
-        eventBox.getChildren().add(new EventButton(myEvents,this).getNode());
-        return eventBox;
+    private Node makeEvents(Map<String,Map<String,Map<String,Object>>> map) throws GroovyInstantiationException {
+        EventProperties events = new EventProperties(map, this);
+        return events.getNode();
     }
 
     /**
-     * Displays a button that allows users to add more scripts to an entity
+     * Displays a button that allows users to save their entity as a blueprint
      */
     private Node addButton() {
         return new CustomButton(new EntitySave(myEntity), "Save Entity").getButton();
