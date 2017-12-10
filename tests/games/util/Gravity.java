@@ -22,7 +22,7 @@ public class Gravity extends Application {
         JSONToObjectConverter<Entity> m = new JSONToObjectConverter<>(Entity.class);
         Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("tests/gravity.json"));
         TickEvent e = new TickEvent(10);
-
+        
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10),  (dt) -> {
             e.fire(readIn);
         }));
