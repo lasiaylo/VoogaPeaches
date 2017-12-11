@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -29,7 +30,9 @@ public class ImageUpdate extends Application {
         timeline.play();
 
         Scene s = new Scene(readIn.getNodes());
-        s.setOnKeyPressed((ev) -> new KeyPressEvent(ev).fire(readIn));
+        s.addEventHandler(MouseEvent.MOUSE_CLICKED, System.out::println);
+        s.addEventHandler(MouseEvent.MOUSE_DRAGGED, System.out::println);
+        s.addEventHandler(MouseEvent.MOUSE_PRESSED, System.out::println);
         primaryStage.setMinHeight(400);
         primaryStage.setMinWidth(400);
         primaryStage.setScene(s);
