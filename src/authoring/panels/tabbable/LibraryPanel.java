@@ -37,8 +37,26 @@ import java.util.Map;
  * @author Kelly Zhang
  */
 public class LibraryPanel implements Panel {
+
     private static final String BG = "Background";
     private static final String PLAYER = "User-Defined";
+    private static final String PLAYER_ENTITY = "PlayerEntity";
+    private static final String CHOICE_BOX = "choice-box";
+    private static final String UPDATE = "update";
+    public static final String PANEL = "panel";
+    private static final int SPACING = 10;
+    private static final int HGAP = 10;
+    private static final int PREF_COLUMNS = 2;
+    private static final int PREF_TILE_WIDTH = 50;
+    private static final int PREF_TILE_HEIGHT = 50;
+    private static final String USER_DEFINED = "user_defined/";
+    private static final String SCRIPTS = "scripts";
+    private static final String IMAGESCRIPT = "imageScript";
+    private static final String IMAGE_PATH = "image_path";
+    private static final int VIEW_FIT_WIDTH = 50;
+    private static final int VIEW_FIT_HEIGHT = 50;
+    private static final String SLASH = "/";
+    private static final String LIBRARY = "Library";
 
     private TilePane myTilePane;
     private ChoiceBox<String> myEntType;
@@ -56,8 +74,8 @@ public class LibraryPanel implements Panel {
         myEntType = new ChoiceBox<>();
         manager = new FileDataManager(FileDataFolders.IMAGES);
         try {
-            defaultFactory = new ObjectFactory("PlayerEntity");
-            factory = new ObjectFactory("PlayerEntity");
+            defaultFactory = new ObjectFactory(PLAYER_ENTITY);
+            factory = new ObjectFactory(PLAYER_ENTITY);
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
@@ -65,19 +83,18 @@ public class LibraryPanel implements Panel {
         myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.getItems().add(PLAYER);
         myEntType.setOnAction(e -> changeType());
-        myTilePane.setPrefColumns(2);
-        myTilePane.setPrefTileWidth(50);
-        myTilePane.setPrefTileHeight(50);
-        myTilePane.setHgap(10);
-        update = new Button("update");
+        myTilePane.setPrefColumns(PREF_COLUMNS);
+        myTilePane.setPrefTileWidth(PREF_TILE_WIDTH);
+        myTilePane.setPrefTileHeight(PREF_TILE_HEIGHT);
+        myTilePane.setHgap(HGAP);
+        update = new Button(UPDATE);
         update.setOnMouseClicked(e -> changeType());
         myArea = new VBox(myEntType, myTilePane);
         HBox top = new HBox(myEntType, update);
-        top.setSpacing(10);
+        top.setSpacing(SPACING);
         myArea = new VBox(top, myTilePane);
-        myArea.setSpacing(10);
-
-        getRegion().getStyleClass().add("panel");
+        myArea.setSpacing(SPACING);
+        getRegion().getStyleClass().add(PANEL);
     }
 
     private void changeType() {
@@ -86,16 +103,17 @@ public class LibraryPanel implements Panel {
         if (type.equals(PLAYER)) {
             for (String each : ObjectFactory.getEntityTypes()) {
                 try {
-                    factory.setObjectBlueprint("user_defined/" + each);
+                    factory.setObjectBlueprint(USER_DEFINED + each);
                 } catch (ObjectBlueprintNotFoundException e) {
                     e.printStackTrace();
                 }
                 Entity entity = factory.newObject();
-                String path = (String) ((Map) ((Map) entity.getProperty("scripts")).getOrDefault("imageScript", null)).getOrDefault("image_path", null);
+                String path = (String) ((Map)((Map) entity.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);
+
                 Image image = new Image(manager.readFileData(path));
                 ImageView view = new ImageView(image);
-                view.setFitWidth(50);
-                view.setFitHeight(50);
+                view.setFitWidth(VIEW_FIT_WIDTH);
+                view.setFitHeight(VIEW_FIT_HEIGHT);
                 myTilePane.getChildren().add(view);
                 view.setOnDragDetected(e -> startDragEnt(e, view, path, factory));
             }
@@ -121,9 +139,11 @@ public class LibraryPanel implements Panel {
                         }
                         else {
                             myManager.setMyBGType("");
+                            //TODO: THIS MIGHT BREAK SOMETHING BUT TBH I DONT THINK IT DOES because there are no entities linked to this
                         }
                     });
-                } else {
+                }
+                else {
                     view.setFitWidth(50);
                     view.setFitHeight(50);
                     myTilePane.getChildren().add(view);
@@ -144,7 +164,6 @@ public class LibraryPanel implements Panel {
         event.consume();
     }
 
-
     @Override
     public Region getRegion() {
         return myArea;
@@ -158,7 +177,6 @@ public class LibraryPanel implements Panel {
 
     @Override
     public String title(){
-        return "Library";
+        return LIBRARY;
     }
-
 }

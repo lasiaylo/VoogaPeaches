@@ -6,6 +6,7 @@ public class Update implements IButtonStrategy {
 
     private Updatable myUpdate;
 
+
     public Update(Updatable update){
         myUpdate = update;
     }

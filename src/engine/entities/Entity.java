@@ -1,23 +1,16 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.fileloaders.ScriptLoader;
 import database.firebase.DatabaseConnector;
-import database.firebase.TrackableObject;
 import engine.collisions.HitBox;
 import engine.events.*;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import util.ErrorDisplay;
-import util.exceptions.ObjectIdNotFoundException;
-import util.math.num.Vector;
-import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -27,10 +20,12 @@ import java.util.*;
  * @author Albert
  */
 public class Entity extends Evented {
+
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
 
+    private String dbPath;
     private Group group;
     private Entity parent;
     private Entity root;
@@ -66,7 +61,7 @@ public class Entity extends Evented {
     }
 
     public Map<String, Object> getProperties(){
-    	return properties;
+        return properties;
     }
 
     public void add(Node node) {
@@ -138,18 +133,18 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        System.out.println(UID);
+        this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
-        entity.UID = this.UID;
-        DatabaseConnector<Entity> db = new DatabaseConnector<>(Entity.class);
-//        try {
-//            db.removeFromDatabase(this);
-//            db.addToDatabase(entity);
-//        } catch (ObjectIdNotFoundException e) {
-//            e.printStackTrace();
-//            new ErrorDisplay("Oh no!", "We can't recreate this entity!").displayError();
-//        }
+        entity.properties = properties;
+        entity.replaceUID(this.UIDforObject());
 
+        try {
+            DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
         try {
@@ -158,15 +153,30 @@ public class Entity extends Evented {
             // do nothing
         }
 
-        if(!children.isEmpty()) {
+        if(!children.isEmpty())
             for(Entity child : children)
                 entity.add(child.substitute());
-        }
 
         entity.initialize();
         return entity;
     }
 
+    public String getDbPath() {
+        // Case: Set already
+        if(dbPath != null) return dbPath;
+        // Case: Parent is root and it's set already
+        if(parent == null) return "games/" + this.UIDforObject() + "/";
+        // Case: Other
+        String basePath = parent.getDbPath() + "children/";
+        int childIndex= 0;
+        for(Entity child : parent.getChildren()) {
+            // Break once you get the right index
+            if(this == child) break;
+            childIndex++;
+        }
+        dbPath = basePath + childIndex + "/" ;
+        return dbPath;
+    }
 
     @Override
     public void initialize() {
@@ -179,11 +189,5 @@ public class Entity extends Evented {
                     entity.root = root;
 
         executeScripts();
-        DatabaseConnector<Entity> connector = new DatabaseConnector<>(Entity.class);
-        try {
-            connector.addToDatabase(this);
-        } catch(Exception e) {
-
-        }
     }
 }
