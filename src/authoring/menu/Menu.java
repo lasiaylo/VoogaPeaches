@@ -1,5 +1,6 @@
 package authoring.menu;
 
+import authoring.GameWindow.GameWindow;
 import authoring.Screen;
 import authoring.buttons.strategies.MenuButton;
 import database.GameLoader;
@@ -23,13 +24,11 @@ import java.io.File;
 import java.util.*;
 
 /**
- *
  * This is the specific window for the Menu with the different buttons for each simulation, subclass of Window
  * All user interactions are determined and executed in here
  *
  * @author Kelly Zhang
  * @author Simran
- *
  */
 public class Menu {
 
@@ -72,7 +71,7 @@ public class Menu {
         updateTheme();
     }
 
-    private void setupStage(Stage stage){
+    private void setupStage(Stage stage) {
         myRoot = new Pane();
         Scene s = new Scene(myRoot, WIDTH, HEIGHT);
         stage.setScene(s);
@@ -97,7 +96,7 @@ public class Menu {
     private void updateTheme() {
         String initialTheme = VoogaPeaches.getUser().getThemeName();
         myRoot.getStylesheets().add(initialTheme);
-        PubSub.getInstance().publish(THEME_MESSAGE,new StringMessage(initialTheme));
+        PubSub.getInstance().publish(THEME_MESSAGE, new StringMessage(initialTheme));
         PubSub.getInstance().subscribe(
                 THEME_MESSAGE,
                 (message) -> {
@@ -114,7 +113,7 @@ public class Menu {
      * Handles switching to the Authoring screen with the pencil image is clicked
      */
     private void authoringPressed() {
-        if (!authoringStage.isShowing() && list.getSelectionModel().getSelectedItem() != null) {
+        if (pressable()) {
             String UID = list.getSelectedUID();
             authoringStage.setTitle(AUTHORING_TITLE);
             authoringStage.setMaximized(true);
@@ -124,14 +123,29 @@ public class Menu {
             authoringStage.setOnCloseRequest(event -> {
                 authoring.save();
                 DatabaseConnector<User> connector = new DatabaseConnector<>(User.class);
-                try { connector.addToDatabase(VoogaPeaches.getUser()); } catch (ObjectIdNotFoundException e) {}
+                try {
+                    connector.addToDatabase(VoogaPeaches.getUser());
+                } catch (ObjectIdNotFoundException e) {
+                }
             });
         }
     }
 
-    private void playPressed(){ }
+    private void playPressed() {
+        if (pressable()) {
+            String UID = list.getSelectedUID();
+            GameLoader loader = new GameLoader(UID, e -> {
+                authoring.load(e);
+            });
+            GameWindow game = new GameWindow(loader.loadGame());
+        }
+    }
 
-    private void newGamePressed(){
+    private boolean pressable() {
+        return (!authoringStage.isShowing() && list.getSelectionModel().getSelectedItem() != null);
+    }
+
+    private void newGamePressed() {
         authoringStage.setTitle(AUTHORING_TITLE);
         authoringStage.setMaximized(true);
         authoringStage.setResizable(false);
@@ -139,7 +153,10 @@ public class Menu {
         authoringStage.setOnCloseRequest(event -> {
             authoring.save();
             DatabaseConnector<User> connector = new DatabaseConnector<>(User.class);
-            try { connector.addToDatabase(VoogaPeaches.getUser()); } catch (ObjectIdNotFoundException e) {}
+            try {
+                connector.addToDatabase(VoogaPeaches.getUser());
+            } catch (ObjectIdNotFoundException e) {
+            }
         });
     }
 
@@ -147,13 +164,13 @@ public class Menu {
      * Creates the two buttons and connects them to opening the Authoring and Game Playing Environments
      */
     private void addButtons() {
-        Button authoringButton = new MenuButton( ( ) -> authoringPressed(), AUTHORING_IMAGE).getButton();
+        Button authoringButton = new MenuButton(() -> authoringPressed(), AUTHORING_IMAGE).getButton();
         Button playButton = new MenuButton(() -> playPressed(), PLAYER_IMAGE).getButton();
-        Button newGame = new MenuButton(() -> newGamePressed(), NEW_GAME_IMAGE ).getButton();
+        Button newGame = new MenuButton(() -> newGamePressed(), NEW_GAME_IMAGE).getButton();
         GridPane grid = new GridPane();
-        grid.add(newGame, 0,0);
-        grid.add(authoringButton,1,0);
-        grid.add(playButton,2,0);
+        grid.add(newGame, 0, 0);
+        grid.add(authoringButton, 1, 0);
+        grid.add(playButton, 2, 0);
         grid.setHgap(HGAP);
         grid.setLayoutX(WIDTH * GRID_WIDTH_RATIO);
         grid.setLayoutY(HEIGHT * GRID_HEIGHT_RATIO);
