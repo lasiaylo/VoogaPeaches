@@ -26,6 +26,8 @@ public class SavedArrow extends TrackableObject {
         lenY = myLength.y + 1e-6;
     }
 
+    private SavedArrow() {}
+
     public String getMyDestination() {
         return myDestination;
     }

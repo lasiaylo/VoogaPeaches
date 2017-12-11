@@ -48,8 +48,8 @@ public class StateRender extends TrackableObject implements Updatable {
         myRender.setFill(ERROR);
         myRender.setX(X);
         myRender.setY(Y);
-        myRender.heightProperty().bind(myLabel.heightProperty().add(PADDING));
-        myRender.widthProperty().bind(myLabel.widthProperty().add(PADDING));
+        myRender.setWidth(PADDING);
+        myRender.setHeight(PADDING);
         myRender.setOnMouseClicked(e -> onClick());
     }
 
