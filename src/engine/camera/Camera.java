@@ -98,17 +98,12 @@ public class Camera {
         point.setOnMouseDragged(circleOnMouseDraggedEventHandler);
     }
 
-    private double translateX;
-    private double translateY;
     EventHandler<MouseEvent> circleOnMouseClickedEventHandler =
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
                     point.centerXProperty().unbind();
                     point.centerYProperty().unbind();
-
-                    translateX = ((Circle) (t.getSource())).getTranslateX();
-                    translateY = ((Circle) (t.getSource())).getTranslateY();
 
                     point.setCenterX(t.getX());
                     point.setCenterY(t.getY());
@@ -122,12 +117,17 @@ public class Camera {
                 }
             };
 
+    private double translateX;
+    private double translateY;
     private double orgX;
     private double orgY;
     EventHandler<MouseEvent> circleOnMousePressedEventHandler =
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
+                    point.centerXProperty().unbind();
+                    point.centerYProperty().unbind();
+
                     orgX = t.getSceneX();
                     orgY = t.getScreenY();
                     translateX = ((Circle) (t.getSource())).getTranslateX();
@@ -139,9 +139,6 @@ public class Camera {
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
-                    point.centerXProperty().unbind();
-                    point.centerYProperty().unbind();
-
                     double offsetX = t.getSceneX() - orgX;
                     double offsetY = t.getSceneY() - orgY;
 
