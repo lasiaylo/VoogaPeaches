@@ -150,8 +150,6 @@ public class Entity extends Evented {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
         try {

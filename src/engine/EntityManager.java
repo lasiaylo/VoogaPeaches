@@ -109,8 +109,8 @@ public class EntityManager {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
 
-            new ImageViewEvent(BGType).fire(BGblock);
             new InitialImageEvent(new Vector(grid, grid), pos).fire(BGblock);
+            new ImageViewEvent(BGType).fire(BGblock);
         }
     }
 
