@@ -1,5 +1,6 @@
 package authoring.panels.reserved;
 
+import antlr.Tool;
 import authoring.Panel;
 import authoring.PanelController;
 import engine.EntityManager;
@@ -65,9 +66,10 @@ public class CameraPanel implements Panel {
 
 		myView = new ScrollPane();
 		myView.setPrefWidth(width);
-		myView.setPrefHeight(height);
+		myView.setPrefHeight(height-25);
 
 		myArea = new VBox(myView, buttonRow());
+		myArea.fillWidthProperty().setValue(false);
 		myArea.setSpacing(5);
 		myArea.setPrefWidth(cameraWidth + SPACING);
 		myArea.setPadding(new Insets(5));
@@ -80,7 +82,8 @@ public class CameraPanel implements Panel {
 	 * sets up the button row that belongs in the camerapanel
 	 * @return HBox with all the buttons for the camera
 	 */
-	private HBox buttonRow() {
+	private ToolBar buttonRow() {
+		ToolBar bar = new ToolBar();
 		myPlay = new Button(PLAY);
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
@@ -88,15 +91,18 @@ public class CameraPanel implements Panel {
 		myText.setPromptText(TEXT);
 		myClear = new Button(CLEAR);
 		myDelete = new Button(DELETE_LAYER);
+		bar.getItems().addAll(myPlay,myPause,myLayer,myText,myClear,myDelete);
+//		myArea.getChildren().add(bar);
 
 		setupButton();
 
-		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
-		buttonRow.setAlignment(Pos.CENTER);
-		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/CAMERA_WIDTH_RATIO);
+//		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
+//		buttonRow.setAlignment(Pos.CENTER);
+//		buttonRow.setPrefWidth(cameraWidth);
+//		buttonRow.setSpacing(cameraWidth/CAMERA_WIDTH_RATIO);
 
-		return buttonRow;
+		return bar;
+//		return buttonRow;
 	}
 
 	/**
@@ -173,6 +179,10 @@ public class CameraPanel implements Panel {
 	@Override
 	public Region getRegion() {
 		return myArea;
+	}
+
+	public ScrollPane getCAMERA() {
+		return myView;
 	}
 
 	@Override
