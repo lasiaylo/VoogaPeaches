@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import util.ErrorDisplay;
 import util.math.num.Vector;
 
@@ -35,6 +36,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final String MAP_WIDTH_STRING = "Map Width";
     private static final String MAP_HEIGHT_STRING = "Map Height";
     private static final String ADD_LEVEL = "Add Level";
+    private static final String LEVEL1 = "Level 1";
     private static final String LEVEL = "Level";
     private static final String DELETE_LEVEL = "Delete Level";
     private static final String CANNOT_DELETE_LEVEL_PROMPT = "Cannot delete current level";
@@ -62,10 +64,29 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private MenuItem change;
     private MenuItem delete;
     private MenuItem select;
+    private Text myLevel;
+    private VBox box;
 
     public MiniMapPanel() {
         myPane = new Pane();
         levelList = FXCollections.observableList(new ArrayList<>());
+        levelList.add(new Map.Entry() {
+            @Override
+            public Object getKey() {
+                return LEVEL1;
+            }
+
+            @Override
+            public Object getValue() {
+                return new Vector(VALUE1, VALUE2);
+            }
+
+            @Override
+            public Object setValue(Object value) {
+                return null;
+            }
+        });
+        myLevel = new Text("my level: ");
 
         myPane.getStyleClass().add(PANEL);
         setupTextFields();
@@ -134,7 +155,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
      */
     private void select() {
         manager.changeLevel((String) levelTable.getSelectionModel().getSelectedItem().getKey());
-        System.out.println((String) levelTable.getSelectionModel().getSelectedItem().getKey());
+        box.getChildren().set(0, new Text("my level: " + (String) levelTable.getSelectionModel().getSelectedItem().getKey()));
     }
 
 //    private void selectLevel(MouseEvent event) {
@@ -154,6 +175,10 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         levelName.commitValue();
         mapWidth.commitValue();
         mapHeight.commitValue();
+        if  (levelTable.getItems().size() == 1) {
+//            manager.changeLevel((String) levelTable.getItems().get(0).getKey());
+//            myLevel = new Text((String) levelTable.getItems().get(0).getKey());
+        }
         try {
             int width = Integer.parseInt(mapWidth.getText());
             int height = Integer.parseInt(mapHeight.getText());
@@ -167,7 +192,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     @Override
     public Region getRegion() {
         StackPane.setAlignment(myPane, Pos.CENTER);
-        VBox box = new VBox(myPane, levelBar, addLevel, levelTable);
+        box = new VBox(myLevel, myPane, levelBar, addLevel, levelTable);
         box.setSpacing(BOX_SPACING);
         box.setPadding(new Insets(PADDING));
         box.setAlignment(Pos.CENTER);
