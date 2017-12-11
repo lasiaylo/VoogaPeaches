@@ -141,9 +141,10 @@ public class Entity extends Evented {
     public Entity substitute() {
         clear();
         this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
         entity.properties = properties;
-        replaceInUIDMap(UIDforObject(), entity);
+        entity.replaceUID(this.UIDforObject());
         try {
             DatabaseConnector.removeFromDatabasePath(this.getDbPath());
             DatabaseConnector.addToDatabasePath(entity, this.getDbPath());

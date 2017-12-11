@@ -1,9 +1,11 @@
 package database.jsonhelpers;
 
+import database.User;
 import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.sound.midi.Track;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -88,7 +90,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 trackableClass = trackableClass.getSuperclass();
             Field UIDField = trackableClass.getDeclaredField("UID");
             UIDField.setAccessible(true);
-            if(params.containsKey("UID")){
+            if(params.containsKey("UID")) {
                 UIDField.set(newObject, params.get("UID"));
             } else {
                 UIDField.set(newObject, newObject.UIDforObject());

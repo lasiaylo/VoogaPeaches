@@ -106,10 +106,11 @@ public class CameraPanel implements Panel {
 	 * sets the camera in the panel
 	 * @param view (the actual camera)
 	 */
-	private void setView(ScrollPane view) {
+	public void setView(ScrollPane view) {
 		myView = view;
 		myArea.getChildren().set(0, myView);
 		myView.setMouseTransparent(false);
+		myArea.layout();
 	}
 
 	/**

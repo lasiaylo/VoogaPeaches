@@ -57,6 +57,7 @@ public class GameSaver {
         saveRoot(toSave);
         String[] images = saveImageJSON(toSave);
         uploadImages(images);
+
     }
 
     /**
@@ -85,6 +86,7 @@ public class GameSaver {
         JSONObject jsonForm = JSONHelper.JSONForObject(toSave);
         String filepath = gameName + "/root.json";
         manager.writeJSONFile(filepath, jsonForm);
+        System.out.println(toSave.UIDforObject());
         FirebaseDatabase.getInstance().getReference("gameNames").child(gameName).setValueAsync(toSave.UIDforObject());
         JSONObject save = new JSONObject(JSONHelper.JSONForObject(toSave).toString().replace("/", "|"));
         FirebaseDatabase.getInstance().getReference("games").child(toSave.UIDforObject()).setValueAsync(JSONHelper.mapFromJSON(save));
