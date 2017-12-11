@@ -1,27 +1,30 @@
 package engine.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
-import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class State {
-    private String name;
-    private LinkedHashMap<String, Closure> transitions;
-    private LinkedHashMap<String, String> code;
-    private LinkedHashMap<String, Object> properties;
+public class State extends TrackableObject {
+    @Expose private String name;
+//    private LinkedHashMap<String, Closure> transitions;
+    @Expose private LinkedHashMap<String, String> code;
+    @Expose private LinkedHashMap<String, Object> properties;
     private GroovyShell shell;
 
-    State(String name, LinkedHashMap<String, LinkedHashMap<String, Object>> data) {
+    private State() { }
+
+    public State(String name, LinkedHashMap<String, LinkedHashMap<String, Object>> data) {
         this.name = name;
 
         if (!data.containsKey("transitions"))
             return;
 
-        transitions = new LinkedHashMap<>();
+//        transitions = new LinkedHashMap<>();
         code = new LinkedHashMap<>();
         shell = new GroovyShell();
 
@@ -30,8 +33,6 @@ public class State {
 
         this.properties = data.get("properties");
     }
-
-    public State() {}
 
     public Object getProperty(String name) {
         return this.properties.get(name);
@@ -42,7 +43,7 @@ public class State {
     }
 
     public void updateCode(String name, String code) {
-        transitions.put(name, (Closure) shell.evaluate(code));
+//        transitions.put(name, (Closure) shell.evaluate(code));
         this.code.put(name, code);
     }
 
@@ -52,8 +53,13 @@ public class State {
 
     String transition(Entity entity) {
         String name = null;
-        for (Map.Entry<String, Closure> entry : transitions.entrySet())
-            name = (Boolean) entry.getValue().call(entity) ? entry.getKey() : name;
+//        for (Map.Entry<String, Closure> entry : transitions.entrySet())
+//            name = (Boolean) entry.getValue().call(entity) ? entry.getKey() : name;
         return name;
+    }
+
+    @Override
+    public void initialize() {
+        System.out.println("Init");
     }
 }

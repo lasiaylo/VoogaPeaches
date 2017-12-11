@@ -14,6 +14,9 @@ public class Arrow {
     private static final double HEAD_OFFSET = 45;
     public static final double HEAD_FACTOR = 0.8;
 
+    private StateRender original;
+    private StateRender destination;
+    private String myCode;
     private Group myGroup = new Group();
     private Vector myOrigin;
     private Vector myHead;
@@ -23,8 +26,6 @@ public class Arrow {
     private Line myPositiveHead = new Line();
     private GraphDelegate myGraph;
     private boolean deleting;
-    private StateRender original;
-    private StateRender destination;
 
     public Arrow(Vector origin, Vector head, GraphDelegate graph) {
         myGraph = graph;
@@ -38,7 +39,7 @@ public class Arrow {
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
     }
 
-    private void onClick() {
+    public void onClick() {
         if (deleting) { return; }
         deleting = true;
         Scene scene = new Scene(new Group());
@@ -58,7 +59,7 @@ public class Arrow {
         TextField name = new TextField();
         name.setPromptText("Enter your closure lol");
         delete.setOnMouseClicked(e -> onDelete(delete));
-        save.setOnMouseClicked(e -> onSave(save));
+        save.setOnMouseClicked(e -> onSave(save, name.getText()));
         flow.getChildren().addAll(delete, save, name);
         return flow;
     }
@@ -68,7 +69,8 @@ public class Arrow {
         myGraph.removeMyself(this);
     }
 
-    private void onSave(Button save) {
+    private void onSave(Button save, String name) {
+        myCode = name;
         ((Stage) save.getScene().getWindow()).close();
     }
 
@@ -122,5 +124,9 @@ public class Arrow {
 
     public void setDestination(StateRender destination) {
         this.destination = destination;
+    }
+
+    public String getMyCode() {
+        return myCode;
     }
 }

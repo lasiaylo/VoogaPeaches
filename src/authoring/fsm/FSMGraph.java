@@ -1,5 +1,8 @@
 package authoring.fsm;
 
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
 import engine.fsm.State;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -20,12 +23,14 @@ import java.util.List;
  * @author Albert
  * @author Simran
  */
-public class FSMGraph implements GraphDelegate {
+public class FSMGraph implements GraphDelegate  {
+
     private List<StateRender> myStateRenders;
     private List<Arrow> myArrows;
     private Group myGroup = new Group();
     private Arrow currentArrow;
     private boolean addingState;
+    private List<State> myStates;
 
     /**
      * Creates a new FSMGraph from scratch
@@ -44,10 +49,6 @@ public class FSMGraph implements GraphDelegate {
         myArrows = Arrows;
         myGroup.setOnMouseDragged(e -> dragHandle(e));
         myGroup.setOnMouseReleased(e -> dragExit(e));
-        for(Arrow tRender: myArrows) {
-            tRender.getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
-            tRender.getRender().setOnMouseReleased(e -> transitionDragExit(e));
-        }
     }
 
     public void onSceneClick(MouseEvent e) {
@@ -82,7 +83,9 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private void onCreate(MouseEvent e, Button newState, String name){
-        addState(new StateRender(e.getX(), e.getY(), name , new State(), this));
+        StateRender sRender = new StateRender(e.getX(), e.getY(), name, this);
+        sRender.onClick();
+        addState(sRender);
         onClose(newState);
     }
 
@@ -168,36 +171,38 @@ public class FSMGraph implements GraphDelegate {
         return null;
     }
 
-    private void transitionDragHandle(MouseEvent event, Arrow transition) {
-        currentArrow = transition;
-        currentArrow.setHead(new Vector(event.getX(), event.getY()));
-    }
-
-    private void transitionDragExit(MouseEvent event) {
-        StateRender dest = findContainedStateRender(event);
-        currentArrow = null;
-    }
-
     private void createArrow(Vector vectorMousePosition) {
         Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition, this);
         currentArrow = newArrow;
         myArrows.add(currentArrow);
         myGroup.getChildren().add(currentArrow.getRender());
-        currentArrow.getRender().setOnMouseDragged(e -> transitionDragHandle(e, currentArrow));
-        currentArrow.getRender().setOnMouseReleased(e -> transitionDragExit(e));
     }
 
     private void dragExit(MouseEvent event) {
         StateRender contained = findContainedStateRender(event);
-        if (currentArrow != null && currentArrow.getOriginal() == contained) {
-            removeMyself(currentArrow);
-        }
-        currentArrow = null;
+        if (currentArrow != null) {
+            currentArrow.onClick();
+            if (currentArrow.getOriginal() == contained) {
+                removeMyself(currentArrow);
+            }
+        } else { currentArrow = null; }
     }
 
-    public void export() {
-        for (StateRender state: myStateRenders) {
-
+    public List<State> export() {
+        myStates = new ArrayList<>();
+        for(StateRender sRender: myStateRenders) {
+            myStates.add(sRender.createNewState());
         }
+        System.out.println(myStates);
+        try {
+            JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
+            manager.writeJSONFile("testFSM", JSONHelper.JSONForObject(myStates.get(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error saving FSM");
+        }
+        System.out.println("Export");
+        return null;
     }
+
 }

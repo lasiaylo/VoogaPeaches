@@ -12,6 +12,7 @@ public class FSMGraphTest extends Application {
         s.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> graph.onSceneClick(e));
         primaryStage.setScene(s);
         primaryStage.show();
+        primaryStage.setOnHidden(e -> graph.export());
     }
 
     public static void main(String[] args) {
