@@ -59,7 +59,6 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {

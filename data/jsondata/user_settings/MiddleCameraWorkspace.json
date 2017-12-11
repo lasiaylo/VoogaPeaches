@@ -1,23 +1,21 @@
 {
-  "FSM Panel": "right",
   "Social Media": "right",
   "Mini Map": "right",
-  "rightdivision": "0.7973958333333333",
+  "rightdivision": "0.7354166666666667",
   "Game Graphvis": "false",
   "Mini Mapvis": "true",
   "Properties": "right",
   "HitBoxes": "right",
   "Propertiesvis": "false",
   "Youtubevis": "true",
-  "FSM Panelvis": "false",
   "Consolevis": "true",
   "Console": "bottom",
   "Youtube": "right",
   "Game Graph": "right",
   "HitBoxesvis": "false",
-  "leftdivision": "0.14114583333333333",
+  "leftdivision": "0.11614583333333334",
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "true",
-  "bodydivision": "0.6484230055658627"
+  "bodydivision": "0.5980769230769231"
 }
