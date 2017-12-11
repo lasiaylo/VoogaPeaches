@@ -89,11 +89,12 @@ public class EntityManager {
                     levels.put((String) e.getProperty("levelname"), e);
                     levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
                 } catch(Exception l ){
-                    l.printStackTrace();
+                    new ErrorDisplay("Could not put level", "Could not put level").displayError();
                 }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
+            currentLevel = currentLevel.substitute();
         }
         writeRootToDatabase(root);
     }
@@ -240,21 +241,11 @@ public class EntityManager {
     private void addLayer(Entity level) {
         Entity layer = layerFactory.newObject();
         layer.addTo(level);
-//        layer.setProperty("gridsize", grid);
-//        layer = layer.substitute();
+        layer.setProperty("gridsize", grid);
+        layer = layer.substitute();
         AddLayerEvent addLayer = new AddLayerEvent(layer);
         addLayer.fire(level);
     }
-
-//    private ImageView setPlaceHolder() {
-//        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
-//        holder.setX(0);
-//        holder.setY(0);
-//        holder.setFitWidth(grid);
-//        holder.setFitHeight(grid);
-//        holder.setMouseTransparent(true);
-//        return holder;
-//    }
 
     /**
      * add new level
@@ -269,10 +260,10 @@ public class EntityManager {
         }
         Entity level = levelFactory.newObject();
         level.addTo(root);
-//        level.setProperty("gridsize", grid);
-//        level.setProperty("mapwidth", mapWidth);
-//        level.setProperty("mapheight", mapHeight);
-//        level = level.substitute();
+        level.setProperty("gridsize", grid);
+        level.setProperty("mapwidth", mapWidth);
+        level.setProperty("mapheight", mapHeight);
+        level = level.substitute();
         new MouseDragEvent(isGaming).fire(level);
         new MapSetupEvent().fire(level);
         levels.put(name, level);

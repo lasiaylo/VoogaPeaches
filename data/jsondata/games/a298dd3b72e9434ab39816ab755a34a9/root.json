@@ -1,0 +1,50 @@
+{
+  "UID": "a298dd3b72e9434ab39816ab755a34a9",
+  "children": [{
+    "UID": "77c17960f1524b378e6170e32c55beaf",
+    "children": [
+      {
+        "UID": "f7922424a70f45899e29ec5a405a597d",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {"gridsize": 50}
+      },
+      {
+        "UID": "a552ebbbdc4c47b0966a825b70996898",
+        "children": [
+          {
+            "UID": "f5495232076d4e8ab538f7c2c2889397",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {}
+          },
+          {
+            "UID": "1fac2bed4cb640b4936f0633d1f05384",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 438.4,
+              "y": 222.60000000000002,
+              "scripts": {"imageScript": {"image_path": "Duvall/duvall5.gif"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {}
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "mapheight": 5000,
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}
