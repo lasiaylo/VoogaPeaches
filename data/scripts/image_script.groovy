@@ -21,10 +21,17 @@ import java.util.stream.Collectors
     entity = (Entity) entity
     FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES)
     ImageView view = null
+    String originalPath = (String) bindings.get("image_path")
 
     Closure addEventListeners = {
         Double xStart = 0
         Double yStart = 0
+
+        Double wStart = 0
+        Double hStart = 0
+
+        Double dx = 0
+        Double dy = 0
 
         EventHandler drag_listener = { MouseEvent e ->
             Double xPos = e.getX()
@@ -36,32 +43,30 @@ import java.util.stream.Collectors
             if (e.getY() < 0)
                 yPos = view.getFitHeight() / 2
 
-            view.setX((xPos - view.getFitWidth() / 2).doubleValue())
-            view.setY((yPos - view.getFitHeight() / 2).doubleValue())
-            entity.setProperty("x", (xPos - view.getFitWidth() / 2).doubleValue())
-            entity.setProperty("y", (yPos - view.getFitHeight() / 2).doubleValue())
+            view.setX((xPos - dx).doubleValue())
+            view.setY((yPos - dy).doubleValue())
+            entity.setProperty("x", (xPos - dx).doubleValue())
+            entity.setProperty("y", (yPos - dy).doubleValue())
 
         }
 
         EventHandler resize_listener = { MouseEvent e ->
-            Vector start = new Vector(xStart, yStart)
-            def change = (new Vector(e.getX(), e.getY())).subtract(start)
-            def fsize = change.add(start)
-            if (fsize.at(0) < 0)
-                fsize.at(0, 0.1)
+            view.setFitWidth(wStart + e.getX() - xStart)
+            view.setFitHeight(hStart + e.getY() - yStart)
 
-            if (fsize.at(1) < 0)
-                fsize.at(1, 0.1)
-
-            view.setFitWidth(fsize.at(0))
-            view.setFitHeight(fsize.at(1))
-            entity.setProperty("width", fsize.at(0))
-            entity.setProperty("height", fsize.at(1))
+            entity.setProperty("width", wStart + e.getX() - xStart)
+            entity.setProperty("height", hStart + e.getY() - yStart)
         }
 
         EventHandler switch_listener = { MouseEvent e ->
             xStart = e.getX()
             yStart = e.getY()
+
+            wStart = view.getFitWidth()
+            hStart = view.getFitHeight()
+
+            dx = e.getX() - view.getX()
+            dy = e.getY() - view.getY()
 
             if (e.getButton() == MouseButton.PRIMARY)
                 view.setOnMouseDragged(drag_listener)
@@ -110,22 +115,36 @@ import java.util.stream.Collectors
 
         routeEvents()
         addEventListeners()
+
+        entity.on(EventType.INITIAL_IMAGE, { Event e ->
+            InitialImageEvent iEvent = (InitialImageEvent) e
+            view.setFitWidth(iEvent.getMyGridSize().at(0))
+            entity.setProperty("width", iEvent.getMyGridSize().at(0))
+            view.setFitHeight(iEvent.getMyGridSize().at(1))
+            entity.setProperty("height", iEvent.getMyGridSize().at(1))
+            view.setX(iEvent.getMyPos().at(0))
+            view.setY(iEvent.getMyPos().at(1))
+            entity.setProperty("x", iEvent.getMyPos().at(0))
+            entity.setProperty("y", iEvent.getMyPos().at(1))
+            println "initial image"
+//            new ImageViewEvent(originalPath).fire(entity)
+        })
     }()
 
     entity.on(EventType.IMAGE_VIEW, { Event e ->
         ImageViewEvent imageViewEvent = (ImageViewEvent) e
 
+        System.out.println(imageViewEvent.getPath())
+
         view.setImage(new Image(manager.readFileData((String) imageViewEvent.getPath())))
         Map scriptMap = ((Map) entity.getProperty("scripts"))
 
         List imagePathList = scriptMap.keySet().stream().filter({ String name ->
-            name.equals("imageScript")
-        }).filter({ String name ->
-            ((Map) entity.getProperty("image_path")).equals(originalPath)
+            name.equals("image_script")
         }).collect(Collectors.toList())
 
         imagePathList.forEach({ String path ->
-            ((Map) entity.getProperty("scripts")).get("imageScript").put("image_path", imgEvent.getPath())
+            ((Map) entity.getProperty("scripts")).get("image_script").put("image_path", imageViewEvent.getPath())
             originalPath = imageViewEvent.getPath()
         })
     })
