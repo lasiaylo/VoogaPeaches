@@ -1,0 +1,636 @@
+{
+  "UID": "8cbaff76506b45aca291dc788d13ec83",
+  "children": [{
+    "UID": "cb593c5f8e2d4204a72a68b37a034ed7",
+    "children": [
+      {
+        "UID": "9d7dd8b293234b9dbe11c33895539e09",
+        "children": [
+          {
+            "UID": "b0074ddfd7904e8387fe5c468adf312e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 400,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1412bc0b5e0a4901b158e76c6be560fe",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 400,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "74afb42fccc644758914e6fb4bf434a2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 400,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "bce5f066dfa4403798e1860ab8f9c4f0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 400,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6cf9ad53a4e8481ea5bc90d9459e1a8e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 400,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "07741ede5e644b939bbf543324601000",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 450,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "d4bd2d89907d4577ad9a30d85e97badf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 450,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "793c1253905648fba2cc46667a2ec56b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 450,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "95180a868c8144ff8155c8fcb7dac14a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 450,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4e25a21b5cf747479e018ed56dc28416",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 450,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ca8233d5efe648ceb2bc759898f70ff8",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 500,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "16eca9fd8ee14e8b9380167e1f4a9acd",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 500,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3bb243984489415a9570ff5996594e9a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 500,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "03a04bba35ac4dd2bce60192cf400f1b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 500,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "44998a0801404337b91d65433dd3dfb7",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 500,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ab611466f42c47689a2ba5b2a8b0dd99",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 550,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "10180814088d407e96a95b9962939f1f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 550,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9422ebc1f32f40df9cff4537e18c2eee",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 550,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9a383250b0dd4d4592e1e29d5bbc2986",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 550,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a7a921f1ecaf4de9a20307786fe14ed0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 550,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e84efdb68c4d4009a2d1ee85e105450c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 600,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "48d202da1cf74d5aa343f76d3a19e3f8",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 600,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ce62505a974b4be48385eee934262132",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 600,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4d03340a92344098810abb99945dd9f0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 600,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "47eb4376d9364e48acd9a39db9574964",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 600,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "dad4774110674572a4ba59d0c6f97743",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 650,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6cde1934194c4afa8d2e418f43e61cc2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 650,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f2627d39ffef49d68778cd499544cb59",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 650,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ab50700675e6455c91b3d8d8fc8901dc",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 650,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b566c789270b4da396c5c79c82264274",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 650,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "435ef964585b48a58cb2f8e18533ac06",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 700,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "101b099ac646499fad9f8333acadcfd3",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 700,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9ae845b6ee7c43949cb36586c5d23793",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 700,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5d2b213e13b54175aa494a822795764d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 700,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e4b3a8e01b2645bdbea52fb3295aa7b8",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 700,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "425f17294c3c4977a4cd1fa1317c9950",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 750,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7cbb09a24a6a4d6789c0a869afb0f8aa",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 750,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0537ccb7171546db8fdd03d6541a044d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 750,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c09ba46b4f764b7ab1bdfaa843ef57a0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 750,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e7849dcd91db486eb67293f8edf9788e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 750,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "295c7172f9ed4df3b5af7990e0cf021b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 750,
+              "width": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/duvall5.gif"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {},
+          "gridsize": 50,
+          "scripts": {"holderScript": {}}
+        }
+      },
+      {
+        "UID": "7c056a157eb5430b8c1ffbb10fd50db1",
+        "children": [{
+          "UID": "c936be0dd3c24990a3135f86290d525d",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"base/animate/update_position": {}},
+              "tick": {"base/animate/move": {}},
+              "key press": {"movement": {}}
+            },
+            "x": 554,
+            "width": 50,
+            "y": 245,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {},
+          "gridsize": 50,
+          "scripts": {"holderScript": {}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {},
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

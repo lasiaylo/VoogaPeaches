@@ -1,0 +1,44 @@
+{
+  "UID": "873352116c964647b7ef97c3dcef4476",
+  "children": [{
+    "UID": "7788340aac9b4c44bbb5c24a72b45505",
+    "children": [{
+      "UID": "f127db05af6f4308991a1ed75def366d",
+      "children": [],
+      "hitBoxes": [],
+<<<<<<< HEAD
+      "properties": {"gridsize": 50}
+=======
+      "properties": {
+        "listeners": {},
+        "gridsize": 50,
+        "scripts": {"holderScript": {}}
+      }
+>>>>>>> 7c4e23c5587eea056108d518c897c50175810576
+    }],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+<<<<<<< HEAD
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+=======
+      "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {},
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {}},
+>>>>>>> 7c4e23c5587eea056108d518c897c50175810576
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}
