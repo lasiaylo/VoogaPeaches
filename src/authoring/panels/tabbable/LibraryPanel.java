@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -27,6 +28,12 @@ import java.io.InputStream;
 import java.util.Map;
 
 
+/**
+ * used to store all the different entities that can be used in the authoring environment
+ * the backgrounds are toggle buttons that are placed on click in the camera, dragging in an area in the camera also fills those tiles
+ * NOTE: only the background is tile based
+ * the other entities are dragged onto the camera panel
+ */
 public class LibraryPanel implements Panel {
     private static final String BG = "Background";
     private static final String PLAYER = "User-Defined";
@@ -75,14 +82,14 @@ public class LibraryPanel implements Panel {
         type = myEntType.getValue();
         myTilePane.getChildren().clear();
         if (type.equals(PLAYER)) {
-            for (String each: ObjectFactory.getEntityTypes()) {
+            for (String each : ObjectFactory.getEntityTypes()) {
                 try {
                     factory.setObjectBlueprint("user_defined/" + each);
                 } catch (ObjectBlueprintNotFoundException e) {
                     e.printStackTrace();
                 }
                 Entity entity = factory.newObject();
-                String path = (String) ((Map)((Map) entity.getProperty("scripts")).getOrDefault("imageScript", null)).getOrDefault("image_path", null);
+                String path = (String) ((Map) ((Map) entity.getProperty("scripts")).getOrDefault("imageScript", null)).getOrDefault("image_path", null);
                 Image image = new Image(manager.readFileData(path));
                 ImageView view = new ImageView(image);
                 view.setFitWidth(50);
@@ -90,31 +97,34 @@ public class LibraryPanel implements Panel {
                 myTilePane.getChildren().add(view);
                 view.setOnDragDetected(e -> startDragEnt(e, view, path, factory));
             }
-        }
-        else {
-            for (String each: manager.getSubFile(type)) {
+        } else {
+            ToggleGroup backgroundButtons = new ToggleGroup();
+            for (String each : manager.getSubFile(type)) {
                 InputStream imageStream = manager.readFileData(type + "/" + each);
                 Image image = new Image(imageStream);
                 ImageView view = new ImageView(image);
-                view.setFitWidth(50);
-                view.setFitHeight(50);
-                ToggleButton libraryButton = new ToggleButton();
-                libraryButton.setGraphic(view);
-//                BorderPane imageViewWrapper = new BorderPane(view);
-//                imageViewWrapper.getStyleClass().add("entity");
 
-                myTilePane.getChildren().add(libraryButton);
                 if (type.equals(BG)) {
-                    libraryButton.setOnMouseClicked(e -> {
-                        if (libraryButton.isSelected()) {
+                    view.setFitWidth(30);
+                    view.setFitHeight(30);
+
+                    ToggleButton libraryButton = new ToggleButton();
+                    libraryButton.setGraphic(view);
+
+                    libraryButton.setToggleGroup(backgroundButtons);
+                    myTilePane.getChildren().add(libraryButton);
+                    libraryButton.selectedProperty().addListener((p, ov, nv) -> {
+                        if (p.getValue()) {
                             myManager.setMyBGType(type + "/" + each);
                         }
                         else {
-//                            libraryButton.
+                            myManager.setMyBGType("");
                         }
                     });
-                }
-                else {
+                } else {
+                    view.setFitWidth(50);
+                    view.setFitHeight(50);
+                    myTilePane.getChildren().add(view);
                     view.setOnDragDetected(e -> startDragEnt(e, view, type + "/" + each, defaultFactory));
                 }
             }

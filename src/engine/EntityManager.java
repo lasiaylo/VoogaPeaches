@@ -59,7 +59,7 @@ public class EntityManager {
         this.levelSize = FXCollections.observableMap(new HashMap<>());
 
         manager = new FileDataManager(FileDataFolders.IMAGES);
-        BGType = "Background/grass.png";
+        BGType = "";
         PubSub.getInstance().subscribe("ADD_BG", message -> {
             BGMessage bgMessage = (BGMessage) message;
             addBG(bgMessage.getPos());
