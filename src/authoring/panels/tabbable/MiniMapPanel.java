@@ -35,7 +35,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final String MAP_WIDTH_STRING = "Map Width";
     private static final String MAP_HEIGHT_STRING = "Map Height";
     private static final String ADD_LEVEL = "Add Level";
-    private static final String LEVEL1 = "Level 1";
     private static final String LEVEL = "Level";
     private static final String DELETE_LEVEL = "Delete Level";
     private static final String CANNOT_DELETE_LEVEL_PROMPT = "Cannot delete current level";
@@ -49,6 +48,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final int BOX_SPACING = 15;
     private static final int VALUE1 = 5000;
     private static final int VALUE2 = 5000;
+    private static final String SELECT = "Select";
     private Pane myPane;
     private TextField levelName;
     private TextField mapWidth;
@@ -61,26 +61,11 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private ContextMenu menu;
     private MenuItem change;
     private MenuItem delete;
+    private MenuItem select;
 
     public MiniMapPanel() {
         myPane = new Pane();
         levelList = FXCollections.observableList(new ArrayList<>());
-        levelList.add(new Map.Entry() {
-            @Override
-            public Object getKey() {
-                return LEVEL1;
-            }
-
-            @Override
-            public Object getValue() {
-                return new Vector(VALUE1, VALUE2);
-            }
-
-            @Override
-            public Object setValue(Object value) {
-                return null;
-            }
-        });
 
         myPane.getStyleClass().add(PANEL);
         setupTextFields();
@@ -91,11 +76,13 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         levelBar.setAlignment(Pos.CENTER);
 
         menu = new ContextMenu();
+        select = new MenuItem(SELECT);
         change = new MenuItem(CHANGE_NAME);
         delete = new MenuItem(DELETE);
+        select.setOnAction(e -> select());
         change.setOnAction(e -> change());
         delete.setOnAction(e -> delete());
-        menu.getItems().addAll(change, delete);
+        menu.getItems().addAll(select, change, delete);
 
         levelTable = new TableView<>();
         levelTable.setItems(levelList);
@@ -107,7 +94,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         heightT.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(((Vector)cellData.getValue().getValue()).at(1).toString()));
         levelTable.getColumns().setAll(levelT, widthT, heightT);
         levelTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        levelTable.setOnMouseClicked(e -> selectLevel(e));
+//        levelTable.setOnMouseClicked(e -> selectLevel(e));
         levelTable.setOnContextMenuRequested(e -> menu.show(levelTable, e.getScreenX(),e.getScreenY()));
 
         addLevel.setOnMouseClicked(e -> add());
@@ -142,18 +129,26 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         });
     }
 
-    private void selectLevel(MouseEvent event) {
-        String selectL = null;
-        try {
-            selectL = (String) levelTable.
-                    getSelectionModel().
-                    getSelectedItem().
-                    getKey();
-        } catch (NullPointerException e) {
-            //TODO: There's nothing in the table, should we do any handling?
-        }
-        manager.changeLevel(selectL);
+    /**
+     * new method to switch levels, doesnt involve clicking on table which selects the level (which doesnt allow you to delete)
+     */
+    private void select() {
+        manager.changeLevel((String) levelTable.getSelectionModel().getSelectedItem().getKey());
+        System.out.println((String) levelTable.getSelectionModel().getSelectedItem().getKey());
     }
+
+//    private void selectLevel(MouseEvent event) {
+//        String selectL = null;
+//        try {
+//            selectL = (String) levelTable.
+//                    getSelectionModel().
+//                    getSelectedItem().
+//                    getKey();
+//        } catch (NullPointerException e) {
+//            //TODO: There's nothing in the table, should we do any handling?
+//        }
+//        manager.changeLevel(selectL);
+//    }
 
     private void add() {
         levelName.commitValue();
@@ -167,9 +162,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         catch (NumberFormatException e){
             new ErrorDisplay(MAP_SIZE, NOT_INTEGER_ERROR).displayError();
         }
-        levelName.setText(LEVEL_NAME);
-        mapWidth.setText(MAP_WIDTH_STRING);
-        mapHeight.setText(MAP_HEIGHT_STRING);
     }
 
     @Override
