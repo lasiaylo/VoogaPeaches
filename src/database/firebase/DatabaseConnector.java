@@ -2,13 +2,15 @@ package database.firebase;
 
 import com.google.firebase.database.*;
 import database.jsonhelpers.JSONHelper;
+import database.jsonhelpers.JSONToObjectConverter;
 import org.json.JSONException;
 import org.json.JSONObject;
 import util.exceptions.ObjectIdNotFoundException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The DatabaseConnector class offers an API for connecting to the online
@@ -23,6 +25,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
     /* Instance Variables */
     private DatabaseReference dbRef;
     private Class<T> myClass;
+    private JSONToObjectConverter<T> converter;
     private ChildEventListener currentListener;
 
     /**
@@ -35,6 +38,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
     public DatabaseConnector(Class<T> className) {
         myClass = className;
         dbRef = FirebaseDatabase.getInstance().getReference(myClass.getSimpleName());
+        converter = new JSONToObjectConverter<>(className);
     }
 
     /**
@@ -66,8 +70,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
      * field type of the param
      * @param param is a {@code String} that is the string name of
      *              the field whose type you want
-     * @param value is a {@code Long} that is the value you need to
-     *              convert
+     * @param value is a {@code Long} that is the value you need to convert
      * @return A {@code Number} that contains the proper type for
      * the instance variable field
      */
@@ -78,66 +81,13 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
             if(fieldType == double.class) return new Double(value.doubleValue());
             return value;
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    /**
-     *  Creates a new object of type G using the parameters stored
-     *  inside of the provided Map
-     * @param myClass is a {@code Class<G>} that represents the class
-     *                of the object to create from the parameters
-     * @param params is a {@code Map<String, Object>} that contains
-     *               instanceVariable names as keys and their Object
-     *               as values
-     * @return A {@code G} object built from the given parameters
-     */
-     private <G extends TrackableObject> G createObject(Class<G> myClass, Map<String, Object> params) {
-        try {
-            // Get constructor and create new instance of object
-            Constructor<G> constructor = myClass.getDeclaredConstructor();
-            G newObject;
-            if(!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-                newObject = constructor.newInstance();
-                constructor.setAccessible(false);
-            } else {
-                newObject = constructor.newInstance();
-            }
-
-            // Set UID field of TrackableObject
-            Field UIDField = newObject.getClass().getSuperclass().getDeclaredField("UID");
-            UIDField.setAccessible(true);
-            UIDField.set(newObject, params.get("UID"));
-            UIDField.setAccessible(false);
-            params.remove("UID");
-
-            // Set the instance variables of the object being created
-            for(String param : params.keySet()) {
-                Field instanceVar = newObject.getClass().getDeclaredField(param);
-
-                // Recursively create objects that are being held by the original object
-                if(TrackableObject.class.isAssignableFrom(instanceVar.getType())) {
-                    Object heldObject = (Object) createObject((Class<G>)instanceVar.getType(), (Map<String,Object>) params.get(param));
-                    params.put(param, heldObject);
-                }
-
-                if(!instanceVar.isAccessible()) {
-                    instanceVar.setAccessible(true);
-                    instanceVar.set(newObject, params.get(param));
-                    instanceVar.setAccessible(false);
-                    continue;
-                }
-                instanceVar.set(newObject, params.get(param));
-            }
-            newObject.initialize();
-            return newObject;
-        } catch (Exception e){
-            e.printStackTrace();
             return null;
         }
+    }
+
+    public T convertDataSnapshotToObject(DataSnapshot snapshot){
+        Map<String, Object> params = parseParameters(snapshot);
+        return converter.createObjectFromJSON(myClass, new JSONObject(params));
     }
 
     /**
@@ -152,25 +102,25 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T newObject = (T) createObject(myClass, params);
+                T newObject = converter.createObjectFromJSON(myClass, new JSONObject(params));
                 reactor.reactToNewData(newObject);
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T changedObject = (T) createObject(myClass, params);
+                T changedObject = converter.createObjectFromJSON(myClass, new JSONObject(params));
                 reactor.reactToDataChanged(changedObject);
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T removedObject = (T) createObject(myClass, params);
+                T removedObject = converter.createObjectFromJSON(myClass, new JSONObject(params));
                 reactor.reactToDataRemoved(removedObject);
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> params = parseParameters(dataSnapshot);
-                T movedObject = (T) createObject(myClass, params);
+                T movedObject = converter.createObjectFromJSON(myClass, new JSONObject(params));
                 reactor.reactToDataMoved(movedObject);
             }
             @Override
@@ -212,6 +162,7 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
      */
     public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
         JSONObject tempJSON = JSONHelper.JSONForObject(objectToRemove);
+        System.out.println(tempJSON.toString(4));
         try {
             String uid = tempJSON.get("UID").toString();
             dbRef.child(uid).removeValueAsync();

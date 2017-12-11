@@ -1,17 +1,21 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.scripthelpers.ScriptLoader;
+import database.fileloaders.ScriptLoader;
+import database.firebase.DatabaseConnector;
+import database.firebase.TrackableObject;
 import engine.collisions.HitBox;
-import engine.events.ClickEvent;
-import engine.events.Event;
-import engine.events.Evented;
+import engine.events.*;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-import groovy.lang.Script;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import org.json.JSONArray;
+import javafx.scene.input.KeyCode;
+import util.ErrorDisplay;
+import util.exceptions.ObjectIdNotFoundException;
+import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 import java.util.*;
 
@@ -23,7 +27,6 @@ import java.util.*;
  * @author Albert
  */
 public class Entity extends Evented {
-
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
@@ -49,8 +52,8 @@ public class Entity extends Evented {
      */
     public Entity(Entity parent) {
         this();
-        this.parent = parent;
-        parent.add(this);
+        if(parent == null) return;
+        addTo(parent);
     }
 
     /**
@@ -60,6 +63,10 @@ public class Entity extends Evented {
      */
     public Entity getParent() {
         return parent;
+    }
+
+    public Map<String, Object> getProperties(){
+    	return properties;
     }
 
     public void add(Node node) {
@@ -77,6 +84,10 @@ public class Entity extends Evented {
 
     public Entity addTo(Entity parent) {
         this.parent = parent;
+        parent.getNodes()
+                .getChildren()
+                .add(group);
+        parent.getChildren().add(this);
         return this;
     }
 
@@ -93,6 +104,8 @@ public class Entity extends Evented {
         remove(entity.getNodes());
     }
 
+    public Entity getRoot() { return root; }
+
     public Group getNodes() {
         return group;
     }
@@ -101,12 +114,8 @@ public class Entity extends Evented {
         return children;
     }
 
-    public int getChildrenSize() {
-        return children.size();
-    }
-
     public Object getProperty(String name) {
-        return properties.get(name);
+        return properties.getOrDefault(name, null);
     }
 
     public void setProperty(String name, Object property) {
@@ -117,19 +126,47 @@ public class Entity extends Evented {
         return hitBoxes;
     }
 
-    private void executeScripts() {
-        for (Object script : (List) properties.get("scripts")) {
-            String code = ScriptLoader.stringForFile((String) script);
-            Binding binding = new Binding();
-            binding.setVariable("entity", this);
-            binding.setVariable("game", root);
-            new GroovyShell(binding).evaluate(code);
-        }
+    public void addHitBox(HitBox hitbox) {
+        hitBoxes.add(hitbox);
+        group.getChildren().add(hitbox.getHitbox());
     }
 
-    private void setEventListeners() {
-        group.setOnMouseClicked(e -> new ClickEvent().fire(this));
+    public void executeScripts() {
+        clear();
+        EntityScriptFactory.executeScripts(this);
     }
+
+    public Entity substitute() {
+        clear();
+        System.out.println(UID);
+        Entity entity = new Entity(parent);
+        entity.UID = this.UID;
+        DatabaseConnector<Entity> db = new DatabaseConnector<>(Entity.class);
+//        try {
+//            db.removeFromDatabase(this);
+//            db.addToDatabase(entity);
+//        } catch (ObjectIdNotFoundException e) {
+//            e.printStackTrace();
+//            new ErrorDisplay("Oh no!", "We can't recreate this entity!").displayError();
+//        }
+
+        entity.properties = properties;
+        entity.hitBoxes = hitBoxes;
+        try {
+            parent.getNodes().getChildren().remove(group);
+        } catch(NullPointerException e){
+            // do nothing
+        }
+
+        if(!children.isEmpty()) {
+            for(Entity child : children)
+                entity.add(child.substitute());
+        }
+
+        entity.initialize();
+        return entity;
+    }
+
 
     @Override
     public void initialize() {
@@ -141,10 +178,12 @@ public class Entity extends Evented {
                 for (Entity entity : children)
                     entity.root = root;
 
-        for (Entity entity : children)
-            entity.parent = this;
-
-        setEventListeners();
         executeScripts();
+        DatabaseConnector<Entity> connector = new DatabaseConnector<>(Entity.class);
+        try {
+            connector.addToDatabase(this);
+        } catch(Exception e) {
+
+        }
     }
 }

@@ -1,0 +1,13 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "mapScript": {}
+    },
+    "listeners" : {},
+    "gridsize": 50,
+    "mapwidth":2000,
+    "mapheight":2000
+  }
+}

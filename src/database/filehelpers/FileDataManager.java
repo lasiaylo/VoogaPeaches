@@ -1,8 +1,5 @@
 package database.filehelpers;
 
-import jdk.internal.util.xml.impl.Input;
-import util.PropertiesReader;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -150,5 +147,14 @@ public class FileDataManager {
             subFolder.add(each.getName());
         }
         return subFolder;
+    }
+
+    public List<String> getSubFile(String path) {
+        List<String> file = new ArrayList<>();
+        File base = new File(baseFolder + path);
+        for(File subfile : base.listFiles()){
+            file.add(subfile.getName());
+        }
+        return file;
     }
 }

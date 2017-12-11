@@ -5,8 +5,11 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
 import org.json.JSONObject;
+import util.PropertiesReader;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +33,17 @@ public class ObjectFactory {
      * not found within the database
      */
     public ObjectFactory(String objectName) throws ObjectBlueprintNotFoundException {
+        setObjectBlueprint(objectName);
+    }
+
+    /**
+     * Sets the ObjectFactory to use a new JSON file's blueprint
+     * @param objectName is {@code String} representing the name of the file corresponding
+     *                   to the blueprint you want to use
+     * @throws ObjectBlueprintNotFoundException if the blueprint for the objectName is not
+     * found within the database
+     */
+    public void setObjectBlueprint(String objectName) throws ObjectBlueprintNotFoundException {
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         blueprintJSON = manager.readJSONFile(objectName);
         if(blueprintJSON == null) throw new ObjectBlueprintNotFoundException();
@@ -61,5 +75,14 @@ public class ObjectFactory {
             }
         }
         return converter.createObjectFromJSON(Entity.class, modifiedBlueprint);
+    }
+
+    /**
+     * @return A {@code String[]} of all the valid Entity Blueprint Names
+     */
+    public static String[] getEntityTypes() {
+        File blueprintFolder =  new File(PropertiesReader.path("blueprints"));
+        if(blueprintFolder.isDirectory()) return blueprintFolder.list();
+        return new String[0];
     }
 }

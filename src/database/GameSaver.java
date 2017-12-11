@@ -1,17 +1,21 @@
 package database;
 
-import database.firebase.TrackableObject;
+import com.google.firebase.database.FirebaseDatabase;
+import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
+import engine.entities.Entity;
 import org.json.JSONObject;
 import util.PropertiesReader;
 
 import java.io.File;
-import java.util.List;
+import java.util.*;
 
 /**
- * A class that provides an API for saving manipulating a game file within the database 
+ * A class that provides an API for saving manipulating a game file within the database
+ *
+ * @author Walker Willetts
  */
 public class GameSaver {
 
@@ -19,6 +23,7 @@ public class GameSaver {
     private String gameName;
     private JSONDataManager manager;
     private File gameFolder;
+    private String UID;
 
     /**
      * Creates a new GameSaver for saving the game to the database
@@ -47,13 +52,80 @@ public class GameSaver {
      * Saves the list of trackable objects to the game. Updates all previously stored objects.
      * @param toSave is a {@code List<T extends TrackableObject>} that contains all the
      *               Trackable objects that you want to store
-     * @param <T> is the class of the TrackableObject being stored
      */
-    public <T extends TrackableObject> void saveTrackableObjects(T toSave) {
-        String classFolder = gameName + "/" + toSave.getClass().getSimpleName();
-        if(!manager.folderExists(classFolder)) manager.createFolder(classFolder);
+    public void saveGame(Entity toSave) {
+        saveRoot(toSave);
+        String[] images = saveImageJSON(toSave);
+        uploadImages(images);
+    }
+
+    /**
+     * Uploads all the images specified by the array to Firebase so that, when the game
+     * is pulled on other computers, it contains the proper image files
+     * @param images is a {@code String[]} that contains the names of each local image file
+     *               to upload
+     */
+    private void uploadImages(String[] images){
+        FileStorageConnector connector = new FileStorageConnector("images");
+        for(String image : images)
+            try {
+                connector.saveFile(new File("./data/filedata/images/" + image));
+            } catch(Exception e){
+                // Do Nothing if file wasn't saved
+            }
+    }
+
+    /**
+     * Saves the games root into a JSON file for later loading
+     * @param toSave is a {@code Entity} representing the root
+     *               of a game with all its components
+     */
+    private void saveRoot(Entity toSave) {
+        // Convert root to JSON files
         JSONObject jsonForm = JSONHelper.JSONForObject(toSave);
-        String filepath = classFolder + "/" + jsonForm.get("UID");
-        manager.writeJSONFile(filepath,jsonForm);
+        String filepath = gameName + "/root.json";
+        manager.writeJSONFile(filepath, jsonForm);
+        FirebaseDatabase.getInstance().getReference("gameNames").child(gameName).setValueAsync(toSave.UIDforObject());
+        JSONObject save = new JSONObject(JSONHelper.JSONForObject(toSave).toString().replace("/", "|"));
+        FirebaseDatabase.getInstance().getReference("games").child(toSave.UIDforObject()).setValueAsync(JSONHelper.mapFromJSON(save));
+    }
+
+    /**
+     * Saves a JSON file containing the images needed for the game
+     * to function appropriately
+     * @param toSave is a {@code Entity} representing the root of the game
+     * @return A {@String[]} that contains all the names of the images
+     * used by the game
+     */
+    private String[] saveImageJSON(Entity toSave) {
+        // Retrieve image names
+        Set<String> imageNames = new HashSet<String>();
+        retrieveImageNames(imageNames, toSave);
+        String filepath = gameName + "/images.json";
+        Map<String, String[]> imageMap = new HashMap<>();
+        imageMap.put(toSave.UIDforObject(), imageNames.toArray(new String[0]));
+        manager.writeJSONFile(filepath, new JSONObject(imageMap));
+        List<String> names = new ArrayList<String>();
+        imageNames.forEach(e -> names.add(e));
+        FirebaseDatabase.getInstance().getReference("images").child(toSave.UIDforObject()).setValueAsync(names);
+        return imageNames.toArray(new String[0]);
+    }
+
+    /**
+     * Recursively traverses the Game root tree in order to collect the
+     * names of all the images used by the game
+     * @param currentSet is a {@code Set<String>} that contains the names of
+     *                   all the Strings seen previously
+     * @param root is a {@code Entity} representing the current root in the
+     *             game that the traversal is at
+     */
+    private void retrieveImageNames(Set<String> currentSet, Entity root){
+        if(root == null) return;
+        String imageName = (String) ((HashMap<String,Object>)
+                ((HashMap<String, Object>) root.getProperties().getOrDefault("scripts", new HashMap<>()))
+                        .getOrDefault("imageScript",new HashMap<>())).getOrDefault("image_path","");
+        if(!imageName.isEmpty() && !currentSet.contains(imageName)) currentSet.add(imageName);
+        for(Entity child : root.getChildren())
+            retrieveImageNames(currentSet, child);
     }
 }

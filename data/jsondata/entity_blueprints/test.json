@@ -1,15 +1,64 @@
 {
-    "UID": "2ca91312fdb14d03865fa4e59d8ee69a",
-    "children": [],
-    "properties": {
-      "scripts": [
-        "example.groovy",
-        "move.groovy",
-        "setPosition.groovy"
+  "children": [],
+  "hitBoxes": [
+    {
+      "polygonVertexTranslations": [
+        20.0,
+        40.0,
+        40.0,
+        40.0,
+        30.0,
+        80.0
+
       ],
-      "x": 30,
-      "y": 30,
-      "vx": 23,
-      "vy": 42
+      "UID": "3a68d326fba84e4fb585711daebd0bb5",
+      "currentX": 100.0,
+      "currentY": 0.0,
+      "tag": "Hitbox 1"
+    },
+    {
+      "polygonVertexTranslations": [
+        20.0,
+        40.0,
+        40.0,
+        40.0,
+        30.0,
+        80.0
+
+      ],
+      "UID": "3a68d326fba84e4fb585711daebd0bb5",
+      "currentX": 0.0,
+      "currentY": 100.0,
+      "tag": "Hitbox 2"
+    },
+    {
+      "polygonVertexTranslations": [
+        20.0,
+        40.0,
+        40.0,
+        40.0,
+        30.0,
+        80.0
+
+      ],
+      "UID": "3a68d326fba84e4fb585711daebd0bb5",
+      "currentX": 0.0,
+      "currentY": 0.0,
+      "tag": "Hitbox 3"
     }
+  ],
+  "properties": {
+    "scripts": {
+
+    },
+    "listeners": {
+
+    },
+    "x": 30.0,
+    "y": 30.0,
+    "vx": 50.0,
+    "vy": 50.0,
+    "hell yeah": true,
+    "image path":"default_image.jpg"
+  }
 }

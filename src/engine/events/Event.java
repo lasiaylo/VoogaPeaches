@@ -20,14 +20,16 @@ public abstract class Event {
     }
 
     public Event recursiveFire(Entity target) {
-        fire(target);
-
-        Entity root = target;
-        if(!root.getChildren().isEmpty()) {
+        if(target == null) {
             return this;
         }
 
-        root.getChildren().forEach(e -> recursiveFire(e));
+        fire(target);
+        if(target.getChildren().isEmpty()) {
+            return this;
+        }
+
+        target.getChildren().forEach(e -> recursiveFire(e));
         return this;
     }
 }

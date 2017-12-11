@@ -1,0 +1,71 @@
+* { //variables
+    -my-blue:#05386B;
+    -my-faint-blue:#05386B22;
+    -my-not-so-faint-blue:#05386B99;
+    -my-light-green:#5CDB95;
+    -my-dark-green:#379683;
+    -my-off-white:#EDF5E1;
+    -my-focus:#0093ff;
+    -my-focus-faint:#0093ff22;
+}
+
+//PANEL LAYOUT
+.panel {
+    -fx-background-color: -my-light-green;
+}
+.split-pane:horizontal >.split-pane-divider,
+.split-pane:vertical >.split-pane-divider {
+    -fx-background-color: -my-blue;
+}
+.tool-bar {
+    -fx-background-color: -my-off-white;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: -my-blue;
+}
+.tab {
+    -fx-background-color: -my-off-white;
+}
+
+//PANEL ITEMS
+.button {
+    -fx-base: -my-dark-green; -fx-focus-color: -my-focus; -fx-faint-focus-color: -my-focus-faint;
+}
+.button:disabled {
+    -fx-opacity: 0.4;
+}
+.choice-box {
+    -fx-base: -my-dark-green;
+    -fx-text-fill: black;
+}
+.scroll-pane > .viewport { //https://stackoverflow.com/questions/27318146/transparent-divider-in-splitpane
+    -fx-background-color: transparent;
+}
+.scroll-pane { //https://stackoverflow.com/questions/23201134/transparent-argb-hex-value
+    -fx-background-color: -my-not-so-faint-blue;
+}
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: -my-off-white;
+}
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:
+            derive(-my-blue, -36%),
+            derive(-my-blue,73%),
+            linear-gradient(to bottom, derive(-my-blue,-19%),derive(-my-blue,61%));
+}
+.scroll-pane > .corner {
+    -fx-background-color: -my-off-white;
+}
+.text-field {
+    -fx-control-inner-background: -my-dark-green;
+}
+
+//MENU
+.menu-bar {
+    -fx-border-color: transparent;
+    -fx-base: -my-dark-green; -fx-focus-color: -my-focus; -fx-faint-focus-color: -my-focus-faint;
+}
+//IDK HOW TO MAKE THIS ONE NOT BE WHITE... maybe something with this?
+//https://stackoverflow.com/questions/21912946/how-can-i-style-a-javafx-menu-and-its-items-in-css

@@ -1,34 +1,31 @@
 package authoring.panels.reserved;
 
 import authoring.Panel;
-import authoring.IPanelController;
-import authoring.Workspace;
-import authoring.WorkspaceManager;
-import authoring.panels.PanelManager;
+import authoring.PanelController;
+import authoring.buttons.strategies.Logout;
+import authoring.menu.Login;
+import authoring.menuactions.SaveAction;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import main.VoogaPeaches;
 import util.Loader;
 import util.MenuReader;
 import util.pubsub.PubSub;
-import util.pubsub.messages.ThemeMessage;
+import util.pubsub.messages.StringMessage;
 import util.PropertiesReader;
-import util.pubsub.messages.WorkspaceChange;
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * The Menu Bar is displayed at the top of the authoring environment and contains the buttons for options related to the environment. This includes saving and loading workspaces, as well as opening panels for viewing within the workspace.
+ * The Menu Bar is displayed at the top of the authoring environment and contains the menuactions for options related to the environment. This includes saving and loading workspaces, as well as opening panels for viewing within the workspace.
  * @author Brian Nieves
  * @author Simran
  * @author Kelly Zhang
@@ -36,39 +33,50 @@ import java.util.*;
  */
 public class MenuBarPanel implements Panel {
 
-    private HBox hbar;
+    private static final String SCREENLAYOUT = "screenlayout";
+    private static final String MENUBARPATH = "menubarpath";
+    private static final String WORKSPACEDATA = "workspacedata";
+    private static final String CSSPATH = "csspath";
+    private static final String CSS = "css";
+    private static final String PANELS = "panels";
+    private static final String THEMES = "themes";
+    private static final String WORKSPACES = "workspaces";
+    private static final String MENU = "Menu";
+    private static final String SAVE = "Save";
+    private static final String THEME_MESSAGE = "THEME_MESSAGE";
+    private static final String CSS_EXTENSION = ".css";
+    private static final String PANEL_TOGGLE = "PANEL_TOGGLE";
+    private static final String WORKSPACE_CHANGE = "WORKSPACE_CHANGE";
+    private static final String USER = "User: ";
+
     private MenuBar bar;
-    private IPanelController controller;
-    private Set<String> panels;
+    private PanelController controller;
     private Set<String> workspaces;
+    private Set<String> panels;
+    private Set<String> themes;
 
-    private ResourceBundle themes = ResourceBundle.getBundle("themes");
-    private String menuPath = PropertiesReader.value("screenlayout","menubarpath");
+    private String menuPath = PropertiesReader.value(SCREENLAYOUT, MENUBARPATH);
     private MenuReader reader;
-    private double height = Double.parseDouble(PropertiesReader.value("screenlayout","menubarheight"));
-    private String style = PropertiesReader.value("screenlayout","menubarstyle");
-    private Color textColor = Color.web(PropertiesReader.value("screenlayout","menubartextcolor"));
-    private double spacing = Double.parseDouble(PropertiesReader.value("screenlayout","menubarspacing"));
-    private Color color = Color.web(PropertiesReader.value("screenlayout","menubarcolor"));
-    private Color onHoverColor = Color.web(PropertiesReader.value("screenlayout","menubaronhovercolor"));
 
-    public MenuBarPanel(Set<String> workspaces, Set<String> panels) {
-        hbar = new HBox();
+    public MenuBarPanel(Set<String> workspaces, Set<String> panels) throws FileNotFoundException {
         bar = new MenuBar();
-        bar.getStyleClass().add("menuBar");
         this.workspaces = workspaces;
         this.panels = panels;
+        this.themes = createThemeList();
 
         reader = new MenuReader(menuPath, this, getViewList());
         bar.getMenus().addAll(reader.getMenus());
+    }
 
-        hbar.setPrefHeight(this.height);
-        hbar.setStyle(style);
-
-        Pane file = getOption("File"); //TODO: Style the menu bar and remove hbar
-        Pane view = getOption("View");
-
-        hbar.getChildren().addAll(file, view);
+    /**
+     * Programatically searches for the css files within the resources to find those that contain the stylings for the themes
+     * @return Set<String> that are the default themes provided
+     * @throws FileNotFoundException
+     */
+    private Set<String> createThemeList() throws FileNotFoundException {
+        String themePath = PropertiesReader.value(WORKSPACEDATA, CSSPATH);
+        String[] allThemes = Loader.validFiles(themePath, CSS);
+        return new HashSet<>(Arrays.asList(allThemes));
     }
 
     /**
@@ -79,31 +87,10 @@ public class MenuBarPanel implements Panel {
      */
     private Map<String, MenuItem[]> getViewList() {
         Map<String, MenuItem[]> viewMap = new HashMap<>();
-        viewMap.put("panels", getPanelList());
-        viewMap.put("themes", getThemeList());
-        viewMap.put("workspaces", getWorkspaceList());
+        viewMap.put(PANELS, getPanelList());
+        viewMap.put(THEMES, getThemeList());
+        viewMap.put(WORKSPACES, getWorkspaceList());
         return viewMap;
-    }
-
-    private MenuItem[] getThemeList() {
-        List<String> keys = Collections.list(themes.getKeys());
-        MenuItem[] themeItems = new MenuItem[keys.size()];
-        for(int i = 0; i < keys.size(); i++){
-            MenuItem item = new MenuItem(keys.get(i));
-            setupTheme(item);
-            themeItems[i] = item;
-        }
-        return themeItems;
-    }
-
-    private MenuItem[] getPanelList() {
-        List<MenuItem> panelTabs = new ArrayList<>();
-        for(String space : panels){
-            MenuItem item = new MenuItem(space);
-            item.setOnAction(e -> handlePanel(item));
-            panelTabs.add(item);
-        }
-        return panelTabs.toArray(new MenuItem[panelTabs.size()]);
     }
 
     private MenuItem[] getWorkspaceList() {
@@ -116,63 +103,74 @@ public class MenuBarPanel implements Panel {
         return workspaceTabs.toArray(new MenuItem[workspaceTabs.size()]);
     }
 
-    @Override
-    public Region getRegion(){
-        return bar;
+    private MenuItem[] getPanelList() {
+        List<MenuItem> panelTabs = new ArrayList<>();
+        for(String space : panels){
+            MenuItem item = new MenuItem(space);
+            item.setOnAction(e -> handlePanel(item));
+            panelTabs.add(item);
+        }
+        return panelTabs.toArray(new MenuItem[panelTabs.size()]);
     }
 
     /**
-     * Creates an option to be put in the Menu Bar.
-     * @param text the text for the option
-     * @return a Pane that represents the field for the option
+     * Uses the set of themes to create the submenu of the menubar where the user can pick their theme
+     * @return MenuItem[] the list of themes converted into menuitems
      */
-    private Pane getOption(String text) {
-        StackPane option = new StackPane();
-
-        Text textbutton = new Text(text);
-        textbutton.setFill(textColor);
-
-        Rectangle box = new Rectangle();
-        box.setWidth(textbutton.minWidth(height) + spacing);
-        box.setHeight(height);
-        box.setFill(color);
-
-        option.setOnMouseEntered(event -> box.setFill(onHoverColor));
-        option.setOnMouseExited(event -> box.setFill(color));
-
-        option.getChildren().addAll(box, textbutton);
-        return option;
+    private MenuItem[] getThemeList() {
+        List<MenuItem> themeOptions = new ArrayList<>();
+        for(String theme : themes){
+            MenuItem item = new MenuItem(theme);
+            item.setOnAction(e -> handleTheme(item));
+            themeOptions.add(item);
+        }
+        return themeOptions.toArray(new MenuItem[themeOptions.size()]);
     }
 
     @Override
-    public void setController(IPanelController controller) {
+    public Region getRegion(){
+        Menu user = new Menu(USER + VoogaPeaches.getUser().getUserName());
+        user.getItems().add(new Logout(bar));
+
+        HBox.setHgrow(bar, Priority.ALWAYS);
+        return new HBox(bar, new MenuBar(user));
+    }
+
+    @Override
+    public void setController(PanelController controller) {
         this.controller = controller;
     }
 
     @Override
     public String title(){
-        return "Menu";
+        return MENU;
     }
 
-    public void setupItem(MenuItem newItem, String strategy) {
-        //TODO: Attach onAction to controller actions, style stuff
+    public void setupItem(MenuItem newItem, String strategy) { //TODO: How is styling attached? put string somewhere else
+        if(strategy.equals(SAVE)) newItem.setOnAction(e -> new SaveAction(controller).execute());
     }
 
-    public void setupTheme(MenuItem item) {
-        item.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                PubSub pubsub = PubSub.getInstance();
-                pubsub.publish(PubSub.Channel.THEME_MESSAGE, new ThemeMessage(PropertiesReader.value("themes", item.getText())));
-            }});
+    /**
+     * Uses the menuitem selected to create the string associated with the css file with the stylings and publishes that to pubsub
+     * @param item the menuitem that is selected
+     */
+    public void handleTheme(MenuItem item) {
+        PubSub.getInstance().publish(THEME_MESSAGE, new StringMessage(item.getText() + CSS_EXTENSION));
     }
 
-
+    /**
+     * Uses the menuitem selected to communicate with pubsub about the panel activity
+     * @param item the menuitem that is selected
+     */
     private void handlePanel(MenuItem item) {
-        PubSub.getInstance().publish(PubSub.Channel.PANEL_TOGGLE, new WorkspaceChange(item.getText()));
+        PubSub.getInstance().publish(PANEL_TOGGLE, new StringMessage(item.getText()));
     }
 
+    /**
+     * Uses the menuitem selected to communicate with pubsub about the workspace active
+     * @param item the menuitem that is selected
+     */
     private void handleWorkspace(MenuItem item) {
-        PubSub.getInstance().publish(PubSub.Channel.WORKSPACE_CHANGE, new WorkspaceChange(item.getText()));
+        PubSub.getInstance().publish(WORKSPACE_CHANGE, new StringMessage(item.getText()));
     }
 }

@@ -1,20 +1,72 @@
-.button {
-    -fx-base: #d9d9d9; -fx-focus-color: #039ED3; -fx-faint-focus-color: #039ED322;
+* { //variables
+    -my-black:#525252;
+    -grey:#737373;
+    -whitest:#f7f7f7;
+    -my-white:#d9d9d9;
+    -light-grey:#969696;
+    -lighter-grey:#bdbdbd;
+    -my-focus:#0093ff;
+    -my-focus-faint:#0093ff22;
 }
 
-.choice-box {
-    -fx-background-color: #d9d9d9;
-}
-
+//PANEL LAYOUT
 .panel {
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: -my-white;
+}
+.split-pane:horizontal >.split-pane-divider,
+.split-pane:vertical >.split-pane-divider {
+    -fx-background-color: -my-black;
+}
+.tool-bar {
+    -fx-background-color: -lighter-grey;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: -my-black;
+}
+.tab {
+    -fx-background-color: -lighter-grey;
 }
 
-.camera {
-    -fx-background: #ffffff;
+//PANEL ITEMS
+.button {
+    -fx-base: -light-grey; -fx-focus-color: -my-focus; -fx-faint-focus-color: -my-focus-faint;
+}
+.button:disabled {
+    -fx-opacity: 0.4;
+}
+.choice-box {
+    -fx-base: -light-grey; -fx-focus-color: -my-focus; -fx-faint-focus-color: -my-focus-faint;
+    -fx-text-fill: black;
+}
+.scroll-pane > .viewport { //https://stackoverflow.com/questions/27318146/transparent-divider-in-splitpane
+    -fx-background-color: transparent;
+}
+.scroll-pane { //https://stackoverflow.com/questions/23201134/transparent-argb-hex-value
+    -fx-background-color: -whitest;
+}
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: -lighter-grey;
+}
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:
+                derive(-my-black,-36%),
+                derive(-my-black,73%),
+                linear-gradient(to bottom, derive(-my-black,-19%),derive(-my-black,61%));
+}
+.scroll-pane > .corner {
+    -fx-background-color: -lighter-grey;
+}
+.text-field {
+    -fx-control-inner-background: -light-grey; -fx-focus-color: -my-focus; -fx-faint-focus-color: -my-focus-faint;
+}
+.entity {
+   -fx-border-color: -my-focus; -fx-border-style: solid; -fx-border-width: 5;
 }
 
-.menuBar {
-    -fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-border-color: dimgray;
-    -fx-background-color: #ffffff; -fx-focus-color: #039ED3; -fx-faint-focus-color: #039ED322;
+//MENU
+.menu-bar {
+    -fx-border-color: transparent;
+    -fx-base: -light-grey; -fx-focus-color: -my-focus; -fx-faint-focus-color: -my-focus-faint;
 }

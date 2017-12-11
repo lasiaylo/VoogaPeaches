@@ -1,19 +1,15 @@
 package authoring.panels;
 
-import authoring.IPanelController;
 import authoring.Panel;
+import authoring.PanelController;
 import javafx.scene.layout.Region;
 import util.ErrorDisplay;
 import util.Loader;
 import util.PropertiesReader;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
@@ -21,10 +17,12 @@ import java.util.Set;
  * @author Brian Nieves
  */
 public class PanelManager {
+
+    private static final String REFLECT = "reflect";
+    private static final String TABPATH = "tabpath";
     private Map<String, Panel> panels;
-    //private ResourceBundle reflect = ResourceBundle.getBundle("reflect");
     private ErrorDisplay errorMessage;
-    private IPanelController controller;
+    private PanelController controller;
 
     /**
      * Creates a new PanelManager and loads all existing panels. Any errors in the process of loading panels are recorded in an ErrorDisplay and handled by the Screen.
@@ -32,7 +30,7 @@ public class PanelManager {
      * @param errorMessage the screen's current ErrorDisplay object
      * @throws FileNotFoundException if the package specified by tabpath in reflect does not exist
      */
-    public PanelManager(IPanelController controller, ErrorDisplay errorMessage) throws FileNotFoundException{
+    public PanelManager(PanelController controller, ErrorDisplay errorMessage) throws FileNotFoundException {
         this.errorMessage = errorMessage;
         panels = new HashMap<>();
         this.controller = controller;
@@ -69,13 +67,12 @@ public class PanelManager {
      * Loads all of the tabbable panels found in the tabbable directory.
      * @throws FileNotFoundException if the directory for tabbable panels does not exist.
      */
-    private void loadPanels() throws FileNotFoundException{
-        Map<String, Object> panels = Loader.loadObjects(
-                PropertiesReader.value("reflect", "tabpath"));
+    private void loadPanels() throws FileNotFoundException {
+        Map<String, Object> panels = Loader.loadObjects(PropertiesReader.value(REFLECT, TABPATH));
         for(String name : panels.keySet()){
             Panel panel = (Panel) panels.get(name);
             panel.setController(controller);
-            this.panels.put(name, panel);
+            this.panels.put(panel.title(), panel);
         }
     }
 }

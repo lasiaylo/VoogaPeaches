@@ -1,0 +1,11 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "holderScript": {}
+    },
+    "listeners" : {},
+    "gridsize": 50
+  }
+}

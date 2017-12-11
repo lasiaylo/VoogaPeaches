@@ -1,23 +1,30 @@
 package engine.events;
 
 public enum EventType {
-    CLICK(ClickEvent.class),
+    ADDLAYER("addLayer"),
+    CLICK("click"),
+    COLLISION("collision"),
+    IMAGE_VIEW("Image View Event"),
+    INITIAL_IMAGE("setup initial imageview"),
+    KEY_PRESS("key press"),
+    MAP("map"),
+    MOUSE_DRAG("mouse drag"),
+    MOUSE_PRESS("mouse press"),
+    MOVE("move"),
+    ACCELERATE("accelerate"),
+    STATE("state"),
+    TICK("tick"),
+    TRANSPARENT_MOUSE("Transparent Mouse Event"),
+    VIEWVIS("View Visibility Event"),
+    MAPSETUP("map setup");
 
-    IMAGE_VIEW(ImageViewEvent.class),
+    private String type;
 
-    KEY_PRESS(KeyPressEvent.class),
-    MAP(MapEvent.class),
-    MOVE(MoveEvent.class),
-    STATE(StateEvent.class),
-    TICK(TickEvent.class);
-
-    private Class clazz;
-
-    EventType(Class clazz) {
-        this.clazz = clazz;
+    EventType(String type) {
+        this.type = type;
     }
 
-    public Class getClazz() {
-        return clazz;
+    public String getType() {
+        return type;
     }
 }

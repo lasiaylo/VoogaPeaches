@@ -16,7 +16,8 @@ public interface IVector<Self, Primary> {
      *
      * @return string representation
      */
-    String toString();
+    @Override
+	String toString();
 
     /**
      * Return multiplicity

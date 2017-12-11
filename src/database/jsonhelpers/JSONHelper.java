@@ -2,7 +2,6 @@ package database.jsonhelpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,6 +14,9 @@ import java.util.Map;
  * @author Walker Willetts
  */
 public class JSONHelper {
+
+    /* Instance Variables */
+    private static final Gson GSON = createGSON();
 
     /**
      * Creates a GSON for use with the rest of the class
@@ -64,10 +66,7 @@ public class JSONHelper {
      * @return A {@code JSONObject} representing the converted
      * form of the passed in object
      */
-    public static JSONObject JSONForObject(Object obj) {
-        Gson creator = createGSON();
-        return new JSONObject(creator.toJson(obj));
-    }
+    public static JSONObject JSONForObject(Object obj) { return new JSONObject(GSON.toJson(obj)); }
 
 
     /**
