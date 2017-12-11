@@ -113,7 +113,6 @@ public class CameraPanel implements Panel {
 	 * adds the action connections to the buttons
 	 */
 	private void setupButton() {
-		myLayer.getStyleClass().add(CHOICE_BOX);
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
@@ -129,6 +128,8 @@ public class CameraPanel implements Panel {
 		    myLayer.getSelectionModel().clearAndSelect(1);
         });
 
+
+		myLayer.getStyleClass().add(CHOICE_BOX);
 	}
 
 	/**

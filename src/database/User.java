@@ -29,6 +29,7 @@ public class User extends TrackableObject {
     @Expose private ArrayList<String> authoring;
 
     public User(String name) {
+        //TODO: read and create these from the database... some issue about asynchronous and synchronous writing to database
         userName = name;
         themeName = PropertiesReader.value("defaults","theme");
         workspaceName = PropertiesReader.value("defaults", "workspace");
@@ -47,19 +48,28 @@ public class User extends TrackableObject {
     /**
      * @return the username associated with the profile
      */
-    public String getUserName() { return userName; }
+    public String getUserName() {
+        return userName;
+    }
 
     /**
      * sets the user's theme to the current one in use
      * @param theme the new theme
      */
-    public void setTheme(String theme) {themeName = theme;}
+    public void setTheme(String theme) {
+        themeName = theme;
+    }
 
     public void setWorkspace(String workspace) {workspaceName = workspace;}
 
     public String getWorkspaceName() { return workspaceName; }
 
-    public String getThemeName() { return themeName; }
+    /**
+     * @return the string of the current theme that the user has active in the authoring environment
+     */
+    public String getThemeName() {
+        return themeName;
+    }
 
     public Map<String, Map<String, String>> getProperties() { return properties; }
 

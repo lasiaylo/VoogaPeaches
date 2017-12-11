@@ -9,24 +9,33 @@ import database.filehelpers.FileDataManager;
 import engine.EntityManager;
 import engine.entities.Entity;
 import engine.events.ImageViewEvent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.InputStream;
 import java.util.Map;
 
 
+/**
+ * used to store all the different entities that can be used in the authoring environment
+ * the backgrounds are toggle buttons that are placed on click in the camera, dragging in an area in the camera also fills those tiles
+ * NOTE: only the background is tile based
+ * the other entities are dragged onto the camera panel
+ * @author Estelle He
+ * @author Kelly Zhang
+ */
 public class LibraryPanel implements Panel {
 
     private static final String BG = "Background";
@@ -74,7 +83,6 @@ public class LibraryPanel implements Panel {
         myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.getItems().add(PLAYER);
         myEntType.setOnAction(e -> changeType());
-        myEntType.getStyleClass().add(CHOICE_BOX);
         myTilePane.setPrefColumns(PREF_COLUMNS);
         myTilePane.setPrefTileWidth(PREF_TILE_WIDTH);
         myTilePane.setPrefTileHeight(PREF_TILE_HEIGHT);
@@ -85,7 +93,6 @@ public class LibraryPanel implements Panel {
         HBox top = new HBox(myEntType, update);
         top.setSpacing(SPACING);
         myArea = new VBox(top, myTilePane);
-        myArea.getStyleClass().add(PANEL);
         myArea.setSpacing(SPACING);
         getRegion().getStyleClass().add(PANEL);
     }
@@ -94,7 +101,7 @@ public class LibraryPanel implements Panel {
         type = myEntType.getValue();
         myTilePane.getChildren().clear();
         if (type.equals(PLAYER)) {
-            for (String each: ObjectFactory.getEntityTypes()) {
+            for (String each : ObjectFactory.getEntityTypes()) {
                 try {
                     factory.setObjectBlueprint(USER_DEFINED + each);
                 } catch (ObjectBlueprintNotFoundException e) {
@@ -102,6 +109,7 @@ public class LibraryPanel implements Panel {
                 }
                 Entity entity = factory.newObject();
                 String path = (String) ((Map)((Map) entity.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);
+
                 Image image = new Image(manager.readFileData(path));
                 ImageView view = new ImageView(image);
                 view.setFitWidth(VIEW_FIT_WIDTH);
@@ -109,20 +117,37 @@ public class LibraryPanel implements Panel {
                 myTilePane.getChildren().add(view);
                 view.setOnDragDetected(e -> startDragEnt(e, view, path, factory));
             }
-        }
-        else {
-            for (String each: manager.getSubFile(type)) {
-                InputStream imageStream = manager.readFileData(type + SLASH + each);
+        } else {
+            ToggleGroup backgroundButtons = new ToggleGroup();
+            for (String each : manager.getSubFile(type)) {
+                InputStream imageStream = manager.readFileData(type + "/" + each);
                 Image image = new Image(imageStream);
                 ImageView view = new ImageView(image);
-                view.setFitWidth(VIEW_FIT_WIDTH);
-                view.setFitHeight(VIEW_FIT_HEIGHT);
-                myTilePane.getChildren().add(view);
+
                 if (type.equals(BG)) {
-                    view.setOnMouseClicked(e -> myManager.setMyBGType(type + SLASH + each));
+                    view.setFitWidth(30);
+                    view.setFitHeight(30);
+
+                    ToggleButton libraryButton = new ToggleButton();
+                    libraryButton.setGraphic(view);
+
+                    libraryButton.setToggleGroup(backgroundButtons);
+                    myTilePane.getChildren().add(libraryButton);
+                    libraryButton.selectedProperty().addListener((p, ov, nv) -> {
+                        if (p.getValue()) {
+                            myManager.setMyBGType(type + "/" + each);
+                        }
+                        else {
+                            myManager.setMyBGType("");
+                            //TODO: THIS MIGHT BREAK SOMETHING BUT TBH I DONT THINK IT DOES because there are no entities linked to this
+                        }
+                    });
                 }
                 else {
-                    view.setOnDragDetected(e -> startDragEnt(e, view, type + SLASH + each, defaultFactory));
+                    view.setFitWidth(50);
+                    view.setFitHeight(50);
+                    myTilePane.getChildren().add(view);
+                    view.setOnDragDetected(e -> startDragEnt(e, view, type + "/" + each, defaultFactory));
                 }
             }
         }
