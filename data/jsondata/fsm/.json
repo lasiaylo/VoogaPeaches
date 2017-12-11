@@ -1,17 +1,22 @@
 {
   "myStateRenders": [
     {
-      "myInfo": {"default": true},
+      "UID": "e61a50572c9f43d3989237cea24d230f",
+      "myInfo": {},
       "myTitle": {}
     },
     {
+      "UID": "22bf944142de4b519da1fd9bd05dd9f6",
       "myInfo": {},
       "myTitle": {}
     }
   ],
+  "UID": "e9cfd9dd44e64de1954634171784e597",
   "myName": "",
-  "myArrows": [
-    {},
-    {}
-  ]
+  "myArrows": [{
+    "UID": "631fbb5ae7ff48d0ab9b7e1fe7e95ad5",
+    "myHead": {},
+    "myLength": {},
+    "myOrigin": {}
+  }]
 }

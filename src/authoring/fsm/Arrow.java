@@ -1,5 +1,6 @@
 package authoring.fsm;
 
+import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,10 +15,12 @@ import util.math.num.Vector;
 public class Arrow extends TrackableObject {
     private static final double HEAD_OFFSET = 45;
     public static final double HEAD_FACTOR = 0.8;
+    private static final double HEAD_WIDTH = 5;
 
+    @Expose private String myCode = "{ entity, state -> ; INSERT_HERE }";
+    @Expose private SavedArrow myState;
     private StateRender original;
     private StateRender destination;
-    private String myCode;
     private Group myGroup = new Group();
     private Vector myOrigin;
     private Vector myHead;
@@ -27,7 +30,7 @@ public class Arrow extends TrackableObject {
     private Line myPositiveHead = new Line();
     private GraphDelegate myGraph;
     private boolean deleting;
-    private 
+
 
     public Arrow(Vector origin, Vector head, GraphDelegate graph) {
         myGraph = graph;
@@ -35,12 +38,20 @@ public class Arrow extends TrackableObject {
         myHead = head;
         myLength = head.subtract(origin);
         setArrow();
-        myBody.setStrokeWidth(5);
+        initArrow();
+    }
+
+    private void initArrow() {
+        myBody.setStrokeWidth(HEAD_WIDTH);
+        myNegativeHead.setStrokeWidth(HEAD_WIDTH);
+        myPositiveHead.setStrokeWidth(HEAD_WIDTH);
         myBody.setOnMouseClicked(e -> onClick());
         myNegativeHead.setOnMouseClicked(e -> onClick());
         myPositiveHead.setOnMouseClicked(e -> onClick());
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
     }
+
+    private Arrow() {}
 
     public void onClick() {
         if (deleting) { return; }
@@ -130,16 +141,26 @@ public class Arrow extends TrackableObject {
         this.destination = destination;
     }
 
-    public String getMyCode() {
-        return "{ entity, state -> ; " + myCode + "}";
-    }
+    public String getMyCode() { return myCode; }
 
     @Override
     public void initialize() {
-
+        System.out.println("init Arrow");
     }
 
     public void save() {
-
+        myState = new SavedArrow(original, destination, myOrigin, myHead, myLength);
     }
+
+    public void setGraphDelegate(GraphDelegate graph) {
+        myGraph = graph;
+        original = myGraph.findStateRenderWith(myState.getMyOriginal());
+        destination = myGraph.findStateRenderWith(myState.getMyDestination());
+        myOrigin = new Vector(myState.getOriginX(), myState.getOriginY());
+        myHead = new Vector(myState.getHeadX(), myState.getHeadY());
+        myLength = new Vector(myState.getLenX(), myState.getLenY());
+        setArrow();
+        initArrow();
+    }
+
 }

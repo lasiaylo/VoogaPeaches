@@ -1,6 +1,7 @@
 package authoring.fsm;
 
 import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
@@ -26,15 +27,15 @@ import java.util.List;
  * @author Albert
  * @author Simran
  */
-public class FSMGraph extends GraphDelegate  {
+public class FSMGraph extends TrackableObject implements GraphDelegate {
 
     @Expose private List<StateRender> myStateRenders;
     @Expose private List<Arrow> myArrows;
+    @Expose private String myName;
     private Group myGroup = new Group();
     private Arrow currentArrow;
     private boolean addingState;
     private List<State> myStates;
-    @Expose private String myName;
 
     /**
      * Creates a new FSMGraph from scratch
@@ -47,7 +48,17 @@ public class FSMGraph extends GraphDelegate  {
 
     @Override
     public void initialize() {
-
+        System.out.println("init FSM");
+        for(StateRender sRender: myStateRenders) {
+            sRender.setGraphDelegate(this);
+            myGroup.getChildren().add(sRender.getRender());
+        }
+        for(Arrow arrow: myArrows) {
+            arrow.setGraphDelegate(this);
+            myGroup.getChildren().add(arrow.getRender());
+        }
+        myGroup.setOnMouseDragged(e -> dragHandle(e));
+        myGroup.setOnMouseReleased(e -> dragExit(e));
     }
 
     /**
@@ -182,14 +193,11 @@ public class FSMGraph extends GraphDelegate  {
     }
 
     public List<State> export() {
-        myStates = new ArrayList<>();
-        for(StateRender sRender: myStateRenders) {
-            myStates.add(sRender.createNewState());
-        }
-        System.out.println(myStates);
+        saveSetup();
         try {
+            System.out.println("Saving FSM");
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
-            manager.writeJSONFile(myName, JSONHelper.JSONForObject(this));
+            manager.writeJSONFile("TestFSM", JSONHelper.JSONForObject(this));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error saving FSM");
@@ -202,4 +210,56 @@ public class FSMGraph extends GraphDelegate  {
         return null;
     }
 
+    private void saveSetup() {
+        myStates = new ArrayList<>();
+        for(StateRender sRender: myStateRenders) {
+            myStates.add(sRender.createNewState());
+        }
+        for(StateRender sRender: myStateRenders) {
+            sRender.save();
+        }
+        for(Arrow arrow: myArrows) {
+            arrow.save();
+        }
+    }
+
+    @Override
+    public void removeMyself(StateRender state){
+        myStateRenders.remove(state);
+        myGroup.getChildren().remove(state.getRender());
+        for(Arrow arrow:state.getMyLeavingTransitions()){
+            removeMyself(arrow);
+        }
+    }
+
+    @Override
+    public void removeMyself(Arrow arrow){
+        myArrows.remove(arrow);
+        myGroup.getChildren().remove(arrow.getRender());
+        for(StateRender state:myStateRenders){
+            if(state.getMyLeavingTransitions().contains(arrow)){
+                state.removeLeavingTransition(arrow);
+            }
+        }
+    }
+
+    @Override
+    public Arrow findArrowWith(String code) {
+        for(Arrow arrow: myArrows) {
+            if (arrow.getMyCode().equals(code)) {
+                return arrow;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public StateRender findStateRenderWith(String name) {
+        for(StateRender sRender: myStateRenders) {
+            if (sRender.getName().equals(name)) {
+                return sRender;
+            }
+        }
+        return null;
+    }
 }

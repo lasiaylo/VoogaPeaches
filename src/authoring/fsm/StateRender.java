@@ -18,33 +18,42 @@ import util.exceptions.GroovyInstantiationException;
 
 import java.util.*;
 
+
 public class StateRender extends TrackableObject implements Updatable {
+
     private static final double PADDING = 30;
     private static final Color DEFAULT = Color.DARKSLATEBLUE;
     private static final Color ERROR = Color.PALEVIOLETRED;
-    @Expose private Label myTitle;
+
+    @Expose private String myTitle;
     @Expose private Map<String, Object> myInfo;
     @Expose private SavedStateRender mySave;
 
     private List<Arrow> myLeavingTransitions = new ArrayList<>();
-
     private Rectangle myRender = new Rectangle();
     private GraphDelegate myGraph;
     private boolean deleting;
     private FlowPane flow;
+    private Label myLabel;
 
-    public StateRender(double X, double Y, String title, GraphDelegate graph) {
-        myRender.setFill(ERROR); // hard coded
+    public StateRender(Double X, Double Y, String title, GraphDelegate graph) {
+        myInfo = new HashMap<>();
+        myTitle = title;
+        myGraph = graph;
+        initRender(X, Y);
+    }
+
+    private void initRender(Double X, Double Y) {
+        myLabel = new Label(myTitle);
+        myRender.setFill(ERROR);
         myRender.setX(X);
         myRender.setY(Y);
-        myGraph = graph;
-        myInfo = new HashMap<>();
-        myTitle = new Label(title);
-
-        myRender.heightProperty().bind(myTitle.heightProperty().add(PADDING));
-        myRender.widthProperty().bind(myTitle.widthProperty().add(PADDING));
+        myRender.heightProperty().bind(myLabel.heightProperty().add(PADDING));
+        myRender.widthProperty().bind(myLabel.widthProperty().add(PADDING));
         myRender.setOnMouseClicked(e -> onClick());
     }
+
+    private StateRender() {}
 
     public void onClick() {
         if (deleting) { return; }
@@ -122,15 +131,21 @@ public class StateRender extends TrackableObject implements Updatable {
         Button save = new Button("Done");
         delete.setOnMouseClicked(e -> onDelete(delete));
         save.setOnMouseClicked(e -> onDone(save));
-        flow.getChildren().addAll(delete, save, myTitle);
+        flow.getChildren().addAll(delete, save, myLabel);
     }
 
     public String getName() {
-        return myTitle.getText();
+        return myLabel.getText();
     }
 
     @Override
-    public void initialize() {
+    public void initialize() { }
 
+    public void setGraphDelegate(GraphDelegate graph) {
+        myGraph = graph;
+        initRender(mySave.getXRect(), mySave.getYRect());
+        for(String code: mySave.getArrowCode()) {
+            myLeavingTransitions.add(myGraph.findArrowWith(code));
+        }
     }
 }
