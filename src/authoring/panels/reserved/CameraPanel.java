@@ -38,13 +38,10 @@ public class CameraPanel implements Panel {
 	private static final double SPACING = 10;
     private static final String CAMERA = "camera";
     private static final String PANEL = "panel";
-    private static final String TEXT_FIELD = "textField";
     private static final String DELETE_LAYER = "Delete Layer";
     private static final int CAMERA_WIDTH_RATIO = 30;
     private static final String CHOICE_BOX = "choice-box";
     private static final String GAME_CAMERA = "Game Camera";
-    private static final String SCREENLAYOUT = "screenlayout";
-    private static final String NODE_STYLE = "nodeStyle";
 
     private ScrollPane myView;
 	private Button myPlay;
@@ -60,7 +57,6 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
@@ -88,8 +84,8 @@ public class CameraPanel implements Panel {
 		myPlay = new Button(PLAY);
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
-		myText = new TextField(TEXT);
-		myText.getStyleClass().add(TEXT_FIELD);
+		myText = new TextField();
+		myText.setPromptText(TEXT);
 		myClear = new Button(CLEAR);
 		myDelete = new Button(DELETE_LAYER);
 
@@ -142,8 +138,8 @@ public class CameraPanel implements Panel {
 	    if (code.equals(KeyCode.ENTER) && (!myOption.equals(NEWL)) && (!myOption.equals(ALLL)) && (!myOption.equals(BGL))) {
 	        myText.commitValue();
 	        myLayer.getItems().set(myLayer.getItems().indexOf(myLayer.getValue()), myText.getText());
-	        myText.setText(TEXT);
-        }
+        	myText.clear();
+	    }
     }
 
 	/**
