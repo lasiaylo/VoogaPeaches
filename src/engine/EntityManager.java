@@ -6,21 +6,12 @@ import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import engine.camera.Camera;
-import engine.camera.NewCamera;
 import engine.entities.Entity;
 import engine.events.*;
 import engine.events.MouseDragEvent;
-import engine.util.FXProcessing;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
-import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
 import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
@@ -28,8 +19,6 @@ import util.pubsub.PubSub;
 import util.pubsub.messages.BGMessage;
 import util.pubsub.messages.NonBGMessage;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +37,7 @@ public class EntityManager {
     private ObjectFactory layerFactory;
     private ObjectFactory levelFactory;
     private ObservableMap<String, Vector> levelSize;
-    private NewCamera camera;
+    private Camera camera;
     private String currentLevelName;
     private boolean isGaming;
 
@@ -102,7 +91,7 @@ public class EntityManager {
         new GameSaver(root.UIDforObject()).saveGame(root);
     }
 
-    public void setCamera(NewCamera c) {
+    public void setCamera(Camera c) {
         camera = c;
     }
 

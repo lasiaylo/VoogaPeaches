@@ -36,7 +36,7 @@ public class PanelController {
      * get camera view
      * @return camera view
      */
-	public Node getCamera(){
+	public ScrollPane getCamera(){
 	    return myEngine.getCameraView(new Vector(CAMERA_INIT_X, CAMERA_INIT_Y), new Vector(CAMERA_INIT_X_SIZE, CAMERA_INIT_Y_SIZE));
 	}
 
