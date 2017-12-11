@@ -29,27 +29,29 @@ import util.pubsub.messages.NonBGMessage
     width = (double)entity.getProperty("cameraWidth")
     height = (double)entity.getProperty("cameraHeight")
 
-    canvas = new Canvas(width, height)
-    stack = new StackPane()
-    rectange = new Rectangle(width,height)
+    def myCanvas = new Canvas(width, height)
+    def myStack = new StackPane()
+    def rectange = new Rectangle(width,height)
     rectange.setFill(Color.TRANSPARENT);
     rectange.setStroke(Color.BLACK);
 
-    stack.getChildren().add(rectange)
-    stack.getChildren().add(canvas)
+    myStack.getChildren().add(myCanvas)
+    myStack.getChildren().add(rectange)
 
-    entity.add(stack)
+    entity.add(myStack)
 
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
         if (!dEvent.isGaming) {
-            canvas.setOnMousePressed({ MouseEvent e ->
+            println("ayo")
+            myCanvas.setOnMousePressed({ MouseEvent e ->
                 dEvent.setMyStartPos(e.getX(), e.getY())
                 e.consume()
-                println("start")
+                println("hudd budd")
             })
-            canvas.setOnMouseReleased({ MouseEvent e ->
+            myCanvas.setOnMouseReleased({ MouseEvent e ->
                 addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridsize"))
+                println("This works!");
                 e.consume()
             })
         }
@@ -63,22 +65,23 @@ import util.pubsub.messages.NonBGMessage
 
     entity.on(EventType.MAPSETUP.getType(), { Event call ->
         MapSetupEvent setup = (MapSetupEvent) call
-        canvas.setOnMouseClicked({ MouseEvent e ->
-            PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridsize"))))
+        myCanvas.setOnMouseClicked({ MouseEvent e ->
+            PubSub.getInstance().publish("ADD_BG_HUD", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridsize"))))
             e.consume()
         })
-        stack.setOnDragOver({ DragEvent e ->
-            if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
+        myStack.setOnDragOver({ DragEvent e ->
+            if (e.getGestureSource() != myStack && e.getDragboard().hasString()) {
                 e.acceptTransferModes(TransferMode.COPY)
             }
             e.consume()
         })
-        stack.setOnDragDropped({ DragEvent e ->
+        myStack.setOnDragDropped({ DragEvent e ->
             if (e.getDragboard().hasString()) {
-                PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
+                println("dropped!!!")
+                PubSub.getInstance().publish("ADD_NON_BG_HUD", new NonBGMessage(e.getDragboard().getString(),
                         new Vector(e.getX(), e.getY())))
             }
-            println("dropped")
+
             e.setDropCompleted(true)
             e.consume()
         })
@@ -91,7 +94,7 @@ void addBatch(MouseEvent event, Vector start, int grid) {
     def endC = FXProcessing.getBGCenter(end, grid)
     for (def i = startC.at(0); i <= endC.at(0); i += grid) {
         for (def j = startC.at(1); j <= endC.at(1); j += grid) {
-            PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(FXProcessing.getBGCenter(new Vector(i, j), grid), grid)))
+            PubSub.getInstance().publish("ADD_BG_HUD", new BGMessage(FXProcessing.getBGCenter(FXProcessing.getBGCenter(new Vector(i, j), grid), grid)))
         }
     }
     event.consume()

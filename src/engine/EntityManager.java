@@ -52,12 +52,23 @@ public class EntityManager {
         BGType = "Background/grass.png";
         PubSub.getInstance().subscribe("ADD_BG", message -> {
             BGMessage bgMessage = (BGMessage) message;
-            addBG(bgMessage.getPos());
+            addBG(bgMessage.getPos(),0);
+        });
+
+        PubSub.getInstance().subscribe("ADD_BG_HUD", message -> {
+            BGMessage bgMessage = (BGMessage) message;
+            addBG(bgMessage.getPos(),1);
         });
 
         PubSub.getInstance().subscribe("ADD_NON_BG", message -> {
             NonBGMessage nonBGMessage = (NonBGMessage) message;
-            addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
+            addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID(),mode);
+        });
+
+        PubSub.getInstance().subscribe("ADD_NON_BG_HUD", message -> {
+            System.out.println("received message");
+            NonBGMessage nonBGMessage = (NonBGMessage) message;
+            addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID(),1);
         });
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
@@ -100,10 +111,10 @@ public class EntityManager {
      * BGtype is stored as a field inside manager, can be changed by library panel calling setBGType
      * @param pos
      */
-    public void addBG(Vector pos) {
+    public void addBG(Vector pos, int child) {
         if (mode == 0 && !isGaming) {
             Entity BGblock = BGObjectFactory.newObject();
-            BGblock.addTo(currentLevel.getChildren().get(0));
+            BGblock.addTo(currentLevel.getChildren().get(child));
 
             new InitialImageEvent(new Vector(grid, grid), pos).fire(BGblock);
             new ImageViewEvent(BGType).fire(BGblock);
@@ -114,18 +125,19 @@ public class EntityManager {
      * add nonbg user-defined entity
      * @param pos
      * @param uid
+     * @param child
      */
-    public void addNonBG(Vector pos, String uid) {
+    public void addNonBG(Vector pos, String uid, int child) {
         Entity entity = (Entity) TrackableObject.objectForUID(uid);
-        addNonBGPrivate(pos, entity);
+        addNonBGPrivate(pos, entity, child);
     }
 
-    private void addNonBGPrivate(Vector pos, Entity entity) {
+    private void addNonBGPrivate(Vector pos, Entity entity, int child) {
         if (mode > 0 && !isGaming) {
             if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-            entity.addTo(currentLevel.getChildren().get(mode));
+            entity.addTo(currentLevel.getChildren().get(child));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //new MouseDragEvent(false).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
