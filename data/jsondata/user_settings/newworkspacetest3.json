@@ -1,0 +1,28 @@
+{
+  "UID": "c5a48a9301cb45af852afa30a9449804",
+  "themeName": "light.css",
+  "authoring": [],
+  "games": [],
+  "workspaceName": "MiddleCameraWorkspace",
+  "userName": "newworkspacetest3",
+  "properties": {"MiddleCameraWorkspace": {
+    "FSM Panel": "right",
+    "Social Media": "right",
+    "Mini Map": "right",
+    "Game Graphvis": "false",
+    "Mini Mapvis": "false",
+    "Properties": "right",
+    "HitBoxes": "right",
+    "Propertiesvis": "false",
+    "Youtubevis": "false",
+    "FSM Panelvis": "false",
+    "Consolevis": "false",
+    "Console": "right",
+    "Youtube": "right",
+    "Game Graph": "right",
+    "HitBoxesvis": "false",
+    "Library": "right",
+    "Libraryvis": "false",
+    "Social Mediavis": "false"
+  }}
+}
