@@ -13,6 +13,7 @@ public class EntitySubstituter {
             DatabaseConnector.addToDatabasePath(substitute, getDbPath(substitute));
             old.getParent().remove(old);
         } catch (Exception e) {
+            e.printStackTrace();
             new ErrorDisplay("Data Error", "Could not connect to database").displayError();
         }
         try {

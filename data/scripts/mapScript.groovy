@@ -14,6 +14,7 @@ import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
 import javafx.scene.input.TransferMode
 import javafx.scene.layout.StackPane
+import javafx.scene.shape.Rectangle
 import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.BGMessage
@@ -22,9 +23,12 @@ import util.pubsub.messages.NonBGMessage
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
-    canvas = new Canvas((double)entity.getProperty("mapwidth"), (double)entity.getProperty("mapheight"))
-    stack = new StackPane()
+    def canvas = new Canvas(30,125)
+    def stack = new StackPane()
+    def rectangle = new Rectangle(50,50)
+    rectangle.setOnMouseClicked(println("yoooo"))
     stack.getChildren().add(canvas)
+    stack.getChildren().add(rectangle);
     entity.add(stack)
 
 
@@ -40,6 +44,7 @@ import util.pubsub.messages.NonBGMessage
                 addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridsize"))
                 e.consume()
             })
+            rectangle.setOnMouseClicked(println("yoooo"))
         }
     })
 

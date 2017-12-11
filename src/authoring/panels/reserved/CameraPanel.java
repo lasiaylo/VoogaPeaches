@@ -108,6 +108,8 @@ public class CameraPanel implements Panel {
 	 */
 	private void setView(ScrollPane view) {
 		myView = view;
+		System.out.println("Printing view");
+		System.out.println(myView);
 		myArea.getChildren().set(0,myView);
 		myView.setMouseTransparent(false);
 	}
