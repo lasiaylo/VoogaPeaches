@@ -94,6 +94,7 @@ public class EntityManager {
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
+            currentLevel = currentLevel.substitute();
         }
         writeRootToDatabase(root);
     }
