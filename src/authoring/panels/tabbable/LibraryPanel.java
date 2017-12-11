@@ -9,8 +9,6 @@ import database.filehelpers.FileDataManager;
 import engine.EntityManager;
 import engine.entities.Entity;
 import engine.events.ImageViewEvent;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
@@ -21,21 +19,17 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import util.ErrorDisplay;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.InputStream;
 import java.util.Map;
 
 
-/**
- * used to store all the different entities that can be used in the authoring environment
- * the backgrounds are toggle buttons that are placed on click in the camera, dragging in an area in the camera also fills those tiles
- * NOTE: only the background is tile based
- * the other entities are dragged onto the camera panel
- * @author Estelle He
- * @author Kelly Zhang
- */
 public class LibraryPanel implements Panel {
 
     private static final String BG = "Background";
@@ -77,7 +71,7 @@ public class LibraryPanel implements Panel {
             defaultFactory = new ObjectFactory(PLAYER_ENTITY);
             factory = new ObjectFactory(PLAYER_ENTITY);
         } catch (ObjectBlueprintNotFoundException e) {
-            e.printStackTrace();
+            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
         }
 
         myEntType.getItems().addAll(manager.getSubFolder());
@@ -93,6 +87,7 @@ public class LibraryPanel implements Panel {
         HBox top = new HBox(myEntType, update);
         top.setSpacing(SPACING);
         myArea = new VBox(top, myTilePane);
+        myArea.getStyleClass().add(PANEL);
         myArea.setSpacing(SPACING);
         getRegion().getStyleClass().add(PANEL);
     }
@@ -101,11 +96,11 @@ public class LibraryPanel implements Panel {
         type = myEntType.getValue();
         myTilePane.getChildren().clear();
         if (type.equals(PLAYER)) {
-            for (String each : ObjectFactory.getEntityTypes()) {
+            for (String each: ObjectFactory.getEntityTypes()) {
                 try {
                     factory.setObjectBlueprint(USER_DEFINED + each);
                 } catch (ObjectBlueprintNotFoundException e) {
-                    e.printStackTrace();
+                    new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
                 }
                 Entity entity = factory.newObject();
                 String path = (String) ((Map)((Map) entity.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);

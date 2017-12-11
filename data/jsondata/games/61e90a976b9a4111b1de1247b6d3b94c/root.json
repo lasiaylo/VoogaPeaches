@@ -1,0 +1,25 @@
+{
+  "UID": "61e90a976b9a4111b1de1247b6d3b94c",
+  "children": [{
+    "UID": "bca39123ce6448b798f0bd4f30e71c9c",
+    "children": [{
+      "UID": "f03ff91f371b48d4bd35707665fd8f2d",
+      "children": [],
+      "hitBoxes": [],
+      "properties": {"gridsize": 50}
+    }],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

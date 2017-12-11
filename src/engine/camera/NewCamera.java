@@ -83,7 +83,7 @@ public class NewCamera {
     private void moveCamera(Vector position) {
         camera.setLayoutX(position.at(0));
         camera.setLayoutY(position.at(1));
-        System.out.println(camera.getLayoutX());
+
         movePoint(position);
     }
 
