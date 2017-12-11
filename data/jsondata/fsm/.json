@@ -1,0 +1,17 @@
+{
+  "myStateRenders": [
+    {
+      "myInfo": {"default": true},
+      "myTitle": {}
+    },
+    {
+      "myInfo": {},
+      "myTitle": {}
+    }
+  ],
+  "myName": "",
+  "myArrows": [
+    {},
+    {}
+  ]
+}

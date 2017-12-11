@@ -1,6 +1,6 @@
 {
-  "UID": "471459b71e4f43b986d0afb093f4e841",
-  "code": {"state2": "{ entity, state -> ; print(1); return true}"},
-  "name": "state1",
-  "properties": {"default": true}
+  "UID": "79ee743cc5994c5cbe90bd7806522343",
+  "code": {},
+  "name": "",
+  "properties": {}
 }

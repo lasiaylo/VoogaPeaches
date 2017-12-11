@@ -1,5 +1,6 @@
 package authoring.fsm;
 
+import database.firebase.TrackableObject;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,7 +11,7 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import util.math.num.Vector;
 
-public class Arrow {
+public class Arrow extends TrackableObject {
     private static final double HEAD_OFFSET = 45;
     public static final double HEAD_FACTOR = 0.8;
 
@@ -26,6 +27,7 @@ public class Arrow {
     private Line myPositiveHead = new Line();
     private GraphDelegate myGraph;
     private boolean deleting;
+    private 
 
     public Arrow(Vector origin, Vector head, GraphDelegate graph) {
         myGraph = graph;
@@ -33,6 +35,7 @@ public class Arrow {
         myHead = head;
         myLength = head.subtract(origin);
         setArrow();
+        myBody.setStrokeWidth(5);
         myBody.setOnMouseClicked(e -> onClick());
         myNegativeHead.setOnMouseClicked(e -> onClick());
         myPositiveHead.setOnMouseClicked(e -> onClick());
@@ -58,6 +61,7 @@ public class Arrow {
         Button save = new Button("Save");
         TextField name = new TextField();
         name.setPromptText("Enter your closure lol");
+        name.setText(myCode);
         delete.setOnMouseClicked(e -> onDelete(delete));
         save.setOnMouseClicked(e -> onSave(save, name.getText()));
         flow.getChildren().addAll(delete, save, name);
@@ -128,5 +132,14 @@ public class Arrow {
 
     public String getMyCode() {
         return "{ entity, state -> ; " + myCode + "}";
+    }
+
+    @Override
+    public void initialize() {
+
+    }
+
+    public void save() {
+
     }
 }

@@ -41,6 +41,7 @@ public class FSMPanel implements UpdatablePanel {
         s.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> graph.onSceneClick(e));
         stage.setScene(s);
         stage.show();
+        stage.setOnHidden(e -> graph.export());
     }
 
     @Override

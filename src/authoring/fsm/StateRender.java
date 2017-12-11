@@ -2,13 +2,14 @@ package authoring.fsm;
 
 import authoring.panels.attributes.ParameterProperties;
 import authoring.panels.attributes.Updatable;
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.fsm.State;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -17,16 +18,17 @@ import util.exceptions.GroovyInstantiationException;
 
 import java.util.*;
 
-public class StateRender implements Updatable {
+public class StateRender extends TrackableObject implements Updatable {
     private static final double PADDING = 30;
     private static final Color DEFAULT = Color.DARKSLATEBLUE;
     private static final Color ERROR = Color.PALEVIOLETRED;
-    private Label myTitle;
-    private Map<String, Object> myInfo;
+    @Expose private Label myTitle;
+    @Expose private Map<String, Object> myInfo;
+    @Expose private SavedStateRender mySave;
+
     private List<Arrow> myLeavingTransitions = new ArrayList<>();
 
     private Rectangle myRender = new Rectangle();
-    private Pane myPane;
     private GraphDelegate myGraph;
     private boolean deleting;
     private FlowPane flow;
@@ -103,6 +105,10 @@ public class StateRender implements Updatable {
         return new State(getName(), data);
     }
 
+    public void save() {
+        mySave = new SavedStateRender(myLeavingTransitions, myRender);
+    }
+
     @Override
     public void update() {
         flow.getChildren().clear();
@@ -116,10 +122,15 @@ public class StateRender implements Updatable {
         Button save = new Button("Done");
         delete.setOnMouseClicked(e -> onDelete(delete));
         save.setOnMouseClicked(e -> onDone(save));
-        flow.getChildren().addAll(delete, save);
+        flow.getChildren().addAll(delete, save, myTitle);
     }
 
     public String getName() {
         return myTitle.getText();
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

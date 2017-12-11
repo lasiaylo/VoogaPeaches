@@ -46,7 +46,7 @@ public abstract class TrackableObject {
      */
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
 
-    public  String UIDforObject() {
+    public String UIDforObject() {
         for (String each: trackableObjects.keySet()) {
             if (trackableObjects.get(each).equals(this)) {
                 return each;

@@ -1,5 +1,6 @@
 package authoring.fsm;
 
+import com.google.gson.annotations.Expose;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
@@ -25,20 +26,28 @@ import java.util.List;
  * @author Albert
  * @author Simran
  */
-public class FSMGraph implements GraphDelegate  {
+public class FSMGraph extends GraphDelegate  {
 
-    private List<StateRender> myStateRenders;
-    private List<Arrow> myArrows;
+    @Expose private List<StateRender> myStateRenders;
+    @Expose private List<Arrow> myArrows;
     private Group myGroup = new Group();
     private Arrow currentArrow;
     private boolean addingState;
     private List<State> myStates;
+    @Expose private String myName;
 
     /**
      * Creates a new FSMGraph from scratch
      */
-    public FSMGraph() {
-        this(new ArrayList<>(), new ArrayList<>());
+    public FSMGraph(String name) {
+        this(name, new ArrayList<>(), new ArrayList<>());
+    }
+
+    public FSMGraph() { this(""); }
+
+    @Override
+    public void initialize() {
+
     }
 
     /**
@@ -46,7 +55,8 @@ public class FSMGraph implements GraphDelegate  {
      * @param stateRenders      list of stateRenders
      * @param Arrows list of Arrows
      */
-    public FSMGraph(List<StateRender> stateRenders, List<Arrow> Arrows) {
+    public FSMGraph(String name, List<StateRender> stateRenders, List<Arrow> Arrows) {
+        myName = name;
         myStateRenders = stateRenders;
         myArrows = Arrows;
         myGroup.setOnMouseDragged(e -> dragHandle(e));
@@ -93,26 +103,6 @@ public class FSMGraph implements GraphDelegate  {
 
     private void onClose(Button cancel) {
         ((Stage) cancel.getScene().getWindow()).close();
-    }
-
-    @Override
-    public void removeMyself(StateRender state) {
-        myStateRenders.remove(state);
-        myGroup.getChildren().remove(state.getRender());
-        for (Arrow arrow: state.getMyLeavingTransitions()){
-            removeMyself(arrow);
-        }
-    }
-
-    @Override
-    public void removeMyself(Arrow arrow) {
-        myArrows.remove(arrow);
-        myGroup.getChildren().remove(arrow.getRender());
-        for(StateRender state: myStateRenders) {
-            if(state.getMyLeavingTransitions().contains(arrow)) {
-                state.removeLeavingTransition(arrow);
-            }
-        }
     }
 
     /**
@@ -199,7 +189,7 @@ public class FSMGraph implements GraphDelegate  {
         System.out.println(myStates);
         try {
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
-            manager.writeJSONFile("testFSM", JSONHelper.JSONForObject(myStates.get(0)));
+            manager.writeJSONFile(myName, JSONHelper.JSONForObject(this));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error saving FSM");
