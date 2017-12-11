@@ -115,6 +115,7 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
+        if(parent == null) return null;
         this.parent.remove(this);
         stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
@@ -164,14 +165,14 @@ public class Entity extends Evented {
 
     @Override
     public void initialize() {
-     /*   if (root == null)
+          /* if (root == null)
             if (parent != null)
                 for (Entity entity : children)
                     entity.root = this;
             else
                 for (Entity entity : children)
                     entity.root = root; */
-     for(Entity child : children) {
+      for(Entity child : children) {
          child.parent = this;
          this.add(child.getNodes());
      }

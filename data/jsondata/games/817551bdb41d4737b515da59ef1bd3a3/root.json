@@ -11,10 +11,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 0,
               "width": 50,
+              "x": 0,
               "y": 0,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -25,10 +24,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 0,
               "width": 50,
+              "x": 0,
               "y": 50,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -39,10 +37,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 0,
               "width": 50,
+              "x": 0,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -53,10 +50,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 50,
               "width": 50,
+              "x": 50,
               "y": 0,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -67,10 +63,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 50,
               "width": 50,
+              "x": 50,
               "y": 50,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -81,10 +76,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 50,
               "width": 50,
+              "x": 50,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -95,10 +89,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 100,
               "width": 50,
+              "x": 100,
               "y": 0,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -109,10 +102,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 100,
               "width": 50,
+              "x": 100,
               "y": 50,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -123,10 +115,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 100,
               "width": 50,
+              "x": 100,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -137,10 +128,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 0,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -151,10 +141,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 50,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -165,10 +154,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -179,10 +167,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 0,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -193,10 +180,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 50,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -207,10 +193,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -221,10 +206,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -235,10 +219,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -249,10 +232,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 100,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -263,10 +245,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 200,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -277,10 +258,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 200,
               "scripts": {"imageScript": {"image_path": ""}},
               "height": 50
@@ -291,10 +271,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 50,
               "width": 50,
+              "x": 50,
               "y": 100,
               "scripts": {"imageScript": {"image_path": "Background/water.png"}},
               "height": 50
@@ -305,10 +284,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 50,
               "width": 50,
+              "x": 50,
               "y": 100,
               "scripts": {"imageScript": {"image_path": "Background/water.png"}},
               "height": 50
@@ -319,10 +297,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 200,
               "scripts": {"imageScript": {"image_path": "Background/water.png"}},
               "height": 50
@@ -333,10 +310,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 150,
               "width": 50,
+              "x": 150,
               "y": 200,
               "scripts": {"imageScript": {"image_path": "Background/water.png"}},
               "height": 50
@@ -347,10 +323,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 150,
               "scripts": {"imageScript": {"image_path": "Background/water.png"}},
               "height": 50
@@ -361,10 +336,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 200,
               "width": 50,
+              "x": 200,
               "y": 150,
               "scripts": {"imageScript": {"image_path": "Background/water.png"}},
               "height": 50
@@ -373,8 +347,8 @@
         ],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       },
@@ -387,13 +361,8 @@
           "properties": {
             "vx": 0,
             "vy": 0,
-            "listeners": {
-              "move": {"base/animate/update_position": {}},
-              "tick": {"base/animate/move": {}},
-              "key press": {"movement": {}}
-            },
-            "x": 142,
             "width": 50,
+            "x": 142,
             "y": 128,
             "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
             "height": 50
@@ -401,8 +370,8 @@
         }],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       }
@@ -410,15 +379,15 @@
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "mapwidth": 5000,
-      "cameraYpos": 0,
       "cameraHeight": 500,
-      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "cameraYpos": 0,
+      "mapwidth": 5000,
       "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
       "mapheight": 5000,
       "cameraWidth": 500,
-      "scripts": {"mapScript": {"empty": "empty"}},
-      "levelname": "level 1"
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
     }
   }],
   "hitBoxes": [],

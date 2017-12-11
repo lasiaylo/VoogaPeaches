@@ -11,10 +11,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 250,
               "width": 50,
+              "x": 250,
               "y": 150,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -25,10 +24,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 250,
               "width": 50,
+              "x": 250,
               "y": 150,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -39,10 +37,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 300,
               "width": 50,
+              "x": 300,
               "y": 150,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -53,10 +50,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 300,
               "width": 50,
+              "x": 300,
               "y": 150,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -67,10 +63,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 250,
               "width": 50,
+              "x": 250,
               "y": 50,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -81,10 +76,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 250,
               "width": 50,
+              "x": 250,
               "y": 50,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -95,10 +89,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 250,
               "width": 50,
+              "x": 250,
               "y": 100,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -109,10 +102,9 @@
             "children": [],
             "hitBoxes": [],
             "properties": {
-              "listeners": {},
               "bg": true,
-              "x": 250,
               "width": 50,
+              "x": 250,
               "y": 100,
               "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
               "height": 50
@@ -121,8 +113,8 @@
         ],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       },
@@ -135,13 +127,8 @@
           "properties": {
             "vx": 0,
             "vy": 0,
-            "listeners": {
-              "move": {"base/animate/update_position": {}},
-              "tick": {"base/animate/move": {}},
-              "key press": {"movement": {}}
-            },
-            "x": 213,
             "width": 50,
+            "x": 213,
             "y": 135,
             "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
             "height": 50
@@ -149,8 +136,8 @@
         }],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       }
@@ -158,15 +145,15 @@
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "mapwidth": 5000,
-      "cameraYpos": 0,
       "cameraHeight": 500,
-      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "cameraYpos": 0,
+      "mapwidth": 5000,
       "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
       "mapheight": 5000,
       "cameraWidth": 500,
-      "scripts": {"mapScript": {"empty": "empty"}},
-      "levelname": "level 1"
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
     }
   }],
   "hitBoxes": [],
