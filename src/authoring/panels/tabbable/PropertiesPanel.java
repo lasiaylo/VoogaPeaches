@@ -1,9 +1,5 @@
 package authoring.panels.tabbable;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import authoring.Panel;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
@@ -20,6 +16,10 @@ import util.ErrorDisplay;
 import util.exceptions.GroovyInstantiationException;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Displays the attributes associated with a particular Entity
