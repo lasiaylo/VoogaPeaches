@@ -1,7 +1,11 @@
 {
   "Social Media": "right",
   "Mini Map": "right",
+<<<<<<< Updated upstream
   "rightdivision": "0.7973958333333333",
+=======
+  "rightdivision": "0.7975260416666666",
+>>>>>>> Stashed changes
   "Game Graphvis": "false",
   "Mini Mapvis": "true",
   "Properties": "right",
@@ -13,9 +17,17 @@
   "Youtube": "right",
   "Game Graph": "right",
   "HitBoxesvis": "true",
+<<<<<<< Updated upstream
   "leftdivision": "0.14114583333333333",
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "false",
   "bodydivision": "0.9333333333333333"
+=======
+  "leftdivision": "0.14127604166666666",
+  "Library": "left",
+  "Libraryvis": "true",
+  "Social Mediavis": "false",
+  "bodydivision": "0.9330900243309003"
+>>>>>>> Stashed changes
 }
