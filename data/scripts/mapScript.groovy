@@ -34,9 +34,11 @@ import util.pubsub.messages.NonBGMessage
             canvas.setOnMousePressed({ MouseEvent e ->
                 dEvent.setMyStartPos(e.getX(), e.getY())
                 e.consume()
+                println("start")
             })
             canvas.setOnMouseReleased({ MouseEvent e ->
                 addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridsize"))
+                e.consume()
             })
         }
     })
@@ -77,7 +79,6 @@ void addBatch(MouseEvent event, Vector start, int grid) {
     for (def i = startC.at(0); i <= endC.at(0); i += grid) {
         for (def j = startC.at(1); j <= endC.at(1); j += grid) {
             PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(FXProcessing.getBGCenter(new Vector(i, j), grid), grid)))
-
         }
     }
     event.consume()

@@ -265,7 +265,7 @@ public class EntityManager {
 //        level.setProperty("mapwidth", mapWidth);
 //        level.setProperty("mapheight", mapHeight);
 //        level = level.substitute();
-//        new MouseDragEvent(isGamingg).fire(level);
+        new MouseDragEvent(isGaming).fire(level);
         new MapSetupEvent().fire(level);
         levels.put(name, level);
         levelSize.put(name, new Vector(mapWidth, mapHeight));

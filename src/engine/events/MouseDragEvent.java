@@ -17,6 +17,10 @@ public class MouseDragEvent extends Event {
         isGaming = gaming;
         this.event = event;
     }
+    public MouseDragEvent(boolean gaming) {
+        this();
+        isGaming = gaming;
+    }
 
     public Vector getMyStartSize() {
         return myStartSize;

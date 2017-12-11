@@ -37,15 +37,14 @@ import java.util.stream.Collectors
     pointer.setY((double) entity.getProperty("y"))
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
-//    pointer.setOnMouseClicked({e ->
-//        new ClickEvent(false, e).fire(entity)
-//    })
+    pointer.setOnMouseClicked({e ->
+        new ClickEvent(false, e).fire(entity)
+    })
     boolean dragged = false
 
     pointer.setOnMouseDragged({e -> new MouseDragEvent(false, e).fire(entity)})
-//    pointer.setOnMousePressed({e -> new MousePressedEvent(false, e).fire(entity)})
-//    pointer.setOnKeyPressed({e -> new KeyPressEvent(e).fire(entity)})
-    //.setOnMousePressed({e -> new MousePressedEvent(false, e).fire(entity)})
+    //pointer.setOnMousePressed({e -> new MousePressedEvent(false, e).fire(entity)})
+    pointer.setOnKeyPressed({e -> new KeyPressEvent(e).fire(entity)})
     //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
@@ -90,10 +89,7 @@ import java.util.stream.Collectors
 
    entity.on(EventType.CLICK.getType(), { Event call ->
         ClickEvent cEvent = (ClickEvent) call
-
-        println "click"
         if (!cEvent.getIsGaming()) {
-            println "click"
             pointer.requestFocus()
             if(!entity.getProperties().getOrDefault("bg", false)) {
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
@@ -112,7 +108,6 @@ import java.util.stream.Collectors
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-//        System.out.println(pointer.)
         if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
             pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
             MouseEvent e = dEvent.getEvent()
@@ -154,12 +149,9 @@ import java.util.stream.Collectors
     entity.on(EventType.DRAG_EXITED.getType(), { Event call ->
         DragExitedEvent exitEvent = (DragExitedEvent) call
         if(dragged) {
-            println "substitute"
-
-//            entity = entity.substitute()
+            entity = entity.substitute()
         }
         exitEvent.getMouseEvent().consume()
-        pointer.setOnMouseReleased({e -> });
     })
 
     entity.on(EventType.MOUSE_PRESS.getType(), { Event call ->
