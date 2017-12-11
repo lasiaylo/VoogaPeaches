@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.InputStream;
 
 public class ImageField extends Field {
 
@@ -60,9 +61,11 @@ public class ImageField extends Field {
     private void chooseFile() {
         File selectedImage = fileChooser.showOpenDialog(null);
         if (selectedImage != null){
-            setValue(selectedImage.getName());
             Image image = new Image(selectedImage.toURI().toString());
+            FileDataManager fileDataManager = new FileDataManager(FileDataFolders.USER_IMAGES);
             manager.writeFileData(FileConverter.convertImageToByteArray(image), USER_IMAGES_FILEPATH + selectedImage.getName());
+            InputStream iStream = fileDataManager.readFileData(USER_IMAGES_FILEPATH + selectedImage.getName());
+            setValue(USER_IMAGES_FILEPATH + selectedImage.getName());
             view.setImage(image);
         }
     }

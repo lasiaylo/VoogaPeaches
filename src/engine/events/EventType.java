@@ -4,6 +4,7 @@ public enum EventType {
     ADDLAYER("addLayer"),
     CLICK("click"),
     COLLISION("collision"),
+    DRAG_EXITED("drag exited"),
     IMAGE_VIEW("Image View Event"),
     INITIAL_IMAGE("setup initial imageview"),
     KEY_PRESS("key press"),
@@ -16,7 +17,8 @@ public enum EventType {
     TICK("tick"),
     TRANSPARENT_MOUSE("Transparent Mouse Event"),
     VIEWVIS("View Visibility Event"),
-    MAPSETUP("map setup");
+    MAPSETUP("map setup"),
+    UPDATE_IMAGE("update_image");
 
     private String type;
 
