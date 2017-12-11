@@ -1,5 +1,6 @@
 package engine;
 
+import database.GameSaver;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
@@ -44,7 +45,8 @@ public class EntityManager {
     private Vector startSize = new Vector(0, 0);
     private Vector startPosBatch = new Vector(0, 0);
     private ObjectFactory BGObjectFactory;
-    private ObjectFactory defaultObjectFactory;
+    private ObjectFactory layerFactory;
+    private ObjectFactory levelFactory;
     private ObservableMap<String, Vector> levelSize;
     private NewCamera camera;
     private String currentLevelName;
@@ -57,7 +59,6 @@ public class EntityManager {
         this.grid = gridSize;
         this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
-
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = "Background/grass.png";
         PubSub.getInstance().subscribe("ADD_BG", message -> {
@@ -69,28 +70,36 @@ public class EntityManager {
             NonBGMessage nonBGMessage = (NonBGMessage) message;
             addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
         });
-
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
-            defaultObjectFactory = new ObjectFactory("PlayerEntity");
-
+            layerFactory = new ObjectFactory("layer");
+            levelFactory = new ObjectFactory("level");
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
+
         if (root.getChildren().isEmpty()) {
             //don't freak out about this..... just a initial level
             addLevel("level 1", 5000, 5000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
-        }
-        else {
+        } else {
             root.getChildren().forEach(e -> {
-                levels.put((String) e.getProperty("levelname"), e);
-                levelSize.put((String) e.getProperty("levelname"), new Vector((double) e.getProperty("mapwidth"), (double) e.getProperty("mapheight")));
+                try {
+                    levels.put((String) e.getProperty("levelname"), e);
+                    levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
+                } catch(Exception l ){
+                    l.printStackTrace();
+                }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
         }
+        writeRootToDatabase(root);
+    }
+
+    private void writeRootToDatabase(Entity root) {
+        new GameSaver(root.UIDforObject()).saveGame(root);
     }
 
     public void setCamera(NewCamera c) {
@@ -107,10 +116,8 @@ public class EntityManager {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
 
-            new ImageViewEvent(BGType).fire(BGblock);
             new InitialImageEvent(new Vector(grid, grid), pos).fire(BGblock);
-            new ClickEvent(isGaming).fire(BGblock);
-            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(BGblock);
+            new ImageViewEvent(BGType).fire(BGblock);
         }
     }
 
@@ -132,9 +139,6 @@ public class EntityManager {
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
-            new ClickEvent(isGaming).fire(entity);
-            new KeyPressEvent(KeyCode.BACK_SPACE, false).fire(entity);
-            new MouseDragEvent(isGaming, false).fire(entity);
         }
     }
 
@@ -233,22 +237,23 @@ public class EntityManager {
     }
 
     private void addLayer(Entity level) {
-        Entity layer = new Entity(level);
-        ImageView holder = setPlaceHolder();
-        layer.add(holder);
+        Entity layer = layerFactory.newObject();
+        layer.addTo(level);
+//        layer.setProperty("gridsize", grid);
+//        layer = layer.substitute();
         AddLayerEvent addLayer = new AddLayerEvent(layer);
         addLayer.fire(level);
     }
 
-    private ImageView setPlaceHolder() {
-        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
-        holder.setX(0);
-        holder.setY(0);
-        holder.setFitWidth(grid);
-        holder.setFitHeight(grid);
-        holder.setMouseTransparent(true);
-        return holder;
-    }
+//    private ImageView setPlaceHolder() {
+//        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
+//        holder.setX(0);
+//        holder.setY(0);
+//        holder.setFitWidth(grid);
+//        holder.setFitHeight(grid);
+//        holder.setMouseTransparent(true);
+//        return holder;
+//    }
 
     /**
      * add new level
@@ -261,25 +266,14 @@ public class EntityManager {
             new ErrorDisplay("Level Name", "Level name already exists").displayError();
             return;
         }
-        Entity level = new Entity(root);
-        //somehow fucking add the name to level properties
-        Canvas canvas = new Canvas(mapWidth, mapHeight);
-        StackPane stack = new StackPane();
-        stack.getChildren().add(canvas);
-
-        canvas.setOnMouseClicked(e -> addBGCenter(new Vector(e.getX(), e.getY()), e));
-        canvas.setOnMousePressed(e -> startDragBatch(e));
-        canvas.setOnMouseReleased(e -> addBatch(e, startPosBatch));
-
-        stack.setOnDragOver(e -> dragOver(e, stack));
-        stack.setOnDragDropped(e -> dragDropped(e));
-
-        level.on(EventType.ADDLAYER.getType(), event -> {
-            AddLayerEvent addLayer = (AddLayerEvent) event;
-            stack.getChildren().add(addLayer.getLayerGroup());
-            stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT);
-        });
-        level.getNodes().getChildren().add(stack);
+        Entity level = levelFactory.newObject();
+        level.addTo(root);
+//        level.setProperty("gridsize", grid);
+//        level.setProperty("mapwidth", mapWidth);
+//        level.setProperty("mapheight", mapHeight);
+//        level = level.substitute();
+        new MouseDragEvent(isGaming).fire(level);
+        new MapSetupEvent().fire(level);
         levels.put(name, level);
         levelSize.put(name, new Vector(mapWidth, mapHeight));
         level.setProperty("levelname", name);
@@ -289,45 +283,6 @@ public class EntityManager {
         addLayer(level);
     }
 
-    private void dragOver(DragEvent event, Node map) {
-        if (event.getGestureSource() != map && event.getDragboard().hasString()) {
-            event.acceptTransferModes(TransferMode.COPY);
-        }
-        event.consume();
-    }
-
-    private void dragDropped(DragEvent event) {
-        Dragboard board = event.getDragboard();
-        if (board.hasString() && !isGaming) {
-            addNonBG(new Vector(event.getX(), event.getY()), board.getString());
-        }
-        event.setDropCompleted(true);
-        event.consume();
-    }
-
-    private void startDragBatch(MouseEvent event) {
-        startPosBatch = new Vector(event.getX(), event.getY());
-        event.consume();
-    }
-
-    private void addBatch(MouseEvent event, Vector start) {
-        Vector end = new Vector(event.getX(), event.getY());
-        Vector startC = FXProcessing.getBGCenter(start, grid);
-        Vector endC = FXProcessing.getBGCenter(end, grid);
-        for (double i = startC.at(0); i <= endC.at(0); i += grid) {
-            for (double j = startC.at(1); j <= endC.at(1); j += grid) {
-                Vector center = FXProcessing.getBGCenter(new Vector(i, j), grid);
-                addBG(center);
-            }
-        }
-        event.consume();
-    }
-
-    private void addBGCenter(Vector pos, MouseEvent event) {
-        Vector center = FXProcessing.getBGCenter(pos, grid);
-        addBG(center);
-        event.consume();
-    }
 
 
     /**

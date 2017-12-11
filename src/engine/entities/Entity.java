@@ -1,17 +1,11 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.fileloaders.ScriptLoader;
+import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import util.math.num.Vector;
-import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +25,7 @@ public class Entity extends Evented {
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
 
+    private String dbPath;
     private Group group;
     private Entity parent;
     private Entity root;
@@ -66,7 +61,7 @@ public class Entity extends Evented {
     }
 
     public Map<String, Object> getProperties(){
-    	return properties;
+        return properties;
     }
 
     public void add(Node node) {
@@ -138,8 +133,18 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
+        this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
-        entity.UID = UID;
+        entity.properties = properties;
+        entity.replaceUID(this.UIDforObject());
+
+        try {
+            DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
         try {
@@ -153,14 +158,24 @@ public class Entity extends Evented {
                 entity.add(child.substitute());
 
         entity.initialize();
-        if(!((boolean) getProperties().getOrDefault("bg", false))) {
-            new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
-                    new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
-            new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
-            new ClickEvent(false).fire(this);
-            new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
-        }
         return entity;
+    }
+
+    public String getDbPath() {
+        // Case: Set already
+        if(dbPath != null) return dbPath;
+        // Case: Parent is root and it's set already
+        if(parent == null) return "games/" + this.UIDforObject() + "/";
+        // Case: Other
+        String basePath = parent.getDbPath() + "children/";
+        int childIndex= 0;
+        for(Entity child : parent.getChildren()) {
+            // Break once you get the right index
+            if(this == child) break;
+            childIndex++;
+        }
+        dbPath = basePath + childIndex + "/" ;
+        return dbPath;
     }
 
     @Override

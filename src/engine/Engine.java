@@ -60,8 +60,14 @@ public class Engine {
         new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
-    public void load(String name) {
-
+    public void load(Entity root, int gridSize, boolean gaming) {
+        this.isGaming = gaming;
+        this.entityManager = new EntityManager(root, gridSize, gaming);
+        System.out.println("here");
+        this.camera.changeLevel(entityManager.getCurrentLevel());
+        System.out.println("here");
+        entityManager.setCamera(this.camera);
+        System.out.println("here");
     }
 
     public EntityManager getEntityManager() {
@@ -85,7 +91,7 @@ public class Engine {
         return entityManager;
     }
 
-    public Node getCameraView(Vector center, Vector size) {
+    public ScrollPane getCameraView(Vector center, Vector size) {
         return camera.getView(center,size);
     }
 

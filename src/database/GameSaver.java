@@ -57,6 +57,7 @@ public class GameSaver {
         saveRoot(toSave);
         String[] images = saveImageJSON(toSave);
         uploadImages(images);
+
     }
 
     /**
