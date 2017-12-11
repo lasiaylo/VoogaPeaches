@@ -134,7 +134,7 @@ public class PropertiesPanel implements Panel,Updatable {
     public void addFile(Map<String, Map<String,Object>> map, File file) throws GroovyInstantiationException {
         if (file != null) {
             String fileName = FilenameUtils.removeExtension(file.getName());
-            map.put(fileName, new HashMap<>());
+            map.put(fileName, new HashMap<String,Object>());
         }
         update();
     }
