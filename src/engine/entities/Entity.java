@@ -1,19 +1,19 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.fileloaders.ScriptLoader;
 import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
+<<<<<<< HEAD
 import javafx.scene.input.KeyCode;
 import util.ErrorDisplay;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
+=======
+>>>>>>> 33e1e6ca57ae9e8949649fb836468a529f058ebe
 
 import java.util.ArrayList;
 import java.util.HashMap;
