@@ -33,6 +33,8 @@ import java.util.Map;
  * the backgrounds are toggle buttons that are placed on click in the camera, dragging in an area in the camera also fills those tiles
  * NOTE: only the background is tile based
  * the other entities are dragged onto the camera panel
+ * @author Estelle He
+ * @author Kelly Zhang
  */
 public class LibraryPanel implements Panel {
     private static final String BG = "Background";
