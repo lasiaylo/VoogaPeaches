@@ -61,7 +61,6 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
@@ -90,7 +89,6 @@ public class CameraPanel implements Panel {
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
-		myText.getStyleClass().add(TEXT_FIELD);
 		myClear = new Button(CLEAR);
 		myDelete = new Button(DELETE_LAYER);
 
@@ -118,7 +116,6 @@ public class CameraPanel implements Panel {
 	 * adds the action connections to the buttons
 	 */
 	private void setupButton() {
-		myLayer.getStyleClass().add(CHOICE_BOX);
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
@@ -134,6 +131,8 @@ public class CameraPanel implements Panel {
 		    myLayer.getSelectionModel().clearAndSelect(1);
         });
 
+
+		myLayer.getStyleClass().add(CHOICE_BOX);
 	}
 
 	/**

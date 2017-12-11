@@ -20,6 +20,10 @@
     },
     "gridsize": 50,
     "mapwidth":2000,
-    "mapheight":2000
+    "mapheight":2000,
+    "cameraXpos":0,
+    "cameraYpos":0,
+    "cameraWidth":500,
+    "cameraHeight":500
   }
 }

@@ -55,6 +55,7 @@ public abstract class TrackableObject {
         this.UID = UID;
         trackableObjects.put(this.UID, this);
     }
+
     /**
      * Adds the passed object to the map of tracked objects
      * @param object is a {@code TrackableObject} that is to be added to the map of tracked objects

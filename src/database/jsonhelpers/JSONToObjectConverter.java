@@ -4,6 +4,7 @@ import database.User;
 import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import util.ErrorDisplay;
 
 import javax.sound.midi.Track;
 import java.lang.reflect.Constructor;
@@ -177,7 +178,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             newObject.initialize();
             return newObject;
         } catch (Exception e){
-            e.printStackTrace();
+            new ErrorDisplay("Json Error", "Could not create object from JSON").displayError();
             return null;
         }
     }

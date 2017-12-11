@@ -17,7 +17,8 @@ public enum EventType {
     TICK("tick"),
     TRANSPARENT_MOUSE("Transparent Mouse Event"),
     VIEWVIS("View Visibility Event"),
-    MAPSETUP("map setup");
+    MAPSETUP("map setup"),
+    UPDATE_IMAGE("update_image");
 
     private String type;
 

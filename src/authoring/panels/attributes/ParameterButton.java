@@ -29,7 +29,7 @@ public class ParameterButton {
     public ParameterButton(Map<String, Object> map, Updatable panel) {
         myMap = map;
         hbox = new HBox();
-        //myPanel = panel;
+        myPanel = panel;
         makeVisual();
         addtoBox();
     }
