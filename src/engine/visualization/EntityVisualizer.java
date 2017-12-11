@@ -3,22 +3,20 @@ package engine.visualization;
 import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import util.math.num.Vector;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityVisualizer {
-    public static final double RADIUS = 50;
-    public static final double CONNECTION_LENGTH = 30;
-    public static final int MAX_DISPLAY = 4;
+
+    private static final double RADIUS = 50;
+    private static final double CONNECTION_LENGTH = 30;
+    private static final int MAX_DISPLAY = 4;
 
     private Group group;
     private Circle rootCircle;
@@ -43,17 +41,12 @@ public class EntityVisualizer {
     private void createText(String s, Circle c) {
         Text text = new Text(c.getCenterX(), c.getCenterY(), s.substring(0, 5));
         text.setBoundsType(TextBoundsType.VISUAL);
-        text.setStyle(
-                "-fx-font-family: \"Georgia\";" +
-                        "-fx-font-size: 8px;"
-        );
+        text.setStyle("-fx-font-family: \"Georgia\";" + "-fx-font-size: 8px;");
         group.getChildren().add(text);
     }
 
     private void drawRoot() {
-        rootCircle = new Circle(RADIUS);
-        rootCircle.setCenterX(0);
-        rootCircle.setCenterY(0);
+        rootCircle = new Circle(0, 0, RADIUS);
         rootCircle.setStroke(Color.BLACK);
         rootCircle.setFill(Color.WHITE);
         group.getChildren().add(rootCircle);
@@ -86,7 +79,7 @@ public class EntityVisualizer {
                 cb.show();
                 cb.setOnAction(g -> {
                     if (cb.getValue() != null) {
-                        gameVisualizer.focus(children.get(indexByUID(cb.getValue())));
+                        gameVisualizer.focus(children.get(indexByUID(cb.getValue(), this)));
                         cb.valueProperty().set(null);
                     }
                 });
@@ -131,17 +124,15 @@ public class EntityVisualizer {
         return newCircle;
     }
 
-    private Vector vecFromHypotenuse(Vector ogPosition, double length, double angle) {
-        return ogPosition.add(new Vector(length * Math.cos(angle), length * Math.sin(angle)));
+    private Vector vecFromHypotenuse(Vector oldPosition, double length, double angle) {
+        return oldPosition.add(new Vector(length * Math.cos(angle), length * Math.sin(angle)));
     }
 
-    protected Group getGroup() {
-        return group;
-    }
+    protected Group getGroup() { return group; }
 
-    private int indexByUID(String UID){
-        for (int i = MAX_DISPLAY; i < children.size(); i++){
-            if (children.get(i).root.UIDforObject().equals(UID)){
+    private int indexByUID(String UID, EntityVisualizer e){
+        for (int i = MAX_DISPLAY; i < e.children.size(); i++){
+            if (e.children.get(i).root.UIDforObject().equals(UID)){
                 return i;
             }
         }

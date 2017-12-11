@@ -1,17 +1,10 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import util.ErrorDisplay;
-import util.math.num.Vector;
-import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +18,6 @@ import java.util.Map;
  * @author Albert
  */
 public class Entity extends Evented {
-
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
