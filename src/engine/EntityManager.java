@@ -88,6 +88,10 @@ public class EntityManager {
                 try {
                     levels.put((String) e.getProperty("levelname"), e);
                     levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
+                    for (Entity each: e.getChildren()) {
+                        System.out.println("firing add layer");
+                        new AddLayerEvent(each).fire(e);
+                    }
                 } catch(Exception l ){
                     l.printStackTrace();
                 }
@@ -133,9 +137,13 @@ public class EntityManager {
 
     private void addNonBGPrivate(Vector pos, Entity entity) {
         if (mode > 0 && !isGaming) {
+            System.out.println("layers " + currentLevel.getChildren().size());
             if (mode > currentLevel.getChildren().size() - 1) {
+                System.out.println("add non bg");
+                System.out.println(currentLevel.getChildren().size());
                 addLayer();
             }
+
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //new MouseDragEvent(false).fire(entity);
@@ -233,7 +241,9 @@ public class EntityManager {
 
     public void deleteLayer() {
         if (mode > 0) {
+            ((StackPane)currentLevel.getNodes().getChildren().get(0)).getChildren().remove(currentLevel.getChildren().get(mode).getNodes());
             currentLevel.remove(currentLevel.getChildren().get(mode));
+            mode = 0;
         }
     }
 

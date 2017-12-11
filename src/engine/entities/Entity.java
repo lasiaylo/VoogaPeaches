@@ -1,6 +1,7 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;
 import javafx.scene.Group;
@@ -84,10 +85,8 @@ public class Entity extends Evented {
     }
 
     public void remove(Entity entity) {
-        System.out.println(this.getNodes().getChildren().size());
         children.remove(entity);
         remove(entity.getNodes());
-        System.out.println(this.getNodes().getChildren().size());
     }
 
     public Entity getRoot() { return root; }
@@ -114,24 +113,66 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
+        this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
         entity.properties = properties;
-        return EntitySubstituter.substitute(this, entity);
+        entity.replaceUID(this.UIDforObject());
+
+        try {
+            DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        entity.properties = properties;
+        entity.hitBoxes = hitBoxes;
+        try {
+            parent.getNodes().getChildren().remove(group);
+        } catch(NullPointerException e){
+            // do nothing
+        }
+
+        if(!children.isEmpty())
+            for(Entity child : children)
+                entity.add(child.substitute());
+
+        entity.initialize();
+        return entity;
     }
 
-    String getDbPath() { return dbPath; }
+    public String getDbPath() {
+        // Case: Set already
+        if(dbPath != null) return dbPath;
+        // Case: Parent is root and it's set already
+        if(parent == null) return "games/" + this.UIDforObject() + "/";
+        // Case: Other
+        String basePath = parent.getDbPath() + "children/";
+        int childIndex= 0;
+        for(Entity child : parent.getChildren()) {
+            // Break once you get the right index
+            if(this == child) break;
+            childIndex++;
+        }
+        dbPath = basePath + childIndex + "/" ;
+        return dbPath;
+    }
 
-    void setDbPath(String dbPath) { this.dbPath = dbPath; }
+
 
     @Override
     public void initialize() {
-        if (root == null)
+     /*   if (root == null)
             if (parent != null)
                 for (Entity entity : children)
                     entity.root = this;
             else
                 for (Entity entity : children)
-                    entity.root = root;
+                    entity.root = root; */
+     for(Entity child : children) {
+         child.parent = this;
+         this.add(child.getNodes());
+     }
 
         executeScripts();
     }

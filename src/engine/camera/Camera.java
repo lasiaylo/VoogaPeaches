@@ -31,6 +31,9 @@ public class Camera {
         currentLevel = level;
 
         view = new ScrollPane(level.getNodes().getChildren().get(0));
+//        if (currentLevel.getNodes().getChildren().size() == 0) {
+//            currentLevel.add(view.getContent());
+//        }
         view.setPannable(false);
 
         changeLevel(level);

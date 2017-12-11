@@ -3,7 +3,7 @@
   "hitBoxes": [],
   "properties": {
     "scripts": {
-      "image_script": {
+      "imageScript": {
         "image_path" : "default_image.jpg"
       }
     },
