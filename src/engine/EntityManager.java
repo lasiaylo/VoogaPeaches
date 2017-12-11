@@ -1,5 +1,6 @@
 package engine;
 
+import database.GameSaver;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
@@ -47,7 +48,7 @@ public class EntityManager {
     private ObjectFactory layerFactory;
     private ObjectFactory levelFactory;
     private ObservableMap<String, Vector> levelSize;
-    private NewCamera camera;
+    private Camera camera;
     private String currentLevelName;
     private boolean isGaming;
 
@@ -58,7 +59,6 @@ public class EntityManager {
         this.grid = gridSize;
         this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
-
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = "Background/grass.png";
         PubSub.getInstance().subscribe("ADD_BG", message -> {
@@ -70,32 +70,39 @@ public class EntityManager {
             NonBGMessage nonBGMessage = (NonBGMessage) message;
             addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
         });
-
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
             layerFactory = new ObjectFactory("layer");
             levelFactory = new ObjectFactory("level");
-
         } catch (ObjectBlueprintNotFoundException e) {
             e.printStackTrace();
         }
+
         if (root.getChildren().isEmpty()) {
             //don't freak out about this..... just a initial level
             addLevel("level 1", 5000, 5000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
-        }
-        else {
+        } else {
             root.getChildren().forEach(e -> {
-                levels.put((String) e.getProperty("levelname"), e);
-                levelSize.put((String) e.getProperty("levelname"), new Vector((double) e.getProperty("mapwidth"), (double) e.getProperty("mapheight")));
+                try {
+                    levels.put((String) e.getProperty("levelname"), e);
+                    levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
+                } catch(Exception l ){
+                    l.printStackTrace();
+                }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
         }
+        writeRootToDatabase(root);
     }
 
-    public void setCamera(NewCamera c) {
+    private void writeRootToDatabase(Entity root) {
+        new GameSaver(root.UIDforObject()).saveGame(root);
+    }
+
+    public void setCamera(Camera c) {
         camera = c;
     }
 

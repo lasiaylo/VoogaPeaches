@@ -1,18 +1,11 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.fileloaders.ScriptLoader;
 import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import util.math.num.Vector;
-import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,9 +134,11 @@ public class Entity extends Evented {
     public Entity substitute() {
         clear();
         this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
         entity.properties = properties;
-        replaceInUIDMap(UIDforObject(), entity);
+        entity.replaceUID(this.UIDforObject());
+
         try {
             DatabaseConnector.removeFromDatabasePath(this.getDbPath());
             DatabaseConnector.addToDatabasePath(entity, this.getDbPath());

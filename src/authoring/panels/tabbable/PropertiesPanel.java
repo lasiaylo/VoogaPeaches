@@ -102,7 +102,7 @@ public class PropertiesPanel implements Panel,Updatable {
         myVBox.getChildren().addAll(
                 TPane.addPane(PARAMETERS, makeParameters(myParameters)),
                 TPane.addPane(SCRIPTS, makeScripts(myScripts)),
-          //      TPane.addPane(EVENTS,makeEvents(myEvents)),
+                TPane.addPane(EVENTS,makeEvents(myEvents)),
                 addButton()
         );
     }

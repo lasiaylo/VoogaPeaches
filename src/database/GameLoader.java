@@ -45,7 +45,6 @@ public class GameLoader {
                 JSONObject rootObject = new JSONObject(JSONHelper.JSONForObject(tempRoot).toString().replace("|","/"));
                 JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
                 gameRoot = converter.createObjectFromJSON(Entity.class, rootObject);
-
                 callback.accept(gameRoot);
             }
 
