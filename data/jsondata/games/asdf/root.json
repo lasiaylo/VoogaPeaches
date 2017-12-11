@@ -1,0 +1,45 @@
+{
+  "UID": "d9f09715234f4aa79beac79b1c338a9d",
+  "children": [{
+    "UID": "efaee03ff83e411db2ec93191b97eac2",
+    "children": [
+      {
+        "UID": "50b8ba0c59e248c1bf7fb16af4ab458f",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {}
+      },
+      {
+        "UID": "839b9ef1eb6a4c9e9160d6323ab29515",
+        "children": [{
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0.1,
+            "vy": 0.1,
+            "listeners": {
+              "move": {"base/animate/update_position": {}},
+              "tick": {"base/animate/move": {}},
+              "key press": {"movement": {}}
+            },
+            "x": 173,
+            "width": 50,
+            "y": 102,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {}
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "mapwidth": 5000,
+      "mapheight": 5000,
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

@@ -11,8 +11,8 @@ import javafx.scene.image.ImageView
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
     holder = new ImageView(new Image(datamanager.readFileData("holder.gif")))
-    holder.setFitWidth(entity.getProperty("gridSize"))
-    holder.setFitHeight(entity.getProperty("gridSize"))
+    holder.setFitWidth(entity.getProperty("gridsize"))
+    holder.setFitHeight(entity.getProperty("gridsize"))
     holder.setX(0)
     holder.setY(0)
     entity.add(holder)
