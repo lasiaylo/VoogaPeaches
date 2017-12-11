@@ -9,18 +9,18 @@ import database.filehelpers.FileDataManager;
 import engine.EntityManager;
 import engine.entities.Entity;
 import engine.events.ImageViewEvent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.InputStream;
@@ -98,10 +98,21 @@ public class LibraryPanel implements Panel {
                 ImageView view = new ImageView(image);
                 view.setFitWidth(50);
                 view.setFitHeight(50);
-                view.getStyleClass().add("entity");
-                myTilePane.getChildren().add(view);
+                ToggleButton libraryButton = new ToggleButton();
+                libraryButton.setGraphic(view);
+//                BorderPane imageViewWrapper = new BorderPane(view);
+//                imageViewWrapper.getStyleClass().add("entity");
+
+                myTilePane.getChildren().add(libraryButton);
                 if (type.equals(BG)) {
-                    view.setOnMouseClicked(e -> myManager.setMyBGType(type + "/" + each));
+                    libraryButton.setOnMouseClicked(e -> {
+                        if (libraryButton.isSelected()) {
+                            myManager.setMyBGType(type + "/" + each);
+                        }
+                        else {
+//                            libraryButton.
+                        }
+                    });
                 }
                 else {
                     view.setOnDragDetected(e -> startDragEnt(e, view, type + "/" + each, defaultFactory));
