@@ -1,5 +1,6 @@
 package scripts
 
+import com.google.firebase.database.collection.LLRBNode
 import engine.entities.Entity
 import engine.events.AddLayerEvent
 import engine.events.Event
@@ -13,6 +14,8 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
 import javafx.scene.input.TransferMode
+import javafx.scene.layout.BackgroundFill
+import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import util.math.num.Vector
 import util.pubsub.PubSub
@@ -27,6 +30,7 @@ import util.pubsub.messages.NonBGMessage
     stack.getChildren().add(canvas)
     entity.add(stack)
 
+    println("In mapscript" + bindings.get("empty"))
 
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
@@ -48,13 +52,14 @@ import util.pubsub.messages.NonBGMessage
         stack.getChildren().add(addLayer.getLayerGroup())
         stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
     })
-
+    println("drag over")
     entity.on(EventType.MAPSETUP.getType(), { Event call ->
         MapSetupEvent setup = (MapSetupEvent) call
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, { MouseEvent e ->
             PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridsize"))))
             e.consume()
         })
+        println("drag over")
         stack.addEventHandler(DragEvent.DRAG_OVER, { DragEvent e ->
             if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
                 e.acceptTransferModes(TransferMode.COPY)
@@ -62,6 +67,7 @@ import util.pubsub.messages.NonBGMessage
             e.consume()
         })
         stack.addEventHandler(DragEvent.DRAG_DROPPED, { DragEvent e ->
+            println("drag dropped")
             if (e.getDragboard().hasString()) {
                 PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
                         new Vector(e.getX(), e.getY())))

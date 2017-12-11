@@ -35,6 +35,11 @@ public class Entity extends Evented {
         group = new Group();
         children = new ArrayList<>();
         properties = new HashMap<>();
+        HashMap<String,HashMap<String,String>> defaultScripts = new HashMap<>();
+        HashMap<String,String> loader = new HashMap<>();
+        loader.put("empty","empty");
+        defaultScripts.put("loader",loader);
+        properties.put("scripts", defaultScripts);
         hitBoxes = new ArrayList<>();
     }
 
@@ -73,7 +78,7 @@ public class Entity extends Evented {
             parent.getNodes()
                     .getChildren()
                     .add(group);
-            parent.getChildren().add(this);
+            if(!parent.getChildren().contains(this)) parent.getChildren().add(this);
         }
         return this;
     }
@@ -115,7 +120,6 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        if(parent == null) return null;
         this.parent.remove(this);
         stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
@@ -123,8 +127,8 @@ public class Entity extends Evented {
         entity.replaceUID(this.UIDforObject());
 
         try {
-            DatabaseConnector.removeFromDatabasePath(this.getDbPath());
-            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+           // DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            //DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -136,7 +140,7 @@ public class Entity extends Evented {
             // do nothing
         }
 
-        if(!children.isEmpty())
+         if(!children.isEmpty())
             for(Entity child : children)
                 entity.add(child.substitute());
 
@@ -144,39 +148,17 @@ public class Entity extends Evented {
         return entity;
     }
 
-    public String getDbPath() {
-        // Case: Set already
-        if(dbPath != null) return dbPath;
-        // Case: Parent is root and it's set already
-        if(parent == null) return "games/" + this.UIDforObject() + "/";
-        // Case: Other
-        String basePath = parent.getDbPath() + "children/";
-        int childIndex= 0;
-        for(Entity child : parent.getChildren()) {
-            // Break once you get the right index
-            if(this == child) break;
-            childIndex++;
-        }
-        dbPath = basePath + childIndex + "/" ;
-        return dbPath;
+    public void recursiveInitialize(){
+        executeScripts();
+        for(Entity child : children)
+            child.recursiveInitialize();
     }
-
-
 
     @Override
     public void initialize() {
-          /* if (root == null)
-            if (parent != null)
-                for (Entity entity : children)
-                    entity.root = this;
-            else
-                for (Entity entity : children)
-                    entity.root = root; */
-      for(Entity child : children) {
-         child.parent = this;
-         this.add(child.getNodes());
-     }
-
+        for(Entity child : children) {
+             child.parent = this;
+        }
         executeScripts();
     }
 }

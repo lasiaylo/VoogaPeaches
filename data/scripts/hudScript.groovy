@@ -27,7 +27,6 @@ import util.pubsub.messages.NonBGMessage
     stack.getChildren().add(canvas)
     entity.add(stack)
 
-
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
         if (!dEvent.isGaming) {

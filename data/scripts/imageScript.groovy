@@ -31,6 +31,8 @@ import java.util.stream.Collectors
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
 
+    println("ImageScript fired")
+
     ImageView pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth((double) entity.getProperty("width"))
     pointer.setFitHeight((double) entity.getProperty("height"))

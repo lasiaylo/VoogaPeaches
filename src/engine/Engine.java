@@ -42,11 +42,11 @@ public class Engine {
      * @param root  root game entity
      */
     public Engine(Entity root, int gridSize, boolean gaming) {
+        //root.recursiveInitialize();
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera = new Camera(entityManager.getCurrentLevel());
         entityManager.setCamera(camera);
-
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
@@ -58,24 +58,7 @@ public class Engine {
     }
 
     public void save(String name) {
-        System.out.println("\n\n\n" + JSONHelper.JSONForObject(entityManager.getRoot()).toString(4) + "\n\n\n");
         new GameSaver(name).saveGame(entityManager.getRoot());
-    }
-
-    public EntityManager load(Entity root, int gridSize, boolean gaming) {
-        this.isGaming = gaming;
-        this.entityManager = new EntityManager(root, gridSize, gaming);
-        this.camera.changeLevel(entityManager.getCurrentLevel());
-        entityManager.setCamera(this.camera);
-        initializeRoot(root);
-        return entityManager;
-    }
-
-    private void initializeRoot(Entity root) {
-        if(root == null) return;
-        root.initialize();
-        for(Entity child : root.getChildren())
-            initializeRoot(child);
     }
 
     public EntityManager getEntityManager() {

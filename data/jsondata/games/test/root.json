@@ -1,13 +1,13 @@
 {
-  "UID": "817551bdb41d4737b515da59ef1bd3a3",
+  "UID": "33d161e07b1c4fb4940aed5f3950f3f2",
   "children": [{
-    "UID": "aba12836f1cd45e4a90ddc6a600f5d8d",
+    "UID": "4c88da48096d4afc94fa285c396f3632",
     "children": [
       {
-        "UID": "05af9a3c512243eeabfd22c573725e2c",
+        "UID": "455924cc2ba244d8b7e161ec768d6a1c",
         "children": [
           {
-            "UID": "765fabd874284edaa08a826320741926",
+            "UID": "4982b68dd05b4d1b83fcffef005d3c46",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -16,12 +16,12 @@
               "x": 0,
               "width": 50,
               "y": 0,
-              "scripts": {"imageScript": {"image_path": ""}},
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
               "height": 50
             }
           },
           {
-            "UID": "05861f4954be48cfb85769176b9a449b",
+            "UID": "0f1583e132f94af395c2b5bfc92a4bbe",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -29,13 +29,13 @@
               "bg": true,
               "x": 0,
               "width": 50,
-              "y": 50,
-              "scripts": {"imageScript": {"image_path": ""}},
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
               "height": 50
             }
           },
           {
-            "UID": "325fca9142e040c9ad6a8529b326c2cb",
+            "UID": "afdec2043c924302ab5362e56d679115",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -43,366 +43,97 @@
               "bg": true,
               "x": 0,
               "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
               "height": 50
             }
           },
           {
-            "UID": "fcd6a8d7fe394703bc6c7d46212658ea",
+            "UID": "474c73ef5f864197a432eefbf0c8ea4a",
             "children": [],
             "hitBoxes": [],
             "properties": {
               "listeners": {},
               "bg": true,
-              "x": 50,
+              "x": 0,
               "width": 50,
               "y": 0,
-              "scripts": {"imageScript": {"image_path": ""}},
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
               "height": 50
             }
           },
           {
-            "UID": "2c42eb7da6854ed6b6e5683faa27e460",
+            "UID": "cd36744621d8483dac79b2bf72586c79",
             "children": [],
             "hitBoxes": [],
             "properties": {
               "listeners": {},
               "bg": true,
-              "x": 50,
-              "width": 50,
-              "y": 50,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "8560810c15384a05aafb9244c84fd873",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 50,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "0139fed7f2f2489387a66d71ef181632",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 100,
+              "x": 0,
               "width": 50,
               "y": 0,
-              "scripts": {"imageScript": {"image_path": ""}},
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
               "height": 50
             }
           },
           {
-            "UID": "33ff125d6cae41f5a10276182edfe54c",
+            "UID": "12174f3db8f64a07b7092e18ad8ea2ed",
             "children": [],
             "hitBoxes": [],
             "properties": {
               "listeners": {},
               "bg": true,
-              "x": 100,
-              "width": 50,
-              "y": 50,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "4f8974a47a524f669bfe56038652f769",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 100,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "1f91fa95a64d42d9a6ef2f0b4fcda8df",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
+              "x": 0,
               "width": 50,
               "y": 0,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "bd39718bb2cd4ec8ae67b5e864977172",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
-              "width": 50,
-              "y": 50,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "2a130c3ec0d84eaca1b179776c68bdf5",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "a4044735393f4e4696ec0793cbb1ce68",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 0,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "93e20fb24a9744c48b6fd0172f9984ad",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 50,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "0723f5c5183f4627b8c5cd7ba55bc91c",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "48df357bd3504585bfcd61cf624621c0",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "0f4afde37745482fa26d999ec8ae5ffe",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "3e8e2f4a536d4bb4b7f9c4878c2b373a",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "8f0653589d674be4b08e9aa0c22fb30f",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
-              "width": 50,
-              "y": 200,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "664b3a9c1e2d44acb59ac46a9bff8fe5",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
-              "width": 50,
-              "y": 200,
-              "scripts": {"imageScript": {"image_path": ""}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "52cef69e3b9d4555ac1e6a219179f583",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 50,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "a17a1c1bccf74de99e6282d0638d0c64",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 50,
-              "width": 50,
-              "y": 100,
-              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "03e481e8b8154c638571627dc06827d7",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
-              "width": 50,
-              "y": 200,
-              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "308fe14a3b354aa189c74594d69521d4",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 150,
-              "width": 50,
-              "y": 200,
-              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "f35912de461644f784190e86f4a663be",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 150,
-              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "2f1645502739416289e26ab1cc68376f",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {},
-              "bg": true,
-              "x": 200,
-              "width": 50,
-              "y": 150,
-              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
               "height": 50
             }
           }
         ],
         "hitBoxes": [],
         "properties": {
+          "gridsize": 500,
           "listeners": {"tick": {"loader": {"empty": "empty"}}},
-          "gridsize": 50,
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       },
       {
-        "UID": "47acd87dfbae4b499b005a11997e1d1c",
-        "children": [{
-          "UID": "803173b6729d4ac8bea50831e7d689d8",
-          "children": [],
-          "hitBoxes": [],
-          "properties": {
-            "vx": 0,
-            "vy": 0,
-            "listeners": {
-              "move": {"base/animate/update_position": {}},
-              "tick": {"base/animate/move": {}},
-              "key press": {"movement": {}}
-            },
-            "x": 142,
-            "width": 50,
-            "y": 128,
-            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
-            "height": 50
+        "UID": "0e9109dbe32d4cbd9b6df754151b504a",
+        "children": [
+          {
+            "UID": "4028f96a62f545ca99f491a0ec96442a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 166,
+              "y": 181,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e369ea1d5a8a42f080746adae51d5bbf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 395,
+              "y": 128,
+              "scripts": {"imageScript": {"image_path": "Player/opm.png"}},
+              "height": 50
+            }
           }
-        }],
+        ],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       }
@@ -410,17 +141,17 @@
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "mapwidth": 5000,
-      "cameraYpos": 0,
       "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 5000,
+      "gridsize": 500,
       "listeners": {"tick": {"loader": {"empty": "empty"}}},
-      "gridsize": 50,
       "mapheight": 5000,
       "cameraWidth": 500,
-      "scripts": {"mapScript": {"empty": "empty"}},
-      "levelname": "level 1"
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
     }
   }],
   "hitBoxes": [],
-  "properties": {}
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
 }
