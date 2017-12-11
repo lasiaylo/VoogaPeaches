@@ -37,7 +37,7 @@ public class PropertiesPanel implements Panel,Updatable {
     private static final String SAVE_ENTITY = "Save Entity";
     private static final String UPDATE_ENTITY = "Update Entity";
     private final String TITLE = "Properties";
-    private final String SCRIPTS = "Scripts";
+    private final String SCRIPTS = "scripts";
     private final String PARAMETERS = "Parameters";
     private final String EVENTS = "Events";
     private Entity myEntity;

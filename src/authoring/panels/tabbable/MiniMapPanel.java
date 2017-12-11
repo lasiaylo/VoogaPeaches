@@ -173,7 +173,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
 
     @Override
     public void setController(PanelController controller) {
-        myPane = controller.getMiniMap();
+        myPane = (Pane) controller.getMiniMap();
         myPane.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
         myPane.setCenterShape(true);
         manager = controller.getManager();
