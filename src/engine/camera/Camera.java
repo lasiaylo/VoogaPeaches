@@ -79,23 +79,19 @@ public class Camera {
         miniMap.getGraphicsContext2D().fillRect(0, 0, size.x, size.y);
         point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
 
+        point.setOnMousePressed(circleOnMousePressedEventHandler);
+        point.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
         NumberBinding xPoint = view.hvalueProperty().multiply(size.at(0));
         NumberBinding yPoint = view.vvalueProperty().multiply(size.at(1));
         point.centerXProperty().bind(xPoint);
         point.centerYProperty().bind(yPoint);
-        miniMap.setOnMouseClicked(this::moveCamera);
+        miniMap.setOnMouseClicked(circleOnMouseClickedEventHandler);
 
         Pane holder = new Pane(miniMap, point);
         holder.maxWidthProperty().bind(miniMap.widthProperty());
         holder.maxHeightProperty().bind(miniMap.heightProperty());
         return holder;
-    }
-
-    private void moveCamera(MouseEvent event) {
-        point.setOnMouseClicked(circleOnMouseClickedEventHandler);
-        point.setOnMousePressed(circleOnMousePressedEventHandler);
-        point.setOnMouseDragged(circleOnMouseDraggedEventHandler);
     }
 
     EventHandler<MouseEvent> circleOnMouseClickedEventHandler =
