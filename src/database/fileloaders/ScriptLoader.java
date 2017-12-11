@@ -3,7 +3,7 @@ package database.fileloaders;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
-import util.ErrorDisplay;
+import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,22 +25,6 @@ public class ScriptLoader {
     private static final Map<String, Closure> CACHED_SCRIPTS = cache(SCRIPT_PATH);
 
     /**
-     * Loads in the different Groovy files and saves them in a HashMap
-     *
-     * @return {@code Map<String, String>} of loaded groovy script strings
-     * corresponding to the name of a groovy script
-     */
-    private static Map<String, String> loadAndCacheScripts() {
-        Map<String, String> loadedFiles = new HashMap<>();
-        File baseDirectory = new File(SCRIPT_PATH);
-        for (File script : baseDirectory.listFiles()) {
-            String scriptString = readStringForFile(script);
-            loadedFiles.put(script.getName(), scriptString);
-        }
-        return loadedFiles;
-    }
-
-    /**
      * Caches all the scripts in a directory recursively
      *
      * @param path: path to file
@@ -57,8 +41,8 @@ public class ScriptLoader {
         while (iterator.hasNext() && (file = iterator.next()) != null)
             try {
                 cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
-            } catch (ClassCastException e) {
-                new ErrorDisplay("Caching Error", "Could not find script").displayError();
+            } catch (Exception e) {
+                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(""));
             }
         return cache;
     }

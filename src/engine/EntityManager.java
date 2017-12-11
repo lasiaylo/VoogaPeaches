@@ -58,7 +58,6 @@ public class EntityManager {
         this.grid = gridSize;
         this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
-
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = "Background/grass.png";
         PubSub.getInstance().subscribe("ADD_BG", message -> {
@@ -70,7 +69,6 @@ public class EntityManager {
             NonBGMessage nonBGMessage = (NonBGMessage) message;
             addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
         });
-
         try {
             BGObjectFactory = new ObjectFactory("BGEntity");
             layerFactory = new ObjectFactory("layer");
@@ -78,16 +76,23 @@ public class EntityManager {
         } catch (ObjectBlueprintNotFoundException e) {
             new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
         }
+
         if (root.getChildren().isEmpty()) {
+            System.out.println("here1");
             //don't freak out about this..... just a initial level
             addLevel("level 1", 5000, 5000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
-        }
-        else {
+        } else {
+            System.out.println("here 2");
             root.getChildren().forEach(e -> {
-                levels.put((String) e.getProperty("levelname"), e);
-                levelSize.put((String) e.getProperty("levelname"), new Vector((double) e.getProperty("mapwidth"), (double) e.getProperty("mapheight")));
+                try {
+                    levels.put((String) e.getProperty("levelname"), e);
+                    levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
+                    System.out.println(e.getProperty("mapwidth"));
+                } catch(Exception l ){
+                    l.printStackTrace();
+                }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");

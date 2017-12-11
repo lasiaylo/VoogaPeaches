@@ -141,13 +141,18 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        this.parent.remove(this);
-        Entity entity = new Entity(parent);
-        entity.properties = properties;
-        replaceInUIDMap(UIDforObject(), entity);
+        Entity entity = null;
+
         try {
             DatabaseConnector.removeFromDatabasePath(this.getDbPath());
-            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+            stopTrackingTrackableObject(this.UIDforObject());
+            entity = new Entity(parent);
+            entity.properties = properties;
+            entity.replaceUID(this.UIDforObject());
+            DatabaseConnector.addToDatabasePath(entity, entity.getDbPath());
+            this.parent.remove(this);
+
+            System.out.println(this.getDbPath() +" my mid: " + this.UIDforObject());
         } catch (Exception e) {
             new ErrorDisplay("Data Error", "Could not connect to database").displayError();
         }

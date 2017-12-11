@@ -1,5 +1,6 @@
 package scripts
 
+import database.filehelpers.FileConverter
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
 import engine.entities.Entity
@@ -49,6 +50,8 @@ import java.util.stream.Collectors
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
+
+
 
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
         scriptMap = ((Map) entity.getProperty("scripts"))

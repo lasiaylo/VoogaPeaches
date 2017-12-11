@@ -47,21 +47,14 @@ public abstract class TrackableObject {
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
 
     public String UIDforObject() {
-        for (String each: trackableObjects.keySet()) {
-            if (trackableObjects.get(each).equals(this)) {
-                return each;
-            }
-        }
-        return null;
+        return this.UID;
     }
 
-    public void replaceInUIDMap(String newUID, TrackableObject newObject){
-        trackableObjects.remove(newObject.UID);
-        newObject.UID = newUID;
-        trackableObjects.put(newUID, newObject);
+    public void replaceUID(String UID) {
+        trackableObjects.remove(this.UID);
+        this.UID = UID;
+        trackableObjects.put(this.UID, this);
     }
-
-
     /**
      * Adds the passed object to the map of tracked objects
      * @param object is a {@code TrackableObject} that is to be added to the map of tracked objects
@@ -71,5 +64,9 @@ public abstract class TrackableObject {
         if(trackableObjects.containsKey(object.UID)) return false;
         trackableObjects.put(object.UID, object);
         return true;
+    }
+
+    public static void stopTrackingTrackableObject(String UID){
+        trackableObjects.remove(UID);
     }
 }

@@ -1,10 +1,10 @@
 {
-  "UID": "63d3bcc387294800aac21938335aa0a1",
+  "UID": "2a219bbf2fb34320b643e7cb12cf968d",
   "children": [{
-    "UID": "78cc8a69a4b44db38a89632f906da8d0",
+    "UID": "bc3d141a342743c88fbf8f0dc16e0878",
     "children": [
       {
-        "UID": "ddedb10e90df4a008a396d3b988be34b",
+        "UID": "d478f5c875654000b79db00f943939d2",
         "children": [],
         "hitBoxes": [],
         "properties": {
@@ -14,9 +14,9 @@
         }
       },
       {
-        "UID": "61c171efb4c04560a61be90d7de2e1fa",
+        "UID": "7f02472eaee54feb9d18e5610466ced8",
         "children": [{
-          "UID": "a6218a820bea40e286cd8d485db42b80",
+          "UID": "8297bec4ab69428f8f6aa3403cc5d14f",
           "children": [],
           "hitBoxes": [],
           "properties": {
@@ -27,9 +27,9 @@
               "tick": {"base/animate/move": {}},
               "key press": {"movement": {}}
             },
-            "x": 952,
+            "x": 814,
             "width": 50,
-            "y": 600,
+            "y": 547,
             "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
             "height": 50
           }
