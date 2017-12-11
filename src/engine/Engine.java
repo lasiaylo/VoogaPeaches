@@ -92,7 +92,8 @@ public class Engine {
     }
 
     public ScrollPane getCameraView(Vector center, Vector size) {
-        return camera.getView(center,size);
+        scrollPane = camera.getView(center,size);
+        return scrollPane;
     }
 
     public Pane getMiniMap(Vector size) {

@@ -89,7 +89,7 @@ public class EntityManager {
                     levels.put((String) e.getProperty("levelname"), e);
                     levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
                 } catch(Exception l ){
-                    l.printStackTrace();
+                    new ErrorDisplay("Could not put level", "Could not put level").displayError();
                 }
             });
             currentLevel = root.getChildren().get(0);
@@ -245,16 +245,6 @@ public class EntityManager {
         AddLayerEvent addLayer = new AddLayerEvent(layer);
         addLayer.fire(level);
     }
-
-//    private ImageView setPlaceHolder() {
-//        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
-//        holder.setX(0);
-//        holder.setY(0);
-//        holder.setFitWidth(grid);
-//        holder.setFitHeight(grid);
-//        holder.setMouseTransparent(true);
-//        return holder;
-//    }
 
     /**
      * add new level
