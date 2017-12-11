@@ -1,6 +1,6 @@
 {
-  "UID": "927b47f280024cf4ac22f1b539138c70",
-  "code": {},
-  "name": "name test",
-  "properties": {"wow": 123}
+  "UID": "7de7c515cb124b718f09890a9a023480",
+  "code": {"": "{ entity, state -> ; null}"},
+  "name": "",
+  "properties": {}
 }

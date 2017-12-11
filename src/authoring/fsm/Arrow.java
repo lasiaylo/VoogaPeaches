@@ -127,6 +127,6 @@ public class Arrow {
     }
 
     public String getMyCode() {
-        return myCode;
+        return "{ entity, state -> ; " + myCode + "}";
     }
 }

@@ -3,6 +3,8 @@ package authoring.fsm;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
+import engine.entities.Entity;
+import engine.fsm.FSM;
 import engine.fsm.State;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -202,6 +204,10 @@ public class FSMGraph implements GraphDelegate  {
             System.out.println("Error saving FSM");
         }
         System.out.println("Export");
+        FSM test = new FSM(new Entity(), myStates);
+        for (int i = 0; i<10; i++) {
+            test.step();
+        }
         return null;
     }
 

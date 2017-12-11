@@ -92,11 +92,11 @@ public class StateRender implements Updatable {
     }
 
     protected State createNewState() {
-        LinkedHashMap<String, LinkedHashMap<String, Object>> data = new LinkedHashMap<>();
-        LinkedHashMap<String, Object> properties = new LinkedHashMap<>(myInfo);
-        data.put("properties", properties);
-        LinkedHashMap<String, Object> transitions = new LinkedHashMap<>();
+        Map<String, Map<String, Object>> data = new LinkedHashMap<>();
+        data.put("properties", myInfo);
+        Map<String, Object> transitions = new LinkedHashMap<>();
         for(Arrow arrow: myLeavingTransitions) {
+            System.out.println("Transition");
             transitions.put(arrow.getDestination().getName(), arrow.getMyCode());
         }
         data.put("transitions", transitions);
