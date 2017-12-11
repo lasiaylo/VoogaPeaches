@@ -5,6 +5,7 @@ import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.camera.NewCamera;
 import engine.entities.Entity;
@@ -93,11 +94,6 @@ public class EntityManager {
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
         }
-        writeRootToDatabase(root);
-    }
-
-    private void writeRootToDatabase(Entity root) {
-        new GameSaver(root.UIDforObject()).saveGame(root);
     }
 
     public void setCamera(Camera c) {

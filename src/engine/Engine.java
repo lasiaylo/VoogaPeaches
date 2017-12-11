@@ -1,6 +1,8 @@
 package engine;
 
 import database.GameSaver;
+import database.jsonhelpers.JSONHelper;
+import engine.camera.Camera;
 import engine.camera.NewCamera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
@@ -10,6 +12,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import util.math.num.Vector;
 
@@ -55,14 +58,24 @@ public class Engine {
     }
 
     public void save(String name) {
+        System.out.println("\n\n\n" + JSONHelper.JSONForObject(entityManager.getRoot()).toString(4) + "\n\n\n");
         new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
-    public void load(Entity root, int gridSize, boolean gaming) {
+    public EntityManager load(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera.changeLevel(entityManager.getCurrentLevel());
         entityManager.setCamera(this.camera);
+        initializeRoot(root);
+        return entityManager;
+    }
+
+    private void initializeRoot(Entity root) {
+        if(root == null) return;
+        root.initialize();
+        for(Entity child : root.getChildren())
+            initializeRoot(child);
     }
 
     public EntityManager getEntityManager() {

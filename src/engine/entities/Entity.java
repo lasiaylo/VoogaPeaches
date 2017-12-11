@@ -3,6 +3,7 @@ package engine.entities;
 import com.google.gson.annotations.Expose;
 import database.firebase.DataReactor;
 import database.firebase.DatabaseConnector;
+import database.jsonhelpers.JSONHelper;
 import engine.collisions.HitBox;
 import engine.events.*;
 import javafx.scene.Group;
@@ -181,14 +182,8 @@ public class Entity extends Evented {
 
     @Override
     public void initialize() {
-        if (root == null)
-            if (parent != null)
-                for (Entity entity : children)
-                    entity.root = this;
-            else
-                for (Entity entity : children)
-                    entity.root = root;
-
+        for(Entity child : children)
+            child.parent = this;
         executeScripts();
     }
 }

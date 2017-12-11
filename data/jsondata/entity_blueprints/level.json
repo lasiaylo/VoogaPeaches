@@ -1,11 +1,23 @@
 {
-  "children": [],
-  "hitBoxes": [],
+  "children": [
+
+  ],
+  "hitBoxes": [
+
+  ],
   "properties": {
     "scripts": {
-      "mapScript": {}
+      "mapScript": {
+        "empty":"empty"
+      }
     },
-    "listeners" : {},
+    "listeners" : {
+      "tick": {
+        "loader":{
+          "empty":"empty"
+        }
+      }
+    },
     "gridsize": 50,
     "mapwidth":2000,
     "mapheight":2000
