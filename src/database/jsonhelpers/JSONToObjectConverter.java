@@ -174,6 +174,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             }
             // Call class defined extra initialization
             newObject.initialize();
+            System.out.println(newObject.getClass());
             // Add object to tracking map
             TrackableObject.trackTrackableObject(newObject);
             return newObject;
