@@ -75,9 +75,8 @@ public class EntityManager {
             BGObjectFactory = new ObjectFactory("BGEntity");
             layerFactory = new ObjectFactory("layer");
             levelFactory = new ObjectFactory("level");
-
         } catch (ObjectBlueprintNotFoundException e) {
-            e.printStackTrace();
+            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
         }
         if (root.getChildren().isEmpty()) {
             //don't freak out about this..... just a initial level

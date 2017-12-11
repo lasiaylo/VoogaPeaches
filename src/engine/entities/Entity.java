@@ -10,6 +10,7 @@ import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import util.ErrorDisplay;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
@@ -148,7 +149,7 @@ public class Entity extends Evented {
             DatabaseConnector.removeFromDatabasePath(this.getDbPath());
             DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
         } catch (Exception e) {
-            e.printStackTrace();
+            new ErrorDisplay("Data Error", "Could not connect to database").displayError();
         }
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;

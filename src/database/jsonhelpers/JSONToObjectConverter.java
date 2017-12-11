@@ -3,6 +3,7 @@ package database.jsonhelpers;
 import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import util.ErrorDisplay;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -175,7 +176,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             TrackableObject.trackTrackableObject(newObject);
             return newObject;
         } catch (Exception e){
-            e.printStackTrace();
+            new ErrorDisplay("Json Error", "Could not create object from JSON").displayError();
             return null;
         }
     }

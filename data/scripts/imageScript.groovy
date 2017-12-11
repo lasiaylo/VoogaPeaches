@@ -60,9 +60,10 @@ import java.util.stream.Collectors
         }).collect(Collectors.toList())
 
         imagePathList.forEach({ String path ->
-            entity.getProperty("scripts").get(path).put("image_path", imgEvent.getPath())
-            originalPath = path
+            entity.getProperty("scripts").get("imageScript").put("image_path", imgEvent.getPath())
+            originalPath = imgEvent.getPath()
         })
+        println originalPath
     })
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
@@ -75,6 +76,7 @@ import java.util.stream.Collectors
         pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0))
         entity.setProperty("y", iEvent.getMyPos().at(1))
+        new ImageViewEvent(originalPath).fire(entity)
     })
 
     entity.on(EventType.TRANSPARENT_MOUSE.getType(), { Event call ->

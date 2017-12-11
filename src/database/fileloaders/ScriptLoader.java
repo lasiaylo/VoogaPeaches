@@ -3,6 +3,7 @@ package database.fileloaders;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
+import util.ErrorDisplay;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,9 +58,7 @@ public class ScriptLoader {
             try {
                 cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
             } catch (ClassCastException e) {
-                System.out.println("Script " + file.getName() + " has wrong format");
-                System.out.println(e.toString());
-                e.printStackTrace();
+                new ErrorDisplay("Caching Error", "Could not find script").displayError();
             }
         return cache;
     }
