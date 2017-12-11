@@ -1,5 +1,6 @@
 package engine;
 
+import database.GameSaver;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
@@ -98,6 +99,11 @@ public class EntityManager {
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
         }
+        writeRootToDatabase(root);
+    }
+
+    private void writeRootToDatabase(Entity root) {
+        new GameSaver(root.UIDforObject()).saveGame(root);
     }
 
     public void setCamera(NewCamera c) {
