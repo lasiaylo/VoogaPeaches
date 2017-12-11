@@ -6,6 +6,11 @@ import engine.collisions.HitBox;
 import engine.events.*;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
+import util.ErrorDisplay;
+import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,17 +138,20 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        this.parent.remove(this);
-        stopTrackingTrackableObject(this.UIDforObject());
-        Entity entity = new Entity(parent);
-        entity.properties = properties;
-        entity.replaceUID(this.UIDforObject());
+        Entity entity = null;
 
         try {
             DatabaseConnector.removeFromDatabasePath(this.getDbPath());
-            DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+            stopTrackingTrackableObject(this.UIDforObject());
+            entity = new Entity(parent);
+            entity.properties = properties;
+            entity.replaceUID(this.UIDforObject());
+            DatabaseConnector.addToDatabasePath(entity, entity.getDbPath());
+            this.parent.remove(this);
+
+            System.out.println(this.getDbPath() +" my mid: " + this.UIDforObject());
         } catch (Exception e) {
-            e.printStackTrace();
+            new ErrorDisplay("Data Error", "Could not connect to database").displayError();
         }
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
