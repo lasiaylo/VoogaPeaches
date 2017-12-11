@@ -1,0 +1,58 @@
+{
+  "UID": "ab90ad7394384601aab6141fd449e818",
+  "children": [{
+    "UID": "6813041db3474e3dbfde1b60667be21d",
+    "children": [
+      {
+        "UID": "5b772961074f43de80c2cc67e958d352",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {"gridsize": 50}
+      },
+      {
+        "UID": "b11a61814cc84f5e86dc05145c349b72",
+        "children": [
+          {
+            "UID": "6c819cd20d21414fbd92289c1c70cde6",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 243,
+              "y": 144,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8af80d27a9534cc9bf30a40aac905313",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 163,
+              "y": 239,
+              "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {"gridsize": 50}
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "mapheight": 5000,
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

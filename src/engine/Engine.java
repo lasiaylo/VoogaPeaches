@@ -1,6 +1,7 @@
 package engine;
 
 import database.GameSaver;
+import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.camera.NewCamera;
 import engine.collisions.HitBox;
@@ -57,17 +58,24 @@ public class Engine {
     }
 
     public void save(String name) {
+        System.out.println("\n\n\n" + JSONHelper.JSONForObject(entityManager.getRoot()).toString(4) + "\n\n\n");
         new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
-    public void load(Entity root, int gridSize, boolean gaming) {
+    public EntityManager load(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
-        System.out.println("here");
         this.camera.changeLevel(entityManager.getCurrentLevel());
-        System.out.println("here");
         entityManager.setCamera(this.camera);
-        System.out.println("here");
+        initializeRoot(root);
+        return entityManager;
+    }
+
+    private void initializeRoot(Entity root) {
+        if(root == null) return;
+        root.initialize();
+        for(Entity child : root.getChildren())
+            initializeRoot(child);
     }
 
     public EntityManager getEntityManager() {

@@ -3,6 +3,7 @@ package authoring.panels.reserved;
 import authoring.Panel;
 import authoring.PanelController;
 import engine.EntityManager;
+import engine.entities.Entity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -179,6 +180,7 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public void setController(PanelController controller) {
+		System.out.println("Hehrhweafsdf");
 		this.myController = controller;
 		this.setView(myController.getCamera());
 		myManager = myController.getManager();
