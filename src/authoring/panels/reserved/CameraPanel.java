@@ -181,6 +181,7 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public void setController(PanelController controller) {
+		System.out.println("Hehrhweafsdf");
 		this.myController = controller;
 		this.setView(myController.getCamera());
 		myManager = myController.getManager();

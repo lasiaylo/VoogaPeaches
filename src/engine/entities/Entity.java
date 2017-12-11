@@ -68,11 +68,13 @@ public class Entity extends Evented {
     public void remove(Node node) { group.getChildren().remove(node); }
 
     public Entity addTo(Entity parent) {
-        this.parent = parent;
-        parent.getNodes()
-                .getChildren()
-                .add(group);
-        parent.getChildren().add(this);
+        if(parent != null) {
+            this.parent = parent;
+            parent.getNodes()
+                    .getChildren()
+                    .add(group);
+            parent.getChildren().add(this);
+        }
         return this;
     }
 

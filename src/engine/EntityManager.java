@@ -93,11 +93,12 @@ public class EntityManager {
                         new AddLayerEvent(each).fire(e);
                     }
                 } catch(Exception l ){
-                    l.printStackTrace();
+                    new ErrorDisplay("Could not put level", "Could not put level").displayError();
                 }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
+            currentLevel = currentLevel.substitute();
         }
         writeRootToDatabase(root);
     }
@@ -255,16 +256,6 @@ public class EntityManager {
         AddLayerEvent addLayer = new AddLayerEvent(layer);
         addLayer.fire(level);
     }
-
-//    private ImageView setPlaceHolder() {
-//        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
-//        holder.setX(0);
-//        holder.setY(0);
-//        holder.setFitWidth(grid);
-//        holder.setFitHeight(grid);
-//        holder.setMouseTransparent(true);
-//        return holder;
-//    }
 
     /**
      * add new level
