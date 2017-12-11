@@ -55,7 +55,7 @@ public class ObjectFactory {
      */
     public Entity newObject() {
         Entity i = converter.createObjectFromJSON(Entity.class, blueprintJSON);
-        System.out.println("UID: " + i.UIDforObject());
+
         return i;
     }
 

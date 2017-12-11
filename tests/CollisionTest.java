@@ -81,7 +81,7 @@ public class CollisionTest extends Application {
                 Rectangle rect = (Rectangle) myShape;
                 rect.setX(position.at(0));
                 rect.setY(position.at(1));
-                System.out.println(rect.getX());
+
             } catch(Exception e) {
 
             }
