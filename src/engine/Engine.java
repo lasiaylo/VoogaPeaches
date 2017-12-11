@@ -2,12 +2,14 @@ package engine;
 
 import database.GameSaver;
 import engine.camera.Camera;
+import engine.camera.NewCamera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
 import engine.events.CollisionEvent;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -29,7 +31,7 @@ public class Engine {
     private EntityManager entityManager;
     private TickEvent tick = new TickEvent(FRAME_PERIOD);
     private Timeline timeline;
-    private Camera camera;
+    private NewCamera camera;
     private ScrollPane scrollPane;
     private boolean isGaming;
 
@@ -41,7 +43,7 @@ public class Engine {
     public Engine(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
-        this.camera = new Camera(entityManager.getCurrentLevel());
+        this.camera = new NewCamera(entityManager.getCurrentLevel());
         entityManager.setCamera(camera);
 
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
@@ -61,7 +63,9 @@ public class Engine {
     public void load(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
+        System.out.println("here");
         this.camera.changeLevel(entityManager.getCurrentLevel());
+        System.out.println("here");
         entityManager.setCamera(this.camera);
         System.out.println("here");
     }
@@ -87,12 +91,11 @@ public class Engine {
         return entityManager;
     }
 
-    public ScrollPane getCameraView(Vector center, Vector size) {
-        scrollPane = camera.getView(center, size);
-        return scrollPane;
+    public Node getCameraView(Vector center, Vector size) {
+        return camera.getView(center,size);
     }
 
-    public Pane getMiniMap(Vector size) {
+    public Node getMiniMap(Vector size) {
         return camera.getMinimap(size);
     }
 

@@ -68,7 +68,7 @@ public class Entity extends Evented {
     }
 
     public Map<String, Object> getProperties(){
-    	return properties;
+        return properties;
     }
 
     public void add(Node node) {
@@ -151,8 +151,6 @@ public class Entity extends Evented {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
         try {
