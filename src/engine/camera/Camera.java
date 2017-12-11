@@ -2,7 +2,9 @@ package engine.camera;
 
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
+import engine.events.MousePressedEvent;
 import javafx.beans.binding.NumberBinding;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
@@ -18,6 +20,7 @@ import util.math.num.Vector;
  * do not extend scrollpane directly for the flexibility of adding more features like minimap
  *
  * @author Estelle He
+ * @author Kelly Zhang
  */
 public class Camera {
     private ScrollPane view;
@@ -90,23 +93,73 @@ public class Camera {
     }
 
     private void moveCamera(MouseEvent event) {
-        point.centerXProperty().unbind();
-        point.centerYProperty().unbind();
-
-        point.setCenterX(event.getX());
-        point.setCenterY(event.getY());
-        view.setHvalue(event.getX()/miniMap.getWidth());
-        view.setVvalue(event.getY()/miniMap.getHeight());
-
-        NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
-        NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
-        point.centerXProperty().bind(xPoint);
-        point.centerYProperty().bind(yPoint);
-
-        event.consume();
+        point.setOnMouseClicked(circleOnMouseClickedEventHandler);
+        point.setOnMousePressed(circleOnMousePressedEventHandler);
+        point.setOnMouseDragged(circleOnMouseDraggedEventHandler);
     }
 
+    private double translateX;
+    private double translateY;
+    EventHandler<MouseEvent> circleOnMouseClickedEventHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent t) {
+                    point.centerXProperty().unbind();
+                    point.centerYProperty().unbind();
 
+                    translateX = ((Circle) (t.getSource())).getTranslateX();
+                    translateY = ((Circle) (t.getSource())).getTranslateY();
+
+                    point.setCenterX(t.getX());
+                    point.setCenterY(t.getY());
+                    view.setHvalue(t.getX()/miniMap.getWidth());
+                    view.setVvalue(t.getY()/miniMap.getHeight());
+
+                    NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
+                    NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
+                    point.centerXProperty().bind(xPoint);
+                    point.centerYProperty().bind(yPoint);
+                }
+            };
+
+    private double orgX;
+    private double orgY;
+    EventHandler<MouseEvent> circleOnMousePressedEventHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent t) {
+                    orgX = t.getSceneX();
+                    orgY = t.getScreenY();
+                    translateX = ((Circle) (t.getSource())).getTranslateX();
+                    translateY = ((Circle) (t.getSource())).getTranslateY();
+                }
+            };
+
+    EventHandler<MouseEvent> circleOnMouseDraggedEventHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent t) {
+                    point.centerXProperty().unbind();
+                    point.centerYProperty().unbind();
+
+                    double offsetX = t.getSceneX() - orgX;
+                    double offsetY = t.getSceneY() - orgY;
+
+                    double newTranslateX = translateX + offsetX;
+                    double newTranslateY = translateY + offsetY;
+
+                    view.setHvalue(newTranslateX/miniMap.getWidth());
+                    view.setVvalue(newTranslateY/miniMap.getHeight());
+
+                    ((Circle)(t.getSource())).setTranslateX(newTranslateX);
+                    ((Circle)(t.getSource())).setTranslateY(newTranslateY);
+
+                    NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
+                    NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
+                    point.centerXProperty().bind(xPoint);
+                    point.centerYProperty().bind(yPoint);
+                }
+            };
 
     private void vScroll(double num) {
         view.setVmin(num);
