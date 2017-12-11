@@ -149,6 +149,8 @@ public class Arrow extends TrackableObject {
     }
 
     public void save() {
+        System.out.println("myOrigint: " + myOrigin.x + " " + myOrigin.y + "myHead: " + myHead.x + " " + myHead.y +
+                "myLength: " + myLength.x + " " + myLength.y);
         myState = new SavedArrow(original, destination, myOrigin, myHead, myLength);
     }
 
