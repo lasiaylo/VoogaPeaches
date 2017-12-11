@@ -14,19 +14,31 @@ import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
 import javafx.scene.input.TransferMode
 import javafx.scene.layout.StackPane
+import javafx.scene.paint.Color
+import javafx.scene.shape.Rectangle
 import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.BGMessage
 import util.pubsub.messages.NonBGMessage
 
 
+
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
-    canvas = new Canvas((double)entity.getProperty("camerawidth"), (double)entity.getProperty("mapheight"))
-    stack = new StackPane()
-    stack.getChildren().add(canvas)
-    entity.add(stack)
 
+    width = (double)entity.getProperty("cameraWidth")
+    height = (double)entity.getProperty("cameraHeight")
+
+    canvas = new Canvas(width, height)
+    stack = new StackPane()
+    rectange = new Rectangle(width,height)
+    rectange.setFill(Color.TRANSPARENT);
+    rectange.setStroke(Color.BLACK);
+
+    stack.getChildren().add(rectange)
+    stack.getChildren().add(canvas)
+
+    entity.add(stack)
 
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
@@ -43,11 +55,11 @@ import util.pubsub.messages.NonBGMessage
         }
     })
 
-    entity.on(EventType.ADDLAYER.getType(), { Event call ->
-        AddLayerEvent addLayer = (AddLayerEvent) call
-        stack.getChildren().add(addLayer.getLayerGroup())
-        stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
-    })
+//    entity.on(EventType.ADDLAYER.getType(), { Event call ->
+//        AddLayerEvent addLayer = (AddLayerEvent) call
+//        stack.getChildren().add(addLayer.getLayerGroup())
+//        stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
+//    })
 
     entity.on(EventType.MAPSETUP.getType(), { Event call ->
         MapSetupEvent setup = (MapSetupEvent) call
@@ -66,6 +78,7 @@ import util.pubsub.messages.NonBGMessage
                 PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
                         new Vector(e.getX(), e.getY())))
             }
+            println("dropped")
             e.setDropCompleted(true)
             e.consume()
         })

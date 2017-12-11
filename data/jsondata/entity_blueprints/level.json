@@ -4,6 +4,7 @@
   "properties": {
     "scripts": {
       "mapScript": {}
+      ,"hudScript": {}
     },
     "listeners" : {},
     "gridsize": 50,

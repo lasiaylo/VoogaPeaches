@@ -114,4 +114,8 @@ public class Engine {
             }
         }
     }
+
+    public Object getHUD(Vector vector) {
+        return camera.getHUD(vector);
+    }
 }

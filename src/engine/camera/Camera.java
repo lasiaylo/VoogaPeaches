@@ -3,6 +3,7 @@ package engine.camera;
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
 import javafx.beans.binding.NumberBinding;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +22,7 @@ import util.math.num.Vector;
  */
 public class Camera {
     private ScrollPane view;
+    private Group hud;
     private Entity currentLevel;
     private Canvas miniMap;
     private Vector center;
@@ -31,6 +33,8 @@ public class Camera {
         currentLevel = level;
 
         view = new ScrollPane(level.getNodes().getChildren().get(0));
+        System.out.println(level.getNodes().getChildren());
+        hud = new Group(level.getNodes().getChildren().get(0));
         view.setPannable(false);
 
         changeLevel(level);
@@ -64,6 +68,7 @@ public class Camera {
         if (currentLevel.getNodes().getChildren().size() == 0) {
             currentLevel.add(view.getContent());
         }
+        System.out.println(level.getNodes().getChildren());
         view.setContent(level.getNodes().getChildren().get(0));
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
@@ -122,5 +127,9 @@ public class Camera {
         view.setHvalue(num);
         view.hminProperty().bind(view.hvalueProperty());
         view.hmaxProperty().bind(view.hvalueProperty());
+    }
+
+    public Group getHUD(Vector vector) {
+        return hud;
     }
 }

@@ -3,10 +3,8 @@ package authoring.GameWindow;
 import com.google.firebase.database.FirebaseDatabase;
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
+import javafx.scene.*;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class GameWindow {
@@ -14,28 +12,33 @@ public class GameWindow {
     private Scene scene;
     private SubScene sub;
     private Stage stage;
-    private GameCamera camera;
+    private Camera camera;
     private Entity entity;
     private Group root;
     private Group gameGroup;
     private double CAMERASIZE;
+    private Group hudGroup;
 
     public GameWindow(Entity entity){
-        System.out.println(entity);
         setupGameLayer();
         setupStage();
     }
 
     private void setupGameLayer() {
-        gameGroup = new Group();
-//        Somehow only add the Game layer
-//        group.getChildren().add()
         sub = new SubScene(gameGroup,CAMERASIZE,CAMERASIZE);
-        sub.setCamera(camera.getCamera());
+        sub.setCamera(camera);
+    }
+
+    private void loadLevel(Entity level){
+        Node game = level.getNodes().getChildren().get(0);
+        Node hud = level.getNodes().getChildren().get(1);
+        gameGroup = new Group(game);
+        hudGroup = new Group(hud);
     }
 
     private void setupHUD(){
         root.getChildren().add(gameGroup);
+
 //        Somehow only add the UI Layer
 //        root.getChildren().add()
     }

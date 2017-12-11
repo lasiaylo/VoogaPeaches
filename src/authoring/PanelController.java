@@ -78,4 +78,8 @@ public class PanelController {
     public Pane getMiniMap() {
         return myEngine.getMiniMap(new Vector(VALUE1, VALUE2));
     }
+
+    public Object getHUD() {
+        return myEngine.getHUD(new Vector(CAMERA_INIT_X_SIZE,CAMERA_INIT_Y_SIZE));
+    }
 }
