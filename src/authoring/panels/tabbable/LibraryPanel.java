@@ -121,6 +121,7 @@ public class LibraryPanel implements Panel {
                         }
                         else {
                             myManager.setMyBGType("");
+                            //TODO: THIS MIGHT BREAK SOMETHING BUT TBH I DONT THINK IT DOES because there are no entities linked to this
                         }
                     });
                 } else {
