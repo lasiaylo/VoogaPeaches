@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -129,16 +130,18 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     }
 
     private void selectLevel(MouseEvent event) {
-        String selectL = null;
-        try {
-            selectL = (String) levelTable.
-                    getSelectionModel().
-                    getSelectedItem().
-                    getKey();
-        } catch (NullPointerException e) {
-            //TODO: There's nothing in the table, should we do any handling?
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            String selectL = null;
+            try {
+                selectL = (String) levelTable.
+                        getSelectionModel().
+                        getSelectedItem().
+                        getKey();
+            } catch (NullPointerException e) {
+                //TODO: There's nothing in the table, should we do any handling?
+            }
+            manager.changeLevel(selectL);
         }
-        manager.changeLevel(selectL);
     }
 
     private void add() {
