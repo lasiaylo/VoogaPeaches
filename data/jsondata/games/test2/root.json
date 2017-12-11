@@ -1,23 +1,142 @@
 {
-  "UID": "47a3ddadeb354875ba429fa809d17055",
+  "UID": "c564f9ecf6e54e26b179ebd9791bca69",
   "children": [{
-    "UID": "6c65d9be9fed42ae91d8891c771ce27e",
-    "children": [{
-      "UID": "d81c5519ffce4037a21ee9976ca7dc78",
-      "children": [],
-      "hitBoxes": [],
-      "properties": {
-        "listeners": {},
-        "gridsize": 50,
-        "scripts": {"holderScript": {}}
+    "UID": "be816435c7a144c6ae78387a8973ff9b",
+    "children": [
+      {
+        "UID": "c042e53ff967445fa520a3dda721da71",
+        "children": [
+          {
+            "UID": "0d7bd190aa0b42d894b2d66c8235abe7",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 100,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "da2c5bdfaabb4f02a9f64f1001da0ff1",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 100,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2ed1e0b02542434f952fe5aee5e8d2a2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 350,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "eab61a890fa648c0847c49060528fef9",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 350,
+              "width": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f14d3c6f4f764f4d992426d9198f37ab",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 200,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "22edd235a42249ffa6c2214495fdd241",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 200,
+              "width": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {},
+          "gridsize": 50,
+          "scripts": {"holderScript": {}}
+        }
+      },
+      {
+        "UID": "2c21532bedc240f8a3d142875dd9a8c7",
+        "children": [{
+          "UID": "b8639f73cbd348debcb34a3994b7740e",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"base/animate/update_position": {}},
+              "tick": {"base/animate/move": {}},
+              "key press": {"movement": {}}
+            },
+            "x": 184,
+            "width": 50,
+            "y": 233,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {},
+          "gridsize": 50,
+          "scripts": {"holderScript": {}}
+        }
       }
-    }],
+    ],
     "hitBoxes": [],
     "properties": {
+      "cameraXpos": 0,
       "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
       "listeners": {},
       "gridsize": 50,
       "mapheight": 5000,
+      "cameraWidth": 500,
       "scripts": {"mapScript": {}},
       "levelname": "level 1"
     }

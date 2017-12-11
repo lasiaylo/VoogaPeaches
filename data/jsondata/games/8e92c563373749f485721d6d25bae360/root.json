@@ -6,17 +6,23 @@
       "UID": "a724c53632584d1eb5edf519cb07cb81",
       "children": [],
       "hitBoxes": [],
-      "properties": {"gridsize": 50}
+      "properties": {
+        "listeners": {},
+        "gridsize": 50,
+        "scripts": {"holderScript": {}}
+      }
     }],
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "cameraHeight": 500,
-      "cameraYpos": 0,
       "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {},
       "gridsize": 50,
       "mapheight": 5000,
       "cameraWidth": 500,
+      "scripts": {"mapScript": {}},
       "levelname": "level 1"
     }
   }],

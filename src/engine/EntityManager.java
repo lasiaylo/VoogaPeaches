@@ -88,14 +88,20 @@ public class EntityManager {
                 try {
                     levels.put((String) e.getProperty("levelname"), e);
                     levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
+                    for (Entity each: e.getChildren()) {
+                        new AddLayerEvent(each).fire(e);
+                    }
+                    new MouseDragEvent(isGaming).fire(e);
+                    new MapSetupEvent().fire(e);
                 } catch(Exception l ){
-                    l.printStackTrace();
+                    new ErrorDisplay("Could not put level", "Could not put level").displayError();
                 }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
+            //currentLevel = currentLevel.substitute();
         }
-        writeRootToDatabase(root);
+        //writeRootToDatabase(root);
     }
 
     private void writeRootToDatabase(Entity root) {
@@ -132,10 +138,14 @@ public class EntityManager {
     }
 
     private void addNonBGPrivate(Vector pos, Entity entity) {
+        System.out.println(mode);
         if (mode > 0 && !isGaming) {
             if (mode > currentLevel.getChildren().size() - 1) {
+                System.out.println("add non bg");
+                System.out.println(currentLevel.getChildren().size());
                 addLayer();
             }
+
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //new MouseDragEvent(false).fire(entity);
@@ -155,7 +165,7 @@ public class EntityManager {
 
 
     /**
-     * select BG layer
+     * select BG layer  
      */
     public void selectBGLayer() {
         selectLayer(0);
@@ -233,7 +243,9 @@ public class EntityManager {
 
     public void deleteLayer() {
         if (mode > 0) {
+            ((StackPane)currentLevel.getNodes().getChildren().get(0)).getChildren().remove(currentLevel.getChildren().get(mode).getNodes());
             currentLevel.remove(currentLevel.getChildren().get(mode));
+            mode = 0;
         }
     }
 
@@ -245,16 +257,6 @@ public class EntityManager {
         AddLayerEvent addLayer = new AddLayerEvent(layer);
         addLayer.fire(level);
     }
-
-//    private ImageView setPlaceHolder() {
-//        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
-//        holder.setX(0);
-//        holder.setY(0);
-//        holder.setFitWidth(grid);
-//        holder.setFitHeight(grid);
-//        holder.setMouseTransparent(true);
-//        return holder;
-//    }
 
     /**
      * add new level

@@ -129,6 +129,7 @@ public class CameraPanel implements Panel {
 		    myManager.deleteLayer();
 		    myLayer.getItems().remove(myLayer.getValue());
 		    myLayer.getSelectionModel().clearAndSelect(1);
+            layerC--;
         });
 
 
@@ -184,6 +185,15 @@ public class CameraPanel implements Panel {
 		this.myController = controller;
 		this.setView(myController.getCamera());
 		myManager = myController.getManager();
+		myLayer.getItems().clear();
+		myLayer.getItems().addAll(ALLL, BGL);
+		int counter = 1;
+		for (Entity each : myManager.getCurrentLevel().getChildren().subList(1, myManager.getCurrentLevel().getChildren().size())) {
+			System.out.println("counter " + counter);
+			myLayer.getItems().add("Layer " + counter);
+			counter++;
+		}
+        myLayer.getItems().add(NEWL);
 	}
 
 	@Override

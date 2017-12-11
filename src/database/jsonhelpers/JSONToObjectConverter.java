@@ -99,6 +99,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             UIDField.setAccessible(false);
             params.remove("UID");
         } catch (Exception e) {
+            e.printStackTrace();
             return;
         }
     }
@@ -118,7 +119,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) obj);
                     JSONObject m = new JSONObject(parseParameters(heldObjectJSON));
                     TrackableObject heldObject = (TrackableObject) createObjectFromJSON(listType, m);
-                    heldObject.initialize();
+                    //heldObject.initialize();
                     objectsList.add(heldObject);
                 }
                 params.put(param, objectsList);
@@ -145,6 +146,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             }
             instanceVar.set(newObject, params.get(param));
         } catch (Exception e) {
+            e.printStackTrace();
             // Do Nothing
         }
     }
@@ -178,6 +180,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             newObject.initialize();
             return newObject;
         } catch (Exception e){
+            e.printStackTrace();
             new ErrorDisplay("Json Error", "Could not create object from JSON").displayError();
             return null;
         }

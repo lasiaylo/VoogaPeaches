@@ -1,27 +1,61 @@
 {
-  "UID": "6ca894b3b21c45a58c195b0fe0a0303e",
+  "UID": "33d161e07b1c4fb4940aed5f3950f3f2",
   "children": [{
-    "UID": "638a4c3c308d477cae6f9292755c2143",
-    "children": [{
-      "UID": "3f59d3f05dee46e19fc06b04da9e62f2",
-      "children": [],
-      "hitBoxes": [],
-      "properties": {
-        "listeners": {"tick": {"loader": {"empty": "empty"}}},
-        "gridsize": 50,
-        "scripts": {"holderScript": {"empty": "empty"}}
+    "UID": "4c88da48096d4afc94fa285c396f3632",
+    "children": [
+      {
+        "UID": "455924cc2ba244d8b7e161ec768d6a1c",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 500,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "0e9109dbe32d4cbd9b6df754151b504a",
+        "children": [{
+          "UID": "4028f96a62f545ca99f491a0ec96442a",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"base/animate/update_position": {}},
+              "tick": {"base/animate/move": {}},
+              "key press": {"movement": {}}
+            },
+            "x": 166,
+            "width": 50,
+            "y": 181,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
       }
-    }],
+    ],
     "hitBoxes": [],
     "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
       "mapwidth": 5000,
+      "gridsize": 500,
       "listeners": {"tick": {"loader": {"empty": "empty"}}},
-      "gridsize": 50,
       "mapheight": 5000,
-      "scripts": {"mapScript": {"empty": "empty"}},
-      "levelname": "level 1"
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
     }
   }],
   "hitBoxes": [],
-  "properties": {}
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
 }
