@@ -3,6 +3,7 @@ package database.firebase;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import util.ErrorDisplay;
 import util.PropertiesReader;
 
 import java.io.FileInputStream;
@@ -46,7 +47,7 @@ public abstract class FirebaseConnector {
             app = FirebaseApp.initializeApp(options);
             appInitialized = true;
         } catch (Exception e) {
-            e.printStackTrace();
+            new ErrorDisplay("Firebase Error", "Could not initialize firebase").displayError();
         }
     }
 

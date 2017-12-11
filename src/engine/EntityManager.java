@@ -64,7 +64,7 @@ public class EntityManager {
             layerFactory = new ObjectFactory("layer");
             levelFactory = new ObjectFactory("level");
         } catch (ObjectBlueprintNotFoundException e) {
-            e.printStackTrace();
+            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
         }
 
         if (root.getChildren().isEmpty()) {
@@ -127,6 +127,7 @@ public class EntityManager {
             }
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
+            //new MouseDragEvent(false).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
         }
     }

@@ -53,8 +53,7 @@ public class PropertiesPanel implements Panel,Updatable {
 			try {
 				this.updateProperties(ePass.getEntity());
 			} catch (GroovyInstantiationException exception) {
-				new ErrorDisplay(GROOVY_ERROR,
-                        GROOVY_ERROR_PROMPT).displayError();
+				new ErrorDisplay(GROOVY_ERROR, GROOVY_ERROR_PROMPT).displayError();
 			}
 		});
 		getRegion().getStyleClass().add(PANEL);

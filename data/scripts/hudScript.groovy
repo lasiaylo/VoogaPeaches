@@ -22,7 +22,7 @@ import util.pubsub.messages.NonBGMessage
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
-    canvas = new Canvas((double)entity.getProperty("mapwidth"), (double)entity.getProperty("mapheight"))
+    canvas = new Canvas((double)entity.getProperty("camerawidth"), (double)entity.getProperty("mapheight"))
     stack = new StackPane()
     stack.getChildren().add(canvas)
     entity.add(stack)
