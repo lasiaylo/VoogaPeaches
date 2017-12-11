@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import util.exceptions.GroovyInstantiationException;
 
 public class Attribute {
+
 	private Object myAttribute;
 	private Set<String> myMethods;
 	private GridPane myGrid;

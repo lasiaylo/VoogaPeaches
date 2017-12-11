@@ -8,20 +8,22 @@ import java.text.DecimalFormat;
  */
 public class NumberInputField extends InputField{
 
+	private static final String FORMAT = "#.######";
+
 	public NumberInputField(Setter set) {
 		super(set);
 	}
 	
 	protected void getDefaultValue() {
 		Number number = (Number) getValue();
-		DecimalFormat format = new DecimalFormat("#.######");
+		DecimalFormat format = new DecimalFormat(FORMAT);
 		String defaultText = format.format(number);
 		getTextField().setText(defaultText);
 	}
 
 	@Override
 	protected void updateField() {
-		String text = getTextField().getText();
+		String text = getTextField().textProperty().getValue();
 		if (!text.isEmpty()) {
 			try {
 			Number input = Double.parseDouble(text);
