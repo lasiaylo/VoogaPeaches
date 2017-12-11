@@ -16,6 +16,9 @@ public class GameWindow {
     private Stage stage;
     private GameCamera camera;
     private Entity entity;
+    private Group root;
+    private Group gameGroup;
+    private double CAMERASIZE;
 
     public GameWindow(Entity entity){
         System.out.println(entity);
@@ -24,13 +27,21 @@ public class GameWindow {
     }
 
     private void setupGameLayer() {
-        Group group = new Group();
-        group.getChildren().add(entity.getNodes().getChildren().get(0));
+        gameGroup = new Group();
+//        Somehow only add the Game layer
+//        group.getChildren().add()
+        sub = new SubScene(gameGroup,CAMERASIZE,CAMERASIZE);
+        sub.setCamera(camera.getCamera());
+    }
+
+    private void setupHUD(){
+        root.getChildren().add(gameGroup);
+//        Somehow only add the UI Layer
+//        root.getChildren().add()
     }
 
     private void setupScene(){
-
-        Scene scene = new Scene(group);
+        Scene scene = new Scene(root);
         scene.setOnKeyPressed(e->new KeyPressEvent(e).recursiveFire(entity));
     }
 
