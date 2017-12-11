@@ -187,7 +187,8 @@ public class FSMGraph implements GraphDelegate  {
             if (currentArrow.getOriginal() == contained) {
                 removeMyself(currentArrow);
             }
-        } else { currentArrow = null; }
+        }
+        currentArrow = null;
     }
 
     public List<State> export() {
