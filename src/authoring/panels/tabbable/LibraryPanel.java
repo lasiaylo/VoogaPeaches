@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import util.ErrorDisplay;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.InputStream;
@@ -68,7 +69,7 @@ public class LibraryPanel implements Panel {
             defaultFactory = new ObjectFactory(PLAYER_ENTITY);
             factory = new ObjectFactory(PLAYER_ENTITY);
         } catch (ObjectBlueprintNotFoundException e) {
-            e.printStackTrace();
+            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
         }
 
         myEntType.getItems().addAll(manager.getSubFolder());
@@ -98,7 +99,7 @@ public class LibraryPanel implements Panel {
                 try {
                     factory.setObjectBlueprint(USER_DEFINED + each);
                 } catch (ObjectBlueprintNotFoundException e) {
-                    e.printStackTrace();
+                    new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
                 }
                 Entity entity = factory.newObject();
                 String path = (String) ((Map)((Map) entity.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);

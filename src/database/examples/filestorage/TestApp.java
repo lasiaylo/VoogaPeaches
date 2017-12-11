@@ -55,7 +55,6 @@ public class TestApp extends Application {
             manager.writeFileData(FileConverter.convertImageToByteArray(image), img.getName());
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
