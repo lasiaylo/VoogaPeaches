@@ -1,6 +1,7 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
+import database.firebase.DataReactor;
 import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
 import engine.events.*;

@@ -1,7 +1,6 @@
 package engine;
 
 import database.GameSaver;
-import engine.camera.Camera;
 import engine.camera.NewCamera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
@@ -11,7 +10,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import util.math.num.Vector;
 
@@ -63,11 +61,8 @@ public class Engine {
     public void load(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
-        System.out.println("here");
         this.camera.changeLevel(entityManager.getCurrentLevel());
-        System.out.println("here");
         entityManager.setCamera(this.camera);
-        System.out.println("here");
     }
 
     public EntityManager getEntityManager() {
