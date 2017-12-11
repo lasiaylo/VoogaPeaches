@@ -13,7 +13,6 @@ public class ReadFSMGraphTest extends Application {
     public void start(Stage primaryStage) throws Exception {
         JSONDataManager j = new JSONDataManager(JSONDataFolders.FSM);
         JSONToObjectConverter<FSMGraph> m = new JSONToObjectConverter<>(FSMGraph.class);
-        System.out.println(j.readJSONFile("testFSM.json"));
         FSMGraph graph = m.createObjectFromJSON(FSMGraph.class, j.readJSONFile("testFSM.json"));
         Scene s = new Scene(graph.getRender());
         s.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> graph.onSceneClick(e));

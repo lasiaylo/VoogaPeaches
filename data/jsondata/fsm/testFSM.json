@@ -1,43 +1,60 @@
 {
   "myStateRenders": [
     {
-      "UID": "2cd545f408674215bfe3db79d12d7ebf",
-      "myInfo": {},
+      "UID": "f2033163711144f09fe5d119539f77cd",
+      "myInfo": {"default": true},
       "mySave": {
-        "UID": "e640f336a4274a6ead47781008829675",
-        "yRect": 20.000002000000002,
-        "arrowCode": ["{ entity, state -> ; INSERT_HERE }"],
-        "xRect": 23.000002000000002
+        "UID": "9d1c9d63e40543e8bdae5d7c14068a2e",
+        "yRect": 48.000001999999995,
+        "arrowCode": ["{ entity, state -> ; print(1); return true }"],
+        "xRect": 60.000001999999995
       },
-      "myTitle": ""
+      "myTitle": "state1"
     },
     {
-      "UID": "8d166259957a44a99216a41f8fd357ce",
+      "UID": "bff5ed941f1c4a85b2a894387f48da1c",
       "myInfo": {},
       "mySave": {
-        "UID": "60b83d7aad934088bfb33f47719f7256",
-        "yRect": 83.000002,
-        "arrowCode": [],
-        "xRect": 288.000002
+        "UID": "128a386bbf6d4e59a5f24302b7dba0b5",
+        "yRect": 116.000002,
+        "arrowCode": ["{ entity, state -> ; print(2); return true }"],
+        "xRect": 232.000002
       },
-      "myTitle": ""
+      "myTitle": "teststate1"
     }
   ],
-  "UID": "22c1f10a5d4641d48b668ba81ff464bc",
+  "UID": "bc45c34e9f13460e84058a0327febaff",
   "myName": "",
-  "myArrows": [{
-    "myCode": "{ entity, state -> ; INSERT_HERE }",
-    "UID": "993b3976961442fa9ffba995245f0b82",
-    "myState": {
-      "headX": 309.000002,
-      "headY": 98.000002,
-      "lenX": 286.000002,
-      "UID": "0b7c1a9b1d19431eba2a34edf450def7",
-      "myDestination": "",
-      "originX": 23.000002000000002,
-      "lenY": 56.000001999999995,
-      "myOriginal": "",
-      "originY": 42.000001999999995
+  "myArrows": [
+    {
+      "myCode": "{ entity, state -> ; print(1); return true }",
+      "UID": "967c14b8e5564334b0bbfa147c1971d0",
+      "myState": {
+        "headX": 241.000002,
+        "headY": 142.000002,
+        "lenX": 164.000002,
+        "UID": "f305fb621d99423d8c450e2c87293d92",
+        "myDestination": "teststate1",
+        "originX": 77.000002,
+        "lenY": 76.000002,
+        "myOriginal": "state1",
+        "originY": 66.000002
+      }
+    },
+    {
+      "myCode": "{ entity, state -> ; print(2); return true }",
+      "UID": "a100904586a1448bbfd343a91166dd69",
+      "myState": {
+        "headX": 82.000002,
+        "headY": 56.000001999999995,
+        "lenX": -172.999998,
+        "UID": "254be01f4444438aad4133734f93dc6a",
+        "myDestination": "state1",
+        "originX": 255.000002,
+        "lenY": -68.999998,
+        "myOriginal": "teststate1",
+        "originY": 125.000002
+      }
     }
-  }]
+  ]
 }

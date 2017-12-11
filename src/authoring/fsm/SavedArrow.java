@@ -18,18 +18,12 @@ public class SavedArrow extends TrackableObject {
     public SavedArrow(StateRender original, StateRender destination, Vector myOrigin, Vector myHead, Vector myLength) {
         myOriginal = original.getName();
         myDestination = destination.getName();
-        System.out.println(myOrigin.at(0));
-        System.out.println(myOrigin.at(1));
-        System.out.println(myHead.at(0));
-        System.out.println(myHead.at(1));
         originX = myOrigin.at(0) + 1e-6;
         originY = myOrigin.at(1) + 1e-6;
         headX = myHead.at(0) + 1e-6;
         headY = myHead.at(1) + 1e-6;
         lenX = myLength.at(0) + 1e-6;
         lenY = myLength.at(1) + 1e-6;
-        System.out.println("myOrigin: " + originX + " " + originY + "myHead: " + headX + " " + headY +
-                "myLength: " + lenX + " " + lenY);
     }
 
     private SavedArrow() {}
@@ -54,6 +48,5 @@ public class SavedArrow extends TrackableObject {
 
     @Override
     public void initialize() {
-        System.out.println("init SavedArrow");
     }
 }

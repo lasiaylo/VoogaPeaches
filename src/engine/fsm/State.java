@@ -61,6 +61,5 @@ public class State extends TrackableObject {
 
     @Override
     public void initialize() {
-        System.out.println("Init");
     }
 }

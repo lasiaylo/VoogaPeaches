@@ -33,6 +33,5 @@ public class SavedStateRender extends TrackableObject {
 
     @Override
     public void initialize() {
-        System.out.println("init saved state");
     }
 }

@@ -48,7 +48,6 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
 
     @Override
     public void initialize() {
-        System.out.println("init FSM");
         for(StateRender sRender: myStateRenders) {
             sRender.setGraphDelegate(this);
             myGroup.getChildren().add(sRender.getRender());
@@ -192,22 +191,24 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         currentArrow = null;
     }
 
-    public List<State> export() {
+    public void export() {
         saveSetup();
         try {
             System.out.println("Saving FSM");
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
             manager.writeJSONFile("TestFSM", JSONHelper.JSONForObject(this));
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Error saving FSM");
         }
-        System.out.println("Export");
-        FSM test = new FSM(new Entity(), myStates);
-        for (int i = 0; i<10; i++) {
-            test.step();
+        try {
+            FSM test = new FSM(new Entity(), myStates);
+            for (int i = 0; i<10; i++) {
+                test.step();
+            }
+            System.out.println("Ran FSM Properly!");
+        } catch (Exception e) {
+            System.out.println("Error with running FSM");
         }
-        return null;
     }
 
     private void saveSetup() {

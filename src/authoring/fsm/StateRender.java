@@ -107,7 +107,6 @@ public class StateRender extends TrackableObject implements Updatable {
         data.put("properties", myInfo);
         Map<String, Object> transitions = new LinkedHashMap<>();
         for(Arrow arrow: myLeavingTransitions) {
-            System.out.println("Transition");
             transitions.put(arrow.getDestination().getName(), arrow.getMyCode());
         }
         data.put("transitions", transitions);
