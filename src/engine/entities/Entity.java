@@ -84,8 +84,10 @@ public class Entity extends Evented {
     }
 
     public void remove(Entity entity) {
+        System.out.println(this.getNodes().getChildren().size());
         children.remove(entity);
         remove(entity.getNodes());
+        System.out.println(this.getNodes().getChildren().size());
     }
 
     public Entity getRoot() { return root; }
