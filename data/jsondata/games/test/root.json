@@ -5,7 +5,92 @@
     "children": [
       {
         "UID": "455924cc2ba244d8b7e161ec768d6a1c",
-        "children": [],
+        "children": [
+          {
+            "UID": "4982b68dd05b4d1b83fcffef005d3c46",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0f1583e132f94af395c2b5bfc92a4bbe",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "afdec2043c924302ab5362e56d679115",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "474c73ef5f864197a432eefbf0c8ea4a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "cd36744621d8483dac79b2bf72586c79",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "12174f3db8f64a07b7092e18ad8ea2ed",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall4.jpg"}},
+              "height": 50
+            }
+          }
+        ],
         "hitBoxes": [],
         "properties": {
           "gridsize": 500,
@@ -15,29 +100,40 @@
       },
       {
         "UID": "0e9109dbe32d4cbd9b6df754151b504a",
-        "children": [{
-          "UID": "4028f96a62f545ca99f491a0ec96442a",
-          "children": [],
-          "hitBoxes": [],
-          "properties": {
-            "vx": 0,
-            "vy": 0,
-            "listeners": {
-              "move": {"base/animate/update_position": {}},
-              "tick": {"base/animate/move": {}},
-              "key press": {"movement": {}}
-            },
-            "x": 166,
-            "width": 50,
-            "y": 181,
-            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-            "height": 50
+        "children": [
+          {
+            "UID": "4028f96a62f545ca99f491a0ec96442a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 166,
+              "y": 181,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e369ea1d5a8a42f080746adae51d5bbf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "width": 50,
+              "x": 395,
+              "y": 128,
+              "scripts": {"imageScript": {"image_path": "Player/opm.png"}},
+              "height": 50
+            }
           }
-        }],
+        ],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       }

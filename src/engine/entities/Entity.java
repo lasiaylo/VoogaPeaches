@@ -78,7 +78,7 @@ public class Entity extends Evented {
             parent.getNodes()
                     .getChildren()
                     .add(group);
-            parent.getChildren().add(this);
+            if(!parent.getChildren().contains(this)) parent.getChildren().add(this);
         }
         return this;
     }

@@ -90,10 +90,12 @@ public class EntityManager {
                     levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
                     for (Entity each: e.getChildren()) {
                         new AddLayerEvent(each).fire(e);
+                        recursiveAdd(each);
                     }
                     new MouseDragEvent(isGaming).fire(e);
                     new MapSetupEvent().fire(e);
                 } catch(Exception l ){
+                    l.printStackTrace();
                     new ErrorDisplay("Could not put level", "Could not put level").displayError();
                 }
             });
@@ -102,6 +104,13 @@ public class EntityManager {
             //currentLevel = currentLevel.substitute();
         }
         //writeRootToDatabase(root);
+    }
+
+    private void recursiveAdd(Entity layer){
+        for(int i = 0; i < layer.getChildren().size(); i++){
+            layer.getChildren().get(i).addTo(layer);
+            recursiveAdd(layer.getChildren().get(i));
+        }
     }
 
     private void writeRootToDatabase(Entity root) {
@@ -138,11 +147,8 @@ public class EntityManager {
     }
 
     private void addNonBGPrivate(Vector pos, Entity entity) {
-        System.out.println(mode);
         if (mode > 0 && !isGaming) {
             if (mode > currentLevel.getChildren().size() - 1) {
-                System.out.println("add non bg");
-                System.out.println(currentLevel.getChildren().size());
                 addLayer();
             }
 
@@ -165,7 +171,7 @@ public class EntityManager {
 
 
     /**
-     * select BG layer  
+     * select BG layer
      */
     public void selectBGLayer() {
         selectLayer(0);
