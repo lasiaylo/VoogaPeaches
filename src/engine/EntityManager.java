@@ -48,7 +48,7 @@ public class EntityManager {
     private ObjectFactory layerFactory;
     private ObjectFactory levelFactory;
     private ObservableMap<String, Vector> levelSize;
-    private NewCamera camera;
+    private Camera camera;
     private String currentLevelName;
     private boolean isGaming;
 
@@ -106,7 +106,7 @@ public class EntityManager {
         new GameSaver(root.UIDforObject()).saveGame(root);
     }
 
-    public void setCamera(NewCamera c) {
+    public void setCamera(Camera c) {
         camera = c;
     }
 
