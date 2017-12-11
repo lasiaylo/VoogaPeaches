@@ -31,6 +31,8 @@ public class State {
         this.properties = data.get("properties");
     }
 
+    public State() {}
+
     public Object getProperty(String name) {
         return this.properties.get(name);
     }
