@@ -8,7 +8,11 @@
       }
     },
     "listeners" : {
-
+      "tick": {
+        "loader": {
+          "empty": "empty"
+        }
+      }
     },
     "x" : 0.0,
     "y" : 0.0,

@@ -11,6 +11,7 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
+import javafx.scene.image.Image;
 import javafx.util.Callback;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +37,12 @@ public class GameLoader {
      * @param uid is a {@code String} representing the name to
      *                 load from the database
      */
-    public GameLoader(String uid, Consumer<Entity> callback) {
+    public GameLoader(String uid) {
+        loadGameRoot(uid);
+        loadGameImages(uid);
+    }
+
+    private void loadGameRoot(String uid) {
         FirebaseDatabase.getInstance().getReference("games").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -45,33 +51,32 @@ public class GameLoader {
                 JSONObject rootObject = new JSONObject(JSONHelper.JSONForObject(tempRoot).toString().replace("|","/"));
                 JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
                 gameRoot = converter.createObjectFromJSON(Entity.class, rootObject);
-                callback.accept(gameRoot);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    /**
+     * Loads in the files from Firebase that are actually needed for a full game to be able to run
+     * @param uid is a {@UID} that represents the map obtained from the game's images.json file
+     */
+    private void loadGameImages(String uid) {
+        FirebaseDatabase.getInstance().getReference("games").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FileStorageConnector connector = new FileStorageConnector("images");
+                FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    Image img = connector.retrieveImage(child.getKey());
+                    manager.writeFileData(FileConverter.convertImageToByteArray(img), "user_images/" + child.getKey());
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        //JSONDataManager manager = new JSONDataManager(JSONDataFolders.GAMES);
-        //JSONObject imageJSON = manager.readJSONFile(gameName + "/images.json");
-        //loadGameImages(imageJSON);
-        //JSONObject gameJSON = manager.readJSONFile(gameName + "/root.json");
-        //gameRoot = (new JSONToObjectConverter<Entity>(Entity.class)).createObjectFromJSON(Entity.class, gameJSON);
-    }
-
-    /**
-     * Loads in the files from Firebase that are actually needed for a full game to be able to run
-     * @param images is a {@JSONObject} that represents the map obtained from the game's images.json file
-     */
-    private void loadGameImages(JSONObject images) {
-        FileStorageConnector connector = new FileStorageConnector("images");
-        FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
-        List<Object> imageNames =  ((JSONArray) images.get("images")).toList();
-        for(Object image : imageNames){
-            String name = (String) image;
-            byte[] imageBytes = FileConverter.convertImageToByteArray(connector.retrieveImage(name));
-            manager.writeFileData(imageBytes, name);
-        }
     }
 
     /**

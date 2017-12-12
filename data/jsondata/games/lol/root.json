@@ -1,49 +1,61 @@
 {
-  "UID": "4f4a44d8f655446180192cbef4f3edeb",
+  "UID": "36c168d4664f442bb97c0271293c1108",
   "children": [{
-    "UID": "c21e2f7897604d4992dff9fa68345c75",
+    "UID": "7cccc455ea1c42bbad532fadf5ae61b6",
     "children": [
       {
-        "UID": "f413b7ed7afd497d8066dad5c5ec1855",
+        "UID": "7c729f7454bb43cca77303eab3f2a4c6",
         "children": [],
         "hitBoxes": [],
         "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
-          "listeners": {"blank": 0},
-          "scripts": {"holderScript": {"blank": 0}}
+          "scripts": {"holderScript": {"empty": "empty"}}
         }
       },
       {
-        "UID": "28bd8f5a290e4710829b32cbb82aa11a",
-        "children": [],
+        "UID": "12c7cf75b7934487936b09b3a50a9468",
+        "children": [{
+          "UID": "a166f9b2f0f14fa191de5a1715936f35",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"base/animate/update_position": {"empty": "empty"}},
+              "tick": {"base/animate/move": {"empty": "empty"}},
+              "key press": {"movement": {"empty": "empty"}}
+            },
+            "x": 500,
+            "width": 50,
+            "y": 200,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"blank": 0},
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
-          "scripts": {"holderScript": {"blank": 0}}
-        }
-      },
-      {
-        "UID": "1d451721ba18421dbf846abba5260f21",
-        "children": [],
-        "hitBoxes": [],
-        "properties": {
-          "listeners": {"blank": 0},
-          "gridsize": 50,
-          "scripts": {"holderScript": {"blank": 0}}
+          "scripts": {"holderScript": {"empty": "empty"}}
         }
       }
     ],
     "hitBoxes": [],
     "properties": {
+      "cameraXpos": 0,
       "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
       "gridsize": 50,
-      "listeners": {"blank": 0},
       "mapheight": 5000,
-      "levelname": "level 1",
-      "scripts": {"mapScript": {"blank": 0}}
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
     }
   }],
   "hitBoxes": [],
-  "properties": {}
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
 }

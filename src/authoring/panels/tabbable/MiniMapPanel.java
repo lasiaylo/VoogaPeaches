@@ -121,7 +121,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
                         getSelectionModel().
                         getSelectedItem().
                         getKey();
-                System.out.println(selectL);
             } catch (NullPointerException e) {
                 //TODO: There's nothing in the table, should we do any handling?
             }

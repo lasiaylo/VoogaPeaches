@@ -65,12 +65,8 @@ public class LibraryPanel implements Panel {
         myTilePane = new TilePane();
         myEntType = new ChoiceBox<>();
         manager = new FileDataManager(FileDataFolders.IMAGES);
-        try {
-            defaultFactory = new ObjectFactory(PLAYER_ENTITY);
-            factory = new ObjectFactory(PLAYER_ENTITY);
-        } catch (ObjectBlueprintNotFoundException e) {
-            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
-        }
+        defaultFactory = new ObjectFactory(PLAYER_ENTITY);
+        factory = new ObjectFactory(PLAYER_ENTITY);
 
         myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.getItems().add(PLAYER);
@@ -96,11 +92,7 @@ public class LibraryPanel implements Panel {
         myTilePane.getChildren().clear();
         if (type.equals(PLAYER)) {
             for (String each: ObjectFactory.getEntityTypes()) {
-                try {
-                    factory.setObjectBlueprint(USER_DEFINED + each);
-                } catch (ObjectBlueprintNotFoundException e) {
-                    new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
-                }
+                factory.setObjectBlueprint(USER_DEFINED + each);
                 Entity entity = factory.newObject();
                 String path = (String) ((Map)((Map) entity.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);
                 Image image = new Image(manager.readFileData(path));
@@ -121,8 +113,7 @@ public class LibraryPanel implements Panel {
                 myTilePane.getChildren().add(view);
                 if (type.equals(BG)) {
                     view.setOnMouseClicked(e -> myManager.setMyBGType(type + SLASH + each));
-                }
-                else {
+                } else {
                     view.setOnDragDetected(e -> startDragEnt(e, view, type + SLASH + each, defaultFactory));
                 }
             }

@@ -119,7 +119,7 @@ public class CameraPanel implements Panel {
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
-		myLayer.setOnMouseClicked(e -> changeLayer());
+		myLayer.setOnAction(e -> changeLayer());
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
@@ -198,6 +198,7 @@ public class CameraPanel implements Panel {
 		myLayer.getItems().addAll(ALLL, BGL);
 		if (currentLevel.getChildren().size() == 1) {
             myLayer.getItems().add(NEWL);
+            myLayer.getSelectionModel().selectFirst();
 		    return;
         }
         int i;

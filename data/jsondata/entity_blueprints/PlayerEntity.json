@@ -10,14 +10,18 @@
     "listeners" : {
       "key press": {
           "movement":{
-
+            "empty": "empty"
           }
       },
       "tick": {
-        "base/animate/move": {}
+        "base/animate/move": {
+          "empty": "empty"
+        }
       },
       "move": {
-        "base/animate/update_position": {}
+        "base/animate/update_position": {
+          "empty": "empty"
+        }
       }
     },
     "x" : 0.0,
