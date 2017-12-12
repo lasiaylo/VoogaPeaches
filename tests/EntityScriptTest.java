@@ -25,7 +25,6 @@ public class EntityScriptTest extends Application {
         Entity entityFromFile = converter.createObjectFromJSON(Entity.class,blueprint);
 
         //Entity e = (Entity) TrackableObject.objectForUID("2ca91312fdb14d03865fa4e59d8ee69a");
-        //System.out.println(e.getProperty("hell yeah"));
 
 
         Scene s = new Scene(entityFromFile.getNodes());
@@ -37,7 +36,6 @@ public class EntityScriptTest extends Application {
     }
     
     public static void main(String[] args) {
-    		System.out.println("tets");
     		launch(args);
     		
     }
