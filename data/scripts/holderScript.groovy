@@ -8,7 +8,6 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
-    println("In holder script " + bindings.get("empty"))
 
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)

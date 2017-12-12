@@ -49,22 +49,28 @@ public class EntityManager {
 
 
         setRoot(root);
+
         //writeRootToDatabase(root);
     }
 
     public void setRoot(Entity root) {
+        this.root = root;
+        levels.clear();
+        levelSize.clear();
         setupPubSub();
         setupFactories();
         addLevels();
     }
 
     private void addLevels() {
+        System.out.println("root size " + root.getChildren().size());
         if (root.getChildren().isEmpty()) {
             addLevel("level 1", 5000, 5000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
         } else {
             root.getChildren().forEach(e -> {
+                System.out.println("child added");
                 levels.put((String) e.getProperty("levelname"), e);
                 levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
                 for (Entity each: e.getChildren()) {
@@ -266,24 +272,23 @@ public class EntityManager {
         addLayer(level);
     }
 
-
-
     /**
      * Change current level
      *
      * @param level: new level
      */
-    public void changeLevel(String level) {
+    public Entity changeLevel(String level) {
         if (!levels.containsKey(level)) {
             new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist").displayError();
-            return;
+            return currentLevel;
         }
         if (currentLevel.equals(levels.get(level))) {
-            return;
+            return currentLevel;
         }
         currentLevel = levels.get(level);
         currentLevelName = level;
         camera.changeLevel(currentLevel);
+        return currentLevel;
     }
 
 
@@ -320,6 +325,8 @@ public class EntityManager {
     public void setIsGaming(boolean gaming) {
         isGaming = gaming;
     }
+
+    public boolean isGaming() { return isGaming; }
 
     public Map<String, Vector> getMap() {
         return levelSize;
