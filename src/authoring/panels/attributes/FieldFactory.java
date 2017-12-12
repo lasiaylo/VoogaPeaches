@@ -56,7 +56,6 @@ public class FieldFactory {
 	public static Field makeFieldMap(Map<String, Object> map, String key) throws GroovyInstantiationException {
 		Setter set = new MapSetter(map, key);
 		Object object  = map.get(key);
-		System.out.println("\n\n" + key + "  " + object.getClass() + "\n\n");
 
 		return makeField(set, determineType(object));
 	}
@@ -92,7 +91,7 @@ public class FieldFactory {
 			return PropertiesReader.value(FIELD, clazz.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			new ErrorDisplay("Field Factory Error", "Could not read properties").displayError();
+			new ErrorDisplay("Field Factory Error", "Did not recognize the field: " + obj.getClass().toString()).displayError();
 		}
 		return null;
 	}
