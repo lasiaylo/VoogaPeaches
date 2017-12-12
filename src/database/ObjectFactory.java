@@ -29,10 +29,8 @@ public class ObjectFactory {
      * stored in the database
      * @param objectName is a {@code String} corresponding to the name of the
      *                   type of Entity that needs to be created
-     * @throws ObjectBlueprintNotFoundException if the object's blueprint is
-     * not found within the database
      */
-    public ObjectFactory(String objectName) throws ObjectBlueprintNotFoundException {
+    public ObjectFactory(String objectName) {
         setObjectBlueprint(objectName);
     }
 
@@ -43,10 +41,9 @@ public class ObjectFactory {
      * @throws ObjectBlueprintNotFoundException if the blueprint for the objectName is not
      * found within the database
      */
-    public void setObjectBlueprint(String objectName) throws ObjectBlueprintNotFoundException {
+    public void setObjectBlueprint(String objectName) {
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         blueprintJSON = manager.readJSONFile(objectName);
-        if(blueprintJSON == null) throw new ObjectBlueprintNotFoundException();
         converter = new JSONToObjectConverter(Entity.class);
     }
 
