@@ -14,10 +14,8 @@ public class ImageField extends Field {
 
     private static final int IMAGE_HEIGHT = 200;
     private static final int IMAGE_WIDTH = 200;
-    private static final String IMAGE_PROMPT = "JPG files (*.jpg), PNG files (*.png), GIF files (*.gif)";
-    private static final String JPG = "*.jpg";
+    private static final String IMAGE_PROMPT = "PNG files (*.png)";
     private static final String PNG = "*.png";
-    private static final String GIF = "*.gif";
     private static final String USER_IMAGES_FILEPATH = "user_images/";
     private ImageView view;
     private File selectedImage;
