@@ -4,6 +4,8 @@ import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.*;
@@ -80,9 +82,9 @@ public class EntityManager {
     }
 
     private void setupFactories() {
-        BGObjectFactory = new ObjectFactory("BGEntity");
-        layerFactory = new ObjectFactory("layer");
-        levelFactory = new ObjectFactory("level");
+        BGObjectFactory = new ObjectFactory("BGEntity", JSONDataFolders.DEFAULT_USER_ENTITY);
+        layerFactory = new ObjectFactory("layer", JSONDataFolders.DEFAULT_USER_ENTITY);
+        levelFactory = new ObjectFactory("level", JSONDataFolders.DEFAULT_USER_ENTITY);
     }
 
     private void setupPubSub(){
@@ -138,9 +140,9 @@ public class EntityManager {
             if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
+            entity.substitute();
             //new MouseDragEvent(false).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
         }

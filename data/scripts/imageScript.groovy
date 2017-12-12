@@ -3,6 +3,7 @@ package scripts
 import database.filehelpers.FileConverter
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
+import database.jsonhelpers.JSONHelper
 import engine.entities.Entity
 import engine.events.ClickEvent
 import engine.events.DragExitedEvent
@@ -30,8 +31,6 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-
-    println("ImageScript fired")
 
     ImageView pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth((double) entity.getProperty("width"))
@@ -67,10 +66,10 @@ import java.util.stream.Collectors
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
-        entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
-        entity.setProperty("height", iEvent.getMyGridSize().at(1))
+
+        pointer.setFitWidth(entity.getProperty("width"))
+        pointer.setFitHeight(entity.getProperty("height"))
+
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0))
@@ -137,6 +136,7 @@ import java.util.stream.Collectors
                         fsize.at(1, 0.1)
                     }
                     pointer.setFitWidth(fsize.at(0))
+                    println("lower")
                     pointer.setFitHeight(fsize.at(1))
                     entity.setProperty("width", fsize.at(0));
                     entity.setProperty("height", fsize.at(1));

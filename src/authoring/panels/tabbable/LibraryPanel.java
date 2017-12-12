@@ -6,6 +6,8 @@ import authoring.PanelController;
 import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONHelper;
 import engine.EntityManager;
 import engine.entities.Entity;
 import engine.events.ImageViewEvent;
@@ -23,13 +25,15 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
 public class LibraryPanel implements Panel {
 
     private static final String BG = "Background";
-    private static final String PLAYER = "User-Defined";
+    private static final String PLAYER_CREATED = "User-Defined";
     private static final String PLAYER_ENTITY = "PlayerEntity";
     private static final String CHOICE_BOX = "choice-box";
     private static final String UPDATE = "update";
@@ -59,22 +63,35 @@ public class LibraryPanel implements Panel {
     private Button update;
     private String type;
 
+    List<ObjectFactory> userFactories;
+    List<ObjectFactory> defaultFactories;
+
+
     public LibraryPanel() {
         myTilePane = new TilePane();
         myEntType = new ChoiceBox<>();
         manager = new FileDataManager(FileDataFolders.IMAGES);
-        defaultFactory = new ObjectFactory(PLAYER_ENTITY);
-        factory = new ObjectFactory(PLAYER_ENTITY);
+
+        defaultFactory = new ObjectFactory(PLAYER_ENTITY, JSONDataFolders.DEFAULT_USER_ENTITY);
+        factory = new ObjectFactory(PLAYER_ENTITY, JSONDataFolders.DEFAULT_USER_ENTITY);
+
+        userFactories = setupFactoryList(JSONDataFolders.ENTITY_BLUEPRINT);
+
         myEntType.getItems().addAll(manager.getSubFolder());
-        myEntType.getItems().add(PLAYER);
+        myEntType.getItems().add(PLAYER_CREATED);
         myEntType.setOnAction(e -> changeType());
         myEntType.getStyleClass().add(CHOICE_BOX);
+
+
         myTilePane.setPrefColumns(PREF_COLUMNS);
         myTilePane.setPrefTileWidth(PREF_TILE_WIDTH);
         myTilePane.setPrefTileHeight(PREF_TILE_HEIGHT);
         myTilePane.setHgap(HGAP);
+
+
         update = new Button(UPDATE);
         update.setOnMouseClicked(e -> changeType());
+
         myArea = new VBox(myEntType, myTilePane);
         HBox top = new HBox(myEntType, update);
         top.setSpacing(SPACING);
@@ -84,14 +101,24 @@ public class LibraryPanel implements Panel {
         getRegion().getStyleClass().add(PANEL);
     }
 
+    private List<ObjectFactory> setupFactoryList(JSONDataFolders folder) {
+        List<ObjectFactory> list = new ArrayList<>();
+        for(String file : ObjectFactory.getEntityTypes(folder)) {
+            System.out.println(file);
+            list.add(new ObjectFactory(file, folder));
+        }
+        return list;
+
+    }
+
     private void changeType() {
         type = myEntType.getValue();
         myTilePane.getChildren().clear();
-        if (type.equals(PLAYER)) {
-            for (String each: ObjectFactory.getEntityTypes()) {
-                factory.setObjectBlueprint(USER_DEFINED + each);
-                Entity entity = factory.newObject();
-                String path = (String) ((Map)((Map) entity.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);
+        if (type.equals(PLAYER_CREATED)) {
+            userFactories = setupFactoryList(JSONDataFolders.ENTITY_BLUEPRINT);
+            for(ObjectFactory factory : userFactories) {
+                Entity entityToShow = factory.newObject();
+                String path = (String) ((Map)((Map) entityToShow.getProperty(SCRIPTS)).getOrDefault(IMAGESCRIPT, null)).getOrDefault(IMAGE_PATH, null);
                 Image image = new Image(manager.readFileData(path));
                 ImageView view = new ImageView(image);
                 view.setFitWidth(VIEW_FIT_WIDTH);

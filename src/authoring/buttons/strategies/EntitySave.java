@@ -29,7 +29,7 @@ public class EntitySave implements IButtonStrategy{
     public EntitySave(Entity entity) {
         this.entity = entity;
         initializeFileChooser();
-        jsonDataManager = new JSONDataManager(JSONDataFolders.USER_DEFINED_ENTITY);
+        jsonDataManager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
         s = new Stage();
     }
 
@@ -46,6 +46,7 @@ public class EntitySave implements IButtonStrategy{
         File selectedFile = fileChooser.showSaveDialog(s);
         if (selectedFile != null){
             JSONObject jsonObject =  JSONHelper.JSONForObject(entity);
+            jsonObject.remove("UID");
             jsonDataManager.writeJSONFile(selectedFile.getName(), jsonObject);
         }
     }

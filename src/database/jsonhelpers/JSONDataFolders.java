@@ -13,7 +13,7 @@ public enum JSONDataFolders {
     IMAGES("images"),
     USER_SETTINGS("user_settings"),
     ENTITY_BLUEPRINT("entity_blueprints"),
-    USER_DEFINED_ENTITY("entity_blueprints/user_defined");
+    DEFAULT_USER_ENTITY("../../resources/default_blueprints");
 
     private final String filepath;
 
