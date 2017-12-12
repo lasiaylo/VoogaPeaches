@@ -11,6 +11,7 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
+import javafx.scene.image.Image;
 import javafx.util.Callback;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +38,22 @@ public class GameLoader {
      *                 load from the database
      */
     public GameLoader(String uid, Consumer<Entity> callback) {
+
+        FirebaseDatabase.getInstance().getReference("games").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FileStorageConnector connector = new FileStorageConnector("images");
+                FileDataManager manager = new FileDataManager(FileDataFolders.IMAGES);
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    Image img = connector.retrieveImage(child.getKey());
+                    manager.writeFileData(FileConverter.convertImageToByteArray(img), "user_images/" + child.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
         FirebaseDatabase.getInstance().getReference("games").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
