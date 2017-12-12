@@ -155,7 +155,6 @@ import java.util.stream.Collectors
         }
         dEvent.getEvent().consume()
 
-
     })
 
 //    entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
