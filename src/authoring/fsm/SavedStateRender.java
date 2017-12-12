@@ -9,11 +9,11 @@ import java.util.List;
 
 public class SavedStateRender extends TrackableObject {
 
-    @Expose List<String> arrowCode;
-    @Expose Double xRect;
-    @Expose Double yRect;
+    @Expose private List<String> arrowCode;
+    @Expose private Double xRect;
+    @Expose private Double yRect;
 
-    public SavedStateRender(List<Arrow> myLeavingTransitions, Rectangle myRender) {
+    SavedStateRender(List<Arrow> myLeavingTransitions, Rectangle myRender) {
         arrowCode = new ArrayList<>();
         for(Arrow arrow: myLeavingTransitions) {
             arrowCode.add(arrow.getMyCode());
@@ -23,11 +23,11 @@ public class SavedStateRender extends TrackableObject {
     }
 
 
-    public List<String> getArrowCode() { return arrowCode; }
+    List<String> getArrowCode() { return arrowCode; }
 
-    public Double getXRect() { return xRect; }
+    Double getXRect() { return xRect; }
 
-    public Double getYRect() { return yRect; }
+    Double getYRect() { return yRect; }
 
     private SavedStateRender() {}
 

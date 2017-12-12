@@ -44,7 +44,7 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         this(name, new ArrayList<>(), new ArrayList<>());
     }
 
-    public FSMGraph() { this(""); }
+    public FSMGraph() { this("NoNameGiven"); }
 
     @Override
     public void initialize() {
@@ -196,7 +196,7 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         try {
             System.out.println("Saving FSM");
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
-            manager.writeJSONFile("TestFSM", JSONHelper.JSONForObject(this));
+            manager.writeJSONFile(myName, JSONHelper.JSONForObject(this));
         } catch (Exception e) {
             System.out.println("Error saving FSM");
         }

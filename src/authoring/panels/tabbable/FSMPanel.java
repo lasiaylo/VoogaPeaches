@@ -19,13 +19,11 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     @Override
-    public void updateProperties() {
-
-    }
+    public void updateProperties() { }
 
     @Override
     public Region getRegion() {
-        Button button = new Button("FSM");
+        Button button = new Button("Add New FSM");
         button.setMinHeight(50);
         button.setMinWidth(50);
         VBox box = new VBox(button);
@@ -38,7 +36,7 @@ public class FSMPanel implements UpdatablePanel {
         Stage stage = new Stage();
         FSMGraph graph = new FSMGraph();
         Scene s = new Scene(graph.getRender());
-        s.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> graph.onSceneClick(e));
+        s.addEventFilter(MouseEvent.MOUSE_PRESSED, graph::onSceneClick);
         stage.setScene(s);
         stage.show();
         stage.setOnHidden(e -> graph.export());

@@ -1,0 +1,60 @@
+{
+  "myStateRenders": [
+    {
+      "UID": "5ed809664b42449197475bdf4b2212bb",
+      "myInfo": {"default": true},
+      "mySave": {
+        "UID": "05114f0aecd84b95a8d62f9712505e49",
+        "yRect": 50.000001,
+        "arrowCode": ["{ entity, state -> ; print(1); return true }"],
+        "xRect": 64.000001
+      },
+      "myTitle": ""
+    },
+    {
+      "UID": "13a0281641dc466e953e16c47a9bb69b",
+      "myInfo": {},
+      "mySave": {
+        "UID": "2933e24d465446508dd4dd09500ee734",
+        "yRect": 95.000001,
+        "arrowCode": ["{ entity, state -> ; print(2); return true }"],
+        "xRect": 144.000001
+      },
+      "myTitle": "asdfasdf"
+    }
+  ],
+  "UID": "d3a99f2566444614bfae5ed543cec962",
+  "myName": "NoNameGiven",
+  "myArrows": [
+    {
+      "myCode": "{ entity, state -> ; print(1); return true }",
+      "UID": "6de9ed1cfd4942e793ab7d7b4f426bc8",
+      "myState": {
+        "headX": 153.000001,
+        "headY": 120.00000099999997,
+        "lenX": 87.000001,
+        "UID": "cd2f287cbb84428a9d1c2481f4cf0351",
+        "myDestination": "asdfasdf",
+        "originX": 66.000001,
+        "lenY": 49.00000099999997,
+        "myOriginal": "",
+        "originY": 71.000001
+      }
+    },
+    {
+      "myCode": "{ entity, state -> ; print(2); return true }",
+      "UID": "287d36d3099d418ba75149f12553c01f",
+      "myState": {
+        "headX": 83.000001,
+        "headY": 65.00000099999998,
+        "lenX": -80.999999,
+        "UID": "8a35f7996f4c4f97a3927e96642b52cf",
+        "myDestination": "",
+        "originX": 164.000001,
+        "lenY": -36.99999900000002,
+        "myOriginal": "asdfasdf",
+        "originY": 102.000001
+      }
+    }
+  ]
+}

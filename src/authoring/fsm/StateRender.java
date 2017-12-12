@@ -28,7 +28,6 @@ public class StateRender extends TrackableObject implements Updatable {
     @Expose private String myTitle;
     @Expose private Map<String, Object> myInfo;
     @Expose private SavedStateRender mySave;
-
     private List<Arrow> myLeavingTransitions = new ArrayList<>();
     private Rectangle myRender = new Rectangle();
     private GraphDelegate myGraph;
@@ -36,12 +35,14 @@ public class StateRender extends TrackableObject implements Updatable {
     private FlowPane flow;
     private Label myLabel;
 
-    public StateRender(Double X, Double Y, String title, GraphDelegate graph) {
+    StateRender(Double X, Double Y, String title, GraphDelegate graph) {
         myInfo = new HashMap<>();
         myTitle = title;
         myGraph = graph;
         initRender(X, Y);
     }
+
+    private StateRender() {}
 
     private void initRender(Double X, Double Y) {
         myLabel = new Label(myTitle);
@@ -52,8 +53,6 @@ public class StateRender extends TrackableObject implements Updatable {
         myRender.setHeight(PADDING);
         myRender.setOnMouseClicked(e -> onClick());
     }
-
-    private StateRender() {}
 
     public void onClick() {
         if (deleting) { return; }
