@@ -52,7 +52,7 @@ public class ImageField extends Field {
 
     private void initializeFileChooser(){
         fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter(IMAGE_PROMPT, JPG, PNG, GIF);
+        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter(IMAGE_PROMPT, PNG);
         fileChooser.getExtensionFilters().addAll(JPG_PNG_GIF);
     }
 
