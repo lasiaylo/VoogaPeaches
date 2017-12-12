@@ -46,6 +46,13 @@ public class EntityManager {
         this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
         BGType = "";
+
+
+        setRoot(root);
+        //writeRootToDatabase(root);
+    }
+
+    public void setRoot(Entity root) {
         setupPubSub();
         setupFactories();
         addLevels();
@@ -63,9 +70,9 @@ public class EntityManager {
                 for (Entity each: e.getChildren()) {
                     new AddLayerEvent(each).fire(e);
                     recursiveAdd(each);
-                    new MouseDragEvent(isGaming).fire(e);
-                    new MapSetupEvent().fire(e);
                 }
+                new MouseDragEvent(isGaming).fire(e);
+                new MapSetupEvent().fire(e);
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
@@ -312,5 +319,9 @@ public class EntityManager {
     }
     public void setIsGaming(boolean gaming) {
         isGaming = gaming;
+    }
+
+    public Map<String, Vector> getMap() {
+        return levelSize;
     }
  }

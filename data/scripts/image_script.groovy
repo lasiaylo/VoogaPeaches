@@ -134,8 +134,6 @@ import java.util.stream.Collectors
     entity.on(EventType.IMAGE_VIEW, { Event e ->
         ImageViewEvent imageViewEvent = (ImageViewEvent) e
 
-        System.out.println(imageViewEvent.getPath())
-
         view.setImage(new Image(manager.readFileData((String) imageViewEvent.getPath())))
         Map scriptMap = ((Map) entity.getProperty("scripts"))
 

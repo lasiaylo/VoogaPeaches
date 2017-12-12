@@ -93,7 +93,6 @@ import java.util.stream.Collectors
         if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
             if(!entity.getProperties().getOrDefault("bg", false)) {
-                System.out.println("hell yeah")
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
         }
