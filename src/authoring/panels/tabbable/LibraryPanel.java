@@ -21,8 +21,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import util.ErrorDisplay;
-import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -35,7 +33,7 @@ public class LibraryPanel implements Panel {
     private static final String PLAYER_ENTITY = "PlayerEntity";
     private static final String CHOICE_BOX = "choice-box";
     private static final String UPDATE = "update";
-    public static final String PANEL = "panel";
+    private static final String PANEL = "panel";
     private static final int SPACING = 10;
     private static final int HGAP = 10;
     private static final int PREF_COLUMNS = 2;
@@ -67,7 +65,6 @@ public class LibraryPanel implements Panel {
         manager = new FileDataManager(FileDataFolders.IMAGES);
         defaultFactory = new ObjectFactory(PLAYER_ENTITY);
         factory = new ObjectFactory(PLAYER_ENTITY);
-
         myEntType.getItems().addAll(manager.getSubFolder());
         myEntType.getItems().add(PLAYER);
         myEntType.setOnAction(e -> changeType());

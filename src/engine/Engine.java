@@ -1,6 +1,7 @@
 package engine;
 
 import database.GameSaver;
+import database.firebase.DataReactor;
 import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.camera.NewCamera;
@@ -26,7 +27,7 @@ import java.util.Map;
  * @author Albert
  * @author estellehe
  */
-public class Engine {
+public class Engine implements DataReactor<Entity> {
     private static final int MAX_FRAMES_PER_SECOND = 60;
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
@@ -113,5 +114,25 @@ public class Engine {
 
     public JSONObject getLastState() {
         return lastState;
+    }
+
+    @Override
+    public void reactToNewData(Entity newObject) {
+
+    }
+
+    @Override
+    public void reactToDataMoved(Entity movedObject) {
+
+    }
+
+    @Override
+    public void reactToDataChanged(Entity changedObject) {
+
+    }
+
+    @Override
+    public void reactToDataRemoved(Entity removedObject) {
+
     }
 }
