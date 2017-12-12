@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import org.json.JSONObject;
 import util.math.num.Vector;
 
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class Engine implements DataReactor<Entity> {
     private static final int MAX_FRAMES_PER_SECOND = 60;
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
+    private JSONObject lastState;
     private EntityManager entityManager;
     private TickEvent tick = new TickEvent(FRAME_PERIOD);
     private Timeline timeline;
@@ -49,6 +51,8 @@ public class Engine implements DataReactor<Entity> {
         entityManager.setCamera(camera);
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
+        this.lastState = JSONHelper.JSONForObject(root);
+
     }
 
     private void loop() {
@@ -69,6 +73,7 @@ public class Engine implements DataReactor<Entity> {
         timeline.play();
         scrollPane.requestFocus();
         this.isGaming = true;
+        lastState = JSONHelper.JSONForObject(lastState);
         entityManager.setIsGaming(isGaming);
     }
 
@@ -105,6 +110,10 @@ public class Engine implements DataReactor<Entity> {
                     new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));                }
             }
         }
+    }
+
+    public JSONObject getLastState() {
+        return lastState;
     }
 
     @Override

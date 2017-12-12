@@ -29,16 +29,13 @@ import util.pubsub.messages.NonBGMessage
     stack = new StackPane()
     stack.getChildren().add(canvas)
     entity.add(stack)
-
-    println("In mapscript" + bindings.get("empty"))
-
+    println "map script start"
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
         if (!dEvent.isGaming) {
             canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, { MouseEvent e ->
                 dEvent.setMyStartPos(e.getX(), e.getY())
                 e.consume()
-                println("start")
             })
             canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, { MouseEvent e ->
                 addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridsize"))
@@ -52,14 +49,12 @@ import util.pubsub.messages.NonBGMessage
         stack.getChildren().add(addLayer.getLayerGroup())
         stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
     })
-    println("drag over")
     entity.on(EventType.MAPSETUP.getType(), { Event call ->
         MapSetupEvent setup = (MapSetupEvent) call
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, { MouseEvent e ->
             PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridsize"))))
             e.consume()
         })
-        println("drag over")
         stack.addEventHandler(DragEvent.DRAG_OVER, { DragEvent e ->
             if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
                 e.acceptTransferModes(TransferMode.COPY)
@@ -67,7 +62,6 @@ import util.pubsub.messages.NonBGMessage
             e.consume()
         })
         stack.addEventHandler(DragEvent.DRAG_DROPPED, { DragEvent e ->
-            println("drag dropped")
             if (e.getDragboard().hasString()) {
                 PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
                         new Vector(e.getX(), e.getY())))

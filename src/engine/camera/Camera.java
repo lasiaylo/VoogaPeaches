@@ -108,8 +108,6 @@ public class Camera {
         event.consume();
     }
 
-
-
     private void vScroll(double num) {
         view.setVmin(num);
         view.setVmax(num);
