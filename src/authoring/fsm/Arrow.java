@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import util.math.num.Vector;
 
 public class Arrow extends TrackableObject {
+    
     private static final double HEAD_OFFSET = 45;
     public static final double HEAD_FACTOR = 0.8;
     private static final double HEAD_WIDTH = 5;

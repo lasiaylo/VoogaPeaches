@@ -16,7 +16,6 @@ public class FSMPanel implements UpdatablePanel {
 
     private final String TITLE = "FSM Panel";
     private VBox box;
-    private Stage stage;
 
     public FSMPanel() {
         Button button = new Button("Add New FSM");
@@ -25,7 +24,6 @@ public class FSMPanel implements UpdatablePanel {
         box = new VBox(button);
         box.setFillWidth(true);
         button.setOnMouseClicked(e -> prompt());
-        stage = new Stage();
     }
 
     @Override
@@ -37,6 +35,7 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     private void prompt() {
+        Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         FlowPane flow = createPopup();
         scene.setRoot(flow);
@@ -50,18 +49,21 @@ public class FSMPanel implements UpdatablePanel {
         Button start = new Button("Create FSM");
         TextField name = new TextField();
         name.setPromptText("Enter your FSM name");
-        start.setOnMouseClicked(e -> createNewFSM(name.getText()));
+        start.setOnMouseClicked(e -> createNewFSM(name.getText(), start));
         flow.getChildren().addAll(start, name);
         return flow;
     }
 
-    private void createNewFSM(String name) {
+    private void createNewFSM(String name, Button start) {
+        ((Stage) start.getScene().getWindow()).close();
+        Stage stage = new Stage();
         FSMGraph graph = new FSMGraph(name);
         Scene s = new Scene(graph.getRender());
         s.addEventFilter(MouseEvent.MOUSE_PRESSED, graph::onSceneClick);
         stage.setTitle(name);
         stage.setScene(s);
         stage.setOnHidden(e -> graph.export());
+        stage.show();
     }
 
     @Override
