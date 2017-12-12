@@ -56,6 +56,7 @@ public class FieldFactory {
 	public static Field makeFieldMap(Map<String, Object> map, String key) throws GroovyInstantiationException {
 		Setter set = new MapSetter(map, key);
 		Object object  = map.get(key);
+		System.out.println("\n\n" + key + "  " + object.getClass() + "\n\n");
 
 		return makeField(set, determineType(object));
 	}
@@ -74,6 +75,7 @@ public class FieldFactory {
 			Field field = (Field) ctor.newInstance(set);
 			return field;
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+
 			throw new GroovyInstantiationException();
 		}
 	}
@@ -89,6 +91,7 @@ public class FieldFactory {
 			}
 			return PropertiesReader.value(FIELD, clazz.toString());
 		} catch (Exception e) {
+			e.printStackTrace();
 			new ErrorDisplay("Field Factory Error", "Could not read properties").displayError();
 		}
 		return null;
