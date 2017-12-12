@@ -2,6 +2,9 @@ package authoring.panels.tabbable;
 
 import authoring.fsm.FSMGraph;
 import authoring.panels.attributes.UpdatablePanel;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONToObjectConverter;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,18 +15,76 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FSMPanel implements UpdatablePanel {
 
+    private static final String FSM_PATH = "data/jsondata/fsm";
     private final String TITLE = "FSM Panel";
-    private VBox box;
+    private VBox box = new VBox();
+    private List<FSMGraph> allGraphs;
 
     public FSMPanel() {
+        init();
+    }
+
+    private void init() {
+        allGraphs = new ArrayList<>();
+        box.getChildren().clear();
+        createGraphs();
+        createAddButton();
+        createGraphButtons();
+    }
+
+
+    private void createGraphButtons() {
+        for(FSMGraph graph: allGraphs) {
+            System.out.println(graph.getMyName());
+            Button button = new Button(graph.getMyName());
+            button.setMinHeight(50);
+            button.setMinWidth(50);
+            button.setOnMouseClicked(e -> readGraph(graph));
+            box.getChildren().add(button);
+        }
+    }
+
+    private void readGraph(FSMGraph graph) {
+        Stage stage = new Stage();
+        Group wrapper = new Group(graph.getRender());
+        Scene s = new Scene(wrapper);
+        s.addEventFilter(MouseEvent.MOUSE_PRESSED, graph::onSceneClick);
+        stage.setTitle(graph.getMyName());
+        stage.setScene(s);
+        stage.setOnHidden(e -> closeGraph(graph, wrapper));
+        stage.show();
+    }
+
+    private void closeGraph(FSMGraph graph, Group wrapper) {
+        wrapper.getChildren().clear();
+        graph.export();
+        init();
+    }
+
+    private void createAddButton() {
         Button button = new Button("Add New FSM");
         button.setMinHeight(50);
         button.setMinWidth(50);
-        box = new VBox(button);
-        box.setFillWidth(true);
         button.setOnMouseClicked(e -> prompt());
+        box.getChildren().add(button);
+    }
+
+    private void createGraphs() {
+        File folder = new File(FSM_PATH);
+        File[] listOfFiles = folder.listFiles();
+        JSONDataManager j = new JSONDataManager(JSONDataFolders.FSM);
+        JSONToObjectConverter<FSMGraph> m = new JSONToObjectConverter<>(FSMGraph.class);
+        for (File file : listOfFiles) {
+            System.out.println(file.getName());
+            FSMGraph graph = m.createObjectFromJSON(FSMGraph.class, j.readJSONFile(file.getName()));
+            allGraphs.add(graph);
+        }
     }
 
     @Override
@@ -56,14 +117,8 @@ public class FSMPanel implements UpdatablePanel {
 
     private void createNewFSM(String name, Button start) {
         ((Stage) start.getScene().getWindow()).close();
-        Stage stage = new Stage();
         FSMGraph graph = new FSMGraph(name);
-        Scene s = new Scene(graph.getRender());
-        s.addEventFilter(MouseEvent.MOUSE_PRESSED, graph::onSceneClick);
-        stage.setTitle(name);
-        stage.setScene(s);
-        stage.setOnHidden(e -> graph.export());
-        stage.show();
+        readGraph(graph);
     }
 
     @Override

@@ -263,4 +263,8 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         }
         return null;
     }
+
+    public String getMyName() {
+        return myName;
+    }
 }
