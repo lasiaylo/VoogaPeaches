@@ -2,6 +2,8 @@ package authoring.panels.reserved;
 
 import authoring.Panel;
 import authoring.PanelController;
+import authoring.buttons.CustomButton;
+import authoring.buttons.strategies.ResetStrategy;
 import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.geometry.Insets;
@@ -26,7 +28,7 @@ import util.pubsub.messages.StringMessage;
  *
  */
 public class CameraPanel implements Panel {
-
+	private static final String RESET = "Reset";
     private static final String PLAY = "Play";
 	private static final String PAUSE = "Pause";
 	private static final String ALLL = "All Layers";
@@ -52,6 +54,7 @@ public class CameraPanel implements Panel {
 	private Button myPause;
 	private Button myClear;
 	private Button myDelete;
+	private Button myReset;
 	private VBox myArea;
 	private PubSub pubSub;
 	private EntityManager myManager;
@@ -91,6 +94,7 @@ public class CameraPanel implements Panel {
 		myText = new TextField(TEXT);
 		myClear = new Button(CLEAR);
 		myDelete = new Button(DELETE_LAYER);
+		myReset = new CustomButton(new ResetStrategy(), RESET).getButton();
 
 		setupButton();
 
