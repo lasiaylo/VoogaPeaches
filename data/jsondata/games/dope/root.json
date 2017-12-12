@@ -2,28 +2,96 @@
   "UID": "e2651f9487bf4d40964cf09235c527d8",
   "children": [{
     "UID": "a86dc2f3c9944b0db4c22500fc8e7ce5",
-    "children": [{
-      "UID": "434e9d09c3b4440a92c40709a8a3db42",
-      "children": [],
-      "hitBoxes": [],
-      "properties": {
-        "listeners": {"tick": {"loader": {"empty": "empty"}}},
-        "gridsize": 50,
-        "scripts": {"holderScript": {"empty": "empty"}}
+    "children": [
+      {
+        "UID": "434e9d09c3b4440a92c40709a8a3db42",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "3e7bb57bbbd24e1298bd9ee65dceec48",
+        "children": [
+          {
+            "UID": "30502a3f67b24e23be1084d4c67fe0b4",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {
+                "move": {"base/animate/update_position": {}},
+                "tick": {"base/animate/move": {}},
+                "key press": {"movement": {}}
+              },
+              "x": 135,
+              "width": 50,
+              "y": 78,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "07016d96306e4a9c988ce61d83ccb945",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"base/animate/update_position": {"empty": "empty"}},
+                "tick": {"base/animate/move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 75,
+              "width": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "user_images/vlcsnap-2016-03-15-21h38m34s916.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8bdeea91278f484981d5994bbdda66d8",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"base/animate/update_position": {"empty": "empty"}},
+                "tick": {"base/animate/move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 33,
+              "width": 50,
+              "y": 65,
+              "scripts": {"imageScript": {"image_path": "user_images/cox2.jpg"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
       }
-    }],
+    ],
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "mapwidth": 5000,
-      "cameraYpos": 0,
       "cameraHeight": 500,
-      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "cameraYpos": 0,
+      "mapwidth": 5000,
       "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
       "mapheight": 5000,
       "cameraWidth": 500,
-      "scripts": {"mapScript": {"empty": "empty"}},
-      "levelname": "level 1"
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
     }
   }],
   "hitBoxes": [],
