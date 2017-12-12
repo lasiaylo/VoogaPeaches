@@ -42,8 +42,9 @@ public class ScriptLoader {
             try {
                 cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
             } catch (Exception e) {
-                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(""));
+                e.printStackTrace();
             }
+                //cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(""));
         return cache;
     }
 
@@ -67,6 +68,7 @@ public class ScriptLoader {
             br.close();
             return scriptString;
         } catch (IOException e) {
+            e.printStackTrace();
             return "";
         }
     }

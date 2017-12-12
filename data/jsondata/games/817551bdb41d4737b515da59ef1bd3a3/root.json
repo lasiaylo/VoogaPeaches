@@ -1,0 +1,395 @@
+{
+  "UID": "817551bdb41d4737b515da59ef1bd3a3",
+  "children": [{
+    "UID": "aba12836f1cd45e4a90ddc6a600f5d8d",
+    "children": [
+      {
+        "UID": "05af9a3c512243eeabfd22c573725e2c",
+        "children": [
+          {
+            "UID": "765fabd874284edaa08a826320741926",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "05861f4954be48cfb85769176b9a449b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "325fca9142e040c9ad6a8529b326c2cb",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "fcd6a8d7fe394703bc6c7d46212658ea",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2c42eb7da6854ed6b6e5683faa27e460",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8560810c15384a05aafb9244c84fd873",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0139fed7f2f2489387a66d71ef181632",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "33ff125d6cae41f5a10276182edfe54c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4f8974a47a524f669bfe56038652f769",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1f91fa95a64d42d9a6ef2f0b4fcda8df",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "bd39718bb2cd4ec8ae67b5e864977172",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2a130c3ec0d84eaca1b179776c68bdf5",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a4044735393f4e4696ec0793cbb1ce68",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "93e20fb24a9744c48b6fd0172f9984ad",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0723f5c5183f4627b8c5cd7ba55bc91c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "48df357bd3504585bfcd61cf624621c0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0f4afde37745482fa26d999ec8ae5ffe",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3e8e2f4a536d4bb4b7f9c4878c2b373a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8f0653589d674be4b08e9aa0c22fb30f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "664b3a9c1e2d44acb59ac46a9bff8fe5",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": ""}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "52cef69e3b9d4555ac1e6a219179f583",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a17a1c1bccf74de99e6282d0638d0c64",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "03e481e8b8154c638571627dc06827d7",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "308fe14a3b354aa189c74594d69521d4",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f35912de461644f784190e86f4a663be",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2f1645502739416289e26ab1cc68376f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/water.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "47acd87dfbae4b499b005a11997e1d1c",
+        "children": [{
+          "UID": "803173b6729d4ac8bea50831e7d689d8",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "width": 50,
+            "x": 142,
+            "y": 128,
+            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

@@ -1,0 +1,60 @@
+{
+  "UID": "d7341e46977d4f8aa772a76890a0c7eb",
+  "children": [{
+    "UID": "30415396b3674f0aab5f2a72abb1ed4d",
+    "children": [{
+      "UID": "9113f1a55e34498e93764b96a0380e2e",
+      "children": [
+        {
+          "UID": "778ed309676b453e840ff1c8a155cd26",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "listeners": {},
+            "bg": true,
+            "x": 100,
+            "width": 50,
+            "y": 100,
+            "scripts": {"imageScript": {"image_path": "Background/duvall3.jpg"}},
+            "height": 50
+          }
+        },
+        {
+          "UID": "a1a1d3eb012245079fb0e0b34f81ba3c",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "listeners": {},
+            "bg": true,
+            "x": 100,
+            "width": 50,
+            "y": 100,
+            "scripts": {"imageScript": {"image_path": "Background/duvall3.jpg"}},
+            "height": 50
+          }
+        }
+      ],
+      "hitBoxes": [],
+      "properties": {
+        "listeners": {"tick": {"loader": {"empty": "empty"}}},
+        "gridsize": 50,
+        "scripts": {"holderScript": {"empty": "empty"}}
+      }
+    }],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

@@ -3,6 +3,7 @@ package authoring.panels.reserved;
 import authoring.Panel;
 import authoring.PanelController;
 import engine.EntityManager;
+import engine.entities.Entity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -60,7 +61,6 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
@@ -89,7 +89,6 @@ public class CameraPanel implements Panel {
 		myPause = new Button(PAUSE);
 		myLayer = new ComboBox<>();
 		myText = new TextField(TEXT);
-		myText.getStyleClass().add(TEXT_FIELD);
 		myClear = new Button(CLEAR);
 		myDelete = new Button(DELETE_LAYER);
 
@@ -117,7 +116,6 @@ public class CameraPanel implements Panel {
 	 * adds the action connections to the buttons
 	 */
 	private void setupButton() {
-		myLayer.getStyleClass().add(CHOICE_BOX);
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
@@ -131,8 +129,11 @@ public class CameraPanel implements Panel {
 		    myManager.deleteLayer();
 		    myLayer.getItems().remove(myLayer.getValue());
 		    myLayer.getSelectionModel().clearAndSelect(1);
+            layerC--;
         });
 
+
+		myLayer.getStyleClass().add(CHOICE_BOX);
 	}
 
 	/**
@@ -180,9 +181,19 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public void setController(PanelController controller) {
+		System.out.println("Hehrhweafsdf");
 		this.myController = controller;
 		this.setView(myController.getCamera());
 		myManager = myController.getManager();
+		myLayer.getItems().clear();
+		myLayer.getItems().addAll(ALLL, BGL);
+		int counter = 1;
+		for (Entity each : myManager.getCurrentLevel().getChildren().subList(1, myManager.getCurrentLevel().getChildren().size())) {
+			System.out.println("counter " + counter);
+			myLayer.getItems().add("Layer " + counter);
+			counter++;
+		}
+        myLayer.getItems().add(NEWL);
 	}
 
 	@Override

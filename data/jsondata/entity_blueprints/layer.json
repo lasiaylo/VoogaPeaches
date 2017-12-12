@@ -1,11 +1,23 @@
 {
-  "children": [],
-  "hitBoxes": [],
+  "children": [
+
+  ],
+  "hitBoxes": [
+
+  ],
   "properties": {
     "scripts": {
-      "holderScript": {}
+      "holderScript": {
+          "empty":"empty"
+      }
     },
-    "listeners" : {},
+    "listeners" : {
+      "tick": {
+        "loader":{
+          "empty":"empty"
+        }
+      }
+    },
     "gridsize": 50
   }
 }

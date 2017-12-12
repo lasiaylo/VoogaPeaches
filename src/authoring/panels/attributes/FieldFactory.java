@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import util.ErrorDisplay;
 import util.PropertiesReader;
 import util.exceptions.GroovyInstantiationException;
 
@@ -73,19 +74,23 @@ public class FieldFactory {
 			Field field = (Field) ctor.newInstance(set);
 			return field;
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
 			throw new GroovyInstantiationException();
 		}
 	}
 	
 	private static String determineType(Object obj) {
-		Class<?> clazz = obj.getClass();
-		if (clazz.equals(String.class)){
-			String string = (String) obj;
-			if (string.matches(REGEX_MATCHING_STRING)){
-				return PropertiesReader.value(FIELD, IMAGE);
+		try {
+			Class<?> clazz = obj.getClass();
+			if (clazz.equals(String.class)) {
+				String string = (String) obj;
+				if (string.matches(REGEX_MATCHING_STRING)) {
+					return PropertiesReader.value(FIELD, IMAGE);
+				}
 			}
+			return PropertiesReader.value(FIELD, clazz.toString());
+		} catch (Exception e) {
+			new ErrorDisplay("Field Factory Error", "Could not read properties").displayError();
 		}
-		return PropertiesReader.value(FIELD, clazz.toString());
+		return null;
 	}
 }

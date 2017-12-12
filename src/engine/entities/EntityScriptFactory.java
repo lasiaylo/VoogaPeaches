@@ -1,6 +1,7 @@
 package engine.entities;
 
 import database.fileloaders.ScriptLoader;
+import database.jsonhelpers.JSONHelper;
 import engine.events.EventType;
 import groovy.lang.Closure;
 import groovy.lang.Script;
@@ -24,7 +25,6 @@ class EntityScriptFactory {
 
     private static void parseScripts(Entity entity, Map<String, Object> properties) {
         Map scripts = (Map) properties.getOrDefault("scripts", new HashMap<String, ArrayList<Map>>());
-
         for (Object o : scripts.entrySet()) {
             Map<String, Object> bindings = new HashMap<>();
             parse(entity, bindings, (Map.Entry) o).call(entity, bindings);
@@ -41,7 +41,6 @@ class EntityScriptFactory {
             for (Object oo : callbacks.entrySet()) {
                 Map<String, Object> bindings = new HashMap<>();
                 Closure callback = parse(entity, bindings, (Map.Entry) oo);
-
                 entity.on(type, (event) -> callback.call(entity, bindings, event));
             }
         }

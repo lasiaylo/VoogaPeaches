@@ -1,0 +1,61 @@
+{
+  "UID": "1b360f37b4c6441eb4f6fa17bd9e1ed1",
+  "children": [{
+    "UID": "d86304008da94bd58b2d641dcbecc397",
+    "children": [
+      {
+        "UID": "7d821670c1064d328c270a31c3363ba2",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "1de6e6c2f625496098fdeb8c9c5fb9bb",
+        "children": [{
+          "UID": "844a1b6f0af74c63928240164eaff96b",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"base/animate/update_position": {}},
+              "tick": {"base/animate/move": {}},
+              "key press": {"movement": {}}
+            },
+            "x": 248,
+            "width": 50,
+            "y": 129,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

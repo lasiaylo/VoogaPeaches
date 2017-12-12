@@ -1,0 +1,31 @@
+{
+  "UID": "f346ec16418c401c96cefb28ca3b0639",
+  "children": [{
+    "UID": "2a8e921fdc404c0b9f5b9e66347707e6",
+    "children": [{
+      "UID": "5e318234b5844b5b8e6607f7987666ce",
+      "children": [],
+      "hitBoxes": [],
+      "properties": {
+        "listeners": {},
+        "gridsize": 50,
+        "scripts": {"holderScript": {}}
+      }
+    }],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 5000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {},
+      "gridsize": 50,
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

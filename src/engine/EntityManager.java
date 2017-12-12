@@ -60,7 +60,7 @@ public class EntityManager {
         this.isGaming = gaming;
         this.levelSize = FXCollections.observableMap(new HashMap<>());
         manager = new FileDataManager(FileDataFolders.IMAGES);
-        BGType = "Background/grass.png";
+        BGType = "";
         PubSub.getInstance().subscribe("ADD_BG", message -> {
             BGMessage bgMessage = (BGMessage) message;
             addBG(bgMessage.getPos());
@@ -88,14 +88,29 @@ public class EntityManager {
                 try {
                     levels.put((String) e.getProperty("levelname"), e);
                     levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
+                    for (Entity each: e.getChildren()) {
+                        new AddLayerEvent(each).fire(e);
+                        recursiveAdd(each);
+                    }
+                    new MouseDragEvent(isGaming).fire(e);
+                    new MapSetupEvent().fire(e);
                 } catch(Exception l ){
                     l.printStackTrace();
+                    new ErrorDisplay("Could not put level", "Could not put level").displayError();
                 }
             });
             currentLevel = root.getChildren().get(0);
             currentLevelName = (String) currentLevel.getProperty("levelname");
+            //currentLevel = currentLevel.substitute();
         }
-        writeRootToDatabase(root);
+        //writeRootToDatabase(root);
+    }
+
+    private void recursiveAdd(Entity layer){
+        for(int i = 0; i < layer.getChildren().size(); i++){
+            layer.getChildren().get(i).addTo(layer);
+            recursiveAdd(layer.getChildren().get(i));
+        }
     }
 
     private void writeRootToDatabase(Entity root) {
@@ -136,6 +151,7 @@ public class EntityManager {
             if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
+
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
             //new MouseDragEvent(false).fire(entity);
@@ -233,28 +249,20 @@ public class EntityManager {
 
     public void deleteLayer() {
         if (mode > 0) {
+            ((StackPane)currentLevel.getNodes().getChildren().get(0)).getChildren().remove(currentLevel.getChildren().get(mode).getNodes());
             currentLevel.remove(currentLevel.getChildren().get(mode));
+            mode = 0;
         }
     }
 
     private void addLayer(Entity level) {
         Entity layer = layerFactory.newObject();
         layer.addTo(level);
-//        layer.setProperty("gridsize", grid);
-//        layer = layer.substitute();
+        layer.setProperty("gridsize", grid);
+        layer = layer.substitute();
         AddLayerEvent addLayer = new AddLayerEvent(layer);
         addLayer.fire(level);
     }
-
-//    private ImageView setPlaceHolder() {
-//        ImageView holder = new ImageView(new Image(manager.readFileData("holder.gif")));
-//        holder.setX(0);
-//        holder.setY(0);
-//        holder.setFitWidth(grid);
-//        holder.setFitHeight(grid);
-//        holder.setMouseTransparent(true);
-//        return holder;
-//    }
 
     /**
      * add new level
@@ -269,10 +277,10 @@ public class EntityManager {
         }
         Entity level = levelFactory.newObject();
         level.addTo(root);
-//        level.setProperty("gridsize", grid);
-//        level.setProperty("mapwidth", mapWidth);
-//        level.setProperty("mapheight", mapHeight);
-//        level = level.substitute();
+        level.setProperty("gridsize", grid);
+        level.setProperty("mapwidth", mapWidth);
+        level.setProperty("mapheight", mapHeight);
+        level = level.substitute();
         new MouseDragEvent(isGaming).fire(level);
         new MapSetupEvent().fire(level);
         levels.put(name, level);

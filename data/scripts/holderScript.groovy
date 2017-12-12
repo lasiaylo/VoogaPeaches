@@ -8,12 +8,16 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
+    println("In holder script " + bindings.get("empty"))
+
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
     holder = new ImageView(new Image(datamanager.readFileData("holder.gif")))
+
     holder.setFitWidth(entity.getProperty("gridsize"))
     holder.setFitHeight(entity.getProperty("gridsize"))
     holder.setX(0)
     holder.setY(0)
+    holder.setMouseTransparent(true)
     entity.add(holder)
 }
