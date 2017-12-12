@@ -42,7 +42,6 @@ public class Engine {
      * @param root  root game entity
      */
     public Engine(Entity root, int gridSize, boolean gaming) {
-        //root.recursiveInitialize();
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera = new Camera(entityManager.getCurrentLevel());
