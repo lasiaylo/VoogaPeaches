@@ -65,14 +65,12 @@ public class EntityManager {
     }
 
     private void addLevels() {
-        System.out.println("root size " + root.getChildren().size());
         if (root.getChildren().isEmpty()) {
             addLevel("level 1", 5000, 5000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
         } else {
             root.getChildren().forEach(e -> {
-                System.out.println("child added");
                 levels.put((String) e.getProperty("levelname"), e);
                 levelSize.put((String) e.getProperty("levelname"), new Vector(0.0 + (int) e.getProperty("mapwidth"), 0.0 + (int) e.getProperty("mapheight")));
                 for (Entity each: e.getChildren()) {

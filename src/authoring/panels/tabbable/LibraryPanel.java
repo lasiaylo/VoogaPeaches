@@ -104,7 +104,6 @@ public class LibraryPanel implements Panel {
     private List<ObjectFactory> setupFactoryList(JSONDataFolders folder) {
         List<ObjectFactory> list = new ArrayList<>();
         for(String file : ObjectFactory.getEntityTypes(folder)) {
-            System.out.println(file);
             list.add(new ObjectFactory(file, folder));
         }
         return list;
