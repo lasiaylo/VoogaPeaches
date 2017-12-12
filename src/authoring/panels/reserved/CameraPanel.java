@@ -62,6 +62,7 @@ public class CameraPanel implements Panel {
 	private int layerC = 1;
 	private String myOption;
 	private PanelController myController;
+	private Entity currentLevel;
 
 	public CameraPanel(double width, double height) {
 		cameraWidth = width;
@@ -118,7 +119,7 @@ public class CameraPanel implements Panel {
 	private void setupButton() {
 		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
-		myLayer.setOnAction(e -> changeLayer());
+		myLayer.setOnMouseClicked(e -> changeLayer());
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
 
 		myPlay.setOnMouseClicked(e -> myController.play());
@@ -152,6 +153,9 @@ public class CameraPanel implements Panel {
 	 * used to switch between layers (levels/non contiguous) parts of the map
 	 */
 	private void changeLayer() {
+	    if (!currentLevel.equals(myManager.getCurrentLevel())) {
+	        updateLevel();
+        }
 		myOption = myLayer.getValue();
 		switch (myOption) {
 			case NEWL:
@@ -185,15 +189,24 @@ public class CameraPanel implements Panel {
 		this.myController = controller;
 		this.setView(myController.getCamera());
 		myManager = myController.getManager();
+		updateLevel();
+	}
+
+	private void updateLevel() {
+	    currentLevel = myManager.getCurrentLevel();
 		myLayer.getItems().clear();
 		myLayer.getItems().addAll(ALLL, BGL);
-		int counter = 1;
-		for (Entity each : myManager.getCurrentLevel().getChildren().subList(1, myManager.getCurrentLevel().getChildren().size())) {
-			System.out.println("counter " + counter);
-			myLayer.getItems().add("Layer " + counter);
-			counter++;
+		if (currentLevel.getChildren().size() == 1) {
+            myLayer.getItems().add(NEWL);
+		    return;
+        }
+        int i;
+		for (i = 1; i < currentLevel.getChildren().size(); i++) {
+			myLayer.getItems().add("Layer " + i);
 		}
-        myLayer.getItems().add(NEWL);
+		layerC = i;
+		myLayer.getItems().add(NEWL);
+        myLayer.getSelectionModel().selectFirst();
 	}
 
 	@Override

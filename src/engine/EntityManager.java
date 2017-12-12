@@ -61,6 +61,13 @@ public class EntityManager {
         this.levelSize = FXCollections.observableMap(new HashMap<>());
         manager = new FileDataManager(FileDataFolders.IMAGES);
         BGType = "";
+        try {
+            BGObjectFactory = new ObjectFactory("BGEntity");
+            layerFactory = new ObjectFactory("layer");
+            levelFactory = new ObjectFactory("level");
+        } catch (ObjectBlueprintNotFoundException e) {
+            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
+        }
         PubSub.getInstance().subscribe("ADD_BG", message -> {
             BGMessage bgMessage = (BGMessage) message;
             addBG(bgMessage.getPos());
@@ -70,14 +77,13 @@ public class EntityManager {
             NonBGMessage nonBGMessage = (NonBGMessage) message;
             addNonBG(nonBGMessage.getPos(), nonBGMessage.getUID());
         });
-        try {
-            BGObjectFactory = new ObjectFactory("BGEntity");
-            layerFactory = new ObjectFactory("layer");
-            levelFactory = new ObjectFactory("level");
-        } catch (ObjectBlueprintNotFoundException e) {
-            new ErrorDisplay("Loading Error", "Could not find Object Blueprint").displayError();
-        }
 
+
+        setRoot(root);
+        //writeRootToDatabase(root);
+    }
+
+    public void setRoot(Entity root) {
         if (root.getChildren().isEmpty()) {
             //don't freak out about this..... just a initial level
             addLevel("level 1", 5000, 5000);
@@ -103,7 +109,6 @@ public class EntityManager {
             currentLevelName = (String) currentLevel.getProperty("levelname");
             //currentLevel = currentLevel.substitute();
         }
-        //writeRootToDatabase(root);
     }
 
     private void recursiveAdd(Entity layer){
@@ -347,5 +352,9 @@ public class EntityManager {
     }
     public void setIsGaming(boolean gaming) {
         isGaming = gaming;
+    }
+
+    public Map<String, Vector> getMap() {
+        return levelSize;
     }
  }

@@ -24,9 +24,9 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final String CHANGE_NAME = "Change Name";
     private static final String DELETE = "Delete";
     private static final String PANEL = "panel";
-    private static final String LEVEL_NAME = "Level Name";
-    private static final String MAP_WIDTH_STRING = "Map Width";
-    private static final String MAP_HEIGHT_STRING = "Map Height";
+    private static final String LEVEL_NAME = "Name";
+    private static final String MAP_WIDTH_STRING = "Width";
+    private static final String MAP_HEIGHT_STRING = "Height";
     private static final String ADD_LEVEL = "Add Level";
     private static final String LEVEL1 = "Level 1";
     private static final String LEVEL = "Level";
@@ -59,22 +59,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     public MiniMapPanel() {
         myPane = new Pane();
         levelList = FXCollections.observableList(new ArrayList<>());
-        levelList.add(new Map.Entry() {
-            @Override
-            public Object getKey() {
-                return LEVEL1;
-            }
-
-            @Override
-            public Object getValue() {
-                return new Vector(VALUE1, VALUE2);
-            }
-
-            @Override
-            public Object setValue(Object value) {
-                return null;
-            }
-        });
 
         myPane.getStyleClass().add(PANEL);
         levelName = new TextField(LEVEL_NAME);
@@ -137,6 +121,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
                         getSelectionModel().
                         getSelectedItem().
                         getKey();
+                System.out.println(selectL);
             } catch (NullPointerException e) {
                 //TODO: There's nothing in the table, should we do any handling?
             }
@@ -181,6 +166,11 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         myPane.setCenterShape(true);
         manager = controller.getManager();
         manager.addMapListener(this);
+
+        levelList.clear();
+        for(Map.Entry<String, Vector> each: manager.getMap().entrySet()) {
+            levelList.add(each);
+        }
     }
 
     @Override
