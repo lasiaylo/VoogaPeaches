@@ -15,6 +15,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import util.pubsub.PubSub;
+import util.pubsub.messages.FSMMessage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class FSMPanel implements UpdatablePanel {
 
     public FSMPanel() {
         init();
+        PubSub.getInstance().subscribe("FSM", message -> ((FSMMessage) message).getName());
     }
 
     private void init() {
@@ -41,7 +44,6 @@ public class FSMPanel implements UpdatablePanel {
         createAddButton();
         createGraphButtons();
     }
-
 
     private void createGraphButtons() {
         for(FSMGraph graph: allGraphs) {

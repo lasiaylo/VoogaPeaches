@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
+import main.VoogaPeaches
 import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.EntityPass
@@ -30,6 +31,12 @@ import java.util.stream.Collectors
     //boolean dragged = false
 
    //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
+    pointer.addEventHandler(MouseEvent.MOUSE_CLICKED,
+            { e -> new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
+    pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED,
+            {e -> new MouseDragEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
+    pointer.addEventHandler(KeyEvent.KEY_PRESSED,
+            { e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, VoogaPeaches.getIsGaming()).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
@@ -48,16 +55,6 @@ import java.util.stream.Collectors
             originalPath = imgEvent.getPath()
         })
     })
-
-    entity.on(EventType.GAMING.getType(), { Event call ->
-        GamingEvent gamingEvent = (GamingEvent) call
-        boolean gaming = gamingEvent.getIsGaming();
-        pointer.addEventHandler(MouseEvent.MOUSE_CLICKED, { e -> new ClickEvent(gaming, e).fire(entity)})
-        pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED, {e -> new MouseDragEvent(gaming, e).fire(entity)})
-        pointer.addEventHandler(KeyEvent.KEY_PRESSED, { e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, gaming).fire(entity)})
-
-    })
-
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
