@@ -2,7 +2,7 @@
   "FSM Panel": "right",
   "Social Media": "right",
   "Mini Map": "right",
-  "rightdivision": "0.7973958333333333",
+  "rightdivision": "0.79765625",
   "Game Graphvis": "false",
   "Mini Mapvis": "true",
   "Properties": "right",
@@ -17,9 +17,9 @@
   "Game Graph": "right",
   "HitBoxesvis": "true",
   "Script Creator": "right",
-  "leftdivision": "0.14166666666666666",
+  "leftdivision": "0.16171875",
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "false",
-  "bodydivision": "0.6477477477477478"
+  "bodydivision": "0.9264516129032258"
 }
