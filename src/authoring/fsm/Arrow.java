@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import util.math.num.Vector;
 
 public class Arrow {
+
     private static final double HEAD_OFFSET = 45;
     public static final double HEAD_FACTOR = 0.8;
 

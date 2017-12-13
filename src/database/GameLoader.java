@@ -4,6 +4,7 @@ import com.google.firebase.database.*;
 import database.filehelpers.FileConverter;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
+import database.fileloaders.ScriptLoader;
 import database.firebase.DatabaseConnector;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
@@ -109,6 +110,8 @@ public class GameLoader {
                     manager.writeFileData(bytes, file);
                 }
                 loaded[2] = true;
+                // Cache scripts after loading them in
+                ScriptLoader.cache();
             }
 
             @Override
