@@ -15,6 +15,8 @@ public class GameWindow {
     private Engine engine;
 
     public GameWindow(Stage stage, Entity rootEntity){
+        System.out.println("launching gameWindow");
+        System.out.println(rootEntity);
         this.stage = stage;
         GamingEvent gameEvent = new GamingEvent(true);
         gameEvent.recursiveFire(rootEntity);
@@ -23,6 +25,7 @@ public class GameWindow {
                 new Vector(PanelController.CAMERA_INIT_X_SIZE, PanelController.CAMERA_INIT_Y_SIZE)));
         stage.setScene(scene);
         stage.show();
+        engine.play();
     }
 
 }
