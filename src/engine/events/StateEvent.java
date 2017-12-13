@@ -2,6 +2,9 @@ package engine.events;
 
 import engine.fsm.State;
 
+/**
+ * @author Simran
+ */
 public class StateEvent extends Event {
 
 	private State state;
