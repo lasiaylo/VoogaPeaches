@@ -2,6 +2,8 @@ package scripts
 
 import engine.entities.Entity
 import engine.fsm.FSM
+import filedata.scripts.fsm
+
 entity = new Entity()
 
 fsm = new FSM(entity as Entity, [

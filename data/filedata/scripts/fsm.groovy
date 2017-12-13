@@ -1,4 +1,4 @@
-package scripts
+package filedata.scripts
 
 import engine.entities.Entity
 import engine.events.Event
