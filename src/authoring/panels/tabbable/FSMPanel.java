@@ -5,6 +5,7 @@ import authoring.panels.attributes.UpdatablePanel;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
+import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,7 +18,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FSMPanel implements UpdatablePanel {
 
@@ -25,6 +28,7 @@ public class FSMPanel implements UpdatablePanel {
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
     private List<FSMGraph> allGraphs;
+    private Map<Entity, List<FSMGraph>> myMap = new HashMap<>();
 
     public FSMPanel() {
         init();

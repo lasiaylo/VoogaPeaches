@@ -1,18 +1,15 @@
 package scripts
 
-import database.filehelpers.FileConverter
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
 import engine.entities.Entity
 import engine.events.ClickEvent
-import engine.events.DragExitedEvent
 import engine.events.Event
 import engine.events.EventType
 import engine.events.ImageViewEvent
 import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
-import engine.events.MousePressedEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
 import javafx.scene.image.Image
