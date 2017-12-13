@@ -71,7 +71,6 @@ public class StateRender {
 
     private void onSave(Button save) {
         ((Stage) save.getScene().getWindow()).close();
-        System.out.println("Update map!");
     }
 
     private void onDelete(Button delete) {

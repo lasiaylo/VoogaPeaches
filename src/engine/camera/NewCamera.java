@@ -38,7 +38,6 @@ public class NewCamera {
         set(level.getNodes().getChildren().get(0));
         group.setOnKeyPressed(e->{
             new KeyPressEvent(e).recursiveFire(level);
-            System.out.println("pressed");
         });
         currentLevel = level;
     }
@@ -92,7 +91,6 @@ public class NewCamera {
         double yPos = miniMap.getHeight() / group.getLayoutBounds().getHeight() *size.at(1);
         point.setCenterX(xPos);
         point.setCenterY(yPos);
-        System.out.println(point.getCenterX());
     }
 
 

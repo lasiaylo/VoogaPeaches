@@ -11,7 +11,7 @@ public enum FileDataFolders {
 
     USER_IMAGES("images/user_images"),
     IMAGES("images"),
-    SOUNDS("sounds");
+    SCRIPTS("scripts");
 
     private final String filepath;
 

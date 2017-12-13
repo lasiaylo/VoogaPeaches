@@ -2,6 +2,8 @@ package authoring.panels.reserved;
 
 import authoring.Panel;
 import authoring.PanelController;
+import authoring.buttons.CustomButton;
+import authoring.buttons.strategies.ResetStrategy;
 import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.geometry.Insets;
@@ -26,7 +28,7 @@ import util.pubsub.messages.StringMessage;
  *
  */
 public class CameraPanel implements Panel {
-
+	private static final String RESET = "Reset";
     private static final String PLAY = "Play";
 	private static final String PAUSE = "Pause";
 	private static final String ALLL = "All Layers";
@@ -52,6 +54,7 @@ public class CameraPanel implements Panel {
 	private Button myPause;
 	private Button myClear;
 	private Button myDelete;
+	private Button myReset;
 	private VBox myArea;
 	private PubSub pubSub;
 	private EntityManager myManager;
@@ -62,6 +65,7 @@ public class CameraPanel implements Panel {
 	private int layerC = 1;
 	private String myOption;
 	private PanelController myController;
+	private Entity currentLevel;
 
 	public CameraPanel(double width, double height) {
 		cameraWidth = width;
@@ -97,7 +101,7 @@ public class CameraPanel implements Panel {
 		HBox buttonRow = new HBox(myPlay, myPause, myLayer, myText, myClear, myDelete);
 		buttonRow.setAlignment(Pos.CENTER);
 		buttonRow.setPrefWidth(cameraWidth);
-		buttonRow.setSpacing(cameraWidth/CAMERA_WIDTH_RATIO);
+		buttonRow.setSpacing((cameraWidth + 1)/CAMERA_WIDTH_RATIO);
 
 		return buttonRow;
 	}
@@ -148,10 +152,24 @@ public class CameraPanel implements Panel {
         }
     }
 
+    public void clear(int layers) {
+//		myLayer.getItems().clear();
+//		myLayer.getItems().addAll(ALLL, BGL);
+//		layerC = 1;
+//		for(int i = 1; i <= layers; i++) {
+//			myLayer.getItems().add(myLayer.getItems().size() - 1, LAYER + layerC);
+//			myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
+//			layerC++;
+//		}
+	}
+
 	/**
 	 * used to switch between layers (levels/non contiguous) parts of the map
 	 */
 	private void changeLayer() {
+	    if (!currentLevel.equals(myManager.getCurrentLevel())) {
+	        updateLevel();
+        }
 		myOption = myLayer.getValue();
 		switch (myOption) {
 			case NEWL:
@@ -181,19 +199,30 @@ public class CameraPanel implements Panel {
 
 	@Override
 	public void setController(PanelController controller) {
-		System.out.println("Hehrhweafsdf");
 		this.myController = controller;
 		this.setView(myController.getCamera());
+		myReset = new CustomButton(new ResetStrategy(controller, this), RESET).getButton();
+		((HBox) myArea.getChildren().get(1)).getChildren().add(myReset);
 		myManager = myController.getManager();
+		updateLevel();
+	}
+
+	private void updateLevel() {
+	    currentLevel = myManager.getCurrentLevel();
 		myLayer.getItems().clear();
 		myLayer.getItems().addAll(ALLL, BGL);
-		int counter = 1;
-		for (Entity each : myManager.getCurrentLevel().getChildren().subList(1, myManager.getCurrentLevel().getChildren().size())) {
-			System.out.println("counter " + counter);
-			myLayer.getItems().add("Layer " + counter);
-			counter++;
+		if (currentLevel.getChildren().size() == 1) {
+            myLayer.getItems().add(NEWL);
+            myLayer.getSelectionModel().selectFirst();
+		    return;
+        }
+        int i;
+		for (i = 1; i < currentLevel.getChildren().size(); i++) {
+			myLayer.getItems().add("Layer " + i);
 		}
-        myLayer.getItems().add(NEWL);
+		layerC = i;
+		myLayer.getItems().add(NEWL);
+        myLayer.getSelectionModel().selectFirst();
 	}
 
 	@Override

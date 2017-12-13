@@ -6,16 +6,15 @@ import javafx.scene.Group;
 public class GameVisualizer {
 
     private Entity root;
-    private EntityVisualizer vizRoot;
+    private EntityVisualizer rootVisualizer;
     private Group group;
-    private TreeVisualizer treeVisualizer;
+    //private TreeVisualizer treeVisualizer;
 
     public GameVisualizer(Entity root) {
         this.root = root;
         this.group = new Group();
-        vizRoot = new EntityVisualizer(this, root, null,null);
-        focus(vizRoot);
-
+        rootVisualizer = new EntityVisualizer(this, null, root);
+        focus(rootVisualizer);
 //        Visualizer visualizer = new Visualizer(root, null);
 //        treeVisualizer = new TreeVisualizer(this, visualizer);
 //        focus(visualizer);

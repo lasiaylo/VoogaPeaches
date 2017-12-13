@@ -108,6 +108,7 @@ public class FileDataManager {
             Files.write(Paths.get(baseFolder + filename), fileBytes);
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -157,4 +158,5 @@ public class FileDataManager {
         }
         return file;
     }
+
 }

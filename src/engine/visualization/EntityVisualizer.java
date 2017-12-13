@@ -17,20 +17,21 @@ public class EntityVisualizer {
     private static final double RADIUS = 50;
     private static final double CONNECTION_LENGTH = 30;
     private static final int MAX_DISPLAY = 4;
+    private static final double PARENT_ANGLE = (3 * Math.PI)/2;
 
     private Group group;
     private Circle rootCircle;
     private List<EntityVisualizer> children;
     private List<Line> connections = new ArrayList<>();
-    private Entity root;
     private GameVisualizer gameVisualizer;
+    private EntityVisualizer parentVisualizer;
+    private Entity root;
     private Entity parent;
-    private EntityVisualizer vizParent;
 
-    public EntityVisualizer(GameVisualizer gameVisualizer, Entity root, EntityVisualizer vizParent, Entity parent) {
+    public EntityVisualizer(GameVisualizer gameVisualizer, EntityVisualizer parentVisualizer, Entity root) {
         this.root = root;
-        this.parent = parent;
-        this.vizParent = vizParent;
+        if (parentVisualizer != null) {this.parent = parentVisualizer.root;}
+        this.parentVisualizer = parentVisualizer;
         this.gameVisualizer = gameVisualizer;
         children = new ArrayList<>();
         group = new Group();
@@ -38,31 +39,30 @@ public class EntityVisualizer {
         drawChildren(root);
     }
 
-    private void createText(String s, Circle c) {
-        Text text = new Text(c.getCenterX(), c.getCenterY(), s.substring(0, 5));
-        text.setBoundsType(TextBoundsType.VISUAL);
-        text.setStyle("-fx-font-family: \"Georgia\";" + "-fx-font-size: 8px;");
-        group.getChildren().add(text);
-    }
-
     private void drawRoot() {
         rootCircle = new Circle(0, 0, RADIUS);
         rootCircle.setStroke(Color.BLACK);
         rootCircle.setFill(Color.WHITE);
         group.getChildren().add(rootCircle);
+        if (parent != null) {drawParent();}
         createText(root.UIDforObject(), rootCircle);
+    }
+
+    private void drawParent() {
+        Circle parentCircle = drawTotal(PARENT_ANGLE, this.parentVisualizer);
+        parentCircle.setFill(Color.CORNFLOWERBLUE);
     }
 
     private void drawChildren(Entity root) {
         root.getChildren().forEach(e -> {
-            children.add(new EntityVisualizer(gameVisualizer, e, this, root));
-            drawChildren(e);
+            children.add(new EntityVisualizer(gameVisualizer, this, e));
         });
-        if (children.size() <= MAX_DISPLAY) {
-            draw(children.size());
-        } else {
+        if (children.size() <= MAX_DISPLAY) {draw(children.size());}
+        else {
             Circle lastCircle = draw(MAX_DISPLAY);
             lastCircle.setFill(Color.BISQUE);
+            Text t = (Text) group.getChildren().get(group.getChildren().size() - 1);
+            t.setText(". . .");
             ChoiceBox<String> cb = new ChoiceBox<>();
             cb.setVisible(false);
             cb.setLayoutX(lastCircle.getCenterX());
@@ -89,10 +89,6 @@ public class EntityVisualizer {
 
     private Circle draw(int size) {
         Circle c = new Circle();
-        if (parent != null) {
-            Circle parentCircle = drawTotal(0, vizParent);
-            parentCircle.setFill(Color.CORNFLOWERBLUE);
-        }
         for (int i = 0; i < size; i++) {
             c = drawTotal((2 * Math.PI)/(MAX_DISPLAY)*i, children.get(i));
         }
@@ -128,14 +124,21 @@ public class EntityVisualizer {
         return oldPosition.add(new Vector(length * Math.cos(angle), length * Math.sin(angle)));
     }
 
-    protected Group getGroup() { return group; }
-
     private int indexByUID(String UID, EntityVisualizer e){
-        for (int i = MAX_DISPLAY; i < e.children.size(); i++){
+        for (int i = MAX_DISPLAY - 1; i < e.children.size(); i++){
             if (e.children.get(i).root.UIDforObject().equals(UID)){
                 return i;
             }
         }
         return -1;
     }
+
+    private void createText(String s, Circle c) {
+        Text text = new Text(c.getCenterX(), c.getCenterY(), s.substring(0, 5));
+        text.setBoundsType(TextBoundsType.VISUAL);
+        text.setStyle("-fx-font-family: \"Georgia\";" + "-fx-font-size: 8px;");
+        group.getChildren().add(text);
+    }
+
+    protected Group getGroup() {return group;}
 }

@@ -1,6 +1,8 @@
 package database;
 
 import com.google.firebase.database.FirebaseDatabase;
+import database.filehelpers.FileDataFolders;
+import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
@@ -11,6 +13,7 @@ import util.PropertiesReader;
 
 import java.io.File;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * A class that provides an API for saving manipulating a game file within the database
@@ -24,7 +27,6 @@ public class GameSaver {
     private JSONDataManager manager;
     private File gameFolder;
     private String UID;
-
     /**
      * Creates a new GameSaver for saving the game to the database
      * @param gameName is a {@code String} representing the name to
@@ -57,6 +59,9 @@ public class GameSaver {
         saveRoot(toSave);
         String[] images = saveImageJSON(toSave);
         uploadImages(images);
+        String[] scripts = saveScriptJSON(toSave);
+        uploadScripts(scripts);
+
     }
 
     /**
@@ -69,9 +74,20 @@ public class GameSaver {
         FileStorageConnector connector = new FileStorageConnector("images");
         for(String image : images)
             try {
-                connector.saveFile(new File("./data/filedata/images/" + image));
+                connector.saveTo(new File("./data/filedata/images/" + image), "images/" + image);
             } catch(Exception e){
+                e.printStackTrace();
                 // Do Nothing if file wasn't saved
+            }
+    }
+
+    private void uploadScripts(String[] scripts) {
+        FileStorageConnector connector = new FileStorageConnector("scripts");
+        for(String script : scripts)
+            try {
+                connector.saveFile(new File("./data/scripts/" + script));
+            } catch (Exception e){
+                e.printStackTrace();
             }
     }
 
@@ -86,8 +102,8 @@ public class GameSaver {
         String filepath = gameName + "/root.json";
         manager.writeJSONFile(filepath, jsonForm);
         FirebaseDatabase.getInstance().getReference("gameNames").child(gameName).setValueAsync(toSave.UIDforObject());
-        JSONObject save = new JSONObject(JSONHelper.JSONForObject(toSave).toString().replace("/", "|"));
-        FirebaseDatabase.getInstance().getReference("games").child(toSave.UIDforObject()).setValueAsync(JSONHelper.mapFromJSON(save));
+        JSONObject rootJSON = new JSONObject(JSONHelper.JSONForObject(toSave).toString().replace("/", "|"));
+        FirebaseDatabase.getInstance().getReference(toSave.UIDforObject()).child("root").setValueAsync(JSONHelper.mapFromJSON(rootJSON));
     }
 
     /**
@@ -99,16 +115,25 @@ public class GameSaver {
      */
     private String[] saveImageJSON(Entity toSave) {
         // Retrieve image names
-        Set<String> imageNames = new HashSet<String>();
+        Set<String> imageNames = new HashSet<>();
         retrieveImageNames(imageNames, toSave);
-        String filepath = gameName + "/images.json";
         Map<String, String[]> imageMap = new HashMap<>();
-        imageMap.put(toSave.UIDforObject(), imageNames.toArray(new String[0]));
-        manager.writeJSONFile(filepath, new JSONObject(imageMap));
-        List<String> names = new ArrayList<String>();
+        imageMap.put("images", imageNames.toArray(new String[0]));
+        manager.writeJSONFile(gameName + "/images.json", new JSONObject(imageMap));
+        List<String> names = new ArrayList<>();
         imageNames.forEach(e -> names.add(e));
-        FirebaseDatabase.getInstance().getReference("images").child(toSave.UIDforObject()).setValueAsync(names);
+        FirebaseDatabase.getInstance().getReference(toSave.UIDforObject()).child("images").setValueAsync(names);
         return imageNames.toArray(new String[0]);
+    }
+
+    private String[] saveScriptJSON(Entity toSave) {
+        File scriptFolder = new File(PropertiesReader.path("scripts_folder"));
+        Map<String, String[]> scriptMap = new HashMap<>();
+        scriptMap.put("scripts", scriptFolder.list());
+        manager.writeJSONFile(gameName +"/scripts.json", new JSONObject(scriptMap));
+        List<String> names = Arrays.asList(scriptFolder.list());
+        FirebaseDatabase.getInstance().getReference(toSave.UIDforObject()).child("scripts").setValueAsync(names);
+        return names.toArray(new String[0]);
     }
 
     /**

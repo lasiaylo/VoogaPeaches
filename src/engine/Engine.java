@@ -1,6 +1,7 @@
 package engine;
 
 import database.GameSaver;
+import database.firebase.DataReactor;
 import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.camera.NewCamera;
@@ -14,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import org.json.JSONObject;
 import util.math.num.Vector;
 
 import java.util.HashMap;
@@ -25,10 +27,11 @@ import java.util.Map;
  * @author Albert
  * @author estellehe
  */
-public class Engine {
+public class Engine implements DataReactor<Entity> {
     private static final int MAX_FRAMES_PER_SECOND = 60;
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
+    private JSONObject lastState;
     private EntityManager entityManager;
     private TickEvent tick = new TickEvent(FRAME_PERIOD);
     private Timeline timeline;
@@ -42,13 +45,14 @@ public class Engine {
      * @param root  root game entity
      */
     public Engine(Entity root, int gridSize, boolean gaming) {
-        //root.recursiveInitialize();
         this.isGaming = gaming;
         this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera = new Camera(entityManager.getCurrentLevel());
         entityManager.setCamera(camera);
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
+        this.lastState = JSONHelper.JSONForObject(root);
+
     }
 
     private void loop() {
@@ -69,6 +73,7 @@ public class Engine {
         timeline.play();
         scrollPane.requestFocus();
         this.isGaming = true;
+        lastState = JSONHelper.JSONForObject(lastState);
         entityManager.setIsGaming(isGaming);
     }
 
@@ -105,5 +110,29 @@ public class Engine {
                     new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));                }
             }
         }
+    }
+
+    public JSONObject getLastState() {
+        return lastState;
+    }
+
+    @Override
+    public void reactToNewData(Entity newObject) {
+
+    }
+
+    @Override
+    public void reactToDataMoved(Entity movedObject) {
+
+    }
+
+    @Override
+    public void reactToDataChanged(Entity changedObject) {
+
+    }
+
+    @Override
+    public void reactToDataRemoved(Entity removedObject) {
+
     }
 }

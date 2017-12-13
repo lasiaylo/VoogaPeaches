@@ -38,7 +38,6 @@ public class Camera {
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
-        System.out.println(level.getProperty("scripts").toString());
     }
 
     /**
@@ -109,8 +108,6 @@ public class Camera {
         event.consume();
     }
 
-
-
     private void vScroll(double num) {
         view.setVmin(num);
         view.setVmax(num);
@@ -125,7 +122,5 @@ public class Camera {
         view.setHvalue(num);
         view.hminProperty().bind(view.hvalueProperty());
         view.hmaxProperty().bind(view.hvalueProperty());
-        System.out.println(view.hminProperty().doubleValue());
-        System.out.println(view.hmaxProperty().doubleValue());
     }
 }

@@ -1,5 +1,4 @@
 package database;
-
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
@@ -29,11 +28,9 @@ public class ObjectFactory {
      * stored in the database
      * @param objectName is a {@code String} corresponding to the name of the
      *                   type of Entity that needs to be created
-     * @throws ObjectBlueprintNotFoundException if the object's blueprint is
-     * not found within the database
      */
-    public ObjectFactory(String objectName) throws ObjectBlueprintNotFoundException {
-        setObjectBlueprint(objectName);
+    public ObjectFactory(String objectName, JSONDataFolders folder) {
+        setObjectBlueprint(objectName, folder);
     }
 
     /**
@@ -43,10 +40,9 @@ public class ObjectFactory {
      * @throws ObjectBlueprintNotFoundException if the blueprint for the objectName is not
      * found within the database
      */
-    public void setObjectBlueprint(String objectName) throws ObjectBlueprintNotFoundException {
-        JSONDataManager manager = new JSONDataManager(JSONDataFolders.ENTITY_BLUEPRINT);
+    public void setObjectBlueprint(String objectName, JSONDataFolders folder) {
+        JSONDataManager manager = new JSONDataManager(folder);
         blueprintJSON = manager.readJSONFile(objectName);
-        if(blueprintJSON == null) throw new ObjectBlueprintNotFoundException();
         converter = new JSONToObjectConverter(Entity.class);
     }
 
@@ -80,9 +76,12 @@ public class ObjectFactory {
     /**
      * @return A {@code String[]} of all the valid Entity Blueprint Names
      */
-    public static String[] getEntityTypes() {
-        File blueprintFolder =  new File(PropertiesReader.path("blueprints"));
-        if(blueprintFolder.isDirectory()) return blueprintFolder.list();
+    public static String[] getEntityTypes(JSONDataFolders folder) {
+        if(folder == JSONDataFolders.DEFAULT_USER_ENTITY)
+            return new File(PropertiesReader.path("default_blueprints")).list();
+        if(folder == JSONDataFolders.ENTITY_BLUEPRINT)
+            return new File(PropertiesReader.path("blueprints")).list();
         return new String[0];
     }
+
 }

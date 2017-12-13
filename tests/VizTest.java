@@ -9,15 +9,27 @@ public class VizTest extends Application {
     public void start(Stage primaryStage) throws Exception {
         Entity root = new Entity();
 
+        System.out.println("root:" + root.UIDforObject());
+
+
         Entity child1 = new Entity(root);
         Entity child2 = new Entity(root);
 
+        System.out.println("child 1:" + child1.UIDforObject());
+        System.out.println("child 2:" + child2.UIDforObject());
+
+
         for (int i = 0; i < 5; i++){
             Entity e = new Entity(root);
+            System.out.println(i + ". " + e.UIDforObject());
         }
 
         Entity child11 = new Entity(child1);
         Entity child12 = new Entity(child2);
+
+        System.out.println("grandchild 1:" + child11.UIDforObject());
+        System.out.println("grandchild 2:" + child12.UIDforObject());
+
 
         GameVisualizer gameVisualizer = new GameVisualizer(root);
 
