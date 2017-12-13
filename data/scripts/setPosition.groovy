@@ -6,14 +6,17 @@ import engine.events.Event
 import engine.events.EventType
 import engine.events.MoveEvent
 
-entity = (Entity) entity;
+{ Entity entity, Map<String, Object> bindings, Event event = null ->
 
-entity.on(EventType.MOVE.getType(), { Event event ->
-    MoveEvent moveEvent = (MoveEvent) event
-    entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx() ))
-    entity.setProperty("y", new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy() ))
-    entity.getNodes().relocate(entity.getProperty("x"), entity.getProperty("y"))
-    for(HitBox hitBox : entity.getHitBoxes()) {
-        hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
-    }
-})
+    entity = (Entity) entity;
+
+    entity.on(EventType.MOVE.getType(), { Event e ->
+        MoveEvent moveEvent = (MoveEvent) e
+        entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx()))
+        entity.setProperty("y", new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy()))
+        entity.getNodes().relocate(entity.getProperty("x"), entity.getProperty("y"))
+        for (HitBox hitBox : entity.getHitBoxes()) {
+            hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
+        }
+    })
+}
