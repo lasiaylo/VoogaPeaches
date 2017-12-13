@@ -1,21 +1,9 @@
 package scripts
 
-import database.filehelpers.FileConverter
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
-import database.jsonhelpers.JSONHelper
 import engine.entities.Entity
-import engine.events.ClickEvent
-import engine.events.DragExitedEvent
-import engine.events.Event
-import engine.events.EventType
-import engine.events.ImageViewEvent
-import engine.events.InitialImageEvent
-import engine.events.KeyPressEvent
-import engine.events.MouseDragEvent
-import engine.events.MousePressedEvent
-import engine.events.TransparentMouseEvent
-import engine.events.ViewVisEvent
+import engine.events.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyCode
@@ -41,10 +29,11 @@ import java.util.stream.Collectors
     entity.add(pointer)
     //boolean dragged = false
 
-    pointer.addEventHandler(MouseEvent.MOUSE_CLICKED, {e -> new ClickEvent(false, e).fire(entity)})
+   //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
+    pointer.addEventHandler(MouseEvent.MOUSE_CLICKED, { e -> new ClickEvent(false, e).fire(entity)})
     pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED, {e -> new MouseDragEvent(false, e).fire(entity)})
-    pointer.addEventHandler(KeyEvent.KEY_PRESSED, {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
-    //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
+    pointer.addEventHandler(KeyEvent.KEY_PRESSED, { e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
+
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
@@ -63,6 +52,14 @@ import java.util.stream.Collectors
             originalPath = imgEvent.getPath()
         })
     })
+
+     entity.on(EventType.GAMING.getType(), { Event call ->
+        GamingEvent gamingEvent = (GamingEvent) call
+        boolean gaming = gamingEvent.getIsGaming();
+        println("here")
+     })
+
+
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call

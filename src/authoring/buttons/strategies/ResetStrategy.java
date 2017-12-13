@@ -27,9 +27,13 @@ public class ResetStrategy implements IButtonStrategy {
         Entity resetRoot = converter.createObjectFromJSON(Entity.class, jsonObject);
         EntityManager manager = engine.getEntityManager();
         String levelName = manager.getCurrentLevelName();
-        resetRoot.recursiveInitialize();
+        resetRoot.initialize();
+        System.out.println(jsonObject.toString(4));
         manager.setRoot(resetRoot);
+
         Entity currentLevel = manager.changeLevel(levelName);
-        cameraPanel.clear(currentLevel.getChildren().size());
+//
+//        cameraPanel.clear(currentLevel.getChildren().size());
+
     }
 }

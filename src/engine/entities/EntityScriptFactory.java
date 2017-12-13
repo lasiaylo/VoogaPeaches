@@ -37,8 +37,11 @@ class EntityScriptFactory {
 
             for (Object oo : callbacks.entrySet()) {
                 Map<String, Object> bindings = new HashMap<>();
+//                System.out.println("parsing listeners");
                 Closure callback = parse(entity, bindings, (Map.Entry) oo);
-                entity.on(type, (event) -> callback.call(entity, bindings, event));
+                entity.on(type, (event) ->
+                        callback.
+                                call(entity, bindings, event));
             }
         }
     }
@@ -48,6 +51,7 @@ class EntityScriptFactory {
         Map params = (Map) entry.getValue();
 
         addBindings(entity, params, bindings);
+        System.out.println("script loaded " + name);
         return ScriptLoader.getScript(name);
     }
 

@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity.setProperty("vy", -0.1)
     println("fired")
-    /*event = (KeyPressEvent) event
+    event = (KeyPressEvent) event
     switch(event.keyCode){
         case KeyCode.UP:
             if(entity.getProperty("vy") == 0.1) {
@@ -38,5 +38,5 @@ import javafx.scene.input.KeyCode
                 entity.setProperty("vx", 0.1)
             }
             break
-    } */
+    }
 }
