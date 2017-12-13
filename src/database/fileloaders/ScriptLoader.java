@@ -37,12 +37,12 @@ public class ScriptLoader {
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[]{"groovy"}, true);
         File file;
         GroovyShell shell = new GroovyShell();
-
         while (iterator.hasNext() && (file = iterator.next()) != null)
             try {
                 cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
             } catch (Exception e) {
-                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(""));
+                System.out.println(file);
+                e.printStackTrace();
             }
         return cache;
     }
@@ -67,6 +67,7 @@ public class ScriptLoader {
             br.close();
             return scriptString;
         } catch (IOException e) {
+            e.printStackTrace();
             return "";
         }
     }

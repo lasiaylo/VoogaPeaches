@@ -1,8 +1,17 @@
 package engine.events;
 
-public class StateEvent extends Event{
+import engine.fsm.State;
 
-	public StateEvent(String currState) {
+public class StateEvent extends Event {
+
+	private State state;
+
+	public StateEvent(State currState) {
 		super(EventType.STATE.getType());
+		this.state = currState;
+	}
+
+	public State getState() {
+		return state;
 	}
 }

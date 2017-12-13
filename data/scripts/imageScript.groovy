@@ -3,15 +3,7 @@ package scripts
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
 import engine.entities.Entity
-import engine.events.ClickEvent
-import engine.events.Event
-import engine.events.EventType
-import engine.events.ImageViewEvent
-import engine.events.InitialImageEvent
-import engine.events.KeyPressEvent
-import engine.events.MouseDragEvent
-import engine.events.TransparentMouseEvent
-import engine.events.ViewVisEvent
+import engine.events.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyCode
@@ -37,10 +29,7 @@ import java.util.stream.Collectors
     entity.add(pointer)
     //boolean dragged = false
 
-    pointer.addEventHandler(MouseEvent.MOUSE_CLICKED, {e -> new ClickEvent(false, e).fire(entity)})
-    pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED, {e -> new MouseDragEvent(false, e).fire(entity)})
-    pointer.addEventHandler(KeyEvent.KEY_PRESSED, {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
-    //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
+   //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
@@ -62,10 +51,10 @@ import java.util.stream.Collectors
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
-        entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
-        entity.setProperty("height", iEvent.getMyGridSize().at(1))
+
+        pointer.setFitWidth(entity.getProperty("width"))
+        pointer.setFitHeight(entity.getProperty("height"))
+
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0))
@@ -88,7 +77,6 @@ import java.util.stream.Collectors
         if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
             if(!entity.getProperties().getOrDefault("bg", false)) {
-                System.out.println("hell yeah")
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
         }
@@ -101,6 +89,13 @@ import java.util.stream.Collectors
                 entity.getParent().remove(entity)
         }
 
+    })
+
+    entity.on(EventType.GAMING.getType(), { Event call ->
+        GamingEvent kEvent = (GamingEvent) call
+        pointer.addEventHandler(MouseEvent.MOUSE_CLICKED, {e -> new ClickEvent(kEvent.getIsGaming(), e).fire(entity)})
+        pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED, {e -> new MouseDragEvent(kEvent.getIsGaming(), e).fire(entity)})
+        pointer.addEventHandler(KeyEvent.KEY_PRESSED, {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, kEvent.getIsGaming()).fire(entity)})
     })
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
@@ -133,6 +128,7 @@ import java.util.stream.Collectors
                         fsize.at(1, 0.1)
                     }
                     pointer.setFitWidth(fsize.at(0))
+                    println("lower")
                     pointer.setFitHeight(fsize.at(1))
                     entity.setProperty("width", fsize.at(0));
                     entity.setProperty("height", fsize.at(1));

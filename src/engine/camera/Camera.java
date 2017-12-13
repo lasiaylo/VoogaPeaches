@@ -29,10 +29,12 @@ public class Camera {
 
     public Camera(Entity level) {
         currentLevel = level;
-
-        view = new ScrollPane(level.getNodes().getChildren().get(0));
+        view = new ScrollPane(level
+                .getNodes());
+//       if (currentLevel.getNodes().getChildren().size() == 0) {
+//            currentLevel.add(view.getContent());
+//        }
         view.setPannable(false);
-
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
@@ -61,10 +63,10 @@ public class Camera {
     }
 
     public void changeLevel(Entity level) {
-        if (currentLevel.getNodes().getChildren().size() == 0) {
-            currentLevel.add(view.getContent());
-        }
-        view.setContent(level.getNodes().getChildren().get(0));
+//        if (currentLevel.getNodes().getChildren().size() == 0) {
+//            System.out.println(currentLevel.getNodes().getChildren().size());
+//        }
+        view.setContent(level.getNodes());
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
         currentLevel = level;
@@ -105,8 +107,6 @@ public class Camera {
 
         event.consume();
     }
-
-
 
     private void vScroll(double num) {
         view.setVmin(num);

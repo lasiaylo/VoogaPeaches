@@ -90,7 +90,13 @@ public class PropertiesPanel implements Panel,Updatable {
         myEntity = entity.substitute();
         myParameters = myEntity.getProperties();
         myScripts = (Map<String, Map<String, Object>>) myParameters.remove(SCRIPTS);
+        for(String key : myScripts.keySet())
+            if(myScripts.containsKey("empty")) myScripts.remove("empty");
         myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove(LISTENERS);
+        if(myEvents != null) {
+            for (String key : myEvents.keySet())
+                if (myEvents.containsKey("empty")) myEvents.remove("empty");
+        }
         updateVisuals();
         myParameters.put(SCRIPTS, myScripts);
         myParameters.put(LISTENERS, myEvents);
@@ -134,7 +140,7 @@ public class PropertiesPanel implements Panel,Updatable {
     public void addFile(Map<String, Map<String,Object>> map, File file) throws GroovyInstantiationException {
         if (file != null) {
             String fileName = FilenameUtils.removeExtension(file.getName());
-            map.put(fileName, new HashMap<>());
+            map.put(fileName, new HashMap<String,Object>());
         }
         update();
     }

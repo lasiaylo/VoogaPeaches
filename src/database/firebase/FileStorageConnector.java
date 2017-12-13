@@ -77,7 +77,6 @@ public class FileStorageConnector extends FirebaseConnector {
     public void saveFile(File file) throws IOException {
         // Creates a formatted file name that hides the extension
         String fileName = file.getName().split("\\.")[0];
-
         // Try reading in the raw bytes of the file, and
         // throw an exception if the I/O fails
         byte[] fileBytes;
@@ -86,7 +85,20 @@ public class FileStorageConnector extends FirebaseConnector {
 
         // Store the file in the storage bucket, and update db mapping
         storageBucket.create(path + file.getName(), fileBytes);
-        storageDBRef.child(fileName).setValueAsync(file.getName());
+        fileMap.put(fileName, file.getName());
+    }
+
+    public void saveTo(File file, String path) throws IOException {
+        // Creates a formatted file name that hides the extension
+        String fileName = file.getName().split("\\.")[0];
+        // Try reading in the raw bytes of the file, and
+        // throw an exception if the I/O fails
+        byte[] fileBytes;
+        try { fileBytes = Files.readAllBytes(file.toPath());
+        } catch (IOException e) { throw e; }
+
+        // Store the file in the storage bucket, and update db mapping
+        storageBucket.create(path, fileBytes);
         fileMap.put(fileName, file.getName());
     }
 
@@ -97,9 +109,13 @@ public class FileStorageConnector extends FirebaseConnector {
      */
     public Image retrieveImage(String image) {
         // Get the raw bytes corresponding to the image from the storage bucket
-        byte[] imageBytes = storageBucket.get(fileMap.get(path + image)).getContent();
+        byte[] imageBytes = storageBucket.get(path + image).getContent();
         // Create a new image from the bytes and return it
         return new Image(new ByteArrayInputStream(imageBytes));
+    }
+
+    public byte[] retrieveBytes(String file) {
+         return storageBucket.get(path + file).getContent();
     }
 
     /**
