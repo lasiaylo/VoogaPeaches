@@ -51,7 +51,7 @@ import java.util.stream.Collectors
 
     entity.on(EventType.GAMING.getType(), { Event call ->
         GamingEvent gamingEvent = (GamingEvent) call
-        boolean gaming = gamingEvent.getIsGaming()
+        boolean gaming = gamingEvent.getIsGaming();
         pointer.addEventHandler(MouseEvent.MOUSE_CLICKED, { e -> new ClickEvent(gaming, e).fire(entity)})
         pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED, {e -> new MouseDragEvent(gaming, e).fire(entity)})
         pointer.addEventHandler(KeyEvent.KEY_PRESSED, { e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, gaming).fire(entity)})
