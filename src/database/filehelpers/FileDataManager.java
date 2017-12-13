@@ -57,28 +57,6 @@ public class FileDataManager {
     }
 
     /**
-     * Retrieves all the files contained below the path specified. Includes files within subfolders
-     * of the specified paths.
-     * @param path is {@code String} specifying the subfolder to retrieve files from
-     * @return A {@code List<InputStream>} that contains the InputStreams of each file in the subfolder
-     */
-    public List<InputStream> retrieveSubfolderFiles(String path) {
-        List<InputStream> fileStreams = new ArrayList<>();
-        File base = new File(baseFolder + path);
-        if(base.exists()) {
-            for(File subfile : base.listFiles()){
-                if(subfile.isDirectory()) {
-                    fileStreams.addAll(retrieveSubfolderFiles(path + "/" + subfile.getName()));
-                } else {
-                    InputStream fileStream = readFileData(path + "/" + subfile.getName());
-                    fileStreams.add(fileStream);
-                }
-            }
-        }
-        return fileStreams;
-    }
-
-    /**
      * Deletes the specified User file
      * @param filename is a {@code String} representing the name of the file to
      *                 be deleted within the base folder
@@ -86,13 +64,8 @@ public class FileDataManager {
      * otherwise
      */
     public boolean deleteFileData(String filename) {
-        // Get the path to the file
         Path p = (new File(baseFolder + filename)).toPath();
-        try {
-            return Files.deleteIfExists(p);
-        } catch(IOException e) {
-            return false;
-        }
+        try { return Files.deleteIfExists(p); } catch (IOException e) { return false; }
     }
 
     /**
@@ -107,10 +80,7 @@ public class FileDataManager {
         try {
             Files.write(Paths.get(baseFolder + filename), fileBytes);
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        } catch (IOException e) { return false; }
     }
 
     /**
@@ -126,30 +96,22 @@ public class FileDataManager {
     }
 
     /**
-     * Creates a new folder within the base folder of the manager. If
-     * the folder exists already, then a new folder will NOT be created.
-     * @param folderName is a {@code String} representing the name
-     *                   of the folder to create
-     * @return {@code true} if the folder was created, and false otherwise
-     */
-    public boolean createFolder(String folderName){
-        if(folderExists(folderName)) return false;
-        return (new File(baseFolder + folderName)).mkdir();
-    }
-
-    /**
-     * get all subfolder names
-     * @return
+     * Gets all subfolder directory names
+     * @return A {@List<String>} of the subfolders within the base folder
      */
     public List<String> getSubFolder() {
         File[] directories = new File(baseFolder).listFiles(File::isDirectory);
         List<String> subFolder = new ArrayList<>();
-        for (File each: directories) {
+        for (File each: directories)
             subFolder.add(each.getName());
-        }
         return subFolder;
     }
 
+    /**
+     * Returns of all subfiles within a given path
+     * @param path is a {@code String} representing the base path to search through
+     * @return A {@code List<String>} of all the files
+     */
     public List<String> getSubFile(String path) {
         List<String> file = new ArrayList<>();
         File base = new File(baseFolder + path);

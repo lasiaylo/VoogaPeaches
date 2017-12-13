@@ -6,6 +6,8 @@ import util.PropertiesReader;
  * Enum defining the different folders in the data folder of the
  * project where user saved files can be read and written from by the
  * FileDataManager class
+ *
+ * @author Walker Willetts
  */
 public enum FileDataFolders {
     USER_IMAGES("images/user_images"),

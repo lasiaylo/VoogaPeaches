@@ -2,7 +2,7 @@
   "FSM Panel": "right",
   "Social Media": "right",
   "Mini Map": "right",
-  "rightdivision": "0.7976190476190477",
+  "rightdivision": "0.7973958333333333",
   "Game Graphvis": "false",
   "Mini Mapvis": "true",
   "Properties": "right",
@@ -21,5 +21,5 @@
   "Library": "left",
   "Libraryvis": "true",
   "Social Mediavis": "false",
-  "bodydivision": "0.6478048780487805"
+  "bodydivision": "0.6477477477477478"
 }

@@ -1,12 +1,9 @@
 package database.jsonhelpers;
 
-import database.User;
 import database.firebase.TrackableObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import util.ErrorDisplay;
 
-import javax.sound.midi.Track;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -104,6 +101,14 @@ public class JSONToObjectConverter<T extends TrackableObject> {
         }
     }
 
+    /**
+     * Instantiates the specified parameter for the TrackableObject passed in
+     * @param instanceVar is a {@code Field} that represents the instance variable being
+     *                    instantiated
+     * @param param is a {@code String} representing the name of the field being instantiated
+     * @param params is a {@code Map<String, Object>} of all the parsed in parameters for the object
+     * @param <G> is a {@code G} representing the new instance created for the TrackableObject
+     */
     private <G extends TrackableObject> void instantiateParmeter(Field instanceVar, String param, Map<String,Object> params) {
         // First need to check special case where you're storing a List<? extends TrackableObject> variable
         if(List.class.isAssignableFrom(instanceVar.getType())) {
@@ -119,7 +124,6 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                     JSONObject heldObjectJSON = new JSONObject((HashMap<String, Object>) obj);
                     JSONObject m = new JSONObject(parseParameters(heldObjectJSON));
                     TrackableObject heldObject = (TrackableObject) createObjectFromJSON(listType, m);
-                    //heldObject.initialize();
                     objectsList.add(heldObject);
                 }
                 params.put(param, objectsList);
@@ -145,10 +149,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 return;
             }
             instanceVar.set(newObject, params.get(param));
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Do Nothing
-        }
+        } catch (Exception e) {}
     }
 
     /**
@@ -179,11 +180,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             // Call class defined extra initialization
             newObject.initialize();
             return newObject;
-        } catch (Exception e){
-            e.printStackTrace();
-            new ErrorDisplay("Json Error", "Could not create object from JSON").displayError();
-            return null;
-        }
+        } catch (Exception e){ return null; }
     }
 
 }
