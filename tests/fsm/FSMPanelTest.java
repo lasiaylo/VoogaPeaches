@@ -1,15 +1,16 @@
-import authoring.fsm.FSMGraph;
+package fsm;
+
+import authoring.panels.tabbable.FSMPanel;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class FSMGraphTest extends Application {
+public class FSMPanelTest extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FSMGraph graph = new FSMGraph();
-        Scene s = new Scene(graph.getRender());
-        s.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> graph.onSceneClick(e));
+        FSMPanel graph = new FSMPanel();
+        Scene s = new Scene(graph.getRegion());
         primaryStage.setScene(s);
         primaryStage.show();
     }

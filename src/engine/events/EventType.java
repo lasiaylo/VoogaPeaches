@@ -19,6 +19,7 @@ public enum EventType {
     VIEWVIS("View Visibility Event"),
     MAPSETUP("map setup"),
     GAMING("setup gaming"),
+    STEP("FSM Stepping"),
     UPDATE_IMAGE("update_image");
 
     private String type;

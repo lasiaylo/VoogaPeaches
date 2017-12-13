@@ -1,21 +1,16 @@
 package engine;
 
 import database.ObjectFactory;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.*;
-import engine.events.MouseDragEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
-import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.BGMessage;

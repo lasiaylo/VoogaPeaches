@@ -55,11 +55,13 @@ public class ParameterButton {
 
     private void add() {
         try {
+
             String string = text.getText();
             String type = comboBox.getSelectionModel().getSelectedItem().toString();
             Object obj = determineType(type);
             myMap.put(string, obj);
             myPanel.update();
+            System.out.println("clicked!");
         } catch(Exception e){}
     }
 
