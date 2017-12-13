@@ -5,6 +5,7 @@ import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.camera.NewCamera;
 import engine.entities.Entity;
@@ -103,7 +104,8 @@ public class EntityManager {
             currentLevelName = (String) currentLevel.getProperty("levelname");
             //currentLevel = currentLevel.substitute();
         }
-        //writeRootToDatabase(root);
+        System.out.println(JSONHelper.JSONForObject(root).toString(4))
+;        //writeRootToDatabase(root);
     }
 
     private void recursiveAdd(Entity layer){
