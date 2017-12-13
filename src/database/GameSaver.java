@@ -85,7 +85,7 @@ public class GameSaver {
         FileStorageConnector connector = new FileStorageConnector("scripts");
         for(String script : scripts)
             try {
-                connector.saveFile(new File("./data/scripts/" + script));
+                connector.saveFile(new File("./data/filedata/scripts/" + script));
             } catch (Exception e){
                 e.printStackTrace();
             }

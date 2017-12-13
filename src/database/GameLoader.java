@@ -4,6 +4,7 @@ import com.google.firebase.database.*;
 import database.filehelpers.FileConverter;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
+import database.fileloaders.ScriptLoader;
 import database.firebase.DatabaseConnector;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
@@ -69,6 +70,7 @@ public class GameLoader {
                 JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
                 gameRoot = converter.createObjectFromJSON(Entity.class, rootObject);
                 loaded[0] = true;
+                System.out.println("Root loaded.");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -90,6 +92,8 @@ public class GameLoader {
                     manager.writeFileData(bytes, (String) child.getValue());
                 }
                 loaded[1] = true;
+                System.out.println("Images loaded.");
+
             }
 
             @Override
@@ -105,10 +109,15 @@ public class GameLoader {
                 FileStorageConnector connector = new FileStorageConnector("scripts");
                 FileDataManager manager = new FileDataManager(FileDataFolders.SCRIPTS);
                 for(String file : files) {
+                    System.out.println(file);
                     byte[] bytes = connector.retrieveBytes(file);
                     manager.writeFileData(bytes, file);
                 }
                 loaded[2] = true;
+                // Cache scripts after loading them in
+                ScriptLoader.cache();
+                System.out.println("Scripts loaded.");
+
             }
 
             @Override

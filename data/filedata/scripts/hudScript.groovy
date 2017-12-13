@@ -1,9 +1,14 @@
 package scripts
 
 import engine.entities.Entity
-import engine.events.*
+import engine.events.AddLayerEvent
+import engine.events.Event
+import engine.events.EventType
+import engine.events.MapSetupEvent
+import engine.events.MouseDragEvent
 import engine.util.FXProcessing
 import javafx.geometry.Pos
+import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
@@ -13,6 +18,7 @@ import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.BGMessage
 import util.pubsub.messages.NonBGMessage
+
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
