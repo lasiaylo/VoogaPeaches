@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import util.math.num.Vector;
 
+/**
+ * @author Simran
+ */
 public class GameWindow {
 
     private Scene scene;
@@ -15,8 +18,6 @@ public class GameWindow {
     private Engine engine;
 
     public GameWindow(Stage stage, Entity rootEntity){
-        System.out.println("launching gameWindow");
-        System.out.println(rootEntity);
         this.stage = stage;
         GamingEvent gameEvent = new GamingEvent(true);
         gameEvent.recursiveFire(rootEntity);
