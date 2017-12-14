@@ -2,16 +2,23 @@ package engine.camera;
 
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
+import engine.events.MapSetupEvent;
+import engine.events.MouseDragEvent;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import main.VoogaPeaches;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.NonBGMessage;
 
 /**
  * Camera that will pass a view to the authoring and player for game display
@@ -32,6 +39,11 @@ public class Camera {
         currentLevel = level;
         view = new ScrollPane(level
                 .getNodes());
+//        System.out.println(((Group)view.getContent()).getChildren().get(0).getOnDragOver());
+        new MouseDragEvent(VoogaPeaches.getIsGaming()).fire(currentLevel);
+        new MapSetupEvent().fire(currentLevel);
+//        System.out.println(currentLevel.getNodes().getChildren().get(0));
+//        System.out.println("here");
 //       if (currentLevel.getNodes().getChildren().size() == 0) {
 //            currentLevel.add(view.getContent());
 //        }
@@ -103,15 +115,37 @@ public class Camera {
 
         point.setCenterX(event.getX());
         point.setCenterY(event.getY());
-        view.setHvalue(event.getX()/miniMap.getWidth());
-        view.setVvalue(event.getY()/miniMap.getHeight());
+        view.setHvalue(event.getX() / miniMap.getWidth());
+        view.setVvalue(event.getY() / miniMap.getHeight());
 
-        NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
-        NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
-        point.centerXProperty().bind(xPoint);
-        point.centerYProperty().bind(yPoint);
+
+        view.hvalueProperty().bind(point.centerXProperty().divide(miniMap.getWidth()));
+        view.vvalueProperty().bind(point.centerYProperty().divide(miniMap.getHeight()));
+//        NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
+//        NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
+//        point.centerXProperty().bind(xPoint);
+//        point.centerYProperty().bind(yPoint);
+//        System.out.println(((Group)view.getContent()).getChildren().get(0).getOnDragOver());
+//        System.out.println(currentLevel.getNodes().getChildren().get(0).getOnDragOver());
 
         event.consume();
+        view.setMouseTransparent(false);
+        new MouseDragEvent(VoogaPeaches.getIsGaming()).fire(currentLevel);
+        new MapSetupEvent().fire(currentLevel);
+        view.getContent().addEventHandler(DragEvent.DRAG_OVER, e -> {
+            if (e.getGestureSource() != view.getContent() && e.getDragboard().hasString()) {
+                e.acceptTransferModes(TransferMode.COPY);
+            }
+            e.consume();
+        });
+        view.getContent().addEventHandler(DragEvent.DRAG_DROPPED, e -> {
+            if (e.getDragboard().hasString()) {
+                //PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
+                        //new Vector(e.getX(), e.getY())));
+            }
+            e.setDropCompleted(true);
+            e.consume();
+        });
     }
 
     private void vScroll(double num) {
