@@ -11,10 +11,8 @@ public class EntitySubstituter {
             old.stopTrackingTrackableObject(old.UIDforObject());
             substitute.replaceUID(old.UIDforObject());
             DatabaseConnector.addToDatabasePath(substitute, getDbPath(substitute));
-            if(old.getParent() != null)
-                old.getParent().remove(old);
+            old.getParent().remove(old);
         } catch (Exception e) {
-            e.printStackTrace();
             new ErrorDisplay("Data Error", "Could not connect to database").displayError();
         }
         try {

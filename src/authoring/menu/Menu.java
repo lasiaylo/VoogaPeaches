@@ -9,8 +9,6 @@ import database.firebase.DatabaseConnector;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import database.jsonhelpers.JSONHelper;
-import engine.entities.Entity;
-import javafx.animation.PauseTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
@@ -19,7 +17,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import main.VoogaPeaches;
 import util.PropertiesReader;
 import util.exceptions.ObjectIdNotFoundException;
@@ -83,7 +80,6 @@ public class Menu {
         addTitle();
         setupGames();
         addButtons();
-        myRoot.getStylesheets().add(VoogaPeaches.getUser().getThemeName());
         updateTheme();
     }
 
@@ -135,13 +131,8 @@ public class Menu {
             authoringStage.setTitle(AUTHORING_TITLE);
             authoringStage.setMaximized(true);
             authoringStage.setResizable(false);
-            GameLoader loader = new GameLoader(UID, e -> {});
-            try {
-                Thread.sleep(4000);
-            } catch (Exception e) {
-
-            }
-            this.authoring = new Screen(authoringStage,loader.loadGame());
+            authoring = new Screen(authoringStage);
+            GameLoader loader = new GameLoader(UID, e -> { authoring.load(e); });
             authoringStage.setOnCloseRequest(event -> {
                 myStage.close();
                 authoring.save();
@@ -157,7 +148,7 @@ public class Menu {
         authoringStage.setTitle(AUTHORING_TITLE);
         authoringStage.setMaximized(true);
         authoringStage.setResizable(false);
-        authoring = new Screen(authoringStage, new Entity());
+        authoring = new Screen(authoringStage);
         authoringStage.setOnCloseRequest(event -> {
             myStage.close();
             authoring.save();
@@ -182,7 +173,8 @@ public class Menu {
         grid.add(authoringButton,1,0);
         grid.add(playButton,2,0);
         grid.setHgap(HGAP);
-        grid.setLayoutX(WIDTH * GRID_WIDTH_RATIO);
+        System.out.println(authoringButton.getBoundsInLocal().getWidth());
+        grid.setLayoutX(WIDTH * GRID_WIDTH_RATIO - 25);
         grid.setLayoutY(HEIGHT * GRID_HEIGHT_RATIO);
 
         javafx.scene.control.Menu user = new javafx.scene.control.Menu(USER + VoogaPeaches.getUser().getUserName());

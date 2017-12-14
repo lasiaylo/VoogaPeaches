@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import util.PropertiesReader;
 
@@ -17,8 +16,8 @@ public class EventButton {
     private final String ADD = "Add Event";
     private Map<String, Map<String, Map<String, Object>>> myMap;
     private PropertiesPanel myPanel;
+    private ComboBox comboBox;
     private HBox hbox;
-    private TextField textfield;
 
     public EventButton(Map<String, Map<String, Map<String, Object>>> map, PropertiesPanel panel){
         myMap = map;
@@ -28,9 +27,11 @@ public class EventButton {
     }
 
     private void makeVisual() {
-        textfield = new TextField();
+        Collection<String> events= PropertiesReader.map(EVENTS).keySet();
+        ObservableList<String> options = FXCollections.observableArrayList(events);
+        comboBox = new ComboBox(options);
         Button button = makeButton();
-        hbox.getChildren().add(textfield);
+        hbox.getChildren().add(comboBox);
         hbox.getChildren().add(button);
     }
 
@@ -42,7 +43,7 @@ public class EventButton {
 
     private void add() {
         try {
-            String type = textfield.getText();
+            String type = comboBox.getSelectionModel().getSelectedItem().toString();
             myMap.put(type, createMap());
             myPanel.update();
         } catch (Exception e) {}

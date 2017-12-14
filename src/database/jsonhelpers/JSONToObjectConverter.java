@@ -172,10 +172,11 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 // Set the instance variable in the newly created object
                 setInstanceVariable(instanceVar, newObject, params, param);
             }
-            // Add object to tracking map
-            TrackableObject.trackTrackableObject(newObject);
             // Call class defined extra initialization
             newObject.initialize();
+            System.out.println(newObject.getClass());
+            // Add object to tracking map
+            TrackableObject.trackTrackableObject(newObject);
             return newObject;
         } catch (Exception e){
             new ErrorDisplay("Json Error", "Could not create object from JSON").displayError();

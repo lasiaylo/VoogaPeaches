@@ -5,19 +5,15 @@ import authoring.panels.reserved.CameraPanel;
 import authoring.panels.reserved.MenuBarPanel;
 import database.User;
 import database.firebase.DatabaseConnector;
-import database.jsonhelpers.JSONHelper;
-import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.VoogaPeaches;
-import org.json.JSONObject;
 import util.ErrorDisplay;
 import util.PropertiesReader;
 import util.exceptions.ObjectIdNotFoundException;
@@ -56,9 +52,9 @@ public class Screen {
      * Creates a new Screen and adds it to the stage after population. The size of the Screen is determined by the user's computer screen size.
      * @param stage the stage to add the Screen to
      */
-    public Screen(Stage stage, Entity rootEntity){
+    public Screen(Stage stage){
         root = new VBox();
-        controller = new PanelController(rootEntity);
+        controller = new PanelController();
         errorMessage = new ErrorDisplay(PropertiesReader.value(REFLECT, ERROR_TITLE));
 
         //SceenBounds Code courtesy of <a href = "http://www.java2s.com/Code/Java/JavaFX/GetScreensize.htm">java2s</a>
@@ -160,7 +156,7 @@ public class Screen {
      */
     public void save(){
         try {
-            workspaceManager.saveWorkspaces();
+            workspaceManager.saveWorkspace();
             DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
             db.addToDatabase(VoogaPeaches.getUser());
             // Have to force a sleep to wait for data to finish sending, but
@@ -177,8 +173,8 @@ public class Screen {
     }
 
     public void load(Entity root) {
+        System.out.println("In screen: " + root.UIDforObject());
         controller.load(root);
-        camera.setController(controller);
     }
 
     /**

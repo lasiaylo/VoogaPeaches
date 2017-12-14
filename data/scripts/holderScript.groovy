@@ -15,6 +15,5 @@ import javafx.scene.image.ImageView
     holder.setFitHeight(entity.getProperty("gridsize"))
     holder.setX(0)
     holder.setY(0)
-    holder.setMouseTransparent(true)
     entity.add(holder)
 }
