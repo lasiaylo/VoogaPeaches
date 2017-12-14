@@ -16,7 +16,6 @@ import util.pubsub.messages.Message
     String fsmName = "test"
     PubSub pubSub = PubSub.getInstance()
 
-    println("fired boi")
     pubSub.publish("FSM", new FSMMessage(fsmName, entity, null))
 
     pubSub.subscribe("FSM", { Message msg ->

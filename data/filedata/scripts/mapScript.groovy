@@ -1,5 +1,6 @@
 package scripts
 
+import com.google.firebase.database.collection.LLRBNode
 import engine.entities.Entity
 import engine.events.AddLayerEvent
 import engine.events.Event
@@ -8,10 +9,13 @@ import engine.events.MapSetupEvent
 import engine.events.MouseDragEvent
 import engine.util.FXProcessing
 import javafx.geometry.Pos
+import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
 import javafx.scene.input.TransferMode
+import javafx.scene.layout.BackgroundFill
+import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import util.math.num.Vector
 import util.pubsub.PubSub
@@ -64,15 +68,6 @@ import util.pubsub.messages.NonBGMessage
             e.setDropCompleted(true)
             e.consume()
         })
-    })
-
-    entity.on(EventType.RESET.getType(), { Event call ->
-        stack.getChildren().remove(canvas)
-        stack.getParent().getChildren().remove(stack)
-        canvas = null
-        stack = null
-        System.gc()
-        System.runFinalization()
     })
 }
 

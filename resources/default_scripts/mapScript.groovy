@@ -8,7 +8,6 @@ import engine.events.MapSetupEvent
 import engine.events.MouseDragEvent
 import engine.util.FXProcessing
 import javafx.geometry.Pos
-import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
@@ -22,20 +21,18 @@ import util.pubsub.messages.NonBGMessage
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
-    canvas = new Canvas((double)entity.getProperty("camerawidth"), (double)entity.getProperty("mapheight"))
+    canvas = new Canvas((double)entity.getProperty("mapwidth"), (double)entity.getProperty("mapheight"))
     stack = new StackPane()
     stack.getChildren().add(canvas)
     entity.add(stack)
-
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
         if (!dEvent.isGaming) {
-            canvas.setOnMousePressed({ MouseEvent e ->
+            canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, { MouseEvent e ->
                 dEvent.setMyStartPos(e.getX(), e.getY())
                 e.consume()
-                println("start")
             })
-            canvas.setOnMouseReleased({ MouseEvent e ->
+            canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, { MouseEvent e ->
                 addBatch(e, dEvent.getMyStartPos(), (int) entity.getProperty("gridsize"))
                 e.consume()
             })
@@ -47,20 +44,19 @@ import util.pubsub.messages.NonBGMessage
         stack.getChildren().add(addLayer.getLayerGroup())
         stack.setAlignment(addLayer.getLayerGroup(), Pos.TOP_LEFT)
     })
-
     entity.on(EventType.MAPSETUP.getType(), { Event call ->
         MapSetupEvent setup = (MapSetupEvent) call
-        canvas.setOnMouseClicked({ MouseEvent e ->
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, { MouseEvent e ->
             PubSub.getInstance().publish("ADD_BG", new BGMessage(FXProcessing.getBGCenter(new Vector(e.getX(), e.getY()), (int)entity.getProperty("gridsize"))))
             e.consume()
         })
-        stack.setOnDragOver({ DragEvent e ->
+        stack.addEventHandler(DragEvent.DRAG_OVER, { DragEvent e ->
             if (e.getGestureSource() != stack && e.getDragboard().hasString()) {
                 e.acceptTransferModes(TransferMode.COPY)
             }
             e.consume()
         })
-        stack.setOnDragDropped({ DragEvent e ->
+        stack.addEventHandler(DragEvent.DRAG_DROPPED, { DragEvent e ->
             if (e.getDragboard().hasString()) {
                 PubSub.getInstance().publish("ADD_NON_BG", new NonBGMessage(e.getDragboard().getString(),
                         new Vector(e.getX(), e.getY())))
@@ -68,6 +64,15 @@ import util.pubsub.messages.NonBGMessage
             e.setDropCompleted(true)
             e.consume()
         })
+    })
+
+    entity.on(EventType.RESET.getType(), { Event call ->
+        stack.getChildren().remove(canvas)
+        stack.getParent().getChildren().remove(stack)
+        canvas = null
+        stack = null
+        System.gc()
+        System.runFinalization()
     })
 }
 
