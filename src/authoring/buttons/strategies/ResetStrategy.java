@@ -35,7 +35,7 @@ public class ResetStrategy implements IButtonStrategy {
 
         Entity currentLevel = manager.changeLevel(levelName);
 //
-//        cameraPanel.clear(currentLevel.getChildren().size());
+        cameraPanel.updateLevel();
 
     }
 
