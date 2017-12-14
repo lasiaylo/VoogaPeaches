@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -21,19 +22,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Sets up the background music that loops in the game.
+ * @author Brian Nieves
+ */
 public class BGMPanel implements Panel {
 
     private final static String SOUNDS_PATH = "resources/sounds/";
     private final static String[] SUPPORTED_EXTENSIONS = new String[]{"wav", "mp3"};
-    public static final String CHOOSE_MUSIC_FILE = "Choose current file: ";
-    public static final String NONE = "None";
+    private static final String CHOOSE_MUSIC_FILE = "Choose current file: ";
+    private static final String NONE = "None";
+    private static final double PADDING = 8;
 
     private HBox box;
     private ObjectProperty<Sound> current;
 
+    /**
+     * Creates a new Background Music panel and sets up its display and logic.
+     */
     public BGMPanel(){
         current = new SimpleObjectProperty<>();
         Label label = new Label(CHOOSE_MUSIC_FILE);
+        label.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         ChoiceBox<String> choices = new ChoiceBox<>();
         choices.getItems().add(NONE);
         ObservableMap<String, Sound> music = FXCollections.observableHashMap();
