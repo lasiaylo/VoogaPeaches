@@ -2,9 +2,6 @@ package authoring.panels.tabbable;
 
 import authoring.fsm.FSMGraph;
 import authoring.panels.attributes.UpdatablePanel;
-import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONDataManager;
-import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,7 +16,6 @@ import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 import util.pubsub.messages.FSMMessage;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,14 +100,6 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     private void createGraphs() {
-        File folder = new File(FSM_PATH);
-        File[] listOfFiles = folder.listFiles();
-        JSONDataManager j = new JSONDataManager(JSONDataFolders.GAMES.);
-        JSONToObjectConverter<FSMGraph> m = new JSONToObjectConverter<>(FSMGraph.class);
-        for (File file : listOfFiles) {
-            FSMGraph graph = m.createObjectFromJSON(FSMGraph.class, j.readJSONFile(file.getName()));
-//            allGraphs.add(graph);
-        }
     }
 
     @Override

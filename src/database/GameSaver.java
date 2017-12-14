@@ -8,6 +8,7 @@ import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
 import org.json.JSONObject;
 import util.PropertiesReader;
+import util.pubsub.PubSub;
 
 import java.io.File;
 import java.util.*;
@@ -58,7 +59,11 @@ public class GameSaver {
         uploadImages(images);
         String[] scripts = saveScriptJSON(toSave);
         uploadScripts(scripts);
+        saveFSM();
+    }
 
+    private void saveFSM() {
+        PubSub.getInstance();
     }
 
     /**
@@ -150,6 +155,4 @@ public class GameSaver {
         for(Entity child : root.getChildren())
             retrieveImageNames(currentSet, child);
     }
-
-    
 }
