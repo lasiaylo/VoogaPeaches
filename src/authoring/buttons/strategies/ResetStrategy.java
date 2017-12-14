@@ -30,10 +30,9 @@ public class ResetStrategy implements IButtonStrategy {
         EntityManager manager = engine.getEntityManager();
         String levelName = manager.getCurrentLevelName();
         bottomUpInitialize(resetRoot);
-//        System.out.println(jsonObject.toString(4));
         manager.setRoot(resetRoot);
 
-        Entity currentLevel = manager.changeLevel(levelName);
+        manager.changeLevel(levelName);
 //
         cameraPanel.updateLevel();
 
@@ -44,12 +43,5 @@ public class ResetStrategy implements IButtonStrategy {
         for(Entity child : root.getChildren())
             bottomUpInitialize(child);
         root.initialize();
-    }
-
-    private void recursiveInitialize(Entity entity) {
-        entity.initialize();
-        for(Entity child : entity.getChildren()) {
-            recursiveInitialize(child);
-        }
     }
 }

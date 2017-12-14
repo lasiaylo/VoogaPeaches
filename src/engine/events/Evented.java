@@ -38,8 +38,13 @@ public abstract class Evented extends TrackableObject {
             return;
         }
 
-        for (Consumer<Event> callback : callbacks.get(event.getType()))
-            callback.accept(event);
+        for (Consumer<Event> callback : callbacks.get(event.getType())) {
+            try {
+                callback.accept(event);
+            } catch(NullPointerException e) {
+                // do nothing
+            }
+        }
     }
 
     protected void clear() {

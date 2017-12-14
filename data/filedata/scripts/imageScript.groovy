@@ -12,6 +12,7 @@ import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
 import engine.events.MousePressedEvent
+import engine.events.SubstituteEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
 import javafx.scene.image.Image
@@ -108,7 +109,11 @@ import java.util.stream.Collectors
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
             entity.getParent().remove(entity)
         }
+    })
 
+    entity.on(EventType.SUBSTITUTE.getType(), { Event call ->
+        SubstituteEvent substituteEvent = (SubstituteEvent) call
+        pointer.requestFocus()
     })
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
