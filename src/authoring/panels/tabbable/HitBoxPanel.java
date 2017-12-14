@@ -92,8 +92,8 @@ public class HitBoxPanel implements Panel {
         entityView.getChildren().add(pointer);
         pointer.setX(entityView.getWidth() / 2 - pointer.getBoundsInLocal().getWidth() / 2);
         pointer.setY(entityView.getHeight() / 2 - pointer.getBoundsInLocal().getHeight() / 2);
-        pointer.setFitWidth((double) entity.getProperty("width"));
-        pointer.setFitHeight((double) entity.getProperty("height"));
+        pointer.setFitWidth(((Number) entity.getProperty("width")).doubleValue());
+        pointer.setFitHeight(((Number) entity.getProperty("height")).doubleValue());
     }
 
     private void createComboBox() {
