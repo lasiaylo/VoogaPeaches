@@ -1,6 +1,6 @@
 package authoring.fsm;
 
-import authoring.panels.attributes.UpdatablePanel;
+import authoring.panels.attributes.Updatable;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
@@ -24,13 +24,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FSMPanelLocal implements UpdatablePanel {
+public class FSMPanelLocal implements Updatable {
 
     private static final String FSM_PATH = "data/jsondata/fsm";
-    private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
     private List<FSMGraph> allGraphs;
-    private Entity currentEntity;
     private Map<Entity, List<FSMGraph>> myMap = new HashMap<>();
 
     public FSMPanelLocal() {
@@ -40,7 +38,6 @@ public class FSMPanelLocal implements UpdatablePanel {
     }
 
     private void newEntityClicked(EntityPass message) {
-        currentEntity = message.getEntity();
         init();
     }
 
@@ -117,10 +114,6 @@ public class FSMPanelLocal implements UpdatablePanel {
         }
     }
 
-    @Override
-    public void updateProperties() { }
-
-    @Override
     public Region getRegion() {
         return box;
     }
@@ -152,7 +145,7 @@ public class FSMPanelLocal implements UpdatablePanel {
     }
 
     @Override
-    public String title() {
-        return TITLE;
+    public void update() {
+
     }
 }

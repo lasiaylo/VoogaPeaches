@@ -2,16 +2,13 @@ package engine.camera;
 
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
-import javafx.beans.binding.NumberBinding;
-import javafx.collections.ObservableList;
-import javafx.scene.*;
 import javafx.scene.Camera;
+import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import util.math.num.Vector;
 
 public class NewCamera {

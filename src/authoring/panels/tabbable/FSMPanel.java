@@ -1,7 +1,8 @@
 package authoring.panels.tabbable;
 
+import authoring.Panel;
 import authoring.fsm.FSMGraph;
-import authoring.panels.attributes.UpdatablePanel;
+import authoring.panels.attributes.Updatable;
 import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,14 +16,14 @@ import javafx.stage.Stage;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 import util.pubsub.messages.FSMMessage;
+import util.pubsub.messages.FSMSaveMessage;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FSMPanel implements UpdatablePanel {
+public class FSMPanel implements Panel, Updatable {
 
-    private static final String FSM_PATH = "data/jsondata/fsm";
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
     private Entity currentEntity;
@@ -32,6 +33,13 @@ public class FSMPanel implements UpdatablePanel {
         init();
         PubSub.getInstance().subscribe("FSM", message -> readMessage((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
+        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveRequested((FSMSaveMessage) message));
+    }
+
+    private void saveRequested(FSMSaveMessage message) {
+        if(message.getFSMmap() == null) {
+            PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(myMap));
+        }
     }
 
     private void newEntityClicked(EntityPass message) {
@@ -59,9 +67,9 @@ public class FSMPanel implements UpdatablePanel {
 
     private void init() {
         box.getChildren().clear();
-        createGraphs();
-        createAddButton();
-        createGraphButtons();
+//        createGraphs();
+//        createAddButton();
+//        createGraphButtons();
     }
 
     private void createGraphButtons() {
@@ -103,9 +111,6 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     @Override
-    public void updateProperties() { }
-
-    @Override
     public Region getRegion() {
         return box;
     }
@@ -140,4 +145,7 @@ public class FSMPanel implements UpdatablePanel {
     public String title() {
         return TITLE;
     }
+
+    @Override
+    public void update() { }
 }

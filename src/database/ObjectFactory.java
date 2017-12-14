@@ -1,4 +1,5 @@
 package database;
+
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONToObjectConverter;
@@ -8,7 +9,6 @@ import util.PropertiesReader;
 import util.exceptions.ObjectBlueprintNotFoundException;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 /**

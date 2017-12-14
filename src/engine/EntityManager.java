@@ -61,7 +61,7 @@ public class EntityManager {
 
     private void addLevels() {
         if (root.getChildren().isEmpty()) {
-            addLevel("level 1", 1000, 1000);
+            addLevel("level 1", 2000, 2000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
         } else {
