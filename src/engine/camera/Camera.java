@@ -64,6 +64,12 @@ public class Camera {
         return view;
     }
 
+    public void setCameraPos(Vector centerPos, Vector mapSize) {
+        double hv = centerPos.at(0) / mapSize.at(0);
+        double vv = centerPos.at(1) / mapSize.at(1);
+
+    }
+
     public void changeLevel(Entity level) {
 //        if (currentLevel.getNodes().getChildren().size() == 0) {
 //            System.out.println(currentLevel.getNodes().getChildren().size());
@@ -98,6 +104,7 @@ public class Camera {
     }
 
     private void moveCamera(MouseEvent event) {
+        miniMap.setMouseTransparent(VoogaPeaches.getIsGaming());
         point.centerXProperty().unbind();
         point.centerYProperty().unbind();
 
