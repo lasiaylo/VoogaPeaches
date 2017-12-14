@@ -279,10 +279,7 @@ public class EntityManager {
             new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist").displayError();
             return currentLevel;
         }
-        System.out.println("changing level in entity");
-
         if (currentLevel.equals(levels.get(level))) {
-            System.out.println("level change to same level");
             camera.changeLevel(currentLevel);
             return currentLevel;
         }

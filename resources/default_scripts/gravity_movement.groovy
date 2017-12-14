@@ -5,7 +5,6 @@ import engine.events.Event
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity.setProperty("vy", -0.1)
-    println("fired")
    /* event = (KeyPressEvent) event
     switch(event.keyCode){
         case KeyCode.UP:
