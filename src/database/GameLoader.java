@@ -102,6 +102,7 @@ public class GameLoader {
                 for(String file : files) {
                     byte[] bytes = connector.retrieveBytes(file);
                     manager.writeFileData(bytes, file);
+                    System.out.println(file);
                 }
                 loaded[2] = true;
                 // Cache scripts after loading them in
