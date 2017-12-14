@@ -36,6 +36,7 @@ public class Engine implements DataReactor<Entity> {
     private Camera camera;
     private ScrollPane scrollPane;
     private boolean isGaming;
+    private Entity root;
 
     /**
      * Creates a new Engine
@@ -44,13 +45,13 @@ public class Engine implements DataReactor<Entity> {
      */
     public Engine(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
+        this.root = root;
         this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera = new Camera(entityManager.getCurrentLevel());
         entityManager.setCamera(camera);
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         this.lastState = JSONHelper.JSONForObject(root);
-
     }
 
     private void loop() {
@@ -71,7 +72,7 @@ public class Engine implements DataReactor<Entity> {
         timeline.play();
         scrollPane.requestFocus();
         this.isGaming = true;
-        lastState = JSONHelper.JSONForObject(lastState);
+        lastState = JSONHelper.JSONForObject(root);
         entityManager.setIsGaming(isGaming);
     }
 
