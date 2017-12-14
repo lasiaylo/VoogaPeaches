@@ -68,10 +68,10 @@ import java.util.stream.Collectors
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
-        entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
-        entity.setProperty("height", iEvent.getMyGridSize().at(1))
+        pointer.setFitWidth(entity.getProperty("width"))
+        //entity.setProperty("width", iEvent.getMyGridSize().at(0))
+        pointer.setFitHeight(entity.getProperty("height"))
+        //entity.setProperty("height", iEvent.getMyGridSize().at(1))
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0))
@@ -105,7 +105,6 @@ import java.util.stream.Collectors
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
-        println("key")
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
             entity.getParent().remove(entity)
         }

@@ -165,13 +165,9 @@ public class CameraPanel implements Panel {
 	 * used to switch between layers (levels/non contiguous) parts of the map
 	 */
 	private void changeLayer() {
-		System.out.println("CHANGING LAYER");
 	    if (!currentLevel.equals(myManager.getCurrentLevel())) {
 	        updateLevel();
         }
-        System.out.println("layer button size " + myLayer.getItems().size());
-	    System.out.println(myLayer.getItems());
-	    System.out.println(myLayer.getValue());
 		myOption = myLayer.getValue();
 		switch (myOption) {
 			case NEWL:

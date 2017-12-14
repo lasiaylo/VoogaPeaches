@@ -61,7 +61,6 @@ public class ParameterButton {
             Object obj = determineType(type);
             myMap.put(string, obj);
             myPanel.update();
-            System.out.println("clicked!");
         } catch(Exception e){}
     }
 

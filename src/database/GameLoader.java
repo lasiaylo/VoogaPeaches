@@ -100,7 +100,6 @@ public class GameLoader {
                 FileStorageConnector connector = new FileStorageConnector("scripts");
                 FileDataManager manager = new FileDataManager(FileDataFolders.SCRIPTS);
                 for(String file : files) {
-                    System.out.println(file);
                     byte[] bytes = connector.retrieveBytes(file);
                     manager.writeFileData(bytes, file);
                 }
