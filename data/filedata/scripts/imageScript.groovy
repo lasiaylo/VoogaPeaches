@@ -155,6 +155,7 @@ import java.util.stream.Collectors
             })
             pointer.setOnMouseReleased({ e ->
                 entity = entity.substitute()
+                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             })
         }
         dEvent.getEvent().consume()
