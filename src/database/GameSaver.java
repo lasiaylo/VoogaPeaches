@@ -9,6 +9,7 @@ import engine.entities.Entity;
 import org.json.JSONObject;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
+import util.pubsub.messages.FSMSaveMessage;
 
 import java.io.File;
 import java.util.*;
@@ -59,11 +60,15 @@ public class GameSaver {
         uploadImages(images);
         String[] scripts = saveScriptJSON(toSave);
         uploadScripts(scripts);
-        saveFSM();
+        setupFSMPubsub();
     }
 
     private void saveFSM() {
-        PubSub.getInstance();
+    }
+
+    private void setupFSMPubsub() {
+        PubSub.getInstance().subscribe();
+        PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(null));
     }
 
     /**

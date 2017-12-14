@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 import util.pubsub.messages.FSMMessage;
+import util.pubsub.messages.FSMSaveMessage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,6 @@ import java.util.Map;
 
 public class FSMPanel implements UpdatablePanel {
 
-    private static final String FSM_PATH = "data/jsondata/fsm";
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
     private Entity currentEntity;
@@ -32,6 +32,13 @@ public class FSMPanel implements UpdatablePanel {
         init();
         PubSub.getInstance().subscribe("FSM", message -> readMessage((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
+        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveRequested((FSMSaveMessage) message));
+    }
+
+    private void saveRequested(FSMSaveMessage message) {
+        if(message.getFSMmap() == null) {
+            PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(myMap));
+        }
     }
 
     private void newEntityClicked(EntityPass message) {
