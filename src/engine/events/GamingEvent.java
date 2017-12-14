@@ -9,8 +9,6 @@ public class GamingEvent extends Event {
         this.isGaming = isGaming;
     }
 
-    public boolean getIsGaming() {
-        return this.isGaming;
-    }
+    public boolean getIsGaming() { return this.isGaming; }
 
 }

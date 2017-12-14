@@ -29,7 +29,6 @@ import util.pubsub.messages.NonBGMessage
     stack = new StackPane()
     stack.getChildren().add(canvas)
     entity.add(stack)
-    println "map script start"
     entity.on(EventType.MOUSE_DRAG.getType(), {Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
         if (!dEvent.isGaming) {

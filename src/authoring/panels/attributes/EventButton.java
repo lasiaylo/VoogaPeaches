@@ -1,16 +1,13 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.PropertiesPanel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import util.PropertiesReader;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventButton {
     private static final String EVENTS = "events";

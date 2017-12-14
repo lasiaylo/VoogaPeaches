@@ -1,8 +1,6 @@
 package database;
 
 import com.google.firebase.database.FirebaseDatabase;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
@@ -10,10 +8,10 @@ import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
 import org.json.JSONObject;
 import util.PropertiesReader;
+import util.pubsub.PubSub;
 
 import java.io.File;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * A class that provides an API for saving manipulating a game file within the database
@@ -61,7 +59,11 @@ public class GameSaver {
         uploadImages(images);
         String[] scripts = saveScriptJSON(toSave);
         uploadScripts(scripts);
+        saveFSM();
+    }
 
+    private void saveFSM() {
+        PubSub.getInstance();
     }
 
     /**
@@ -85,7 +87,7 @@ public class GameSaver {
         FileStorageConnector connector = new FileStorageConnector("scripts");
         for(String script : scripts)
             try {
-                connector.saveFile(new File("./data/scripts/" + script));
+                connector.saveFile(new File("./data/filedata/scripts/" + script));
             } catch (Exception e){
                 e.printStackTrace();
             }

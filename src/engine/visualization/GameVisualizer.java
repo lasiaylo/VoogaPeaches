@@ -17,9 +17,9 @@ public class GameVisualizer {
         rootVisualizer = new EntityVisualizer(this, null, root);
         focus(rootVisualizer);
 
-        Visualizer visualizer = new Visualizer(root, null);
-        treeVisualizer = new TreeVisualizer(this, visualizer);
-        focus(treeVisualizer);
+//        Visualizer visualizer = new Visualizer(root, null);
+//        treeVisualizer = new TreeVisualizer(this, visualizer);
+//        focus(treeVisualizer);
     }
 
     protected void focus(EntityVisualizer entityVisualizer) {

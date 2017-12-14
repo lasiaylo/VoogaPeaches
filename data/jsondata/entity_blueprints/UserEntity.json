@@ -5,15 +5,19 @@
     "vx": 0,
     "vy": 0,
     "listeners": {
-      "move": {"base/animate/update_position": {"empty": "empty"}},
-      "tick": {"base/animate/move": {"empty": "empty"}},
-      "key press": {"movement": {"empty": "empty"}}
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "gravity_movement": {"empty": "empt"}
+      },
+      "key press": {
+        "movement": {"empty": "empty"}
+      }
     },
-    "x": 207,
+    "x": 215,
     "width": 50,
-    "y": 210,
+    "y": 164,
     "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-    "height": 1000,
-    "Shit":true
+    "height": 50
   }
 }

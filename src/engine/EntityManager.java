@@ -1,21 +1,16 @@
 package engine;
 
 import database.ObjectFactory;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
 import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.*;
-import engine.events.MouseDragEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
-import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.BGMessage;
@@ -120,6 +115,8 @@ public class EntityManager {
      * @param pos
      */
     public void addBG(Vector pos) {
+//        System.out.println(root.getChildren().size());
+//        System.out.println(currentLevel.getChildren().get(0));
         if (mode == 0 && !isGaming) {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
@@ -190,8 +187,8 @@ public class EntityManager {
      */
     public void clearOnLayer() {
         if (mode == 0) currentLevel.getChildren().get(0).clearLayer();
-        if(mode == -1) currentLevel.getChildren().forEach(e -> e.clearLayer());
-        currentLevel.getChildren().get(mode).clearLayer();
+        else if(mode == -1) currentLevel.getChildren().forEach(e -> e.clearLayer());
+        else currentLevel.getChildren().get(mode).clearLayer();
     }
 
     private void select(Entity layer) {
@@ -282,7 +279,11 @@ public class EntityManager {
             new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist").displayError();
             return currentLevel;
         }
+        System.out.println("changing level in entity");
+
         if (currentLevel.equals(levels.get(level))) {
+            System.out.println("level change to same level");
+            camera.changeLevel(currentLevel);
             return currentLevel;
         }
         currentLevel = levels.get(level);
