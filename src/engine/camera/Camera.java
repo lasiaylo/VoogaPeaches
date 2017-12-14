@@ -70,7 +70,11 @@ public class Camera {
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
-        view.getContent().setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
+        System.out.println("new level " + level);
+        view.setOnKeyPressed(e -> {
+            System.out.println("hell yeah");
+            new KeyPressEvent(e).recursiveFire(level);
+        });
         currentLevel = level;
     }
 

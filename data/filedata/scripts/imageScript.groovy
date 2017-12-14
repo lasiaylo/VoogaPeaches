@@ -3,20 +3,28 @@ package scripts
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
 import engine.entities.Entity
-import engine.events.*
+import engine.events.ClickEvent
+import engine.events.DragExitedEvent
+import engine.events.Event
+import engine.events.EventType
+import engine.events.ImageViewEvent
+import engine.events.InitialImageEvent
+import engine.events.KeyPressEvent
+import engine.events.MouseDragEvent
+import engine.events.MousePressedEvent
+import engine.events.TransparentMouseEvent
+import engine.events.ViewVisEvent
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
-import main.VoogaPeaches
 import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.EntityPass
 
 import java.util.stream.Collectors
-
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
@@ -29,15 +37,15 @@ import java.util.stream.Collectors
     pointer.setY(((double) entity.getProperty("y")))
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
+    pointer.setOnMouseClicked({e ->
+        new ClickEvent(false, e).fire(entity)
+    })
     //boolean dragged = false
 
-   //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
-    pointer.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            { e -> new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
-    pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED,
-            {e -> new MouseDragEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
-    pointer.addEventHandler(KeyEvent.KEY_PRESSED,
-            { e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, VoogaPeaches.getIsGaming()).fire(entity)})
+    //pointer.setOnMouseDragged({e -> new MouseDragEvent(false, e).fire(entity)})
+    pointer.setOnMousePressed({e -> new MouseDragEvent(false, e).fire(entity)})
+    pointer.setOnKeyPressed({e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
+    //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
@@ -52,22 +60,21 @@ import java.util.stream.Collectors
         }).collect(Collectors.toList())
 
         imagePathList.forEach({ String path ->
-            entity.getProperty("scripts").get("imageScript").put("image_path", imgEvent.getPath())
-            originalPath = imgEvent.getPath()
+            entity.getProperty("scripts").get(path).put("image_path", imgEvent.getPath())
+            originalPath = path
         })
     })
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-
-        pointer.setFitWidth(entity.getProperty("width"))
-        pointer.setFitHeight(entity.getProperty("height"))
-
+        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
+        entity.setProperty("width", iEvent.getMyGridSize().at(0))
+        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
+        entity.setProperty("height", iEvent.getMyGridSize().at(1))
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0))
         entity.setProperty("y", iEvent.getMyPos().at(1))
-        new ImageViewEvent(originalPath).fire(entity)
     })
 
     entity.on(EventType.TRANSPARENT_MOUSE.getType(), { Event call ->
@@ -80,16 +87,12 @@ import java.util.stream.Collectors
         pointer.setVisible(visEvent.getBool())
     })
 
-   entity.on(EventType.CLICK.getType(), { Event call ->
+    entity.on(EventType.CLICK.getType(), { Event call ->
         ClickEvent cEvent = (ClickEvent) call
         if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
-<<<<<<< HEAD:data/scripts/imageScript.groovy
-            println("focus")
-=======
-            println("here bitch boi")
->>>>>>> 77b93ee77f0f9368c65f197d88fc9264c4390a7a:data/filedata/scripts/imageScript.groovy
             if(!entity.getProperties().getOrDefault("bg", false)) {
+                //entity = entity.substitute()
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
         }
@@ -98,11 +101,10 @@ import java.util.stream.Collectors
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
-        println("delete")
-        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getKeyCode())) {
-            println("delete")
+        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
             entity.getParent().remove(entity)
         }
+
     })
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
@@ -135,7 +137,6 @@ import java.util.stream.Collectors
                         fsize.at(1, 0.1)
                     }
                     pointer.setFitWidth(fsize.at(0))
-                    println("lower")
                     pointer.setFitHeight(fsize.at(1))
                     entity.setProperty("width", fsize.at(0));
                     entity.setProperty("height", fsize.at(1));
@@ -145,9 +146,73 @@ import java.util.stream.Collectors
             })
             pointer.setOnMouseReleased({ e ->
                 entity = entity.substitute()
-                pointer.requestFocus()
             })
         }
         dEvent.getEvent().consume()
+
+
     })
+
+//    entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
+//        MouseDragEvent dEvent = (MouseDragEvent) call
+//        if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
+//            pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
+//            MouseEvent e = dEvent.getEvent()
+//            if (e.getButton().equals(MouseButton.PRIMARY)) {
+//                def xPos = e.getX()
+//                def yPos = e.getY()
+//                //LOL there is actually a bug here, if you try to drag over the right bound and lower bound
+//                if (e.getX() < 0) {
+//                    xPos = pointer.getFitWidth() / 2
+//                }
+//                if (e.getY() < 0) {
+//                    yPos = pointer.getFitHeight() / 2
+//                }
+//                pointer.setX((xPos - pointer.getFitWidth()/2).doubleValue())
+//                pointer.setY((yPos - pointer.getFitHeight()/2).doubleValue())
+//                entity.setProperty("x", xPos)
+//                entity.setProperty("y", yPos)
+//            } else if (e.getButton().equals(MouseButton.SECONDARY)) {
+//                def change = (new Vector(e.getX(), e.getY())).subtract(dEvent.getMyStartPos())
+//                println(change)
+//                def fsize = change.add(dEvent.getMyStartSize())
+//                if (fsize.at(0) < 0) {
+//                    fsize.at(0, 0.1)
+//                }
+//                if (fsize.at(1) < 0) {
+//                    fsize.at(1, 0.1)
+//                }
+//                pointer.setFitWidth(fsize.at(0))
+//                pointer.setFitHeight(fsize.at(1))
+//                entity.setProperty("width", fsize.at(0));
+//                entity.setProperty("height", fsize.at(1));
+//
+//                entity = entity.substitute()
+//            }
+//        }
+//        dEvent.getEvent().consume()
+//        dragged = true
+//    })
+
+//    entity.on(EventType.DRAG_EXITED.getType(), { Event call ->
+//        DragExitedEvent exitEvent = (DragExitedEvent) call
+//        if(dragged) {
+//            entity = entity.substitute()
+//        }
+//        exitEvent.getMouseEvent().consume()
+//    })
+
+//    entity.on(EventType.MOUSE_PRESS.getType(), { Event call ->
+//        MousePressedEvent dEvent = (MousePressedEvent) call
+//        pointer.setOnMouseDragged({e -> new MouseDragEvent(false, e,
+//                new Vector(dEvent.getMouseEvent().getX(), dEvent.getMouseEvent().getY()),
+//                new Vector(pointer.getFitWidth(), pointer.getFitHeight())).fire(entity)})
+//        dEvent.getMouseEvent().consume()
+//        //todo image scaling
+//    })
+
+//    if(!((boolean) getProperties().getOrDefault("bg", false))) {
+//        new InitialImageEvent(new Vector((double) entity.getProperty("width"), (double) entity.getProperty("height")),
+//                new Vector((double) entity.getProperty("x"), (double) entity.getProperty("y"))).fire(entity)
+//    }
 }
