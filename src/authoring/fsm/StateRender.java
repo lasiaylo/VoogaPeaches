@@ -28,7 +28,6 @@ public class StateRender extends TrackableObject implements Updatable {
     @Expose private String myTitle;
     @Expose private Map<String, Object> myInfo;
     @Expose private SavedStateRender mySave;
-
     private List<Arrow> myLeavingTransitions = new ArrayList<>();
     private Rectangle myRender = new Rectangle();
     private GraphDelegate myGraph;
@@ -36,24 +35,24 @@ public class StateRender extends TrackableObject implements Updatable {
     private FlowPane flow;
     private Label myLabel;
 
-    public StateRender(Double X, Double Y, String title, GraphDelegate graph) {
+    StateRender(Double X, Double Y, String title, GraphDelegate graph) {
         myInfo = new HashMap<>();
         myTitle = title;
         myGraph = graph;
         initRender(X, Y);
     }
 
+    private StateRender() {}
+
     private void initRender(Double X, Double Y) {
         myLabel = new Label(myTitle);
         myRender.setFill(ERROR);
         myRender.setX(X);
         myRender.setY(Y);
-        myRender.heightProperty().bind(myLabel.heightProperty().add(PADDING));
-        myRender.widthProperty().bind(myLabel.widthProperty().add(PADDING));
+        myRender.setWidth(PADDING);
+        myRender.setHeight(PADDING);
         myRender.setOnMouseClicked(e -> onClick());
     }
-
-    private StateRender() {}
 
     public void onClick() {
         if (deleting) { return; }
@@ -107,7 +106,6 @@ public class StateRender extends TrackableObject implements Updatable {
         data.put("properties", myInfo);
         Map<String, Object> transitions = new LinkedHashMap<>();
         for(Arrow arrow: myLeavingTransitions) {
-            System.out.println("Transition");
             transitions.put(arrow.getDestination().getName(), arrow.getMyCode());
         }
         data.put("transitions", transitions);

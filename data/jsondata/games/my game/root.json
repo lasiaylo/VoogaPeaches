@@ -1,0 +1,129 @@
+{
+  "UID": "9e182437401a48c1a56e343894fc3079",
+  "children": [{
+    "UID": "de0caf15899447e79472a1086fddad10",
+    "children": [
+      {
+        "UID": "8b37c08a53b345b1a2ade0dee19ab4ef",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "f6c116e73d6b461fa92a0b542923a4cc",
+        "children": [
+          {
+            "UID": "2941aabc8225443cb60061d30486b13f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 124,
+              "y": 156,
+              "scripts": {"imageScript": {"image_path": "Duvall/duvall3.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a6c6cff2e61e49ff9e0adec45403f0c4",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 685,
+              "y": 372,
+              "scripts": {"imageScript": {"image_path": "Player/down.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1f9bb21c3143488dae50ff67e43863ab",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 685,
+              "y": 336,
+              "scripts": {"imageScript": {"image_path": "Player/up.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "3f5da843202b41958a64eed17963249d",
+        "children": [{
+          "UID": "930d5e68591b47f3b053c784d5f30e96",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"update_position": {"empty": "empty"}},
+              "tick": {"move": {"empty": "empty"}},
+              "key press": {"movement": {"empty": "empty"}}
+            },
+            "x": 178,
+            "width": 50,
+            "y": 126,
+            "scripts": {"imageScript": {"image_path": "user_images/lupus-video.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

@@ -22,8 +22,7 @@ public class EventProperties {
         myMap = map;
         myPanel = panel;
         for (String name : map.keySet()) {
-            eventBox.getChildren().add(
-                    makePane(name));
+            eventBox.getChildren().add(makePane(name));
         }
 
         eventBox.getChildren().add(new EventButton(map,panel).getNode());
