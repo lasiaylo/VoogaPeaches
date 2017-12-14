@@ -10,8 +10,12 @@ entity = (Entity) entity;
 
 entity.on(EventType.MOVE.getType(), { Event event ->
     MoveEvent moveEvent = (MoveEvent) event
-    entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx() ))
-    entity.setProperty("y", new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy() ))
+    println(new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx()))
+    println(new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy()))
+    if(new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx()) > 0)
+        entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx() ))
+    if(new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy()) > 0)
+        entity.setProperty("y", new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy() ))
     entity.getNodes().relocate(entity.getProperty("x"), entity.getProperty("y"))
     for(HitBox hitBox : entity.getHitBoxes()) {
         hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
