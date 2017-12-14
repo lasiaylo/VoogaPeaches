@@ -1,14 +1,19 @@
 package authoring.panels.attributes;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
-import javafx.scene.input.*;
-import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import database.jsonhelpers.JSONDataManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 
 public class ListField extends Field {
 

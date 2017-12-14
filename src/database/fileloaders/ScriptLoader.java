@@ -3,6 +3,7 @@ package database.fileloaders;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
+import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,33 +17,34 @@ import java.util.Map;
  * A class for caching Groovy scripts created by the user so
  * that unnecessary I/O is not constantly being performed,
  * which would waste resources
- *
- * @author Ramil
  */
 public class ScriptLoader {
 
     /* Final Variables */
-    private static final String SCRIPT_PATH = "./data/filedata/scripts/";
-
-    private static  Map<String, Closure> CACHED_SCRIPTS;
+    private static final String SCRIPT_PATH = "./data/scripts/";
+    private static final Map<String, Closure> CACHED_SCRIPTS = cache(SCRIPT_PATH);
 
     /**
      * Caches all the scripts in a directory recursively
      *
+     * @param path: path to file
      * @return {@code Map<String, String>} of loaded groovy script strings
      * corresponding to the name of a groovy script
      */
-    public static void cache() {
+    private static Map<String, Closure> cache(String path) {
         Map<String, Closure> cache = new HashMap<>();
-        File directory = new File(SCRIPT_PATH);
+        File directory = new File(path);
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[]{"groovy"}, true);
         File file;
         GroovyShell shell = new GroovyShell();
+
         while (iterator.hasNext() && (file = iterator.next()) != null)
             try {
-                cache.put(file.getPath().substring(SCRIPT_PATH.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
-            } catch (Exception e) {}
-        CACHED_SCRIPTS = cache;
+                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
+            } catch (Exception e) {
+                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(""));
+            }
+        return cache;
     }
 
     /**
@@ -59,11 +61,14 @@ public class ScriptLoader {
         try {
             FileReader fr = new FileReader(groovyFile);
             BufferedReader br = new BufferedReader(fr);
-            while ((line = br.readLine()) != null)
+            while ((line = br.readLine()) != null) {
                 scriptString = scriptString + line + "\n";
+            }
             br.close();
             return scriptString;
-        } catch (IOException e) { return ""; }
+        } catch (IOException e) {
+            return "";
+        }
     }
 
     /**

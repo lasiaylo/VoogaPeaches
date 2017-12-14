@@ -2,20 +2,17 @@ package database.jsonhelpers;
 
 import util.PropertiesReader;
 
+
 /**
  * Enum defining the different folders in the data folder of the
  * project where json files can be read and written from by the
  * JSONDataManager class
- *
- * @author Walker Willettss
  */
 public enum JSONDataFolders {
-
     GAMES("games"),
     IMAGES("images"),
     USER_SETTINGS("user_settings"),
     ENTITY_BLUEPRINT("entity_blueprints"),
-    DEFAULT_USER_ENTITY("../../resources/default_blueprints"),
     USER_DEFINED_ENTITY("entity_blueprints/user_defined"),
     FSM("fsm");
 

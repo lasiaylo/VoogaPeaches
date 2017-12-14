@@ -34,17 +34,11 @@ public abstract class Evented extends TrackableObject {
             callbacks = new HashMap<>();
             return;
         } else if(!callbacks.containsKey(event.getType())) {
-            callbacks.put(event.getType(), new HashSet<>());
             return;
         }
 
-        for (Consumer<Event> callback : callbacks.get(event.getType())) {
-            try {
-                callback.accept(event);
-            } catch(NullPointerException e) {
-                // do nothing
-            }
-        }
+        for (Consumer<Event> callback : callbacks.get(event.getType()))
+            callback.accept(event);
     }
 
     protected void clear() {
