@@ -1,9 +1,11 @@
 package authoring.panels.attributes;
 
-import util.exceptions.GroovyInstantiationException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import javafx.scene.Node;
+import javafx.scene.control.Control;
+import util.exceptions.GroovyInstantiationException;
 
 /**A Setter that sets an object's field to what is inputted from the user
  * @author lasia

@@ -23,7 +23,6 @@ public abstract class FirebaseConnector {
     /* Static Variables */
     private static boolean appInitialized = false;
     private static FirebaseApp app;
-
     /**
      * Initializes the FirebaseApp if it hasn't been already. Should only
      * ever be called by subclasses within the database package.
@@ -47,7 +46,9 @@ public abstract class FirebaseConnector {
                     .build();
             app = FirebaseApp.initializeApp(options);
             appInitialized = true;
-        } catch (Exception e) { new ErrorDisplay("Firebase Error", "Could not initialize firebase").displayError(); }
+        } catch (Exception e) {
+            new ErrorDisplay("Firebase Error", "Could not initialize firebase").displayError();
+        }
     }
 
     /**

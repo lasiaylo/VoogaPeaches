@@ -25,7 +25,7 @@ public class EntityMappingActionTest extends Application{
         Group group = new Group();
         Scene s = new Scene(group);
         s.setOnKeyPressed(e -> {
-            new KeyPressEvent(e).fire(entityFromFile);
+            new KeyPressEvent(e.getCode()).fire(entityFromFile);
         });
 
         primaryStage.setScene(s);

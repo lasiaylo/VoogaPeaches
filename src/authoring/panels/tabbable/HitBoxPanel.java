@@ -72,6 +72,7 @@ public class HitBoxPanel implements Panel {
         hitboxes = entity.getHitBoxes();
         hitboxSelection.getItems().clear();
         createComboBox();
+
         options.getColumnConstraints().addAll(
                 new ColumnConstraints(region.getWidth() * OPTION_WIDTH_RATIO), new ColumnConstraints(region.getWidth()* OPTIONS_WIDTH_RATIO));
         hitboxNameField.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());

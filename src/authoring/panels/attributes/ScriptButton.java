@@ -1,14 +1,20 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.PropertiesPanel;
+import database.jsonhelpers.JSONDataManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import org.apache.commons.io.FilenameUtils;
 import util.PropertiesReader;
 import util.exceptions.GroovyInstantiationException;
 
 import java.io.File;
-import java.util.Map;
+import java.util.*;
 
 public class ScriptButton {
 

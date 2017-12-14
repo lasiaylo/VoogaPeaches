@@ -1,13 +1,13 @@
 package authoring.panels.attributes;
 
-import util.ErrorDisplay;
-import util.PropertiesReader;
-import util.exceptions.GroovyInstantiationException;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.ResourceBundle;
+
+import util.PropertiesReader;
+import util.exceptions.GroovyInstantiationException;
 
 /**Creates a particular subclass of Field depending on the class of what the Field is setting
  * @author lasia
@@ -73,25 +73,19 @@ public class FieldFactory {
 			Field field = (Field) ctor.newInstance(set);
 			return field;
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-
+			e.printStackTrace();
 			throw new GroovyInstantiationException();
 		}
 	}
 	
 	private static String determineType(Object obj) {
-		try {
-			Class<?> clazz = obj.getClass();
-			if (clazz.equals(String.class)) {
-				String string = (String) obj;
-				if (string.matches(REGEX_MATCHING_STRING)) {
-					return PropertiesReader.value(FIELD, IMAGE);
-				}
+		Class<?> clazz = obj.getClass();
+		if (clazz.equals(String.class)){
+			String string = (String) obj;
+			if (string.matches(REGEX_MATCHING_STRING)){
+				return PropertiesReader.value(FIELD, IMAGE);
 			}
-			return PropertiesReader.value(FIELD, clazz.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-			new ErrorDisplay("Field Factory Error", "Did not recognize the field: " + obj.getClass().toString()).displayError();
 		}
-		return null;
+		return PropertiesReader.value(FIELD, clazz.toString());
 	}
 }

@@ -1,7 +1,6 @@
 package database.jsonhelpers;
 
 import org.json.JSONObject;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,7 +50,9 @@ public class JSONDataManager {
             writer.write(obj.toString(2));
             writer.flush();
             return true;
-        } catch (Exception e) { return false; }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**

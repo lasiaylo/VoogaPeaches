@@ -6,10 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Simran
- * @author Ramil
- */
 public class FSM {
     private Map<String, State> map;
     private State current;

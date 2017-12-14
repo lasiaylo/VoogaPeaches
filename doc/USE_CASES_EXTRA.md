@@ -51,9 +51,9 @@
 * Develop workspace theme inside Authoring
     * Primary Actor: StyleSettingsPanel
     * User opens the panel, which loads current style settings and allows user to edit and save changes, after some validation.
-* Ability to scripts.print to console on events (for debugging / testing)
+* Ability to print to console on events (for debugging / testing)
     * Primary Actor: ConsolePanel
-    * User can attach scripts.print scripts to entities or events that scripts.print specified variables / text to the console panel while the game is running in the authoring environment.
+    * User can attach print scripts to entities or events that print specified variables / text to the console panel while the game is running in the authoring environment.
 * Multiplayer Chat Functionality
     * Primary Actor: MultiplayerChatPanel, DatabaseConnector
     * User specifies whether multiplayer chat is enabled, and if so the game will pass messages over the database in real time to be viewed. The panel will allow the user to specify where the chat appears (above an entity, etc).

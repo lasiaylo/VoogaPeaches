@@ -46,18 +46,10 @@ public abstract class TrackableObject {
      */
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
 
-    /**
-     * @return A {@code String} representing the UID of the TrackableObject this is called on
-     */
     public String UIDforObject() {
         return this.UID;
     }
 
-    /**
-     * Replaces the TrackableObject being saved with the passed in UID with the object that the method
-     * is called on
-     * @param UID is a {@code String} representing the UID of the object to be replaced
-     */
     public void replaceUID(String UID) {
         trackableObjects.remove(this.UID);
         this.UID = UID;
@@ -75,10 +67,6 @@ public abstract class TrackableObject {
         return true;
     }
 
-    /**
-     * Stops keeping track of the TrackableObject with the specified UID
-     * @param UID is a {@code String} representing the UID of the object to stop tracking
-     */
     public static void stopTrackingTrackableObject(String UID){
         trackableObjects.remove(UID);
     }
