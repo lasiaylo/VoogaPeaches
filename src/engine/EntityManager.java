@@ -184,8 +184,8 @@ public class EntityManager {
      */
     public void clearOnLayer() {
         if (mode == 0) currentLevel.getChildren().get(0).clearLayer();
-        if(mode == -1) currentLevel.getChildren().forEach(e -> e.clearLayer());
-        currentLevel.getChildren().get(mode).clearLayer();
+        else if(mode == -1) currentLevel.getChildren().forEach(e -> e.clearLayer());
+        else currentLevel.getChildren().get(mode).clearLayer();
     }
 
     private void select(Entity layer) {

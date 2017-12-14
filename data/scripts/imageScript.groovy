@@ -92,6 +92,7 @@ import java.util.stream.Collectors
         ClickEvent cEvent = (ClickEvent) call
         if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
+            println("focus")
             if(!entity.getProperties().getOrDefault("bg", false)) {
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
@@ -101,8 +102,10 @@ import java.util.stream.Collectors
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
-        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
-                entity.getParent().remove(entity)
+        println("delete")
+        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getKeyCode())) {
+            println("delete")
+            entity.getParent().remove(entity)
         }
 
     })
@@ -146,6 +149,7 @@ import java.util.stream.Collectors
             })
             pointer.setOnMouseReleased({ e ->
                 entity = entity.substitute()
+                pointer.requestFocus()
             })
         }
         dEvent.getEvent().consume()
