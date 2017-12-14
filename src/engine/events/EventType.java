@@ -20,6 +20,7 @@ public enum EventType {
     MAPSETUP("map setup"),
     GAMING("setup gaming"),
     STEP("FSM Stepping"),
+    SUBSTITUTE("substitute"),
     UPDATE_IMAGE("update_image");
 
     private String type;

@@ -145,6 +145,7 @@ public class Entity extends Evented {
                 entity.add(child.substitute());
 
         entity.initialize();
+        new SubstituteEvent(entity).fire(entity);
         return entity;
     }
 
