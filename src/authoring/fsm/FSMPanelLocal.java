@@ -30,7 +30,6 @@ public class FSMPanelLocal implements UpdatablePanel {
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
     private List<FSMGraph> allGraphs;
-    private Entity currentEntity;
     private Map<Entity, List<FSMGraph>> myMap = new HashMap<>();
 
     public FSMPanelLocal() {
@@ -40,7 +39,6 @@ public class FSMPanelLocal implements UpdatablePanel {
     }
 
     private void newEntityClicked(EntityPass message) {
-        currentEntity = message.getEntity();
         init();
     }
 

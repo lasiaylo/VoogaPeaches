@@ -1,7 +1,8 @@
 package authoring.panels.tabbable;
 
+import authoring.Panel;
 import authoring.fsm.FSMGraph;
-import authoring.panels.attributes.UpdatablePanel;
+import authoring.panels.attributes.Updatable;
 import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FSMPanel implements UpdatablePanel {
+public class FSMPanel implements Panel, Updatable {
 
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
@@ -110,9 +111,6 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     @Override
-    public void updateProperties() { }
-
-    @Override
     public Region getRegion() {
         return box;
     }
@@ -146,5 +144,10 @@ public class FSMPanel implements UpdatablePanel {
     @Override
     public String title() {
         return TITLE;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

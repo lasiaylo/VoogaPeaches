@@ -63,11 +63,11 @@ public class GameSaver {
         setupFSMPubsub();
     }
 
-    private void saveFSM() {
+    private void saveFSM(FSMSaveMessage message) {
     }
 
     private void setupFSMPubsub() {
-        PubSub.getInstance().subscribe();
+        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveFSM((FSMSaveMessage) message));
         PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(null));
     }
 
