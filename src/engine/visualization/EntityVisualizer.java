@@ -136,7 +136,7 @@ public class EntityVisualizer {
         double centerX = lineEndX + RADIUS * Math.cos(angle);
         double centerY = lineEndY + RADIUS * Math.sin(angle);
         Circle newCircle = new Circle(centerX, centerY, RADIUS);
-        Stop[] stops = new Stop[] { new Stop(0.5f, Color.WHITE), new Stop(0.7f, Color.RED), new Stop(0.9f, Color.MAROON)};
+        Stop[] stops = new Stop[] { new Stop(0.5f, Color.WHITE), new Stop(0.7f, Color.SILVER), new Stop(0.9f, Color.GRAY)};
         RadialGradient rg = new RadialGradient(270, 0.8, 0.5, 0.5, 0.7, true, CycleMethod.NO_CYCLE, stops);
         newCircle.setFill(rg);
         //newCircle.setFill(Color.ORCHID);
