@@ -67,9 +67,9 @@ public class FSMPanel implements Panel, Updatable {
 
     private void init() {
         box.getChildren().clear();
-        createGraphs();
-        createAddButton();
-        createGraphButtons();
+//        createGraphs();
+//        createAddButton();
+//        createGraphButtons();
     }
 
     private void createGraphButtons() {
@@ -147,7 +147,5 @@ public class FSMPanel implements Panel, Updatable {
     }
 
     @Override
-    public void update() {
-
-    }
+    public void update() { }
 }
