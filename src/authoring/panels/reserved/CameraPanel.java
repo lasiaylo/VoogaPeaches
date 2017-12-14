@@ -166,10 +166,13 @@ public class CameraPanel implements Panel {
 	 * used to switch between layers (levels/non contiguous) parts of the map
 	 */
 	private void changeLayer() {
+		System.out.println("CHANGING LAYER");
 	    if (!currentLevel.equals(myManager.getCurrentLevel())) {
 	        updateLevel();
         }
-        System.out.println("layer button size " + myLayer.getChildrenUnmodifiable().size());
+        System.out.println("layer button size " + myLayer.getItems().size());
+	    System.out.println(myLayer.getItems());
+	    System.out.println(myLayer.getValue());
 		myOption = myLayer.getValue();
 		switch (myOption) {
 			case NEWL:
@@ -209,12 +212,13 @@ public class CameraPanel implements Panel {
 
 	public void updateLevel() {
 	    currentLevel = myManager.getCurrentLevel();
+	    myLayer.setOnAction(e -> {});
 		myLayer.getItems().clear();
 		myLayer.getItems().addAll(ALLL, BGL);
-		System.out.println("current level button " + currentLevel.getChildren().size());
 		if (currentLevel.getChildren().size() == 1) {
             myLayer.getItems().add(NEWL);
-            myLayer.getSelectionModel().selectFirst();
+			myLayer.setOnAction(e -> changeLayer());
+			myLayer.getSelectionModel().selectFirst();
 		    return;
         }
         int i;
@@ -223,6 +227,7 @@ public class CameraPanel implements Panel {
 		}
 		layerC = i;
 		myLayer.getItems().add(NEWL);
+		myLayer.setOnAction(e -> changeLayer());
 		myLayer.getSelectionModel().selectFirst();
 	}
 

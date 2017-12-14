@@ -71,10 +71,10 @@ public class Camera {
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
         System.out.println("new level " + level);
-        view.setOnKeyPressed(e -> {
-            System.out.println("hell yeah");
-            new KeyPressEvent(e).recursiveFire(level);
-        });
+//        view.setOnKeyPressed(e -> {
+//            System.out.println("hell yeah");
+//            new KeyPressEvent(e).recursiveFire(level);
+//        });
         currentLevel = level;
     }
 
@@ -115,18 +115,18 @@ public class Camera {
     }
 
     private void vScroll(double num) {
-        view.setVmin(num);
-        view.setVmax(num);
+        view.setVmin(0);
+        view.setVmax(1);
         view.setVvalue(num);
-        view.vminProperty().bind(view.vvalueProperty());
-        view.vmaxProperty().bind(view.vvalueProperty());
+//        view.vminProperty().bind(view.vvalueProperty());
+//        view.vmaxProperty().bind(view.vvalueProperty());
     }
 
     private void hScroll(double num) {
-        view.setHmax(num);
-        view.setHmin(num);
+        view.setHmax(1);
+        view.setHmin(0);
         view.setHvalue(num);
-        view.hminProperty().bind(view.hvalueProperty());
-        view.hmaxProperty().bind(view.hvalueProperty());
+//        view.hminProperty().bind(view.hvalueProperty());
+//        view.hmaxProperty().bind(view.hvalueProperty());
     }
 }
