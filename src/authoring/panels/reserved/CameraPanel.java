@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import util.ErrorDisplay;
 import util.pubsub.PubSub;
 
 /**
@@ -128,6 +129,10 @@ public class CameraPanel implements Panel {
 
 		myClear.setOnMouseClicked(e -> myManager.clearOnLayer());
 		myDelete.setOnMouseClicked(e -> {
+			if (myLayer.getValue().equals(BGL)) {
+			    new ErrorDisplay("Layer Error", "Cannot delete background layer").displayError();
+			    return;
+            }
 		    myManager.deleteLayer();
 		    myLayer.getItems().remove(myLayer.getValue());
 		    myLayer.getSelectionModel().clearAndSelect(1);
