@@ -67,7 +67,6 @@ public class Camera {
 //        if (currentLevel.getNodes().getChildren().size() == 0) {
 //            System.out.println(currentLevel.getNodes().getChildren().size());
 //        }
-        System.out.println("changing level in camera");
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
@@ -77,7 +76,6 @@ public class Camera {
             new KeyPressEvent(e).recursiveFire(level);
         });
         currentLevel = level;
-        System.out.println("changed level in camera");
     }
 
     public Pane getMinimap(Vector size) {

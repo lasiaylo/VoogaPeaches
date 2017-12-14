@@ -49,9 +49,7 @@ class EntityScriptFactory {
     private static Closure parse(Entity entity, Map<String, Object> bindings, Map.Entry entry) {
         String name = (String) entry.getKey();
         Map params = (Map) entry.getValue();
-
         addBindings(entity, params, bindings);
-        System.out.println("script loaded " + name);
         return ScriptLoader.getScript(name);
     }
 
