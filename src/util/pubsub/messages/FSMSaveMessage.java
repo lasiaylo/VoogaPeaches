@@ -1,18 +1,17 @@
 package util.pubsub.messages;
 
 import authoring.fsm.FSMGraph;
-import engine.entities.Entity;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class FSMSaveMessage extends Message {
 
-    private Map<Entity, List<FSMGraph>> FSMmap;
+    private Map<String, Set<FSMGraph>> FSMmap;
 
-    public FSMSaveMessage(Map<Entity, List<FSMGraph>> FSMmap) {
+    public FSMSaveMessage(Map<String, Set<FSMGraph>> FSMmap) {
         this.FSMmap = FSMmap;
     }
 
-    public Map<Entity, List<FSMGraph>> getFSMmap() { return FSMmap; }
+    public Map<String, Set<FSMGraph>> getFSMmap() { return FSMmap; }
 }

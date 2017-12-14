@@ -3,7 +3,6 @@ package authoring.panels.tabbable;
 import authoring.Panel;
 import authoring.fsm.FSMGraph;
 import authoring.panels.attributes.Updatable;
-import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,25 +14,38 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
+import util.pubsub.messages.FSMGraphMessage;
 import util.pubsub.messages.FSMMessage;
 import util.pubsub.messages.FSMSaveMessage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FSMPanel implements Panel, Updatable {
 
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
-    private Entity currentEntity;
-    private Map<Entity, List<FSMGraph>> myMap = new HashMap<>();
+    private String currentEntity;
+    private Map<String, Set<FSMGraph>> myMap = new HashMap<>();
 
     public FSMPanel() {
-        init();
         PubSub.getInstance().subscribe("FSM", message -> publishFSM((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
         PubSub.getInstance().subscribe("SAVE_FSM", message -> saveRequested((FSMSaveMessage) message));
+        PubSub.getInstance().subscribe("LOAD_FSM", message -> loadMap((FSMSaveMessage) message));
+        PubSub.getInstance().subscribe("FSM_GRAPH", message -> saveGraph((FSMGraphMessage) message));
+        init();
+    }
+
+    private void saveGraph(FSMGraphMessage message) {
+        Set<FSMGraph> values = myMap.getOrDefault(currentEntity, new HashSet<>());
+        values.add(message.getGraph());
+        myMap.put(currentEntity, values);
+        init();
+    }
+
+    private void loadMap(FSMSaveMessage message) {
+        myMap = message.getFSMmap();
+        init();
     }
 
     private void saveRequested(FSMSaveMessage message) {
@@ -43,7 +55,7 @@ public class FSMPanel implements Panel, Updatable {
     }
 
     private void newEntityClicked(EntityPass message) {
-        currentEntity = message.getEntity();
+        currentEntity = message.getEntity().UIDforObject();
         init();
     }
 
@@ -67,12 +79,12 @@ public class FSMPanel implements Panel, Updatable {
 
     private void init() {
         box.getChildren().clear();
-//        createGraphs();
-//        createAddButton();
-//        createGraphButtons();
+        createAddButton();
+        createGraphButtons();
     }
 
     private void createGraphButtons() {
+        if (currentEntity == null || myMap.get(currentEntity) == null) { return; }
         for(FSMGraph graph: myMap.get(currentEntity)) {
             Button button = new Button(graph.getMyName());
             button.setMinHeight(50);
@@ -94,6 +106,7 @@ public class FSMPanel implements Panel, Updatable {
     }
 
     private void closeGraph(FSMGraph graph, Group wrapper) {
+        System.out.println("graph closed properly");
         wrapper.getChildren().clear();
         graph.export();
         init();
@@ -105,9 +118,6 @@ public class FSMPanel implements Panel, Updatable {
         button.setMinWidth(50);
         button.setOnMouseClicked(e -> prompt());
         box.getChildren().add(button);
-    }
-
-    private void createGraphs() {
     }
 
     @Override
@@ -137,8 +147,15 @@ public class FSMPanel implements Panel, Updatable {
 
     private void createNewFSM(String name, Button start) {
         ((Stage) start.getScene().getWindow()).close();
+        if (currentEntity == null) {
+            createError();
+            return;
+        }
         FSMGraph graph = new FSMGraph(name);
         readGraph(graph);
+    }
+
+    private void createError() {
     }
 
     @Override
