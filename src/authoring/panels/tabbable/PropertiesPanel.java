@@ -51,6 +51,7 @@ public class PropertiesPanel implements Panel,Updatable {
 		PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
 			EntityPass ePass = (EntityPass) e;
 			try {
+			    System.out.println(((EntityPass) e).getEntity().getProperties());
 				this.updateProperties(ePass.getEntity());
 			} catch (GroovyInstantiationException exception) {
 				new ErrorDisplay(GROOVY_ERROR, GROOVY_ERROR_PROMPT).displayError();

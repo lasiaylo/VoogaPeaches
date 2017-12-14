@@ -1,19 +1,16 @@
 package engine;
 
 import database.ObjectFactory;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
 import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONDataFolders;
 import engine.camera.Camera;
 import engine.entities.Entity;
 import engine.events.*;
-import engine.events.MouseDragEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
 import util.ErrorDisplay;
-import util.exceptions.ObjectBlueprintNotFoundException;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
 import util.pubsub.messages.BGMessage;
@@ -49,10 +46,14 @@ public class EntityManager {
 
 
         setRoot(root);
+
         //writeRootToDatabase(root);
     }
 
     public void setRoot(Entity root) {
+        this.root = root;
+        levels.clear();
+        levelSize.clear();
         setupPubSub();
         setupFactories();
         addLevels();
@@ -80,9 +81,9 @@ public class EntityManager {
     }
 
     private void setupFactories() {
-        BGObjectFactory = new ObjectFactory("BGEntity");
-        layerFactory = new ObjectFactory("layer");
-        levelFactory = new ObjectFactory("level");
+        BGObjectFactory = new ObjectFactory("BGEntity", JSONDataFolders.DEFAULT_USER_ENTITY);
+        layerFactory = new ObjectFactory("layer", JSONDataFolders.DEFAULT_USER_ENTITY);
+        levelFactory = new ObjectFactory("level", JSONDataFolders.DEFAULT_USER_ENTITY);
     }
 
     private void setupPubSub(){
@@ -138,9 +139,9 @@ public class EntityManager {
             if (mode > currentLevel.getChildren().size() - 1) {
                 addLayer();
             }
-
             entity.addTo(currentLevel.getChildren().get(mode));
             new InitialImageEvent(new Vector(grid, grid), pos).fire(entity);
+            entity.substitute();
             //new MouseDragEvent(false).fire(entity);
             //the BGType here should not be applied to the image, mode should check for it
         }
@@ -266,24 +267,27 @@ public class EntityManager {
         addLayer(level);
     }
 
-
-
     /**
      * Change current level
      *
      * @param level: new level
      */
-    public void changeLevel(String level) {
+    public Entity changeLevel(String level) {
         if (!levels.containsKey(level)) {
             new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist").displayError();
-            return;
+            return currentLevel;
         }
+        System.out.println("changing level in entity");
+
         if (currentLevel.equals(levels.get(level))) {
-            return;
+            System.out.println("level change to same level");
+            camera.changeLevel(currentLevel);
+            return currentLevel;
         }
         currentLevel = levels.get(level);
         currentLevelName = level;
         camera.changeLevel(currentLevel);
+        return currentLevel;
     }
 
 
@@ -320,6 +324,8 @@ public class EntityManager {
     public void setIsGaming(boolean gaming) {
         isGaming = gaming;
     }
+
+    public boolean isGaming() { return isGaming; }
 
     public Map<String, Vector> getMap() {
         return levelSize;

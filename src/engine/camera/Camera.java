@@ -3,6 +3,7 @@ package engine.camera;
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
 import javafx.beans.binding.NumberBinding;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
@@ -66,6 +67,7 @@ public class Camera {
 //        if (currentLevel.getNodes().getChildren().size() == 0) {
 //            System.out.println(currentLevel.getNodes().getChildren().size());
 //        }
+        view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
@@ -107,8 +109,6 @@ public class Camera {
 
         event.consume();
     }
-
-
 
     private void vScroll(double num) {
         view.setVmin(num);

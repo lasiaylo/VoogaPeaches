@@ -1,10 +1,10 @@
 {
-  "UID": "36c168d4664f442bb97c0271293c1108",
+  "UID": "5491ce48d7044b8cab4e5c8228193329",
   "children": [{
-    "UID": "7cccc455ea1c42bbad532fadf5ae61b6",
+    "UID": "c10d27032ebf461ea7dccbfcf3198566",
     "children": [
       {
-        "UID": "7c729f7454bb43cca77303eab3f2a4c6",
+        "UID": "0862124f58d94b9abf3733b6753f386c",
         "children": [],
         "hitBoxes": [],
         "properties": {
@@ -14,26 +14,50 @@
         }
       },
       {
-        "UID": "12c7cf75b7934487936b09b3a50a9468",
-        "children": [{
-          "UID": "a166f9b2f0f14fa191de5a1715936f35",
-          "children": [],
-          "hitBoxes": [],
-          "properties": {
-            "vx": 0,
-            "vy": 0,
-            "listeners": {
-              "move": {"base/animate/update_position": {"empty": "empty"}},
-              "tick": {"base/animate/move": {"empty": "empty"}},
-              "key press": {"movement": {"empty": "empty"}}
-            },
-            "x": 500,
-            "width": 50,
-            "y": 200,
-            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-            "height": 50
+        "UID": "5424d09a384a4725bd52efedfd072424",
+        "children": [
+          {
+            "UID": "4b8384e721b84c5682bb4390a3ba5ddd",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 139,
+              "width": 50,
+              "y": 221,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e29ef8db78d94b9a9fa573c498b5c067",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0.1,
+              "vy": -0.1,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "gravity_movement": {"empty": "empt"}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 600.7999999999995,
+              "width": 50,
+              "y": 310.1999999999987,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
           }
-        }],
+        ],
         "hitBoxes": [],
         "properties": {
           "listeners": {"tick": {"loader": {"empty": "empty"}}},

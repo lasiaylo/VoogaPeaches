@@ -120,7 +120,7 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        this.parent.remove(this);
+        if(parent != null) this.parent.remove(this);
         stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
         entity.properties = properties;
@@ -148,17 +148,12 @@ public class Entity extends Evented {
         return entity;
     }
 
-    public void recursiveInitialize(){
-        executeScripts();
-        for(Entity child : children)
-            child.recursiveInitialize();
-    }
-
     @Override
     public void initialize() {
         for(Entity child : children) {
              child.parent = this;
         }
+        clear();
         executeScripts();
     }
 }

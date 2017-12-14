@@ -18,7 +18,6 @@ import java.util.Map;
  * objects within the database.
  *
  * @author Walker Willetts
- *
  */
 public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnector {
 
@@ -80,11 +79,15 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
             if(fieldType == int.class) return new Integer(value.intValue());
             if(fieldType == double.class) return new Double(value.doubleValue());
             return value;
-        } catch (Exception e) {
-            return null;
-        }
+        } catch (Exception e) { return null; }
     }
 
+    /**
+     * Converts a DataSnapshot into the appropriate object
+     * @param snapshot is a {@code DataSnapshot} representing the data
+     *                 retrieved from Firebase for use in making the object
+     * @return An {@code T} object made with the data from firebase
+     */
     public T convertDataSnapshotToObject(DataSnapshot snapshot){
         Map<String, Object> params = parseParameters(snapshot);
         return converter.createObjectFromJSON(myClass, new JSONObject(params));
@@ -139,30 +142,6 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
         currentListener = null;
     }
 
-    public static boolean addToDatabasePath(TrackableObject objectToAdd, String path) throws ObjectIdNotFoundException{
-        JSONObject json = new JSONObject(JSONHelper.JSONForObject(objectToAdd).toString().replace("/","|"));
-        String[] pathItems = path.split("/");
-        if(pathItems.length == 0) return false;
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        for(int i = 0; i < pathItems.length; i++)
-            ref = ref.child(pathItems[i]);
-        try {
-            ref.setValueAsync(JSONHelper.mapFromJSON(json));
-            return true;
-        } catch(JSONException e){ throw new ObjectIdNotFoundException(); }
-    }
-
-    public static boolean removeFromDatabasePath(String path) throws ObjectIdNotFoundException{
-        String[] pathItems = path.split("/");
-        if(pathItems.length == 0) return false;
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        for(int i = 0; i < pathItems.length; i++)
-            ref = ref.child(pathItems[i]);
-        try {
-            ref.removeValueAsync();
-            return true;
-        } catch(JSONException e){ throw new ObjectIdNotFoundException(); }
-    }
     /**
      * Adds an object of type T into the database. Note: If the object
      * is already contained within the database, then it will be overwritten.
@@ -176,19 +155,5 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
             String uid = tempJSON.get("UID").toString();
             dbRef.child(uid).setValueAsync(JSONHelper.jsonMapFromObject(objectToAdd));
         } catch(JSONException e){ throw new ObjectIdNotFoundException(); }
-    }
-
-    /**
-     * Removes the passed in object from the database.
-     * @param objectToRemove is the object you want to remove from the database
-     * @throws ObjectIdNotFoundException if the T object passed to the method
-     * does not contain an id variable marked with the @Expose annotation
-     */
-    public void removeFromDatabase(T objectToRemove) throws ObjectIdNotFoundException {
-        JSONObject tempJSON = JSONHelper.JSONForObject(objectToRemove);
-        try {
-            String uid = tempJSON.get("UID").toString();
-            dbRef.child(uid).removeValueAsync();
-        } catch (JSONException e) { throw new ObjectIdNotFoundException(); }
     }
 }
