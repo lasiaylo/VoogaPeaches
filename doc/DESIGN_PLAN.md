@@ -25,13 +25,13 @@ The game creator will be created in five parts: the authoring environment, playe
 ## User Interface
 * The basis of the authoring environment is the workspace. It defines the layout of panels on the screen, as well as where the embedded camera is displayed.
 * The camera is a representation of the game. This aspect is where you would add different types of blocks or add characters into your game and serves as a good baseline for what the actual player will see when they play the game. In fact, actual playing of the game is actually using the camera but without the rest of the authoring environment attached.
-* TabPanes make up the rest of the authoring environment. These panel areas can hold any given panel, like a library panel, properties, social media, etc. These panels provide the resources to create a game for the user. For scripts.example, the library panel contains all the possible elements you can add to the camera like water squares, grass, etc. The user clicks the type of block they want to add and clicks the square on the camera where they want that new square to be placed.
+* TabPanes make up the rest of the authoring environment. These panel areas can hold any given panel, like a library panel, properties, social media, etc. These panels provide the resources to create a game for the user. For example, the library panel contains all the possible elements you can add to the camera like water squares, grass, etc. The user clicks the type of block they want to add and clicks the square on the camera where they want that new square to be placed.
 
 User Customizability:
 * Workspace: The user can choose a workspace as well as the settings for that workspace (Such as the division of its tabpanes on the screen). The location of each of the panels also dynamically changeable and saved for each user.
 * Themes: There will be multiple types of themes that allow the user to choose the cool color designs they might want to use. This affects the look and feel of the authoring enviroment.
 
-Here is an scripts.example of a workspace a user could decide to use, if it is built:
+Here is an example of a workspace a user could decide to use, if it is built:
 
 ![UI](UI.png)
 

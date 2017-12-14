@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A Static helper class used for conversion of files stored within the database
@@ -36,5 +37,15 @@ public class FileConverter {
             imageBytes = new byte[0];
         }
         return imageBytes;
+    }
+
+    /**
+     * Converts the given InputStream to a JavaFX {@code Image}
+     * @param stream is an {@code InputStream} representing the stream that
+     *               contains the Image's bytes for the Image's creation
+     * @return An {@code Image} created from the passed in {@code InputStream}
+     */
+    public static Image convertInputStreamToImage(InputStream stream) {
+        return new Image(stream);
     }
 }

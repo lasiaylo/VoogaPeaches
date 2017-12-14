@@ -1,5 +1,6 @@
 package authoring.panels.attributes;
 
+import java.lang.reflect.Method;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import util.exceptions.GroovyInstantiationException;
