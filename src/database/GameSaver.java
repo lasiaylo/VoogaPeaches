@@ -55,19 +55,23 @@ public class GameSaver {
      *               Trackable objects that you want to store
      */
     public void saveGame(Entity toSave) {
+        setupFSMPubsub(toSave);
         saveRoot(toSave);
         String[] images = saveImageJSON(toSave);
         uploadImages(images);
         String[] scripts = saveScriptJSON(toSave);
         uploadScripts(scripts);
-        setupFSMPubsub();
     }
 
-    private void saveFSM(FSMSaveMessage message) {
+    private void saveFSM(FSMSaveMessage message, Entity toSave) {
+        JSONObject jsonForm = JSONHelper.JSONForObject(message.getFSMmap());
+        String filepath = gameName + "/fsm.json";
+        manager.writeJSONFile(filepath, jsonForm);
+        FirebaseDatabase.getInstance().getReference(toSave.UIDforObject()).child("fsm").setValueAsync(JSONHelper.mapFromJSON(jsonForm));
     }
 
-    private void setupFSMPubsub() {
-        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveFSM((FSMSaveMessage) message));
+    private void setupFSMPubsub(Entity toSave) {
+        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveFSM((FSMSaveMessage) message, toSave));
         PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(null));
     }
 

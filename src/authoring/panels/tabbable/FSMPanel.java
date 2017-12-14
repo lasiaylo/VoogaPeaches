@@ -31,7 +31,7 @@ public class FSMPanel implements Panel, Updatable {
 
     public FSMPanel() {
         init();
-        PubSub.getInstance().subscribe("FSM", message -> readMessage((FSMMessage) message));
+        PubSub.getInstance().subscribe("FSM", message -> publishFSM((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
         PubSub.getInstance().subscribe("SAVE_FSM", message -> saveRequested((FSMSaveMessage) message));
     }
@@ -52,7 +52,7 @@ public class FSMPanel implements Panel, Updatable {
      *
      * @param message
      */
-    private void readMessage(FSMMessage message) {
+    private void publishFSM(FSMMessage message) {
         if(myMap.containsKey(message.getEntity()) && myMap.get(message.getEntity()).contains(message.getName())){
             for(FSMGraph entry: myMap.get(message.getEntity())) {
                 if(entry.getMyName().equals(message.getName())) {
