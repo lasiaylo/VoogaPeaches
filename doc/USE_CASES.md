@@ -17,12 +17,12 @@ Uses Cases
     - User creates a new script from either a new combination of preset behaviors or totally new functionality and adds it to the entity 
 6. Moving the object
     - Primary Actor: Entity, MoveScript, ControlScript
-    - Player inputs a command mapped to a move command. The ControlScript interprets this as a movement and subsequently calls the movescript to move the object
-7. Player tries to move past wall
+    - Player inputs a command mapped to a scripts.move command. The ControlScript interprets this as a movement and subsequently calls the movescript to scripts.move the object
+7. Player tries to scripts.move past wall
     - Primary Actor: Entity, Entity, CollisionScript
-    - Player tries to move past wall but is stopped by the interpretation of CollisionManager, which notes that the wall and the player have collided
+    - Player tries to scripts.move past wall but is stopped by the interpretation of CollisionManager, which notes that the wall and the player have collided
     - Player gets tag of wall (wall1), which determines that its velocity should be set to zero.
-8. Player tries to move into building
+8. Player tries to scripts.move into building
     - Primary Actor: Entity, Entity, CollisionScript
     - The CollisionScript of the building will change the scene
 9. Player enters minigame

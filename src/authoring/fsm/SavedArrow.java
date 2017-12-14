@@ -15,37 +15,38 @@ public class SavedArrow extends TrackableObject {
     @Expose private Double lenX;
     @Expose private Double lenY;
 
-    public SavedArrow(StateRender original, StateRender destination, Vector myOrigin, Vector myHead, Vector myLength) {
+    SavedArrow(StateRender original, StateRender destination, Vector myOrigin, Vector myHead, Vector myLength) {
         myOriginal = original.getName();
         myDestination = destination.getName();
-        originX = myOrigin.x + 1e-6;
-        originY = myOrigin.y + 1e-6;
-        headX = myHead.x + 1e-6;
-        headY = myHead.y + 1e-6;
-        lenX = myLength.x + 1e-6;
-        lenY = myLength.y + 1e-6;
+        originX = myOrigin.at(0) + 1e-6;
+        originY = myOrigin.at(1) + 1e-6;
+        headX = myHead.at(0) + 1e-6;
+        headY = myHead.at(1) + 1e-6;
+        lenX = myLength.at(0) + 1e-6;
+        lenY = myLength.at(1) + 1e-6;
     }
 
-    public String getMyDestination() {
+    private SavedArrow() {}
+
+    String getMyDestination() {
         return myDestination;
     }
 
-    public String getMyOriginal() { return myOriginal; }
+    String getMyOriginal() { return myOriginal; }
 
-    public Double getHeadX() { return headX; }
+    Double getHeadX() { return headX; }
 
-    public Double getHeadY() { return headY; }
+    Double getHeadY() { return headY; }
 
-    public Double getLenX() { return lenX; }
+    Double getLenX() { return lenX; }
 
-    public Double getLenY() { return lenY; }
+    Double getLenY() { return lenY; }
 
-    public Double getOriginX() { return originX; }
+    Double getOriginX() { return originX; }
 
-    public Double getOriginY() { return originY; }
+    Double getOriginY() { return originY; }
 
     @Override
     public void initialize() {
-        System.out.println("init SavedArrow");
     }
 }

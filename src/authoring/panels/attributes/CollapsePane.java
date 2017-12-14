@@ -1,7 +1,5 @@
 package authoring.panels.attributes;
 
-import java.util.Map;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -9,6 +7,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
+
+import java.util.Map;
 
 /**Displays a JavaFX TitledPane that holds a map
  * @author lasia
@@ -41,7 +41,7 @@ public class CollapsePane {
 	private void formatCollapse(Map<String, ?> map) throws GroovyInstantiationException {
 		VBox vBox = new VBox();
 		if(map == null) {
-			System.out.println(MAP_NULL);
+			return;
 		}
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);

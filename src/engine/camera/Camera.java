@@ -1,12 +1,9 @@
 package engine.camera;
 
 import engine.entities.Entity;
-import engine.events.KeyPressEvent;
-import engine.events.MousePressedEvent;
 import javafx.beans.binding.NumberBinding;
-import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -20,7 +17,6 @@ import util.math.num.Vector;
  * do not extend scrollpane directly for the flexibility of adding more features like minimap
  *
  * @author Estelle He
- * @author Kelly Zhang
  */
 public class Camera {
     private ScrollPane view;
@@ -32,10 +28,12 @@ public class Camera {
 
     public Camera(Entity level) {
         currentLevel = level;
-
-        view = new ScrollPane(level.getNodes().getChildren().get(0));
+        view = new ScrollPane(level
+                .getNodes());
+//       if (currentLevel.getNodes().getChildren().size() == 0) {
+//            currentLevel.add(view.getContent());
+//        }
         view.setPannable(false);
-
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
@@ -64,12 +62,17 @@ public class Camera {
     }
 
     public void changeLevel(Entity level) {
-        if (currentLevel.getNodes().getChildren().size() == 0) {
-            currentLevel.add(view.getContent());
-        }
-        view.setContent(level.getNodes().getChildren().get(0));
+//        if (currentLevel.getNodes().getChildren().size() == 0) {
+//            System.out.println(currentLevel.getNodes().getChildren().size());
+//        }
+        view.setContent(new Group());
+        view.setContent(level.getNodes());
         view.getContent().requestFocus();
-        view.getContent().setOnKeyPressed(e -> new KeyPressEvent(e).recursiveFire(level));
+        System.out.println("new level " + level);
+//        view.setOnKeyPressed(e -> {
+//            System.out.println("hell yeah");
+//            new KeyPressEvent(e).recursiveFire(level);
+//        });
         currentLevel = level;
     }
 
@@ -79,14 +82,12 @@ public class Camera {
         miniMap.getGraphicsContext2D().fillRect(0, 0, size.x, size.y);
         point = new Circle(view.getHvalue(), view.getVvalue(), 5, Color.RED);
 
-        point.setOnMousePressed(circleOnMousePressedEventHandler);
-        point.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
         NumberBinding xPoint = view.hvalueProperty().multiply(size.at(0));
         NumberBinding yPoint = view.vvalueProperty().multiply(size.at(1));
         point.centerXProperty().bind(xPoint);
         point.centerYProperty().bind(yPoint);
-        miniMap.setOnMouseClicked(circleOnMouseClickedEventHandler);
+        miniMap.setOnMouseClicked(this::moveCamera);
 
         Pane holder = new Pane(miniMap, point);
         holder.maxWidthProperty().bind(miniMap.widthProperty());
@@ -94,79 +95,56 @@ public class Camera {
         return holder;
     }
 
-    EventHandler<MouseEvent> circleOnMouseClickedEventHandler =
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    point.centerXProperty().unbind();
-                    point.centerYProperty().unbind();
+    private void moveCamera(MouseEvent event) {
+        point.centerXProperty().unbind();
+        point.centerYProperty().unbind();
 
-                    point.setCenterX(t.getX());
-                    point.setCenterY(t.getY());
-                    view.setHvalue(t.getX()/miniMap.getWidth());
-                    view.setVvalue(t.getY()/miniMap.getHeight());
+        point.setCenterX(event.getX());
+        point.setCenterY(event.getY());
+        view.setHvalue(event.getX()/miniMap.getWidth());
+        view.setVvalue(event.getY()/miniMap.getHeight());
 
-                    NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
-                    NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
-                    point.centerXProperty().bind(xPoint);
-                    point.centerYProperty().bind(yPoint);
-                }
-            };
+        NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
+        NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
+        point.centerXProperty().bind(xPoint);
+        point.centerYProperty().bind(yPoint);
 
-    private double translateX;
-    private double translateY;
-    private double orgX;
-    private double orgY;
-    EventHandler<MouseEvent> circleOnMousePressedEventHandler =
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    point.centerXProperty().unbind();
-                    point.centerYProperty().unbind();
-
-                    orgX = t.getSceneX();
-                    orgY = t.getScreenY();
-                    translateX = ((Circle) (t.getSource())).getTranslateX();
-                    translateY = ((Circle) (t.getSource())).getTranslateY();
-                }
-            };
-
-    EventHandler<MouseEvent> circleOnMouseDraggedEventHandler =
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    double offsetX = t.getSceneX() - orgX;
-                    double offsetY = t.getSceneY() - orgY;
-
-                    double newTranslateX = translateX + offsetX;
-                    double newTranslateY = translateY + offsetY;
-
-                    view.setHvalue(newTranslateX/miniMap.getWidth());
-                    view.setVvalue(newTranslateY/miniMap.getHeight());
-
-                    ((Circle)(t.getSource())).setTranslateX(newTranslateX);
-                    ((Circle)(t.getSource())).setTranslateY(newTranslateY);
-
-                    NumberBinding xPoint = view.hvalueProperty().multiply(miniMap.getWidth());
-                    NumberBinding yPoint = view.vvalueProperty().multiply(miniMap.getHeight());
-                    point.centerXProperty().bind(xPoint);
-                    point.centerYProperty().bind(yPoint);
-                }
-            };
+        event.consume();
+//        new MouseDragEvent(VoogaPeaches.getIsGaming()).fire(currentLevel);
+//        new MapSetupEvent().fire(currentLevel);
+    }
 
     private void vScroll(double num) {
-        view.setVmin(num);
-        view.setVmax(num);
+        view.setVmin(0);
+        view.setVmax(1);
         view.setVvalue(num);
-        view.vminProperty().bind(view.vvalueProperty());
-        view.vmaxProperty().bind(view.vvalueProperty());
+//        view.vminProperty().bind(view.vvalueProperty());
+//        view.vmaxProperty().bind(view.vvalueProperty());
     }
 
     private void hScroll(double num) {
-        view.setHmax(num);
-        view.setHmin(num);
+        view.setHmax(1);
+        view.setHmin(0);
         view.setHvalue(num);
-        view.hminProperty().bind(view.hvalueProperty());
-        view.hmaxProperty().bind(view.hvalueProperty());
+//        view.hminProperty().bind(view.hvalueProperty());
+//        view.hmaxProperty().bind(view.hvalueProperty());
+    }
+
+    public void fixCamera() {
+        view.vminProperty().bind(view.vvalueProperty().add(-Double.MIN_VALUE));
+        view.vmaxProperty().bind(view.vvalueProperty().add(Double.MIN_VALUE));
+        view.hminProperty().bind(view.hvalueProperty().add(-Double.MIN_VALUE));
+        view.hmaxProperty().bind(view.hvalueProperty().add(Double.MIN_VALUE));
+    }
+
+    public void freeCamera() {
+        view.vminProperty().unbind();
+        view.vmaxProperty().unbind();
+        view.hminProperty().unbind();
+        view.hmaxProperty().unbind();
+        view.setHmax(1);
+        view.setHmin(0);
+        view.setVmax(1);
+        view.setVmin(0);
     }
 }
