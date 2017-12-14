@@ -115,6 +115,8 @@ public class EntityManager {
      * @param pos
      */
     public void addBG(Vector pos) {
+//        System.out.println(root.getChildren().size());
+//        System.out.println(currentLevel.getChildren().get(0));
         if (mode == 0 && !isGaming) {
             Entity BGblock = BGObjectFactory.newObject();
             BGblock.addTo(currentLevel.getChildren().get(0));
