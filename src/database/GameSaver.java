@@ -1,8 +1,6 @@
 package database;
 
 import com.google.firebase.database.FirebaseDatabase;
-import database.filehelpers.FileDataFolders;
-import database.filehelpers.FileDataManager;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
@@ -13,7 +11,6 @@ import util.PropertiesReader;
 
 import java.io.File;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * A class that provides an API for saving manipulating a game file within the database
@@ -153,4 +150,6 @@ public class GameSaver {
         for(Entity child : root.getChildren())
             retrieveImageNames(currentSet, child);
     }
+
+    
 }
