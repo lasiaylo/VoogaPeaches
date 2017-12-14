@@ -25,7 +25,6 @@ public abstract class Event {
         }
 
         fire(target);
-
         if(target.getChildren().isEmpty()) {
             return this;
         }

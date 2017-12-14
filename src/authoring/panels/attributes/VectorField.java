@@ -7,6 +7,8 @@ import util.exceptions.GroovyInstantiationException;
 import util.math.num.Vector;
 
 public class VectorField extends Field {
+
+	private static final String REGEX_COMMA = ",";
 	private TextField myX;
 	private TextField myY;
 	
@@ -32,8 +34,7 @@ public class VectorField extends Field {
 			try {
 				updateField();
 			} catch (GroovyInstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				// do nothing
 			}
 		});
 	}
@@ -41,8 +42,8 @@ public class VectorField extends Field {
 	@Override
 	protected void getDefaultValue() {
 		String vector = getValue().toString();
-		vector = vector.substring(1, vector.length()-1);
-		String[] scalars = vector.split(",");
+		vector = vector.substring(1, vector.length() - 1);
+		String[] scalars = vector.split(REGEX_COMMA);
 		myX.setText(scalars[0]);
 		myY.setText(scalars[1]);
 	}
@@ -53,5 +54,4 @@ public class VectorField extends Field {
 		Vector newVect = new Vector(xVal,yVal);
 		setValue(newVect);
 	}
-
 }

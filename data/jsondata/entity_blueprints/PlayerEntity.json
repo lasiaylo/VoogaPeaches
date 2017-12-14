@@ -8,11 +8,23 @@
       }
     },
     "listeners" : {
+      "key press": {
+          "movement":{
 
+          }
+      },
+      "tick": {
+        "base/animate/move": {}
+      },
+      "move": {
+        "base/animate/update_position": {}
+      }
     },
-    "x" : 0,
-    "y" : 0,
-    "width" : 50,
-    "height" : 50
+    "x" : 0.0,
+    "y" : 0.0,
+    "width" : 50.0,
+    "height" : 50.0,
+    "vx" : 0.0,
+    "vy" : 0.0
   }
 }

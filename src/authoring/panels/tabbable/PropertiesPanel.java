@@ -1,15 +1,14 @@
 package authoring.panels.tabbable;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import authoring.Panel;
 import authoring.buttons.CustomButton;
 import authoring.buttons.strategies.EntitySave;
+import authoring.buttons.strategies.Update;
 import authoring.panels.attributes.*;
 import engine.entities.Entity;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.apache.commons.io.FilenameUtils;
@@ -18,14 +17,27 @@ import util.exceptions.GroovyInstantiationException;
 import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Displays the attributes associated with a particular Entity
  *
  * @author lasia
+ * @author Richard Tseng
  */
-public class PropertiesPanel implements Panel {
+public class PropertiesPanel implements Panel,Updatable {
+
+    private static final String ENTITY_PASS = "ENTITY_PASS";
+    private static final String GROOVY_ERROR = "Groovy Error";
+    private static final String GROOVY_ERROR_PROMPT = "You're trying to set something incorrectly, bro! Not Groovy!";
+    private static final String PANEL = "panel";
+    private static final String LISTENERS = "listeners";
+    private static final String SAVE_ENTITY = "Save Entity";
+    private static final String UPDATE_ENTITY = "Update Entity";
     private final String TITLE = "Properties";
-    private final String SCRIPTS = "Scripts";
+    private final String SCRIPTS = "scripts";
     private final String PARAMETERS = "Parameters";
     private final String EVENTS = "Events";
     private Entity myEntity;
@@ -36,21 +48,20 @@ public class PropertiesPanel implements Panel {
 
 	public PropertiesPanel() {
 		myVBox = new VBox();
-		PubSub.getInstance().subscribe("ENTITY_PASS", e -> {
+		PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
 			EntityPass ePass = (EntityPass) e;
 			try {
 				this.updateProperties(ePass.getEntity());
 			} catch (GroovyInstantiationException exception) {
-				new ErrorDisplay("Groovy Error",
-						"You're trying to set something incorrectly, bro! Not Groovy!").displayError();
+				new ErrorDisplay(GROOVY_ERROR, GROOVY_ERROR_PROMPT).displayError();
 			}
 		});
-		getRegion().getStyleClass().add("panel");
+		getRegion().getStyleClass().add(PANEL);
 	}
 
     @Override
     public Region getRegion() {
-        return myVBox;
+        return new ScrollPane(myVBox);
     }
 
     @Override
@@ -63,8 +74,10 @@ public class PropertiesPanel implements Panel {
      *
      * @throws GroovyInstantiationException
      */
-    public void updateProperties() throws GroovyInstantiationException {
-        updateProperties(myEntity);
+    public void update() {
+        try {
+            updateProperties(myEntity);
+        } catch (GroovyInstantiationException e) { }
     }
 
     /**
@@ -74,24 +87,23 @@ public class PropertiesPanel implements Panel {
      * @throws GroovyInstantiationException
      */
     public void updateProperties(Entity entity) throws GroovyInstantiationException {
-        myEntity = entity;
-        entity.executeScripts();
+        myEntity = entity.substitute();
+        myParameters = myEntity.getProperties();
+        myScripts = (Map<String, Map<String, Object>>) myParameters.remove(SCRIPTS);
+        myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove(LISTENERS);
         updateVisuals();
+        myParameters.put(SCRIPTS, myScripts);
+        myParameters.put(LISTENERS, myEvents);
     }
 
     private void updateVisuals() throws GroovyInstantiationException {
         myVBox.getChildren().clear();
-        myParameters = myEntity.getProperties();
-        myScripts = (Map<String, Map<String, Object>>) myParameters.remove("scripts");
-        myEvents = (Map<String, Map<String, Map<String, Object>>>) myParameters.remove("listeners");
         myVBox.getChildren().addAll(
                 TPane.addPane(PARAMETERS, makeParameters(myParameters)),
                 TPane.addPane(SCRIPTS, makeScripts(myScripts)),
                 TPane.addPane(EVENTS,makeEvents(myEvents)),
                 addButton()
         );
-        myParameters.put("scripts", myScripts);
-        myParameters.put("listeners", myEvents);
     }
 
     private Node makeParameters(Map<String, Object> parameterMap) throws GroovyInstantiationException {
@@ -113,7 +125,10 @@ public class PropertiesPanel implements Panel {
      * Displays a button that allows users to save their entity as a blueprint
      */
     private Node addButton() {
-        return new CustomButton(new EntitySave(myEntity), "Save Entity").getButton();
+        HBox hbox = new HBox();
+        hbox.getChildren().add(new CustomButton(new EntitySave(myEntity), SAVE_ENTITY).getButton());
+        hbox.getChildren().add(new CustomButton(new Update(this), UPDATE_ENTITY).getButton());
+        return hbox;
     }
 
     public void addFile(Map<String, Map<String,Object>> map, File file) throws GroovyInstantiationException {
@@ -121,11 +136,10 @@ public class PropertiesPanel implements Panel {
             String fileName = FilenameUtils.removeExtension(file.getName());
             map.put(fileName, new HashMap<>());
         }
-        updateProperties();
+        update();
     }
 
     public Entity getEntity() {
         return myEntity;
     }
-
 }

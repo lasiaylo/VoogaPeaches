@@ -27,9 +27,6 @@ public class HitBoxPanelTest extends Application {
         Scene s = new Scene(hbPanel.getRegion());
         primaryStage.setScene(s);
         primaryStage.show();
-
-        System.out.println(hbPanel.getAddWidth());
-        System.out.println(hbPanel.getNameWidth());
     }
 
     public static void main(String[] args) {

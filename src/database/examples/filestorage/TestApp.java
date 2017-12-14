@@ -55,7 +55,6 @@ public class TestApp extends Application {
             manager.writeFileData(FileConverter.convertImageToByteArray(image), img.getName());
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -64,7 +63,7 @@ public class TestApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        connector = new FileStorageConnector();
+        connector = new FileStorageConnector("games");
         manager = new FileDataManager(FileDataFolders.IMAGES);
 
         myRoot = new Group();

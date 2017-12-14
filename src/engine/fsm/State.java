@@ -1,5 +1,7 @@
 package engine.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
@@ -8,14 +10,16 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class State {
-    private String name;
-    private LinkedHashMap<String, Closure> transitions;
-    private LinkedHashMap<String, String> code;
-    private LinkedHashMap<String, Object> properties;
+public class State extends TrackableObject {
+    @Expose private String name;
+    private Map<String, Closure> transitions;
+    @Expose private Map<String, String> code;
+    @Expose private Map<String, Object> properties;
     private GroovyShell shell;
 
-    State(String name, LinkedHashMap<String, LinkedHashMap<String, Object>> data) {
+    private State() { }
+
+    public State(String name, Map<String, Map<String, Object>> data) {
         this.name = name;
 
         if (!data.containsKey("transitions"))
@@ -51,7 +55,12 @@ public class State {
     String transition(Entity entity) {
         String name = null;
         for (Map.Entry<String, Closure> entry : transitions.entrySet())
-            name = (Boolean) entry.getValue().call(entity) ? entry.getKey() : name;
+            name = (Boolean) entry.getValue().call(entity, this) ? entry.getKey() : name;
         return name;
+    }
+
+    @Override
+    public void initialize() {
+        System.out.println("Init");
     }
 }

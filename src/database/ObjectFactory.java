@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * A class for creating entities from a given blueprint, so that entities can
- * create entities for things like attacks ☺️
+ * create entities for things like attacks
  *
  * @author Walker Willetts
  */
@@ -54,7 +54,9 @@ public class ObjectFactory {
      * @return A new {@code Entity} corresponding to the blueprint for this object
      */
     public Entity newObject() {
-        return converter.createObjectFromJSON(Entity.class,blueprintJSON);
+        Entity i = converter.createObjectFromJSON(Entity.class, blueprintJSON);
+
+        return i;
     }
 
     /**

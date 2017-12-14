@@ -16,7 +16,4 @@ public interface Setter {
 	 * 
 	 */
 	public abstract void setValue(Object arg);
-	
-	
-	
 }

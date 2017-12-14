@@ -1,20 +1,25 @@
 package engine.events;
 
+import javafx.scene.input.MouseEvent;
 import util.math.num.Vector;
 
 public class MouseDragEvent extends Event {
     private Vector myStartPos = new Vector(0, 0);
     private Vector myStartSize = new Vector(0, 0);
     private boolean isGaming = true;
-    private int[] myMode;
+    private MouseEvent event;
 
     public MouseDragEvent() {
         super(EventType.MOUSE_DRAG.getType());
     }
-    public MouseDragEvent(boolean gaming, int[] mode) {
+    public MouseDragEvent(boolean gaming, MouseEvent event) {
         this();
         isGaming = gaming;
-        myMode = mode;
+        this.event = event;
+    }
+    public MouseDragEvent(boolean gaming) {
+        this();
+        isGaming = gaming;
     }
 
     public Vector getMyStartSize() {
@@ -39,7 +44,7 @@ public class MouseDragEvent extends Event {
         return isGaming;
     }
 
-    public int[] getMyMode() {
-        return myMode;
+    public MouseEvent getEvent() {
+        return event;
     }
 }

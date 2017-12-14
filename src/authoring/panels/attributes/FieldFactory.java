@@ -14,10 +14,17 @@ import util.exceptions.GroovyInstantiationException;
  *
  */
 public class FieldFactory {
-	private static final String FIELD = "fields";
+
+    private static final String FIELD = "fields";
 	private static final String GET = "get";
 	private static final String SET = "set";
-	
+    public static final String REGEX_MATCHING_STRING = "^.+(\\.)(gif|GIF|png|PNG|jpg|JPG)+";
+    public static final String IMAGE = "Image";
+
+    public static Field makeField(Object attribute) throws GroovyInstantiationException {
+		Setter set = new ObjectSetter(attribute);
+		return makeField(set, determineType(attribute));
+	}
 	/**Creates a MethodField
 	 * @param attribute
 	 * @param methodName
@@ -67,7 +74,6 @@ public class FieldFactory {
 			return field;
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
-			System.out.println(fieldType);
 			throw new GroovyInstantiationException();
 		}
 	}
@@ -76,8 +82,8 @@ public class FieldFactory {
 		Class<?> clazz = obj.getClass();
 		if (clazz.equals(String.class)){
 			String string = (String) obj;
-			if (string.matches("^.+(\\.)(gif|GIF|png|PNG|jpg|JPG)+")){
-				return PropertiesReader.value(FIELD, "Image");
+			if (string.matches(REGEX_MATCHING_STRING)){
+				return PropertiesReader.value(FIELD, IMAGE);
 			}
 		}
 		return PropertiesReader.value(FIELD, clazz.toString());

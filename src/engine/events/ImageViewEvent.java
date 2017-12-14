@@ -1,8 +1,7 @@
 package engine.events;
 
-import javafx.scene.image.Image;
-
 public class ImageViewEvent extends Event {
+
     private String myPath;
 
     public ImageViewEvent(String path) {

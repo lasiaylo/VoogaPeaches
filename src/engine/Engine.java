@@ -2,12 +2,14 @@ package engine;
 
 import database.GameSaver;
 import engine.camera.Camera;
+import engine.camera.NewCamera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
 import engine.events.CollisionEvent;
 import engine.events.TickEvent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -30,14 +32,17 @@ public class Engine {
     private TickEvent tick = new TickEvent(FRAME_PERIOD);
     private Timeline timeline;
     private Camera camera;
+    private ScrollPane scrollPane;
+    private boolean isGaming;
 
     /**
      * Creates a new Engine
      *
      * @param root  root game entity
      */
-    public Engine(Entity root, int gridSize) {
-        this.entityManager = new EntityManager(root, gridSize);
+    public Engine(Entity root, int gridSize, boolean gaming) {
+        this.isGaming = gaming;
+        this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera = new Camera(entityManager.getCurrentLevel());
         entityManager.setCamera(camera);
 
@@ -55,8 +60,14 @@ public class Engine {
         new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
-    public void load(String name) {
-
+    public void load(Entity root, int gridSize, boolean gaming) {
+        this.isGaming = gaming;
+        this.entityManager = new EntityManager(root, gridSize, gaming);
+        System.out.println("here");
+        this.camera.changeLevel(entityManager.getCurrentLevel());
+        System.out.println("here");
+        entityManager.setCamera(this.camera);
+        System.out.println("here");
     }
 
     public EntityManager getEntityManager() {
@@ -65,10 +76,15 @@ public class Engine {
 
     public void play() {
         timeline.play();
+        scrollPane.requestFocus();
+        this.isGaming = true;
+        entityManager.setIsGaming(isGaming);
     }
 
     public void pause() {
         timeline.pause();
+        this.isGaming = false;
+        entityManager.setIsGaming(isGaming);
     }
 
     public EntityManager getManager() {
@@ -76,7 +92,7 @@ public class Engine {
     }
 
     public ScrollPane getCameraView(Vector center, Vector size) {
-        return camera.getView(center, size);
+        return camera.getView(center,size);
     }
 
     public Pane getMiniMap(Vector size) {
