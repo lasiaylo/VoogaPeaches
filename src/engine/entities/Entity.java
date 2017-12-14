@@ -1,17 +1,11 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.fileloaders.ScriptLoader;
 import engine.collisions.HitBox;
-import engine.events.*;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
+import engine.events.Evented;
+import engine.events.SubstituteEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import util.math.num.Vector;
-import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,13 +20,11 @@ import java.util.Map;
  * @author Albert
  */
 public class Entity extends Evented {
-
     @Expose private List<Entity> children;
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
-    @Expose private String fieldName = null;
-    @Expose private Vector mapSize = null;
 
+    private String dbPath;
     private Group group;
     private Entity parent;
     private Entity root;
@@ -44,6 +36,11 @@ public class Entity extends Evented {
         group = new Group();
         children = new ArrayList<>();
         properties = new HashMap<>();
+        HashMap<String,HashMap<String,String>> defaultScripts = new HashMap<>();
+        HashMap<String,String> loader = new HashMap<>();
+        loader.put("empty","empty");
+        defaultScripts.put("loader",loader);
+        properties.put("scripts", defaultScripts);
         hitBoxes = new ArrayList<>();
     }
 
@@ -58,54 +55,32 @@ public class Entity extends Evented {
         addTo(parent);
     }
 
-    public Vector getMapSize() {
-        return mapSize;
-    }
-
-    public void setMapSize(Vector size) {
-        mapSize = size;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public void setFieldName(String name) {
-        fieldName = name;
-    }
-
     /**
      * Get entities parent
      *
      * @return (Entity.parent) or null, if root
      */
-    public Entity getParent() {
-        return parent;
-    }
+    public Entity getParent() { return parent; }
 
-    public Map<String, Object> getProperties(){
-    	return properties;
-    }
+    public Map<String, Object> getProperties(){ return properties; }
 
-    public void add(Node node) {
-        group.getChildren().add(node);
-    }
+    public void add(Node node) { group.getChildren().add(node); }
 
     public void add(Entity entity) {
         children.add(entity);
         add(entity.getNodes());
         entity.addTo(this);
     }
-    public void remove(Node node) {
-        group.getChildren().remove(node);
-    }
+    public void remove(Node node) { group.getChildren().remove(node); }
 
     public Entity addTo(Entity parent) {
-        this.parent = parent;
-        parent.getNodes()
-                .getChildren()
-                .add(group);
-        parent.getChildren().add(this);
+        if(parent != null) {
+            this.parent = parent;
+            parent.getNodes()
+                    .getChildren()
+                    .add(group);
+            if(!parent.getChildren().contains(this)) parent.getChildren().add(this);
+        }
         return this;
     }
 
@@ -124,25 +99,15 @@ public class Entity extends Evented {
 
     public Entity getRoot() { return root; }
 
-    public Group getNodes() {
-        return group;
-    }
+    public Group getNodes() { return group; }
 
-    public List<Entity> getChildren() {
-        return children;
-    }
+    public List<Entity> getChildren() { return children; }
 
-    public Object getProperty(String name) {
-        return properties.getOrDefault(name, null);
-    }
+    public Object getProperty(String name) { return properties.getOrDefault(name, null); }
 
-    public void setProperty(String name, Object property) {
-        properties.put(name, property);
-    }
+    public void setProperty(String name, Object property) { properties.put(name, property);    }
 
-    public List<HitBox> getHitBoxes() {
-        return hitBoxes;
-    }
+    public List<HitBox> getHitBoxes() { return hitBoxes; }
 
     public void addHitBox(HitBox hitbox) {
         hitBoxes.add(hitbox);
@@ -155,52 +120,42 @@ public class Entity extends Evented {
     }
 
     public Entity substitute() {
-        System.out.println("substituting");
         clear();
+        if(parent != null) this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
-        entity.UID = UID;
+        entity.properties = properties;
+        entity.replaceUID(this.UIDforObject());
+
+        try {
+           // DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            //DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;
-        entity.fieldName = fieldName;
-        entity.mapSize = mapSize;
         try {
             parent.getNodes().getChildren().remove(group);
         } catch(NullPointerException e){
             // do nothing
         }
 
-        if(!children.isEmpty())
+         if(!children.isEmpty())
             for(Entity child : children)
                 entity.add(child.substitute());
 
         entity.initialize();
-        if(!((boolean) getProperties().getOrDefault("bg", false))) {
-            new InitialImageEvent(new Vector((double) getProperty("width"), (double) getProperty("height")),
-                    new Vector((double) getProperty("x"), (double) getProperty("y"))).fire(this);
-            new KeyPressEvent(KeyCode.BACK_SPACE).fire(this);
-            new ClickEvent(false).fire(this);
-            new MouseDragEvent(false, (boolean) properties.getOrDefault("bg", false)).fire(entity);
-        }
-
+        new SubstituteEvent(entity).fire(entity);
         return entity;
-    }
-
-
-    private void setEventListeners() {
-
     }
 
     @Override
     public void initialize() {
-        if (root == null)
-            if (parent != null)
-                for (Entity entity : children)
-                    entity.root = this;
-            else
-                for (Entity entity : children)
-                    entity.root = root;
-
-        setEventListeners();
+        for(Entity child : children) {
+             child.parent = this;
+        }
+        clear();
         executeScripts();
     }
 }

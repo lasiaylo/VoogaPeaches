@@ -1,30 +1,29 @@
 package engine.events;
 
-import javafx.scene.input.MouseButton;
-
-import java.io.InputStream;
+import javafx.scene.input.MouseEvent;
 
 public class ClickEvent extends Event {
 
-    private MouseButton myMouseButton;
+    private MouseEvent myMouseEvent;
     private boolean isGaming = true;
 
     public ClickEvent() {
         super(EventType.CLICK.getType());
     }
 
-    public ClickEvent(MouseButton mouse) {
+    public ClickEvent(MouseEvent mouse) {
         this();
-        myMouseButton = mouse;
+        myMouseEvent = mouse;
     }
 
-    public ClickEvent(boolean gaming) {
+    public ClickEvent(boolean gaming, MouseEvent event) {
         super(EventType.CLICK.getType());
         isGaming = gaming;
+        myMouseEvent = event;
     }
 
-    public MouseButton getMouseButton() {
-        return myMouseButton;
+    public MouseEvent getMouseEvent() {
+        return myMouseEvent;
     }
 
     public boolean getIsGaming() {

@@ -1,22 +1,21 @@
 package authoring.panels.attributes;
 
 import authoring.panels.tabbable.PropertiesPanel;
-import database.jsonhelpers.JSONDataManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
-import org.apache.commons.io.FilenameUtils;
 import util.PropertiesReader;
 import util.exceptions.GroovyInstantiationException;
 
 import java.io.File;
-import java.util.*;
+import java.util.Map;
 
 public class ScriptButton {
+
+    private static final String GROOVY_FILES_PROMPT = "Groovy Files";
+    private static final String GROOVY_EXTENSION = "*.groovy";
+    private static final String FILEPATHS = "filepaths";
+    private static final String DB_SCRIPTS = "db_scripts";
     private final String ADD = "Add Script";
     private Map<String, Map<String, Object>> myMap;
     private PropertiesPanel myPanel;
@@ -36,9 +35,9 @@ public class ScriptButton {
 
     private void createFileChooser() {
         fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter groovy = new FileChooser.ExtensionFilter("Groovy Files", "*.groovy");
+        FileChooser.ExtensionFilter groovy = new FileChooser.ExtensionFilter(GROOVY_FILES_PROMPT, GROOVY_EXTENSION);
         fileChooser.getExtensionFilters().add(groovy);
-        fileChooser.setInitialDirectory(new File(PropertiesReader.value("filepaths", "db_scripts")));
+        fileChooser.setInitialDirectory(new File(PropertiesReader.value(FILEPATHS, DB_SCRIPTS)));
     }
 
     private Button makeButton() {
@@ -52,8 +51,7 @@ public class ScriptButton {
         if (file != null) {
             try {
                 myPanel.addFile(myMap, file);
-            } catch (GroovyInstantiationException e) {
-            }
+            } catch (GroovyInstantiationException e) { }
         }
     }
 

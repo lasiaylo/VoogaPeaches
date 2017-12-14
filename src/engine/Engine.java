@@ -1,6 +1,8 @@
 package engine;
 
 import database.GameSaver;
+import database.firebase.DataReactor;
+import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
@@ -11,6 +13,8 @@ import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import main.VoogaPeaches;
+import org.json.JSONObject;
 import util.math.num.Vector;
 
 import java.util.HashMap;
@@ -22,16 +26,18 @@ import java.util.Map;
  * @author Albert
  * @author estellehe
  */
-public class Engine {
+public class Engine implements DataReactor<Entity> {
     private static final int MAX_FRAMES_PER_SECOND = 60;
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
+    private JSONObject lastState;
     private EntityManager entityManager;
     private TickEvent tick = new TickEvent(FRAME_PERIOD);
     private Timeline timeline;
     private Camera camera;
     private ScrollPane scrollPane;
     private boolean isGaming;
+    private Entity root;
 
     /**
      * Creates a new Engine
@@ -40,12 +46,13 @@ public class Engine {
      */
     public Engine(Entity root, int gridSize, boolean gaming) {
         this.isGaming = gaming;
+        this.root = root;
         this.entityManager = new EntityManager(root, gridSize, gaming);
         this.camera = new Camera(entityManager.getCurrentLevel());
         entityManager.setCamera(camera);
-
         timeline = new Timeline(new KeyFrame(Duration.millis(FRAME_PERIOD), e -> loop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
+        this.lastState = JSONHelper.JSONForObject(root);
     }
 
     private void loop() {
@@ -58,10 +65,6 @@ public class Engine {
         new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
-    public void load(String name) {
-
-    }
-
     public EntityManager getEntityManager() {
         return entityManager;
     }
@@ -70,13 +73,19 @@ public class Engine {
         timeline.play();
         scrollPane.requestFocus();
         this.isGaming = true;
+        lastState = JSONHelper.JSONForObject(root);
+        VoogaPeaches.setIsGaming(isGaming);
+        //todo change all isgaming to the static one
         entityManager.setIsGaming(isGaming);
+        camera.fixCamera();
     }
 
     public void pause() {
         timeline.pause();
         this.isGaming = false;
         entityManager.setIsGaming(isGaming);
+        VoogaPeaches.setIsGaming(isGaming);
+        camera.freeCamera();
     }
 
     public EntityManager getManager() {
@@ -84,7 +93,7 @@ public class Engine {
     }
 
     public ScrollPane getCameraView(Vector center, Vector size) {
-        scrollPane = camera.getView(center, size);
+        scrollPane = camera.getView(center,size);
         return scrollPane;
     }
 
@@ -106,5 +115,29 @@ public class Engine {
                     new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));                }
             }
         }
+    }
+
+    public JSONObject getLastState() {
+        return lastState;
+    }
+
+    @Override
+    public void reactToNewData(Entity newObject) {
+
+    }
+
+    @Override
+    public void reactToDataMoved(Entity movedObject) {
+
+    }
+
+    @Override
+    public void reactToDataChanged(Entity changedObject) {
+
+    }
+
+    @Override
+    public void reactToDataRemoved(Entity removedObject) {
+
     }
 }

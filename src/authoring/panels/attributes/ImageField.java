@@ -8,18 +8,24 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.InputStream;
 
 public class ImageField extends Field {
 
-    public static final int IMAGE_HEIGHT = 200;
-    public static final int IMAGE_WIDTH = 200;
-
+    private static final int IMAGE_HEIGHT = 200;
+    private static final int IMAGE_WIDTH = 200;
+    private static final String IMAGE_PROMPT = "PNG files (*.png)";
+    private static final String PNG = "*.png";
+    private static final String USER_IMAGES_FILEPATH = "user_images/";
     private ImageView view;
     private File selectedImage;
     private FileChooser fileChooser;
     private FileDataManager manager;
+
     /**
      * Creates a new Field that needs a way of setting
+     *
+     * @author Richard Tseng
      *
      * @param setter
      */
@@ -46,18 +52,19 @@ public class ImageField extends Field {
 
     private void initializeFileChooser(){
         fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter("JPG files (*.jpg), PNG files (*.png), GIF files (*.gif)", "*.jpg", "*.png", "*.gif");
+        FileChooser.ExtensionFilter JPG_PNG_GIF = new FileChooser.ExtensionFilter(IMAGE_PROMPT, PNG);
         fileChooser.getExtensionFilters().addAll(JPG_PNG_GIF);
     }
 
     private void chooseFile() {
         File selectedImage = fileChooser.showOpenDialog(null);
         if (selectedImage != null){
-            setValue(selectedImage.getName());
             Image image = new Image(selectedImage.toURI().toString());
-            manager.writeFileData(FileConverter.convertImageToByteArray(image), "user_images/" + selectedImage.getName());
+            FileDataManager fileDataManager = new FileDataManager(FileDataFolders.USER_IMAGES);
+            manager.writeFileData(FileConverter.convertImageToByteArray(image), USER_IMAGES_FILEPATH + selectedImage.getName());
+            InputStream iStream = fileDataManager.readFileData(USER_IMAGES_FILEPATH + selectedImage.getName());
+            setValue(USER_IMAGES_FILEPATH + selectedImage.getName());
             view.setImage(image);
-
         }
     }
 

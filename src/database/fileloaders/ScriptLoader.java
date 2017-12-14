@@ -16,52 +16,33 @@ import java.util.Map;
  * A class for caching Groovy scripts created by the user so
  * that unnecessary I/O is not constantly being performed,
  * which would waste resources
+ *
+ * @author Ramil
  */
 public class ScriptLoader {
 
     /* Final Variables */
-    private static final String SCRIPT_PATH = "./data/scripts/";
-    private static final Map<String, Closure> CACHED_SCRIPTS = cache(SCRIPT_PATH);
+    private static final String SCRIPT_PATH = "./data/filedata/scripts/";
 
-    /**
-     * Loads in the different Groovy files and saves them in a HashMap
-     *
-     * @return {@code Map<String, String>} of loaded groovy script strings
-     * corresponding to the name of a groovy script
-     */
-    private static Map<String, String> loadAndCacheScripts() {
-        Map<String, String> loadedFiles = new HashMap<>();
-        File baseDirectory = new File(SCRIPT_PATH);
-        for (File script : baseDirectory.listFiles()) {
-            String scriptString = readStringForFile(script);
-            loadedFiles.put(script.getName(), scriptString);
-        }
-        return loadedFiles;
-    }
+    private static  Map<String, Closure> CACHED_SCRIPTS;
 
     /**
      * Caches all the scripts in a directory recursively
      *
-     * @param path: path to file
      * @return {@code Map<String, String>} of loaded groovy script strings
      * corresponding to the name of a groovy script
      */
-    private static Map<String, Closure> cache(String path) {
+    public static void cache() {
         Map<String, Closure> cache = new HashMap<>();
-        File directory = new File(path);
+        File directory = new File(SCRIPT_PATH);
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[]{"groovy"}, true);
         File file;
         GroovyShell shell = new GroovyShell();
-
         while (iterator.hasNext() && (file = iterator.next()) != null)
             try {
-                cache.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
-            } catch (ClassCastException e) {
-                System.out.println("Script " + file.getName() + " has wrong format");
-                System.out.println(e.toString());
-                e.printStackTrace();
-            }
-        return cache;
+                cache.put(file.getPath().substring(SCRIPT_PATH.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
+            } catch (Exception e) {}
+        CACHED_SCRIPTS = cache;
     }
 
     /**
@@ -78,14 +59,11 @@ public class ScriptLoader {
         try {
             FileReader fr = new FileReader(groovyFile);
             BufferedReader br = new BufferedReader(fr);
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null)
                 scriptString = scriptString + line + "\n";
-            }
             br.close();
             return scriptString;
-        } catch (IOException e) {
-            return "";
-        }
+        } catch (IOException e) { return ""; }
     }
 
     /**

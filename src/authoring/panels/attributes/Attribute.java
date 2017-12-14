@@ -1,15 +1,15 @@
 package authoring.panels.attributes;
 
-import java.util.Set;
-import authoring.panels.attributes.MethodSetter;
-import authoring.panels.attributes.FieldFactory;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import util.exceptions.GroovyInstantiationException;
 
+import java.util.Set;
+
 public class Attribute {
+
 	private Object myAttribute;
 	private Set<String> myMethods;
 	private GridPane myGrid;

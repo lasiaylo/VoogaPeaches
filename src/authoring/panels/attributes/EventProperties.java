@@ -11,6 +11,8 @@ import util.exceptions.GroovyInstantiationException;
 import java.util.Map;
 
 public class EventProperties {
+
+    private static final String DELETE_EVENT = "Delete Event";
     private final Map<String, Map<String, Map<String, Object>>> myMap;
     private VBox eventBox;
     private PropertiesPanel myPanel;
@@ -20,8 +22,7 @@ public class EventProperties {
         myMap = map;
         myPanel = panel;
         for (String name : map.keySet()) {
-            eventBox.getChildren().add(
-                    makePane(name));
+            eventBox.getChildren().add(makePane(name));
         }
 
         eventBox.getChildren().add(new EventButton(map,panel).getNode());
@@ -40,7 +41,7 @@ public class EventProperties {
 
     private void context(ContextMenuEvent event, Node node, String name) {
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem item1 = new MenuItem("Delete Event");
+        MenuItem item1 = new MenuItem(DELETE_EVENT);
         item1.setOnAction(e -> {
             remove(name);
         });

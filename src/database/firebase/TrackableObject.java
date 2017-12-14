@@ -46,13 +46,22 @@ public abstract class TrackableObject {
      */
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
 
-    public  String UIDforObject() {
-        for (String each: trackableObjects.keySet()) {
-            if (trackableObjects.get(each).equals(this)) {
-                return each;
-            }
-        }
-        return null;
+    /**
+     * @return A {@code String} representing the UID of the TrackableObject this is called on
+     */
+    public String UIDforObject() {
+        return this.UID;
+    }
+
+    /**
+     * Replaces the TrackableObject being saved with the passed in UID with the object that the method
+     * is called on
+     * @param UID is a {@code String} representing the UID of the object to be replaced
+     */
+    public void replaceUID(String UID) {
+        trackableObjects.remove(this.UID);
+        this.UID = UID;
+        trackableObjects.put(this.UID, this);
     }
 
     /**
@@ -64,5 +73,13 @@ public abstract class TrackableObject {
         if(trackableObjects.containsKey(object.UID)) return false;
         trackableObjects.put(object.UID, object);
         return true;
+    }
+
+    /**
+     * Stops keeping track of the TrackableObject with the specified UID
+     * @param UID is a {@code String} representing the UID of the object to stop tracking
+     */
+    public static void stopTrackingTrackableObject(String UID){
+        trackableObjects.remove(UID);
     }
 }

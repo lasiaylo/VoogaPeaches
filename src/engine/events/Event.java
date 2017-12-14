@@ -25,12 +25,13 @@ public abstract class Event {
         }
 
         fire(target);
-
-        if(target.getChildren().isEmpty()) {
+        if(target.getChildren().isEmpty() || target.getChildren() == null) {
             return this;
         }
 
-        target.getChildren().forEach(e -> recursiveFire(e));
+        target.
+                getChildren()
+                .forEach(e -> recursiveFire(e));
         return this;
     }
 }

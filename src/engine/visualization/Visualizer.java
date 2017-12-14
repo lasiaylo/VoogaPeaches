@@ -6,14 +6,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
-import util.math.num.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Visualizer {
 
-    public static final double RADIUS = 20;
+    public static final double RADIUS = 35;
 
     private Entity entity;
     private Visualizer parentVisualizer;
@@ -28,6 +27,7 @@ public class Visualizer {
         this.parentVisualizer = parentVisualizer;
         this.UID = entity.UIDforObject();
         this.group = new Group();
+        group.relocate(0, 0);
         childrenList = new ArrayList<>();
         lines = new ArrayList<>();
         numChildren = entity.getChildren().size();
@@ -35,48 +35,32 @@ public class Visualizer {
     }
 
     private void initialize(){
-        if (numChildren > 0){
-            for (Entity e : entity.getChildren()){
-                childrenList.add(new Visualizer(e, this));
-            }
-        }
-        Circle circle = addCircle();
-        addText(UID, circle);
+        addCircle();
+        addText(UID.substring(0, 3));
+        entity.getChildren().forEach(e -> {childrenList.add(new Visualizer(e, this));});
     }
 
-    private Circle addCircle(){
-        Circle circle = new Circle(RADIUS);
+    private void addCircle(){
+        Circle circle = new Circle(0, 0, RADIUS);
         group.getChildren().add(circle);
-        return circle;
     }
 
-    private void addText(String s, Circle circle) {
-        Text text = new Text(circle.getCenterX(), circle.getCenterY(), s.substring(0, 5));
+    private void addText(String string) {
+        Text text = new Text(0, 0, string);
         text.setBoundsType(TextBoundsType.VISUAL);
-        text.setStyle(
-                "-fx-font-family: \"Georgia\";" +
-                        "-fx-font-size: 8px;"
-        );
+        text.setStyle("-fx-font-family: \"Georgia\";" + "-fx-font-size: 18px;");
         group.getChildren().add(text);
     }
 
-    public List<Visualizer> getChildrenList(){
-        return childrenList;
-    }
+    public Visualizer getParentVisualizer(){return parentVisualizer;}
 
-    public Group getGroup() {
-        return group;
-    }
+    public List<Visualizer> getChildrenList(){return childrenList;}
 
-    public List<Line> getLines() {
-        return lines;
-    }
+    public Group getGroup(){return group;}
 
-    public int getNumChildren(){
-        return numChildren;
-    }
+    public List<Line> getLines(){return lines;}
 
-    public String getUID(){
-        return UID;
-    }
+    public int getNumChildren(){return numChildren;}
+
+    public String getUID(){return UID;}
 }

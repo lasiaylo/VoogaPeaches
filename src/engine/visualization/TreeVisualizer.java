@@ -1,21 +1,18 @@
 package engine.visualization;
 
 import javafx.scene.Group;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import util.math.num.Vector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import static engine.visualization.EntityViz.CONNECTION_LENGTH;
+import java.util.*;
 
 public class TreeVisualizer {
 
     public static final double LENGTH = 100;
+    public static final int MAX_DISPLAY = 4;
 
     private GameVisualizer gameVisualizer;
     private Visualizer visualizer;
@@ -26,7 +23,9 @@ public class TreeVisualizer {
         this.visualizer = visualizer;
         group = new Group();
         styleRoot(visualizer);
-        recurseDraw(visualizer, new Vector(0, 0));
+        //BFS(visualizer);
+        draw(visualizer);
+        drawChildren(visualizer);
     }
 
     private void styleRoot(Visualizer visualizer){
@@ -35,16 +34,80 @@ public class TreeVisualizer {
         circle.setFill(Color.WHITE);
     }
 
-    private void recurseDraw(Visualizer visualizer, Vector position){
+    private void styleChild(Circle circle, ChoiceBox choiceBox){
+        circle.setFill(Color.BISQUE);
+        choiceBox.setVisible(false);
+        choiceBox.setLayoutX(circle.getCenterX());
+        choiceBox.setLayoutY(circle.getCenterY());
+        group.getChildren().add(choiceBox);
+        choiceBox.toFront();
+    }
+
+    private void draw(Visualizer visualizer){
         group.getChildren().add(visualizer.getGroup());
-        visualizer.getGroup().relocate(position.at(0), position.at(1));
+        visualizer.getGroup().relocate(0, 0);
+        if (visualizer.getParentVisualizer() != null){
+            Line l = visualizer.getParentVisualizer().getLines().get(0);
+            visualizer.getParentVisualizer().getLines().remove(0);
+            visualizer.getGroup().relocate(l.getEndX(), l.getEndY());
+        }
         if (visualizer.getNumChildren() > 0){
             linesFromCircle(visualizer);
-            for (int i = 0; i < visualizer.getLines().size(); i++) {
-                Line l = visualizer.getLines().get(i);
+            for (int i = 0; i < visualizer.getChildrenList().size(); i++) {
                 Visualizer child = visualizer.getChildrenList().get(i);
-                ((Circle) child.getGroup().getChildren().get(0)).setFill(Color.ORCHID);
-                recurseDraw(child, new Vector(l.getEndX(), l.getEndY()));
+                Circle circle = ((Circle) child.getGroup().getChildren().get(0));
+                circle.setFill(Color.ORCHID);
+                circle.setOnMouseClicked(e -> gameVisualizer.focus(child));
+            }
+        }
+    }
+
+    private void drawChildren(Visualizer visualizer) {
+        int children = Math.min(MAX_DISPLAY, visualizer.getNumChildren());
+        for (int i = 0; i < children; i++) {
+            draw(visualizer.getChildrenList().get(i));
+        }
+        if (visualizer.getNumChildren() > MAX_DISPLAY) {
+            Visualizer child = visualizer.getChildrenList().get(MAX_DISPLAY);
+            draw(child);
+            Circle circle = (Circle) child.getGroup().getChildren().get(0);
+            ChoiceBox<String> choiceBox = new ChoiceBox<>();
+            styleChild(circle, choiceBox);
+            circle.setOnMouseClicked(f -> {
+                for (int j = MAX_DISPLAY - 1; j < visualizer.getNumChildren(); j++){
+                    if (!choiceBox.getItems().contains(visualizer.getUID())){
+                        choiceBox.getItems().add(visualizer.getUID());
+                    }
+                }
+                choiceBox.show();
+                choiceBox.setOnAction(g -> {
+                    if (choiceBox.getValue() != null) {
+                        gameVisualizer.focus(visualizer.getChildrenList().get(indexByUID(choiceBox.getValue(), visualizer)));
+                        choiceBox.valueProperty().set(null);
+                    }
+                });
+            });
+        }
+    }
+
+    private void BFS(Visualizer visualizer){
+        Map<String, Boolean> visited = new HashMap<>();
+        Queue<Visualizer> queue = new LinkedList<>();
+        visited.put(visualizer.getUID(), true);
+        queue.add(visualizer);
+        while (queue.size() != 0)
+        {
+            Visualizer currentVisualizer = queue.poll();
+            draw(currentVisualizer);
+            Iterator<Visualizer> i = currentVisualizer.getChildrenList().listIterator();
+            while (i.hasNext())
+            {
+                Visualizer nextVisualizer = i.next();
+                if (!visited.containsKey(nextVisualizer.getUID()))
+                {
+                    visited.put(nextVisualizer.getUID(), true);
+                    queue.add(nextVisualizer);
+                }
             }
         }
     }
@@ -55,8 +118,8 @@ public class TreeVisualizer {
 
     private void linesFromCircle(Visualizer visualizer){
         Circle origin = (Circle) visualizer.getGroup().getChildren().get(0);
-        for (int i = 0; i < visualizer.getNumChildren(); i++){
-            double angle = (2 * Math.PI)/(visualizer.getNumChildren())*i;
+        for (int i = 0; i < MAX_DISPLAY; i++){
+            double angle = (2 * Math.PI)/(MAX_DISPLAY)*i;
             Vector lineBegin = vecFromHypotenuse(new Vector(origin.getCenterX(), origin.getCenterY()), origin.getRadius(), angle);
             Vector lineEnd = vecFromHypotenuse(lineBegin, LENGTH, angle);
             Line line = new Line(lineBegin.at(0), lineBegin.at(1), lineEnd.at(0), lineEnd.at(1));
@@ -65,7 +128,14 @@ public class TreeVisualizer {
         }
     }
 
-    public Group getGroup() {
-        return group;
+    private int indexByUID(String UID, Visualizer visualizer){
+        for (int i = MAX_DISPLAY; i < visualizer.getNumChildren(); i++){
+            if (visualizer.getChildrenList().get(i).getUID().equals(UID)){
+                return i;
+            }
+        }
+        return -1;
     }
+
+    public Group getGroup() {return group;}
 }

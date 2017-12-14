@@ -1,21 +1,20 @@
 package authoring.panels.attributes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
+import javafx.scene.input.*;
+import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.jsonhelpers.JSONDataManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.TransferMode;
-import javafx.stage.FileChooser;
-
 public class ListField extends Field {
+
+    private static final String GROOVY_SCRIPTS_PROMPT = "Groovy Scripts";
+    private static final String GROOVY_EXTENSION = "*.groovy";
+    private static final String GROOVY = ".groovy";
 	private ListView<String> listview;
 	private ObservableList<String> OBList;
 
@@ -39,7 +38,7 @@ public class ListField extends Field {
 
 	private void open() {
 		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter groovy = new FileChooser.ExtensionFilter("Groovy Scripts", "*.groovy");
+		FileChooser.ExtensionFilter groovy = new FileChooser.ExtensionFilter(GROOVY_SCRIPTS_PROMPT, GROOVY_EXTENSION);
 		fileChooser.getExtensionFilters().add(groovy);
 		File selected = fileChooser.showOpenDialog(null);
 		if (selected != null){
@@ -78,7 +77,7 @@ public class ListField extends Field {
 
 	private void addFileToList(File file) {
 		String filePath = file.getAbsolutePath();
-		if (filePath.endsWith(".groovy")) {
+		if (filePath.endsWith(GROOVY)) {
             filePath = file.getName();
             OBList.add(filePath);
         }
@@ -90,5 +89,4 @@ public class ListField extends Field {
 		OBList = FXCollections.observableArrayList(list);
 		listview.setItems(OBList);
 	}
-
 }

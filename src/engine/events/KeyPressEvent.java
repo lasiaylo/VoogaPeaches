@@ -4,32 +4,42 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class KeyPressEvent extends Event {
-    private KeyCode myKeyCode;
     private boolean isGaming = true;
+    private KeyEvent myEvent;
+    private KeyCode keyCode;
+
+    public KeyPressEvent() {
+        super(EventType.KEY_PRESS.getType());
+    }
 
     public KeyPressEvent(KeyEvent code) {
-        this(code.getCode());
+        this();
+        myEvent = code;
     }
 
-    public KeyPressEvent(KeyEvent code, boolean gaming) {
-        this(code.getCode(), gaming);
-    }
-
-    public KeyPressEvent(KeyCode code) {
-        super(EventType.KEY_PRESS.getType());
-        myKeyCode = code;
-    }
-
-    public KeyPressEvent(KeyCode code, boolean gaming) {
-        this(code);
+    public KeyPressEvent(KeyEvent event, boolean gaming) {
+        this();
         isGaming = gaming;
+        myEvent = event;
     }
 
-    public KeyCode getKeyCode() {
-        return myKeyCode;
+    public KeyPressEvent(KeyEvent event, KeyCode code, boolean gaming) {
+        this();
+        isGaming = gaming;
+        myEvent = event;
+        keyCode = code;
+
     }
 
     public boolean getIsGaming() {
         return isGaming;
+    }
+
+    public KeyEvent getMyEvent() {
+        return myEvent;
+    }
+
+    public KeyCode getKeyCode() {
+        return keyCode;
     }
 }

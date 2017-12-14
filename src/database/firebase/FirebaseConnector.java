@@ -3,6 +3,7 @@ package database.firebase;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import util.ErrorDisplay;
 import util.PropertiesReader;
 
 import java.io.FileInputStream;
@@ -22,6 +23,7 @@ public abstract class FirebaseConnector {
     /* Static Variables */
     private static boolean appInitialized = false;
     private static FirebaseApp app;
+
     /**
      * Initializes the FirebaseApp if it hasn't been already. Should only
      * ever be called by subclasses within the database package.
@@ -45,9 +47,7 @@ public abstract class FirebaseConnector {
                     .build();
             app = FirebaseApp.initializeApp(options);
             appInitialized = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { new ErrorDisplay("Firebase Error", "Could not initialize firebase").displayError(); }
     }
 
     /**
