@@ -3,6 +3,7 @@
   "AccelerateEvent.groovy",
   "circle.groovy",
   "Explosion.groovy",
+  "fsm.groovy",
   "fsm.sample.groovy",
   "gravity.groovy",
   "gravity_movement.groovy",

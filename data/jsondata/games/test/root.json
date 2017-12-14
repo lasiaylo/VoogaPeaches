@@ -1,62 +1,29 @@
 {
-  "UID": "344bfa086b5e413fa4011c851f34e846",
+  "UID": "50ddcad7e31b486aa14c76676c7f9835",
   "children": [{
-    "UID": "aa8487be9cd94c61a484abf5ad982fdc",
-    "children": [
-      {
-        "UID": "629ca8f332ae41f28980d92ddc4fdbe8",
-        "children": [],
-        "hitBoxes": [],
-        "properties": {
-          "gridsize": 50,
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
-          "scripts": {"holderScript": {"empty": "empty"}}
-        }
-      },
-      {
-        "UID": "13d88243510b4e409aaeed35b94a2062",
-        "children": [{
-          "UID": "32f60a17d96b42a0bbd8e4eb41cd0823",
-          "children": [],
-          "hitBoxes": [],
-          "properties": {
-            "vx": 0,
-            "vy": -0.1,
-            "listeners": {
-              "move": {"update_position": {"empty": "empty"}},
-              "tick": {
-                "move": {"empty": "empty"},
-                "gravity_movement": {"empty": "empt"}
-              },
-              "key press": {"movement": {"empty": "empty"}}
-            },
-            "width": 50,
-            "x": 307,
-            "y": 135.7999999999995,
-            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-            "height": 50
-          }
-        }],
-        "hitBoxes": [],
-        "properties": {
-          "gridsize": 50,
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
-          "scripts": {"holderScript": {"empty": "empty"}}
-        }
+    "UID": "2612055b72554a86b051050087aba77c",
+    "children": [{
+      "UID": "4d6329b9295f4df08f88a4a19fbe913a",
+      "children": [],
+      "hitBoxes": [],
+      "properties": {
+        "listeners": {"tick": {"loader": {"empty": "empty"}}},
+        "gridsize": 50,
+        "scripts": {"holderScript": {"empty": "empty"}}
       }
-    ],
+    }],
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "cameraHeight": 500,
-      "cameraYpos": 0,
       "mapwidth": 5000,
-      "gridsize": 50,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
       "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
       "mapheight": 5000,
       "cameraWidth": 500,
-      "levelname": "level 1",
-      "scripts": {"mapScript": {"empty": "empty"}}
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
     }
   }],
   "hitBoxes": [],

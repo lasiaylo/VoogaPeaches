@@ -17,6 +17,7 @@ import util.pubsub.messages.EntityPass
 
 import java.util.stream.Collectors
 
+
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
@@ -83,6 +84,7 @@ import java.util.stream.Collectors
         ClickEvent cEvent = (ClickEvent) call
         if (!cEvent.getIsGaming()) {
             pointer.requestFocus()
+            println("here bitch boi")
             if(!entity.getProperties().getOrDefault("bg", false)) {
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             }
@@ -95,7 +97,6 @@ import java.util.stream.Collectors
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
                 entity.getParent().remove(entity)
         }
-
     })
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
