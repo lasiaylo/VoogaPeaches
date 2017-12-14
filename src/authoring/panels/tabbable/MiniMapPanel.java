@@ -7,6 +7,8 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -21,6 +23,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * panel that allows the user to jump around in the whole contiguous map and add levels (noncontiguous parts of the map)
+ * @author Brian Nieves
+ * @author Kelly Zhang
+ * @author Estelle He
+ */
 public class MiniMapPanel implements Panel, MapChangeListener{
 
     private static final String CHANGE_NAME = "Change Name";
@@ -46,7 +54,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final int VALUE1 = 5000;
     private static final int VALUE2 = 5000;
     private Pane myPane;
-    private Pane holder = new StackPane();
     private TextField levelName;
     private TextField mapWidth;
     private TextField mapHeight;
@@ -64,9 +71,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         levelList = FXCollections.observableList(new ArrayList<>());
 
         myPane.getStyleClass().add(PANEL);
-        levelName = new TextField(LEVEL_NAME);
-        mapWidth = new TextField(MAP_WIDTH_STRING);
-        mapHeight = new TextField(MAP_HEIGHT_STRING);
+        setupTextFields();
         addLevel = new Button(ADD_LEVEL);
 
         levelBar = new HBox(levelName, mapWidth, mapHeight);
@@ -96,6 +101,15 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         addLevel.setOnMouseClicked(e -> add());
 
         getRegion().getStyleClass().add(PANEL);
+    }
+
+    private void setupTextFields() {
+        levelName = new TextField();
+        levelName.setPromptText(LEVEL_NAME);
+        mapWidth = new TextField();
+        mapWidth.setPromptText(MAP_WIDTH_STRING);
+        mapHeight = new TextField();
+        mapHeight.setPromptText(MAP_HEIGHT_STRING);
     }
 
     private void delete() {
@@ -175,7 +189,6 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     @Override
     public void setController(PanelController controller) {
         myPane = (Pane) controller.getMiniMap();
-        myPane.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
         myPane.setCenterShape(true);
         manager = controller.getManager();
         manager.addMapListener(this);
