@@ -2,16 +2,13 @@ package engine.camera;
 
 import engine.entities.Entity;
 import engine.events.KeyPressEvent;
-import javafx.beans.binding.NumberBinding;
-import javafx.collections.ObservableList;
-import javafx.scene.*;
 import javafx.scene.Camera;
+import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import util.math.num.Vector;
 
 public class NewCamera {
@@ -38,7 +35,6 @@ public class NewCamera {
         set(level.getNodes().getChildren().get(0));
         group.setOnKeyPressed(e->{
             new KeyPressEvent(e).recursiveFire(level);
-            System.out.println("pressed");
         });
         currentLevel = level;
     }
@@ -92,7 +88,6 @@ public class NewCamera {
         double yPos = miniMap.getHeight() / group.getLayoutBounds().getHeight() *size.at(1);
         point.setCenterX(xPos);
         point.setCenterY(yPos);
-        System.out.println(point.getCenterX());
     }
 
 

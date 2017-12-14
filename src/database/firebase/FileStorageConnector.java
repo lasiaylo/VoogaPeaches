@@ -6,9 +6,9 @@ import com.google.firebase.database.*;
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,24 +69,29 @@ public class FileStorageConnector extends FirebaseConnector {
         });
     }
 
+
     /**
-     * Saves the passed in File online to the Firebase file storage bucket.
+     * Saves the passed in File online to the base folder of the Firebase file storage bucket.
      * @param file is a {@code File} representing the file to be saved online
      * @throws IOException when the File cannot be read
      */
-    public void saveFile(File file) throws IOException {
+    public void saveFile(File file) throws IOException { saveTo(file, path + file.getName()); }
+
+    /**
+     * Saves the passed in file to a specific path in the online database
+     * @param file is the {@code File} to be save online to the database
+     * @param path is a {@code String} representing the path to save the file to
+     * @throws IOException when the File cannot be read
+     */
+    public void saveTo(File file, String path) throws IOException {
         // Creates a formatted file name that hides the extension
         String fileName = file.getName().split("\\.")[0];
-
         // Try reading in the raw bytes of the file, and
         // throw an exception if the I/O fails
         byte[] fileBytes;
-        try { fileBytes = Files.readAllBytes(file.toPath());
-        } catch (IOException e) { throw e; }
-
+        try { fileBytes = Files.readAllBytes(file.toPath()); } catch (IOException e) { throw e; }
         // Store the file in the storage bucket, and update db mapping
-        storageBucket.create(path + file.getName(), fileBytes);
-        storageDBRef.child(fileName).setValueAsync(file.getName());
+        storageBucket.create(path, fileBytes);
         fileMap.put(fileName, file.getName());
     }
 
@@ -97,9 +102,19 @@ public class FileStorageConnector extends FirebaseConnector {
      */
     public Image retrieveImage(String image) {
         // Get the raw bytes corresponding to the image from the storage bucket
-        byte[] imageBytes = storageBucket.get(fileMap.get(path + image)).getContent();
+        byte[] imageBytes = storageBucket.get(path + image).getContent();
         // Create a new image from the bytes and return it
         return new Image(new ByteArrayInputStream(imageBytes));
+    }
+
+    /**
+     * Retrieves the raw bytes from a file saved online in the database
+     * @param file is a {@code String} representing the file within the base folder whose
+     *             bytes you want to retrieve
+     * @return A {@code byte[]} that contains the bytes for the file being retrieved
+     */
+    public byte[] retrieveBytes(String file) {
+         return storageBucket.get(path + file).getContent();
     }
 
     /**

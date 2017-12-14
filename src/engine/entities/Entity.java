@@ -2,9 +2,11 @@ package engine.entities;
 
 import com.google.gson.annotations.Expose;
 import engine.collisions.HitBox;
-import engine.events.*;
+import engine.events.Evented;
+import engine.events.SubstituteEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,11 @@ public class Entity extends Evented {
         group = new Group();
         children = new ArrayList<>();
         properties = new HashMap<>();
+        HashMap<String,HashMap<String,String>> defaultScripts = new HashMap<>();
+        HashMap<String,String> loader = new HashMap<>();
+        loader.put("empty","empty");
+        defaultScripts.put("loader",loader);
+        properties.put("scripts", defaultScripts);
         hitBoxes = new ArrayList<>();
     }
 
@@ -67,11 +74,13 @@ public class Entity extends Evented {
     public void remove(Node node) { group.getChildren().remove(node); }
 
     public Entity addTo(Entity parent) {
-        this.parent = parent;
-        parent.getNodes()
-                .getChildren()
-                .add(group);
-        parent.getChildren().add(this);
+        if(parent != null) {
+            this.parent = parent;
+            parent.getNodes()
+                    .getChildren()
+                    .add(group);
+            if(!parent.getChildren().contains(this)) parent.getChildren().add(this);
+        }
         return this;
     }
 
@@ -112,25 +121,41 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
+        if(parent != null) this.parent.remove(this);
+        stopTrackingTrackableObject(this.UIDforObject());
         Entity entity = new Entity(parent);
         entity.properties = properties;
-        return EntitySubstituter.substitute(this, entity);
+        entity.replaceUID(this.UIDforObject());
+
+        try {
+           // DatabaseConnector.removeFromDatabasePath(this.getDbPath());
+            //DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        entity.properties = properties;
+        entity.hitBoxes = hitBoxes;
+        try {
+            parent.getNodes().getChildren().remove(group);
+        } catch(NullPointerException e){
+            // do nothing
+        }
+
+         if(!children.isEmpty())
+            for(Entity child : children)
+                entity.add(child.substitute());
+
+        entity.initialize();
+        new SubstituteEvent(entity).fire(entity);
+        return entity;
     }
-
-    String getDbPath() { return dbPath; }
-
-    void setDbPath(String dbPath) { this.dbPath = dbPath; }
 
     @Override
     public void initialize() {
-        if (root == null)
-            if (parent != null)
-                for (Entity entity : children)
-                    entity.root = this;
-            else
-                for (Entity entity : children)
-                    entity.root = root;
-
+        for(Entity child : children) {
+             child.parent = this;
+        }
+        clear();
         executeScripts();
     }
 }

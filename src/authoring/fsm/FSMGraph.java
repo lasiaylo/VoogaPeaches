@@ -44,11 +44,10 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         this(name, new ArrayList<>(), new ArrayList<>());
     }
 
-    public FSMGraph() { this(""); }
+    public FSMGraph() { this("NoNameGiven"); }
 
     @Override
     public void initialize() {
-        System.out.println("init FSM");
         for(StateRender sRender: myStateRenders) {
             sRender.setGraphDelegate(this);
             myGroup.getChildren().add(sRender.getRender());
@@ -192,21 +191,18 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         currentArrow = null;
     }
 
-    public List<State> export() {
+    public void export() {
         saveSetup();
         try {
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
-            manager.writeJSONFile("TestFSM", JSONHelper.JSONForObject(this));
+            manager.writeJSONFile(myName, JSONHelper.JSONForObject(this));
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Error saving FSM");
         }
-        System.out.println("Export");
-        FSM test = new FSM(new Entity(), myStates);
-        for (int i = 0; i<10; i++) {
-            test.step();
-        }
-        return null;
+    }
+
+    public FSM createFSM(Entity entity) {
+        return new FSM(entity, myStates);
     }
 
     private void saveSetup() {
@@ -260,5 +256,9 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
             }
         }
         return null;
+    }
+
+    public String getMyName() {
+        return myName;
     }
 }
