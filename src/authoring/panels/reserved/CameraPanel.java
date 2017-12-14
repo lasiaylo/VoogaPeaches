@@ -150,7 +150,7 @@ public class CameraPanel implements Panel {
         }
     }
 
-    public void clear(int layers) {
+//    public void clear(int layers) {
 //		myLayer.getItems().clear();
 //		myLayer.getItems().addAll(ALLL, BGL);
 //		layerC = 1;
@@ -159,7 +159,7 @@ public class CameraPanel implements Panel {
 //			myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
 //			layerC++;
 //		}
-	}
+//	}
 
 	/**
 	 * used to switch between layers (levels/non contiguous) parts of the map
