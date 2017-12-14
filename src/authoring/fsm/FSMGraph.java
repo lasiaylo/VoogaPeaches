@@ -200,15 +200,10 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         } catch (Exception e) {
             System.out.println("Error saving FSM");
         }
-        try {
-            FSM test = new FSM(new Entity(), myStates);
-            for (int i = 0; i<10; i++) {
-                test.step();
-            }
-            System.out.println("Ran FSM Properly!");
-        } catch (Exception e) {
-            System.out.println("Error with running FSM");
-        }
+    }
+
+    public FSM createFSM(Entity entity) {
+        return new FSM(entity, myStates);
     }
 
     private void saveSetup() {

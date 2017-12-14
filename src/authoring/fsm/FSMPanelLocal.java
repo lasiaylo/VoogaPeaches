@@ -1,7 +1,9 @@
-package authoring.panels.tabbable;
+package authoring.fsm;
 
-import authoring.fsm.FSMGraph;
 import authoring.panels.attributes.UpdatablePanel;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,19 +18,22 @@ import util.pubsub.PubSub;
 import util.pubsub.messages.EntityPass;
 import util.pubsub.messages.FSMMessage;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FSMPanel implements UpdatablePanel {
+public class FSMPanelLocal implements UpdatablePanel {
 
     private static final String FSM_PATH = "data/jsondata/fsm";
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
+    private List<FSMGraph> allGraphs;
     private Entity currentEntity;
     private Map<Entity, List<FSMGraph>> myMap = new HashMap<>();
 
-    public FSMPanel() {
+    public FSMPanelLocal() {
         init();
         PubSub.getInstance().subscribe("FSM", message -> readMessage((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
@@ -58,6 +63,7 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     private void init() {
+        allGraphs = new ArrayList<>();
         box.getChildren().clear();
         createGraphs();
         createAddButton();
@@ -65,7 +71,8 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     private void createGraphButtons() {
-        for(FSMGraph graph: myMap.get(currentEntity)) {
+        for(FSMGraph graph: allGraphs) {
+            System.out.println(graph.getMyName());
             Button button = new Button(graph.getMyName());
             button.setMinHeight(50);
             button.setMinWidth(50);
@@ -100,6 +107,14 @@ public class FSMPanel implements UpdatablePanel {
     }
 
     private void createGraphs() {
+        File folder = new File(FSM_PATH);
+        File[] listOfFiles = folder.listFiles();
+        JSONDataManager j = new JSONDataManager(JSONDataFolders.FSM);
+        JSONToObjectConverter<FSMGraph> m = new JSONToObjectConverter<>(FSMGraph.class);
+        for (File file : listOfFiles) {
+            FSMGraph graph = m.createObjectFromJSON(FSMGraph.class, j.readJSONFile(file.getName()));
+            allGraphs.add(graph);
+        }
     }
 
     @Override
