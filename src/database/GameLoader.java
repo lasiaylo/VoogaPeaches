@@ -12,6 +12,12 @@ import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
