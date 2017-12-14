@@ -151,15 +151,17 @@ public class HitBoxPanel implements Panel {
                 for(int i = 0; i < 6; i+=2)
                     hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(currentPoints.get(i), currentPoints.get(i + 1));
             } else if (currentPoints.size() > 6) {
-                entityView.getChildren().remove(1, entityView.getChildren().size());
+//                entityView.getChildren().remove(1, entityView.getChildren().size());
                 currentPoints.add(event.getX());
                 currentPoints.add(event.getY());
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(event.getX(),event.getY());
+                System.out.println("> 6");
             }
         }
     }
 
     private void addNewPoint(double x, double y) {
+        System.out.println("add point");
         Circle newPoint = new Circle();
         newPoint.setCenterX(x);
         newPoint.setCenterY(y);
