@@ -194,7 +194,6 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
     public void export() {
         saveSetup();
         try {
-            System.out.println("Saving FSM");
             JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
             manager.writeJSONFile(myName, JSONHelper.JSONForObject(this));
         } catch (Exception e) {

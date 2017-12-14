@@ -10,6 +10,7 @@ import util.PropertiesReader;
  * @author Walker Willetts
  */
 public enum FileDataFolders {
+
     USER_IMAGES("images/user_images"),
     IMAGES("images"),
     SCRIPTS("scripts");
