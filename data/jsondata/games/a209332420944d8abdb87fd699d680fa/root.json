@@ -1,0 +1,161 @@
+{
+  "UID": "a209332420944d8abdb87fd699d680fa",
+  "children": [{
+    "UID": "b2e0dde807df4ec3ad1b7fb6f57fad34",
+    "children": [
+      {
+        "UID": "1cef028abb0b45fd9f03a7118a45f7dc",
+        "children": [
+          {
+            "UID": "98ba7050693147beb9ef9ddaa39ecd73",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "cef885a9eae24224ad8ddd589196e1f3",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "df5ed9927b25440c9356a34bb1c0a4d4",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6249b618ea94496f9c9d088186eadd48",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3f4a663201e1427c82f914c46f0c7af1",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "d559377f4e1c45a3b159399a72b5db97",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "41e4deb1f49947d89f124fa8b0ee6b0c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1a119a4fcdde4b4f8620491cdf407379",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/duvall2.jpg"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "8fc397174e62424ba5eb3ea284ba269d",
+        "children": [{
+          "UID": "54022ddc69314e4c95f25a54c1fdfda0",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "width": 50,
+            "x": 213,
+            "y": 135,
+            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 5000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}
