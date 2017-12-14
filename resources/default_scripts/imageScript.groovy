@@ -105,7 +105,6 @@ import java.util.stream.Collectors
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
-        println("key")
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
             entity.getParent().remove(entity)
         }
