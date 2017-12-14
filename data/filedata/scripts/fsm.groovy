@@ -13,7 +13,7 @@ import util.pubsub.messages.Message
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     FSM fsm = null
-    String fsmName = "test"
+    String fsmName = "squirtle"
     PubSub pubSub = PubSub.getInstance()
 
     println("fired boi")

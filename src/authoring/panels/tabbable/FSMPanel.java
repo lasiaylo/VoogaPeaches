@@ -34,14 +34,9 @@ public class FSMPanel implements Panel, Updatable {
 
     public static Map<String, ArrayList<FSMGraph>> getFSMMap() { return FSMMap; }
 
-    public static void setFSMMap(Map<String, ArrayList<FSMGraph>> map) {
-        System.out.println("Map Set");
-
-        FSMMap = map;
-    }
+    public static void setFSMMap(Map<String, ArrayList<FSMGraph>> map) { FSMMap = map; }
 
     private void saveGraph(FSMGraphMessage message) {
-        System.out.println("getting graph");
         ArrayList<FSMGraph> values = FSMMap.getOrDefault(currentEntity, new ArrayList<>());
         if(!values.contains(message.getGraph())) {
             values.add(message.getGraph());
@@ -61,9 +56,11 @@ public class FSMPanel implements Panel, Updatable {
      * @param message
      */
     private void publishFSM(FSMMessage message) {
+        System.out.println("trying go fire FSM");
         if(FSMMap.containsKey(message.getEntity()) && FSMMap.get(message.getEntity()).contains(message.getName())){
             for(FSMGraph entry: FSMMap.get(message.getEntity())) {
                 if(entry.getMyName().equals(message.getName())) {
+                    System.out.println("published FSM");
                     PubSub.getInstance().publish("FSM",
                             new FSMMessage(message.getName(),
                                     message.getEntity(),
@@ -102,7 +99,6 @@ public class FSMPanel implements Panel, Updatable {
     }
 
     private void closeGraph(FSMGraph graph, Group wrapper) {
-        System.out.println("graph closed properly");
         wrapper.getChildren().clear();
         graph.export();
         init();
