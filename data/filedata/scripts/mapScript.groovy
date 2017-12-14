@@ -69,6 +69,7 @@ import util.pubsub.messages.NonBGMessage
     entity.on(EventType.RESET.getType(), { Event call ->
         stack.getChildren().remove(canvas)
         stack.getParent().getChildren().remove(stack)
+        println("reset")
         canvas = null
         stack = null
         System.gc()
