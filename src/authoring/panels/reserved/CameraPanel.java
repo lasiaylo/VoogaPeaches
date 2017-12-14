@@ -8,16 +8,15 @@ import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import main.VoogaPeaches;
-import util.PropertiesReader;
 import util.pubsub.PubSub;
-import util.pubsub.messages.StringMessage;
 
 /**
  * camera panel inside authoring environment that displays the game

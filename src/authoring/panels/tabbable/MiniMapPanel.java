@@ -17,7 +17,9 @@ import javafx.scene.paint.Color;
 import util.ErrorDisplay;
 import util.math.num.Vector;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Optional;
 
 public class MiniMapPanel implements Panel, MapChangeListener{
 

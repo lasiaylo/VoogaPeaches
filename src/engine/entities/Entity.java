@@ -1,11 +1,12 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.firebase.DatabaseConnector;
 import engine.collisions.HitBox;
-import engine.events.*;
+import engine.events.Evented;
+import engine.events.SubstituteEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

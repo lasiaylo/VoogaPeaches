@@ -7,7 +7,6 @@ import database.ObjectFactory;
 import database.filehelpers.FileDataFolders;
 import database.filehelpers.FileDataManager;
 import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONHelper;
 import engine.EntityManager;
 import engine.entities.Entity;
 import engine.events.ImageViewEvent;

@@ -6,9 +6,8 @@ import database.jsonhelpers.JSONToObjectConverter;
 import engine.Engine;
 import engine.EntityManager;
 import engine.entities.Entity;
+import engine.events.ResetEvent;
 import org.json.JSONObject;
-
-import java.util.Stack;
 
 public class ResetStrategy implements IButtonStrategy {
 
@@ -30,12 +29,11 @@ public class ResetStrategy implements IButtonStrategy {
         EntityManager manager = engine.getEntityManager();
         String levelName = manager.getCurrentLevelName();
         bottomUpInitialize(resetRoot);
+        Entity oldRoot = manager.getRoot();
+        new ResetEvent().recursiveFire(oldRoot);
         manager.setRoot(resetRoot);
-
         manager.changeLevel(levelName);
-//
         cameraPanel.updateLevel();
-
     }
 
     private void bottomUpInitialize(Entity root) {

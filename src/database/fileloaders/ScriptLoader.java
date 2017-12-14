@@ -3,7 +3,6 @@ package database.fileloaders;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
-import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.io.BufferedReader;
 import java.io.File;
