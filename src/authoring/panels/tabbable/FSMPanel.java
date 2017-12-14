@@ -13,10 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
-import util.pubsub.messages.FSMGraphMessage;
-import util.pubsub.messages.FSMMessage;
-import util.pubsub.messages.FSMSaveMessage;
+import util.pubsub.messages.*;
 
 import java.util.*;
 
@@ -25,33 +22,32 @@ public class FSMPanel implements Panel, Updatable {
     private final String TITLE = "FSM Panel";
     private VBox box = new VBox();
     private String currentEntity;
-    private Map<String, Set<FSMGraph>> myMap = new HashMap<>();
+    private static Map<String, ArrayList<FSMGraph>> FSMMap = new HashMap<>();
 
     public FSMPanel() {
         PubSub.getInstance().subscribe("FSM", message -> publishFSM((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
-        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveRequested((FSMSaveMessage) message));
-        PubSub.getInstance().subscribe("LOAD_FSM", message -> loadMap((FSMSaveMessage) message));
         PubSub.getInstance().subscribe("FSM_GRAPH", message -> saveGraph((FSMGraphMessage) message));
+        System.out.println("Publishing load");
         init();
+    }
+
+    public static Map<String, ArrayList<FSMGraph>> getFSMMap() { return FSMMap; }
+
+    public static void setFSMMap(Map<String, ArrayList<FSMGraph>> map) {
+        System.out.println("Map Set");
+
+        FSMMap = map;
     }
 
     private void saveGraph(FSMGraphMessage message) {
-        Set<FSMGraph> values = myMap.getOrDefault(currentEntity, new HashSet<>());
-        values.add(message.getGraph());
-        myMap.put(currentEntity, values);
-        init();
-    }
-
-    private void loadMap(FSMSaveMessage message) {
-        myMap = message.getFSMmap();
-        init();
-    }
-
-    private void saveRequested(FSMSaveMessage message) {
-        if(message.getFSMmap() == null) {
-            PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(myMap));
+        System.out.println("getting graph");
+        ArrayList<FSMGraph> values = FSMMap.getOrDefault(currentEntity, new ArrayList<>());
+        if(!values.contains(message.getGraph())) {
+            values.add(message.getGraph());
+            FSMMap.put(currentEntity, values);
         }
+        init();
     }
 
     private void newEntityClicked(EntityPass message) {
@@ -65,8 +61,8 @@ public class FSMPanel implements Panel, Updatable {
      * @param message
      */
     private void publishFSM(FSMMessage message) {
-        if(myMap.containsKey(message.getEntity()) && myMap.get(message.getEntity()).contains(message.getName())){
-            for(FSMGraph entry: myMap.get(message.getEntity())) {
+        if(FSMMap.containsKey(message.getEntity()) && FSMMap.get(message.getEntity()).contains(message.getName())){
+            for(FSMGraph entry: FSMMap.get(message.getEntity())) {
                 if(entry.getMyName().equals(message.getName())) {
                     PubSub.getInstance().publish("FSM",
                             new FSMMessage(message.getName(),
@@ -84,8 +80,8 @@ public class FSMPanel implements Panel, Updatable {
     }
 
     private void createGraphButtons() {
-        if (currentEntity == null || myMap.get(currentEntity) == null) { return; }
-        for(FSMGraph graph: myMap.get(currentEntity)) {
+        if (currentEntity == null || FSMMap == null || FSMMap.get(currentEntity) == null) { return; }
+        for(FSMGraph graph: FSMMap.get(currentEntity)) {
             Button button = new Button(graph.getMyName());
             button.setMinHeight(50);
             button.setMinWidth(50);

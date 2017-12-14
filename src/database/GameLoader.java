@@ -1,6 +1,7 @@
 package database;
 
 import authoring.fsm.FSMGraph;
+import authoring.panels.tabbable.FSMPanel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,9 +16,11 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,12 +58,24 @@ public class GameLoader {
         FirebaseDatabase.getInstance().getReference(uid).child("fsm").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("map: " + dataSnapshot.toString());
-                Map<Entity, List<FSMGraph>> map = (Map<Entity, List<FSMGraph>>) dataSnapshot.getValue();
-                JSONDataManager manager = new JSONDataManager(JSONDataFolders.GAMES);
-                JSONObject jsonForm = JSONHelper.JSONForObject(map);
+                Map<String, ArrayList<FSMGraph>> FSMMap = new HashMap<>();
+                JSONToObjectConverter<FSMGraph> graphConverter = new JSONToObjectConverter<>(FSMGraph.class);
                 String filepath = uid + "/fsm.json";
+                JSONDataManager manager = new JSONDataManager(JSONDataFolders.GAMES);
+                JSONObject jsonForm = JSONHelper.JSONForObject(dataSnapshot.getValue());
                 manager.writeJSONFile(filepath, jsonForm);
+                for(String key: jsonForm.keySet()) {
+                    ArrayList<FSMGraph> graphs = new ArrayList<>();
+                    JSONArray tempJsonArray = jsonForm.getJSONArray(key);
+                    for(int n = 0; n < tempJsonArray.length(); n++)
+                    {
+                        JSONObject object = tempJsonArray.getJSONObject(n);
+                        FSMGraph graph = graphConverter.createObjectFromJSON(FSMGraph.class, object);
+                        graphs.add(graph);
+                    }
+                    FSMMap.put(key, graphs);
+                }
+                FSMPanel.setFSMMap(FSMMap);
                 loaded[3] = true;
             }
             @Override
@@ -122,7 +137,6 @@ public class GameLoader {
                 FileStorageConnector connector = new FileStorageConnector("scripts");
                 FileDataManager manager = new FileDataManager(FileDataFolders.SCRIPTS);
                 for(String file : files) {
-                    System.out.println(file);
                     byte[] bytes = connector.retrieveBytes(file);
                     manager.writeFileData(bytes, file);
                 }

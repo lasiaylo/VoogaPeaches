@@ -1,10 +1,10 @@
 {
-  "UID": "c86ccea4c458440dbafcd1071a4fc1be",
+  "UID": "99f07b8b2faa4c2f8576ac11e5788a04",
   "children": [{
-    "UID": "47c03fb10a734331808decec4d60ef64",
+    "UID": "ca60fd3924214d6d8dd7f6de670d7795",
     "children": [
       {
-        "UID": "85d88797f3b749bea5ca4503d08c9755",
+        "UID": "2830b0c33ed845e3b8dd270ba7656a72",
         "children": [],
         "hitBoxes": [],
         "properties": {
@@ -14,9 +14,9 @@
         }
       },
       {
-        "UID": "a74db62f18714249931d261018d46dea",
+        "UID": "11c45ae32f234e4b824752cc923085bf",
         "children": [{
-          "UID": "09a1d904f23a4eca967cbb7ccbf08113",
+          "UID": "63c10f3e3a194e44ba5a54d912cc3be9",
           "children": [],
           "hitBoxes": [],
           "properties": {
@@ -27,10 +27,10 @@
               "tick": {"move": {"empty": "empty"}},
               "key press": {"movement": {"empty": "empty"}}
             },
-            "x": 367,
+            "x": 304,
             "width": 50,
-            "y": 206,
-            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+            "y": 171,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
             "height": 50
           }
         }],

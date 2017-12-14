@@ -1,10 +1,10 @@
 {
-  "UID": "c86ccea4c458440dbafcd1071a4fc1be",
+  "UID": "3483573ecc6c44bea3ba7c7afbaadac6",
   "children": [{
-    "UID": "47c03fb10a734331808decec4d60ef64",
+    "UID": "5b28e7af29bd465ab01627207196ef70",
     "children": [
       {
-        "UID": "85d88797f3b749bea5ca4503d08c9755",
+        "UID": "7ea25a7facca49cb96acc3f8a4181cd8",
         "children": [],
         "hitBoxes": [],
         "properties": {
@@ -14,9 +14,9 @@
         }
       },
       {
-        "UID": "a74db62f18714249931d261018d46dea",
+        "UID": "b730ac1105f74d4691c84d15719b042b",
         "children": [{
-          "UID": "09a1d904f23a4eca967cbb7ccbf08113",
+          "UID": "63c80e83843a472aa7b64e22719eb6ab",
           "children": [],
           "hitBoxes": [],
           "properties": {
@@ -27,10 +27,10 @@
               "tick": {"move": {"empty": "empty"}},
               "key press": {"movement": {"empty": "empty"}}
             },
-            "x": 367,
+            "x": 310,
             "width": 50,
-            "y": 206,
-            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+            "y": 154,
+            "scripts": {"imageScript": {"image_path": "user_images/Pikachu.png"}},
             "height": 50
           }
         }],
