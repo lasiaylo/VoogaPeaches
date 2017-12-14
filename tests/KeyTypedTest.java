@@ -13,7 +13,7 @@ public class KeyTypedTest extends Application {
         group.getChildren().add(rectangle);
         Scene s = new Scene(group);
         primaryStage.setScene(s);
-        group.setOnMouseClicked(e -> System.out.println("hell yeah"));
+
         primaryStage.show();
     }
 

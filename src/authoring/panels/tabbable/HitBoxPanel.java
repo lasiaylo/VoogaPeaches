@@ -7,6 +7,8 @@ import engine.entities.Entity;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -44,6 +46,7 @@ public class HitBoxPanel implements Panel {
     private List<Double> currentPoints;
     private Button saveButton;
     private Button addButton;
+    private ImageView pointer = new ImageView();
 
     public HitBoxPanel() {
         createEntityView();
@@ -54,7 +57,8 @@ public class HitBoxPanel implements Panel {
         options.add(hitboxSelection, 0, 1);
 //        GridPane.setHgrow(hitboxNameField, Priority.ALWAYS);
 
-
+        pointer.setX(entityView.getWidth() / 2 );
+        pointer.setY(entityView.getHeight() / 2 );
         getRegion().getStyleClass().add(PANEL);
         createAddButton();
         createComboBox();
@@ -62,16 +66,20 @@ public class HitBoxPanel implements Panel {
         createSaveButton();
         PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
             EntityPass entityPass = (EntityPass) e;
-            setEntity(entityPass.getEntity());
+            setEntity(entityPass.getEntity(), entityPass.getImage());
         });
     }
 
-    public void setEntity(Entity entity) {
+    public void setEntity(Entity entity, Image image) {
         hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
+        pointer.setImage(image);
+        setPointer(entity);
+
         hitboxes = entity.getHitBoxes();
         hitboxSelection.getItems().clear();
         createComboBox();
+        options.getColumnConstraints().clear();
         options.getColumnConstraints().addAll(
                 new ColumnConstraints(region.getWidth() * OPTION_WIDTH_RATIO), new ColumnConstraints(region.getWidth()* OPTIONS_WIDTH_RATIO));
         hitboxNameField.prefWidthProperty().bind(options.getColumnConstraints().get(0).prefWidthProperty());
@@ -80,13 +88,21 @@ public class HitBoxPanel implements Panel {
         saveButton.prefWidthProperty().bind(options.getColumnConstraints().get(1).prefWidthProperty());
     }
 
+    private void setPointer(Entity entity) {
+        entityView.getChildren().add(pointer);
+        pointer.setX(entityView.getWidth() / 2 - pointer.getBoundsInLocal().getWidth() / 2);
+        pointer.setY(entityView.getHeight() / 2 - pointer.getBoundsInLocal().getHeight() / 2);
+        pointer.setFitWidth((double) entity.getProperty("width"));
+        pointer.setFitHeight((double) entity.getProperty("height"));
+    }
+
     private void createComboBox() {
         hitboxSelection.getItems().add(VIEW_ALL);
         hitboxSelection.getSelectionModel().selectLast();
         for(HitBox h : hitboxes)
             hitboxSelection.getItems().add(h.getTag());
         hitboxSelection.getSelectionModel().selectedIndexProperty().addListener((arg, oldVal, newVal) ->{
-            entityView.getChildren().remove(0, entityView.getChildren().size());
+            entityView.getChildren().remove(1, entityView.getChildren().size());
             if(newVal.intValue() == 0 | newVal.intValue() == -1){
                 hitboxes.forEach(box -> {
                     box.getHitbox().setFill(Color.LIGHTGRAY);

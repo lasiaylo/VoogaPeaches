@@ -12,6 +12,12 @@ import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONHelper;
 import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -100,9 +106,9 @@ public class GameLoader {
                 FileStorageConnector connector = new FileStorageConnector("scripts");
                 FileDataManager manager = new FileDataManager(FileDataFolders.SCRIPTS);
                 for(String file : files) {
-                    System.out.println(file);
                     byte[] bytes = connector.retrieveBytes(file);
                     manager.writeFileData(bytes, file);
+                    System.out.println(file);
                 }
                 loaded[2] = true;
                 // Cache scripts after loading them in
