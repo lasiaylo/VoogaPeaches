@@ -90,6 +90,7 @@ import java.util.stream.Collectors
     entity.on(EventType.CLICK.getType(), { Event call ->
         ClickEvent cEvent = (ClickEvent) call
         if (!cEvent.getIsGaming()) {
+            pointer.setFocusTraversable(true)
             pointer.requestFocus()
             if(!entity.getProperties().getOrDefault("bg", false)) {
                 //entity = entity.substitute()
@@ -97,10 +98,13 @@ import java.util.stream.Collectors
             }
         }
         cEvent.getMouseEvent().consume()
+        pointer.setFocusTraversable(true)
+        pointer.requestFocus()
     })
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
+        println("key")
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
             entity.getParent().remove(entity)
         }
@@ -149,70 +153,9 @@ import java.util.stream.Collectors
             })
         }
         dEvent.getEvent().consume()
-
-
+        pointer.setFocusTraversable(true)
+        pointer.requestFocus()
     })
 
-//    entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
-//        MouseDragEvent dEvent = (MouseDragEvent) call
-//        if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
-//            pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
-//            MouseEvent e = dEvent.getEvent()
-//            if (e.getButton().equals(MouseButton.PRIMARY)) {
-//                def xPos = e.getX()
-//                def yPos = e.getY()
-//                //LOL there is actually a bug here, if you try to drag over the right bound and lower bound
-//                if (e.getX() < 0) {
-//                    xPos = pointer.getFitWidth() / 2
-//                }
-//                if (e.getY() < 0) {
-//                    yPos = pointer.getFitHeight() / 2
-//                }
-//                pointer.setX((xPos - pointer.getFitWidth()/2).doubleValue())
-//                pointer.setY((yPos - pointer.getFitHeight()/2).doubleValue())
-//                entity.setProperty("x", xPos)
-//                entity.setProperty("y", yPos)
-//            } else if (e.getButton().equals(MouseButton.SECONDARY)) {
-//                def change = (new Vector(e.getX(), e.getY())).subtract(dEvent.getMyStartPos())
-//                println(change)
-//                def fsize = change.add(dEvent.getMyStartSize())
-//                if (fsize.at(0) < 0) {
-//                    fsize.at(0, 0.1)
-//                }
-//                if (fsize.at(1) < 0) {
-//                    fsize.at(1, 0.1)
-//                }
-//                pointer.setFitWidth(fsize.at(0))
-//                pointer.setFitHeight(fsize.at(1))
-//                entity.setProperty("width", fsize.at(0));
-//                entity.setProperty("height", fsize.at(1));
-//
-//                entity = entity.substitute()
-//            }
-//        }
-//        dEvent.getEvent().consume()
-//        dragged = true
-//    })
 
-//    entity.on(EventType.DRAG_EXITED.getType(), { Event call ->
-//        DragExitedEvent exitEvent = (DragExitedEvent) call
-//        if(dragged) {
-//            entity = entity.substitute()
-//        }
-//        exitEvent.getMouseEvent().consume()
-//    })
-
-//    entity.on(EventType.MOUSE_PRESS.getType(), { Event call ->
-//        MousePressedEvent dEvent = (MousePressedEvent) call
-//        pointer.setOnMouseDragged({e -> new MouseDragEvent(false, e,
-//                new Vector(dEvent.getMouseEvent().getX(), dEvent.getMouseEvent().getY()),
-//                new Vector(pointer.getFitWidth(), pointer.getFitHeight())).fire(entity)})
-//        dEvent.getMouseEvent().consume()
-//        //todo image scaling
-//    })
-
-//    if(!((boolean) getProperties().getOrDefault("bg", false))) {
-//        new InitialImageEvent(new Vector((double) entity.getProperty("width"), (double) entity.getProperty("height")),
-//                new Vector((double) entity.getProperty("x"), (double) entity.getProperty("y"))).fire(entity)
-//    }
 }
