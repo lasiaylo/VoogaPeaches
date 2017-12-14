@@ -61,7 +61,7 @@ public class EntityManager {
 
     private void addLevels() {
         if (root.getChildren().isEmpty()) {
-            addLevel("level 1", 5000, 5000);
+            addLevel("level 1", 2000, 2000);
             currentLevel = levels.get("level 1");
             currentLevelName = "level 1";
         } else {
@@ -279,10 +279,7 @@ public class EntityManager {
             new ErrorDisplay("Level Doesn't Exist", "Oops 😧 !! Level " + level + " does not exist").displayError();
             return currentLevel;
         }
-        System.out.println("changing level in entity");
-
         if (currentLevel.equals(levels.get(level))) {
-            System.out.println("level change to same level");
             camera.changeLevel(currentLevel);
             return currentLevel;
         }

@@ -12,6 +12,7 @@ import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
 import engine.events.MousePressedEvent
+import engine.events.SubstituteEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
 import javafx.scene.image.Image
@@ -67,10 +68,10 @@ import java.util.stream.Collectors
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(iEvent.getMyGridSize().at(0))
-        entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(iEvent.getMyGridSize().at(1))
-        entity.setProperty("height", iEvent.getMyGridSize().at(1))
+        pointer.setFitWidth(entity.getProperty("width"))
+        //entity.setProperty("width", iEvent.getMyGridSize().at(0))
+        pointer.setFitHeight(entity.getProperty("height"))
+        //entity.setProperty("height", iEvent.getMyGridSize().at(1))
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
         entity.setProperty("x", iEvent.getMyPos().at(0))
@@ -108,7 +109,11 @@ import java.util.stream.Collectors
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
             entity.getParent().remove(entity)
         }
+    })
 
+    entity.on(EventType.SUBSTITUTE.getType(), { Event call ->
+        SubstituteEvent substituteEvent = (SubstituteEvent) call
+        pointer.requestFocus()
     })
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
@@ -150,6 +155,7 @@ import java.util.stream.Collectors
             })
             pointer.setOnMouseReleased({ e ->
                 entity = entity.substitute()
+                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity))
             })
         }
         dEvent.getEvent().consume()

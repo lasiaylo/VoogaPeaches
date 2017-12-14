@@ -12,6 +12,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import util.math.num.Vector;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,16 +1,17 @@
 package engine.camera;
 
 import engine.entities.Entity;
-import engine.events.KeyPressEvent;
+import engine.events.MapSetupEvent;
+import engine.events.MouseDragEvent;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import main.VoogaPeaches;
 import util.math.num.Vector;
 
 /**
@@ -70,7 +71,6 @@ public class Camera {
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
-        System.out.println("new level " + level);
 //        view.setOnKeyPressed(e -> {
 //            System.out.println("hell yeah");
 //            new KeyPressEvent(e).recursiveFire(level);
@@ -112,6 +112,8 @@ public class Camera {
         point.centerYProperty().bind(yPoint);
 
         event.consume();
+//        new MouseDragEvent(VoogaPeaches.getIsGaming()).fire(currentLevel);
+//        new MapSetupEvent().fire(currentLevel);
     }
 
     private void vScroll(double num) {
@@ -128,5 +130,23 @@ public class Camera {
         view.setHvalue(num);
 //        view.hminProperty().bind(view.hvalueProperty());
 //        view.hmaxProperty().bind(view.hvalueProperty());
+    }
+
+    public void fixCamera() {
+        view.vminProperty().bind(view.vvalueProperty().add(-Double.MIN_VALUE));
+        view.vmaxProperty().bind(view.vvalueProperty().add(Double.MIN_VALUE));
+        view.hminProperty().bind(view.hvalueProperty().add(-Double.MIN_VALUE));
+        view.hmaxProperty().bind(view.hvalueProperty().add(Double.MIN_VALUE));
+    }
+
+    public void freeCamera() {
+        view.vminProperty().unbind();
+        view.vmaxProperty().unbind();
+        view.hminProperty().unbind();
+        view.hmaxProperty().unbind();
+        view.setHmax(1);
+        view.setHmin(0);
+        view.setVmax(1);
+        view.setVmin(0);
     }
 }

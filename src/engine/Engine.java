@@ -13,6 +13,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import main.VoogaPeaches;
 import org.json.JSONObject;
 import util.math.num.Vector;
 
@@ -73,13 +74,18 @@ public class Engine implements DataReactor<Entity> {
         scrollPane.requestFocus();
         this.isGaming = true;
         lastState = JSONHelper.JSONForObject(root);
+        VoogaPeaches.setIsGaming(isGaming);
+        //todo change all isgaming to the static one
         entityManager.setIsGaming(isGaming);
+        camera.fixCamera();
     }
 
     public void pause() {
         timeline.pause();
         this.isGaming = false;
         entityManager.setIsGaming(isGaming);
+        VoogaPeaches.setIsGaming(isGaming);
+        camera.freeCamera();
     }
 
     public EntityManager getManager() {

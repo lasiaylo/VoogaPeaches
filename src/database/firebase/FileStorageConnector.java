@@ -6,9 +6,9 @@ import com.google.firebase.database.*;
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 

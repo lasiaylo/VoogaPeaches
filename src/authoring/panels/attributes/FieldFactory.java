@@ -1,14 +1,13 @@
 package authoring.panels.attributes;
 
+import util.ErrorDisplay;
+import util.PropertiesReader;
+import util.exceptions.GroovyInstantiationException;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.ResourceBundle;
-
-import util.ErrorDisplay;
-import util.PropertiesReader;
-import util.exceptions.GroovyInstantiationException;
 
 /**Creates a particular subclass of Field depending on the class of what the Field is setting
  * @author lasia
