@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import util.ErrorDisplay;
 import util.math.num.Vector;
 
@@ -49,6 +50,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final int BOX_SPACING = 15;
     private static final int VALUE1 = 5000;
     private static final int VALUE2 = 5000;
+    private static final String SELECT = "Select";
     private Pane myPane;
     private TextField levelName;
     private TextField mapWidth;
@@ -61,6 +63,9 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private ContextMenu menu;
     private MenuItem change;
     private MenuItem delete;
+    private MenuItem select;
+    private Text myLevel;
+    private VBox box;
 
     public MiniMapPanel() {
         myPane = new Pane();
@@ -81,6 +86,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
                 return null;
             }
         });
+        myLevel = new Text("my level: ");
 
         myPane.getStyleClass().add(PANEL);
         setupTextFields();
@@ -91,11 +97,13 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         levelBar.setAlignment(Pos.CENTER);
 
         menu = new ContextMenu();
+        select = new MenuItem(SELECT);
         change = new MenuItem(CHANGE_NAME);
         delete = new MenuItem(DELETE);
+        select.setOnAction(e -> select());
         change.setOnAction(e -> change());
         delete.setOnAction(e -> delete());
-        menu.getItems().addAll(change, delete);
+        menu.getItems().addAll(select, change, delete);
 
         levelTable = new TableView<>();
         levelTable.setItems(levelList);
@@ -107,7 +115,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         heightT.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(((Vector)cellData.getValue().getValue()).at(1).toString()));
         levelTable.getColumns().setAll(levelT, widthT, heightT);
         levelTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        levelTable.setOnMouseClicked(e -> selectLevel(e));
+//        levelTable.setOnMouseClicked(e -> selectLevel(e));
         levelTable.setOnContextMenuRequested(e -> menu.show(levelTable, e.getScreenX(),e.getScreenY()));
 
         addLevel.setOnMouseClicked(e -> add());
@@ -142,23 +150,35 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         });
     }
 
-    private void selectLevel(MouseEvent event) {
-        String selectL = null;
-        try {
-            selectL = (String) levelTable.
-                    getSelectionModel().
-                    getSelectedItem().
-                    getKey();
-        } catch (NullPointerException e) {
-            //TODO: There's nothing in the table, should we do any handling?
-        }
-        manager.changeLevel(selectL);
+    /**
+     * new method to switch levels, doesnt involve clicking on table which selects the level (which doesnt allow you to delete)
+     */
+    private void select() {
+        manager.changeLevel((String) levelTable.getSelectionModel().getSelectedItem().getKey());
+        box.getChildren().set(0, new Text("my level: " + (String) levelTable.getSelectionModel().getSelectedItem().getKey()));
     }
+
+//    private void selectLevel(MouseEvent event) {
+//        String selectL = null;
+//        try {
+//            selectL = (String) levelTable.
+//                    getSelectionModel().
+//                    getSelectedItem().
+//                    getKey();
+//        } catch (NullPointerException e) {
+//            //TODO: There's nothing in the table, should we do any handling?
+//        }
+//        manager.changeLevel(selectL);
+//    }
 
     private void add() {
         levelName.commitValue();
         mapWidth.commitValue();
         mapHeight.commitValue();
+        if  (levelTable.getItems().size() == 1) {
+//            manager.changeLevel((String) levelTable.getItems().get(0).getKey());
+//            myLevel = new Text((String) levelTable.getItems().get(0).getKey());
+        }
         try {
             int width = Integer.parseInt(mapWidth.getText());
             int height = Integer.parseInt(mapHeight.getText());
@@ -167,15 +187,12 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         catch (NumberFormatException e){
             new ErrorDisplay(MAP_SIZE, NOT_INTEGER_ERROR).displayError();
         }
-        levelName.setText(LEVEL_NAME);
-        mapWidth.setText(MAP_WIDTH_STRING);
-        mapHeight.setText(MAP_HEIGHT_STRING);
     }
 
     @Override
     public Region getRegion() {
         StackPane.setAlignment(myPane, Pos.CENTER);
-        VBox box = new VBox(myPane, levelBar, addLevel, levelTable);
+        box = new VBox(myLevel, myPane, levelBar, addLevel, levelTable);
         box.setSpacing(BOX_SPACING);
         box.setPadding(new Insets(PADDING));
         box.setAlignment(Pos.CENTER);

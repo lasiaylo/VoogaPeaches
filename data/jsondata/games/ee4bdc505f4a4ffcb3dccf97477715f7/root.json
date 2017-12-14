@@ -1,0 +1,59 @@
+{
+  "UID": "ee4bdc505f4a4ffcb3dccf97477715f7",
+  "children": [
+    {
+      "UID": "802140023288461a8867a8008313bc8a",
+      "children": [{
+        "UID": "1ba40c3dcfed432f9f641e9174d37489",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }],
+      "hitBoxes": [],
+      "properties": {
+        "cameraXpos": 0,
+        "cameraHeight": 500,
+        "cameraYpos": 0,
+        "mapwidth": 5000,
+        "gridsize": 50,
+        "listeners": {"tick": {"loader": {"empty": "empty"}}},
+        "mapheight": 5000,
+        "cameraWidth": 500,
+        "levelname": "level 1",
+        "scripts": {"mapScript": {"empty": "empty"}}
+      }
+    },
+    {
+      "UID": "802140023288461a8867a8008313bc8a",
+      "children": [{
+        "UID": "1ba40c3dcfed432f9f641e9174d37489",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }],
+      "hitBoxes": [],
+      "properties": {
+        "cameraXpos": 0,
+        "cameraHeight": 500,
+        "cameraYpos": 0,
+        "mapwidth": 5000,
+        "gridsize": 50,
+        "listeners": {"tick": {"loader": {"empty": "empty"}}},
+        "mapheight": 5000,
+        "cameraWidth": 500,
+        "levelname": "level 1",
+        "scripts": {"mapScript": {"empty": "empty"}}
+      }
+    }
+  ],
+  "hitBoxes": [],
+  "properties": {}
+}

@@ -1,0 +1,21 @@
+{
+  "UID": "6a90ce03e9c54dc685a824fc22d58a3e",
+  "children": [{
+    "UID": "8bf4f4026ce84b6abd5757374a63f544",
+    "children": [{
+      "UID": "e5131501d57240c99b4c46a2f7b60784",
+      "children": [],
+      "hitBoxes": [],
+      "properties": {"gridsize": 50}
+    }],
+    "hitBoxes": [],
+    "properties": {
+      "mapwidth": 5000,
+      "gridsize": 50,
+      "mapheight": 5000,
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}

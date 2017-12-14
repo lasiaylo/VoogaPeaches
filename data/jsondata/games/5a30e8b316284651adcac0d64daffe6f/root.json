@@ -1,0 +1,27 @@
+{
+  "UID": "5a30e8b316284651adcac0d64daffe6f",
+  "children": [{
+    "UID": "e64f93d6cb3849f0ac2442207df657a2",
+    "children": [{
+      "UID": "ab2b2414e2c4444ba281cc0113063558",
+      "children": [],
+      "hitBoxes": [],
+      "properties": {
+        "listeners": {},
+        "gridsize": 50,
+        "scripts": {"holderScript": {}}
+      }
+    }],
+    "hitBoxes": [],
+    "properties": {
+      "mapwidth": 5000,
+      "listeners": {},
+      "gridsize": 50,
+      "mapheight": 5000,
+      "scripts": {"mapScript": {}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {}
+}
