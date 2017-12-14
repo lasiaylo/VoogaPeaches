@@ -38,6 +38,7 @@ public class MiniMapPanel implements Panel, MapChangeListener{
     private static final String NEW_LEVEL_NAME = "New Level Name:";
     private static final String MAP_SIZE = "Map Size";
     private static final String NOT_INTEGER_ERROR = "Not an integer";
+    private static final String TOO_LARGE = "Map size is larger than 4000000";
     private static final int PADDING = 15;
     private static final String MINI_MAP = "Mini Map";
     private static final int LEVELBAR_SPACING = 10;
@@ -137,11 +138,22 @@ public class MiniMapPanel implements Panel, MapChangeListener{
         try {
             int width = Integer.parseInt(mapWidth.getText());
             int height = Integer.parseInt(mapHeight.getText());
+            if ((width * height) >= 4000000) {
+                new ErrorDisplay(MAP_SIZE, TOO_LARGE).displayError();
+                resetText();
+                return;
+            }
             manager.addLevel(levelName.getText(), width, height);
         }
         catch (NumberFormatException e){
             new ErrorDisplay(MAP_SIZE, NOT_INTEGER_ERROR).displayError();
+            resetText();
+            return;
         }
+        resetText();
+    }
+
+    private void resetText() {
         levelName.setText(LEVEL_NAME);
         mapWidth.setText(MAP_WIDTH_STRING);
         mapHeight.setText(MAP_HEIGHT_STRING);
