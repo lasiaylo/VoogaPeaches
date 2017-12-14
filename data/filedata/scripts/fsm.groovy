@@ -16,12 +16,12 @@ import util.pubsub.messages.Message
     String fsmName = "test"
     PubSub pubSub = PubSub.getInstance()
 
-    pubSub.publish("FSM", new FSMMessage(fsmName, null))
+    pubSub.publish("FSM", new FSMMessage(fsmName, entity, null))
 
     pubSub.subscribe("FSM", { Message msg ->
         FSMMessage message = (FSMMessage) msg
-        if(message.getFsm() != null && fsmName.equals(message.getName())) {
-            fsm = message.getFsm()
+        if(message.getFSM() != null) {
+            fsm = message.getFSM()
         }
     })
 
@@ -29,7 +29,7 @@ import util.pubsub.messages.Message
         if (fsm != null) {
             State newState = (State) fsm.step()
             StateEvent stateEvent = new StateEvent(newState)
-            event.recursiveFire(entity)
+            stateEvent.recursiveFire(entity.getRoot())
         }
     })
 

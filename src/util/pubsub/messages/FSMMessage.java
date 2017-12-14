@@ -1,5 +1,6 @@
 package util.pubsub.messages;
 
+import engine.entities.Entity;
 import engine.fsm.FSM;
 
 /**
@@ -8,10 +9,12 @@ import engine.fsm.FSM;
 public class FSMMessage extends Message {
 
     private String name;
+    private Entity entity;
     private FSM fsm;
 
-    public FSMMessage(String name, FSM fsm) {
+    public FSMMessage(String name, Entity entity, FSM fsm) {
         this.name = name;
+        this.entity = entity;
         this.fsm = fsm;
     }
 
@@ -19,7 +22,7 @@ public class FSMMessage extends Message {
         return name;
     }
 
-    public FSM getFsm() {
-        return fsm;
-    }
+    public FSM getFSM() { return fsm; }
+
+    public Entity getEntity() { return entity; }
 }
