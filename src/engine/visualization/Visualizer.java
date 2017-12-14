@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Visualizer {
 
-    public static final double RADIUS = 20;
+    public static final double RADIUS = 35;
 
     private Entity entity;
     private Visualizer parentVisualizer;

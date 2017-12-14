@@ -2,9 +2,12 @@ package authoring.panels.tabbable;
 
 import authoring.fsm.FSMGraph;
 import authoring.panels.attributes.UpdatablePanel;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class FSMPanel implements UpdatablePanel {
 
@@ -25,14 +28,20 @@ public class FSMPanel implements UpdatablePanel {
         Button button = new Button("FSM");
         button.setMinHeight(50);
         button.setMinWidth(50);
-
-        Pane pane = new Pane(graph.getRender());
-        VBox box = new VBox(button, pane);
+        VBox box = new VBox(button);
         box.setFillWidth(true);
-        box.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
-        pane.minHeightProperty().bind(box.heightProperty());
-        pane.setOnMouseClicked(graph::onSceneClick);
+        button.setOnMouseClicked(e -> createNewFSM());
         return box;
+    }
+
+    private void createNewFSM() {
+        Stage stage = new Stage();
+        FSMGraph graph = new FSMGraph();
+        Scene s = new Scene(graph.getRender());
+        s.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> graph.onSceneClick(e));
+        stage.setScene(s);
+        stage.show();
+        stage.setOnHidden(e -> graph.export());
     }
 
     @Override

@@ -1,5 +1,12 @@
 package authoring.fsm;
 
+import com.google.gson.annotations.Expose;
+import database.firebase.TrackableObject;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
+import engine.entities.Entity;
+import engine.fsm.FSM;
 import engine.fsm.State;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -20,18 +27,38 @@ import java.util.List;
  * @author Albert
  * @author Simran
  */
-public class FSMGraph implements GraphDelegate {
-    private List<StateRender> myStateRenders;
-    private List<Arrow> myArrows;
+public class FSMGraph extends TrackableObject implements GraphDelegate {
+
+    @Expose private List<StateRender> myStateRenders;
+    @Expose private List<Arrow> myArrows;
+    @Expose private String myName;
     private Group myGroup = new Group();
-    private Arrow currentTRender;
+    private Arrow currentArrow;
     private boolean addingState;
+    private List<State> myStates;
 
     /**
      * Creates a new FSMGraph from scratch
      */
-    public FSMGraph() {
-        this(new ArrayList<StateRender>(), new ArrayList<Arrow>());
+    public FSMGraph(String name) {
+        this(name, new ArrayList<>(), new ArrayList<>());
+    }
+
+    public FSMGraph() { this(""); }
+
+    @Override
+    public void initialize() {
+        System.out.println("init FSM");
+        for(StateRender sRender: myStateRenders) {
+            sRender.setGraphDelegate(this);
+            myGroup.getChildren().add(sRender.getRender());
+        }
+        for(Arrow arrow: myArrows) {
+            arrow.setGraphDelegate(this);
+            myGroup.getChildren().add(arrow.getRender());
+        }
+        myGroup.setOnMouseDragged(e -> dragHandle(e));
+        myGroup.setOnMouseReleased(e -> dragExit(e));
     }
 
     /**
@@ -39,15 +66,12 @@ public class FSMGraph implements GraphDelegate {
      * @param stateRenders      list of stateRenders
      * @param Arrows list of Arrows
      */
-    public FSMGraph(List<StateRender> stateRenders, List<Arrow> Arrows) {
+    public FSMGraph(String name, List<StateRender> stateRenders, List<Arrow> Arrows) {
+        myName = name;
         myStateRenders = stateRenders;
         myArrows = Arrows;
         myGroup.setOnMouseDragged(e -> dragHandle(e));
         myGroup.setOnMouseReleased(e -> dragExit(e));
-        for(Arrow tRender: myArrows) {
-            tRender.getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
-            tRender.getRender().setOnMouseReleased(e -> transitionDragExit());
-        }
     }
 
     public void onSceneClick(MouseEvent e) {
@@ -82,7 +106,9 @@ public class FSMGraph implements GraphDelegate {
     }
 
     private void onCreate(MouseEvent e, Button newState, String name){
-        addState(new StateRender(e.getX(), e.getY(), name , new State(), this));
+        StateRender sRender = new StateRender(e.getX(), e.getY(), name, this);
+        sRender.onClick();
+        addState(sRender);
         onClose(newState);
     }
 
@@ -90,18 +116,9 @@ public class FSMGraph implements GraphDelegate {
         ((Stage) cancel.getScene().getWindow()).close();
     }
 
-    @Override
-    public void removeMyself(StateRender state) {
-        myStateRenders.remove(state);
-    }
-
-    @Override
-    public void removeMyself(Arrow arrow) {
-    }
-
     /**
      * Adds a state to the graph
-     * @param sRender   stateRender to add
+     * @param sRender stateRender to add
      */
     private void addState(StateRender sRender) {
         myGroup.getChildren().add(sRender.getRender());
@@ -123,12 +140,13 @@ public class FSMGraph implements GraphDelegate {
         Vector vectorMousePosition = new Vector(event.getX(), event.getY());
         StateRender contained = findContainedStateRender(event);
         if(contained != null) {
-            if(currentTRender == null) {
-                createArrow(vectorMousePosition, contained);
-                contained.addLeavingTransition(currentTRender);
+            if(currentArrow == null) {
+                createArrow(vectorMousePosition);
+                contained.addLeavingTransition(currentArrow);
+                currentArrow.setOriginal(contained);
             } else {
-                currentTRender.setHead(vectorMousePosition);
-                contained.addArrivingTransition(currentTRender);
+                currentArrow.setHead(vectorMousePosition);
+                currentArrow.setDestination(contained);
             }
         }
     }
@@ -156,28 +174,92 @@ public class FSMGraph implements GraphDelegate {
         return null;
     }
 
-    private void transitionDragHandle(MouseEvent event, Arrow transition) {
-        currentTRender = transition;
-        currentTRender.setHead(new Vector(event.getX(), event.getY()));
-    }
-
-    private void transitionDragExit() {
-        currentTRender = null;
-    }
-
-    private void createArrow(Vector vectorMousePosition, StateRender sRender) {
-        Arrow tRender = new Arrow(vectorMousePosition, vectorMousePosition, this);
-        currentTRender = tRender;
-        myArrows.add(tRender);
-        myGroup.getChildren().add(tRender.getRender());
-        tRender.getRender().setOnMouseDragged(e -> transitionDragHandle(e, tRender));
-        tRender.getRender().setOnMouseReleased(e -> transitionDragExit());
+    private void createArrow(Vector vectorMousePosition) {
+        Arrow newArrow = new Arrow(vectorMousePosition, vectorMousePosition, this);
+        currentArrow = newArrow;
+        myArrows.add(currentArrow);
+        myGroup.getChildren().add(currentArrow.getRender());
     }
 
     private void dragExit(MouseEvent event) {
         StateRender contained = findContainedStateRender(event);
-//        contained.addArrivingTransition(currentTRender);
-        currentTRender = null;
+        if (currentArrow != null) {
+            currentArrow.onClick();
+            if (currentArrow.getOriginal() == contained) {
+                removeMyself(currentArrow);
+            }
+        }
+        currentArrow = null;
     }
 
+    public List<State> export() {
+        saveSetup();
+        try {
+            System.out.println("Saving FSM");
+            JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
+            manager.writeJSONFile("TestFSM", JSONHelper.JSONForObject(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error saving FSM");
+        }
+        System.out.println("Export");
+        FSM test = new FSM(new Entity(), myStates);
+        for (int i = 0; i<10; i++) {
+            test.step();
+        }
+        return null;
+    }
+
+    private void saveSetup() {
+        myStates = new ArrayList<>();
+        for(StateRender sRender: myStateRenders) {
+            myStates.add(sRender.createNewState());
+        }
+        for(StateRender sRender: myStateRenders) {
+            sRender.save();
+        }
+        for(Arrow arrow: myArrows) {
+            arrow.save();
+        }
+    }
+
+    @Override
+    public void removeMyself(StateRender state){
+        myStateRenders.remove(state);
+        myGroup.getChildren().remove(state.getRender());
+        for(Arrow arrow:state.getMyLeavingTransitions()){
+            removeMyself(arrow);
+        }
+    }
+
+    @Override
+    public void removeMyself(Arrow arrow){
+        myArrows.remove(arrow);
+        myGroup.getChildren().remove(arrow.getRender());
+        for(StateRender state:myStateRenders){
+            if(state.getMyLeavingTransitions().contains(arrow)){
+                state.removeLeavingTransition(arrow);
+            }
+        }
+    }
+
+    @Override
+    public Arrow findArrowWith(String code) {
+        for(Arrow arrow: myArrows) {
+            if (arrow.getMyCode().equals(code)) {
+                return arrow;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public StateRender findStateRenderWith(String name) {
+        for(StateRender sRender: myStateRenders) {
+            if (sRender.getName().equals(name)) {
+                return sRender;
+            }
+        }
+        return null;
+    }
 }

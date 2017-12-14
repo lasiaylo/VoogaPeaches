@@ -5,6 +5,7 @@ import authoring.PanelController;
 import engine.EntityManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -59,7 +60,6 @@ public class CameraPanel implements Panel {
 	private double cameraHeight;
 	private int layerC = 1;
 	private String myOption;
-	private String nodeStyle = PropertiesReader.value(SCREENLAYOUT, NODE_STYLE);
 	private PanelController myController;
 
 	public CameraPanel(double width, double height) {
@@ -107,7 +107,7 @@ public class CameraPanel implements Panel {
 	 */
 	private void setView(ScrollPane view) {
 		myView = view;
-		myArea.getChildren().set(0, myView);
+		myArea.getChildren().set(0,myView);
 		myView.setMouseTransparent(false);
 	}
 

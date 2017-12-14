@@ -1,23 +1,14 @@
 package engine.entities;
 
 import com.google.gson.annotations.Expose;
-import database.fileloaders.ScriptLoader;
-import database.firebase.DatabaseConnector;
-import database.firebase.TrackableObject;
 import engine.collisions.HitBox;
 import engine.events.*;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import util.ErrorDisplay;
-import util.exceptions.ObjectIdNotFoundException;
-import util.math.num.Vector;
-import util.pubsub.PubSub;
-import util.pubsub.messages.EntityPass;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -31,6 +22,7 @@ public class Entity extends Evented {
     @Expose private Map<String, Object> properties;
     @Expose private List<HitBox> hitBoxes;
 
+    private String dbPath;
     private Group group;
     private Entity parent;
     private Entity root;
@@ -61,26 +53,18 @@ public class Entity extends Evented {
      *
      * @return (Entity.parent) or null, if root
      */
-    public Entity getParent() {
-        return parent;
-    }
+    public Entity getParent() { return parent; }
 
-    public Map<String, Object> getProperties(){
-    	return properties;
-    }
+    public Map<String, Object> getProperties(){ return properties; }
 
-    public void add(Node node) {
-        group.getChildren().add(node);
-    }
+    public void add(Node node) { group.getChildren().add(node); }
 
     public void add(Entity entity) {
         children.add(entity);
         add(entity.getNodes());
         entity.addTo(this);
     }
-    public void remove(Node node) {
-        group.getChildren().remove(node);
-    }
+    public void remove(Node node) { group.getChildren().remove(node); }
 
     public Entity addTo(Entity parent) {
         this.parent = parent;
@@ -106,25 +90,15 @@ public class Entity extends Evented {
 
     public Entity getRoot() { return root; }
 
-    public Group getNodes() {
-        return group;
-    }
+    public Group getNodes() { return group; }
 
-    public List<Entity> getChildren() {
-        return children;
-    }
+    public List<Entity> getChildren() { return children; }
 
-    public Object getProperty(String name) {
-        return properties.getOrDefault(name, null);
-    }
+    public Object getProperty(String name) { return properties.getOrDefault(name, null); }
 
-    public void setProperty(String name, Object property) {
-        properties.put(name, property);
-    }
+    public void setProperty(String name, Object property) { properties.put(name, property);    }
 
-    public List<HitBox> getHitBoxes() {
-        return hitBoxes;
-    }
+    public List<HitBox> getHitBoxes() { return hitBoxes; }
 
     public void addHitBox(HitBox hitbox) {
         hitBoxes.add(hitbox);
@@ -138,35 +112,14 @@ public class Entity extends Evented {
 
     public Entity substitute() {
         clear();
-        System.out.println(UID);
         Entity entity = new Entity(parent);
-        entity.UID = this.UID;
-        DatabaseConnector<Entity> db = new DatabaseConnector<>(Entity.class);
-//        try {
-//            db.removeFromDatabase(this);
-//            db.addToDatabase(entity);
-//        } catch (ObjectIdNotFoundException e) {
-//            e.printStackTrace();
-//            new ErrorDisplay("Oh no!", "We can't recreate this entity!").displayError();
-//        }
-
         entity.properties = properties;
-        entity.hitBoxes = hitBoxes;
-        try {
-            parent.getNodes().getChildren().remove(group);
-        } catch(NullPointerException e){
-            // do nothing
-        }
-
-        if(!children.isEmpty()) {
-            for(Entity child : children)
-                entity.add(child.substitute());
-        }
-
-        entity.initialize();
-        return entity;
+        return EntitySubstituter.substitute(this, entity);
     }
 
+    String getDbPath() { return dbPath; }
+
+    void setDbPath(String dbPath) { this.dbPath = dbPath; }
 
     @Override
     public void initialize() {
@@ -179,11 +132,5 @@ public class Entity extends Evented {
                     entity.root = root;
 
         executeScripts();
-        DatabaseConnector<Entity> connector = new DatabaseConnector<>(Entity.class);
-        try {
-            connector.addToDatabase(this);
-        } catch(Exception e) {
-
-        }
     }
 }

@@ -46,13 +46,14 @@ public abstract class TrackableObject {
      */
     public static TrackableObject objectForUID(String UID) { return trackableObjects.getOrDefault(UID, null); }
 
-    public  String UIDforObject() {
-        for (String each: trackableObjects.keySet()) {
-            if (trackableObjects.get(each).equals(this)) {
-                return each;
-            }
-        }
-        return null;
+    public String UIDforObject() {
+        return this.UID;
+    }
+
+    public void replaceUID(String UID) {
+        trackableObjects.remove(this.UID);
+        this.UID = UID;
+        trackableObjects.put(this.UID, this);
     }
 
     /**
@@ -64,5 +65,9 @@ public abstract class TrackableObject {
         if(trackableObjects.containsKey(object.UID)) return false;
         trackableObjects.put(object.UID, object);
         return true;
+    }
+
+    public static void stopTrackingTrackableObject(String UID){
+        trackableObjects.remove(UID);
     }
 }

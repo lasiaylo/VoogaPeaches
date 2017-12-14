@@ -54,7 +54,9 @@ public class ObjectFactory {
      * @return A new {@code Entity} corresponding to the blueprint for this object
      */
     public Entity newObject() {
-        return converter.createObjectFromJSON(Entity.class,blueprintJSON);
+        Entity i = converter.createObjectFromJSON(Entity.class, blueprintJSON);
+
+        return i;
     }
 
     /**
