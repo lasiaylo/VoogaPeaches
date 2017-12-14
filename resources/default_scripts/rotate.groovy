@@ -1,14 +1,10 @@
 package default_scripts
 
 import engine.entities.Entity
-import engine.events.CollisionEvent
 import engine.events.Event
 import engine.events.ImageViewEvent
 import engine.events.KeyPressEvent
 import javafx.scene.input.KeyCode
-
-class rotate {
-
 
     { Entity entity, Map<String, Object> bindings, Event event ->
         event = (KeyPressEvent) event
@@ -27,6 +23,4 @@ class rotate {
                 fire("left")
                 break
         }
-
     }
-}
