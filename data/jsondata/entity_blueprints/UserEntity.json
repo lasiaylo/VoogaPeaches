@@ -17,7 +17,7 @@
     "x": 215,
     "width": 50,
     "y": 164,
-    "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+    "scripts": {"image_script": {"image_path": "Player/squirtle.png"}},
     "height": 50
   }
 }

@@ -34,6 +34,7 @@ public abstract class Evented extends TrackableObject {
             callbacks = new HashMap<>();
             return;
         } else if(!callbacks.containsKey(event.getType())) {
+            callbacks.put(event.getType(), new HashSet<>());
             return;
         }
 

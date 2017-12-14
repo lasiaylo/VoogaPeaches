@@ -30,13 +30,11 @@ import java.util.stream.Collectors
     entity.add(pointer)
     //boolean dragged = false
 
-   //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
     pointer.addEventHandler(MouseEvent.MOUSE_CLICKED,
             { e -> new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
     pointer.addEventHandler(MouseEvent.MOUSE_DRAGGED,
             {e -> new MouseDragEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
-    pointer.addEventHandler(KeyEvent.KEY_PRESSED,
-            { e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, VoogaPeaches.getIsGaming()).fire(entity)})
+    pointer.addEventHandler(KeyEvent.KEY_PRESSED, { e -> new KeyPressEvent(e, VoogaPeaches.getIsGaming()).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
@@ -92,10 +90,9 @@ import java.util.stream.Collectors
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
-        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
-                entity.getParent().remove(entity)
+        if ((!kEvent.getIsGaming()) && KeyCode.BACK_SPACE.equals(kEvent.getMyEvent().getCode())) {
+            entity.getParent().remove(entity)
         }
-
     })
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
