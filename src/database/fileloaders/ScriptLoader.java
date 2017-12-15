@@ -33,7 +33,7 @@ public class ScriptLoader {
     }
 
     /**
-     * Caches all the scripts in the custom data script directory recursively
+     * Caches all the scripts in the custom data grid_move directory recursively
      *
      * @param path is a {@code String} corresponding to the director to cache files in
      */
@@ -49,8 +49,8 @@ public class ScriptLoader {
     }
 
     /**
-     * Reads in the strings for a groovy script line by line, and
-     * converts the script into a single string that is then stored
+     * Reads in the strings for a groovy grid_move line by line, and
+     * converts the grid_move into a single string that is then stored
      *
      * @param groovyFile is a {@code File} representing the Groovy file
      *                   to read from
