@@ -28,7 +28,6 @@ public class KeyPressEvent extends Event {
         isGaming = gaming;
         myEvent = event;
         keyCode = code;
-
     }
 
     public boolean getIsGaming() {

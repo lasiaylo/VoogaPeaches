@@ -8,7 +8,7 @@
   "gravity_movement.groovy",
   "holderScript.groovy",
   "hudScript.groovy",
-  "image_script.groovy",
+  "imageScript.groovy",
   "image_update.groovy",
   "leftKeyPress.groovy",
   "loader.groovy",

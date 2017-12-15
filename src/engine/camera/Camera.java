@@ -9,6 +9,7 @@ import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -89,9 +90,9 @@ public class Camera {
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> {
-            new KeyPressEvent(e).recursiveFire(level);
+            new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
         });
-        view.getContent().setOnKeyReleased(new KeyReleaseEvent());
+        view.getContent().setOnKeyReleased(e -> new KeyReleaseEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level));
         currentLevel = level;
         mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
     }
