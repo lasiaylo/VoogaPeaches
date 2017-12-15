@@ -78,6 +78,7 @@ public class Engine implements DataReactor<Entity> {
         //todo change all isgaming to the static one
         entityManager.setIsGaming(isGaming);
         camera.fixCamera();
+        camera.requestFocus();
     }
 
     public void pause() {

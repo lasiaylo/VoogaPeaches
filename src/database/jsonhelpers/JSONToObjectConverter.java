@@ -1,6 +1,7 @@
 package database.jsonhelpers;
 
 import database.firebase.TrackableObject;
+import groovy.xml.Entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,7 +51,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 // Create map for params of object that is being held by the overall object
                 params.put(key, parseParameters((JSONObject) json.get(key)));
             } else if(json.get(key).getClass() == JSONArray.class) {
-                params.put(key, ((JSONArray) json.get(key)).toList());
+                    params.put(key, ((JSONArray) json.get(key)).toList());
             }
         }
         return params;
@@ -180,7 +181,8 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             // Call class defined extra initialization
             newObject.initialize();
             return newObject;
-        } catch (Exception e){ return null; }
+        } catch (Exception e){
+            return null; }
     }
 
 }

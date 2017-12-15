@@ -1,0 +1,33 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      80,
+      242,
+      280,
+      244,
+      279,
+      257,
+      80,
+      257
+    ],
+    "UID": "a0f0e721c24440ef947514169e78b4f9",
+    "currentX": 0,
+    "currentY": 0,
+    "tag": "DuvallVWall"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 16,
+    "width": 200,
+    "y": 449.5,
+    "scripts": {"imageScript": {"image_path": "Duvall/duvall3.jpg"}},
+    "height": 15
+  }
+}

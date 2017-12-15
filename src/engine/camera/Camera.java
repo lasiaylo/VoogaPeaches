@@ -1,12 +1,15 @@
 package engine.camera;
 
 import engine.entities.Entity;
+import engine.events.KeyPressEvent;
+import engine.events.KeyReleaseEvent;
 import engine.events.MapSetupEvent;
 import engine.events.MouseDragEvent;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -41,7 +44,7 @@ public class Camera {
 //            currentLevel.add(view.getContent());
 //        }
         view.setPannable(false);
-        mapSize = new Vector((double)currentLevel.getProperty("mapwidth"), (double)currentLevel.getProperty("mapheight"));
+        mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
@@ -86,12 +89,12 @@ public class Camera {
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
-//        view.setOnKeyPressed(e -> {
-//            System.out.println("hell yeah");
-//            new KeyPressEvent(e).recursiveFire(level);
-//        });
+        view.getContent().setOnKeyPressed(e -> {
+            new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
+        });
+        view.getContent().setOnKeyReleased(e -> new KeyReleaseEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level));
         currentLevel = level;
-        mapSize = new Vector((double)currentLevel.getProperty("mapwidth"), (double)currentLevel.getProperty("mapheight"));
+        mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
     }
 
     public Pane getMinimap(Vector size) {
@@ -150,10 +153,14 @@ public class Camera {
     }
 
     public void fixCamera() {
-        view.vminProperty().bind(view.vvalueProperty().add(-Double.MIN_VALUE));
-        view.vmaxProperty().bind(view.vvalueProperty().add(Double.MIN_VALUE));
-        view.hminProperty().bind(view.hvalueProperty().add(-Double.MIN_VALUE));
-        view.hmaxProperty().bind(view.hvalueProperty().add(Double.MIN_VALUE));
+        view.vminProperty().bind(view.vvalueProperty());
+        view.vmaxProperty().bind(view.vvalueProperty());
+        view.hminProperty().bind(view.hvalueProperty());
+        view.hmaxProperty().bind(view.hvalueProperty());
+    }
+
+    public void requestFocus() {
+        view.getContent().requestFocus();
     }
 
     public void freeCamera() {
