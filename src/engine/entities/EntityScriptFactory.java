@@ -1,14 +1,10 @@
 package engine.entities;
 
 import database.fileloaders.ScriptLoader;
-import database.jsonhelpers.JSONHelper;
-import engine.events.EventType;
 import groovy.lang.Closure;
-import groovy.lang.Script;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 class EntityScriptFactory {

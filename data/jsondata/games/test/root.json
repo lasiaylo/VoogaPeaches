@@ -1,10 +1,10 @@
 {
-  "UID": "c86ccea4c458440dbafcd1071a4fc1be",
+  "UID": "60b864aef99c42f686627a533cce4b07",
   "children": [{
-    "UID": "47c03fb10a734331808decec4d60ef64",
+    "UID": "f23d06fd13844f7b83e6d489d36e6810",
     "children": [
       {
-        "UID": "85d88797f3b749bea5ca4503d08c9755",
+        "UID": "16632707b4fd486b9fe189d5bf1b68bd",
         "children": [],
         "hitBoxes": [],
         "properties": {
@@ -14,9 +14,9 @@
         }
       },
       {
-        "UID": "a74db62f18714249931d261018d46dea",
+        "UID": "513904b722344599b4729d30efde4a33",
         "children": [{
-          "UID": "09a1d904f23a4eca967cbb7ccbf08113",
+          "UID": "057abef5ab2e4573aabfec06f52acae3",
           "children": [],
           "hitBoxes": [],
           "properties": {
@@ -27,10 +27,13 @@
               "tick": {"move": {"empty": "empty"}},
               "key press": {"movement": {"empty": "empty"}}
             },
-            "x": 367,
+            "x": 538,
             "width": 50,
-            "y": 206,
-            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+            "y": 231,
+            "scripts": {
+              "test": {"empty": "empty"},
+              "imageScript": {"image_path": "Player/squirtle.png"}
+            },
             "height": 50
           }
         }],
@@ -45,12 +48,12 @@
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "mapwidth": 5000,
+      "mapwidth": 2000,
       "cameraYpos": 0,
       "cameraHeight": 500,
       "listeners": {"tick": {"loader": {"empty": "empty"}}},
       "gridsize": 50,
-      "mapheight": 5000,
+      "mapheight": 2000,
       "cameraWidth": 500,
       "scripts": {"mapScript": {"empty": "empty"}},
       "levelname": "level 1"

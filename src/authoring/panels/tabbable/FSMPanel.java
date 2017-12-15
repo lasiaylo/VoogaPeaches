@@ -3,6 +3,7 @@ package authoring.panels.tabbable;
 import authoring.Panel;
 import authoring.fsm.FSMGraph;
 import authoring.panels.attributes.Updatable;
+import engine.fsm.FSM;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,9 +14,13 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.pubsub.PubSub;
-import util.pubsub.messages.*;
+import util.pubsub.messages.EntityPass;
+import util.pubsub.messages.FSMGraphMessage;
+import util.pubsub.messages.FSMMessage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FSMPanel implements Panel, Updatable {
 
@@ -28,13 +33,14 @@ public class FSMPanel implements Panel, Updatable {
         PubSub.getInstance().subscribe("FSM", message -> publishFSM((FSMMessage) message));
         PubSub.getInstance().subscribe("ENTITY_PASS", message -> newEntityClicked((EntityPass) message));
         PubSub.getInstance().subscribe("FSM_GRAPH", message -> saveGraph((FSMGraphMessage) message));
-        System.out.println("Publishing load");
         init();
     }
 
     public static Map<String, ArrayList<FSMGraph>> getFSMMap() { return FSMMap; }
 
-    public static void setFSMMap(Map<String, ArrayList<FSMGraph>> map) { FSMMap = map; }
+    public static void setFSMMap(Map<String, ArrayList<FSMGraph>> map) {
+        FSMMap = map;
+    }
 
     private void saveGraph(FSMGraphMessage message) {
         ArrayList<FSMGraph> values = FSMMap.getOrDefault(currentEntity, new ArrayList<>());
@@ -56,15 +62,18 @@ public class FSMPanel implements Panel, Updatable {
      * @param message
      */
     private void publishFSM(FSMMessage message) {
-        System.out.println("trying go fire FSM");
-        if(FSMMap.containsKey(message.getEntity()) && FSMMap.get(message.getEntity()).contains(message.getName())){
-            for(FSMGraph entry: FSMMap.get(message.getEntity())) {
+        System.out.println("trying go fire FSM: " + message.getName());
+        if(message.getFSM() != null) { return; }
+        if(FSMMap.containsKey(message.getEntity().UIDforObject())){
+            for(FSMGraph entry: FSMMap.get(message.getEntity().UIDforObject())) {
                 if(entry.getMyName().equals(message.getName())) {
                     System.out.println("published FSM");
-                    PubSub.getInstance().publish("FSM",
-                            new FSMMessage(message.getName(),
-                                    message.getEntity(),
-                                    entry.createFSM(message.getEntity())));
+                    FSM fsm = entry.createFSM(message.getEntity());
+                    if (fsm == null) { return; }
+                    PubSub.getInstance().publish("FSM", new FSMMessage(
+                            message.getName(),
+                            message.getEntity(),
+                            fsm));
                 }
             }
         }

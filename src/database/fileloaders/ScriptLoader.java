@@ -3,7 +3,6 @@ package database.fileloaders;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import org.apache.commons.io.FileUtils;
-import org.codehaus.groovy.control.CompilationFailedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,27 +22,30 @@ import java.util.Map;
 public class ScriptLoader {
 
     /* Final Variables */
-    private static final String SCRIPT_PATH = "./data/filedata/scripts/";
+    private static final String USER_SCRIPT_PATH = "./data/filedata/scripts/";
+    private static final String DEFAULT_SCRIPT_PATH = "./resources/default_scripts/";
 
-    private static  Map<String, Closure> CACHED_SCRIPTS;
+    private static Map<String, Closure> cachedScripts = new HashMap<>();
+
+    public static void cache() {
+        cacheScriptsAtPath(DEFAULT_SCRIPT_PATH);
+        cacheScriptsAtPath(USER_SCRIPT_PATH);
+    }
 
     /**
-     * Caches all the scripts in a directory recursively
+     * Caches all the scripts in the custom data script directory recursively
      *
-     * @return {@code Map<String, String>} of loaded groovy script strings
-     * corresponding to the name of a groovy script
+     * @param path is a {@code String} corresponding to the director to cache files in
      */
-    public static void cache() {
-        Map<String, Closure> cache = new HashMap<>();
-        File directory = new File(SCRIPT_PATH);
+    private static void cacheScriptsAtPath(String path) {
+        File directory = new File(path);
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[]{"groovy"}, true);
         File file;
         GroovyShell shell = new GroovyShell();
         while (iterator.hasNext() && (file = iterator.next()) != null)
             try {
-                cache.put(file.getPath().substring(SCRIPT_PATH.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
+                cachedScripts.put(file.getPath().substring(path.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
             } catch (Exception e) {}
-        CACHED_SCRIPTS = cache;
     }
 
     /**
@@ -76,6 +78,6 @@ public class ScriptLoader {
      * @return A {@code String} containing the groovy code to be executed
      */
     public static Closure getScript(String filename) {
-        return CACHED_SCRIPTS.get(filename + ".groovy");
+        return cachedScripts.get(filename + ".groovy");
     }
 }

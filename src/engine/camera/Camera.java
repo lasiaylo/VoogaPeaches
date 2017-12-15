@@ -1,17 +1,18 @@
 package engine.camera;
 
 import engine.entities.Entity;
-import engine.events.KeyPressEvent;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import main.VoogaPeaches;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.MoveCameraMessage;
 
 /**
  * Camera that will pass a view to the authoring and player for game display
@@ -27,6 +28,7 @@ public class Camera {
     private Vector center;
     private Vector scale;
     private Circle point;
+    private Vector mapSize;
 
     public Camera(Entity level) {
         currentLevel = level;
@@ -36,9 +38,15 @@ public class Camera {
 //            currentLevel.add(view.getContent());
 //        }
         view.setPannable(false);
+        mapSize = new Vector(((Number)currentLevel.getProperty("mapwidth")).doubleValue(),
+                ((Number)currentLevel.getProperty("mapheight")).doubleValue());
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
+        PubSub.getInstance().subscribe("MOVE_CAMERA", message -> {
+            MoveCameraMessage mcMessage = (MoveCameraMessage) message;
+            setCameraPos(mcMessage.getPos());
+        });
     }
 
     /**
@@ -63,6 +71,12 @@ public class Camera {
         return view;
     }
 
+    public void setCameraPos(Vector centerPos) {
+        double hv = centerPos.at(0) / mapSize.at(0);
+        double vv = centerPos.at(1) / mapSize.at(1);
+
+    }
+
     public void changeLevel(Entity level) {
 //        if (currentLevel.getNodes().getChildren().size() == 0) {
 //            System.out.println(currentLevel.getNodes().getChildren().size());
@@ -70,12 +84,13 @@ public class Camera {
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
-        System.out.println("new level " + level);
-        view.setOnKeyPressed(e -> {
-            System.out.println("hell yeah");
-            new KeyPressEvent(e).recursiveFire(level);
-        });
+//        view.setOnKeyPressed(e -> {
+//            System.out.println("hell yeah");
+//            new KeyPressEvent(e).recursiveFire(level);
+//        });
         currentLevel = level;
+        mapSize = new Vector(((Number)currentLevel.getProperty("mapwidth")).doubleValue(),
+                ((Number)currentLevel.getProperty("mapheight")).doubleValue());
     }
 
     public Pane getMinimap(Vector size) {
@@ -98,6 +113,7 @@ public class Camera {
     }
 
     private void moveCamera(MouseEvent event) {
+        miniMap.setMouseTransparent(VoogaPeaches.getIsGaming());
         point.centerXProperty().unbind();
         point.centerYProperty().unbind();
 
@@ -112,21 +128,41 @@ public class Camera {
         point.centerYProperty().bind(yPoint);
 
         event.consume();
+//        new MouseDragEvent(VoogaPeaches.getIsGaming()).fire(currentLevel);
+//        new MapSetupEvent().fire(currentLevel);
     }
 
     private void vScroll(double num) {
-        view.setVmin(num);
-        view.setVmax(num);
+        view.setVmin(0);
+        view.setVmax(1);
         view.setVvalue(num);
-        view.vminProperty().bind(view.vvalueProperty());
-        view.vmaxProperty().bind(view.vvalueProperty());
+//        view.vminProperty().bind(view.vvalueProperty());
+//        view.vmaxProperty().bind(view.vvalueProperty());
     }
 
     private void hScroll(double num) {
-        view.setHmax(num);
-        view.setHmin(num);
+        view.setHmax(1);
+        view.setHmin(0);
         view.setHvalue(num);
-        view.hminProperty().bind(view.hvalueProperty());
-        view.hmaxProperty().bind(view.hvalueProperty());
+//        view.hminProperty().bind(view.hvalueProperty());
+//        view.hmaxProperty().bind(view.hvalueProperty());
+    }
+
+    public void fixCamera() {
+        view.vminProperty().bind(view.vvalueProperty().add(-Double.MIN_VALUE));
+        view.vmaxProperty().bind(view.vvalueProperty().add(Double.MIN_VALUE));
+        view.hminProperty().bind(view.hvalueProperty().add(-Double.MIN_VALUE));
+        view.hmaxProperty().bind(view.hvalueProperty().add(Double.MIN_VALUE));
+    }
+
+    public void freeCamera() {
+        view.vminProperty().unbind();
+        view.vmaxProperty().unbind();
+        view.hminProperty().unbind();
+        view.hmaxProperty().unbind();
+        view.setHmax(1);
+        view.setHmin(0);
+        view.setVmax(1);
+        view.setVmin(0);
     }
 }

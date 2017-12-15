@@ -64,7 +64,7 @@ public class Menu {
     private static final String AUTHORING_TOOLTIP = "authoring";
     private static final String PLAYING_TOOLTIP = "playing";
     private static final String NEWGAME_TOOLTIP = "newgame";
-    public static final String DASH = " -- ";
+    private static final String DASH = " -- ";
     private static final String USER = "User: ";
 
     private Pane myRoot;
@@ -144,7 +144,6 @@ public class Menu {
         }
     }
 
-
     private Entity loadGame(String UID) {
         GameLoader loader = new GameLoader(UID);
         loader.loadInAssets();
@@ -183,7 +182,6 @@ public class Menu {
             authoring.save();
             DatabaseConnector<User> connector = new DatabaseConnector<>(User.class);
             try { connector.addToDatabase(VoogaPeaches.getUser()); } catch (ObjectIdNotFoundException e) {}
-
         });
     }
 
@@ -202,7 +200,8 @@ public class Menu {
         grid.add(authoringButton,1,0);
         grid.add(playButton,2,0);
         grid.setHgap(HGAP);
-        grid.setLayoutX(WIDTH * GRID_WIDTH_RATIO);
+        double gridOffset = WIDTH / 2 - (1.5) * newGame.getMinWidth() - HGAP;
+        grid.setLayoutX(gridOffset);
         grid.setLayoutY(HEIGHT * GRID_HEIGHT_RATIO);
 
         javafx.scene.control.Menu user = new javafx.scene.control.Menu(USER + VoogaPeaches.getUser().getUserName());

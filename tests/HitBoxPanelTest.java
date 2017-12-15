@@ -22,7 +22,7 @@ public class HitBoxPanelTest extends Application {
         Entity readIn = m.createObjectFromJSON(Entity.class, j.readJSONFile("test.json"));
 
         HitBoxPanel hbPanel = new HitBoxPanel();
-        hbPanel.setEntity(readIn);
+//        hbPanel.setEntity(readIn);
 
         Scene s = new Scene(hbPanel.getRegion());
         primaryStage.setScene(s);

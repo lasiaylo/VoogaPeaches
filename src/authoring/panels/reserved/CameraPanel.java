@@ -8,16 +8,16 @@ import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import main.VoogaPeaches;
-import util.PropertiesReader;
+import util.ErrorDisplay;
 import util.pubsub.PubSub;
-import util.pubsub.messages.StringMessage;
 
 /**
  * camera panel inside authoring environment that displays the game
@@ -120,7 +120,6 @@ public class CameraPanel implements Panel {
 	 * adds the action connections to the buttons
 	 */
 	private void setupButton() {
-		myLayer.getItems().addAll(ALLL, BGL, NEWL);
 		myLayer.getSelectionModel().selectFirst();
 		myLayer.setOnAction(e -> changeLayer());
 		myText.setOnKeyPressed(e -> changeName(e.getCode()));
@@ -130,6 +129,10 @@ public class CameraPanel implements Panel {
 
 		myClear.setOnMouseClicked(e -> myManager.clearOnLayer());
 		myDelete.setOnMouseClicked(e -> {
+			if (myLayer.getValue().equals(BGL)) {
+			    new ErrorDisplay("Layer Error", "Cannot delete background layer").displayError();
+			    return;
+            }
 		    myManager.deleteLayer();
 		    myLayer.getItems().remove(myLayer.getValue());
 		    myLayer.getSelectionModel().clearAndSelect(1);
@@ -152,7 +155,7 @@ public class CameraPanel implements Panel {
         }
     }
 
-    public void clear(int layers) {
+//    public void clear(int layers) {
 //		myLayer.getItems().clear();
 //		myLayer.getItems().addAll(ALLL, BGL);
 //		layerC = 1;
@@ -161,7 +164,7 @@ public class CameraPanel implements Panel {
 //			myLayer.getSelectionModel().clearAndSelect(myLayer.getItems().size() - 2);
 //			layerC++;
 //		}
-	}
+//	}
 
 	/**
 	 * used to switch between layers (levels/non contiguous) parts of the map
@@ -207,13 +210,15 @@ public class CameraPanel implements Panel {
 		updateLevel();
 	}
 
-	private void updateLevel() {
+	public void updateLevel() {
 	    currentLevel = myManager.getCurrentLevel();
+	    myLayer.setOnAction(e -> {});
 		myLayer.getItems().clear();
 		myLayer.getItems().addAll(ALLL, BGL);
 		if (currentLevel.getChildren().size() == 1) {
             myLayer.getItems().add(NEWL);
-            myLayer.getSelectionModel().selectFirst();
+			myLayer.setOnAction(e -> changeLayer());
+			myLayer.getSelectionModel().selectFirst();
 		    return;
         }
         int i;
@@ -222,7 +227,8 @@ public class CameraPanel implements Panel {
 		}
 		layerC = i;
 		myLayer.getItems().add(NEWL);
-        myLayer.getSelectionModel().selectFirst();
+		myLayer.setOnAction(e -> changeLayer());
+		myLayer.getSelectionModel().selectFirst();
 	}
 
 	@Override

@@ -197,19 +197,24 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
     }
 
     public FSM createFSM(Entity entity) {
+        recreateStates();
         return new FSM(entity, myStates);
     }
 
     private void saveSetup() {
-        myStates = new ArrayList<>();
-        for(StateRender sRender: myStateRenders) {
-            myStates.add(sRender.createNewState());
-        }
+        recreateStates();
         for(StateRender sRender: myStateRenders) {
             sRender.save();
         }
         for(Arrow arrow: myArrows) {
             arrow.save();
+        }
+    }
+
+    private void recreateStates() {
+        myStates = new ArrayList<>();
+        for(StateRender sRender: myStateRenders) {
+            myStates.add(sRender.createNewState());
         }
     }
 
