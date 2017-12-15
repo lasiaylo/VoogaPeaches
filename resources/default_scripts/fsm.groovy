@@ -23,6 +23,8 @@ import util.pubsub.messages.Message
         if(message.getFSM() != null) {
             print("got fsm boi")
             fsm = message.getFSM()
+            for (int i = 0; i < 10; ++i)
+                fsm.step()
         }
     })
 

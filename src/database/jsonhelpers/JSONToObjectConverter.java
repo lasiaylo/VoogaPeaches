@@ -50,6 +50,7 @@ public class JSONToObjectConverter<T extends TrackableObject> {
                 // Create map for params of object that is being held by the overall object
                 params.put(key, parseParameters((JSONObject) json.get(key)));
             } else if(json.get(key).getClass() == JSONArray.class) {
+                System.out.println(key + ": " + ((JSONArray) json.get(key)).toList());
                 params.put(key, ((JSONArray) json.get(key)).toList());
             }
         }

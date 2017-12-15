@@ -28,8 +28,8 @@
               "key press": {"movement": {"empty": "empty"}}
             },
             "width": 50,
-            "x": 196,
-            "y": 110,
+            "x": 192,
+            "y": 106,
             "scripts": {
               "fsm": {},
               "imageScript": {"image_path": "user_images/bluedevil.png"}

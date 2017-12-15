@@ -4,10 +4,10 @@
       "UID": "ad39e81ecffd433fbbe22e814b26eede",
       "myInfo": {"default": true},
       "mySave": {
-        "UID": "bd5c174b724241dc9c791269b4cede0e",
-        "yRect": 104.000001,
+        "UID": "31507d26b2da4f5fa9e46562d4d0d4f2",
+        "yRect": 104.000002,
         "arrowCode": ["{ entity, state -> ; print(1); return true }"],
-        "xRect": 142.000001
+        "xRect": 142.000002
       },
       "myTitle": "state1"
     },
@@ -15,10 +15,10 @@
       "UID": "1cc62042ef124eac9c80c49a6e29b984",
       "myInfo": {"empty": false},
       "mySave": {
-        "UID": "d42df5945a79413b899f49fe95e5f940",
-        "yRect": 38.000001,
-        "arrowCode": ["{ entity, state -> ; print(3); return true }"],
-        "xRect": 264.000001
+        "UID": "6dc3de7e418144b0a12bcf28b107109e",
+        "yRect": 38.000001999999995,
+        "arrowCode": ["{ entity, state -> ; Random test = new Random(); print(test.nextInt(5)); return true }"],
+        "xRect": 264.000002
       },
       "myTitle": "state2"
     }
@@ -30,30 +30,30 @@
       "myCode": "{ entity, state -> ; print(1); return true }",
       "UID": "4b51b380a2094fb6a25107fa147d4a76",
       "myState": {
-        "headX": 274.000001,
-        "headY": 48.000001,
-        "lenX": 120.000001,
-        "UID": "74cb6f8c04904e33ba817d05d0594210",
+        "headX": 274.000002,
+        "headY": 48.000001999999995,
+        "lenX": 120.000002,
+        "UID": "da47abeff4834ac98adb4f6d7150355d",
         "myDestination": "state2",
-        "originX": 154.000001,
-        "lenY": -67.999999,
+        "originX": 154.000002,
+        "lenY": -67.999998,
         "myOriginal": "state1",
-        "originY": 116.000001
+        "originY": 116.000002
       }
     },
     {
-      "myCode": "{ entity, state -> ; print(3); return true }",
+      "myCode": "{ entity, state -> ; Random test = new Random(); print(test.nextInt(5)); return true }",
       "UID": "91024fbb222348f2808e03008c08d35e",
       "myState": {
-        "headX": 160.000001,
-        "headY": 129.00000100000003,
-        "lenX": -128.999999,
-        "UID": "cffeea5fa3534744afc872e546b54ffb",
+        "headX": 160.000002,
+        "headY": 129.00000200000002,
+        "lenX": -128.999998,
+        "UID": "9836f0fa09eb490babf9f6f61baa97e7",
         "myDestination": "state1",
-        "originX": 289.000001,
-        "lenY": 73.00000100000003,
+        "originX": 289.000002,
+        "lenY": 73.00000200000002,
         "myOriginal": "state2",
-        "originY": 56.000001
+        "originY": 56.000001999999995
       }
     }
   ]
