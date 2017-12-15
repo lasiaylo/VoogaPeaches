@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode
 { Entity entity, Map<String, Object> bindings, Event event ->
     Event keyEvent
 	int i = 1
-    double v = 0;
+    double v = 0
 	if (event instanceof KeyReleaseEvent) {
         keyEvent = (KeyReleaseEvent) event
         i *= 0
