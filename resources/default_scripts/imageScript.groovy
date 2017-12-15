@@ -32,12 +32,13 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-    println "firing"
     ImageView pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth((double) entity.getProperty("width"))
     pointer.setFitHeight((double) entity.getProperty("height"))
     pointer.setX(((double) entity.getProperty("x")))
     pointer.setY(((double) entity.getProperty("y")))
+    pointer.setRotate((double) entity.getProperties().getOrDefault("rotate", 0))
+
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
 

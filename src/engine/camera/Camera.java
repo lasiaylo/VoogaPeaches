@@ -77,8 +77,11 @@ public class Camera {
     }
 
     public void setCameraPos(Vector centerPos) {
+        freeCamera();
         double hv = centerPos.at(0) / mapSize.at(0);
         double vv = centerPos.at(1) / mapSize.at(1);
+        view.setVvalue(vv);
+        view.setHvalue(hv);
 
     }
 
@@ -90,7 +93,9 @@ public class Camera {
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> {
-            new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
+            if (VoogaPeaches.getIsGaming()) {
+                new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
+            }
         });
         view.getContent().setOnKeyReleased(e -> new KeyReleaseEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level));
         currentLevel = level;
@@ -153,6 +158,10 @@ public class Camera {
     }
 
     public void fixCamera() {
+        view.setVmin(view.getVvalue());
+        view.setVmax(view.getVvalue());
+        view.setHmin(view.getHvalue());
+        view.setHmax(view.getHvalue());
         view.vminProperty().bind(view.vvalueProperty());
         view.vmaxProperty().bind(view.vvalueProperty());
         view.hminProperty().bind(view.hvalueProperty());
