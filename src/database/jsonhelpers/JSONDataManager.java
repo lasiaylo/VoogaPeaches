@@ -81,6 +81,7 @@ public class JSONDataManager {
      */
     public JSONObject readJSONFile(String filename) {
         if(!filename.contains(".json")) filename = filename + ".json";
+        System.out.println(baseFolder + filename);
         BufferedReader br = null;
         String json = "";
         try {

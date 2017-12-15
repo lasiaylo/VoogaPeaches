@@ -39,6 +39,7 @@ import java.util.stream.Collectors
     pointer.setY(((double) entity.getProperty("y")))
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
+    print("image script fired")
 
     pointer.setOnMouseClicked({e ->
         new ClickEvent(false, e).fire(entity)
