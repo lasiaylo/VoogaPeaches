@@ -24,6 +24,7 @@ public class HitBox extends TrackableObject {
     @Expose private double currentX;
     @Expose private double currentY;
     @Expose private String tag;
+    private Shape intersect;
 
     private HitBox(){}
 
@@ -81,8 +82,12 @@ public class HitBox extends TrackableObject {
      */
     public boolean intersects(HitBox other) {
 //        return hitboxShape.intersects(hitboxShape.sceneToLocal(other.getHitbox().localToScene(other.getHitbox().getBoundsInLocal())));
-        Shape intersect = Shape.intersect(hitboxShape, other.getHitbox());
+        intersect = Shape.intersect(hitboxShape, other.getHitbox());
         return intersect.getBoundsInLocal().getWidth() != -1;
+    }
+    
+    public Shape getIntersect(){
+        return intersect;
     }
 
     /**
@@ -128,6 +133,7 @@ public class HitBox extends TrackableObject {
      * @return {@code Polygon} corresponding to the HitBox
      */
     public Polygon getHitbox() {
+        hitboxShape.setFill(Color.RED);
         return hitboxShape;
     }
 

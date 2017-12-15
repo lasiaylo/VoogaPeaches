@@ -12,6 +12,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import main.VoogaPeaches;
 import org.json.JSONObject;
@@ -38,6 +40,7 @@ public class Engine implements DataReactor<Entity> {
     private ScrollPane scrollPane;
     private boolean isGaming;
     private Entity root;
+    private boolean x = true;
 
     /**
      * Creates a new Engine
@@ -59,6 +62,7 @@ public class Engine implements DataReactor<Entity> {
         tick.recursiveFire(entityManager.getCurrentLevel());
         Map<HitBox, Entity> hitBoxes = getHitBoxes(entityManager.getCurrentLevel(), new HashMap<>());
         checkCollisions(hitBoxes);
+
     }
 
     public void save(String name) {
@@ -110,10 +114,20 @@ public class Engine implements DataReactor<Entity> {
 
     private void checkCollisions(Map<HitBox, Entity> hitBoxes) {
         for(HitBox hitBox : hitBoxes.keySet()) {
+            Polygon poly1 = new Polygon();
+            poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
             for(HitBox other : hitBoxes.keySet()) {
-                if(hitBox != other && hitBox.intersects(other)) {
-                    new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
-                    new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));                }
+
+                if(hitBox != other) {
+                    Polygon poly2 = new Polygon();
+                    poly2.getPoints().addAll(other.getHitbox().getPoints());
+                    Shape intersect = Shape.intersect(poly1,poly2);
+//                    System.out.println(intersect);
+                    if (intersect.getBoundsInLocal().getWidth() != -1){
+                        new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
+                        new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));
+                    }
+                }
             }
         }
     }

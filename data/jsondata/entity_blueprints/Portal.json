@@ -1,0 +1,68 @@
+{
+  "children": [],
+  "hitBoxes": [
+    {
+      "polygonVertexTranslations": [
+        75,
+        222,
+        113,
+        219,
+        113,
+        276,
+        79,
+        276
+      ],
+      "UID": "cc965e64cb2645bf81835020aa32e7cb",
+      "currentX": 219.19999999999948,
+      "currentY": 298.08000000000027,
+      "tag": "player"
+    },
+    {
+      "polygonVertexTranslations": [
+        78,
+        228,
+        108,
+        229,
+        114,
+        270,
+        81,
+        270,
+        83,
+        276,
+        83,
+        280
+      ],
+      "UID": "23a1872859b6466d8bd2747ce74efced",
+      "currentX": 219.19999999999948,
+      "currentY": 298.08000000000027,
+      "tag": "player"
+    }
+  ],
+  "properties": {
+    "vx": 0.1,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "lasiaGravity": {
+          "MaxFallSpeed": 0.8,
+          "fallspeed": 0.03
+        },
+        "lasiaVelocityDecay": {}
+      },
+      "key press": {
+        "lasiaMovement": {"speed": 0.1},
+        "jump": {"jump": 0.4}
+      }
+    },
+    "ax": 0,
+    "ay": 0,
+    "width": 50,
+    "x": 219.19999999999948,
+    "y": 298.08000000000027,
+    "isFalling": false,
+    "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
+    "height": 50
+  }
+}

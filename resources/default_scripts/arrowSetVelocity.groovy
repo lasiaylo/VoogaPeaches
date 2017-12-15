@@ -1,7 +1,5 @@
-import database.fileloaders.ScriptLoader
 import engine.entities.Entity
 import engine.events.Event
-import engine.events.EventType
 import engine.events.KeyPressEvent
 import javafx.scene.input.KeyCode
 
