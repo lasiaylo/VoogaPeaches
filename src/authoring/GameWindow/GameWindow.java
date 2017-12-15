@@ -25,7 +25,6 @@ public class GameWindow {
     public GameWindow(Stage stage, Entity rootEntity){
         this.stage = stage;
         this.start = new Button("Start");
-        VoogaPeaches.setIsGaming(true);
         engine = new Engine(rootEntity, PanelController.GRID_SIZE, true);
         camera = engine.getCameraView(new Vector(PanelController.CAMERA_INIT_X, PanelController.CAMERA_INIT_Y).multiply(0.5),
                 new Vector(PanelController.CAMERA_INIT_X_SIZE, PanelController.CAMERA_INIT_Y_SIZE));
@@ -36,5 +35,4 @@ public class GameWindow {
         stage.show();
         start.setOnMouseClicked(e -> engine.play());
     }
-
 }
