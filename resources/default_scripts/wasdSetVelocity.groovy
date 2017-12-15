@@ -16,7 +16,7 @@ import javafx.scene.input.KeyCode
     }
     if (keyEvent.getKeyCode().equals(KeyCode.W)) {
         println "up"
-        entity.setProperty("vy", bindings.get("velocity"))
+        entity.setProperty("vy", -bindings.get("velocity"))
     }
     if (keyEvent.getKeyCode().equals(KeyCode.S)) {
         println "down"
