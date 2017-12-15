@@ -13,8 +13,8 @@
         276
       ],
       "UID": "cc965e64cb2645bf81835020aa32e7cb",
-      "currentX": 596.0239999999989,
-      "currentY": 546.7,
+      "currentX": 219.19999999999948,
+      "currentY": 298.08000000000027,
       "tag": "player"
     },
     {
@@ -33,38 +33,35 @@
         280
       ],
       "UID": "23a1872859b6466d8bd2747ce74efced",
-      "currentX": 596.0239999999989,
-      "currentY": 546.7,
+      "currentX": 219.19999999999948,
+      "currentY": 298.08000000000027,
       "tag": "player"
     }
   ],
   "properties": {
-    "vx": 0.29899999999999816,
-    "vy": 0.1,
+    "vx": 0.1,
+    "vy": 0,
     "listeners": {
       "move": {"update_position": {"empty": "empty"}},
       "tick": {
         "move": {"empty": "empty"},
         "lasiaGravity": {
-          "MaxFallSpeed": 0.1,
+          "MaxFallSpeed": 0.8,
           "fallspeed": 0.03
         },
-        "lasiaDecay": {"decay": 0.001}
+        "lasiaVelocityDecay": {}
       },
       "key press": {
-        "lasiaMovement": {
-          "maxspeed": 0.5,
-          "speed": 0.1
-        },
+        "lasiaMovement": {"speed": 0.1},
         "jump": {"jump": 0.4}
       }
     },
     "ax": 0,
     "ay": 0,
     "width": 50,
-    "x": 389,
-    "y": 82,
-    "isFalling": true,
+    "x": 219.19999999999948,
+    "y": 298.08000000000027,
+    "isFalling": false,
     "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
     "height": 50
   }

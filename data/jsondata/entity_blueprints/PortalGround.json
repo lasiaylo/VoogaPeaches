@@ -12,22 +12,22 @@
       273
     ],
     "UID": "75f09be3b4474c5ebc5570f407383faf",
-    "currentX": 43.5,
-    "currentY": 334.4999885559082,
+    "currentX": 312.5,
+    "currentY": 360.5,
     "tag": "ground"
   }],
   "properties": {
     "vx": 0,
     "vy": 0,
     "listeners": {
-      "collision": {"ground": {}},
+      "collision": {"ground": {"empty": "empty"}},
       "move": {"update_position": {"empty": "empty"}},
       "tick": {"move": {"empty": "empty"}},
       "key press": {"movement": {"empty": "empty"}}
     },
     "width": 309,
-    "x": 43.5,
-    "y": 334.4999885559082,
+    "x": 312.5,
+    "y": 360.5,
     "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
     "height": 47
   }

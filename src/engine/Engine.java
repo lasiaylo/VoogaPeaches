@@ -40,7 +40,6 @@ public class Engine implements DataReactor<Entity> {
     private ScrollPane scrollPane;
     private boolean isGaming;
     private Entity root;
-    private collisiontest test;
     private boolean x = true;
 
     /**
@@ -84,8 +83,6 @@ public class Engine implements DataReactor<Entity> {
         entityManager.setIsGaming(isGaming);
         camera.fixCamera();
         camera.requestFocus();
-
-        test = new collisiontest();
     }
 
     public void pause() {
@@ -117,23 +114,15 @@ public class Engine implements DataReactor<Entity> {
 
     private void checkCollisions(Map<HitBox, Entity> hitBoxes) {
         for(HitBox hitBox : hitBoxes.keySet()) {
-
+            Polygon poly1 = new Polygon();
+            poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
             for(HitBox other : hitBoxes.keySet()) {
 
                 if(hitBox != other) {
-                    System.out.println("HitBox");
-                    System.out.println(hitBox.getHitbox());
-                    System.out.println(hitBox.getHitbox());
-                    System.out.println("Other");
-                    System.out.println(other.getHitbox());
-                    Polygon poly1 = new Polygon();
-                    poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
                     Polygon poly2 = new Polygon();
                     poly2.getPoints().addAll(other.getHitbox().getPoints());
-                    Shape intersect = Shape.intersect(hitBox.getHitbox(),other.getHitbox());
-                    intersect = Shape.intersect(poly1,poly2);
-                    System.out.println("Intersect");
-                    System.out.println(intersect);
+                    Shape intersect = Shape.intersect(poly1,poly2);
+//                    System.out.println(intersect);
                     if (intersect.getBoundsInLocal().getWidth() != -1){
                         new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
                         new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));
