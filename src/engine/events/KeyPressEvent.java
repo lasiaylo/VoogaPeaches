@@ -14,7 +14,7 @@ public class KeyPressEvent extends Event {
 
     public KeyPressEvent(KeyEvent code) {
         this();
-        myEvent = code;
+        keyCode = code.getCode();
     }
 
     public KeyPressEvent(KeyEvent event, boolean gaming) {

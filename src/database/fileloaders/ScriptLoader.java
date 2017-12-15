@@ -43,6 +43,7 @@ public class ScriptLoader {
                 cache.put(file.getPath().substring(SCRIPT_PATH.length()).replaceAll("\\\\", "/"), (Closure) shell.evaluate(readStringForFile(file)));
             } catch (Exception e) {}
         CACHED_SCRIPTS = cache;
+        System.out.println(cache);
     }
 
     /**

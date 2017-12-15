@@ -15,29 +15,50 @@
       },
       {
         "UID": "46fa7e8e0d4a4266a539a900ef14fe8c",
-        "children": [{
-          "UID": "45c48eb2f93e45d7b3de6dbf9799f895",
-          "children": [],
-          "hitBoxes": [],
-          "properties": {
-            "vx": 0,
-            "vy": 0,
-            "listeners": {
-              "move": {"update_position": {"empty": "empty"}},
-              "tick": {"move": {"empty": "empty"}},
-              "key press": {"movement": {"empty": "empty"}}
-            },
-            "x": 234.5,
-            "width": 215,
-            "y": 69.5,
-            "scripts": {"imageScript": {"image_path": "Player/ash.png"}},
-            "height": 95
+        "children": [
+          {
+            "UID": "45c48eb2f93e45d7b3de6dbf9799f895",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 885,
+              "x": -115.5,
+              "y": 222,
+              "scripts": {"imageScript": {"image_path": "user_images/line.png"}},
+              "height": 300
+            }
+          },
+          {
+            "UID": "98801721359342e186adb6f94a92bd66",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 33,
+              "x": 2,
+              "y": 337.5,
+              "scripts": {"imageScript": {"image_path": "user_images/microsoft_new_logo-square.png"}},
+              "height": 33
+            }
           }
-        }],
+        ],
         "hitBoxes": [],
         "properties": {
-          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       }

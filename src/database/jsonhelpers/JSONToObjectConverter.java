@@ -180,7 +180,9 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             // Call class defined extra initialization
             newObject.initialize();
             return newObject;
-        } catch (Exception e){ return null; }
+        } catch (Exception e){
+            e.printStackTrace();
+            return null; }
     }
 
 }

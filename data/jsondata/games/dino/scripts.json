@@ -5,6 +5,7 @@
   "Explosion.groovy",
   "fsm.groovy",
   "fsm.sample.groovy",
+  "generate_obstacles.groovy",
   "gravity.groovy",
   "gravity_movement.groovy",
   "holderScript.groovy",
