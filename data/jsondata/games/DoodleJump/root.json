@@ -1,0 +1,221 @@
+{
+  "UID": "f4ac07e0ccd948f4b4fa2e8def451e8c",
+  "children": [{
+    "UID": "5bbdcba309a8400a99e590f4e179d2de",
+    "children": [
+      {
+        "UID": "229a7509cb6e49188a1ecacfec8ed6ea",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "5512d0152523462aa0d736f8c5f9fc51",
+        "children": [
+          {
+            "UID": "a3647e4a19174ca08e412e7e1da5d58f",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                190,
+                226,
+                224,
+                223,
+                223,
+                271,
+                192,
+                272
+              ],
+              "UID": "d7c00255d1214e18871ed70d6000de19",
+              "currentX": 425,
+              "currentY": 273.9199999999996,
+              "tag": "player"
+            }],
+            "properties": {
+              "vx": 0,
+              "width": 50,
+              "x": 420,
+              "y": 111,
+              "isFalling": true,
+              "height": 50
+            }
+          },
+          {
+            "UID": "a8951d5994e74cbb95f463f696f919bc",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 261,
+              "currentY": 1929,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"bounce": {"bounce": 0.5}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 96,
+              "x": 261,
+              "y": 1929,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "14dd7a240e17440b9880accee5b4efee",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                75,
+                222,
+                113,
+                219,
+                113,
+                276,
+                79,
+                276
+              ],
+              "UID": "cc965e64cb2645bf81835020aa32e7cb",
+              "currentX": 924.6319956054759,
+              "currentY": 4116.600012207097,
+              "tag": "player"
+            }],
+            "properties": {
+              "vx": -0.002000000000000463,
+              "vy": 0.3000000000000005,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "lasiaMove": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.3,
+                    "fallspeed": 0.02
+                  },
+                  "lasiaDecay": {"decay": 0.003}
+                },
+                "key press": {
+                  "lasiaMovement": {
+                    "maxspeed": 0.5,
+                    "speed": 0.3
+                  },
+                  "jump": {"jump": 0.9}
+                }
+              },
+              "ax": 0,
+              "ay": 0,
+              "width": 50,
+              "x": 924.6319956054759,
+              "y": 4116.600012207097,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Doodler.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "10c484f860e54a45883544a3134bb94e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"bounce": {"bounce": 0.5}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": -25,
+              "width": 96,
+              "y": 241.5,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 55
+            }
+          },
+          {
+            "UID": "6a7c32684a294ced83d256047224c95f",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                25.5,
+                26,
+                -10.5,
+                23,
+                -12.5,
+                -13,
+                22.5,
+                -25
+              ],
+              "UID": "b5add875d64a4499922d7b7cfe71554f",
+              "currentX": 7,
+              "currentY": 267.0000000000003,
+              "tag": "player"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0.3000000000000001,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "lasiaMove": {},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.3,
+                    "fallspeed": 0.01
+                  }
+                },
+                "key press": {"lasiaMovement": {
+                  "maxspeed": 0.5,
+                  "speed": 0.01
+                }}
+              },
+              "x": 7,
+              "width": 50,
+              "y": 267.0000000000003,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Doodler.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 2000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

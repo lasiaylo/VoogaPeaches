@@ -1,0 +1,5 @@
+{"scripts": [
+  "checkers_script.groovy",
+  "test.groovy",
+  "wall.groovy"
+]}

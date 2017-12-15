@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Class that helps centralize the message print-outs
+ * Class that helps centralize the message default_scripts.print-outs
  *
  * @author ramilmsh
  */

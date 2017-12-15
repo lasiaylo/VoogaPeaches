@@ -1,26 +1,24 @@
 {
   "children": [],
-  "hitBoxes": [
-    {
-      "polygonVertexTranslations": [
-        75,
-        222,
-        113,
-        219,
-        113,
-        276,
-        79,
-        276
-      ],
-      "UID": "cc965e64cb2645bf81835020aa32e7cb",
-      "currentX": 397.1679999999973,
-      "currentY": 292.8799999999951,
-      "tag": "player"
-    }
-  ],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      75,
+      222,
+      113,
+      219,
+      113,
+      276,
+      79,
+      276
+    ],
+    "UID": "cc965e64cb2645bf81835020aa32e7cb",
+    "currentX": 421.55199999998723,
+    "currentY": 309,
+    "tag": "player"
+  }],
   "properties": {
     "vx": 0,
-    "vy": 0,
+    "vy": 0.12,
     "listeners": {
       "move": {"update_position": {"empty": "empty"}},
       "tick": {
@@ -42,10 +40,10 @@
     "ax": 0,
     "ay": 0,
     "width": 50,
-    "x": 0,
-    "y": 0,
-    "isFalling": true,
-    "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
+    "x": 311,
+    "y": 155,
+    "isFalling": false,
+    "scripts": {"imageScript": {"image_path": "user_images/Doodler.png"}},
     "height": 50
   }
 }

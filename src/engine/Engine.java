@@ -117,14 +117,16 @@ public class Engine implements DataReactor<Entity> {
             Polygon poly1 = new Polygon();
             System.out.println(hitBox.getHitbox());
             poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
+            System.out.println(hitBox.getHitbox());
             for(HitBox other : hitBoxes.keySet()) {
 
                 if(hitBox != other) {
                     Polygon poly2 = new Polygon();
                     poly2.getPoints().addAll(other.getHitbox().getPoints());
                     Shape intersect = Shape.intersect(poly1,poly2);
-//                    System.out.println(intersect);
+
                     if (intersect.getBoundsInLocal().getWidth() != -1){
+                        System.out.println(intersect);
                         new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
                         new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));
                     }

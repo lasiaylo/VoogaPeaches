@@ -82,6 +82,7 @@ public class HitBoxPanel implements Panel {
         points.clear();
         setPointer(entity);
 
+        myEntity = entity;
         hitboxes = entity.getHitBoxes();
         myEntity = entity;
 
@@ -148,7 +149,13 @@ public class HitBoxPanel implements Panel {
     private void createAddButton() {
         addButton = new CustomButton(() -> {
             hitboxSelection.getItems().add(EMPTY_STRING);
-            hitboxes.add(new HitBox(new ArrayList<Double>(), ((Number)myEntity.getProperty("x")).doubleValue(), ((Number)myEntity.getProperty("y")).doubleValue(), EMPTY_STRING));
+            Number numX = (Number)myEntity.getProperty("x");
+            double x = numX.doubleValue();
+
+            hitboxes.add(new HitBox(new ArrayList<Double>(),
+                    ((Number)myEntity.getProperty("x")).doubleValue(),
+                    ((Number)myEntity.getProperty("x")).doubleValue(), EMPTY_STRING));
+
             hitboxSelection.getSelectionModel().selectLast();
             System.out.println(hitboxes);
         }, ADD_HITBOX).getButton();
@@ -174,13 +181,17 @@ public class HitBoxPanel implements Panel {
                 currentPoints.add(event.getX());
                 currentPoints.add(event.getY());
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(
-                        (pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX())/2 - event.getX(),
-                        (pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY())/2 - event.getY());
+                        event.getX()-((pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX()/2)-200),
+                        event.getY()-((pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY()/2))-200);
             }
         }
     }
 
     private void addNewPoint(double x, double y) {
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(x-((pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX())/2) );
+        System.out.println(y-((pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY())/2) );
         Circle newPoint = new Circle();
         newPoint.setCenterX(x);
         newPoint.setCenterY(y);

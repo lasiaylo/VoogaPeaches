@@ -1,0 +1,613 @@
+{
+  "UID": "f4ac07e0ccd948f4b4fa2e8def451e8c",
+  "children": [{
+    "UID": "5bbdcba309a8400a99e590f4e179d2de",
+    "children": [
+      {
+        "UID": "229a7509cb6e49188a1ecacfec8ed6ea",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "5512d0152523462aa0d736f8c5f9fc51",
+        "children": [
+          {
+            "UID": "a3647e4a19174ca08e412e7e1da5d58f",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                190,
+                226,
+                224,
+                223,
+                223,
+                271,
+                192,
+                272
+              ],
+              "UID": "d7c00255d1214e18871ed70d6000de19",
+              "currentX": 425,
+              "currentY": 273.9199999999996,
+              "tag": "player"
+            }],
+            "properties": {
+              "vx": 0,
+              "width": 50,
+              "x": 420,
+              "y": 111,
+              "isFalling": true,
+              "height": 50
+            }
+          },
+          {
+            "UID": "a8951d5994e74cbb95f463f696f919bc",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 261,
+              "currentY": 1929,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"bounce": {"bounce": 0.5}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 96,
+              "x": 261,
+              "y": 1929,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "cf8258b3d4994a1b84fb04052be905a9",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 716,
+              "currentY": 1123,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 716,
+              "width": 96,
+              "y": 1123,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "2f0e8cf788ca424a8599d48806b92261",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 866,
+              "currentY": 1027,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 866,
+              "width": 96,
+              "y": 1027,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "e900bc679936417583a50d92baf5ee99",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 491,
+              "currentY": 926,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 491,
+              "width": 96,
+              "y": 926,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "55328db0388d4881bd7933417aad2cf4",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 652,
+              "currentY": 828,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 652,
+              "width": 96,
+              "y": 828,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "40fd8d61a6c84c2684b398f332077ce2",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 1044,
+              "currentY": 923,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 1044,
+              "width": 96,
+              "y": 923,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "83ca2684bbfc48f9a573dc4a36c7b304",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 493,
+              "currentY": 784,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 493,
+              "width": 96,
+              "y": 784,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "b449b2c5d51548c58499b036ac017fbb",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 756,
+              "currentY": 655,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 756,
+              "width": 96,
+              "y": 655,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "974d24d0df474687a3894c7b57630abd",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 562,
+              "currentY": 596,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 562,
+              "width": 96,
+              "y": 596,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "2a4457dc3a9940e39217d4e15afb5126",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 1036,
+              "currentY": 679,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 1036,
+              "width": 96,
+              "y": 679,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "d100716de0844bd19570cd5ab3d1046b",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 874,
+              "currentY": 564,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 874,
+              "width": 96,
+              "y": 564,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "b2270bd50f5941aeb9bc6c695bb224ef",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 639,
+              "currentY": 446,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 639,
+              "width": 96,
+              "y": 446,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "88cd8b4b82b844a387faf072716503d7",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 1002,
+              "currentY": 425,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 1002,
+              "width": 96,
+              "y": 425,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "3b75c3d491fb4f12ad95f7034ec559fe",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                196,
+                234,
+                281,
+                234,
+                280,
+                259,
+                199,
+                263
+              ],
+              "UID": "95b71363786e453fb4b55091b80bc923",
+              "currentX": 871,
+              "currentY": 771,
+              "tag": "platform"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"print": {}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 871,
+              "width": 96,
+              "y": 771,
+              "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+              "height": 48
+            }
+          },
+          {
+            "UID": "14dd7a240e17440b9880accee5b4efee",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                75,
+                222,
+                113,
+                219,
+                113,
+                276,
+                79,
+                276
+              ],
+              "UID": "cc965e64cb2645bf81835020aa32e7cb",
+              "currentX": 566.1999999999729,
+              "currentY": 418.20000000000755,
+              "tag": "player"
+            }],
+            "properties": {
+              "vx": -0.002000000000000463,
+              "vy": 0.3000000000000005,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "lasiaMove": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.3,
+                    "fallspeed": 0.02
+                  },
+                  "cameraFollowing": {},
+                  "lasiaDecay": {"decay": 0.003}
+                },
+                "key press": {
+                  "lasiaMovement": {
+                    "maxspeed": 0.5,
+                    "speed": 0.3
+                  },
+                  "jump": {"jump": 0.9}
+                }
+              },
+              "ax": 0,
+              "ay": 0,
+              "width": 50,
+              "x": 928.8079956054959,
+              "y": 1611.0000122070237,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Doodler.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 2000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}
