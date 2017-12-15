@@ -15,19 +15,20 @@ import engine.events.Event
     if (otherEntity.getProperty("y") >= myY && otherEntity.getProperty("isFalling")){
         otherEntity.setProperty("y",myY-1)
         otherEntity.setProperty("isFalling",false)
-        println "landed!"
+        println("colliding")
     }
 
 
-//    def myX = myEntity.getProperty("x") - myEntity.getProperty("width")
-//
-//    if (otherEntity.getProperty("x") <= myX){
-//        println ("rightwall")
-//        otherEntity.setProperty("x", myX-3)
-//    }
-//
-//    if (otherEntity.getProperty("x") >= myX){
-//        println ("leftwall")
-//        otherEntity.setProperty("x", myX+3)
-//    }
+   /* def otherX = otherEntity.getProperty("x")
+    def myX = myEntity.getProperty("x") - myEntity.getProperty("width")
+
+    if (otherx <= myX){
+        println ("rightwall")
+        otherEntity.setProperty("x", myX-3)
+    }
+
+    if (otherx >= myX){
+        println ("")
+        otherEntity.setProperty("x", myX+3)
+    } */
 }

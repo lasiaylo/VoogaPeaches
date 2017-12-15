@@ -8,6 +8,5 @@ import engine.events.Event
 
     if ((yv <= bindings.get("MaxFallSpeed")) && entity.getProperty("isFalling")) {
         entity.setProperty("vy", yv + fall)
-        println yv
     }
 }

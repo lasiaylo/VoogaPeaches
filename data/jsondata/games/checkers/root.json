@@ -3128,25 +3128,6 @@
               "type": "black",
               "height": 45
             }
-          },
-          {
-            "UID": "4b317d967e9a4b51acd2bc7282382f50",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "vx": 0,
-              "vy": 0,
-              "listeners": {
-                "move": {"update_position": {"empty": "empty"}},
-                "tick": {"move": {"empty": "empty"}},
-                "key press": {"movement": {"empty": "empty"}}
-              },
-              "width": 50,
-              "x": 721,
-              "y": 202,
-              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-              "height": 50
-            }
           }
         ],
         "hitBoxes": [],
@@ -3158,28 +3139,7 @@
       },
       {
         "UID": "f8c5b01dee514692b7270a4dcf1ab0da",
-        "children": [{
-          "UID": "23e74b06b2ec4fa6a9913da03e06bef7",
-          "children": [],
-          "hitBoxes": [],
-          "properties": {
-            "vx": 0.9,
-            "vy": 0,
-            "listeners": {
-              "move": {"update_position": {"empty": "empty"}},
-              "tick": {"move": {"empty": "empty"}},
-              "key press": {
-                "tileArrowMovement": {"velocity": 0.9},
-                "movement": {"empty": "empty"}
-              }
-            },
-            "width": 50,
-            "x": 661,
-            "y": 267,
-            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-            "height": 50
-          }
-        }],
+        "children": [],
         "hitBoxes": [],
         "properties": {
           "gridsize": 50,

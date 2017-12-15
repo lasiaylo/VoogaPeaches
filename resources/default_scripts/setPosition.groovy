@@ -10,8 +10,6 @@ entity = (Entity) entity;
 
 entity.on(EventType.MOVE.getType(), { Event event ->
     MoveEvent moveEvent = (MoveEvent) event
-    println(new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx()))
-    println(new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy()))
     if(new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx()) > 0)
         entity.setProperty("x", new Double(entity.getProperty("x").doubleValue() + moveEvent.getDx() ))
     if(new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy()) > 0)

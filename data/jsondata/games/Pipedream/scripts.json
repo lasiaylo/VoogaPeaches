@@ -1,0 +1,8 @@
+{"scripts": [
+  "ArrowDelete.groovy",
+  "checkers_script.groovy",
+  "item.groovy",
+  "scoreScript.groovy",
+  "test.groovy",
+  "wall.groovy"
+]}
