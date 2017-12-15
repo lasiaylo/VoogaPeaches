@@ -15,6 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import main.VoogaPeaches;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.BGMessage;
+import util.pubsub.messages.MoveCameraMessage;
 
 /**
  * Camera that will pass a view to the authoring and player for game display
@@ -30,6 +33,7 @@ public class Camera {
     private Vector center;
     private Vector scale;
     private Circle point;
+    private Vector mapSize;
 
     public Camera(Entity level) {
         currentLevel = level;
@@ -39,9 +43,14 @@ public class Camera {
 //            currentLevel.add(view.getContent());
 //        }
         view.setPannable(false);
+        mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
+        PubSub.getInstance().subscribe("MOVE_CAMERA", message -> {
+            MoveCameraMessage mcMessage = (MoveCameraMessage) message;
+            setCameraPos(mcMessage.getPos());
+        });
     }
 
     /**
@@ -66,7 +75,7 @@ public class Camera {
         return view;
     }
 
-    public void setCameraPos(Vector centerPos, Vector mapSize) {
+    public void setCameraPos(Vector centerPos) {
         double hv = centerPos.at(0) / mapSize.at(0);
         double vv = centerPos.at(1) / mapSize.at(1);
 
@@ -86,6 +95,7 @@ public class Camera {
             new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
         });
         currentLevel = level;
+        mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
     }
 
     public Pane getMinimap(Vector size) {
