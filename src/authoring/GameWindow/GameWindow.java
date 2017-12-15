@@ -21,8 +21,10 @@ public class GameWindow {
     private Engine engine;
     private Button start;
     private ScrollPane camera;
+    private boolean gameStarted;
 
     public GameWindow(Stage stage, Entity rootEntity){
+        gameStarted = false;
         this.stage = stage;
         this.start = new Button("Start");
         engine = new Engine(rootEntity, PanelController.GRID_SIZE, true);
@@ -33,6 +35,11 @@ public class GameWindow {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        start.setOnMouseClicked(e -> engine.play());
+        start.setOnMouseClicked(e -> {
+            if(!gameStarted) {
+                engine.play();
+                gameStarted = true;
+            }
+        });
     }
 }
