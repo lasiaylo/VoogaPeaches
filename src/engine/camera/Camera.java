@@ -153,10 +153,10 @@ public class Camera {
     }
 
     public void fixCamera() {
-        view.vminProperty().bind(view.vvalueProperty().add(-Double.MIN_VALUE));
-        view.vmaxProperty().bind(view.vvalueProperty().add(Double.MIN_VALUE));
-        view.hminProperty().bind(view.hvalueProperty().add(-Double.MIN_VALUE));
-        view.hmaxProperty().bind(view.hvalueProperty().add(Double.MIN_VALUE));
+        view.vminProperty().bind(view.vvalueProperty());
+        view.vmaxProperty().bind(view.vvalueProperty());
+        view.hminProperty().bind(view.hvalueProperty());
+        view.hmaxProperty().bind(view.hvalueProperty());
     }
 
     public void requestFocus() {
