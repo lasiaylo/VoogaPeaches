@@ -1,18 +1,12 @@
 package engine.camera;
 
 import engine.entities.Entity;
-<<<<<<< HEAD
-=======
 import engine.events.KeyPressEvent;
 import engine.events.KeyReleaseEvent;
-import engine.events.MapSetupEvent;
-import engine.events.MouseDragEvent;
->>>>>>> 6038686a4761b77cafa18c1aee7b1d1becf545d4
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,7 +14,6 @@ import javafx.scene.shape.Circle;
 import main.VoogaPeaches;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
-import util.pubsub.messages.BGMessage;
 import util.pubsub.messages.MoveCameraMessage;
 
 /**
