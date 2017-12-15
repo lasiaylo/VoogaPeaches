@@ -17,51 +17,7 @@
         "UID": "be3fbe4c2f19445da0fe0dd3f34d7c38",
         "children": [
           {
-            "UID": "ac9d27687f3b45ce8732398cfa5a9c35",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "vx": 0,
-              "vy": 0,
-              "listeners": {
-                "move": {"update_position": {"empty": "empty"}},
-                "tick": {"move": {"empty": "empty"}},
-                "key press": {
-                  "rotate": {},
-                  "movement": {"empty": "empty"}
-                }
-              },
-              "width": 50,
-              "x": 615,
-              "y": 300,
-              "scripts": {"imageScript": {"image_path": "user_images/Tetris_O.svg.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "83f1afb537f8401aac55a730eaf3f1ee",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "vx": 0,
-              "vy": 0,
-              "listeners": {
-                "move": {"update_position": {"empty": "empty"}},
-                "tick": {"move": {"empty": "empty"}},
-                "key press": {
-                  "rotate": {},
-                  "movement": {"empty": "empty"}
-                }
-              },
-              "width": 75,
-              "x": 342.5,
-              "y": 78,
-              "scripts": {"imageScript": {"image_path": "user_images/Tetris_J.svg.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "05939c89e4a14b97bbafcf671eba8cbc",
+            "UID": "e12121ee294b49ab8b25a5ee7106519b",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -76,36 +32,14 @@
                 }
               },
               "width": 75,
-              "x": 245.5,
-              "y": 203,
-              "scripts": {"imageScript": {"image_path": "user_images/Tetris_L.svg.png"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "1c0ebedddfcf4fef9ab20b2d70589195",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "vx": 0,
-              "vy": 0,
-              "listeners": {
-                "move": {"update_position": {"empty": "empty"}},
-                "tick": {"move": {"empty": "empty"}},
-                "key press": {
-                  "rotate": {"empty": "empty"},
-                  "movement": {"empty": "empty"}
-                }
-              },
-              "width": 75,
-              "x": 328.5,
-              "y": 292,
+              "x": 0,
+              "y": 0,
               "scripts": {"imageScript": {"image_path": "user_images/Tetris_Z.svg.png"}},
               "height": 50
             }
           },
           {
-            "UID": "1b82efd9ba58484f8f279cd25d530a09",
+            "UID": "c34e0ce97a2c4621b6dc9b8773dee05b",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -120,14 +54,14 @@
                 }
               },
               "width": 75,
-              "x": 433.5,
-              "y": 332,
-              "scripts": {"imageScript": {"image_path": "user_images/Tetris_T.svg.png"}},
+              "x": 90.5,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_L.svg.png"}},
               "height": 50
             }
           },
           {
-            "UID": "40bc836d083e41849e98c3a0bed9d902",
+            "UID": "26f89a154d704eb6b1fff1d1218f0121",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -142,14 +76,36 @@
                 }
               },
               "width": 75,
-              "x": 533.5,
-              "y": 231,
+              "x": 189.5,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_J.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "80888fd629824418bdbb0cda24c12919",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 4.5,
+              "y": 70,
               "scripts": {"imageScript": {"image_path": "user_images/Tetris_S.svg.png"}},
               "height": 50
             }
           },
           {
-            "UID": "d89cae860b8f4fa389e4c1cea3f3e211",
+            "UID": "ba274be808d6449a989a1f5968df87cf",
             "children": [],
             "hitBoxes": [],
             "properties": {
@@ -164,10 +120,51 @@
                 }
               },
               "width": 100,
-              "x": 637,
-              "y": 151.5,
+              "x": 107,
+              "y": 76.5,
               "scripts": {"imageScript": {"image_path": "user_images/Tetris_I.svg.png"}},
               "height": 25
+            }
+          },
+          {
+            "UID": "3808e6c0a279431e80f8390c97971a71",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 272.5,
+              "y": 68,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_T.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "299a248b3496431fa0a94d6ab735c88c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 287,
+              "y": 2,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_O.svg.png"}},
+              "height": 50
             }
           }
         ],

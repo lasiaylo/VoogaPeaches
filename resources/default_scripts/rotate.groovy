@@ -8,8 +8,18 @@ import javafx.scene.input.KeyCode
 
 { Entity entity, Map<String, Object> bindings, Event event ->
     KeyPressEvent k = (KeyPressEvent) event;
-    if (k.getKeyCode().equals(KeyCode.UP)){
-        double r = entity.getNodes().getRotate() + 90.0;
-        entity.getNodes().setRotate(r);
+    switch(k.keyCode){
+        case(KeyCode.UP):
+            entity.getNodes().setRotate(entity.getNodes().getRotate() + 90.0);
+            break;
+        case(KeyCode.LEFT):
+            entity.setProperty("x", entity.getProperty("x") - 50);
+            break;
+        case(KeyCode.RIGHT):
+            entity.setProperty("x", entity.getProperty("x") + 50);
+            break;
+        case(KeyCode.DOWN):
+            entity.setProperty("y", entity.getProperty("y") + 50);
+            break;
     }
 }

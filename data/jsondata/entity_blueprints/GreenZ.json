@@ -13,9 +13,9 @@
       }
     },
     "width": 75,
-    "x": 333.5,
-    "y": 359,
-    "scripts": {"imageScript": {"image_path": "user_images/Tetris_T.svg.png"}},
+    "x": 533.5,
+    "y": 231,
+    "scripts": {"imageScript": {"image_path": "user_images/Tetris_S.svg.png"}},
     "height": 50
   }
 }
