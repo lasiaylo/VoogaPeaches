@@ -41,7 +41,7 @@ public class Camera {
 //            currentLevel.add(view.getContent());
 //        }
         view.setPannable(false);
-        mapSize = new Vector(new Double((Integer) currentLevel.getProperty("mapwidth")), new Double((Integer)currentLevel.getProperty("mapheight")));
+        mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
         changeLevel(level);
         center = new Vector(0, 0);
         scale = new Vector(10, 10);
@@ -91,7 +91,7 @@ public class Camera {
 //            new KeyPressEvent(e).recursiveFire(level);
 //        });
         currentLevel = level;
-        mapSize = new Vector(new Double((Integer) currentLevel.getProperty("mapwidth")), new Double((Integer)currentLevel.getProperty("mapheight")));
+        mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
     }
 
     public Pane getMinimap(Vector size) {
