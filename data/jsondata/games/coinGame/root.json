@@ -1694,6 +1694,58 @@
           "listeners": {"tick": {"loader": {"empty": "empty"}}},
           "scripts": {"holderScript": {"empty": "empty"}}
         }
+      },
+      {
+        "UID": "470c6bf629e7481cab9ebf0982c24d9d",
+        "children": [
+          {
+            "UID": "d43f364f95714b61a45ba132cb13850b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 22,
+              "width": 50,
+              "y": 408,
+              "scripts": {"imageScript": {"image_path": "Player/right.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "57757a8302004f9f88681cae74e7e17a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "kellyCreateCoin": {"empty": "empty"},
+                  "move": {"empty": "empty"}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 3,
+              "width": 50,
+              "y": 391,
+              "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
       }
     ],
     "hitBoxes": [],

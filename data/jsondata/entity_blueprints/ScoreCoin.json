@@ -1,0 +1,21 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {
+        "kellyCreateCoin": {"empty": "empty"},
+        "move": {"empty": "empty"}
+      },
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 3,
+    "width": 50,
+    "y": 391,
+    "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+    "height": 50
+  }
+}
