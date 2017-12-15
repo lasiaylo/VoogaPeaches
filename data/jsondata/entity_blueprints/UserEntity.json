@@ -2,8 +2,8 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "vx": 0,
-    "vy": 0,
+    "vx": 0.0,
+    "vy": 0.0,
     "listeners": {
       "move": {"update_position": {"empty": "empty"}},
       "tick": {
@@ -14,10 +14,10 @@
         "movement": {"empty": "empty"}
       }
     },
-    "x": 215,
-    "width": 50,
-    "y": 164,
+    "x": 215.0,
+    "width": 50.0,
+    "y": 164.0,
     "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-    "height": 50
+    "height": 50.0
   }
 }

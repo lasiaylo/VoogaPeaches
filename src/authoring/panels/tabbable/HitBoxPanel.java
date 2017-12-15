@@ -2,6 +2,7 @@ package authoring.panels.tabbable;
 
 import authoring.Panel;
 import authoring.buttons.CustomButton;
+import database.jsonhelpers.JSONHelper;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
 import javafx.scene.control.Button;
@@ -43,6 +44,7 @@ public class HitBoxPanel implements Panel {
     private GridPane options = new GridPane();
 
     private List<HitBox> hitboxes = new ArrayList<>();
+    private List<Circle> points = new ArrayList<>();
     private List<Double> currentPoints;
     private Button saveButton;
     private Button addButton;
@@ -66,17 +68,23 @@ public class HitBoxPanel implements Panel {
         createSaveButton();
         PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
             EntityPass entityPass = (EntityPass) e;
+            if(((EntityPass) e).getEntity()== null) System.out.println("fuicking null");
+            JSONHelper.JSONForObject(((EntityPass) e).getEntity()).toString(4);
             setEntity(entityPass.getEntity(), entityPass.getImage());
         });
     }
 
-    public void setEntity(Entity entity, Image image) {
+    private void setEntity(Entity entity, Image image) {
+        if(entity == null) System.out.println("Fucking null");
+
         hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
         pointer.setImage(image);
         setPointer(entity);
 
         hitboxes = entity.getHitBoxes();
+
+        
         hitboxSelection.getItems().clear();
         createComboBox();
         options.getColumnConstraints().clear();
@@ -92,19 +100,27 @@ public class HitBoxPanel implements Panel {
         entityView.getChildren().add(pointer);
         pointer.setX(entityView.getWidth() / 2 - pointer.getBoundsInLocal().getWidth() / 2);
         pointer.setY(entityView.getHeight() / 2 - pointer.getBoundsInLocal().getHeight() / 2);
-        pointer.setFitWidth((double) entity.getProperty("width"));
-        pointer.setFitHeight((double) entity.getProperty("height"));
+        pointer.setFitWidth(((Number) entity.getProperty("width")).doubleValue());
+        pointer.setFitHeight(((Number) entity.getProperty("height")).doubleValue());
     }
 
     private void createComboBox() {
+
         hitboxSelection.getItems().add(VIEW_ALL);
         hitboxSelection.getSelectionModel().selectLast();
+        if(hitboxes == null) {
+            System.out.println("hitboxes null");
+        }
+        for(HitBox h : hitboxes)
+            JSONHelper.JSONForObject(h).toString(4);
+            //if(h != null) h.initialize();
         for(HitBox h : hitboxes)
             hitboxSelection.getItems().add(h.getTag());
         hitboxSelection.getSelectionModel().selectedIndexProperty().addListener((arg, oldVal, newVal) ->{
             entityView.getChildren().remove(1, entityView.getChildren().size());
             if(newVal.intValue() == 0 | newVal.intValue() == -1){
                 hitboxes.forEach(box -> {
+                    if(box.getHitbox() == null) box.initialize();
                     box.getHitbox().setFill(Color.LIGHTGRAY);
                     entityView.getChildren().add(box.getHitbox());
                 });
@@ -151,11 +167,10 @@ public class HitBoxPanel implements Panel {
                 for(int i = 0; i < 6; i+=2)
                     hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(currentPoints.get(i), currentPoints.get(i + 1));
             } else if (currentPoints.size() > 6) {
-//                entityView.getChildren().remove(1, entityView.getChildren().size());
+                entityView.getChildren().removeAll(points);
                 currentPoints.add(event.getX());
                 currentPoints.add(event.getY());
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(event.getX(),event.getY());
-                System.out.println("> 6");
             }
         }
     }
@@ -169,6 +184,7 @@ public class HitBoxPanel implements Panel {
         newPoint.setFill(Color.BLACK);
         currentPoints.add(x);
         currentPoints.add(y);
+        points.add(newPoint);
         entityView.getChildren().add(newPoint);
     }
 
