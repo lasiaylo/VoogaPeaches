@@ -1,0 +1,131 @@
+{
+  "children": [],
+  "hitBoxes": [
+    {
+      "polygonVertexTranslations": [
+        131,
+        251,
+        145,
+        260,
+        131,
+        274
+      ],
+      "UID": "d72df4ea398745a18f83367a1e058c01",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallHWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        146,
+        225,
+        158,
+        240,
+        147,
+        255
+      ],
+      "UID": "6366ba8f9ba94a099370d173b83e1479",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallHWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        179,
+        226,
+        172,
+        237,
+        179,
+        249
+      ],
+      "UID": "c4d5234cb518452599eaec8582663d4f",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallHWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        162,
+        251,
+        153,
+        261,
+        164,
+        273
+      ],
+      "UID": "f14d30a5d9a14d169823a26c4d92bdfe",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallHWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        146,
+        226,
+        160,
+        237,
+        179,
+        225
+      ],
+      "UID": "5003a53c42f04c4b99ce6c22c174de39",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallVWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        154,
+        251,
+        169,
+        239,
+        179,
+        249
+      ],
+      "UID": "d54b9340b2f74d3ca63bf2e323370100",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallVWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        131,
+        251,
+        146,
+        260,
+        155,
+        251
+      ],
+      "UID": "1df6d9529bd2407db3bbe26631ae0b05",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallVWall"
+    },
+    {
+      "polygonVertexTranslations": [
+        131,
+        273,
+        146,
+        259,
+        163,
+        274
+      ],
+      "UID": "0684063e34a647e290f099b9236cd64f",
+      "currentX": 0,
+      "currentY": 0,
+      "tag": "DuvallVWall"
+    }
+  ],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 624,
+    "width": 50,
+    "y": 297,
+    "scripts": {"imageScript": {"image_path": "user_images/Tetris_S.svg.png"}},
+    "height": 50
+  }
+}

@@ -89,7 +89,6 @@ public class FieldFactory {
 			}
 			return PropertiesReader.value(FIELD, clazz.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
 			new ErrorDisplay("Field Factory Error", "Did not recognize the field: " + obj.getClass().toString()).displayError();
 		}
 		return null;
