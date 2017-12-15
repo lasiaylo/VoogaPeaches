@@ -31,8 +31,10 @@ public abstract class Event {
             return this;
         }
 
-        Iterator<Entity> iter = target.getChildren().iterator();
-        iter.forEachRemaining(e -> recursiveFire(e));
+        try {
+            Iterator<Entity> iter = target.getChildren().iterator();
+            iter.forEachRemaining(e -> recursiveFire(e));
+        } catch( Exception e) {}
         return this;
     }
 }

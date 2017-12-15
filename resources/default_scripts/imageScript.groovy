@@ -41,8 +41,6 @@ import java.util.stream.Collectors
 
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
-    print("image script fired")
-
     pointer.setOnMouseClicked({e ->
         new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)
     })

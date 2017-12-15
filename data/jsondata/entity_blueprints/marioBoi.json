@@ -1,21 +1,47 @@
 {
   "children": [],
-  "hitBoxes": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      187,
+      217,
+      252,
+      217,
+      252,
+      270,
+      180,
+      278
+    ],
+    "UID": "f033d58b499f4bd1a244cf83bed68c66",
+    "currentX": 721,
+    "currentY": 521.5,
+    "tag": "test"
+  }],
   "properties": {
     "vx": 0,
-    "vy": 0,
+    "vy": 0.11000000000000007,
     "listeners": {
       "move": {"update_position": {"empty": "empty"}},
-      "tick": {"move": {"empty": "empty"}},
+      "tick": {
+        "lasiaMove": {"empty": "empt"},
+        "lasiaGravity": {
+          "MaxFallSpeed": 0.1,
+          "fallspeed": 0.03,
+          "empty": "empt"
+        },
+        "cameraFollowing": {"empty": "empty"}
+      },
       "key press": {
-        "tileArrowMovement": {"velocity": 0.3},
-        "image_rotate": {},
-        "movement": {"empty": "empty"}
+        "movement": {"empty": "empty"},
+        "jump": {
+          "empty": "empty",
+          "jump": 0.4
+        }
       }
     },
-    "x": 44,
     "width": 50,
-    "y": 249,
+    "x": 721,
+    "y": 521.5,
+    "isFalling": false,
     "scripts": {"imageScript": {"image_path": "user_images/NES - Super Mario Bros - Mario & Luigi.png"}},
     "height": 50
   }

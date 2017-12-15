@@ -1,0 +1,34 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      59,
+      227,
+      56,
+      272,
+      372,
+      273,
+      370,
+      227
+    ],
+    "UID": "82edf2b23ff640fa814a9a82e0090f82",
+    "currentX": 774.5,
+    "currentY": 569.5,
+    "tag": "test"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "collision": {"ground": {"empty": "empty"}},
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "width": 309,
+    "x": 774.5,
+    "y": 569.5,
+    "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+    "height": 47
+  }
+}

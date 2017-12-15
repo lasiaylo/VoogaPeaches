@@ -12,6 +12,6 @@ import util.pubsub.messages.MoveCameraMessage
     event = (TickEvent) event
 
     def pos = new Vector((double)entity.getProperty("x"), (double)entity.getProperty("y"))
-    def size = new Vector((double)entity.getProperty("width")/2, (double)entity.getProperty("height")/2)
+    def size = new Vector((double)entity.getProperty("width")/2 - 175, (double)entity.getProperty("height")/2 -175)
     PubSub.getInstance().publish("MOVE_CAMERA", new MoveCameraMessage(pos.add(size)))
 }
