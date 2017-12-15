@@ -1,37 +1,67 @@
 {
   "children": [],
-  "hitBoxes": [{
-    "polygonVertexTranslations": [
-      75,
-      222,
-      113,
-      219,
-      113,
-      276,
-      79,
-      276
-    ],
-    "UID": "cc965e64cb2645bf81835020aa32e7cb",
-    "currentX": 356.200000000001,
-    "currentY": 0.8000000000000851,
-    "tag": "player"
-  }],
+  "hitBoxes": [
+    {
+      "polygonVertexTranslations": [
+        75,
+        222,
+        113,
+        219,
+        113,
+        276,
+        79,
+        276
+      ],
+      "UID": "cc965e64cb2645bf81835020aa32e7cb",
+      "currentX": 200.0000061035157,
+      "currentY": 403.9600019073473,
+      "tag": "player"
+    },
+    {
+      "polygonVertexTranslations": [
+        78,
+        228,
+        108,
+        229,
+        114,
+        270,
+        81,
+        270,
+        83,
+        276,
+        83,
+        280
+      ],
+      "UID": "23a1872859b6466d8bd2747ce74efced",
+      "currentX": 200.0000061035157,
+      "currentY": 403.9600019073473,
+      "tag": "player"
+    }
+  ],
   "properties": {
-    "vx": 0.1,
-    "vy": -0.1,
+    "vx": -0.1,
+    "vy": 0,
     "listeners": {
-      "move": {
-        "arrowSetVelocity": {},
-        "update_position": {"empty": "empty"}
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "lasiaGravity": {
+          "MaxFallSpeed": 0.8,
+          "fallspeed": 0.03
+        },
+        "fakeGround": {"ground": 400}
       },
-      "tick": {"move": {"empty": "empty"}},
-      "key press": {"arrowSetVelocity": {"velocity": 0.1}}
+      "key press": {
+        "arrowSetVelocity": {"velocity": 0.1},
+        "jump": {"jump": 0.4}
+      }
     },
     "ax": 0,
     "ay": 0,
     "width": 50,
-    "x": 177,
-    "y": 109,
+    "x": 200.0000061035157,
+    "y": 403.9600019073473,
+    "isFalling": false,
     "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
     "height": 50
   }

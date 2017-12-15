@@ -7,7 +7,7 @@ import engine.events.Event
     def yv =(double) entity.getProperty("vy")
     def fall = bindings.get("fallspeed")
 
-    if ((yv <= bindings.get("MaxFallSpeed"))) {
+    if ((yv <= bindings.get("MaxFallSpeed")) && entity.getProperty("isFalling")) {
         entity.setProperty("vy", yv + fall)
         println yv
     }

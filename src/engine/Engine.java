@@ -12,6 +12,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import main.VoogaPeaches;
 import org.json.JSONObject;
@@ -38,6 +40,8 @@ public class Engine implements DataReactor<Entity> {
     private ScrollPane scrollPane;
     private boolean isGaming;
     private Entity root;
+    private collisiontest test;
+    private boolean x = true;
 
     /**
      * Creates a new Engine
@@ -59,6 +63,7 @@ public class Engine implements DataReactor<Entity> {
         tick.recursiveFire(entityManager.getCurrentLevel());
         Map<HitBox, Entity> hitBoxes = getHitBoxes(entityManager.getCurrentLevel(), new HashMap<>());
         checkCollisions(hitBoxes);
+
     }
 
     public void save(String name) {
@@ -79,6 +84,8 @@ public class Engine implements DataReactor<Entity> {
         entityManager.setIsGaming(isGaming);
         camera.fixCamera();
         camera.requestFocus();
+
+        test = new collisiontest();
     }
 
     public void pause() {
@@ -110,10 +117,28 @@ public class Engine implements DataReactor<Entity> {
 
     private void checkCollisions(Map<HitBox, Entity> hitBoxes) {
         for(HitBox hitBox : hitBoxes.keySet()) {
+
             for(HitBox other : hitBoxes.keySet()) {
-                if(hitBox != other && hitBox.intersects(other)) {
-                    new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
-                    new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));                }
+
+                if(hitBox != other) {
+                    System.out.println("HitBox");
+                    System.out.println(hitBox.getHitbox());
+                    System.out.println(hitBox.getHitbox());
+                    System.out.println("Other");
+                    System.out.println(other.getHitbox());
+                    Polygon poly1 = new Polygon();
+                    poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
+                    Polygon poly2 = new Polygon();
+                    poly2.getPoints().addAll(other.getHitbox().getPoints());
+                    Shape intersect = Shape.intersect(hitBox.getHitbox(),other.getHitbox());
+                    intersect = Shape.intersect(poly1,poly2);
+                    System.out.println("Intersect");
+                    System.out.println(intersect);
+                    if (intersect.getBoundsInLocal().getWidth() != -1){
+                        new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
+                        new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));
+                    }
+                }
             }
         }
     }

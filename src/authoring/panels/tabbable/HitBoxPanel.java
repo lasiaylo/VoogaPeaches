@@ -75,7 +75,7 @@ public class HitBoxPanel implements Panel {
     }
 
     private void setEntity(Entity entity, Image image) {
-        hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
+        hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.RED));
         entityView.getChildren().clear();
         pointer.setImage(image);
         points.clear();
@@ -117,11 +117,11 @@ public class HitBoxPanel implements Panel {
             if(newVal.intValue() == 0 | newVal.intValue() == -1){
                 hitboxes.forEach(box -> {
                     if(box.getHitbox() == null) box.initialize();
-                    box.getHitbox().setFill(Color.LIGHTGRAY);
+                        box.getHitbox().setFill(Color.BLACK);
                     entityView.getChildren().add(box.getHitbox());
                 });
             } else {
-                hitboxes.get(newVal.intValue() - 1).getHitbox().setFill(Color.LIGHTGRAY);
+                hitboxes.get(newVal.intValue() - 1).getHitbox().setFill(Color.BLACK);
                 entityView.getChildren().add(hitboxes.get(newVal.intValue() - 1).getHitbox());
                 currentPoints = hitboxes.get(newVal.intValue() - 1).getPoints();
             }
@@ -148,6 +148,7 @@ public class HitBoxPanel implements Panel {
             hitboxSelection.getItems().add(EMPTY_STRING);
             hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, EMPTY_STRING));
             hitboxSelection.getSelectionModel().selectLast();
+            System.out.println(hitboxes);
         }, ADD_HITBOX).getButton();
         options.add(addButton, 1, 1);
     }

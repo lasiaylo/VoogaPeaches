@@ -160,4 +160,5 @@ public class Entity extends Evented {
         //hitBoxes.forEach(e -> e.initialize());
         executeScripts();
     }
+
 }

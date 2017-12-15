@@ -1,7 +1,5 @@
-import database.fileloaders.ScriptLoader
 import engine.entities.Entity
 import engine.events.Event
-import engine.events.EventType
 import engine.events.KeyPressEvent
 import javafx.scene.input.KeyCode
 
@@ -16,10 +14,10 @@ import javafx.scene.input.KeyCode
         println "right"
         entity.setProperty("vx", 0.1)
     }
-    if (keyEvent.getKeyCode().equals(KeyCode.UP)) {
-        println "up"
-        entity.setProperty("vy", -0.1)
-    }
+//    if (keyEvent.getKeyCode().equals(KeyCode.UP)) {
+//        println "up"
+//        entity.setProperty("vy", -0.1)
+//    }
     if (keyEvent.getKeyCode().equals(KeyCode.DOWN)) {
         println "down"
         entity.setProperty("vy", 0.1)
