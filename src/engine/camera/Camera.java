@@ -78,6 +78,11 @@ public class Camera {
         return view;
     }
 
+    public void requestFocus() {
+        view.getContent().requestFocus();
+    }
+
+
     public void setCameraPos(Vector centerPos) {
         double hv = centerPos.at(0) / mapSize.at(0);
         double vv = centerPos.at(1) / mapSize.at(1);

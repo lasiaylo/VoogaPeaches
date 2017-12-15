@@ -2,6 +2,7 @@ package authoring.panels.tabbable;
 
 import authoring.Panel;
 import authoring.buttons.CustomButton;
+import database.jsonhelpers.JSONHelper;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
 import javafx.scene.control.Button;
@@ -35,6 +36,7 @@ public class HitBoxPanel implements Panel {
     private static final double OPTIONS_WIDTH_RATIO = 0.2;
     private static final double OPTION_WIDTH_RATIO = 0.8;
     private static final int RADIUS = 5;
+    public static final String NOT_ENOUGH_POINTS = "Not Enough Points!";
 
     private Pane entityView = new Pane();
     private VBox region = new VBox();
@@ -43,6 +45,7 @@ public class HitBoxPanel implements Panel {
     private GridPane options = new GridPane();
 
     private List<HitBox> hitboxes = new ArrayList<>();
+    private List<Circle> points = new ArrayList<>();
     private List<Double> currentPoints;
     private Button saveButton;
     private Button addButton;
@@ -66,17 +69,24 @@ public class HitBoxPanel implements Panel {
         createSaveButton();
         PubSub.getInstance().subscribe(ENTITY_PASS, e -> {
             EntityPass entityPass = (EntityPass) e;
+            if(((EntityPass) e).getEntity()== null) System.out.println("fuicking null");
+            JSONHelper.JSONForObject(((EntityPass) e).getEntity()).toString(4);
             setEntity(entityPass.getEntity(), entityPass.getImage());
         });
     }
 
-    public void setEntity(Entity entity, Image image) {
+    private void setEntity(Entity entity, Image image) {
+        if(entity == null) System.out.println("Fucking null");
+
         hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
         pointer.setImage(image);
+        points.clear();
         setPointer(entity);
 
         hitboxes = entity.getHitBoxes();
+
+        
         hitboxSelection.getItems().clear();
         createComboBox();
         options.getColumnConstraints().clear();
@@ -97,14 +107,22 @@ public class HitBoxPanel implements Panel {
     }
 
     private void createComboBox() {
+
         hitboxSelection.getItems().add(VIEW_ALL);
         hitboxSelection.getSelectionModel().selectLast();
+        if(hitboxes == null) {
+            System.out.println("hitboxes null");
+        }
+        for(HitBox h : hitboxes)
+            JSONHelper.JSONForObject(h).toString(4);
+            //if(h != null) h.initialize();
         for(HitBox h : hitboxes)
             hitboxSelection.getItems().add(h.getTag());
         hitboxSelection.getSelectionModel().selectedIndexProperty().addListener((arg, oldVal, newVal) ->{
             entityView.getChildren().remove(1, entityView.getChildren().size());
             if(newVal.intValue() == 0 | newVal.intValue() == -1){
                 hitboxes.forEach(box -> {
+                    if(box.getHitbox() == null) box.initialize();
                     box.getHitbox().setFill(Color.LIGHTGRAY);
                     entityView.getChildren().add(box.getHitbox());
                 });
@@ -121,6 +139,8 @@ public class HitBoxPanel implements Panel {
             String boxName = hitboxNameField.getText();
             if(boxName.equals(EMPTY_STRING)) {
                 new ErrorDisplay(HITBOX_ERROR, EMPTY_HITBOX_TAG).displayError();
+            } else if(currentPoints.size() < 6) {
+                new ErrorDisplay(HITBOX_ERROR, NOT_ENOUGH_POINTS).displayError();
             } else {
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).setTag(boxName);
                 hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);
@@ -151,7 +171,7 @@ public class HitBoxPanel implements Panel {
                 for(int i = 0; i < 6; i+=2)
                     hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(currentPoints.get(i), currentPoints.get(i + 1));
             } else if (currentPoints.size() > 6) {
-                entityView.getChildren().remove(1, entityView.getChildren().size());
+                entityView.getChildren().removeAll(points);
                 currentPoints.add(event.getX());
                 currentPoints.add(event.getY());
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(event.getX(),event.getY());
@@ -160,6 +180,7 @@ public class HitBoxPanel implements Panel {
     }
 
     private void addNewPoint(double x, double y) {
+        System.out.println("add point");
         Circle newPoint = new Circle();
         newPoint.setCenterX(x);
         newPoint.setCenterY(y);
@@ -167,6 +188,7 @@ public class HitBoxPanel implements Panel {
         newPoint.setFill(Color.BLACK);
         currentPoints.add(x);
         currentPoints.add(y);
+        points.add(newPoint);
         entityView.getChildren().add(newPoint);
     }
 
