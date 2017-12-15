@@ -3,9 +3,18 @@ package authoring;
 import engine.Engine;
 import engine.EntityManager;
 import engine.entities.Entity;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import util.math.num.Vector;
+import voogasalad.util.sound.Sound;
+import voogasalad.util.sound.SoundHandler;
+import voogasalad.util.sound.SoundManager;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 /**
  * PanelController delegates access to the engine to each panel that needs it.
@@ -22,12 +31,15 @@ public class PanelController {
     private static final int VALUE1 = 150;
     private static final int VALUE2 = 150;
     private Engine myEngine;
+    private SoundHandler soundEngine;
 
 	private EntityManager myEntityManager;
+    private ObjectProperty<Sound> musicProperty;
 
 	public PanelController(Entity root) {
-		myEngine = new Engine(root, GRID_SIZE, false);//depending on the design of panelcontroller, gridszie would either be retrived from camera panel or properties file
+		myEngine = new Engine(root, GRID_SIZE, false);
 	    myEntityManager = myEngine.getEntityManager();
+	    soundEngine = new SoundManager(false);
 	}
 
     /**
@@ -50,6 +62,11 @@ public class PanelController {
      * engine start to run grid_move
      */
     public void play() {
+        /*try { TODO put sound in engine if possible
+            soundEngine.loopSound(musicProperty.get());
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException | NullPointerException e) {
+            //Do nothing: Don't play invalid sound
+        }*/
         myEngine.play();
     }
 
@@ -57,6 +74,7 @@ public class PanelController {
      * engine tileMovementWithStop to run grid_move
      */
     public void pause() {
+        soundEngine.removeAllSounds();
         myEngine.pause();
     }
 
@@ -71,6 +89,12 @@ public class PanelController {
      */
     public Pane getMiniMap() {
         return myEngine.getMiniMap(new Vector(VALUE1, VALUE2));
+    }
+
+    public void setMusicProperty(ObjectProperty<Sound> musicProperty) {
+        this.musicProperty = new SimpleObjectProperty<>();
+        this.musicProperty.bind(musicProperty);
+
     }
 
     public Engine getEngine() {

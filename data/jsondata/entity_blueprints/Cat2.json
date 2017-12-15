@@ -1,0 +1,29 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0.2,
+    "vy": -0.4,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "lasiaGravity": {
+          "MaxFallSpeed": 0.8,
+          "fallspeed": 0.01
+        },
+        "naive_collisions": {
+          "range": 10,
+          "x_pos": 559.1,
+          "y_pos": 280.1
+        }
+      },
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "width": 25,
+    "x": 346.5,
+    "y": 77.5,
+    "scripts": {"imageScript": {"image_path": "user_images/3Us0ozM.png"}},
+    "height": 25
+  }
+}

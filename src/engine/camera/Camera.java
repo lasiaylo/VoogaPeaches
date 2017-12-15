@@ -1,15 +1,15 @@
 package engine.camera;
 
 import engine.entities.Entity;
+import engine.events.ClickEvent;
 import engine.events.KeyPressEvent;
 import engine.events.KeyReleaseEvent;
-import engine.events.MapSetupEvent;
-import engine.events.MouseDragEvent;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,7 +17,6 @@ import javafx.scene.shape.Circle;
 import main.VoogaPeaches;
 import util.math.num.Vector;
 import util.pubsub.PubSub;
-import util.pubsub.messages.BGMessage;
 import util.pubsub.messages.MoveCameraMessage;
 
 /**
@@ -79,9 +78,11 @@ public class Camera {
     public void setCameraPos(Vector centerPos) {
         freeCamera();
         double hv = centerPos.at(0) / mapSize.at(0);
+        double centerx = (centerPos.at(0) - view.getWidth()/2)/(mapSize.at(0)-view.getWidth());
+        double centery = (centerPos.at(1) - view.getHeight()/2)/(mapSize.at(1)-view.getHeight());
         double vv = centerPos.at(1) / mapSize.at(1);
-        view.setVvalue(vv);
-        view.setHvalue(hv);
+        view.setHvalue(centerx);
+        view.setVvalue(centery);
 
     }
 
@@ -89,7 +90,7 @@ public class Camera {
 //        if (currentLevel.getNodes().getChildren().size() == 0) {
 //            System.out.println(currentLevel.getNodes().getChildren().size());
 //        }
-        view.setContent(new Group());
+        //view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> {
@@ -97,6 +98,7 @@ public class Camera {
                 new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
             }
         });
+
         view.getContent().setOnKeyReleased(e -> new KeyReleaseEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level));
         currentLevel = level;
         mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());

@@ -1,0 +1,64 @@
+{
+  "UID": "7dc73af8685b46f08d21266b7053d271",
+  "children": [{
+    "UID": "d34924d2c98b48c7abd9995580ced098",
+    "children": [
+      {
+        "UID": "c69f5710d285403d839d83f52a43f029",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "f5d4dd80b5174f04b6b1aa1ea6483660",
+        "children": [{
+          "UID": "89d104f55f824aaab5fdf85c28f8e508",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"update_position": {"empty": "empty"}},
+              "tick": {"move": {"empty": "empty"}},
+              "key press": {"movement": {"empty": "empty"}}
+            },
+            "x": 207,
+            "width": 50,
+            "y": 152,
+            "scripts": {
+              "fsm": {"emtpy": "emtpy"},
+              "imageScript": {"image_path": "Player/ash.png"}
+            },
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 2000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

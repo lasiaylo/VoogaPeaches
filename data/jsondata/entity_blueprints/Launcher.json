@@ -1,0 +1,22 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": -0.1,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {
+        "arrowSetVelocity": {"emtpy": "emtpy"},
+        "checkers_script": {"emtpy": "empty"},
+        "movement": {"empty": "empty"}
+      }
+    },
+    "width": 50,
+    "x": 179,
+    "y": 151,
+    "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+    "height": 50
+  }
+}

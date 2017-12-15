@@ -1,15 +1,16 @@
 package database;
 
+import authoring.fsm.FSMGraph;
+import authoring.panels.tabbable.FSMPanel;
 import com.google.firebase.database.FirebaseDatabase;
 import database.firebase.FileStorageConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import util.PropertiesReader;
-import util.pubsub.PubSub;
-import util.pubsub.messages.FSMSaveMessage;
 
 import java.io.File;
 import java.util.*;
@@ -55,20 +56,28 @@ public class GameSaver {
      *               Trackable objects that you want to store
      */
     public void saveGame(Entity toSave) {
+        saveFSM(toSave);
         saveRoot(toSave);
         String[] images = saveImageJSON(toSave);
         uploadImages(images);
         String[] scripts = saveScriptJSON(toSave);
         uploadScripts(scripts);
-        setupFSMPubsub();
     }
 
-    private void saveFSM(FSMSaveMessage message) {
-    }
-
-    private void setupFSMPubsub() {
-        PubSub.getInstance().subscribe("SAVE_FSM", message -> saveFSM((FSMSaveMessage) message));
-        PubSub.getInstance().publish("SAVE_FSM", new FSMSaveMessage(null));
+    private void saveFSM(Entity toSave) {
+        System.out.println("Saving FSM on GameSaver");
+        Map<String, ArrayList<FSMGraph>> map = FSMPanel.getFSMMap();
+        if(map == null) { return; }
+        JSONObject newObject = new JSONObject();
+        for(String key : map.keySet()) {
+            JSONArray arr = new JSONArray();
+            for(FSMGraph graph : map.get(key))
+                arr.put(JSONHelper.JSONForObject(graph));
+            newObject.put(key, arr);
+        }
+        String filepath = gameName + "/fsm.json";
+        manager.writeJSONFile(filepath, newObject);
+        FirebaseDatabase.getInstance().getReference(toSave.UIDforObject()).child("fsm").setValueAsync(JSONHelper.mapFromJSON(newObject));
     }
 
     /**

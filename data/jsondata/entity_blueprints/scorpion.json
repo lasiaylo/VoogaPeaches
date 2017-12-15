@@ -1,0 +1,37 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      19,
+      10,
+      9,
+      488,
+      944,
+      488,
+      940,
+      9
+    ],
+    "UID": "9fe8abbf4f6845ca84d3a4f4a8e31a8d",
+    "currentX": 0,
+    "currentY": 0,
+    "tag": "huge"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "collision": {"kill": {}},
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 841.3540105952541,
+    "width": 50,
+    "y": 165.85956060755436,
+    "scripts": {
+      "fidget": {},
+      "imageScript": {"image_path": "user_images/ScorpionQueen.png"}
+    },
+    "height": 50
+  }
+}

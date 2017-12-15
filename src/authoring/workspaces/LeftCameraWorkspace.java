@@ -22,6 +22,7 @@ public class LeftCameraWorkspace extends AbstractWorkspace {
     private static final String MIDDLE_DIVISION_STRING = "middledivision";
     private static final String BODY_DIVISION_STRING = "bodydivision";
     private static final String EMPTY_STRING = "";
+    private static final String TITLE = "Left Camera Workspace";
 
     private Positions positions;
     private SplitPane body;
@@ -41,6 +42,11 @@ public class LeftCameraWorkspace extends AbstractWorkspace {
     public LeftCameraWorkspace(double width, double height, PanelManager manager) throws IOException{
         super(width, height, manager);
 
+    }
+
+    @Override
+    public String title(){
+        return TITLE;
     }
 
     @Override
@@ -119,13 +125,11 @@ public class LeftCameraWorkspace extends AbstractWorkspace {
     private void setDividerFields() {
         middleDivision = middle.getDividerPositions()[0];
         bodyDivision = body.getDividerPositions()[0];
-        properties.setProperty(MIDDLE_DIVISION_STRING, middleDivision + EMPTY_STRING);
-        properties.setProperty(BODY_DIVISION_STRING, bodyDivision + EMPTY_STRING);
         setDividerProperties();
     }
 
     private void setDividerProperties() {
-        properties.setProperty(MIDDLE_DIVISION_STRING, middleDivision + "");
-        properties.setProperty(BODY_DIVISION_STRING, bodyDivision + "");
+        properties.put(MIDDLE_DIVISION_STRING, middleDivision + "");
+        properties.put(BODY_DIVISION_STRING, bodyDivision + "");
     }
 }

@@ -2,9 +2,6 @@ package authoring.fsm;
 
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
-import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONDataManager;
-import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
 import engine.fsm.FSM;
 import engine.fsm.State;
@@ -18,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import util.math.num.Vector;
+import util.pubsub.PubSub;
+import util.pubsub.messages.FSMGraphMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +37,19 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
     private List<State> myStates;
 
     /**
+     * Creates a new FSMGraph from existing arraylist params
+     * @param stateRenders      list of stateRenders
+     * @param Arrows list of Arrows
+     */
+    public FSMGraph(String name, List<StateRender> stateRenders, List<Arrow> Arrows) {
+        myName = name;
+        myStateRenders = stateRenders;
+        myArrows = Arrows;
+        myGroup.setOnMouseDragged(e -> dragHandle(e));
+        myGroup.setOnMouseReleased(e -> dragExit(e));
+    }
+
+    /**
      * Creates a new FSMGraph from scratch
      */
     public FSMGraph(String name) {
@@ -56,19 +68,6 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
             arrow.setGraphDelegate(this);
             myGroup.getChildren().add(arrow.getRender());
         }
-        myGroup.setOnMouseDragged(e -> dragHandle(e));
-        myGroup.setOnMouseReleased(e -> dragExit(e));
-    }
-
-    /**
-     * Creates a new FSMGraph from existing arraylist params
-     * @param stateRenders      list of stateRenders
-     * @param Arrows list of Arrows
-     */
-    public FSMGraph(String name, List<StateRender> stateRenders, List<Arrow> Arrows) {
-        myName = name;
-        myStateRenders = stateRenders;
-        myArrows = Arrows;
         myGroup.setOnMouseDragged(e -> dragHandle(e));
         myGroup.setOnMouseReleased(e -> dragExit(e));
     }
@@ -193,28 +192,29 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
 
     public void export() {
         saveSetup();
-        try {
-            JSONDataManager manager = new JSONDataManager(JSONDataFolders.FSM);
-            manager.writeJSONFile(myName, JSONHelper.JSONForObject(this));
-        } catch (Exception e) {
-            System.out.println("Error saving FSM");
-        }
+        System.out.println("Exported");
+        PubSub.getInstance().publish("FSM_GRAPH", new FSMGraphMessage(this));
     }
 
     public FSM createFSM(Entity entity) {
+        recreateStates();
         return new FSM(entity, myStates);
     }
 
     private void saveSetup() {
-        myStates = new ArrayList<>();
-        for(StateRender sRender: myStateRenders) {
-            myStates.add(sRender.createNewState());
-        }
+        recreateStates();
         for(StateRender sRender: myStateRenders) {
             sRender.save();
         }
         for(Arrow arrow: myArrows) {
             arrow.save();
+        }
+    }
+
+    private void recreateStates() {
+        myStates = new ArrayList<>();
+        for(StateRender sRender: myStateRenders) {
+            myStates.add(sRender.createNewState());
         }
     }
 
