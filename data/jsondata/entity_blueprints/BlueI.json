@@ -1,0 +1,36 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      113,
+      239,
+      212,
+      239,
+      212,
+      262,
+      113,
+      263
+    ],
+    "UID": "6a680035ba0f43c09e4103528878960d",
+    "currentX": 0,
+    "currentY": 0,
+    "tag": "BlueI"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {
+        "rotate": {"empty": "empty"},
+        "movement": {"empty": "empty"}
+      }
+    },
+    "width": 100,
+    "x": 459,
+    "y": 300.5,
+    "scripts": {"imageScript": {"image_path": "user_images/Tetris_I.svg.png"}},
+    "height": 25
+  }
+}
