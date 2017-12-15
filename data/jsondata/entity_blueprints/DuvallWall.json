@@ -1,0 +1,33 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      155,
+      225,
+      204,
+      224,
+      205,
+      274,
+      155,
+      275
+    ],
+    "UID": "a9b237bfadd3412c8d99f9eacd35d27c",
+    "currentX": 0,
+    "currentY": 0,
+    "tag": "duvall"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": -12,
+    "width": 50,
+    "y": 500,
+    "scripts": {"imageScript": {"image_path": "Duvall/duvall1.jpg"}},
+    "height": 50
+  }
+}

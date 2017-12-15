@@ -35,9 +35,7 @@ class EntityScriptFactory {
                 Map<String, Object> bindings = new HashMap<>();
 //                System.out.println("parsing listeners");
                 Closure callback = parse(entity, bindings, (Map.Entry) oo);
-                entity.on(type, (event) ->
-                        callback.
-                                call(entity, bindings, event));
+                entity.on(type, (event) -> callback.call(entity, bindings, event));
             }
         }
     }

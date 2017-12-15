@@ -1,0 +1,74 @@
+{
+  "UID": "1c47f9cb16f542748c06143f6ebba67a",
+  "children": [{
+    "UID": "f7b6651267a8441b933976952c9ce8ad",
+    "children": [
+      {
+        "UID": "fa64bed1a6c54acba9d8a0587a9dbb83",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "1162e0a5ef8f46399418d62a3d46ea5c",
+        "children": [{
+          "UID": "cba3dab9fe95463c963663ed50e6ac03",
+          "children": [],
+          "hitBoxes": [{
+            "polygonVertexTranslations": [
+              229,
+              322,
+              111,
+              358,
+              158,
+              230
+            ],
+            "UID": "036c9becbddc484dac43b904c568e16f",
+            "currentX": 0,
+            "currentY": 0,
+            "tag": "test"
+          }],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"update_position": {"empty": "empty"}},
+              "tick": {"move": {"empty": "empty"}},
+              "key press": {"movement": {"empty": "empty"}}
+            },
+            "x": 463,
+            "width": 50,
+            "y": 256,
+            "scripts": {"imageScript": {"image_path": "Player/pikachu.png"}},
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 2000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

@@ -156,6 +156,8 @@ public class Entity extends Evented {
              child.parent = this;
         }
         clear();
+       // System.out.println(hitBoxes.get(0));
+        //hitBoxes.forEach(e -> e.initialize());
         executeScripts();
     }
 }
