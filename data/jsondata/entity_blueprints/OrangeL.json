@@ -3,18 +3,30 @@
   "hitBoxes": [],
   "properties": {
     "vx": 0,
-    "vy": 0,
+    "vy": 0.055600000000000566,
     "listeners": {
+      "": {},
       "move": {"update_position": {"empty": "empty"}},
-      "tick": {"move": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "lasiaGravity": {
+          "MaxFallSpeed": 0.2,
+          "fallspeed": 1.0E-4
+        },
+        "fakeGround": {
+          "ground": 400,
+          "empty": "empty"
+        }
+      },
       "key press": {
         "rotate": {"empty": "empty"},
         "movement": {"empty": "empty"}
       }
     },
     "width": 75,
-    "x": 235.5,
-    "y": 194,
+    "x": 400.0,
+    "y": 0.0,
+    "isFalling": true,
     "scripts": {"imageScript": {"image_path": "user_images/Tetris_L.svg.png"}},
     "height": 50
   }

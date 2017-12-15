@@ -115,6 +115,7 @@ public class Engine implements DataReactor<Entity> {
     private void checkCollisions(Map<HitBox, Entity> hitBoxes) {
         for(HitBox hitBox : hitBoxes.keySet()) {
             Polygon poly1 = new Polygon();
+            System.out.println(hitBox.getHitbox());
             poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
             for(HitBox other : hitBoxes.keySet()) {
 

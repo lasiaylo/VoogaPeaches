@@ -97,7 +97,6 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             UIDField.setAccessible(false);
             params.remove("UID");
         } catch (Exception e) {
-            e.printStackTrace();
             return;
         }
     }
