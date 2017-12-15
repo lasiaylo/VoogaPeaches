@@ -10,10 +10,10 @@ import javafx.scene.input.KeyCode
         entity = (Entity) entity;
         entity.on(EventType.KEY_PRESS.getType(), {Event e ->
             KeyPressEvent k = KeyPressEvent e
-            if (k.equals(KeyCode.KP_RIGHT)){
+            if (k.getKeyCode().equals(KeyCode.KP_RIGHT)){
                 entity.getNodes().setRotate(entity.getNodes().getRotate() + 90);
             }
-            else if (k.equals(KeyCode.KP_LEFT)){
+            else if (k.getKeyCode().equals(KeyCode.KP_LEFT)){
                 entity.getNodes().setRotate(entity.getNodes().getRotate() - 90);
             }
         })
