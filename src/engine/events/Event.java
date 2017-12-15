@@ -2,6 +2,7 @@ package engine.events;
 
 import engine.entities.Entity;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public abstract class Event {
@@ -32,7 +33,12 @@ public abstract class Event {
         }
 
         Iterator<Entity> iter = target.getChildren().iterator();
-        iter.forEachRemaining(e -> recursiveFire(e));
+        try{
+            iter.forEachRemaining(e -> recursiveFire(e));
+        }
+        catch(ConcurrentModificationException c){
+            //do nothing
+        }
         return this;
     }
 }

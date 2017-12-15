@@ -13,8 +13,8 @@
       }
     },
     "width": 75,
-    "x": 278.5,
-    "y": 110,
+    "x": 400.0,
+    "y": 25.0,
     "scripts": {"imageScript": {"image_path": "user_images/Tetris_J.svg.png"}},
     "height": 50
   }

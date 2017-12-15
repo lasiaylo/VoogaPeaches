@@ -146,6 +146,7 @@ public class HitBoxPanel implements Panel {
     private void createAddButton() {
         addButton = new CustomButton(() -> {
             hitboxSelection.getItems().add(EMPTY_STRING);
+            hitboxes.clear();
             hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, EMPTY_STRING));
             hitboxSelection.getSelectionModel().selectLast();
             System.out.println(hitboxes);
