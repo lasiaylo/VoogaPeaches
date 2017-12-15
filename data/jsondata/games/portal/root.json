@@ -1,0 +1,2442 @@
+{
+  "UID": "7313cd71be664b2192ab5528de1d7dd3",
+  "children": [{
+    "UID": "1d0415413d7541028b7384798932701f",
+    "children": [
+      {
+        "UID": "f2845024926e457688088d2f20b8abf1",
+        "children": [
+          {
+            "UID": "94d05c5c0e164214ae1976ecf6720b6d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9946c4220ecc4069bd58ea5e7a4cdc18",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6c9404de41924a76a3f0d9d6d73a33a6",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6bd4399538c34e1e8b95a4fdb90e2e14",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "86096087ab8346398503cc2467fbe469",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "eef4f3aea6714ce78103d1a5e8b8bd45",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0d662324f8f04458bbf465bdf21741c9",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "93ae6053c48345208f824f65c6781d0d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "421b021243d54106bde5f04649b08e6a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "dd5d22d63b204beca03753df8b58c985",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "26343d7c61c147ea9722ac7a9748dbae",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1a790aa9b8294143a7a125f67b9a8c81",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e179918422b14ace8f12200fa6f7d3cf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f29f5f80fd824c1c9f300264b2a822da",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a79c4372992e4c95956a93529c4e5a59",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3439932fc31e4a928a787cde427793b0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "fa953f7fa60c4fffb3fa7159c7e54c4c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c96f33d55e1d4ed79f45d47db8b426f0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7e540ce206794dabbdbba101c654ff47",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9a534526870a41b98f34e7d363054503",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "53ab57f08c9748eb98177af8104fbeaf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "94436c92bde74119a02f9973bfffda7e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "41ee9981139048868270f54992288729",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6d69e5f03a184354bf6a3c72885a32c2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8da8a24ce57a4e82b2e730dd019cf058",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "aa79b014e6564108bb67b5c36861d27a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7ffa4e650620474eba4d4a973623c0c0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "dc93eb14ada14507a8f87f8465167560",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "13349384d1c142a6bae8313e6198bd8c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2b2f794d56814963804b10dc398f4618",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c4921838a0be4f57b66e2e2034ee1293",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b3a7b91c0f5b4b66bae6893f31b3a5b2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9c4ce328c2694589ae40544a489209a2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4f4e37049e6e427e84d0dda4c32735ad",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b8fb12b4821e43f58b1e0de009f7cc66",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0dda564505f540c18cfefa8b1739686d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a9baefea528a4735a6114615e4cf0249",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "700f12e29c3d4bc8a3124b97239c0871",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "92bb5acad46843a7bbd969228f83aaa6",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "dce1b1a959714dd09343c4421ed0b41e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "44ca3464430c4a4f9fb2c5f8f0b75ad2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "35e4b5e52ebf494f888770d080b4e31e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c7ffad4232ac484aaa716f678ddc2981",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8e6d85a294754136827070e78c9407fe",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7e06dc42194b4769ab4a3080cd7b2f33",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0714e933075d4dff9d0156774cdfe533",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a002c5cf96cb4aa0b2ce3afe217b432a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ea79c439a5e04ac9b0bde974e29d9892",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4e26de0a3f6d4c76a75f0e60528f2fb2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "44c679d28c6241b8a9bb2e377ea464ae",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "87199f8905cb41f8a65efce45198e905",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "75a150e2780345a49b317d7696b5e70e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "39e69b36eaef4a5184cf2f19f3b5c2fd",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c17ad1b8b4a043e792c56e89da7ba29c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1c995ef949944bf1ac6b4982b6c0baf4",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "cc61612300ba4fc591e15f8dc057f92e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "484ee36c1dfb4fbd9fa8a3386e17d669",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a25353ed23d0450da823498595f4a86b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "881f98e78d7845cebaf667819bb0749c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9f2bb69403b74c75912af3fefefb9854",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "27c436c7bd254597b2c4b3653189cd17",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5a06afc2b91b4f07a64ac845796a332d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f0af84b2b06f4e96badb54d3bf584328",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4f0ba70b15f04e879bde5e4864264b9a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "21a6f0e01719490cbb8ce1c9bc1a835c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b66f42a37b0d4845a9c511a8d661b058",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8358beaee31246e4aa8682b6663d1048",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9dba5cd8ba3e4b53807f9ab5fa5cd37a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1aad7befe18640aa8a31ce5a9c777b88",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e4eeb0e6973046f3b98cf82f00c89650",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "06001229c8aa4309a571f22bbab4ebbd",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c8ad7134be6442fb82ab6dff1a1e885d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0b0171b5eccd4087a57679deba3d03cb",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4a3a61abf4d14ee88fa589f1248843e1",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c4be7857d2724964a461f46bd7d20dec",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "d464d297c7fa49459221008e9bc26ac5",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "96e6b0324b344975a88776480ac5492a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "98d3e66df2d745ffa8ddcc24d4896cca",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b3ba038471654d9ca0a82addd03c4f9c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5b9620d6169b4d1c84f65c03894bed03",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a60b827efcbe4dfb91079c13df91ab63",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4bd297869cfa40f884ef7b820362c705",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e48a85ebbf4549b2a8ef14c2a1386491",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "dfb24a88d4734f22ac5e61ba060af7fb",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9c8b123a64074b9ab2ce4e4d7f217a7e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "954a3d68723c4accb0e0d7f98060300f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2a604216507549dda414b578ca3ea7ba",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1f71eb9a1fac42e8a243b2c142fbe5a1",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a7967e321e6e4e4daeeda76cc5c9ec12",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8534ec6dbc634ae6af03e1d43a7aaee4",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9aa615b3f68d4b5fb98ad320e82e0996",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "818e4ab778104f66a9391a4b10dd1d00",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "980e1142a71f485b9e0295d05894270c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f3cdea2ed8fc4b6c946515d09867ed60",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "39a150da96874fb7a95e155d77dc88d5",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "20e5ba63e7ae4592a6971dfc1dbb2527",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b63ecf76483c4042bab76aa37720c46d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e7feeaf6b26f4868befe8dc4cca09c0e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "742ff2f7690e4002b26841c368651568",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "be1939964889420b903131cbe985f2a3",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "101479c8a8a34303b3989d496e4de3ed",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "02e0cc6ffacc4346b3ef855b1b717c4c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "db7ec2d05ebd47d08028e6ab45303198",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "457baf1164e94ee2bb1e697977767f11",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "158c9b46490040f189628d640b35d88e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1e69f97dce4f4d0d88f93db309438717",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0b3f5b4d672c465da2cbaef97eeb948c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9fd09132d13948f0b829bd7cb8825117",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4d56c0b85204499b93f06b0e12a0098a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ab71903517d744f8896c878db7d23d95",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4f014446587546f6b577c7bcd6103d32",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "cf1c8f2248954ef98408d973a4bb2c6e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2f95180d21b94860b5bc0d6f74c7b983",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "635ee09383af48ee9f74f6ceb1bab0e6",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5f51f5469a764cea97f044337ca88b2e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1a12d637d52a446bb0d48106cc881965",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "9c6f00719d474f62aabf2a5ebed2e663",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "47586cc813274ed286038838a11ddf2f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "137b467e354b402aa54c2f570354bacf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a7f6971d7d63426982bd155f335dfc64",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7adea457d26346d0b20a933dab74e223",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "dd44ec960860458cb9bfd2644d3763d0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a0c1dd0da9b74699be0516870bc044ff",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "fc68154ee547461db143eeb87d37a94e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6b8339ff5013433d93ce8fd35109f463",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3ed00cf995cc483c9837fc4cd65b3f68",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b30dc405dae64ccabe3679c401b22c7e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0307e9c4b5164b02b40e6f683dbe7022",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3b4d847eeb044d9885d624f8dcac84c3",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b53a919ea8cd4e778f760286bd81bd30",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c542d6bc613d49d4a33ffead69bb1f31",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1039e3f7b9934de390d210bbabfaadf6",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "60932ec46c514d52ba5f726f3e687ccb",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "341a50734e07435b9be12f560bb2f30f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f9726e6374604abaa58774eaf291fdac",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "d16ba97ed9f94ac185593e53f7aef5e3",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3865f356a9b1421e97b1e8b8c4ad228b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 300,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "318a588e070d46baaa6439ece99d4854",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 350,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4d30eee5de634b6da44a9012f6f662ab",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e0f493b2d085469baa3894551a47ca2b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ed4d8f35a0cf4fc1b03ad4b6196d4dd5",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 500,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5a24f407416f4ec89c265d3514fc5d8d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 0,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f73a44ec1e464cbead6c70f34076060b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "64425d94794642d684802abf1fcbc0be",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "d58019c01bf7449bb36d2d860bcf18cd",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e4886f1883334907a372b64627ef076a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "42677c73c3d24b698baf87eff1dfa646",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "f00f9eb4cfd6431cb24f26dad4a89325",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "177f870a838740389ecfc6566c28dca7",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5d68c1b7aa9c44bcbce53fed6688e69c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ca70b15ea6804b5393062f40e02eaf1e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e56698420ee04437b733cbcac490fcfa",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 400,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5f8f243dfd574c9891df779d61c8079f",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 50,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e2ae56ebc95c4206935425eda3511d18",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 100,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "640542c1a1d04bca9ce4468a5d664bd5",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 150,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b31d34da03244a528c1ff0a0553edf62",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 200,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b0677007aaea488dac148929adaeb027",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 250,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "a5e0d05165b84484a868f0e68ff18742",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 300,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "fdc37d408f614200905536fb3bbcc18a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 350,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "996499e0c6fc4d5dbf8bcd3fcfda122e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 400,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8e512a8e005d470c882508d57cbdccc1",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 450,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "273cff1c095e4f6fae8d9f110b0c9554",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 500,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e7581ab490c44f60b643ed08267b9468",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 550,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "662d9cc9a2874b258c10db4f778bd863",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 600,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ecab79ad23d6470a93c3d426dc3e38d3",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 650,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "bf1ab72b81394dbe9b062fdb868a8854",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "width": 50,
+              "x": 700,
+              "y": 450,
+              "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "68374fd6ce9b4621b22c2d03ccccb21e",
+        "children": [
+          {
+            "UID": "bbc94bd4f5bf402eaeb6833bc8520fc1",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                60,
+                225,
+                368,
+                225,
+                369,
+                271,
+                61,
+                273
+              ],
+              "UID": "cbff7170a52f4673821a117795f824eb",
+              "currentX": 70,
+              "currentY": 169,
+              "tag": "unportal"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 70,
+              "y": 169,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
+            "UID": "cc9f8fcee7fa4422843c24d519828424",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                75,
+                222,
+                113,
+                219,
+                113,
+                276,
+                79,
+                276
+              ],
+              "UID": "cc965e64cb2645bf81835020aa32e7cb",
+              "currentX": 356.200000000001,
+              "currentY": 0.8000000000000851,
+              "tag": "player"
+            }],
+            "properties": {
+              "vx": 0.1,
+              "vy": -0.1,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {
+                  "accel": 0.1,
+                  "empty": "empty"
+                }},
+                "key press": {"arrowSetAccel": {}}
+              },
+              "ax": 0,
+              "width": 50,
+              "x": 177,
+              "ay": 0,
+              "y": 109,
+              "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 2000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

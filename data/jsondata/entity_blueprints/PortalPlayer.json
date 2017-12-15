@@ -1,0 +1,38 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      75,
+      222,
+      113,
+      219,
+      113,
+      276,
+      79,
+      276
+    ],
+    "UID": "cc965e64cb2645bf81835020aa32e7cb",
+    "currentX": 356.200000000001,
+    "currentY": 0.8000000000000851,
+    "tag": "player"
+  }],
+  "properties": {
+    "vx": 0.1,
+    "vy": -0.1,
+    "listeners": {
+      "move": {
+        "arrowSetVelocity": {},
+        "update_position": {"empty": "empty"}
+      },
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"arrowSetVelocity": {"velocity": 0.1}}
+    },
+    "ax": 0,
+    "ay": 0,
+    "width": 50,
+    "x": 177,
+    "y": 109,
+    "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
+    "height": 50
+  }
+}
