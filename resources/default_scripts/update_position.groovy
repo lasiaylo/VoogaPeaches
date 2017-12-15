@@ -14,5 +14,5 @@ import engine.events.MoveEvent
     entity.getNodes().relocate(((Double) entity.getProperty("x")).doubleValue(),
             ((Double) entity.getProperty("y")).doubleValue())
     for (HitBox hitBox : entity.getHitBoxes())
-        hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
+        hitBox.moveHitBox(((Number) entity.getProperty("x")).doubleValue(), ((Number) entity.getProperty("y")).doubleValue())
 }

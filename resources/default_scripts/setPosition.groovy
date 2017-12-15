@@ -18,6 +18,6 @@ entity.on(EventType.MOVE.getType(), { Event event ->
         entity.setProperty("y", new Double(entity.getProperty("y").doubleValue() + moveEvent.getDy() ))
     entity.getNodes().relocate(entity.getProperty("x"), entity.getProperty("y"))
     for(HitBox hitBox : entity.getHitBoxes()) {
-        hitBox.moveHitBox((double) entity.getProperty("x"), (double) entity.getProperty("y"))
+        hitBox.moveHitBox(((Number) entity.getProperty("x")).doubleValue(), ((Number) entity.getProperty("y")).doubleValue())
     }
 })
