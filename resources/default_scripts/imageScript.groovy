@@ -37,6 +37,8 @@ import java.util.stream.Collectors
     pointer.setFitHeight((double) entity.getProperty("height"))
     pointer.setX(((double) entity.getProperty("x")))
     pointer.setY(((double) entity.getProperty("y")))
+    pointer.setRotate((double) entity.getProperties().getOrDefault("rotate", 0))
+
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
     print("image script fired")
@@ -106,12 +108,7 @@ import java.util.stream.Collectors
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(KeyCode.BACK_SPACE)) {
-            Iterator<Entity> iter = entity.getParent().getChildren().iterator()
-            iter.forEachRemaining({ Entity child
-                if(child == entity) {
-                    iter.remove()
-                }
-            })
+            entity.getParent().remove(entity)
         }
     })
 
@@ -138,6 +135,7 @@ import java.util.stream.Collectors
                     }
                     pointer.setX((xPos - pointer.getFitWidth()/2).doubleValue())
                     pointer.setY((yPos - pointer.getFitHeight()/2).doubleValue())
+                    entity.getNodes().relocate((xPos - pointer.getFitWidth()/2).doubleValue(), (yPos - pointer.getFitWidth()/2).doubleValue())
                     entity.setProperty("x", (xPos - pointer.getFitWidth()/2).doubleValue())
                     entity.setProperty("y", (yPos - pointer.getFitHeight()/2).doubleValue())
                 } else if (e.getButton().equals(MouseButton.SECONDARY)) {

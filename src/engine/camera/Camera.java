@@ -90,7 +90,9 @@ public class Camera {
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
         view.getContent().setOnKeyPressed(e -> {
-            new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
+            if (VoogaPeaches.getIsGaming()) {
+                new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
+            }
         });
         view.getContent().setOnKeyReleased(e -> new KeyReleaseEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level));
         currentLevel = level;
