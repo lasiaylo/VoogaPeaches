@@ -1,22 +1,22 @@
 {
-  "UID": "a414da7f29e64927a720b841afeccf9b",
+  "UID": "7dc73af8685b46f08d21266b7053d271",
   "children": [{
-    "UID": "1a1342e1a62e44d28f5a92a1b186d033",
+    "UID": "d34924d2c98b48c7abd9995580ced098",
     "children": [
       {
-        "UID": "115d637eba3a4adf8fa2dbf13e5a728a",
+        "UID": "c69f5710d285403d839d83f52a43f029",
         "children": [],
         "hitBoxes": [],
         "properties": {
-          "gridsize": 50,
           "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       },
       {
-        "UID": "7f82ffab7d5249c9a1c965b843d1d29d",
+        "UID": "f5d4dd80b5174f04b6b1aa1ea6483660",
         "children": [{
-          "UID": "3283c83efda946a4959a74c58a9e6c58",
+          "UID": "89d104f55f824aaab5fdf85c28f8e508",
           "children": [],
           "hitBoxes": [],
           "properties": {
@@ -27,20 +27,20 @@
               "tick": {"move": {"empty": "empty"}},
               "key press": {"movement": {"empty": "empty"}}
             },
+            "x": 207,
             "width": 50,
-            "x": 201,
-            "y": 124,
+            "y": 152,
             "scripts": {
-              "fsm": {},
-              "imageScript": {"image_path": "user_images/bluedevil.png"}
+              "fsm": {"emtpy": "emtpy"},
+              "imageScript": {"image_path": "Player/ash.png"}
             },
             "height": 50
           }
         }],
         "hitBoxes": [],
         "properties": {
-          "gridsize": 50,
           "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
           "scripts": {"holderScript": {"empty": "empty"}}
         }
       }
@@ -48,15 +48,15 @@
     "hitBoxes": [],
     "properties": {
       "cameraXpos": 0,
-      "cameraHeight": 500,
-      "cameraYpos": 0,
       "mapwidth": 2000,
-      "gridsize": 50,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
       "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
       "mapheight": 2000,
       "cameraWidth": 500,
-      "levelname": "level 1",
-      "scripts": {"mapScript": {"empty": "empty"}}
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
     }
   }],
   "hitBoxes": [],

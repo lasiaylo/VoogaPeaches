@@ -128,6 +128,7 @@ public class Menu {
      */
     private void authoringPressed() {
         if (validOpen()) {
+            VoogaPeaches.setIsGaming(false);
             String UID = list.getSelectedUID();
             authoringStage.setTitle(AUTHORING_TITLE + DASH + list.getSelectionModel().getSelectedItem());
             authoringStage.setTitle(AUTHORING_TITLE);
@@ -155,6 +156,8 @@ public class Menu {
 
     private void playPressed(){
         if (validOpen()) {
+            System.out.println("changed");
+            VoogaPeaches.setIsGaming(true);
             String UID = list.getSelectedUID();
             gamingStage.setTitle(AUTHORING_TITLE + DASH + list.getSelectionModel().getSelectedItem());
             gamingStage.setTitle(AUTHORING_TITLE);

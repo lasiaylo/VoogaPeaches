@@ -15,6 +15,7 @@ public class VoogaPeaches extends Application {
 
     static private User currentUser;
     static private boolean isGaming;
+    static private String gameID;
 
     @Override
 	public void start(Stage stage) {
@@ -39,4 +40,8 @@ public class VoogaPeaches extends Application {
     public static void main(String[] args){
         launch();
     }
+
+    public static String getGameID() { return gameID; }
+
+    public static void setGameID(String gameID) { VoogaPeaches.gameID = gameID; }
 }

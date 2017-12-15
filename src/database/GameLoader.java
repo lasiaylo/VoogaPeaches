@@ -44,7 +44,7 @@ public class GameLoader {
      *                 load from the database
      */
     public GameLoader(String uid) {
-        loaded = new boolean[4];
+        loaded = new boolean[3];
         this.uid = uid;
     }
 
@@ -67,8 +67,7 @@ public class GameLoader {
                 for(String key: jsonForm.keySet()) {
                     ArrayList<FSMGraph> graphs = new ArrayList<>();
                     JSONArray tempJsonArray = jsonForm.getJSONArray(key);
-                    for(int n = 0; n < tempJsonArray.length(); n++)
-                    {
+                    for(int n = 0; n < tempJsonArray.length(); n++) {
                         JSONObject object = tempJsonArray.getJSONObject(n);
                         FSMGraph graph = graphConverter.createObjectFromJSON(FSMGraph.class, object);
                         graphs.add(graph);
@@ -76,7 +75,6 @@ public class GameLoader {
                     FSMMap.put(key, graphs);
                 }
                 FSMPanel.setFSMMap(FSMMap);
-                loaded[3] = true;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -88,7 +86,7 @@ public class GameLoader {
     }
 
     public boolean assetsLoadedIn() {
-        return loaded[1] && loaded[2] && loaded[3];
+        return loaded[1] && loaded[2];
     }
 
     private void loadGameRoot(String uid) {

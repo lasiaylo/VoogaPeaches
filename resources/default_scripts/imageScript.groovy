@@ -3,25 +3,12 @@ package default_scripts
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
 import engine.entities.Entity
-import engine.events.ClickEvent
-import engine.events.DragExitedEvent
-import engine.events.Event
-import engine.events.EventType
-import engine.events.ImageViewEvent
-import engine.events.InitialImageEvent
-import engine.events.KeyPressEvent
-import engine.events.MouseDragEvent
-import engine.events.MousePressedEvent
-import engine.events.RotateEvent
-import engine.events.SubstituteEvent
-import engine.events.TransparentMouseEvent
-import engine.events.ViewVisEvent
+import engine.events.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
-import javafx.scene.input.MouseEvent
 import main.VoogaPeaches
 import util.math.num.Vector
 import util.pubsub.PubSub
@@ -41,11 +28,11 @@ import java.util.stream.Collectors
     entity.add(pointer)
 
     pointer.setOnMouseClicked({e ->
-        new ClickEvent(false, e).fire(entity)
+        new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)
     })
-    pointer.setOnMousePressed({e -> new MouseDragEvent(false, e).fire(entity)})
+    pointer.setOnMousePressed({e -> new MouseDragEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
     pointer.addEventHandler(KeyEvent.KEY_PRESSED,
-            {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
+            {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, VoogaPeaches.getIsGaming()).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
