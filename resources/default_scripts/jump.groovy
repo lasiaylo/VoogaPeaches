@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode
         entity.setProperty("y",y)
         entity.setProperty("vy", -jumpvelocity)
         entity.setProperty("isFalling",true)
+        println entity.getProperty("isFalling")
     }
 
 }

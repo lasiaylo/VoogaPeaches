@@ -2580,6 +2580,40 @@
         "UID": "b77b78543d8748bc8e4c63006158e16e",
         "children": [
           {
+            "UID": "a2bb87c6e7454307a31c7ac933813fb0",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                60,
+                227,
+                367,
+                225,
+                368,
+                273,
+                60,
+                273
+              ],
+              "UID": "75f09be3b4474c5ebc5570f407383faf",
+              "currentX": 43.5,
+              "currentY": 334.4999885559082,
+              "tag": "ground"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 758.5,
+              "y": 254.5,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
             "UID": "3835464a125b42b7a175aaf46df10c3a",
             "children": [],
             "hitBoxes": [
@@ -2631,56 +2665,59 @@
                     "MaxFallSpeed": 0.8,
                     "fallspeed": 0.03
                   },
-                  "lasiaDecay": {"decay": 0.001}
+                  "lasiaDecay": {"decay": 0.03}
                 },
                 "key press": {
-                  "lasiaMovement": {"speed": 0.1},
+                  "lasiaMovement": {
+                    "maxspeed": 0.5,
+                    "speed": 0.1
+                  },
                   "jump": {"jump": 0.4}
                 }
               },
               "ax": 0,
               "ay": 0,
               "width": 50,
-              "x": 150.57599999999954,
-              "y": 202.60000000000076,
+              "x": 182,
+              "y": 233,
               "isFalling": true,
               "scripts": {"imageScript": {"image_path": "user_images/120px-Bendy.png"}},
               "height": 50
             }
           },
           {
-            "UID": "a2bb87c6e7454307a31c7ac933813fb0",
+            "UID": "df7a167890fc408a8674ef9803282c7d",
             "children": [],
             "hitBoxes": [{
               "polygonVertexTranslations": [
-                60,
-                227,
-                367,
+                2,
+                226,
+                697,
                 225,
-                368,
+                697,
                 273,
-                60,
-                273
+                4,
+                276
               ],
-              "UID": "75f09be3b4474c5ebc5570f407383faf",
-              "currentX": 43.5,
-              "currentY": 334.4999885559082,
+              "UID": "7b756f3a153243e08dd690f4bce784da",
+              "currentX": 0,
+              "currentY": 0,
               "tag": "ground"
             }],
             "properties": {
               "vx": 0,
               "vy": 0,
               "listeners": {
-                "collision": {"ground": {}},
                 "move": {"update_position": {"empty": "empty"}},
+                "colllision": {"ground": {}},
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "width": 309,
-              "x": 43.5,
-              "y": 334.4999885559082,
+              "x": 6.5,
+              "width": 965,
+              "y": 429,
               "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
-              "height": 47
+              "height": 48
             }
           }
         ],
