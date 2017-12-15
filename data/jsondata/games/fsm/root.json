@@ -1,10 +1,10 @@
 {
-  "UID": "ba060399d0f04667a067e957d7921c2b",
+  "UID": "a414da7f29e64927a720b841afeccf9b",
   "children": [{
-    "UID": "75928149e2c34a2888be2d58be539638",
+    "UID": "1a1342e1a62e44d28f5a92a1b186d033",
     "children": [
       {
-        "UID": "c7af50664e2341398051b3edb8dd6af0",
+        "UID": "115d637eba3a4adf8fa2dbf13e5a728a",
         "children": [],
         "hitBoxes": [],
         "properties": {
@@ -14,9 +14,9 @@
         }
       },
       {
-        "UID": "5f5354cae01044278a112ca6c3d3426b",
+        "UID": "7f82ffab7d5249c9a1c965b843d1d29d",
         "children": [{
-          "UID": "5e13eaf49d8647cc81c7e11a50f8ff7e",
+          "UID": "3283c83efda946a4959a74c58a9e6c58",
           "children": [],
           "hitBoxes": [],
           "properties": {
@@ -28,11 +28,11 @@
               "key press": {"movement": {"empty": "empty"}}
             },
             "width": 50,
-            "x": 219,
-            "y": 141,
+            "x": 196,
+            "y": 110,
             "scripts": {
               "fsm": {},
-              "imageScript": {"image_path": "Player/squirtle.png"}
+              "imageScript": {"image_path": "user_images/bluedevil.png"}
             },
             "height": 50
           }
