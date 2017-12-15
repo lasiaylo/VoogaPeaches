@@ -22,6 +22,7 @@ public class TPane {
         TitledPane tPane = new TitledPane();
         tPane.setGraphic(title);
         tPane.setContent(createVBox(pane));
+        tPane.setAnimated(false);
         return tPane;
     }
 
