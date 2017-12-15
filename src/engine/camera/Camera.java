@@ -159,6 +159,10 @@ public class Camera {
         view.hmaxProperty().bind(view.hvalueProperty().add(Double.MIN_VALUE));
     }
 
+    public void requestFocus() {
+        view.getContent().requestFocus();
+    }
+
     public void freeCamera() {
         view.vminProperty().unbind();
         view.vmaxProperty().unbind();
