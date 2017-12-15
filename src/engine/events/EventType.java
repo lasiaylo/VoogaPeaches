@@ -22,6 +22,7 @@ public enum EventType {
     STEP("FSM Stepping"),
     SUBSTITUTE("substitute"),
     RESET("reset"),
+    RELEASE("release"),
     UPDATE_IMAGE("update_image");
 
     private String type;

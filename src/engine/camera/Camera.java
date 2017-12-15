@@ -1,6 +1,8 @@
 package engine.camera;
 
 import engine.entities.Entity;
+import engine.events.KeyPressEvent;
+import engine.events.KeyReleaseEvent;
 import engine.events.MapSetupEvent;
 import engine.events.MouseDragEvent;
 import javafx.beans.binding.NumberBinding;
@@ -86,10 +88,10 @@ public class Camera {
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
-//        view.setOnKeyPressed(e -> {
-//            System.out.println("hell yeah");
-//            new KeyPressEvent(e).recursiveFire(level);
-//        });
+        view.getContent().setOnKeyPressed(e -> {
+            new KeyPressEvent(e).recursiveFire(level);
+        });
+        view.getContent().setOnKeyReleased(new KeyReleaseEvent());
         currentLevel = level;
         mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
     }

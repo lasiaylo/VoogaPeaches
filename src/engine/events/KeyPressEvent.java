@@ -40,6 +40,6 @@ public class KeyPressEvent extends Event {
     }
 
     public KeyCode getKeyCode() {
-        return keyCode;
+        return myEvent.getCode();
     }
 }
