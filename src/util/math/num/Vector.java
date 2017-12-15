@@ -49,6 +49,7 @@ public class Vector implements IVector<Vector, Double> {
 
     @Override
     public Vector multiply(Double s) {
+        System.out.println(s.getClass());
         double[] _arr = new double[d];
         for (int i = 0; i < d; ++i) {
             _arr[i] = s * at(i);

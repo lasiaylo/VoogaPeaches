@@ -58,6 +58,7 @@ public class HitBox extends TrackableObject {
         hitboxShape.setFill(Color.TRANSPARENT);
     }
 
+
     /**
      *
      * @return  this hitbox's identification tag

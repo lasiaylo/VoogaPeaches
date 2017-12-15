@@ -1,0 +1,380 @@
+{
+  "UID": "ce2024b786c1475b95bcddfc9aacb715",
+  "children": [{
+    "UID": "82f35b96b2764d93920dfc0ad0f0ba31",
+    "children": [
+      {
+        "UID": "f2e68a74088741f1884de67b4f8112c7",
+        "children": [
+          {
+            "UID": "721b9105f2c84032ad6be4538feb4841",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 50,
+              "width": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2c49b95d37f74112b2645146a6b86cce",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 50,
+              "width": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e786e0769b2940cb8cc6c9b418175d2c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 50,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2364db9029d545a2802e8a7224d88a8b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 50,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6af155e17e154bdcb66e5b34e6c09597",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 100,
+              "width": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "6e98fdff0bcc456e861be1c94d4e67b9",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 100,
+              "width": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8e478caeee284d17b794aa37c6b45687",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 100,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "51eb9dafd1124bb0be5c31c0311baed2",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 100,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "2c04b74b42a04666bd26f70f160bcf95",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 150,
+              "width": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "0794ac4e274c44aeb40b465e8e9ba262",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 150,
+              "width": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "ad7509d29e514d45b8d6a3cdc8cb2daf",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 150,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7ab1af8a2f3c420aafbf03b5758ad417",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 150,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5e332c4f02864c88850ba5e921056ca6",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 200,
+              "width": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e4c2ea6d78bf43cfadacbffc131716a7",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 200,
+              "width": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c9b6026ed17349a5a8bef4e9d749a031",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 200,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "8d9948d8d87442ac8bd27265cca12034",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 200,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3751b335453f423196a07ff5d55f263b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 250,
+              "width": 50,
+              "y": 50,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "4f515dc4abf04d619b41d5124531b8e7",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 250,
+              "width": 50,
+              "y": 100,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "e4ffe196e29141938fd2159667166f82",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 250,
+              "width": 50,
+              "y": 150,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5c3d8e8a4b324c28b542f9d7fe98f735",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 250,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "cd894c608546464aaadcad0048fd0404",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 250,
+              "width": 50,
+              "y": 200,
+              "scripts": {"imageScript": {"image_path": "Background/grass.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "8f9ec33f63b24867968ea8c3ace32441",
+        "children": [
+          {
+            "UID": "b158576a8ab74ecdbe55c8283c6658db",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "cameraFollowing": {}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 173,
+              "width": 50,
+              "y": 154,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "3f8ccc2eb3ab45aba3308edc54b835cb",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 148,
+              "width": 50,
+              "y": 185,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "mapwidth": 2000,
+      "cameraYpos": 0,
+      "cameraHeight": 500,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "gridsize": 50,
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "scripts": {"mapScript": {"empty": "empty"}},
+      "levelname": "level 1"
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}
