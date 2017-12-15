@@ -106,12 +106,7 @@ import java.util.stream.Collectors
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
         if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(KeyCode.BACK_SPACE)) {
-            Iterator<Entity> iter = entity.getParent().getChildren().iterator()
-            iter.forEachRemaining({ Entity child
-                if(child == entity) {
-                    iter.remove()
-                }
-            })
+            entity.getParent().remove(entity)
         }
     })
 
