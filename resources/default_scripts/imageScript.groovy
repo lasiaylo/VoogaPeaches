@@ -37,6 +37,8 @@ import java.util.stream.Collectors
     pointer.setFitHeight((double) entity.getProperty("height"))
     pointer.setX(((double) entity.getProperty("x")))
     pointer.setY(((double) entity.getProperty("y")))
+    pointer.setRotate((double) entity.getProperties().getOrDefault("rotate", 0))
+
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
 
@@ -130,8 +132,7 @@ import java.util.stream.Collectors
                     if (e.getY() < 0) {
                         yPos = pointer.getFitHeight()/2
                     }
-                    pointer.setX((xPos - pointer.getFitWidth()/2).doubleValue())
-                    pointer.setY((yPos - pointer.getFitHeight()/2).doubleValue())
+                    entity.getNodes().relocate((xPos - pointer.getFitWidth()/2).doubleValue(), yPos - pointer.getFitHeight()/2.doubleValue())
                     entity.setProperty("x", (xPos - pointer.getFitWidth()/2).doubleValue())
                     entity.setProperty("y", (yPos - pointer.getFitHeight()/2).doubleValue())
                 } else if (e.getButton().equals(MouseButton.SECONDARY)) {
