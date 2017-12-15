@@ -1,27 +1,30 @@
-import database.fileloaders.ScriptLoader
 import engine.entities.Entity
 import engine.events.Event
-import engine.events.EventType
 import engine.events.KeyPressEvent
+import engine.events.KeyReleaseEvent
 import javafx.scene.input.KeyCode
 
 { Entity entity, Map<String, Object> bindings, Event event ->
-    KeyPressEvent keyEvent = (KeyPressEvent) event
-    println "key pressed"
+    Event keyEvent
+    int i = 1
+    double v = 0;
+    if (event instanceof KeyReleaseEvent) {
+        keyEvent = (KeyReleaseEvent) event
+        i *= 0
+    } else {
+        keyEvent = (KeyPressEvent) event
+        v = (double) bindings.get("velocity")
+    }
     if (keyEvent.getKeyCode().equals(KeyCode.LEFT)) {
-        println "left"
-        entity.setProperty("vx", -0.1)
+        entity.setProperty("vx", -i*v)
     }
     if (keyEvent.getKeyCode().equals(KeyCode.RIGHT)) {
-        println "right"
-        entity.setProperty("vx", 0.1)
+        entity.setProperty("vx", i*v)
     }
     if (keyEvent.getKeyCode().equals(KeyCode.UP)) {
-        println "up"
-        entity.setProperty("vy", -0.1)
+        entity.setProperty("vy", -i*v)
     }
     if (keyEvent.getKeyCode().equals(KeyCode.DOWN)) {
-        println "down"
-        entity.setProperty("vy", 0.1)
+        entity.setProperty("vy", i*v)
     }
 }

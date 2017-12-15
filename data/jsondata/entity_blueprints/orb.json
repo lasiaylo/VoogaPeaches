@@ -1,0 +1,36 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      375,
+      262,
+      372,
+      232,
+      402,
+      232,
+      403,
+      260
+    ],
+    "UID": "984c83f246344dc58fe2fd13c0fbf6cd",
+    "currentX": 481.5999999999999,
+    "currentY": 279.3999999999998,
+    "tag": "ball"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "exitonbounds": {}
+      },
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 481.5999999999999,
+    "width": 22,
+    "y": 279.3999999999998,
+    "scripts": {"imageScript": {"image_path": "user_images/orb.png"}},
+    "height": 22
+  }
+}

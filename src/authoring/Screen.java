@@ -5,6 +5,9 @@ import authoring.panels.reserved.CameraPanel;
 import authoring.panels.reserved.MenuBarPanel;
 import database.User;
 import database.firebase.DatabaseConnector;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
@@ -76,9 +79,9 @@ public class Screen {
         Scene scene = new Scene(root, width, height);
         updateTheme();
 
+
         stage.setScene(scene);
         stage.show();
-
         errorMessage.displayError();
     }
 
@@ -154,18 +157,21 @@ public class Screen {
      * saves the workspace information to their files
      */
     public void save(){
+        User currentUser = VoogaPeaches.getUser();
+        JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+        manager.writeJSONFile(currentUser.getUserName(), JSONHelper.JSONForObject(currentUser));
         try {
-            workspaceManager.saveWorkspaces();
-            DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
-            db.addToDatabase(VoogaPeaches.getUser());
+            workspaceManager.saveWorkspace();
+          //  DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
+           // db.addToDatabase(VoogaPeaches.getUser());
             // Have to force a sleep to wait for data to finish sending, but
             // with actual project this shouldn't be a problem
-            Thread.sleep(1000);//TODO replace with PauseTransition if possible
+            //Thread.sleep(1000);//TODO replace with PauseTransition if possible
         } catch (IOException e){
-            errorMessage.addMessage(String.format(PropertiesReader.value(REFLECT,IO_ERROR), e.getMessage()));
-            errorMessage.displayError();
-        } catch (ObjectIdNotFoundException | InterruptedException e) {
-            new ErrorDisplay("Save Problem", "Problem with Saving!").displayError();
+      //      errorMessage.addMessage(String.format(PropertiesReader.value(REFLECT,IO_ERROR), e.getMessage()));
+        //    errorMessage.displayError();
+        //} catch (ObjectIdNotFoundException | InterruptedException e) {
+          //  new ErrorDisplay("Save Problem", "Problem with Saving!").displayError();
         }
     }
 

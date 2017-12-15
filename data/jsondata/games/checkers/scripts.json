@@ -1,1 +1,4 @@
-{"scripts": ["test.groovy"]}
+{"scripts": [
+  "checkers_script.groovy",
+  "test.groovy"
+]}
