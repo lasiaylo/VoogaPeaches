@@ -24,8 +24,11 @@ import java.util.stream.Collectors
     pointer.setFitHeight((double) entity.getProperty("height"))
     pointer.setX(((double) entity.getProperty("x")))
     pointer.setY(((double) entity.getProperty("y")))
+    pointer.setRotate((double) entity.getProperties().getOrDefault("rotate", 0))
+
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
+    print("image script fired")
 
     pointer.setOnMouseClicked({e ->
         new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)

@@ -34,5 +34,4 @@ public class GameWindow {
         stage.show();
         start.setOnMouseClicked(e -> engine.play());
     }
-
 }
