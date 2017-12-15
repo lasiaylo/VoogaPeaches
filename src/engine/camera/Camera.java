@@ -1,12 +1,14 @@
 package engine.camera;
 
 import engine.entities.Entity;
+import engine.events.KeyPressEvent;
 import engine.events.MapSetupEvent;
 import engine.events.MouseDragEvent;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -86,10 +88,12 @@ public class Camera {
         view.setContent(new Group());
         view.setContent(level.getNodes());
         view.getContent().requestFocus();
-//        view.setOnKeyPressed(e -> {
-//            System.out.println("hell yeah");
-//            new KeyPressEvent(e).recursiveFire(level);
-//        });
+        int i = 0;
+        view.getContent().addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            System.out.println("receiving key press ");
+
+            new KeyPressEvent(e, VoogaPeaches.getIsGaming()).recursiveFire(level);
+        });
         currentLevel = level;
         mapSize = new Vector(((Number) currentLevel.getProperty("mapwidth")).doubleValue(), ((Number) currentLevel.getProperty("mapheight")).doubleValue());
     }
