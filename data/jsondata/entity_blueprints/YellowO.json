@@ -1,35 +1,32 @@
 {
   "children": [],
-  "hitBoxes": [{
-    "polygonVertexTranslations": [
-      138,
-      225,
-      186,
-      225,
-      186,
-      276,
-      138,
-      278
-    ],
-    "UID": "4289429d634145bf9d473c6879b94a64",
-    "currentX": 0,
-    "currentY": 0,
-    "tag": "YellowO"
-  }],
+  "hitBoxes": [],
   "properties": {
     "vx": 0,
-    "vy": 0,
+    "vy": 0.055600000000000566,
     "listeners": {
+      "": {},
       "move": {"update_position": {"empty": "empty"}},
-      "tick": {"move": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "lasiaGravity": {
+          "MaxFallSpeed": 0.2,
+          "fallspeed": 1.0E-4
+        },
+        "fakeGround": {
+          "ground": 400,
+          "empty": "empty"
+        }
+      },
       "key press": {
         "rotate": {"empty": "empty"},
         "movement": {"empty": "empty"}
       }
     },
-    "x": 617,
     "width": 50,
-    "y": 209,
+    "x": 400.0,
+    "y": 0.0,
+    "isFalling": true,
     "scripts": {"imageScript": {"image_path": "user_images/Tetris_O.svg.png"}},
     "height": 50
   }
