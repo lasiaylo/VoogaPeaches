@@ -1,4 +1,4 @@
-package default_scripts
+package filedata.scripts
 
 import engine.entities.Entity
 import engine.events.AccelerateEvent

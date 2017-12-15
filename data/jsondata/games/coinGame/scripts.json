@@ -1,0 +1,9 @@
+{"scripts": [
+  "checkers_script.groovy",
+  "kellyCatText.groovy",
+  "kellyClick.groovy",
+  "kellyCollision.groovy",
+  "kellyMove.groovy",
+  "test.groovy",
+  "wall.groovy"
+]}
