@@ -2,8 +2,10 @@ package filedata.scripts
 
 import database.ObjectFactory
 import database.jsonhelpers.JSONDataFolders
+import database.jsonhelpers.JSONHelper
 import engine.entities.Entity
 import engine.events.Event
+import engine.events.InitialImageEvent
 import util.math.num.Vector
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
