@@ -77,7 +77,7 @@ public abstract class TrackableObject {
 
     /**
      * Stops keeping track of the TrackableObject with the specified UID
-     * @param UID is a {@code String} representing the UID of the object to stop tracking
+     * @param UID is a {@code String} representing the UID of the object to tileMovementWithStop tracking
      */
     public static void stopTrackingTrackableObject(String UID){
         trackableObjects.remove(UID);

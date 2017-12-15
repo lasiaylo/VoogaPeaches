@@ -11,7 +11,9 @@ import engine.events.TickEvent
     CollisionEvent cEvent = (CollisionEvent) event
     if(cEvent.getCollidedHitBox().getTag().equals((String) bindings.get("other"))) {
         Entity other = cEvent.getCollidedWith()
-        other.setProperty("vx",0.0)
-        other.setProperty("vy",0.0)
+        other.setProperty("vx",0)
+        other.setProperty("vy",0)
+        entity.setProperty("vx",0.0)
+        entity.setProperty("vy",0.0)
     }
 }

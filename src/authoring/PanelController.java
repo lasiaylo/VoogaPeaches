@@ -54,7 +54,7 @@ public class PanelController {
     }
 
     /**
-     * engine stop to run grid_move
+     * engine tileMovementWithStop to run grid_move
      */
     public void pause() {
         myEngine.pause();

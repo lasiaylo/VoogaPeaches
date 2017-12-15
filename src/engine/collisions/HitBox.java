@@ -147,8 +147,8 @@ public class HitBox extends TrackableObject {
     public List<Double> getPoints() {
         List<Double> points = new ArrayList<>();
         for(int i = 0; i < polygonVertexTranslations.size(); i+=2){
-            points.add(polygonVertexTranslations.get(i) + currentX);
-            points.add(polygonVertexTranslations.get(i + 1) + currentX);
+            points.add((double) polygonVertexTranslations.get(i) + currentX);
+            points.add((double) polygonVertexTranslations.get(i + 1) + currentX);
         }
         return points;
     }

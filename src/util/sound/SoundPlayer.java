@@ -143,7 +143,7 @@ class SoundPlayer extends Thread {
 
 	/**
 	 * Sets the amount of times a clip should loop, default value for loop count is
-	 * to loop non-stop
+	 * to loop non-tileMovementWithStop
 	 * 
 	 * @param timesToLoop
 	 */

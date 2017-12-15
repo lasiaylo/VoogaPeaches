@@ -24,7 +24,7 @@ public abstract class DrawingTool {
 	public abstract void use();
 	
 	/**
-	 * Sets the tool to stop working on the canvas.
+	 * Sets the tool to tileMovementWithStop working on the canvas.
 	 */
 	public abstract void drop();
 	
