@@ -2,22 +2,23 @@
   "children": [],
   "hitBoxes": [],
   "properties": {
-    "vx": 0.0,
-    "vy": 0.0,
+    "vx": 0,
+    "vy": 0,
     "listeners": {
       "move": {"update_position": {"empty": "empty"}},
       "tick": {
         "move": {"empty": "empty"},
-        "gravity_movement": {"empty": "empt"}
+        "moveOnce": {"empty": "empt"}
       },
       "key press": {
+        "arrowSetVelocity": {"empty": "empt"},
         "movement": {"empty": "empty"}
       }
     },
-    "x": 215.0,
-    "width": 50.0,
-    "y": 164.0,
-    "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
-    "height": 50.0
+    "width": 50,
+    "x": 88,
+    "y": 102,
+    "scripts": {"imageScript": {"image_path": "user_images/person.png"}},
+    "height": 50
   }
 }

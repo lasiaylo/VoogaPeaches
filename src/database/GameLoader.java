@@ -101,6 +101,7 @@ public class GameLoader {
                 JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
                 gameRoot = converter.createObjectFromJSON(Entity.class, rootObject);
                 loaded[0] = true;
+                System.out.println("scripts images.");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -122,6 +123,7 @@ public class GameLoader {
                     manager.writeFileData(bytes, (String) child.getValue());
                 }
                 loaded[1] = true;
+                System.out.println("scripts images.");
             }
 
             @Override
@@ -143,6 +145,7 @@ public class GameLoader {
                 loaded[2] = true;
                 // Cache scripts after loading them in
                 ScriptLoader.cache();
+                System.out.println("scripts loaded.");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
