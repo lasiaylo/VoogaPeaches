@@ -122,7 +122,6 @@ public class StateRender extends TrackableObject implements Updatable {
         try {
             flow.getChildren().add(new ParameterProperties(myInfo, this).getNode());
         } catch (GroovyInstantiationException e) {
-            e.printStackTrace();
         }
         flow.setMinSize(100, 200);
         Button delete = new Button("Delete State");

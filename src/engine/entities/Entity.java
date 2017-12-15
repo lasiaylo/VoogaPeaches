@@ -131,7 +131,6 @@ public class Entity extends Evented {
            // DatabaseConnector.removeFromDatabasePath(this.getDbPath());
             //DatabaseConnector.addToDatabasePath(entity, this.getDbPath());
         } catch (Exception e) {
-            e.printStackTrace();
         }
         entity.properties = properties;
         entity.hitBoxes = hitBoxes;

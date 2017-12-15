@@ -83,7 +83,6 @@ public class GameSaver {
             try {
                 connector.saveTo(new File("./data/filedata/images/" + image), "images/" + image);
             } catch(Exception e){
-                e.printStackTrace();
                 // Do Nothing if file wasn't saved
             }
     }
@@ -94,7 +93,6 @@ public class GameSaver {
             try {
                 connector.saveFile(new File("./data/filedata/scripts/" + script));
             } catch (Exception e){
-                e.printStackTrace();
             }
     }
 
