@@ -1,0 +1,21 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {
+        "rotate": {"empty": "empty"},
+        "movement": {"empty": "empty"}
+      }
+    },
+    "width": 100,
+    "x": 541,
+    "y": 248,
+    "scripts": {"imageScript": {"image_path": "user_images/Tetris_I.svg.png"}},
+    "height": 25
+  }
+}
