@@ -3,7 +3,9 @@ package authoring.panels.attributes;
 import authoring.panels.tabbable.PropertiesPanel;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
@@ -29,8 +31,9 @@ public class EventProperties {
     }
 
     private Node makePane(String name) throws GroovyInstantiationException {
-        Node node =  TPane.addChildPane(name, makeScripts(myMap.get(name)));
-        node.setOnContextMenuRequested(e->context(e,node,name));
+        Label label = new Label(name);
+        label.setOnContextMenuRequested(e->context(e,label,name));
+        TitledPane node =  (TitledPane) TPane.addChildPane(label, makeScripts(myMap.get(name)));
         return node;
     }
 

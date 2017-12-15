@@ -76,9 +76,9 @@ public class Entity extends Evented {
     public Entity addTo(Entity parent) {
         if(parent != null) {
             this.parent = parent;
-            parent.getNodes()
-                    .getChildren()
-                    .add(group);
+            if(!parent.getNodes().getChildren().contains(this.group)) {
+                parent.getNodes().getChildren().add(group);
+            }
             if(!parent.getChildren().contains(this)) parent.getChildren().add(this);
         }
         return this;
@@ -160,4 +160,5 @@ public class Entity extends Evented {
         //hitBoxes.forEach(e -> e.initialize());
         executeScripts();
     }
+
 }

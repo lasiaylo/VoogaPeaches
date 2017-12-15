@@ -1,0 +1,6 @@
+{"scripts": [
+  "checkers_script.groovy",
+  "kellyCollision.groovy",
+  "kellySpace.groovy",
+  "test.groovy"
+]}

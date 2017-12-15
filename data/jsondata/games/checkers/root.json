@@ -2617,8 +2617,8 @@
             "properties": {
               "listeners": {"tick": {"loader": {"empty": "empty"}}},
               "bg": true,
-              "x": 0,
               "width": 50,
+              "x": 0,
               "y": 0,
               "scripts": {"imageScript": {"image_path": "Background/duvall1.jpg"}},
               "height": 50
@@ -2631,8 +2631,8 @@
             "properties": {
               "listeners": {"tick": {"loader": {"empty": "empty"}}},
               "bg": true,
-              "x": 0,
               "width": 50,
+              "x": 0,
               "y": 0,
               "scripts": {"imageScript": {"image_path": "Background/duvall1.jpg"}},
               "height": 50
@@ -3141,8 +3141,8 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 721,
               "width": 50,
+              "x": 721,
               "y": 202,
               "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
               "height": 50
@@ -3163,7 +3163,7 @@
           "children": [],
           "hitBoxes": [],
           "properties": {
-            "vx": -0.9,
+            "vx": 0.9,
             "vy": 0,
             "listeners": {
               "move": {"update_position": {"empty": "empty"}},
@@ -3173,9 +3173,9 @@
                 "movement": {"empty": "empty"}
               }
             },
-            "x": 674.2000000000002,
             "width": 50,
-            "y": 247.40000000000006,
+            "x": 661,
+            "y": 267,
             "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
             "height": 50
           }

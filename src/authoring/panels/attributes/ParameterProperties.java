@@ -11,7 +11,7 @@ public class ParameterProperties {
     private VBox parameterBox = new VBox();
 
     public ParameterProperties(Map<String, Object> parameterMap, Updatable panel) throws GroovyInstantiationException {
-        Node parameters = new CollapsePane(parameterMap,false).getNode();
+        Node parameters = new CollapsePane(parameterMap,false, panel).getNode();
         Node button = new ParameterButton(parameterMap, panel).getNode();
         parameterBox.getChildren().addAll(parameters,button);
     }

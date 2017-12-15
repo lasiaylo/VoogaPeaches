@@ -41,13 +41,14 @@ import java.util.stream.Collectors
 
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
+    print("image script fired")
 
     pointer.setOnMouseClicked({e ->
-        new ClickEvent(false, e).fire(entity)
+        new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)
     })
-    pointer.setOnMousePressed({e -> new MouseDragEvent(false, e).fire(entity)})
+    pointer.setOnMousePressed({e -> new MouseDragEvent(VoogaPeaches.getIsGaming(), e).fire(entity)})
     pointer.addEventHandler(KeyEvent.KEY_PRESSED,
-            {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
+            {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, VoogaPeaches.getIsGaming()).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call
