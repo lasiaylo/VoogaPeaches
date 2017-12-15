@@ -69,7 +69,6 @@ public class FSMPanelLocal implements Updatable {
 
     private void createGraphButtons() {
         for(FSMGraph graph: allGraphs) {
-            System.out.println(graph.getMyName());
             Button button = new Button(graph.getMyName());
             button.setMinHeight(50);
             button.setMinWidth(50);
