@@ -1,0 +1,22 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0.1,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {
+        "tileArrowMovement": {"velocity": 0.1},
+        "image_rotate": {"empty": "empty"},
+        "movement": {"empty": "empty"}
+      }
+    },
+    "x": 324.6000000000008,
+    "width": 50,
+    "y": 269.19999999999993,
+    "scripts": {"imageScript": {"image_path": "user_images/1024px-Pacman_HD.png"}},
+    "height": 50
+  }
+}

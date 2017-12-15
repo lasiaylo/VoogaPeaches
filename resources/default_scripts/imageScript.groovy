@@ -1,4 +1,4 @@
-package scripts
+package default_scripts
 
 import database.filehelpers.FileDataFolders
 import database.filehelpers.FileDataManager
@@ -12,6 +12,7 @@ import engine.events.InitialImageEvent
 import engine.events.KeyPressEvent
 import engine.events.MouseDragEvent
 import engine.events.MousePressedEvent
+import engine.events.RotateEvent
 import engine.events.SubstituteEvent
 import engine.events.TransparentMouseEvent
 import engine.events.ViewVisEvent
@@ -31,7 +32,6 @@ import java.util.stream.Collectors
 { Entity entity, Map<String, Object> bindings, Event event = null ->
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-
     ImageView pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
     pointer.setFitWidth((double) entity.getProperty("width"))
     pointer.setFitHeight((double) entity.getProperty("height"))
@@ -67,9 +67,9 @@ import java.util.stream.Collectors
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(entity.getProperty("width"))
+        pointer.setFitWidth(((Number) entity.getProperty("width")).doubleValue())
         //entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(entity.getProperty("height"))
+        pointer.setFitHeight(((Number) entity.getProperty("height")).doubleValue())
         //entity.setProperty("height", iEvent.getMyGridSize().at(1))
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
@@ -104,8 +104,13 @@ import java.util.stream.Collectors
 
     entity.on(EventType.KEY_PRESS.getType(), { Event call ->
         KeyPressEvent kEvent = (KeyPressEvent) call
-        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(kEvent.getMyEvent().getCode())) {
-            entity.getParent().remove(entity)
+        if ((!kEvent.getIsGaming()) && kEvent.getKeyCode().equals(KeyCode.BACK_SPACE)) {
+            Iterator<Entity> iter = entity.getParent().getChildren().iterator()
+            iter.forEachRemaining({ Entity child
+                if(child == entity) {
+                    iter.remove()
+                }
+            })
         }
     })
 
@@ -152,13 +157,13 @@ import java.util.stream.Collectors
                 e.consume()
             })
             pointer.setOnMouseReleased({ e ->
-                entity = entity.substitute()
+//                entity = entity.substitute()
                 PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity, pointer.getImage()))
             })
         }
         dEvent.getEvent().consume()
         pointer.setFocusTraversable(true)
-        pointer.requestFocus()
+//        pointer.requestFocus()
     })
 
 

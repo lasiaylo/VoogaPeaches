@@ -9,27 +9,25 @@ import javafx.scene.input.KeyCode
 { Entity entity, Map<String, Object> bindings, Event event ->
     event = (KeyPressEvent) event
 
-    fire = { String name ->
-        print name
-        entity.dispatchEvent(new ImageViewEvent((String) bindings.getOrDefault("state_view_" + name, "")))
-    }
-
     switch (event.keyCode) {
         case [KeyCode.W, KeyCode.UP]:
-            fire("up")
+            entity.setProperty("vy", - bindings.get("velocity"))
+            entity.setProperty("vx", 0)
             break
 
         case [KeyCode.A, KeyCode.LEFT]:
-            fire("left")
+            entity.setProperty("vx", - bindings.get("velocity"))
+            entity.setProperty("vy", 0)
             break
 
         case [KeyCode.S, KeyCode.DOWN]:
-            fire("down")
+            entity.setProperty("vy", bindings.get("velocity"))
+            entity.setProperty("vx", 0)
             break
 
         case [KeyCode.D, KeyCode.RIGHT]:
-            fire("right")
+            entity.setProperty("vx", bindings.get("velocity"))
+            entity.setProperty("vy", 0)
             break
-
     }
 }
