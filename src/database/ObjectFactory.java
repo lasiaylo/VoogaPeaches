@@ -44,6 +44,7 @@ public class ObjectFactory {
         JSONDataManager manager = new JSONDataManager(folder);
         blueprintJSON = manager.readJSONFile(objectName);
         converter = new JSONToObjectConverter(Entity.class);
+        System.out.println(blueprintJSON.toString(4));
     }
 
     /**
@@ -70,6 +71,7 @@ public class ObjectFactory {
                 modifiedBlueprint.put(key, blueprintJSON.get(key));
             }
         }
+        System.out.println(modifiedBlueprint.toString(4));
         return converter.createObjectFromJSON(Entity.class, modifiedBlueprint);
     }
 
