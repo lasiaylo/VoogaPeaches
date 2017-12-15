@@ -21,6 +21,7 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
+import main.VoogaPeaches
 import util.math.num.Vector
 import util.pubsub.PubSub
 import util.pubsub.messages.EntityPass
@@ -38,15 +39,13 @@ import java.util.stream.Collectors
     pointer.setY(((double) entity.getProperty("y")))
     originalPath = (String) bindings.get("image_path")
     entity.add(pointer)
+
     pointer.setOnMouseClicked({e ->
         new ClickEvent(false, e).fire(entity)
     })
-    //boolean dragged = false
-
-    //pointer.setOnMouseDragged({e -> new MouseDragEvent(false, e).fire(entity)})
     pointer.setOnMousePressed({e -> new MouseDragEvent(false, e).fire(entity)})
-    pointer.setOnKeyPressed({e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
-    //pointer.setOnMouseReleased({e -> new DragExitedEvent(false, e).fire(entity)})
+    pointer.addEventHandler(KeyEvent.KEY_PRESSED,
+            {e -> new KeyPressEvent(e, KeyCode.BACK_SPACE, false).fire(entity)})
 
     entity.on(EventType.IMAGE_VIEW.getType(), { Event call ->
         ImageViewEvent imgEvent = (ImageViewEvent) call

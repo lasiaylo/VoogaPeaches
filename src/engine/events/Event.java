@@ -2,6 +2,8 @@ package engine.events;
 
 import engine.entities.Entity;
 
+import java.util.Iterator;
+
 public abstract class Event {
     private String type;
     private Entity target;
@@ -29,9 +31,8 @@ public abstract class Event {
             return this;
         }
 
-        target.
-                getChildren()
-                .forEach(e -> recursiveFire(e));
+        Iterator<Entity> iter = target.getChildren().iterator();
+        iter.forEachRemaining(e -> recursiveFire(e));
         return this;
     }
 }
