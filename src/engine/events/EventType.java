@@ -23,6 +23,7 @@ public enum EventType {
     SUBSTITUTE("substitute"),
     RESET("reset"),
     RELEASE("release"),
+    ROTATE("rotate"),
     UPDATE_IMAGE("update_image");
 
     private String type;

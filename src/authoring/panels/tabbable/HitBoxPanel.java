@@ -36,6 +36,7 @@ public class HitBoxPanel implements Panel {
     private static final double OPTIONS_WIDTH_RATIO = 0.2;
     private static final double OPTION_WIDTH_RATIO = 0.8;
     private static final int RADIUS = 5;
+    public static final String NOT_ENOUGH_POINTS = "Not Enough Points!";
 
     private Pane entityView = new Pane();
     private VBox region = new VBox();
@@ -80,6 +81,7 @@ public class HitBoxPanel implements Panel {
         hitboxes.forEach(hitbox -> hitbox.getHitbox().setFill(Color.TRANSPARENT));
         entityView.getChildren().clear();
         pointer.setImage(image);
+        points.clear();
         setPointer(entity);
 
         hitboxes = entity.getHitBoxes();
@@ -137,6 +139,8 @@ public class HitBoxPanel implements Panel {
             String boxName = hitboxNameField.getText();
             if(boxName.equals(EMPTY_STRING)) {
                 new ErrorDisplay(HITBOX_ERROR, EMPTY_HITBOX_TAG).displayError();
+            } else if(currentPoints.size() < 6) {
+                new ErrorDisplay(HITBOX_ERROR, NOT_ENOUGH_POINTS).displayError();
             } else {
                 hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).setTag(boxName);
                 hitboxSelection.getItems().set(hitboxSelection.getSelectionModel().getSelectedIndex(), boxName);

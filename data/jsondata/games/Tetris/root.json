@@ -121,11 +121,14 @@
               "listeners": {
                 "move": {"update_position": {"empty": "empty"}},
                 "tick": {"move": {"empty": "empty"}},
-                "key press": {"movement": {"empty": "empty"}}
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
               },
               "width": 100,
-              "x": 509,
-              "y": 205.5,
+              "x": 576,
+              "y": 207.5,
               "scripts": {"imageScript": {"image_path": "user_images/Tetris_I.svg.png"}},
               "height": 25
             }
@@ -140,15 +143,15 @@
               "listeners": {
                 "move": {"update_position": {"empty": "empty"}},
                 "tick": {"move": {"empty": "empty"}},
-                "key press": {"movement": {"empty": "empty"}}
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
               },
               "width": 75,
-              "x": 417.5,
-              "y": 156,
-              "scripts": {
-                "rotate": {},
-                "imageScript": {"image_path": "user_images/Tetris_L.svg.png"}
-              },
+              "x": 363.5,
+              "y": 140,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_L.svg.png"}},
               "height": 50
             }
           }
