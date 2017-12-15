@@ -7,34 +7,6 @@
         "UID": "044728c234bc4eee959bfe9bf667b53d",
         "children": [
           {
-            "UID": "beb9c66ff9c048bfb8487ada9d024ea7",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {"tick": {"loader": {"empty": "empty"}}},
-              "bg": true,
-              "width": 50,
-              "x": 0,
-              "y": 0,
-              "scripts": {"imageScript": {"image_path": "Background/duvall1.jpg"}},
-              "height": 50
-            }
-          },
-          {
-            "UID": "2d242c4536c34fb6b3d06808cea0f65d",
-            "children": [],
-            "hitBoxes": [],
-            "properties": {
-              "listeners": {"tick": {"loader": {"empty": "empty"}}},
-              "bg": true,
-              "width": 50,
-              "x": 0,
-              "y": 0,
-              "scripts": {"imageScript": {"image_path": "Background/duvall1.jpg"}},
-              "height": 50
-            }
-          },
-          {
             "UID": "3edf4350737248e0ac7e7d3ff2d2d7cd",
             "children": [],
             "hitBoxes": [],
@@ -2637,6 +2609,34 @@
               "scripts": {"imageScript": {"image_path": "Background/white_tile.jpg"}},
               "height": 50
             }
+          },
+          {
+            "UID": "24221f6555f84a49a0a9b51fec3d4874",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall1.jpg"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "7672ed0d10c1413b8d0a2ef63a366956",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "listeners": {"tick": {"loader": {"empty": "empty"}}},
+              "bg": true,
+              "x": 0,
+              "width": 50,
+              "y": 0,
+              "scripts": {"imageScript": {"image_path": "Background/duvall1.jpg"}},
+              "height": 50
+            }
           }
         ],
         "hitBoxes": [],
@@ -2661,9 +2661,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 103.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 103.5,
               "y": 54.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2681,9 +2681,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 54.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 54.5,
               "y": 102.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2701,9 +2701,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 203.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 203.5,
               "y": 54.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2721,9 +2721,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 252.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 252.5,
               "y": 99.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2741,9 +2741,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 200.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 200.5,
               "y": 152.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2761,9 +2761,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 99.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 99.5,
               "y": 151.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2781,9 +2781,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 300.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 300.5,
               "y": 152.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2801,9 +2801,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 152.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 152.5,
               "y": 102.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2821,9 +2821,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 302.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 302.5,
               "y": 52.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2841,9 +2841,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 401.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 401.5,
               "y": 53.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2861,9 +2861,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 350.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 350.5,
               "y": 103.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2881,9 +2881,9 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 400.5,
-              "width": 45,
               "name": "red",
+              "width": 45,
+              "x": 400.5,
               "y": 151.5,
               "scripts": {"imageScript": {"image_path": "user_images/red-piece.png"}},
               "height": 45
@@ -2901,11 +2901,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 51.5,
               "width": 45,
+              "x": 51.5,
               "y": 301.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -2921,11 +2921,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 101.5,
               "width": 45,
+              "x": 101.5,
               "y": 352.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -2941,11 +2941,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 151.5,
               "width": 45,
+              "x": 151.5,
               "y": 301.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -2961,11 +2961,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 203.5,
               "width": 45,
+              "x": 203.5,
               "y": 352.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -2981,11 +2981,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 252.5,
               "width": 45,
+              "x": 252.5,
               "y": 301.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3001,11 +3001,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 150.5,
               "width": 45,
+              "x": 150.5,
               "y": 402.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3021,11 +3021,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 52.5,
               "width": 45,
+              "x": 52.5,
               "y": 403.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3041,11 +3041,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 253.5,
               "width": 45,
+              "x": 253.5,
               "y": 402.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3061,11 +3061,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 351.5,
               "width": 45,
+              "x": 351.5,
               "y": 302.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3081,11 +3081,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 303.5,
               "width": 45,
+              "x": 303.5,
               "y": 350.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3101,11 +3101,11 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 403.5,
               "width": 45,
+              "x": 403.5,
               "y": 353.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
             }
           },
@@ -3121,15 +3121,65 @@
                 "tick": {"move": {"empty": "empty"}},
                 "key press": {"movement": {"empty": "empty"}}
               },
-              "x": 350.5,
               "width": 45,
+              "x": 350.5,
               "y": 400.5,
-              "type": "black",
               "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+              "type": "black",
               "height": 45
+            }
+          },
+          {
+            "UID": "4b317d967e9a4b51acd2bc7282382f50",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "x": 721,
+              "width": 50,
+              "y": 202,
+              "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+              "height": 50
             }
           }
         ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "f8c5b01dee514692b7270a4dcf1ab0da",
+        "children": [{
+          "UID": "23e74b06b2ec4fa6a9913da03e06bef7",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": -0.9,
+            "vy": 0,
+            "listeners": {
+              "move": {"update_position": {"empty": "empty"}},
+              "tick": {"move": {"empty": "empty"}},
+              "key press": {
+                "tileArrowMovement": {"velocity": 0.9},
+                "movement": {"empty": "empty"}
+              }
+            },
+            "x": 674.2000000000002,
+            "width": 50,
+            "y": 247.40000000000006,
+            "scripts": {"imageScript": {"image_path": "Player/squirtle.png"}},
+            "height": 50
+          }
+        }],
         "hitBoxes": [],
         "properties": {
           "gridsize": 50,
@@ -3153,5 +3203,8 @@
     }
   }],
   "hitBoxes": [],
-  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+  "properties": {
+    "listeners": {"tick": {"loader": {"empty": "empty"}}},
+    "scripts": {"loader": {"empty": "empty"}}
+  }
 }
