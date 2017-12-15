@@ -1,13 +1,9 @@
-package default_scripts
+package filedata.scripts
 
-import database.ObjectFactory
-import database.jsonhelpers.JSONDataFolders
 import engine.entities.Entity
 import engine.events.Event
-import engine.events.ImageViewEvent
 import engine.events.KeyPressEvent
 import javafx.scene.input.KeyCode
-import util.math.num.Vector
 
 { Entity entity, Map<String, Object> bindings, Event event ->
     event = (KeyPressEvent) event
@@ -39,3 +35,4 @@ import util.math.num.Vector
             break
     }
 }
+
