@@ -13,12 +13,15 @@ import javafx.scene.input.KeyCode
         entity.setProperty("vx", -0.1)
     }
     if (keyEvent.getKeyCode().equals(KeyCode.RIGHT)) {
+        println "right"
         entity.setProperty("vx", 0.1)
     }
     if (keyEvent.getKeyCode().equals(KeyCode.UP)) {
-        entity.setProperty("vy", 0.1)
+        println "up"
+        entity.setProperty("vy", -0.1)
     }
     if (keyEvent.getKeyCode().equals(KeyCode.DOWN)) {
-        entity.setProperty("vy", -0.1)
+        println "down"
+        entity.setProperty("vy", 0.1)
     }
 }

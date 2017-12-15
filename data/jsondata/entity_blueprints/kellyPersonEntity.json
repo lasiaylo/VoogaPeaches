@@ -6,15 +6,18 @@
     "vy": 0,
     "listeners": {
       "move": {"update_position": {"empty": "empty"}},
-      "tick": {"move": {"empty": "empty"}},
+      "tick": {
+        "move": {"empty": "empty"},
+        "moveOnce": {"empty": "empt"}
+      },
       "key press": {
-        "arrowSetVelocity": {},
+        "arrowSetVelocity": {"empty": "empt"},
         "movement": {"empty": "empty"}
       }
     },
-    "x": 100,
     "width": 50,
-    "y": 100,
+    "x": 88,
+    "y": 102,
     "scripts": {"imageScript": {"image_path": "user_images/person.png"}},
     "height": 50
   }
