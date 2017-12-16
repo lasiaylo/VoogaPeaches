@@ -50,6 +50,7 @@ public class HitBoxPanel implements Panel {
     private Button saveButton;
     private Button addButton;
     private ImageView pointer = new ImageView();
+    private Entity myEntity;
 
     public HitBoxPanel() {
         createEntityView();
@@ -81,7 +82,9 @@ public class HitBoxPanel implements Panel {
         points.clear();
         setPointer(entity);
 
+        myEntity = entity;
         hitboxes = entity.getHitBoxes();
+        myEntity = entity;
 
         
         hitboxSelection.getItems().clear();
@@ -146,8 +149,13 @@ public class HitBoxPanel implements Panel {
     private void createAddButton() {
         addButton = new CustomButton(() -> {
             hitboxSelection.getItems().add(EMPTY_STRING);
-            hitboxes.clear();
-            hitboxes.add(new HitBox(new ArrayList<Double>(), 0.0, 0.0, EMPTY_STRING));
+            Number numX = (Number)myEntity.getProperty("x");
+            double x = numX.doubleValue();
+
+            hitboxes.add(new HitBox(new ArrayList<Double>(),
+                    ((Number)myEntity.getProperty("x")).doubleValue(),
+                    ((Number)myEntity.getProperty("x")).doubleValue(), EMPTY_STRING));
+
             hitboxSelection.getSelectionModel().selectLast();
             System.out.println(hitboxes);
         }, ADD_HITBOX).getButton();
@@ -165,17 +173,25 @@ public class HitBoxPanel implements Panel {
             addNewPoint(event.getX(), event.getY());
             if(currentPoints.size() == 6) {
                 for(int i = 0; i < 6; i+=2)
-                    hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(currentPoints.get(i), currentPoints.get(i + 1));
+                    hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(
+                            (pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX())/2 - currentPoints.get(i),
+                            (pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY())/2 - currentPoints.get(i + 1));
             } else if (currentPoints.size() > 6) {
                 entityView.getChildren().removeAll(points);
                 currentPoints.add(event.getX());
                 currentPoints.add(event.getY());
-                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(event.getX(),event.getY());
+                hitboxes.get(hitboxSelection.getSelectionModel().getSelectedIndex() - 1).addPoints(
+                        event.getX()-((pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX()/2)-200),
+                        event.getY()-((pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY()/2))-200);
             }
         }
     }
 
     private void addNewPoint(double x, double y) {
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(x-((pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX())/2) );
+        System.out.println(y-((pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY())/2) );
         Circle newPoint = new Circle();
         newPoint.setCenterX(x);
         newPoint.setCenterY(y);

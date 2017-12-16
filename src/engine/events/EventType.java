@@ -24,7 +24,8 @@ public enum EventType {
     RESET("reset"),
     RELEASE("release"),
     ROTATE("rotate"),
-    UPDATE_IMAGE("update_image");
+    UPDATE_IMAGE("update_image"),
+    NOCOLLISION("nocollision");
 
     private String type;
 

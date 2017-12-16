@@ -2,10 +2,8 @@ package authoring.panels.tabbable;
 
 import authoring.Panel;
 import authoring.PanelController;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
@@ -14,13 +12,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import util.Loader;
-import voogasalad.util.sound.Sound;
+import util.sound.Sound;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**

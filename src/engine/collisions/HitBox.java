@@ -104,8 +104,8 @@ public class HitBox extends TrackableObject {
     private double[] createAdjustedPoints(Double entityXPosition, Double entityYPosition) {
         double[] adjustedPoints = new double[polygonVertexTranslations.size()];
         for(int i = 0; i < polygonVertexTranslations.size(); i += 2) {
-            adjustedPoints[i] = ((Number) polygonVertexTranslations.get(i)).doubleValue() + entityXPosition;
-            adjustedPoints[i + 1] = ((Number)polygonVertexTranslations.get(i + 1) ).doubleValue() + entityYPosition;
+            adjustedPoints[i] = ((Number) polygonVertexTranslations.get(i)).doubleValue() + entityXPosition-300;
+            adjustedPoints[i + 1] = ((Number)polygonVertexTranslations.get(i + 1) ).doubleValue() + entityYPosition-300;
         }
         return adjustedPoints;
     }

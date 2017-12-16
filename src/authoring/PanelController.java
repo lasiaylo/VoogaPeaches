@@ -8,13 +8,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import util.math.num.Vector;
-import voogasalad.util.sound.Sound;
-import voogasalad.util.sound.SoundHandler;
-import voogasalad.util.sound.SoundManager;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
+import util.sound.Sound;
+import util.sound.SoundHandler;
+import util.sound.SoundManager;
 
 /**
  * PanelController delegates access to the engine to each panel that needs it.

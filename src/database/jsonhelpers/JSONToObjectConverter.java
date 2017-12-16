@@ -1,7 +1,6 @@
 package database.jsonhelpers;
 
 import database.firebase.TrackableObject;
-import groovy.xml.Entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -97,7 +96,6 @@ public class JSONToObjectConverter<T extends TrackableObject> {
             UIDField.setAccessible(false);
             params.remove("UID");
         } catch (Exception e) {
-            e.printStackTrace();
             return;
         }
     }

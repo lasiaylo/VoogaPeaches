@@ -1,0 +1,409 @@
+{
+  "UID": "aa29b0cc023d4fe8bdf6be36bac0cd72",
+  "children": [{
+    "UID": "376809032c3b481ba9be6fe7ba8423de",
+    "children": [
+      {
+        "UID": "94b47a105aad41cc8d362e7525a5b297",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "1e4e5ffb9f364bd88c8811631fdfab1f",
+        "children": [
+          {
+            "UID": "2aaa28062b184e8d973b532ca3b11599",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                60,
+                227,
+                367,
+                225,
+                368,
+                273,
+                60,
+                273
+              ],
+              "UID": "75f09be3b4474c5ebc5570f407383faf",
+              "currentX": 11.5,
+              "currentY": 383.5,
+              "tag": "ground"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"ground": {"empty": "empty"}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 11.5,
+              "y": 383.5,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
+            "UID": "f286ab7c6b86437881a1999d49c64de0",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                60,
+                227,
+                367,
+                225,
+                368,
+                273,
+                60,
+                273
+              ],
+              "UID": "75f09be3b4474c5ebc5570f407383faf",
+              "currentX": 319.5,
+              "currentY": 383.5,
+              "tag": "ground"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"ground": {"empty": "empty"}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 319.5,
+              "y": 383.5,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
+            "UID": "c89f03cd54c947bfafe95ff4ce4193fb",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                59,
+                227,
+                56,
+                272,
+                372,
+                273,
+                370,
+                227
+              ],
+              "UID": "82edf2b23ff640fa814a9a82e0090f82",
+              "currentX": 625.5,
+              "currentY": 383.5,
+              "tag": "test"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"ground": {"empty": "empty"}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 625.5,
+              "y": 383.5,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
+            "UID": "8a704f39b4134f02a1b4710d973ad683",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                60,
+                227,
+                367,
+                225,
+                368,
+                273,
+                60,
+                273
+              ],
+              "UID": "75f09be3b4474c5ebc5570f407383faf",
+              "currentX": 934.5,
+              "currentY": 383.5,
+              "tag": "ground"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"ground": {"empty": "empty"}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 934.5,
+              "y": 383.5,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
+            "UID": "e23cf785c689426db411956721e9a2a1",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                60,
+                227,
+                367,
+                225,
+                368,
+                273,
+                60,
+                273
+              ],
+              "UID": "75f09be3b4474c5ebc5570f407383faf",
+              "currentX": 1241.5,
+              "currentY": 383.5,
+              "tag": "ground"
+            }],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "collision": {"ground": {"empty": "empty"}},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {"move": {"empty": "empty"}},
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 309,
+              "x": 1241.5,
+              "y": 383.5,
+              "scripts": {"imageScript": {"image_path": "user_images/_portal_2__black_floor_panel_wall_panel_by_themackenzie-d50qjf0.png"}},
+              "height": 47
+            }
+          },
+          {
+            "UID": "a2f727617ccf4159841195f8c3c9027d",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "TimeLauncher": {
+                    "wait": 100,
+                    "type": "selfDeletingArrow.json"
+                  }
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 1589,
+              "y": 322,
+              "time": 960,
+              "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "d01775a8dc1c4814832c761f5755461c",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "TimeLauncher": {
+                    "wait": 300,
+                    "type": "topArrowDelete.json"
+                  }
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 1589,
+              "y": 281,
+              "time": 1440,
+              "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "814acf60b8024875bd7c6f4efd03eb9e",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": -0.3,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "ArrowDelete": {"empty": "empt"}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 363.60000000000974,
+              "y": 336,
+              "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "594b2b18d3dd43dfadbf02d132728728",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": -0.3,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "ArrowDelete": {"empty": "empt"}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 829.2000000000071,
+              "y": 336,
+              "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "1d6d219c4ca140119e18d3fcea498cc0",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": -0.3,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "ArrowDelete": {"empty": "empty"}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 1161.800000000004,
+              "y": 250,
+              "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c539047b8bd140b08d137e4aaedc9550",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": -0.3,
+              "vy": 0,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "ArrowDelete": {"empty": "empt"}
+                },
+                "key press": {"movement": {"empty": "empty"}}
+              },
+              "width": 50,
+              "x": 1294.8000000000027,
+              "y": 336,
+              "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "205711934caa4035b2e1cd5c13475eb2",
+            "children": [],
+            "hitBoxes": [{
+              "polygonVertexTranslations": [
+                187,
+                217,
+                252,
+                217,
+                252,
+                270,
+                180,
+                278
+              ],
+              "UID": "f033d58b499f4bd1a244cf83bed68c66",
+              "currentX": 107.0800000000124,
+              "currentY": 335.5,
+              "tag": "test"
+            }],
+            "properties": {
+              "score": 0,
+              "vx": -0.001,
+              "vy": 0.11999999999999997,
+              "listeners": {
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "lasiaMove": {"empty": "empt"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.1,
+                    "fallspeed": 0.03
+                  },
+                  "cameraFollowing": {"empty": "empty"},
+                  "lasiaDecay": {"decay": 0.001}
+                },
+                "key press": {
+                  "movement": {"empty": "empty"},
+                  "jump": {"jump": 0.3}
+                }
+              },
+              "width": 50,
+              "x": 107.0800000000124,
+              "y": 335.5,
+              "isFalling": false,
+              "scripts": {
+                "scoreScript": {"empty": "empty"},
+                "imageScript": {"image_path": "Player/squirtle.png"}
+              },
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 2000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

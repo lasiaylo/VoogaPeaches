@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode
 
 { Entity entity, Map<String, Object> bindings, Event event ->
     KeyPressEvent keyEvent = (KeyPressEvent) event
-    println "key pressed"
     def speed = bindings.get("speed")
     def maxspeed = bindings.get("maxspeed")
     def vx = entity.getProperty("vx")

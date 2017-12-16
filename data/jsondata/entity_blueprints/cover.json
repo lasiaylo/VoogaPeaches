@@ -1,0 +1,20 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "click": {"hideBlock": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 550,
+    "width": 50,
+    "y": 76,
+    "type": "pane",
+    "scripts": {"imageScript": {"image_path": "user_images/cover.png"}},
+    "height": 50
+  }
+}
