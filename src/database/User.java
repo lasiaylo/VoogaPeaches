@@ -5,8 +5,11 @@ import database.firebase.TrackableObject;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
+import main.VoogaPeaches;
 import org.json.JSONObject;
 import util.PropertiesReader;
+import util.pubsub.PubSub;
+import util.pubsub.messages.StringMessage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.Map;
  * @author Simran Singh
  */
 public class User extends TrackableObject {
+    private static final String THEME_MESSAGE = "THEME_MESSAGE";
 
     @Expose private String userName;
     @Expose private String themeName;
@@ -42,6 +46,10 @@ public class User extends TrackableObject {
 
     @Override
     public void initialize() {
+        PubSub.getInstance().subscribe(
+                THEME_MESSAGE,
+                (message) -> themeName = ((StringMessage)message).readMessage()
+        );
         createProperties();
     }
 

@@ -2,10 +2,13 @@ package authoring;
 
 import authoring.panels.PanelManager;
 import authoring.panels.reserved.CameraPanel;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import main.VoogaPeaches;
+import org.json.JSONObject;
 import util.ErrorDisplay;
+import main.VoogaPeaches;
 import util.Loader;
 import util.PropertiesReader;
 import util.pubsub.PubSub;
@@ -27,6 +30,10 @@ public class WorkspaceManager {
     private static final String WORKSPACE_CHANGE = "WORKSPACE_CHANGE";
     private static final String IO_ERROR = "IO Error";
     private static final String COULD_NOT_SWITCH_WORKSPACE_ERROR = "Couldn't switch workspace";
+    private static final String WORKSPACE_NAME = "workspaceName";
+    private static final String DEFUALTS = "defaults";
+    private static final String WORKSPACE = "workspace";
+
     private Pane currentWorkspaceArea;
     private Map<String, Workspace> workspaces = new HashMap<>();
     private PanelManager panelManager;
@@ -55,7 +62,7 @@ public class WorkspaceManager {
                         switchWorkspace(((StringMessage)message).readMessage()
                 );
                     } catch (IOException e) {
-                        new ErrorDisplay(IO_ERROR, COULD_NOT_SWITCH_WORKSPACE_ERROR);//TODO: put this in a properties file
+                        new ErrorDisplay(IO_ERROR, COULD_NOT_SWITCH_WORKSPACE_ERROR).displayError();
                     }
                 });
     }
@@ -69,12 +76,14 @@ public class WorkspaceManager {
     }
 
     /**
-     * Saves all of the loaded workspace settings to their respective files.
+     * Saves the currently active workspace.
      */
-    public void saveWorkspaces() throws IOException {
-        for(Workspace workspace : workspaces.values()){
-            workspace.deactivate();
-        }
+    public void saveWorkspace() throws IOException {
+        JSONDataManager datamanager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+        JSONObject blueprint = datamanager.readJSONFile(VoogaPeaches.getUser().getUserName());
+        blueprint.put(WORKSPACE_NAME, currentWorkspace.title());
+        datamanager.writeJSONFile(VoogaPeaches.getUser().getUserName(), blueprint);
+        currentWorkspace.deactivate();
     }
 
     /**
@@ -89,7 +98,7 @@ public class WorkspaceManager {
                 width, height, panelManager);
         for(String space : workspaces.keySet()){
             Workspace workspace = (Workspace) workspaces.get(space);
-            this.workspaces.put(space, workspace);
+            this.workspaces.put(workspace.title(), workspace);
         }
         switchWorkspace(VoogaPeaches.getUser().getWorkspaceName());
     }
@@ -100,6 +109,9 @@ public class WorkspaceManager {
      */
     private void switchWorkspace(String newWorkspace) throws IOException {
         Workspace workspace = workspaces.get(newWorkspace);
+        if(workspace == null){
+            workspace = workspaces.get(PropertiesReader.value(DEFUALTS, WORKSPACE));
+        }
         if(currentWorkspace != null){
             if(workspace == currentWorkspace) return;
             currentWorkspace.deactivate();

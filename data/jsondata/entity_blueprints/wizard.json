@@ -1,0 +1,19 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "release": {"wasdSetVelocity": {}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"wasdSetVelocity": {"velocity": 0.2}}
+    },
+    "x": 437.0000000000002,
+    "width": 50,
+    "y": 225.39999999999986,
+    "scripts": {"imageScript": {"image_path": "user_images/Wizard.png"}},
+    "height": 50
+  }
+}
