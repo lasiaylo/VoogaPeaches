@@ -9,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Test to see conversion of FSM Graph to JSON and ability to read back in a JSON file to create a visualizer again.
+ *
+ * @author Simran
+ */
 public class ReadFSMGraphTest extends Application {
 
     @Override

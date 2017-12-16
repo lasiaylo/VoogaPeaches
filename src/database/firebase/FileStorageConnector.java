@@ -64,7 +64,6 @@ public class FileStorageConnector extends FirebaseConnector {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println(databaseError.getMessage());
             }
         });
     }

@@ -19,6 +19,7 @@ import java.util.*;
  * A class that provides an API for saving manipulating a game file within the database
  *
  * @author Walker Willetts
+ * @author Simran
  */
 public class GameSaver {
 
@@ -64,8 +65,13 @@ public class GameSaver {
         uploadScripts(scripts);
     }
 
+    /**
+     * Saves the existing FSMs to the database so that user's existing FSMs can be maintained throughout the use of
+     * their project creation.
+     *
+     * @param toSave
+     */
     private void saveFSM(Entity toSave) {
-        System.out.println("Saving FSM on GameSaver");
         Map<String, ArrayList<FSMGraph>> map = FSMPanel.getFSMMap();
         if(map == null) { return; }
         JSONObject newObject = new JSONObject();

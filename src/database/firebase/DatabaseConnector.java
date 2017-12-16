@@ -126,7 +126,6 @@ public class DatabaseConnector<T extends TrackableObject> extends FirebaseConnec
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println(databaseError.getMessage());
             }
         });
     }

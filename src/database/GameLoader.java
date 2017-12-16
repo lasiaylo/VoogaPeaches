@@ -29,6 +29,7 @@ import java.util.Map;
  * rest of the application to use.
  *
  * @author Walker Willetts
+ * @author Simran
  */
 public class GameLoader {
 
@@ -54,33 +55,6 @@ public class GameLoader {
         loadGameImages(uid);
     }
 
-    private void loadFSMFiles(String uid) {
-        FirebaseDatabase.getInstance().getReference(uid).child("fsm").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, ArrayList<FSMGraph>> FSMMap = new HashMap<>();
-                JSONToObjectConverter<FSMGraph> graphConverter = new JSONToObjectConverter<>(FSMGraph.class);
-                String filepath = uid + "/fsm.json";
-                JSONDataManager manager = new JSONDataManager(JSONDataFolders.GAMES);
-                JSONObject jsonForm = JSONHelper.JSONForObject(dataSnapshot.getValue());
-                manager.writeJSONFile(filepath, jsonForm);
-                for(String key: jsonForm.keySet()) {
-                    ArrayList<FSMGraph> graphs = new ArrayList<>();
-                    JSONArray tempJsonArray = jsonForm.getJSONArray(key);
-                    for(int n = 0; n < tempJsonArray.length(); n++) {
-                        JSONObject object = tempJsonArray.getJSONObject(n);
-                        FSMGraph graph = graphConverter.createObjectFromJSON(FSMGraph.class, object);
-                        graphs.add(graph);
-                    }
-                    FSMMap.put(key, graphs);
-                }
-                FSMPanel.setFSMMap(FSMMap);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-    }
-
     public void loadInRoot(){
         loadGameRoot(uid);
     }
@@ -99,6 +73,42 @@ public class GameLoader {
                 JSONToObjectConverter<Entity> converter = new JSONToObjectConverter<>(Entity.class);
                 gameRoot = converter.createObjectFromJSON(Entity.class, rootObject);
                 loaded[0] = true;
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    /**
+     * Load in FSMs from the database. The reason this method is so long is because of the nested way this FSM is saved.
+     * Each Entity has a Sring UID that is associated with a list of FSMGraphs that the user has created for them.
+     *
+     * @param uid
+     */
+    private void loadFSMFiles(String uid) {
+        FirebaseDatabase.getInstance().getReference(uid).child("fsm").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, ArrayList<FSMGraph>> FSMMap = new HashMap<>();
+                JSONToObjectConverter<FSMGraph> graphConverter = new JSONToObjectConverter<>(FSMGraph.class);
+                String filepath = uid + "/fsm.json";
+                JSONDataManager manager = new JSONDataManager(JSONDataFolders.GAMES);
+                JSONObject jsonForm = JSONHelper.JSONForObject(dataSnapshot.getValue());
+                manager.writeJSONFile(filepath, jsonForm);
+                // For loop iterates through the UID of the entities that have a list of FSMs associated with them
+                for(String key: jsonForm.keySet()) {
+                    ArrayList<FSMGraph> graphs = new ArrayList<>();
+                    // The JSONArray of the list of FSMs saved with a particular entity
+                    JSONArray tempJsonArray = jsonForm.getJSONArray(key);
+                    // Iterate through the JSON array to create a graph from each of the entries in the JSONArray
+                    for(int n = 0; n < tempJsonArray.length(); n++) {
+                        JSONObject object = tempJsonArray.getJSONObject(n);
+                        FSMGraph graph = graphConverter.createObjectFromJSON(FSMGraph.class, object);
+                        graphs.add(graph);
+                    }
+                    FSMMap.put(key, graphs);
+                }
+                FSMPanel.setFSMMap(FSMMap);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}

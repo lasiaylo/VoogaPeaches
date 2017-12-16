@@ -3,6 +3,8 @@ package engine.events;
 import engine.fsm.State;
 
 /**
+ * Used to publish new states from the fsm
+ *
  * @author Simran
  */
 public class StateEvent extends Event {

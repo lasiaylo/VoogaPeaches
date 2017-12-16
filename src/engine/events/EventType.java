@@ -18,7 +18,6 @@ public enum EventType {
     TRANSPARENT_MOUSE("Transparent Mouse Event"),
     VIEWVIS("View Visibility Event"),
     MAPSETUP("map setup"),
-    GAMING("setup gaming"),
     STEP("FSM Stepping"),
     SUBSTITUTE("substitute"),
     RESET("reset"),

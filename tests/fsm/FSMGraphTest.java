@@ -6,6 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Singular instance of an FSM Visualizer to test if the visuals work
+ *
+ * @author Simran
+ */
 public class FSMGraphTest extends Application {
 
     @Override
