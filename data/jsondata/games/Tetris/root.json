@@ -1,0 +1,292 @@
+{
+  "UID": "54df925eda9b4ad68a01fa313bfbef24",
+  "children": [{
+    "UID": "be67b2f4728e49ecae7198182a1ac3a1",
+    "children": [
+      {
+        "UID": "a6413c974a2e40bd86b1de4b869185e4",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "be3fbe4c2f19445da0fe0dd3f34d7c38",
+        "children": [
+          {
+            "UID": "26f89a154d704eb6b1fff1d1218f0121",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 0,
+              "y": 0,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_J.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5defb44904e5497e8e5bdd7ea707e90b",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 129.5,
+              "y": 3,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_L.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "5fbac3fac0e74c10a565f55803573d15",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 100,
+              "x": 295,
+              "y": 37,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_I.svg.png"}},
+              "height": 25
+            }
+          },
+          {
+            "UID": "27bc43d3814f4ff7819be51407bf9b69",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 267.5,
+              "y": 107,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_Z.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "39c369e954f74e8eb5b09f6231794c87",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 29.5,
+              "y": 80,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_T.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "c1272da54dcb490a9ade6a22250d5965",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 50,
+              "x": 272.5,
+              "y": 185,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_O.svg.png"}},
+              "height": 50
+            }
+          },
+          {
+            "UID": "b864c0ae51014ea292f5fe4b6326213a",
+            "children": [],
+            "hitBoxes": [],
+            "properties": {
+              "vx": 0,
+              "vy": 0.055600000000000566,
+              "listeners": {
+                "": {},
+                "move": {"update_position": {"empty": "empty"}},
+                "tick": {
+                  "move": {"empty": "empty"},
+                  "lasiaGravity": {
+                    "MaxFallSpeed": 0.2,
+                    "fallspeed": 1.0E-4
+                  },
+                  "fakeGround": {
+                    "ground": 400,
+                    "empty": "empty"
+                  }
+                },
+                "key press": {
+                  "rotate": {"empty": "empty"},
+                  "movement": {"empty": "empty"}
+                }
+              },
+              "width": 75,
+              "x": 433.5,
+              "y": 235,
+              "isFalling": true,
+              "scripts": {"imageScript": {"image_path": "user_images/Tetris_S.svg.png"}},
+              "height": 50
+            }
+          }
+        ],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "b9812bd690e346efa0516a8c4ff94e02",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "gridsize": 50,
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 2000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

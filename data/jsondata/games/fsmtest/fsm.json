@@ -1,0 +1,60 @@
+{"c318de7dd77f4cd89c47821351c13678": [{
+  "myStateRenders": [
+    {
+      "UID": "84172fff97724d2893599d137e149760",
+      "myInfo": {"default": true},
+      "mySave": {
+        "UID": "025e0d8e31344d839195121fe80efedd",
+        "yRect": 79.000001,
+        "arrowCode": ["{ entity, state -> ; return true }"],
+        "xRect": 155.000001
+      },
+      "myTitle": "state1"
+    },
+    {
+      "UID": "5e027006a1db4409aa96e6b4aa762c30",
+      "myInfo": {"empty": false},
+      "mySave": {
+        "UID": "64f72182a780479ba2c000d369adaa62",
+        "yRect": 90.000001,
+        "arrowCode": ["{ entity, state -> ; return true }"],
+        "xRect": 283.000001
+      },
+      "myTitle": "state2"
+    }
+  ],
+  "UID": "bedd8ae771f744bc9a4221d40e9c4e97",
+  "myName": "squirtle",
+  "myArrows": [
+    {
+      "myCode": "{ entity, state -> ; return true }",
+      "UID": "a9d60555a903456093ee8ced232a3bb8",
+      "myState": {
+        "headX": 296.000001,
+        "headY": 119.000001,
+        "lenX": 126.000001,
+        "UID": "e430e9878b094b95b1f62a1a7637b2eb",
+        "myDestination": "state2",
+        "originX": 170.000001,
+        "lenY": 15.000001,
+        "myOriginal": "state1",
+        "originY": 104.000001
+      }
+    },
+    {
+      "myCode": "{ entity, state -> ; return true }",
+      "UID": "8d8a1afb651d48ebb38621d9e06e33e2",
+      "myState": {
+        "headX": 169.000001,
+        "headY": 91.000001,
+        "lenX": -130.999999,
+        "UID": "68f86f2df45b436386a7442889e4086a",
+        "myDestination": "state1",
+        "originX": 300.000001,
+        "lenY": -0.999999,
+        "myOriginal": "state2",
+        "originY": 92.000001
+      }
+    }
+  ]
+}]}

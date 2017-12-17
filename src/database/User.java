@@ -7,6 +7,8 @@ import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
 import org.json.JSONObject;
 import util.PropertiesReader;
+import util.pubsub.PubSub;
+import util.pubsub.messages.StringMessage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.Map;
  */
 public class User extends TrackableObject {
 
+    private static final String THEME_MESSAGE = "THEME_MESSAGE";
+
     @Expose private String userName;
     @Expose private String themeName;
     @Expose private String workspaceName;
@@ -28,8 +32,13 @@ public class User extends TrackableObject {
     @Expose private ArrayList<String> games;
     @Expose private ArrayList<String> authoring;
 
+    /**
+     * Creates a username from the given string and assigns defaults that are then changed automatically throughout
+     * progression of the authoring
+     *
+     * @param name
+     */
     public User(String name) {
-        //TODO: read and create these from the database... some issue about asynchronous and synchronous writing to database
         userName = name;
         themeName = PropertiesReader.value("defaults","theme");
         workspaceName = PropertiesReader.value("defaults", "workspace");
@@ -40,8 +49,16 @@ public class User extends TrackableObject {
 
     private User() {}
 
+    /**
+     * On recreation of the user, this will allow the user to change their last theme name so that themes are stored
+     * on the user.
+     */
     @Override
     public void initialize() {
+        PubSub.getInstance().subscribe(
+                THEME_MESSAGE,
+                (message) -> themeName = ((StringMessage)message).readMessage()
+        );
         createProperties();
     }
 
@@ -60,8 +77,18 @@ public class User extends TrackableObject {
         themeName = theme;
     }
 
+    /**
+     * Set the last workspace that was used by the user.
+     *
+     * @param workspace
+     */
     public void setWorkspace(String workspace) {workspaceName = workspace;}
 
+    /**
+     * Get the last workspace created so that workspaces can be saved through users
+     *
+     * @return
+     */
     public String getWorkspaceName() { return workspaceName; }
 
     /**
@@ -71,16 +98,30 @@ public class User extends TrackableObject {
         return themeName;
     }
 
+    /**
+     * Returns the properties of the workspaces associated with the user
+     *
+     * @return
+     */
     public Map<String, Map<String, String>> getProperties() { return properties; }
 
+    /**
+     * Potentially any games that are associated with a user.
+     *
+     * @return
+     */
     public ArrayList<String> getGames() { return games; }
 
-    public void addGame(String game) { games.add(game); }
-
+    /**
+     * Add games that a specific user authors.
+     *
+     * @return
+     */
     public ArrayList<String> getAuthoring() { return authoring; }
 
-    public void addAuthoring(String game) { authoring.add(game); }
-
+    /**
+     * Creates the properties of a user by searching through the workspace property files
+     */
     private void createProperties() {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));
         File[] listOfFiles = folder.listFiles();

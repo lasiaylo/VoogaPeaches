@@ -1,0 +1,13 @@
+{"scripts": [
+  "ArrowDelete.groovy",
+  "checkers_script.groovy",
+  "DEMO_click.groovy",
+  "DEMO_movement.groovy",
+  "kellyCatText.groovy",
+  "kellyClick.groovy",
+  "kellyCollision.groovy",
+  "kellyCreateCoin.groovy",
+  "kellyMove.groovy",
+  "test.groovy",
+  "wall.groovy"
+]}

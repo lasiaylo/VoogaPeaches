@@ -5,6 +5,9 @@ import authoring.panels.reserved.CameraPanel;
 import authoring.panels.reserved.MenuBarPanel;
 import database.User;
 import database.firebase.DatabaseConnector;
+import database.jsonhelpers.JSONDataFolders;
+import database.jsonhelpers.JSONDataManager;
+import database.jsonhelpers.JSONHelper;
 import engine.entities.Entity;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
@@ -52,11 +55,10 @@ public class Screen {
      * Creates a new Screen and adds it to the stage after population. The size of the Screen is determined by the user's computer screen size.
      * @param stage the stage to add the Screen to
      */
-    public Screen(Stage stage){
+    public Screen(Stage stage, Entity rootEntity){
         root = new VBox();
-        controller = new PanelController();
+        controller = new PanelController(rootEntity);
         errorMessage = new ErrorDisplay(PropertiesReader.value(REFLECT, ERROR_TITLE));
-
         //SceenBounds Code courtesy of <a href = "http://www.java2s.com/Code/Java/JavaFX/GetScreensize.htm">java2s</a>
         Rectangle2D primaryScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
         setupStage(stage, primaryScreenBounds);
@@ -77,9 +79,9 @@ public class Screen {
         Scene scene = new Scene(root, width, height);
         updateTheme();
 
+
         stage.setScene(scene);
         stage.show();
-
         errorMessage.displayError();
     }
 
@@ -155,26 +157,22 @@ public class Screen {
      * saves the workspace information to their files
      */
     public void save(){
+        User currentUser = VoogaPeaches.getUser();
+        JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
+        manager.writeJSONFile(currentUser.getUserName(), JSONHelper.JSONForObject(currentUser));
         try {
             workspaceManager.saveWorkspace();
-            DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
-            db.addToDatabase(VoogaPeaches.getUser());
+          //  DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
+           // db.addToDatabase(VoogaPeaches.getUser());
             // Have to force a sleep to wait for data to finish sending, but
             // with actual project this shouldn't be a problem
-            Thread.sleep(1000);//TODO replace with PauseTransition if possible
+            //Thread.sleep(1000);//TODO replace with PauseTransition if possible
         } catch (IOException e){
-            errorMessage.addMessage(String.format(PropertiesReader.value(REFLECT,IO_ERROR), e.getMessage()));
-            errorMessage.displayError();
-        } catch (ObjectIdNotFoundException e) {
-            System.out.println("problem with saving!");
-        } catch (InterruptedException e) {
-            System.out.println("problem with saving!");
+      //      errorMessage.addMessage(String.format(PropertiesReader.value(REFLECT,IO_ERROR), e.getMessage()));
+        //    errorMessage.displayError();
+        //} catch (ObjectIdNotFoundException | InterruptedException e) {
+          //  new ErrorDisplay("Save Problem", "Problem with Saving!").displayError();
         }
-    }
-
-    public void load(Entity root) {
-        System.out.println("In screen: " + root.UIDforObject());
-        controller.load(root);
     }
 
     /**

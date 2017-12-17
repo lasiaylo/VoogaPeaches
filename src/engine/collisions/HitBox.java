@@ -6,8 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +24,7 @@ public class HitBox extends TrackableObject {
     @Expose private double currentX;
     @Expose private double currentY;
     @Expose private String tag;
+    private Shape intersect;
 
     private HitBox(){}
 
@@ -83,8 +82,12 @@ public class HitBox extends TrackableObject {
      */
     public boolean intersects(HitBox other) {
 //        return hitboxShape.intersects(hitboxShape.sceneToLocal(other.getHitbox().localToScene(other.getHitbox().getBoundsInLocal())));
-        Shape intersect = Shape.intersect(hitboxShape, other.getHitbox());
+        intersect = Shape.intersect(hitboxShape, other.getHitbox());
         return intersect.getBoundsInLocal().getWidth() != -1;
+    }
+    
+    public Shape getIntersect(){
+        return intersect;
     }
 
     /**
@@ -101,8 +104,8 @@ public class HitBox extends TrackableObject {
     private double[] createAdjustedPoints(Double entityXPosition, Double entityYPosition) {
         double[] adjustedPoints = new double[polygonVertexTranslations.size()];
         for(int i = 0; i < polygonVertexTranslations.size(); i += 2) {
-            adjustedPoints[i] = polygonVertexTranslations.get(i) + entityXPosition;
-            adjustedPoints[i + 1] = polygonVertexTranslations.get(i + 1) + entityYPosition;
+            adjustedPoints[i] = ((Number) polygonVertexTranslations.get(i)).doubleValue() + entityXPosition-300;
+            adjustedPoints[i + 1] = ((Number)polygonVertexTranslations.get(i + 1) ).doubleValue() + entityYPosition-300;
         }
         return adjustedPoints;
     }
@@ -130,6 +133,7 @@ public class HitBox extends TrackableObject {
      * @return {@code Polygon} corresponding to the HitBox
      */
     public Polygon getHitbox() {
+        hitboxShape.setFill(Color.RED);
         return hitboxShape;
     }
 
@@ -143,8 +147,8 @@ public class HitBox extends TrackableObject {
     public List<Double> getPoints() {
         List<Double> points = new ArrayList<>();
         for(int i = 0; i < polygonVertexTranslations.size(); i+=2){
-            points.add(polygonVertexTranslations.get(i) + currentX);
-            points.add(polygonVertexTranslations.get(i + 1) + currentX);
+            points.add((double) polygonVertexTranslations.get(i) + currentX);
+            points.add((double) polygonVertexTranslations.get(i + 1) + currentX);
         }
         return points;
     }

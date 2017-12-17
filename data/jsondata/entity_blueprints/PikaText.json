@@ -1,0 +1,18 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 0,
+    "width": 250,
+    "y": 1000,
+    "scripts": {"imageScript": {"image_path": "user_images/PikaText.png"}},
+    "height": 100
+  }
+}

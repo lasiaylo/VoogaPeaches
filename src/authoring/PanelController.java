@@ -5,17 +5,12 @@ import engine.EntityManager;
 import engine.entities.Entity;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import util.math.num.Vector;
-import voogasalad.util.sound.Sound;
-import voogasalad.util.sound.SoundHandler;
-import voogasalad.util.sound.SoundManager;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
+import util.sound.Sound;
+import util.sound.SoundHandler;
+import util.sound.SoundManager;
 
 /**
  * PanelController delegates access to the engine to each panel that needs it.
@@ -24,21 +19,21 @@ import java.io.IOException;
  */
 public class PanelController {
 
-    private static final int GRID_SIZE = 2000;
-    private static final int CAMERA_INIT_X = 0;
-    private static final int CAMERA_INIT_Y = 0;
-    private static final int CAMERA_INIT_X_SIZE = 160;
-    private static final int CAMERA_INIT_Y_SIZE = 90;
-    private static final int VALUE1 = 100;
-    private static final int VALUE2 = 100;
+    public static final int GRID_SIZE = 50;
+    public static final int CAMERA_INIT_X = 400;
+    public static final int CAMERA_INIT_Y = 250;
+    public static final int CAMERA_INIT_X_SIZE = 800;
+    public static final int CAMERA_INIT_Y_SIZE = 500;
+    private static final int VALUE1 = 150;
+    private static final int VALUE2 = 150;
     private Engine myEngine;
     private SoundHandler soundEngine;
 
 	private EntityManager myEntityManager;
     private ObjectProperty<Sound> musicProperty;
 
-    public PanelController() {
-		myEngine = new Engine(new Entity(), GRID_SIZE, false);//depending on the design of panelcontroller, gridszie would either be retrived from camera panel or properties file
+	public PanelController(Entity root) {
+		myEngine = new Engine(root, GRID_SIZE, false);
 	    myEntityManager = myEngine.getEntityManager();
 	    soundEngine = new SoundManager(false);
 	}
@@ -60,19 +55,19 @@ public class PanelController {
     }
 
     /**
-     * engine start to run script
+     * engine start to run grid_move
      */
     public void play() {
-        try {
+        /*try { TODO put sound in engine if possible
             soundEngine.loopSound(musicProperty.get());
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException | NullPointerException e) {
             //Do nothing: Don't play invalid sound
-        }
-        //myEngine.play();
+        }*/
+        myEngine.play();
     }
 
     /**
-     * engine stop to run script
+     * engine tileMovementWithStop to run grid_move
      */
     public void pause() {
         soundEngine.removeAllSounds();
@@ -83,10 +78,6 @@ public class PanelController {
         myEngine.save(name);
     }
 
-    public void load(Entity root) {
-        System.out.println(root.getChildren().size());
-        myEngine.load(root, GRID_SIZE, false);
-    }
 
     /**
      * get minimap
@@ -102,7 +93,7 @@ public class PanelController {
 
     }
 
-    public ObjectProperty<Sound> getMusicProperty() {
-        return musicProperty;
+    public Engine getEngine() {
+        return myEngine;
     }
 }

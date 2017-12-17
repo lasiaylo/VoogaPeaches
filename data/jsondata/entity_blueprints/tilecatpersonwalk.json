@@ -1,0 +1,21 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {
+        "tileArrowMovement": {},
+        "movement": {"empty": "empty"}
+      }
+    },
+    "x": 255,
+    "width": 50,
+    "y": 119,
+    "scripts": {"imageScript": {"image_path": "user_images/person.png"}},
+    "height": 50
+  }
+}

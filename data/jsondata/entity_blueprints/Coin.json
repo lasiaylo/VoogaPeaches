@@ -1,0 +1,19 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "click": {"kellyClick": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "width": 50,
+    "x": 57,
+    "y": 152,
+    "scripts": {"imageScript": {"image_path": "user_images/Coin_-_New_Super_Mario_Bros.png"}},
+    "height": 50
+  }
+}

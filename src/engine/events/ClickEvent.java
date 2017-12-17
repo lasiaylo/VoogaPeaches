@@ -1,9 +1,6 @@
 package engine.events;
 
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-
-import java.io.InputStream;
 
 public class ClickEvent extends Event {
 

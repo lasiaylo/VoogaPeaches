@@ -1,0 +1,64 @@
+{
+  "UID": "a414da7f29e64927a720b841afeccf9b",
+  "children": [{
+    "UID": "1a1342e1a62e44d28f5a92a1b186d033",
+    "children": [
+      {
+        "UID": "115d637eba3a4adf8fa2dbf13e5a728a",
+        "children": [],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      },
+      {
+        "UID": "7f82ffab7d5249c9a1c965b843d1d29d",
+        "children": [{
+          "UID": "3283c83efda946a4959a74c58a9e6c58",
+          "children": [],
+          "hitBoxes": [],
+          "properties": {
+            "vx": 0,
+            "vy": 0,
+            "listeners": {
+              "move": {"update_position": {"empty": "empty"}},
+              "tick": {"move": {"empty": "empty"}},
+              "key press": {"movement": {"empty": "empty"}}
+            },
+            "width": 50,
+            "x": 201,
+            "y": 124,
+            "scripts": {
+              "fsm": {},
+              "imageScript": {"image_path": "user_images/bluedevil.png"}
+            },
+            "height": 50
+          }
+        }],
+        "hitBoxes": [],
+        "properties": {
+          "gridsize": 50,
+          "listeners": {"tick": {"loader": {"empty": "empty"}}},
+          "scripts": {"holderScript": {"empty": "empty"}}
+        }
+      }
+    ],
+    "hitBoxes": [],
+    "properties": {
+      "cameraXpos": 0,
+      "cameraHeight": 500,
+      "cameraYpos": 0,
+      "mapwidth": 2000,
+      "gridsize": 50,
+      "listeners": {"tick": {"loader": {"empty": "empty"}}},
+      "mapheight": 2000,
+      "cameraWidth": 500,
+      "levelname": "level 1",
+      "scripts": {"mapScript": {"empty": "empty"}}
+    }
+  }],
+  "hitBoxes": [],
+  "properties": {"scripts": {"loader": {"empty": "empty"}}}
+}

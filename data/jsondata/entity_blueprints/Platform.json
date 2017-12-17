@@ -1,0 +1,34 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      196,
+      234,
+      281,
+      234,
+      280,
+      259,
+      199,
+      263
+    ],
+    "UID": "95b71363786e453fb4b55091b80bc923",
+    "currentX": 410,
+    "currentY": 310,
+    "tag": "platform"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "collision": {"print": {}},
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 410,
+    "width": 96,
+    "y": 310,
+    "scripts": {"imageScript": {"image_path": "user_images/rectangle.png"}},
+    "height": 48
+  }
+}

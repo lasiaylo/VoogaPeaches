@@ -87,7 +87,6 @@ public class BouncingEntities extends Application {
                         CollisionEvent triangleFire = new CollisionEvent(squareEach, squareEntity);
                         squareFire.fire(squareEntity);
                         triangleFire.fire(triangleEntity);
-//                        System.out.println("collided");
                     }
                 }
             }

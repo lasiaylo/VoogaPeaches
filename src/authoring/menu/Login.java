@@ -31,7 +31,8 @@ import util.exceptions.ObjectIdNotFoundException;
  */
 public class Login {
 
-
+    private static final int WIDTH = 350;
+    private static final int HEIGHT = 125;
     private static final int INSET = 5;
     private static final String TITLE = "VoogaPeaches: Login to Your Account";
     private static final int SPACING = 10;
@@ -41,14 +42,19 @@ public class Login {
     private static final String LIGHT_CSS = "light.css";
     private static final String PANEL = "panel";
     private static final String ERROR = "Unrecognized username.";
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 125;
+
     private Stage myStage;
     private Scene myScene;
     private VBox myArea;
     private TextField userTextField;
     private Label error;
 
+    /**
+     * Creates the login screen that takes in a username and starts establishing user settings. Also allows users to
+     * create their own profiles.
+     *
+     * @param stage
+     */
     public Login(Stage stage) {
         myStage = stage;
         myArea = createVBoxLayout();
@@ -100,18 +106,12 @@ public class Login {
             DatabaseConnector<User> db = new DatabaseConnector<>(User.class);
             try {
                 db.addToDatabase(newUser);
-                // Have to force a sleep to wait for data to finish sending, but
-                // with actual project this shouldn't be a problem
-                Thread.sleep(1000);//TODO replace with PauseTransition if possible
-            } catch (ObjectIdNotFoundException | InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
+            } catch (ObjectIdNotFoundException e) { }
             Stage menuStage = new Stage();
             Menu myMenu = new Menu(menuStage);
             myStage.close();
         }
     }
-
 
     /**
      * On the login, it reads the text that the user input. No password check currently. It tries to find a
@@ -129,20 +129,20 @@ public class Login {
             Stage menuStage = new Stage();
             Menu myMenu = new Menu(menuStage);
             menuStage.setOnCloseRequest(event -> {
-                //TODO: SIMRAN HALP
                 try {
                     connector.addToDatabase(VoogaPeaches.getUser());
-                } catch (ObjectIdNotFoundException e) {
-                    // do nothing
-                }
+                } catch (ObjectIdNotFoundException e) { }
             });
             myStage.close();
         }
         error.setVisible(true);
     }
 
+    /**
+     * Sets up default theme
+     */
     private void updateTheme() {
-        myArea.getStylesheets().add(LIGHT_CSS); //update from database
+        myArea.getStylesheets().add(LIGHT_CSS);
         myArea.getStyleClass().add(PANEL);
     }
 }

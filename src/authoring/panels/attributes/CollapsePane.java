@@ -1,7 +1,5 @@
 package authoring.panels.attributes;
 
-import java.util.Map;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -9,6 +7,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import util.exceptions.GroovyInstantiationException;
+
+import java.util.Map;
 
 /**Displays a JavaFX TitledPane that holds a map
  * @author lasia
@@ -19,15 +19,17 @@ public class CollapsePane {
 	private static final String MAP_NULL = "Map null";
 	private final int LABEL_COL = 0;
 	private final int ATTRIBUTE_COL = 1;
+	private Updatable update;
 	private boolean collapse;
 	private Pane myPane;
 	
-	public CollapsePane(Map<String,?> map) throws GroovyInstantiationException {
-		this(map, false);
+	public CollapsePane(Map<String,?> map, Updatable update) throws GroovyInstantiationException {
+		this(map, false, update);
 	}
 	
-	public CollapsePane(Map<String,?> map, boolean collapse) throws GroovyInstantiationException {
+	public CollapsePane(Map<String,?> map, boolean collapse, Updatable update) throws GroovyInstantiationException {
 		this.collapse = collapse;
+		this.update = update;
 		addMap(map);
 	}
 	
@@ -41,7 +43,7 @@ public class CollapsePane {
 	private void formatCollapse(Map<String, ?> map) throws GroovyInstantiationException {
 		VBox vBox = new VBox();
 		if(map == null) {
-			System.out.println(MAP_NULL);
+			return;
 		}
 		for (String s : map.keySet()) {
 			Node node = addAttribute(map, s);
@@ -58,6 +60,7 @@ public class CollapsePane {
 		for (String s : map.keySet()) {
 			grid.add(addLabel(s), LABEL_COL, row);
 			grid.add(addAttribute(map, s), ATTRIBUTE_COL, row);
+			grid.add(addDelete(map,s), ATTRIBUTE_COL+1, row);
 			row++;
 		}
 		myPane = grid;
@@ -71,6 +74,12 @@ public class CollapsePane {
 		Map<String, Object> input = (Map<String, Object>) map;
 		Field field = FieldFactory.makeFieldMap(input, key);
 		return field.getControl();
+	}
+
+	private Node addDelete(Map<String, ?> map, String key){
+		Map<String, Object> input = (Map<String, Object>) map;
+		return new ParameterDelete(input, key, update).getNode();
+
 	}
 
 	public Node getNode() {

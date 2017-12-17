@@ -1,0 +1,18 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": -0.3,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 1532,
+    "width": 50,
+    "y": 447,
+    "scripts": {"imageScript": {"image_path": "Player/left.png"}},
+    "height": 50
+  }
+}

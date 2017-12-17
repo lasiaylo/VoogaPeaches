@@ -1,0 +1,23 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "scripts": {
+      "imageScript": {
+        "image_path": "default_image.jpg"
+      }
+    },
+    "listeners" : {
+      "tick": {
+        "loader": {
+          "empty": "empty"
+        }
+      }
+    },
+    "x" : 0.0,
+    "y" : 0.0,
+    "width" : 50.0,
+    "height" : 50.0,
+    "bg" : true
+  }
+}

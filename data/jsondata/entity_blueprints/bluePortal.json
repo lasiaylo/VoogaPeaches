@@ -1,0 +1,20 @@
+{
+  "children": [],
+  "hitBoxes": [],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "collision": {"printCollider": {}},
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 407,
+    "width": 45,
+    "y": 127.5,
+    "type": "black",
+    "scripts": {"imageScript": {"image_path": "user_images/black-piece.png"}},
+    "height": 45
+  }
+}

@@ -18,7 +18,13 @@ public enum EventType {
     TRANSPARENT_MOUSE("Transparent Mouse Event"),
     VIEWVIS("View Visibility Event"),
     MAPSETUP("map setup"),
-    UPDATE_IMAGE("update_image");
+    STEP("FSM Stepping"),
+    SUBSTITUTE("substitute"),
+    RESET("reset"),
+    RELEASE("release"),
+    ROTATE("rotate"),
+    UPDATE_IMAGE("update_image"),
+    NOCOLLISION("nocollision");
 
     private String type;
 

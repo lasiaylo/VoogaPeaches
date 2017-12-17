@@ -1,0 +1,33 @@
+{
+  "children": [],
+  "hitBoxes": [{
+    "polygonVertexTranslations": [
+      66,
+      21,
+      1023,
+      20,
+      1022,
+      479,
+      64,
+      478
+    ],
+    "UID": "3ff6709344604729be0c05bc9111c1df",
+    "currentX": 0,
+    "currentY": 0,
+    "tag": "portal"
+  }],
+  "properties": {
+    "vx": 0,
+    "vy": 0,
+    "listeners": {
+      "move": {"update_position": {"empty": "empty"}},
+      "tick": {"move": {"empty": "empty"}},
+      "key press": {"movement": {"empty": "empty"}}
+    },
+    "x": 1.5,
+    "width": 959,
+    "y": 0.5,
+    "scripts": {"imageScript": {"image_path": "user_images/fa702ccd2ec75aedc15dd706d9896eaf.png"}},
+    "height": 457
+  }
+}
