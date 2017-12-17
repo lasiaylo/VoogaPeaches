@@ -19,6 +19,9 @@ import util.exceptions.GroovyInstantiationException;
 import java.util.*;
 
 
+/**
+ * @author Simran
+ */
 public class StateRender extends TrackableObject implements Updatable {
 
     private static final double PADDING = 30;

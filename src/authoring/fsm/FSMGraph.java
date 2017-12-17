@@ -23,10 +23,17 @@ import java.util.List;
 
 /**
  * A class that handles the rendering of the graph of a finite state machine
+ *
  * @author Albert
  * @author Simran
  */
 public class FSMGraph extends TrackableObject implements GraphDelegate {
+
+    private static final String FSM_GRAPH = "FSM_GRAPH";
+    private static final String CREATE_NEW_STATE = "Create New State?";
+    private static final String CANCEL = "Cancel";
+    private static final String ENTER_YOUR_NAME = "Enter your name";
+    private static final String NO_NAME_GIVEN = "NoNameGiven";
 
     @Expose private List<StateRender> myStateRenders;
     @Expose private List<Arrow> myArrows;
@@ -56,7 +63,7 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
         this(name, new ArrayList<>(), new ArrayList<>());
     }
 
-    public FSMGraph() { this("NoNameGiven"); }
+    public FSMGraph() { this(NO_NAME_GIVEN); }
 
     @Override
     public void initialize() {
@@ -93,10 +100,10 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
     private FlowPane createPopup(MouseEvent e) {
         FlowPane flow = new FlowPane();
         flow.setMinSize(100, 200);
-        Button newState = new Button("Create New State?");
-        Button cancel = new Button("Cancel");
+        Button newState = new Button(CREATE_NEW_STATE);
+        Button cancel = new Button(CANCEL);
         TextField name = new TextField();
-        name.setPromptText("Enter your name lol");
+        name.setPromptText(ENTER_YOUR_NAME);
         newState.setOnMouseClicked(f -> onCreate(e, newState, name.getText()));
         cancel.setOnMouseClicked(f -> onClose(cancel));
         flow.getChildren().addAll(newState, cancel, name);
@@ -192,8 +199,7 @@ public class FSMGraph extends TrackableObject implements GraphDelegate {
 
     public void export() {
         saveSetup();
-        System.out.println("Exported");
-        PubSub.getInstance().publish("FSM_GRAPH", new FSMGraphMessage(this));
+        PubSub.getInstance().publish(FSM_GRAPH, new FSMGraphMessage(this));
     }
 
     public FSM createFSM(Entity entity) {

@@ -8,23 +8,16 @@ import database.GameLoader;
 import database.User;
 import database.fileloaders.ScriptLoader;
 import database.firebase.DatabaseConnector;
-import database.jsonhelpers.JSONDataFolders;
-import database.jsonhelpers.JSONDataManager;
-import database.jsonhelpers.JSONToObjectConverter;
 import engine.entities.Entity;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.VoogaPeaches;
-import org.json.JSONObject;
 import util.PropertiesReader;
 import util.exceptions.ObjectIdNotFoundException;
 import util.pubsub.PubSub;
@@ -38,7 +31,6 @@ import java.io.File;
  * All user interactions are determined and executed in here
  *
  * @author Kelly Zhang
- * @author Simran
  *
  */
 public class Menu {

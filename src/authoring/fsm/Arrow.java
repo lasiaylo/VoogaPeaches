@@ -12,10 +12,15 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import util.math.num.Vector;
 
+/**
+ * Class to represent the arrow in the FSM visualization.
+ *
+ * @author Simran
+ */
 public class Arrow extends TrackableObject {
     
     private static final double HEAD_OFFSET = 45;
-    public static final double HEAD_FACTOR = 0.8;
+    private static final double HEAD_FACTOR = 0.8;
     private static final double HEAD_WIDTH = 5;
 
     @Expose private String myCode = "{ entity, state -> ; INSERT_HERE }";
@@ -33,7 +38,12 @@ public class Arrow extends TrackableObject {
     private boolean deleting;
 
 
-    public Arrow(Vector origin, Vector head, GraphDelegate graph) {
+    /**
+     * @param origin Original point of the arrow
+     * @param head Head of the arrow
+     * @param graph GraphDelegate that holds all the information about FSMGraph including other arrows and states
+     */
+    Arrow(Vector origin, Vector head, GraphDelegate graph) {
         myGraph = graph;
         myOrigin = origin;
         myHead = head;
@@ -42,6 +52,10 @@ public class Arrow extends TrackableObject {
         initArrow();
     }
 
+    private Arrow() {}
+
+    /**
+     */
     private void initArrow() {
         myBody.setStrokeWidth(HEAD_WIDTH);
         myNegativeHead.setStrokeWidth(HEAD_WIDTH);
@@ -52,9 +66,8 @@ public class Arrow extends TrackableObject {
         myGroup.getChildren().addAll(myBody, myNegativeHead, myPositiveHead);
     }
 
-    private Arrow() {}
 
-    public void onClick() {
+    void onClick() {
         if (deleting) { return; }
         deleting = true;
         Scene scene = new Scene(new Group());
@@ -90,7 +103,7 @@ public class Arrow extends TrackableObject {
         ((Stage) save.getScene().getWindow()).close();
     }
 
-    public Group getRender() {
+    Group getRender() {
         return myGroup;
     }
 
@@ -120,39 +133,37 @@ public class Arrow extends TrackableObject {
         head.setEndY(myHead.at(1));
     }
 
-    public void setHead(Vector headPosition) {
+    void setHead(Vector headPosition) {
         myHead = headPosition;
         myLength = myHead.subtract(myOrigin);
         setArrow();
     }
 
-    public StateRender getOriginal() {
+    StateRender getOriginal() {
         return original;
     }
 
-    public void setOriginal(StateRender original) {
+    void setOriginal(StateRender original) {
         this.original = original;
     }
 
-    public StateRender getDestination() {
+    StateRender getDestination() {
         return destination;
     }
 
-    public void setDestination(StateRender destination) {
+    void setDestination(StateRender destination) {
         this.destination = destination;
     }
 
-    public String getMyCode() { return myCode; }
+    String getMyCode() { return myCode; }
 
-    @Override
-    public void initialize() {
-    }
+
 
     public void save() {
         myState = new SavedArrow(original, destination, myOrigin, myHead, myLength);
     }
 
-    public void setGraphDelegate(GraphDelegate graph) {
+    void setGraphDelegate(GraphDelegate graph) {
         myGraph = graph;
         original = myGraph.findStateRenderWith(myState.getMyOriginal());
         destination = myGraph.findStateRenderWith(myState.getMyDestination());
@@ -163,4 +174,6 @@ public class Arrow extends TrackableObject {
         initArrow();
     }
 
+    @Override
+    public void initialize() { }
 }
