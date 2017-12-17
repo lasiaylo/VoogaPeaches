@@ -1,13 +1,9 @@
 package engine.visualization;
 
 import javafx.scene.Group;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import util.math.num.Vector;
-
-import java.util.*;
 
 public class TreeVisualizer {
 

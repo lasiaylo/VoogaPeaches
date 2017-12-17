@@ -1,13 +1,9 @@
 package engine.camera;
 
 import engine.entities.Entity;
-import engine.events.ClickEvent;
 import engine.events.KeyPressEvent;
 import engine.events.KeyReleaseEvent;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.NumberBinding;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;

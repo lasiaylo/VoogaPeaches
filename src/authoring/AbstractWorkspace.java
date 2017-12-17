@@ -4,8 +4,6 @@ import authoring.Positions.Position;
 import authoring.panels.PanelManager;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
-import javafx.event.Event;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import main.VoogaPeaches;
@@ -16,10 +14,9 @@ import util.pubsub.messages.Message;
 import util.pubsub.messages.MoveTabMessage;
 import util.pubsub.messages.StringMessage;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
 

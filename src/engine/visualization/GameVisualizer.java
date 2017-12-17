@@ -1,7 +1,6 @@
 package engine.visualization;
 
 import engine.entities.Entity;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 
 public class GameVisualizer {

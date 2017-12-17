@@ -1,9 +1,8 @@
 package util.sound;
 
-import java.io.IOException;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 /**
  * @author Parker Pearson A Sound Handler provides a multitude of methods to

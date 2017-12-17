@@ -4,7 +4,6 @@ import authoring.panels.PanelManager;
 import authoring.panels.reserved.CameraPanel;
 import authoring.panels.reserved.MenuBarPanel;
 import database.User;
-import database.firebase.DatabaseConnector;
 import database.jsonhelpers.JSONDataFolders;
 import database.jsonhelpers.JSONDataManager;
 import database.jsonhelpers.JSONHelper;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import main.VoogaPeaches;
 import util.ErrorDisplay;
 import util.PropertiesReader;
-import util.exceptions.ObjectIdNotFoundException;
 import util.pubsub.PubSub;
 import util.pubsub.messages.StringMessage;
 

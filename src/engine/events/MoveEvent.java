@@ -1,5 +1,9 @@
 package engine.events;
 
+/**
+ * Event specifying that entity should move
+ * @author ramilmsh
+ */
 public class MoveEvent extends Event {
     private double dx;
     private double dy;

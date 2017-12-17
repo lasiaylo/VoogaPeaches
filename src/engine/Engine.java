@@ -1,13 +1,13 @@
 package engine;
 
 import database.GameSaver;
-import database.firebase.DataReactor;
 import database.jsonhelpers.JSONHelper;
 import engine.camera.Camera;
 import engine.collisions.HitBox;
 import engine.entities.Entity;
 import engine.events.CollisionEvent;
 import engine.events.TickEvent;
+import engine.util.CollisionCheck;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ScrollPane;
@@ -28,7 +28,7 @@ import java.util.Map;
  * @author Albert
  * @author estellehe
  */
-public class Engine implements DataReactor<Entity> {
+public class Engine {
     private static final int MAX_FRAMES_PER_SECOND = 60;
     private static final int FRAME_PERIOD = 1000 / MAX_FRAMES_PER_SECOND;
 
@@ -40,7 +40,6 @@ public class Engine implements DataReactor<Entity> {
     private ScrollPane scrollPane;
     private boolean isGaming;
     private Entity root;
-    private boolean x = true;
 
     /**
      * Creates a new Engine
@@ -58,33 +57,47 @@ public class Engine implements DataReactor<Entity> {
         this.lastState = JSONHelper.JSONForObject(root);
     }
 
+    /**
+     * recursive fires a tickevent down the tree of the current level. Checks collisions
+     */
     private void loop() {
         tick.recursiveFire(entityManager.getCurrentLevel());
         Map<HitBox, Entity> hitBoxes = getHitBoxes(entityManager.getCurrentLevel(), new HashMap<>());
-        checkCollisions(hitBoxes);
-
+        CollisionCheck.checkCollisions(hitBoxes);
     }
 
+    /**
+     * Saves game
+     * @param name  path to save to
+     */
     public void save(String name) {
         new GameSaver(name).saveGame(entityManager.getRoot());
     }
 
+    /**
+     * @return  entity manager contained inside
+     */
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
+    /**
+     * plays the engine
+     */
     public void play() {
         timeline.play();
         scrollPane.requestFocus();
         this.isGaming = true;
         lastState = JSONHelper.JSONForObject(root);
         VoogaPeaches.setIsGaming(isGaming);
-        //todo change all isgaming to the static one
         entityManager.setIsGaming(isGaming);
         camera.fixCamera();
         camera.requestFocus();
     }
 
+    /**
+     * pauses the engine
+     */
     public void pause() {
         timeline.pause();
         this.isGaming = false;
@@ -93,69 +106,36 @@ public class Engine implements DataReactor<Entity> {
         camera.freeCamera();
     }
 
-    public EntityManager getManager() {
-        return entityManager;
-    }
-
+    /**
+     * @param center    center of view
+     * @param size      size of window
+     * @return          the view of the camera at @param center with size @param size
+     */
     public ScrollPane getCameraView(Vector center, Vector size) {
         scrollPane = camera.getView(center,size);
         return scrollPane;
     }
 
+    /**
+     * @param size  size of minimap
+     * @return      minimap with size @parma size
+     */
     public Pane getMiniMap(Vector size) {
         return camera.getMinimap(size);
     }
 
+    /**
+     * @param root      root of tree to start search over
+     * @param hitBoxes  map to add hitboxes to
+     * @return          all hitboxes contained in the tree under an entity
+     */
     private Map<HitBox, Entity> getHitBoxes(Entity root, Map<HitBox, Entity> hitBoxes) {
         root.getHitBoxes().forEach(e -> hitBoxes.put(e, root));
         root.getChildren().forEach(e -> getHitBoxes(e, hitBoxes));
         return hitBoxes;
     }
 
-    private void checkCollisions(Map<HitBox, Entity> hitBoxes) {
-        for(HitBox hitBox : hitBoxes.keySet()) {
-            Polygon poly1 = new Polygon();
-            System.out.println(hitBox.getHitbox());
-            poly1.getPoints().addAll(hitBox.getHitbox().getPoints());
-            System.out.println(hitBox.getHitbox());
-            for(HitBox other : hitBoxes.keySet()) {
-
-                if(hitBox != other) {
-                    Polygon poly2 = new Polygon();
-                    poly2.getPoints().addAll(other.getHitbox().getPoints());
-                    Shape intersect = Shape.intersect(poly1,poly2);
-
-                    if (intersect.getBoundsInLocal().getWidth() != -1){
-                        System.out.println(intersect);
-                        new CollisionEvent(hitBox, hitBoxes.get(hitBox)).fire(hitBoxes.get(other));
-                        new CollisionEvent(other, hitBoxes.get(other)).fire(hitBoxes.get(hitBox));
-                    }
-                }
-            }
-        }
-    }
-
     public JSONObject getLastState() {
         return lastState;
-    }
-
-    @Override
-    public void reactToNewData(Entity newObject) {
-
-    }
-
-    @Override
-    public void reactToDataMoved(Entity movedObject) {
-
-    }
-
-    @Override
-    public void reactToDataChanged(Entity changedObject) {
-
-    }
-
-    @Override
-    public void reactToDataRemoved(Entity removedObject) {
-
     }
 }

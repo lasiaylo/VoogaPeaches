@@ -1,5 +1,8 @@
 package engine.events;
 
+/**
+ * An enum that represents specific default events contained within authoring/engine
+ */
 public enum EventType {
     ADDLAYER("addLayer"),
     CLICK("click"),
@@ -28,10 +31,18 @@ public enum EventType {
 
     private String type;
 
+    /**
+     * Gets a new EventType
+     * @param type  type of event
+     */
     EventType(String type) {
         this.type = type;
     }
 
+    /**
+     *
+     * @return  type of event
+     */
     public String getType() {
         return type;
     }

@@ -81,7 +81,6 @@ public class HitBox extends TrackableObject {
      * @return  a {@tag boolean} that represents whether or not this hitbox has intersected with the param
      */
     public boolean intersects(HitBox other) {
-//        return hitboxShape.intersects(hitboxShape.sceneToLocal(other.getHitbox().localToScene(other.getHitbox().getBoundsInLocal())));
         intersect = Shape.intersect(hitboxShape, other.getHitbox());
         return intersect.getBoundsInLocal().getWidth() != -1;
     }

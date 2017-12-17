@@ -1,15 +1,10 @@
 package util.sound;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @author Parker Pearson SoundManager Keeps track of running sounds and allows
