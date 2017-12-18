@@ -17,18 +17,29 @@ import util.pubsub.messages.EntityPass
 import java.util.stream.Collectors
 
 { Entity entity, Map<String, Object> bindings, Event event = null ->
+    final image_path = "image_path"
+    final width = "width"
+    final height = "height"
+    final def x = "x"
+    final y = "y"
+    final rotate = "rotate"
+    final scriptKey = "scripts"
+    final imageScript = "imageScript"
+    final bg = "bg"
+    final ENTITY_PASS = "ENTITY_PASS"
+
     entity = (Entity) entity
     datamanager = new FileDataManager(FileDataFolders.IMAGES)
-    ImageView pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get("image_path"))))
-    pointer.setFitWidth((double) entity.getProperty("width"))
-    pointer.setFitHeight((double) entity.getProperty("height"))
-    pointer.setX(((double) entity.getProperty("x")))
-    pointer.setY(((double) entity.getProperty("y")))
-    pointer.setRotate((double) entity.getProperties().getOrDefault("rotate", 0))
 
-    originalPath = (String) bindings.get("image_path")
+    ImageView pointer = new ImageView(new Image(datamanager.readFileData((String) bindings.get(image_path))))
+    pointer.setFitWidth((double) entity.getProperty(width))
+    pointer.setFitHeight((double) entity.getProperty(height))
+    pointer.setX(((double) entity.getProperty(x)))
+    pointer.setY(((double) entity.getProperty(y)))
+    pointer.setRotate((double) entity.getProperties().getOrDefault(rotate, 0))
+
+    originalPath = (String) bindings.get(image_path)
     entity.add(pointer)
-//    print("image script fired")
 
     pointer.setOnMouseClicked({e ->
         new ClickEvent(VoogaPeaches.getIsGaming(), e).fire(entity)
@@ -41,30 +52,28 @@ import java.util.stream.Collectors
         ImageViewEvent imgEvent = (ImageViewEvent) call
 
         pointer.setImage(new Image(datamanager.readFileData((String) imgEvent.getPath())))
-        scriptMap = ((Map) entity.getProperty("scripts"))
+        scriptMap = ((Map) entity.getProperty(scriptKey))
 
         imagePathList = scriptMap.keySet().stream().filter({String name ->
-            name.equals("imageScript")
+            name.equals(imageScript)
         }).filter({ String name ->
-            scriptMap.get(name).get("image_path").equals(originalPath)
+            scriptMap.get(name).get(image_path).equals(originalPath)
         }).collect(Collectors.toList())
 
         imagePathList.forEach({ String path ->
-            entity.getProperty("scripts").get(path).put("image_path", imgEvent.getPath())
+            entity.getProperty(scriptKey).get(path).put(image_path, imgEvent.getPath())
             originalPath = path
         })
     })
 
     entity.on(EventType.INITIAL_IMAGE.getType(), { Event call ->
         InitialImageEvent iEvent = (InitialImageEvent) call
-        pointer.setFitWidth(((Number) entity.getProperty("width")).doubleValue())
-        //entity.setProperty("width", iEvent.getMyGridSize().at(0))
-        pointer.setFitHeight(((Number) entity.getProperty("height")).doubleValue())
-        //entity.setProperty("height", iEvent.getMyGridSize().at(1))
+        pointer.setFitWidth(((Number) entity.getProperty(width)).doubleValue())
+        pointer.setFitHeight(((Number) entity.getProperty(height)).doubleValue())
         pointer.setX(iEvent.getMyPos().at(0))
         pointer.setY(iEvent.getMyPos().at(1))
-        entity.setProperty("x", iEvent.getMyPos().at(0))
-        entity.setProperty("y", iEvent.getMyPos().at(1))
+        entity.setProperty(x, iEvent.getMyPos().at(0))
+        entity.setProperty(y, iEvent.getMyPos().at(1))
     })
 
     entity.on(EventType.TRANSPARENT_MOUSE.getType(), { Event call ->
@@ -82,9 +91,9 @@ import java.util.stream.Collectors
         if (!cEvent.getIsGaming()) {
             pointer.setFocusTraversable(true)
             pointer.requestFocus()
-            if(!entity.getProperties().getOrDefault("bg", false)) {
+            if(!entity.getProperties().getOrDefault(bg, false)) {
                 //entity = entity.substitute()
-                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity, pointer.getImage()))
+                PubSub.getInstance().publish(ENTITY_PASS, new EntityPass(entity, pointer.getImage()))
             }
         }
         cEvent.getMouseEvent().consume()
@@ -106,7 +115,7 @@ import java.util.stream.Collectors
 
     entity.on(EventType.MOUSE_DRAG.getType(), { Event call ->
         MouseDragEvent dEvent = (MouseDragEvent) call
-        if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault("bg", false)) {
+        if (!dEvent.getIsGaming() && !entity.getProperties().getOrDefault(bg, false)) {
             dEvent.setMyStartPos(dEvent.getEvent().getX(), dEvent.getEvent().getY())
             dEvent.setMyStartSize(pointer.getFitWidth(), pointer.getFitHeight())
             pointer.setOnMouseDragged({ e ->
@@ -122,8 +131,8 @@ import java.util.stream.Collectors
                     }
                     pointer.setX((xPos - pointer.getFitWidth()/2).doubleValue())
                     pointer.setY((yPos - pointer.getFitHeight()/2).doubleValue())
-                    entity.setProperty("x", (xPos - pointer.getFitWidth()/2).doubleValue())
-                    entity.setProperty("y", (yPos - pointer.getFitHeight()/2).doubleValue())
+                    entity.setProperty(x, (xPos - pointer.getFitWidth()/2).doubleValue())
+                    entity.setProperty(y, (yPos - pointer.getFitHeight()/2).doubleValue())
                 } else if (e.getButton().equals(MouseButton.SECONDARY)) {
                     def change = (new Vector(e.getX(), e.getY())).subtract(dEvent.getMyStartPos())
                     def fsize = change.add(dEvent.getMyStartSize())
@@ -135,15 +144,15 @@ import java.util.stream.Collectors
                     }
                     pointer.setFitWidth(fsize.at(0))
                     pointer.setFitHeight(fsize.at(1))
-                    entity.setProperty("width", fsize.at(0));
-                    entity.setProperty("height", fsize.at(1));
+                    entity.setProperty(width, fsize.at(0));
+                    entity.setProperty(height, fsize.at(1));
 
                 }
                 e.consume()
             })
             pointer.setOnMouseReleased({ e ->
 //                entity = entity.substitute()
-                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity, pointer.getImage()))
+                PubSub.getInstance().publish(ENTITY_PASS, new EntityPass(entity, pointer.getImage()))
             })
         }
         dEvent.getEvent().consume()

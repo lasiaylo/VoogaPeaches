@@ -13,7 +13,7 @@ import java.util.Map;
  * @author ramilmsh
  * @author Albert
  */
-class EntityScriptFactory {
+class  EntityScriptFactory {
 
     /**
      * Executes and caches all scripts and listeners contained by an entity

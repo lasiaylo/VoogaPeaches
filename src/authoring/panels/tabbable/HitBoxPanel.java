@@ -188,10 +188,6 @@ public class HitBoxPanel implements Panel {
     }
 
     private void addNewPoint(double x, double y) {
-        System.out.println(x);
-        System.out.println(y);
-        System.out.println(x-((pointer.getBoundsInParent().getMinX()+pointer.getBoundsInParent().getMaxX())/2) );
-        System.out.println(y-((pointer.getBoundsInParent().getMinY()+pointer.getBoundsInParent().getMaxY())/2) );
         Circle newPoint = new Circle();
         newPoint.setCenterX(x);
         newPoint.setCenterY(y);

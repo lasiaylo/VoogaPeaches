@@ -136,6 +136,11 @@ public class HitBox extends TrackableObject {
         return hitboxShape;
     }
 
+    /**
+     * Add a point to the list of points and the polygon
+     * @param x x position of point
+     * @param y y position of point
+     */
     public void addPoints(double x, double y) {
         hitboxShape.getPoints().add(x);
         hitboxShape.getPoints().add(y);
@@ -143,6 +148,9 @@ public class HitBox extends TrackableObject {
         polygonVertexTranslations.add(y);
     }
 
+    /**
+     * @return  all the points that the polygon contains
+     */
     public List<Double> getPoints() {
         List<Double> points = new ArrayList<>();
         for(int i = 0; i < polygonVertexTranslations.size(); i+=2){
