@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle
 
     circle.setCenterX(30)
     double t = 8.0
-    double d = 300
+    double d = 1w00
     int counter = 1000
 
     Random r = new Random()
@@ -38,7 +38,7 @@ import javafx.scene.shape.Rectangle
         if (t < 8.0)
             t += 0.8
 
-        circle.setCenterY(226 + t * t)
+        circle.setCenterY(214 + t * t)
 
         Rectangle c = null
         Iterator<Rectangle> iterator = clouds.iterator()
