@@ -23,7 +23,6 @@ import java.util.*;
 /**
  * The Menu Bar is displayed at the top of the authoring environment and contains the menuactions for options related to the environment. This includes saving and loading workspaces, as well as opening panels for viewing within the workspace.
  * @author Brian Nieves
- * @author Simran
  * @author Kelly Zhang
  *
  */

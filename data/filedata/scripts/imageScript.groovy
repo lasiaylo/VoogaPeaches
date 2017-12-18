@@ -142,7 +142,7 @@ import java.util.stream.Collectors
             })
             pointer.setOnMouseReleased({ e ->
                 entity = entity.substitute()
-                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity), pointer.getImage())
+                PubSub.getInstance().publish("ENTITY_PASS", new EntityPass(entity, pointer.getImage()))
             })
         }
         dEvent.getEvent().consume()

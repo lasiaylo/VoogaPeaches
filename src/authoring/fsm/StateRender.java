@@ -1,31 +1,27 @@
 package authoring.fsm;
 
-import authoring.panels.attributes.ParameterProperties;
-import authoring.panels.attributes.Updatable;
 import com.google.gson.annotations.Expose;
 import database.firebase.TrackableObject;
 import engine.fsm.State;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import util.exceptions.GroovyInstantiationException;
 
 import java.util.*;
 
 
 /**
+ * Class to represent the StateRender visualization.
+ *
  * @author Simran
+ * @author Albert
  */
-public class StateRender extends TrackableObject implements Updatable {
+public class StateRender extends TrackableObject {
 
     private static final double PADDING = 30;
-    private static final Color DEFAULT = Color.DARKSLATEBLUE;
     private static final Color ERROR = Color.PALEVIOLETRED;
 
     @Expose private String myTitle;
@@ -38,6 +34,12 @@ public class StateRender extends TrackableObject implements Updatable {
     private FlowPane flow;
     private Label myLabel;
 
+    /**
+     * @param X Initial X position of click
+     * @param Y Initial Y position of click
+     * @param title Name of the state
+     * @param graph The Graph object that holds all the information about other states and arrows
+     */
     StateRender(Double X, Double Y, String title, GraphDelegate graph) {
         myInfo = new HashMap<>();
         myTitle = title;
@@ -47,6 +49,27 @@ public class StateRender extends TrackableObject implements Updatable {
 
     private StateRender() {}
 
+    /**
+     * @return Name of the state
+     */
+    public String getName() {
+        return myLabel.getText();
+    }
+
+    /**
+     * Creates a new Data Storage object used to store information about the JavaFX objects and transitions to recreate
+     * the visualization
+     */
+    public void save() {
+        mySave = new SavedStateRender(myLeavingTransitions, myRender);
+    }
+
+    /**
+     * Creates rectangle visual of state at given x and y
+     *
+     * @param X Initial X point
+     * @param Y Initial Y point
+     */
     private void initRender(Double X, Double Y) {
         myLabel = new Label(myTitle);
         myRender.setFill(ERROR);
@@ -57,54 +80,77 @@ public class StateRender extends TrackableObject implements Updatable {
         myRender.setOnMouseClicked(e -> onClick());
     }
 
-    public void onClick() {
-        if (deleting) { return; }
-        deleting = true;
-        Scene scene = new Scene(new Group());
-        FlowPane flow = createPopup();
-        scene.setRoot(flow);
-        Stage stage = new Stage();
-        stage.setOnHidden(e -> deleting = false);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private FlowPane createPopup() {
-        flow = new FlowPane();
-        update();
-        return flow;
-    }
-
-    private void onDone(Button done) {
-        ((Stage) done.getScene().getWindow()).close();
-    }
-
-    private void onDelete(Button delete) {
-        ((Stage) delete.getScene().getWindow()).close();
-        myGraph.removeMyself(this);
-    }
-
-    protected Shape getRender() {
-        return myRender;
-    }
-
+    /**
+     * @param color Color that the visual is changed to
+     */
     protected void setFill(Color color) {
         myRender.setFill(color);
     }
 
-    protected void addLeavingTransition(Arrow arrow) {
+    /**
+     * When recreating the FSMGraph from the JSON representation of the graph, the individual arrow
+     * and state classes are created first and then the actual FSMGraph object is recreated. This
+     * method is called by the FSMGraph to get all the information from its components and reset
+     * all the links between arrows and states, as well as initialize the StateRender.
+     *
+     * @param graph The Graph that holds all information about other states and arrows.
+     */
+    void setGraphDelegate(GraphDelegate graph) {
+        myGraph = graph;
+        initRender(mySave.getXRect(), mySave.getYRect());
+        for(String code: mySave.getArrowCode()) {
+            myLeavingTransitions.add(myGraph.findArrowWith(code));
+        }
+    }
+
+    /**
+     * Handle creating a popup on the click of a state
+     */
+    void onClick() {
+        if (deleting) { return; }
+        deleting = true;
+        Stage stage = new StateRenderPopup(myGraph, this, myLabel).getStage();
+        stage.setOnHidden(e -> deleting = false);
+        stage.show();
+    }
+
+    /**
+     * @return Group that contains all visual elements for the StateRender
+     */
+    Shape getRender() {
+        return myRender;
+    }
+
+    /**
+     * @param arrow The arrow that starts at this state
+     */
+    void addLeavingTransition(Arrow arrow) {
         myLeavingTransitions.add(arrow);
     }
 
-    protected void removeLeavingTransition(Arrow arrow) {
+    /**
+     * @param arrow The arrow that used to start at this state that is now being deleted
+     */
+    void removeLeavingTransition(Arrow arrow) {
         myLeavingTransitions.remove(arrow);
     }
 
-    protected List<Arrow> getMyLeavingTransitions() {
+    /**
+     * @return The list of arrows that start at this render
+     */
+    List<Arrow> getMyLeavingTransitions() {
         return myLeavingTransitions;
     }
 
-    protected State createNewState() {
+    /**
+     * @param info The information from the popup
+     */
+    void setMyInfo(Map<String, Object> info) { myInfo = info; }
+
+    /**
+     * @return The new State object created by the relevant properties and transitions input by the user
+     */
+    State createNewState() {
         Map<String, Map<String, Object>> data = new LinkedHashMap<>();
         data.put("properties", myInfo);
         Map<String, Object> transitions = new LinkedHashMap<>();
@@ -115,37 +161,7 @@ public class StateRender extends TrackableObject implements Updatable {
         return new State(getName(), data);
     }
 
-    public void save() {
-        mySave = new SavedStateRender(myLeavingTransitions, myRender);
-    }
-
-    @Override
-    public void update() {
-        flow.getChildren().clear();
-        try {
-            flow.getChildren().add(new ParameterProperties(myInfo, this).getNode());
-        } catch (GroovyInstantiationException e) {
-        }
-        flow.setMinSize(100, 200);
-        Button delete = new Button("Delete State");
-        Button save = new Button("Done");
-        delete.setOnMouseClicked(e -> onDelete(delete));
-        save.setOnMouseClicked(e -> onDone(save));
-        flow.getChildren().addAll(delete, save, myLabel);
-    }
-
-    public String getName() {
-        return myLabel.getText();
-    }
-
     @Override
     public void initialize() { }
 
-    public void setGraphDelegate(GraphDelegate graph) {
-        myGraph = graph;
-        initRender(mySave.getXRect(), mySave.getYRect());
-        for(String code: mySave.getArrowCode()) {
-            myLeavingTransitions.add(myGraph.findArrowWith(code));
-        }
-    }
 }

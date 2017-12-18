@@ -1,6 +1,7 @@
 package engine.fsm;
 
 import engine.entities.Entity;
+import util.PropertiesReader;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,7 +58,8 @@ public class FSM {
     private void setDefault()  {
         for (State state : map.values())
             try {
-                if (state.getProperty("default") != null && (Boolean) state.getProperty("default"))
+                if (state.getProperty(PropertiesReader.value("fsm", "DEFAULT")) != null &&
+                        (Boolean) state.getProperty(PropertiesReader.value("fsm", "DEFAULT")))
                     current = state;
             } catch (ClassCastException ignored) { }
     }

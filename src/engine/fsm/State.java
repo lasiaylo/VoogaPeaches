@@ -5,6 +5,7 @@ import database.firebase.TrackableObject;
 import engine.entities.Entity;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
+import util.PropertiesReader;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,13 +35,14 @@ public class State extends TrackableObject {
      */
     public State(String name, Map<String, Map<String, Object>> data) {
         this.name = name;
-        if (!data.containsKey("transitions")) { return; }
+        if (!data.containsKey(PropertiesReader.value("fsm", "TRANSITIONS"))) { return; }
         transitions = new LinkedHashMap<>();
         code = new LinkedHashMap<>();
         shell = new GroovyShell();
-        for (Map.Entry<String, Object> entry : data.get("transitions").entrySet())
+        for (Map.Entry<String, Object> entry :
+                data.get(PropertiesReader.value("fsm", "TRANSITIONS")).entrySet())
             updateCode(entry.getKey(), (String) entry.getValue());
-        this.properties = data.get("properties");
+        this.properties = data.get(PropertiesReader.value("fsm", "PROPERTIES"));
     }
 
     private State() { }

@@ -36,7 +36,7 @@ public class User extends TrackableObject {
      * Creates a username from the given string and assigns defaults that are then changed automatically throughout
      * progression of the authoring
      *
-     * @param name
+     * @param name The username
      */
     public User(String name) {
         userName = name;
@@ -70,24 +70,19 @@ public class User extends TrackableObject {
     }
 
     /**
-     * sets the user's theme to the current one in use
-     * @param theme the new theme
+     * @param theme Sets the user's theme to the current one in use
      */
     public void setTheme(String theme) {
         themeName = theme;
     }
 
     /**
-     * Set the last workspace that was used by the user.
-     *
-     * @param workspace
+     * @param workspace The name of the last used workspace
      */
     public void setWorkspace(String workspace) {workspaceName = workspace;}
 
     /**
-     * Get the last workspace created so that workspaces can be saved through users
-     *
-     * @return
+     * @return The name of the last workspace used
      */
     public String getWorkspaceName() { return workspaceName; }
 
@@ -99,28 +94,24 @@ public class User extends TrackableObject {
     }
 
     /**
-     * Returns the properties of the workspaces associated with the user
-     *
-     * @return
+     * @return All the properties associated with a user so that information about the users properties can be saved
      */
     public Map<String, Map<String, String>> getProperties() { return properties; }
 
     /**
-     * Potentially any games that are associated with a user.
-     *
-     * @return
+     * @return Get games that a specific user can play.
      */
     public ArrayList<String> getGames() { return games; }
 
     /**
-     * Add games that a specific user authors.
-     *
-     * @return
+     * @return Get games that a specific user authors.
      */
     public ArrayList<String> getAuthoring() { return authoring; }
 
     /**
-     * Creates the properties of a user by searching through the workspace property files
+     * Creates the properties of a user by searching through the workspace property files and then recreating property
+     * files as a map. The key is the name of the properties file and the value is another map that maps the name of the
+     * property to the value
      */
     private void createProperties() {
         File folder = new File(PropertiesReader.value("defaults", "propertyPath"));
@@ -128,8 +119,10 @@ public class User extends TrackableObject {
         JSONDataManager manager = new JSONDataManager(JSONDataFolders.USER_SETTINGS);
         properties = new HashMap<>();
         for (File file : listOfFiles) {
-            if (file.isFile() && file.getName().contains(PropertiesReader.value("defaults", "workspaceString"))) {
-                String fileName = file.getName().substring(0, file.getName().length() - PropertiesReader.PROPERTIES_SUFFIX.length() - 1);
+            if (file.isFile() && file.getName().contains(
+                    PropertiesReader.value("defaults", "workspaceString"))) {
+                String fileName = file.getName().substring(
+                        0, file.getName().length() - PropertiesReader.PROPERTIES_SUFFIX.length() - 1);
                 properties.put(fileName, PropertiesReader.map(fileName));
                 JSONObject jsonObject = JSONHelper.JSONForObject(properties.get(fileName));
                 manager.writeJSONFile(fileName, jsonObject);
