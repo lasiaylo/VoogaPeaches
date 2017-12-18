@@ -4,6 +4,8 @@ import engine.entities.Entity;
 import engine.fsm.FSM;
 
 /**
+ * A message to harbor the connection between an fsm.groovy script and the FSMPanel which holds all the FSMs.
+ *
  * @author Simran
  */
 public class FSMMessage extends Message {

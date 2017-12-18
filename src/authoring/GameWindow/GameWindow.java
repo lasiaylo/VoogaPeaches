@@ -11,12 +11,14 @@ import javafx.stage.Stage;
 import util.math.num.Vector;
 
 /**
+ * Class for the Gaming Window is launched when the playing button gets pressed in the menu. Simply creates a camera
+ * and engine with a start button to play the game.
+ *
  * @author Simran
  */
 public class GameWindow {
 
     private Scene scene;
-    private Stage stage;
     private Engine engine;
     private Button start;
     private ScrollPane camera;
@@ -24,7 +26,6 @@ public class GameWindow {
 
     public GameWindow(Stage stage, Entity rootEntity){
         gameStarted = false;
-        this.stage = stage;
         this.start = new Button("Start");
         engine = new Engine(rootEntity, PanelController.GRID_SIZE, true);
         camera = engine.getCameraView(new Vector(PanelController.CAMERA_INIT_X, PanelController.CAMERA_INIT_Y).multiply(0.5),

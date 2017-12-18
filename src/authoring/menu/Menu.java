@@ -31,7 +31,6 @@ import java.io.File;
  * All user interactions are determined and executed in here
  *
  * @author Kelly Zhang
- * @author Simran
  *
  */
 public class Menu {

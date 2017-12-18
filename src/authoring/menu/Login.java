@@ -26,7 +26,6 @@ import util.exceptions.ObjectIdNotFoundException;
  * Login splash screen. Should give information about the user if there is a valid user object corresponding
  * to the username.
  *
- * @author Simran Singh
  * @author Kelly Zhang
  */
 public class Login {
