@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Backend for the Finite State Machine.
+ * Backend for the Finite State Machine. The use of a finite state machine allows for cleaner code as you allow
+ * for lots of flexibility for changing states based off of conditions without writing a switch case or a large amount
+ * of if statements. This condition problem is solved by evaluating closures (groovy code) and acting on transitions
+ * based off the boolean value from their evaluated code.
  *
  * @author Simran
  * @author Ramil
@@ -53,7 +56,8 @@ public class FSM {
     }
 
     /**
-     * Used to set the default state of the FSM as per the initial configuration conditions.
+     * Used to set the default state of the FSM as per the initial configuration conditions. Checks if there is a
+     * property named default that has a boolean value of true and sets that state as default.
      */
     private void setDefault()  {
         for (State state : map.values())

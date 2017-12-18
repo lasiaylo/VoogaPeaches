@@ -14,7 +14,7 @@ import java.util.Map;
  * Represents individual states in an FSM. These classes store information about different properties in the state
  * that are stored in the form of a map where key is the name of the variable and the associated Object value is
  * expected to be a boolean, string, or double. Transitions store information about their related states the closure
- * code associated with them
+ * code associated with them.
  *
  * @author Ramil
  * @author Simran
