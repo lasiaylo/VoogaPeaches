@@ -1,4 +1,4 @@
-package engine.util;
+package engine.collisions;
 
 import engine.collisions.HitBox;
 import engine.entities.Entity;
